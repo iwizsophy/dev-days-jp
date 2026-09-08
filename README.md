@@ -1,5 +1,7 @@
 # Dev Days
 
+🌐 [日本語](README.ja.md) | English
+
 > 🚨 **To run an official Dev Days event and receive program support, you must fill out the [event request form](https://gh.io/dev-days-2026) and receive approval from the Dev Days team**. 
 >
 > This repository contains the technical content, promotional materials, and organizer instructions for Dev Days event organizers.
