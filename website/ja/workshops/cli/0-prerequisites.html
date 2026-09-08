@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow"><title>演習 0: 前提条件 | Dev Days 日本語版</title>
+<link rel="stylesheet" href="../workshops.css"><script src="../../../theme-toggle.js"></script></head><body>
+<a class="skip" href="#lesson">本文へ移動</a><header><nav aria-label="資料のナビゲーション">
+<a href="../../index.html">ワークショップ一覧</a><a href="../index.html">日本語の演習目次</a>
+<a href="../../handson-guide.html#switch">UI が違うときは CLI へ</a></nav>
+<button class="theme-toggle" type="button" onclick="toggleTheme()">☀️ ライト</button></header>
+<main id="lesson"><h1>演習 0: 前提条件</h1><p class="source">非公式の日本語版 · <a href="https://github.com/github-samples/copilot-workshops/blob/7ddcf241c1cd10b8e90c0df96f6bef81e710392a/docs/ja-jp/cli/0-prerequisites.md">参照原文</a> · <a href="../licenses/copilot-workshops.txt">MIT ライセンス</a><br>参照コミット：<code>7ddcf241c1cd</code> ／ 確認日：2026-09-08</p><aside>UI の名前・位置は教材作成時点のものです。操作できないときは <a href="../../handson-guide.html#switch">CLI の横道</a>を使ってください。利用条件は <a href="../../handson-guide.html#plans">最新情報の補足</a>を参照。実機での全演習の完走検証は未実施です。</aside><aside>このコースの <code>--yolo</code> を含む手順は、演習専用 Codespace / dev container を前提とする原文の手順です。App の途中からローカルで切り替える場合は、上の「CLI の横道」の通常対話手順を使ってください。</aside><nav class="chapter-nav" aria-label="章の移動"><a href="index.html">← 前の章：GitHub Copilot CLI</a><a href="1-install-copilot-cli.html">次の章 →：演習 1 - GitHub Copilot CLI をインストールする</a></nav><details><summary>この章の目次</summary><div class="toc">
+<ul>
+<li><a href="#ラボ用リポジトリを設定する">ラボ用リポジトリを設定する</a></li>
+<li><a href="#codespace-を作成する">Codespace を作成する</a></li>
+<li><a href="#まとめ">まとめ</a></li>
+<li><a href="#次のステップ">次のステップ</a></li>
+<li><a href="#リソース">リソース</a></li>
+</ul>
+</div>
+</details><article><p>Copilot CLI の演習を始める前に、必要な準備を整えます。Tailspin Toys リポジトリの自分用コピーを作成し、<a href="https://github.com/features/codespaces">codespace</a> を立ち上げます。次の演習では、その統合ターミナルを使って Copilot CLI をインストールし、実行します。</p>
+<h2 id="ラボ用リポジトリを設定する">ラボ用リポジトリを設定する</h2>
+<p>これから作成するコード用にリポジトリのコピーを作成するため、<a href="https://docs.github.com/repositories/creating-and-managing-repositories/creating-a-template-repository">template</a> からインスタンスを作成します。新しいインスタンスにはラボに必要なすべてのファイルが含まれており、演習を進める間はこのリポジトリを使用します。</p>
+<ol>
+<li>新しいブラウザー ウィンドウで、このラボの GitHub リポジトリ <code>https://github.com/github-samples/tailspin-toys</code> に移動します。</li>
+<li>
+<p>ラボ用リポジトリ ページの <strong>Use this template</strong> ボタンを選択して、自分用のリポジトリ コピーを作成します。次に <strong>Create a new repository</strong> を選択します。</p>
+<p><img alt="「Use this template」ボタン" src="../assets/ex0-use-template.png" /></p>
+</li>
+<li>
+<p>GitHub または Microsoft が主催するイベントの一環としてこのワークショップを進めている場合は、メンターから案内された手順に従ってください。そうでない場合は、GitHub Copilot にアクセスできる organization に新しいリポジトリを作成できます。</p>
+<p><img alt="リポジトリ テンプレートの設定を入力する画面" src="../assets/ex0-repository-settings.png" /></p>
+</li>
+<li>
+<p>後でラボ内で参照するため、作成したリポジトリ パス（<strong>organization-or-user-name/repository-name</strong>）を控えておいてください。</p>
+</li>
+</ol>
+<blockquote>
+<p><strong>補足</strong>
+<strong>バックログの準備は完了しています</strong></p>
+<p>テンプレートからリポジトリを作成すると、GitHub issue のバックログが自動的に作成されます。ワークショップ全体を通してこれらの issue を使って作業するため、自分で起票する必要はありません。</p>
+</blockquote>
+<h2 id="codespace-を作成する">Codespace を作成する</h2>
+<p>次は、codespace を使ってラボの演習を進めます。</p>
+<p><a href="https://github.com/features/codespaces">GitHub Codespaces</a> はクラウドベースの開発環境であり、ブラウザーから直接コードの作成、実行、デバッグを行えます。複数のプログラミング言語、拡張機能、ツールに対応したフル機能の IDE を提供します。</p>
+<ol>
+<li>新しく作成したリポジトリに移動します。</li>
+<li>
+<p>緑色の <strong>Code</strong> ボタンを選択します。</p>
+<p><img alt="「Code」ボタンを選択する" src="../assets/ex0-code-button.png" /></p>
+</li>
+<li>
+<p><strong>Codespaces</strong> タブを選択し、<strong>Create codespace on main</strong>（または <strong>+</strong>）を選択して新しい codespace を作成します。既存の Codespace がある場合は、その名前を選んで再開できます。</p>
+<p><img alt="新しい codespace を作成する" src="../assets/ex0-create-codespace.png" /></p>
+</li>
+</ol>
+<p>Codespace の作成には数分かかりますが、すべてのサービスを手動でインストールするよりははるかに速く完了します。その間に、次に扱う GitHub Copilot のほかの機能を確認しておくこともできます。</p>
+<blockquote>
+<p><strong>注意</strong>
+後続の演習で codespace に戻ります。いまのところは、ブラウザーのタブで開いたままにしておいてください。</p>
+<p><strong>補足</strong>
+このワークショップは、codespace またはローカルの <a href="https://code.visualstudio.com/docs/devcontainers/containers">dev container</a> 内で実行する前提で作られています。どちらでも、必要な前提条件がすべてインストールされた環境を用意できるため、スムーズに進められます。ローカルで実行したい場合は、クローンしたリポジトリを VS Code で開き、表示されたら <strong>Reopen in Container</strong> を選択してください。VS Code が、codespace と同じ dev container を構築します。</p>
+</blockquote>
+<h2 id="まとめ">まとめ</h2>
+<p>おめでとうございます。ラボ用リポジトリのコピーを作成できました。さらに、Copilot CLI を使い始めるときに使用する codespace の作成も開始しました。</p>
+<h2 id="次のステップ">次のステップ</h2>
+<p>Copilot CLI をインストールし、GitHub アカウントで認証しましょう。<a href="1-install-copilot-cli.html">演習 1 - GitHub Copilot CLI のインストール</a> に進みます。</p>
+<h2 id="リソース">リソース</h2>
+<ul>
+<li><a href="https://github.com/features/codespaces">GitHub Codespaces の概要</a></li>
+<li><a href="https://docs.github.com/repositories/creating-and-managing-repositories/creating-a-template-repository">テンプレートからリポジトリを作成する</a></li>
+<li><a href="https://docs.github.com/codespaces/getting-started/quickstart">Codespaces クイックスタート</a></li>
+</ul></article><nav class="chapter-nav" aria-label="章の移動"><a href="index.html">← 前の章：GitHub Copilot CLI</a><a href="1-install-copilot-cli.html">次の章 →：演習 1 - GitHub Copilot CLI をインストールする</a></nav></main></body></html>

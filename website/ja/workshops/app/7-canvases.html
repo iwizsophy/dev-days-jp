@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow"><title>レッスン 7 - キャンバスを使った計画 | Dev Days 日本語版</title>
+<link rel="stylesheet" href="../workshops.css"><script src="../../../theme-toggle.js"></script></head><body>
+<a class="skip" href="#lesson">本文へ移動</a><header><nav aria-label="資料のナビゲーション">
+<a href="../../index.html">ワークショップ一覧</a><a href="../index.html">日本語の演習目次</a>
+<a href="../../handson-guide.html#switch">UI が違うときは CLI へ</a></nav>
+<button class="theme-toggle" type="button" onclick="toggleTheme()">☀️ ライト</button></header>
+<main id="lesson"><h1>レッスン 7 - キャンバスを使った計画</h1><p class="source">非公式の日本語版 · <a href="https://github.com/github-samples/copilot-workshops/blob/7ddcf241c1cd10b8e90c0df96f6bef81e710392a/docs/ja-jp/app/7-canvases.md">参照原文</a> · <a href="../licenses/copilot-workshops.txt">MIT ライセンス</a><br>参照コミット：<code>7ddcf241c1cd</code> ／ 確認日：2026-09-08</p><aside>UI の名前・位置は教材作成時点のものです。操作できないときは <a href="../../handson-guide.html#switch">CLI の横道</a>を使ってください。利用条件は <a href="../../handson-guide.html#plans">最新情報の補足</a>を参照。実機での全演習の完走検証は未実施です。</aside><nav class="chapter-nav" aria-label="章の移動"><a href="6-agent-merge.html">← 前の章：レッスン 6 - Agent Merge によるマージ</a><a href="8-review.html">次の章 →：レッスン 8 - 振り返りと次のステップ</a></nav><details><summary>この章の目次</summary><div class="toc">
+<ul>
+<li><a href="#シナリオ">シナリオ</a></li>
+<li><a href="#キャンバスとは">キャンバスとは</a></li>
+<li><a href="#キャンバスを使用する理由">キャンバスを使用する理由</a></li>
+<li><a href="#作業を追跡するキャンバスを作成する">作業を追跡するキャンバスを作成する</a></li>
+<li><a href="#キャンバスを保存してリポジトリにマージする">キャンバスを保存してリポジトリにマージする</a></li>
+<li><a href="#キャンバスで作業する">キャンバスで作業する</a></li>
+<li><a href="#まとめと次のステップ">まとめと次のステップ</a></li>
+<li><a href="#リソース">リソース</a></li>
+</ul>
+</div>
+</details><article><p>ここまでは、チャットを通じてエージェントを指示してきました。しかし、多くの作業は会話の中ではなく、ボード、ドキュメント、チェックリスト上で行われます。<strong>キャンバス</strong>は、まさにそのような作業のために、アプリ内でユーザーとエージェントが共有できる領域です。このレッスンでは、ここまで取り組んできたバックログの計画と追跡に使用する、シンプルなキャンバスを作成します。</p>
+<p>このレッスンでは、次の内容を学習します。</p>
+<ul>
+<li>キャンバスの概要と使用する場面を理解する。</li>
+<li>バックログをトリアージする共有 Kanban ボードのキャンバスを作成する。</li>
+<li>キャンバスをリポジトリに保存し、チーム向けにマージする。</li>
+<li>新しいセッションでキャンバスを開き、そこから作業を開始する。</li>
+</ul>
+<h2 id="シナリオ">シナリオ</h2>
+<p>Issue の一覧は、どのような状況でも負担に感じることがあります。Tailspin Toys の開発者は、Issue をすばやくトリアージし、Copilot app で作業を開始できるツールを探しています。</p>
+<h2 id="キャンバスとは">キャンバスとは</h2>
+<p><a href="https://docs.github.com/copilot/how-tos/github-copilot-app/working-with-canvas-extensions">キャンバス</a>は、計画、トリアージボード、リリースチェックリスト、ダッシュボード、ドキュメントなどの作業成果物を扱う、共有の対話型領域です。チャットは意図の説明や曖昧さの検討に適していますが、多くの作業は具体的な<em>領域</em>上で行われます。キャンバスを使うと、その領域でエージェントと直接共同作業できます。</p>
+<p>キャンバスは<strong>双方向</strong>です。エージェントが作業中にキャンバスを更新できる一方で、ユーザーも同じ領域を編集できます。キャンバスを作成すると、エージェントはプロンプトとワークフローに基づいて内容を構築します。その後も、機能の追加、削除、修正を依頼できます。作成したキャンバスは、アプリの右側のパネルに開きます。</p>
+<p>一般的な例は次のとおりです。</p>
+<ul>
+<li>1日の計画を立て、Issue と pull request に優先順位を付けるための <strong>Markdown canvases</strong>。</li>
+<li>ユーザーとエージェントがカードを追加し、作業を列間で移動する <strong>Agentic kanban boards</strong>。</li>
+<li>リポジトリの重要な Issue と繰り返し現れるテーマをまとめる <strong>Issue triage boards</strong>。</li>
+</ul>
+<h2 id="キャンバスを使用する理由">キャンバスを使用する理由</h2>
+<p>タスクに構造、反復、検証が必要で、チャットだけでは不十分な場合はキャンバスを使用します。キャンバスでは次のことができます。</p>
+<ul>
+<li>ワークフローに合った実際の成果物に、エージェントの作業を結び付ける。</li>
+<li>共有領域で作業を直接調整または修正し、その変更を基にエージェントに作業を続けさせる。</li>
+<li>チャットの応答だけでなく、成果物への目に見える変更として進捗を確認する。</li>
+</ul>
+<h2 id="作業を追跡するキャンバスを作成する">作業を追跡するキャンバスを作成する</h2>
+<p>星評価、ドキュメント標準、フィルター機能をすべてマージし、多くの成果をリリースしました。しかし、バックログにはまだ項目が残っています。作業をすばやくトリアージするためのキャンバスを作成します。</p>
+<ol>
+<li>GitHub Copilot app に戻ります。アプリを閉じている場合は開きます。</li>
+<li><strong>Home screen</strong> を選択します。</li>
+<li>リポジトリに <code>tailspin-toys</code> が選択されていることを確認します。</li>
+<li>プロンプトボックスで次のプロンプトを使用し、要件を満たすキャンバスを作成します。</li>
+</ol>
+<pre class="highlight"><code class="language-plaintext">作業の優先順位をすぐに整理できる、基本的なカンバンボードの canvas を作ってください。今対応すべき上位3件の Issue を強調し、残りは下の別の領域に配置してください。上位3枚のカードには Issue の内容と優先する理由を含めてください。各 Issue に、現在のセッションのコンテキストへ追加してすぐ作業を始められるボタンを付けてください。</code></pre>
+<p>Copilot がキャンバスの作成を開始します。</p>
+<blockquote>
+<p><strong>補足</strong>
+作成には数分かかります。複雑なタスクであるため、最初のバージョンでは満足できない場合があります。理想のツールになるまで、プロンプトで構築を続けるよう依頼できます。</p>
+</blockquote>
+<h2 id="キャンバスを保存してリポジトリにマージする">キャンバスを保存してリポジトリにマージする</h2>
+<p>キャンバスは、指示ファイルやスキルと同様に、リポジトリのアセットにできます。Copilot にリポジトリへの追加とマージを依頼し、チーム全体で使用できるようにします。</p>
+<ol>
+<li>同じセッションで、次のプロンプトを使ってキャンバスをリポジトリに保存するよう Copilot に依頼します。</li>
+</ol>
+<pre class="highlight"><code class="language-plaintext">開発チームと共有できるよう、この canvas の定義をリポジトリに保存してください。</code></pre>
+<ol start="2">
+<li>Copilot がキャンバスファイルを保存したら、右上隅にある <strong>Create PR</strong> の横のドロップダウンを選択します。</li>
+<li><strong>Agent merge</strong> を選択して Agent Merge を有効にします。</li>
+</ol>
+<p><img alt="GitHub Copilot app で展開された Create PR ドロップダウンの Agent merge オプションを矢印で示した画面" src="../assets/app-enable-agent-merge.png" /></p>
+<ol start="4">
+<li>ボタンのテキストが <strong>Agent merge</strong> に変わります。</li>
+<li><strong>Agent merge</strong> ボタンを選択し、Agent Merge のプロセスを開始します。</li>
+</ol>
+<p>Copilot app が PR の作成と管理を開始します。最初にプロジェクトを調査して PR の最適な作成方法を判断し、PR を作成します。</p>
+<p>しばらくすると、Copilot が再び作業を開始し、リポジトリ上ですべてのテストを実行する CI プロセスなど、PR の条件を確認します。ほかのチームメンバーによるレビュー、実行が必要なチェック (CI プロセス)、PR をマージできるかどうかのステータスを報告します。</p>
+<ol start="6">
+<li><strong>Agent merge</strong> の横にあるドロップダウンを選択してから <strong>Merge pull request</strong> を選択し、Agent Merge に pull request のマージを許可します。</li>
+</ol>
+<p><img alt="Agent merge ドロップダウンで、エージェントに許可された Address reviews、Fix CI failures、Resolve conflicts の操作と、矢印で示された Merge pull request" src="../assets/app-agent-merge-merge.png" /></p>
+<ol start="7">
+<li>すべての CI プロセスが成功するまで待ちます。成功すると、Copilot が pull request を自動的にマージします。</li>
+</ol>
+<p>これでチーム用の新しい共有キャンバスを作成できました。</p>
+<h2 id="キャンバスで作業する">キャンバスで作業する</h2>
+<p>キャンバスを作成できたので、新しいセッションを開始して使用します。</p>
+<ol>
+<li>Copilot app で <strong>tailspin-toys</strong> の横にある <strong>New session</strong> を選択し、新しいセッションを開始します。</li>
+<li>次のプロンプトを使い、トリアージ用キャンバスを開くよう Copilot に依頼します。</li>
+</ol>
+<pre class="highlight"><code class="language-plaintext">Issue の優先順位を整理する canvas を開いてください。</code></pre>
+<ol start="3">
+<li>作成したキャンバスが新しいセッションで開いたことを確認します。</li>
+<li>最も関心のある Issue の1つで <strong>Add to current context</strong> を選択します。</li>
+<li>Copilot が Issue の作業を開始します。</li>
+</ol>
+<p>これで、作成したキャンバスを使って開発プロセスを効率化できました。</p>
+<h2 id="まとめと次のステップ">まとめと次のステップ</h2>
+<p>ユーザーとエージェントが共同作業できる共有領域を作成しました。具体的には、次の作業を行いました。</p>
+<ul>
+<li>キャンバスの概要と使用する場面を学習した。</li>
+<li>エージェントと共有の Kanban トリアージボードのキャンバスを作成した。</li>
+<li>Agent Merge を使ってキャンバスをリポジトリに保存し、マージした。</li>
+<li>新しいセッションでキャンバスを開き、そこから作業を開始した。</li>
+</ul>
+<p>バックログを追跡できるようになったので、ここまで構築した内容と今後の進め方を振り返ります。<a href="8-review.html">レッスン 8「振り返りと次のステップ」</a>に進んでください。</p>
+<h2 id="リソース">リソース</h2>
+<ul>
+<li><a href="https://docs.github.com/copilot/how-tos/github-copilot-app/working-with-canvas-extensions">GitHub Copilot app での canvas extension の操作</a></li>
+<li><a href="https://awesome-copilot.github.com/extensions/">Awesome Copilot の Canvases</a></li>
+<li><a href="https://docs.github.com/copilot/concepts/agents/github-copilot-app">GitHub Copilot app について</a></li>
+</ul></article><nav class="chapter-nav" aria-label="章の移動"><a href="6-agent-merge.html">← 前の章：レッスン 6 - Agent Merge によるマージ</a><a href="8-review.html">次の章 →：レッスン 8 - 振り返りと次のステップ</a></nav></main></body></html>

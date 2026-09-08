@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow"><title>GitHub Copilot app | Dev Days 日本語版</title>
+<link rel="stylesheet" href="../workshops.css"><script src="../../../theme-toggle.js"></script></head><body>
+<a class="skip" href="#lesson">本文へ移動</a><header><nav aria-label="資料のナビゲーション">
+<a href="../../index.html">ワークショップ一覧</a><a href="../index.html">日本語の演習目次</a>
+<a href="../../handson-guide.html#switch">UI が違うときは CLI へ</a></nav>
+<button class="theme-toggle" type="button" onclick="toggleTheme()">☀️ ライト</button></header>
+<main id="lesson"><h1>GitHub Copilot app</h1><p class="source">非公式の日本語版 · <a href="https://github.com/github-samples/copilot-workshops/blob/7ddcf241c1cd10b8e90c0df96f6bef81e710392a/docs/ja-jp/app/README.md">参照原文</a> · <a href="../licenses/copilot-workshops.txt">MIT ライセンス</a><br>参照コミット：<code>7ddcf241c1cd</code> ／ 確認日：2026-09-08</p><aside>UI の名前・位置は教材作成時点のものです。操作できないときは <a href="../../handson-guide.html#switch">CLI の横道</a>を使ってください。利用条件は <a href="../../handson-guide.html#plans">最新情報の補足</a>を参照。実機での全演習の完走検証は未実施です。</aside><nav class="chapter-nav" aria-label="章の移動"><a href="0-prerequisites.html">次の章 →：レッスン 0 - 前提条件</a></nav><details><summary>この章の目次</summary><div class="toc">
+<ul>
+<li><a href="#レッスン">レッスン</a></li>
+<li><a href="#前提条件">前提条件</a></li>
+<li><a href="#はじめる">はじめる</a></li>
+</ul>
+</div>
+</details><article><p><a href="https://docs.github.com/copilot/concepts/agents/github-copilot-app"><strong>GitHub Copilot app</strong></a> は Copilot CLI を基盤とするデスクトップアプリケーションで、エージェント主導の開発を単一の作業用ワークスペースで実現します。並列エージェントセッション、切り替え可能なセッションモード、共有キャンバス、GitHub Issue と pull request のネイティブ管理機能を備えています。さらに、リベース、レビューのフィードバック、CI の修正、マージまで pull request を導く <strong>Agent Merge</strong> も利用できます。</p>
+<p>一連のレッスンでは、アプリをインストールしてプロジェクトを設定した後、アプリのワークスペースと、テンプレートによって用意されたバックログを確認します。まず、星評価を追加する小さな変更に取り組みます。次に、Issue に基づいてカスタム指示の標準を追加し、分離されたエージェントセッションでフィルター機能を構築して、再利用可能なスキルで検証します。Playwright MCP server を追加して実際のブラウザーで機能を確認した後、段階的にマージの自動化を進め、最後は <strong>Agent Merge</strong> で pull request をマージします。最後に、共有キャンバスで共同作業し、繰り返し発生する作業を自動化します。アイデアから機能のマージまで、開発の一連の流れを体験できます。</p>
+<h2 id="レッスン">レッスン</h2>
+<table>
+<thead>
+<tr>
+<th>レッスン</th>
+<th>トピック</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="0-prerequisites.html">0. 前提条件</a></td>
+<td>セットアップ</td>
+<td>Node.js をインストールし、Tailspin Toys プロジェクトの自分用コピーを作成します</td>
+</tr>
+<tr>
+<td><a href="1-install-copilot-app.html">1. Copilot app のインストール</a></td>
+<td>セットアップ</td>
+<td>アプリをインストールしてプロジェクトを接続し、ワークスペースを確認します</td>
+</tr>
+<tr>
+<td><a href="2-add-star-rating.html">2. 最初のエージェントセッションの実行</a></td>
+<td>最初の変更</td>
+<td>セッションを開始し、最初の pull request として小さな変更をリリースします</td>
+</tr>
+<tr>
+<td><a href="3-custom-instructions.html">3. カスタム指示による Copilot のガイド</a></td>
+<td>コンテキスト</td>
+<td>Issue に基づいてドキュメント標準を追加し、マージします</td>
+</tr>
+<tr>
+<td><a href="4-build-filtering.html">4. Autopilot による機能の構築</a></td>
+<td>コア機能</td>
+<td>Plan と Autopilot を使ってフィルター機能を構築し、スキルで検証します</td>
+</tr>
+<tr>
+<td><a href="5-mcp-playwright.html">5. Playwright MCP によるテスト</a></td>
+<td>外部ツール</td>
+<td>Playwright MCP server を追加し、ブラウザーで機能を確認します</td>
+</tr>
+<tr>
+<td><a href="6-agent-merge.html">6. Agent Merge によるマージ</a></td>
+<td>マージ</td>
+<td>Agent Merge でフィルター機能の pull request を修正してマージします</td>
+</tr>
+<tr>
+<td><a href="7-canvases.html">7. キャンバスを使った計画</a></td>
+<td>コラボレーション</td>
+<td>共有キャンバスを作成し、作業の計画と追跡に使用します</td>
+</tr>
+<tr>
+<td><a href="8-review.html">8. 振り返りと次のステップ</a></td>
+<td>まとめ</td>
+<td>繰り返し発生するタスクを自動化し、次に学ぶ内容を確認します</td>
+</tr>
+</tbody>
+</table>
+<h2 id="前提条件">前提条件</h2>
+<p>このワークショップに参加する前に、次のものを用意してください。</p>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> 有効な Copilot プランが設定された GitHub アカウント（Free を含む。全演習の完走に十分な利用枠があるか事前確認）</li>
+<li class="task-list-item"><input type="checkbox" disabled/> <strong>macOS、Linux、Windows</strong> のいずれかを実行するコンピューター</li>
+<li class="task-list-item"><input type="checkbox" disabled/> コンピューターに<a href="https://github.com/git-guides/install-git">インストールされた Git</a></li>
+</ul>
+<blockquote>
+<p><strong>ヒント</strong>
+有料プランを利用していない場合、認証済みの学生は <a href="https://github.com/education/students">GitHub Education</a> を通じて GitHub Copilot を無料で利用できます。<strong>Copilot Student</strong> プランには、このワークショップで使用するエージェント、MCP、コードレビュー、Copilot CLI の各機能が含まれているため、対応する機能を利用できます。演習の完走に必要な利用枠は別途確認してください。</p>
+<p><strong>補足</strong>
+Copilot app は codespace ではなく自分のコンピューターで実行するため、<a href="0-prerequisites.html">レッスン 0</a> では、アプリをインストールする前に Node.js をインストールし、プロジェクトの自分用コピーを作成します。</p>
+<p><strong>補足</strong>
+Copilot Business または Copilot Enterprise を使用している場合、アプリを使用するには管理者が <strong>GitHub Copilot app</strong> ポリシー（CLI のポリシーとは別）を有効にする必要があります。</p>
+</blockquote>
+<h2 id="はじめる">はじめる</h2>
+<p><a href="0-prerequisites.html"><strong>レッスン 0「前提条件」から始める →</strong></a></p></article><nav class="chapter-nav" aria-label="章の移動"><a href="0-prerequisites.html">次の章 →：レッスン 0 - 前提条件</a></nav></main></body></html>

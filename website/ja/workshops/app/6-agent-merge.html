@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow"><title>レッスン 6 - Agent Merge によるマージ | Dev Days 日本語版</title>
+<link rel="stylesheet" href="../workshops.css"><script src="../../../theme-toggle.js"></script></head><body>
+<a class="skip" href="#lesson">本文へ移動</a><header><nav aria-label="資料のナビゲーション">
+<a href="../../index.html">ワークショップ一覧</a><a href="../index.html">日本語の演習目次</a>
+<a href="../../handson-guide.html#switch">UI が違うときは CLI へ</a></nav>
+<button class="theme-toggle" type="button" onclick="toggleTheme()">☀️ ライト</button></header>
+<main id="lesson"><h1>レッスン 6 - Agent Merge によるマージ</h1><p class="source">非公式の日本語版 · <a href="https://github.com/github-samples/copilot-workshops/blob/7ddcf241c1cd10b8e90c0df96f6bef81e710392a/docs/ja-jp/app/6-agent-merge.md">参照原文</a> · <a href="../licenses/copilot-workshops.txt">MIT ライセンス</a><br>参照コミット：<code>7ddcf241c1cd</code> ／ 確認日：2026-09-08</p><aside>UI の名前・位置は教材作成時点のものです。操作できないときは <a href="../../handson-guide.html#switch">CLI の横道</a>を使ってください。利用条件は <a href="../../handson-guide.html#plans">最新情報の補足</a>を参照。実機での全演習の完走検証は未実施です。</aside><nav class="chapter-nav" aria-label="章の移動"><a href="5-mcp-playwright.html">← 前の章：レッスン 5 - Playwright MCP server によるテスト</a><a href="7-canvases.html">次の章 →：レッスン 7 - キャンバスを使った計画</a></nav><details><summary>この章の目次</summary><div class="toc">
+<ul>
+<li><a href="#シナリオ">シナリオ</a></li>
+<li><a href="#agent-merge-の概要">Agent Merge の概要</a></li>
+<li><a href="#agent-merge-で-pr-を管理する">Agent Merge で PR を管理する</a></li>
+<li><a href="#まとめと次のステップ">まとめと次のステップ</a></li>
+<li><a href="#リソース">リソース</a></li>
+</ul>
+</div>
+</details><article><p>フィルター機能の構築と検証が完了し、ブラウザーで動作することも確認できました。最後のステップはマージです。このハーネスではすでに2回マージしており、どちらも pull request を作成して github.com で自分でマージしました。今回は、pull request のライフサイクル全体をアプリ内から管理する <strong>Agent Merge</strong> に処理を任せます。</p>
+<p>このレッスンでは、次の内容を学習します。</p>
+<ul>
+<li>Agent Merge の概要と、マージのライフサイクルを自動化する仕組みを学ぶ。</li>
+<li>フィルター機能のセッションで Agent Merge を有効にする。</li>
+<li>pull request の作成、CI の実行、すべて成功した後のマージを確認する。</li>
+</ul>
+<h2 id="シナリオ">シナリオ</h2>
+<p>ここ数回のモジュールでは、コードの作成から Copilot による UI の直接検証まで、さまざまなレベルの自動化を確認しました。開発をさらに高速化するために、Tailspin Toys は審査および検証済みの pull request を自動的にマージする方法を検討しています。</p>
+<h2 id="agent-merge-の概要">Agent Merge の概要</h2>
+<p><strong>Agent Merge</strong> を使うと、Copilot app で pull request をマージするまでの最終工程を自動化できます。有効にすると、アプリのセッションが pull request を読み取り、失敗した CI チェックの修正、レビューコメントへの対応、必要に応じたリベースなど、マージを妨げる問題に対処します。そして GitHub で許可され次第、pull request をマージします。バックグラウンドで動作し、アプリを再起動しても継続し、pull request がマージされると自動的に無効になります。</p>
+<p>ここまでは、github.com で自分で <strong>Merge pull request</strong> を選択していました。Agent Merge はその責任をエージェントに移すため、エージェントが PR の完了までを管理している間に次のタスクへ進めます。作業のレビューと承認は引き続き自分で行い、エージェントには機械的な最終工程だけを任せます。</p>
+<h2 id="agent-merge-で-pr-を管理する">Agent Merge で PR を管理する</h2>
+<p>コードを手動でレビューし、テストを実行し、Copilot による UI の検証も完了しました。新しいコードをコードベースにマージします。Agent Merge に PR を継続的インテグレーション (CI) のプロセスからマージまで管理させます。</p>
+<ol>
+<li>前のモジュールでフィルター機能を追加していたセッションに戻ります。</li>
+<li>右上隅にある <strong>Create PR</strong> の横のドロップダウンを選択します。</li>
+<li><strong>Agent merge</strong> を選択して Agent Merge を有効にします。</li>
+</ol>
+<p><img alt="GitHub Copilot app で展開された Create PR ドロップダウンの Agent merge オプションを矢印で示した画面" src="../assets/app-enable-agent-merge.png" /></p>
+<ol start="4">
+<li>ボタンのテキストが <strong>Agent merge</strong> に変わります。</li>
+<li><strong>Agent merge</strong> ボタンを選択し、Agent Merge のプロセスを開始します。</li>
+</ol>
+<p>Copilot app が PR の作成と管理を開始します。最初にプロジェクトを調査して PR の最適な作成方法を判断し、新しい PR を作成します。</p>
+<p>しばらくすると、Copilot が再び作業を開始し、リポジトリ上ですべてのテストを実行する CI プロセスなど、PR の条件を確認します。ほかのチームメンバーによるレビュー、実行が必要なチェック (CI プロセス)、PR をマージできるかどうかのステータスを報告します。</p>
+<ol start="6">
+<li><strong>Agent merge</strong> の横にあるドロップダウンを選択してから <strong>Merge pull request</strong> を選択し、Agent Merge に pull request のマージを許可します。</li>
+</ol>
+<p><img alt="Agent merge ドロップダウンで、エージェントに許可された Address reviews、Fix CI failures、Resolve conflicts の操作と、矢印で示された Merge pull request" src="../assets/app-agent-merge-merge.png" /></p>
+<ol start="7">
+<li>すべての CI プロセスが成功すると、つまりテストに合格すると、Copilot が pull request をマージします。</li>
+</ol>
+<h2 id="まとめと次のステップ">まとめと次のステップ</h2>
+<p>コードの生成、テストと検証、pull request のプロセスなど、開発プロセスの複数の部分を自動化しました。具体的には、次の作業を行いました。</p>
+<ul>
+<li>Agent Merge の概要と、マージのライフサイクルを自動化する仕組みを学習した。</li>
+<li>フィルター機能のセッションで Agent Merge を有効にした。</li>
+<li>pull request の作成、CI の実行、すべて成功した後のマージを確認した。</li>
+</ul>
+<p>次は、エージェントと一緒に作業を計画して視覚化する、より高度な方法である<strong>キャンバス</strong>を確認します。<a href="7-canvases.html">レッスン 7「キャンバスを使った計画」</a>に進んでください。</p>
+<h2 id="リソース">リソース</h2>
+<ul>
+<li><a href="https://docs.github.com/copilot/how-tos/github-copilot-app/managing-issues-and-pull-requests">GitHub Copilot app での Issue と pull request の管理</a></li>
+<li><a href="https://docs.github.com/copilot/concepts/agents/github-copilot-app">GitHub Copilot app について</a></li>
+</ul></article><nav class="chapter-nav" aria-label="章の移動"><a href="5-mcp-playwright.html">← 前の章：レッスン 5 - Playwright MCP server によるテスト</a><a href="7-canvases.html">次の章 →：レッスン 7 - キャンバスを使った計画</a></nav></main></body></html>

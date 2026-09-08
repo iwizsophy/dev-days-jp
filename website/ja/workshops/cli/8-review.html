@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow"><title>演習 8 - 振り返りと次のステップ | Dev Days 日本語版</title>
+<link rel="stylesheet" href="../workshops.css"><script src="../../../theme-toggle.js"></script></head><body>
+<a class="skip" href="#lesson">本文へ移動</a><header><nav aria-label="資料のナビゲーション">
+<a href="../../index.html">ワークショップ一覧</a><a href="../index.html">日本語の演習目次</a>
+<a href="../../handson-guide.html#switch">UI が違うときは CLI へ</a></nav>
+<button class="theme-toggle" type="button" onclick="toggleTheme()">☀️ ライト</button></header>
+<main id="lesson"><h1>演習 8 - 振り返りと次のステップ</h1><p class="source">非公式の日本語版 · <a href="https://github.com/github-samples/copilot-workshops/blob/7ddcf241c1cd10b8e90c0df96f6bef81e710392a/docs/ja-jp/cli/8-review.md">参照原文</a> · <a href="../licenses/copilot-workshops.txt">MIT ライセンス</a><br>参照コミット：<code>7ddcf241c1cd</code> ／ 確認日：2026-09-08</p><aside>UI の名前・位置は教材作成時点のものです。操作できないときは <a href="../../handson-guide.html#switch">CLI の横道</a>を使ってください。利用条件は <a href="../../handson-guide.html#plans">最新情報の補足</a>を参照。実機での全演習の完走検証は未実施です。</aside><aside>このコースの <code>--yolo</code> を含む手順は、演習専用 Codespace / dev container を前提とする原文の手順です。App の途中からローカルで切り替える場合は、上の「CLI の横道」の通常対話手順を使ってください。</aside><nav class="chapter-nav" aria-label="章の移動"><a href="7-slash-commands.html">← 前の章：演習 7 - GitHub Copilot CLI のスラッシュ コマンド</a></nav><details><summary>この章の目次</summary><div class="toc">
+<ul>
+<li><a href="#slash-command">slash command</a></li>
+<li><a href="#ベスト-プラクティス">ベスト プラクティス</a></li>
+<li><a href="#次のステップ">次のステップ</a></li>
+<li><a href="#リソース">リソース</a></li>
+</ul>
+</div>
+</details><article><p>ここ数回の演習で、GitHub Copilot CLI の最も一般的なユース ケースのいくつかを確認しました。具体的には次の内容です。</p>
+<ul>
+<li>GitHub やほかの MCP server と連携する。</li>
+<li>instruction file を使ってコード生成を導く。</li>
+<li>skill を実装して、Copilot CLI のツールボックスに tool を追加する。</li>
+<li>custom agent を呼び出して、より高度で複雑なタスクに対応する。</li>
+<li>slash command を使ってセッションを管理し、必要に応じて <code>/delegate</code> で cloud agent に橋渡しする。</li>
+</ul>
+<p>ここでは、いくつかの slash command、ベスト プラクティス、次のステップについて確認します。</p>
+<h2 id="slash-command">slash command</h2>
+<p>Copilot CLI には、多数の slash command が用意されています。設定を変更したり、内部で起きていることを確認したりできるコマンドも含まれます。すでに、現在のコンテキストをクリアして新しい chat を始める <code>/clear</code> と、MCP server を確認 / 管理する <code>/mcp</code> を使いました。役立つ追加コマンドとしては次のようなものがあります。</p>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/add-dir</code></td>
+<td>Copilot の trusted list にディレクトリを追加する</td>
+</tr>
+<tr>
+<td><code>/clear</code>, <code>/new</code></td>
+<td>会話履歴をクリアして新しく始める</td>
+</tr>
+<tr>
+<td><code>/compact</code></td>
+<td>会話履歴を要約し、context window の使用量を減らす</td>
+</tr>
+<tr>
+<td><code>/context</code></td>
+<td>context window の token 使用量と可視化を表示する</td>
+</tr>
+<tr>
+<td><code>/diff</code></td>
+<td>現在のディレクトリで行われた変更をレビューする</td>
+</tr>
+<tr>
+<td><code>/model</code></td>
+<td>使用する AI model を選択する（Claude Sonnet、GPT-5 など）</td>
+</tr>
+<tr>
+<td><code>/plan &lt;prompt&gt;</code></td>
+<td>コーディング前に実装計画を作成する</td>
+</tr>
+<tr>
+<td><code>/review &lt;prompt&gt;</code></td>
+<td>code review agent を実行して変更を分析する</td>
+</tr>
+<tr>
+<td><code>/delegate</code></td>
+<td>タスクを Copilot cloud agent に委任して非同期で処理する</td>
+</tr>
+<tr>
+<td><code>/session</code></td>
+<td>セッション情報と workspace の概要を表示する</td>
+</tr>
+<tr>
+<td><code>/share</code></td>
+<td>セッションを markdown ファイルまたは GitHub gist に共有する</td>
+</tr>
+<tr>
+<td><code>/skills</code></td>
+<td>capability を拡張する skill を管理する</td>
+</tr>
+<tr>
+<td><code>/usage</code></td>
+<td>セッションの使用状況メトリクスと統計を表示する</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>ヒント</strong>
+<code>/help</code> を使うと、利用可能な command とキーボード shortcut の完全な一覧を表示できます。</p>
+</blockquote>
+<h2 id="ベスト-プラクティス">ベスト プラクティス</h2>
+<p>AI ツールを使うときは、基盤となる仕組みが出力品質を左右します。しっかりした instruction file、custom agent、agent skill のいずれも重要な役割を果たします。このワークショップでは、それらをそれぞれ確認しました。<a href="https://github.com/github/awesome-copilot">awesome-copilot</a> はテンプレートのよい情報源であり、Copilot 自身にこれらのひな形を作らせて出発点にすることもできます。</p>
+<p>基盤と同じくらい、コンテキストも重要です。何を作りたいのか、なぜ必要なのか、どのように進めたいのかを明確に伝えることで、出力は大きく変わります。Copilot の助けになる情報があるなら、できるだけ渡してください。</p>
+<h2 id="次のステップ">次のステップ</h2>
+<p>どのツールでも、スキルを高める最善の方法は使い続けることです。本番コード、趣味のコード、何年も頭の中にあったけれどまだ形にしていない小さなアプリなど、さまざまな場面で活用してください。学びをチームと共有し、チームからも学んでください。そして、いつものようにドキュメントを確認しましょう。</p>
+<p>GitHub Copilot エコシステムをさらに試してみたい場合は、<a href="https://github-samples.github.io/copilot-workshops/vscode/">VS Code ハーネス</a> または <a href="https://github-samples.github.io/copilot-workshops/cloud/">Cloud agent ハーネス</a> を確認してください。</p>
+<h2 id="リソース">リソース</h2>
+<ul>
+<li><a href="https://docs.github.com/copilot/concepts/agents/about-copilot-cli">Copilot CLI について</a></li>
+<li><a href="https://docs.github.com/copilot/how-tos/use-copilot-agents/use-copilot-cli">Copilot CLI を使う</a></li>
+<li><a href="https://github.com/github/awesome-copilot">Awesome Copilot リポジトリ</a></li>
+<li><a href="https://docs.github.com/copilot/how-tos/configure-custom-instructions/add-repository-instructions">Custom instructions ガイド</a></li>
+<li><a href="https://docs.github.com/copilot/concepts/agents/about-agent-skills">Agent Skills ドキュメント</a></li>
+<li><a href="https://docs.github.com/copilot/how-tos/use-copilot-agents/use-copilot-cli#use-custom-agents">カスタム エージェント ドキュメント</a></li>
+<li><a href="https://modelcontextprotocol.io/">MCP 仕様</a></li>
+</ul></article><nav class="chapter-nav" aria-label="章の移動"><a href="7-slash-commands.html">← 前の章：演習 7 - GitHub Copilot CLI のスラッシュ コマンド</a></nav></main></body></html>

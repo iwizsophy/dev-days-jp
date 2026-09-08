@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow"><title>第1章：環境構築とコンテキストの設計 | Dev Days 日本語版</title>
+<link rel="stylesheet" href="../workshops.css"><script src="../../../theme-toggle.js"></script></head><body>
+<a class="skip" href="#lesson">本文へ移動</a><header><nav aria-label="資料のナビゲーション">
+<a href="../../index.html">ワークショップ一覧</a><a href="../index.html">日本語の演習目次</a>
+<a href="../../handson-guide.html#switch">UI が違うときは CLI へ</a></nav>
+<button class="theme-toggle" type="button" onclick="toggleTheme()">☀️ ライト</button></header>
+<main id="lesson"><h1>第1章：環境構築とコンテキストの設計</h1><p class="source">非公式の日本語版 · <a href="https://github.com/copilot-dev-days/mona-mayhem/blob/d376143ca3e6c0b3c63980402deaf1c4ac0a1b19/workshop/01-setup.md">参照原文</a> · <a href="../licenses/mona-mayhem.txt">MIT ライセンス</a><br>参照コミット：<code>d376143ca3e6</code> ／ 確認日：2026-09-08</p><aside>UI の名前・位置は教材作成時点のものです。操作できないときは <a href="../../handson-guide.html#switch">CLI の横道</a>を使ってください。利用条件は <a href="../../handson-guide.html#plans">最新情報の補足</a>を参照。実機での全演習の完走検証は未実施です。</aside><nav class="chapter-nav" aria-label="章の移動"><a href="00-overview.html">← 前の章：🎮 Mona Mayhem — GitHub Copilot ワークショップ</a><a href="02-plan-and-scaffold.html">次の章 →：第2章：計画とひな形作成</a></nav><details><summary>この章の目次</summary><div class="toc">
+<ul>
+<li><a href="#セクション1初期設定">セクション1：初期設定</a><ul>
+<li><a href="#手順1自分のリポジトリを作る">手順1：自分のリポジトリを作る</a></li>
+<li><a href="#vs-code手順2-開発環境を選ぶ">VS Code：手順2 — 開発環境を選ぶ</a></li>
+<li><a href="#vs-code手順3-依存関係を導入して起動する">VS Code：手順3 — 依存関係を導入して起動する</a></li>
+<li><a href="#cli手順2-github-copilot-cli-を導入する">CLI：手順2 — GitHub Copilot CLI を導入する</a></li>
+<li><a href="#cli手順3-アプリを起動しcli-を認証する">CLI：手順3 — アプリを起動し、CLI を認証する</a></li>
+</ul>
+</li>
+<li><a href="#セクション2コンテキストを設計する">セクション2：コンテキストを設計する</a><ul>
+<li><a href="#共通タスク1-init-で指示を作る">共通：タスク1 — /init で指示を作る</a></li>
+<li><a href="#vs-codeタスク2-バックグラウンドエージェント">VS Code：タスク2 — バックグラウンドエージェント</a></li>
+<li><a href="#vs-codeタスク3-プロジェクトを調べる">VS Code：タスク3 — プロジェクトを調べる</a></li>
+<li><a href="#cliタスク2-cli-の環境を調整する">CLI：タスク2 — CLI の環境を調整する</a></li>
+<li><a href="#cliタスク3-ターミナルからプロジェクトを調べる">CLI：タスク3 — ターミナルからプロジェクトを調べる</a></li>
+</ul>
+</li>
+<li><a href="#第1章の完了">✅ 第1章の完了</a></li>
+</ul>
+</div>
+</details><article><p>開発環境を準備すると同時に、コードベースについて Copilot に伝えます。これにより、以降のプロンプトで必要なコンテキストを利用できます。</p>
+<h2 id="セクション1初期設定">セクション1：初期設定</h2>
+<h3 id="手順1自分のリポジトリを作る">手順1：自分のリポジトリを作る</h3>
+<ol>
+<li><a href="https://github.com/copilot-dev-days/mona-mayhem">mona-mayhem リポジトリ</a>を開きます。</li>
+<li><strong>Use this template → Create a new repository</strong> を選ぶか、fork して自分のリポジトリを作ります。</li>
+<li>テンプレートから作る場合は、名前を <code>my-mona-mayhem</code>、公開範囲を <strong>Public</strong> にします。</li>
+</ol>
+<h3 id="vs-code手順2-開発環境を選ぶ">VS Code：手順2 — 開発環境を選ぶ</h3>
+<p><strong>選択肢A：ローカルの VS Code</strong></p>
+<ol>
+<li>VS Code で <strong>Git: Clone → Clone from GitHub</strong> を実行します。</li>
+<li>自分の <code>my-mona-mayhem</code> を選択します。</li>
+<li>案内されたら、<strong>推奨拡張機能</strong>をインストールします。</li>
+</ol>
+<p><strong>選択肢B：GitHub Codespaces</strong></p>
+<ol>
+<li>GitHub で自分のリポジトリを開きます。</li>
+<li><strong>Code → Codespaces → Create codespace on main</strong> を選択します。</li>
+<li>環境の起動と依存関係の導入が終わるまで待ちます。</li>
+</ol>
+<h3 id="vs-code手順3-依存関係を導入して起動する">VS Code：手順3 — 依存関係を導入して起動する</h3>
+<p>リポジトリ内で統合ターミナルを開き、順に実行します。</p>
+<pre class="highlight"><code class="language-bash">npm install
+npm run dev</code></pre>
+<p>起動ログに表示された URL をブラウザーで開き、アプリが表示されることを確認します。</p>
+<h3 id="cli手順2-github-copilot-cli-を導入する">CLI：手順2 — GitHub Copilot CLI を導入する</h3>
+<p>自分の環境に合う方法を一つ選びます。</p>
+<p><strong>npm（全プラットフォーム、Node.js 22以上が必要）</strong></p>
+<pre class="highlight"><code class="language-bash">npm install -g @github/copilot</code></pre>
+<p><strong>Homebrew（macOS / Linux）</strong></p>
+<pre class="highlight"><code class="language-bash">brew install --cask copilot-cli</code></pre>
+<blockquote>
+<p><strong>日本語版の補足：</strong> Homebrew のコマンドは、原文の <code>brew install copilot-cli</code> から<a href="https://docs.github.com/en/copilot/how-tos/copilot-cli/set-up-copilot-cli/install-copilot-cli">公式の導入手順</a>に合わせています。</p>
+</blockquote>
+<p><strong>WinGet（Windows）</strong></p>
+<pre class="highlight"><code class="language-powershell">winget install GitHub.Copilot</code></pre>
+<h3 id="cli手順3-アプリを起動しcli-を認証する">CLI：手順3 — アプリを起動し、CLI を認証する</h3>
+<ol>
+<li>自分のリポジトリをローカルに clone し、プロジェクトのルートでターミナルを開きます。</li>
+<li>
+<p>依存関係を導入してアプリを起動します。</p>
+<pre class="highlight"><code class="language-bash">npm install
+npm run dev</code></pre>
+</li>
+<li>
+<p><strong>同じリポジトリで2つ目のターミナル</strong>を開きます。</p>
+<pre class="highlight"><code class="language-bash">copilot</code></pre>
+</li>
+<li>
+<p>対話セッションで <code>/login</code> を入力します。</p>
+</li>
+<li>デバイス認証の案内に従い、許可を求められたら対象が自分の演習リポジトリであることを確認します。</li>
+</ol>
+<p>これで、一方のターミナルではアプリのプレビュー、もう一方では Copilot CLI が動いています。</p>
+<h2 id="セクション2コンテキストを設計する">セクション2：コンテキストを設計する</h2>
+<p>コンテキストの設計とは、AI にコードベースを理解してもらうための情報を整えることです。情報が適切であるほど、その後の回答も目的に合いやすくなります。</p>
+<h3 id="共通タスク1-init-で指示を作る">共通：タスク1 — <code>/init</code> で指示を作る</h3>
+<ol>
+<li>
+<p>Copilot Chat または CLI に入力します。</p>
+<pre class="highlight"><code class="language-text">/init プロジェクトの概要、ビルド・開発用コマンド、Astro のベストプラクティスを含む簡潔な指示を作成してください。ワークショップ教材は対象から除外してください。</code></pre>
+</li>
+<li>
+<p>生成された <code>.github/copilot-instructions.md</code> を確認します。</p>
+</li>
+<li>内容を確認して採用し、指示ファイルを commit します。</li>
+</ol>
+<p>以降のリクエストや CLI セッションで、リポジトリ固有の指示を利用できます。</p>
+<h3 id="vs-codeタスク2-バックグラウンドエージェント">VS Code：タスク2 — バックグラウンドエージェント</h3>
+<p><strong>ローカルのバックグラウンドエージェント</strong></p>
+<ol>
+<li>Chat パネルの <strong>+</strong> で新しいチャットを開始します。</li>
+<li>下部の <strong>Local</strong> を <strong>Copilot CLI</strong> に変更します。</li>
+<li>
+<p>次のように依頼します。</p>
+<pre class="highlight"><code class="language-text">未使用変数に対する lint ルールを追加してコードスタイルを改善し、エラーを修正してください。</code></pre>
+</li>
+<li>
+<p>完了したら <strong>Review and Apply</strong> で変更を確認して適用します。必要ならセッションをアーカイブします。</p>
+</li>
+</ol>
+<p><strong>クラウドエージェント</strong></p>
+<ol>
+<li><strong>+</strong> で新しいチャットを作成し、下部の <strong>Local</strong> を <strong>Cloud</strong> に変更します。</li>
+<li>
+<p>次のように依頼します。</p>
+<pre class="highlight"><code class="language-text">README を、プロジェクトの魅力が伝わるランディングページとして改善してください。</code></pre>
+</li>
+</ol>
+<p>エディターを離れずに、lint ルール、エラー修正、README の改善を進められます。</p>
+<h3 id="vs-codeタスク3-プロジェクトを調べる">VS Code：タスク3 — プロジェクトを調べる</h3>
+<p>Copilot Chat の <strong>Ask モード</strong>で試します。</p>
+<ul>
+<li>「このプロジェクトのアーキテクチャを説明してください」</li>
+<li>「src ディレクトリにはどのようなファイルがあり、それぞれ何をしますか？」</li>
+<li>「Battle ボタンを動かすには、何を実装する必要がありますか？」</li>
+</ul>
+<p><code>@workspace</code> を使うと、プロジェクト全体をコンテキストとして指定できます。</p>
+<h3 id="cliタスク2-cli-の環境を調整する">CLI：タスク2 — CLI の環境を調整する</h3>
+<ol>
+<li><code>/help</code> で使えるスラッシュコマンドを確認します。</li>
+<li><code>/model</code> で利用できるモデルを確認します。</li>
+<li>
+<p>試行中に許可を記憶させすぎた場合は、次でリセットできます。</p>
+<pre class="highlight"><code class="language-text">/reset-allowed-tools</code></pre>
+</li>
+<li>
+<p>親ディレクトリなどを参照する必要がある場合は、<code>/add-dir PATH</code> で必要な範囲を追加します。<code>PATH</code> を実際に許可するディレクトリへ置き換えてください。</p>
+</li>
+</ol>
+<p>簡潔なカスタム指示と、明示的なツール権限で作業範囲を整えます。</p>
+<h3 id="cliタスク3-ターミナルからプロジェクトを調べる">CLI：タスク3 — ターミナルからプロジェクトを調べる</h3>
+<p>次のプロンプトを一つずつ試します。</p>
+<pre class="highlight"><code class="language-text">このプロジェクトの概要を説明してください。</code></pre>
+<pre class="highlight"><code class="language-text">@src/pages/api/contributions/[username].ts このファイルの役割と、ここに実装すべき内容を説明してください。</code></pre>
+<pre class="highlight"><code class="language-text">@src/pages/index.astro すでにある内容と、対戦ページを作るために追加すべき内容を説明してください。</code></pre>
+<p>対話セッションの外から、一度だけ質問することもできます。</p>
+<pre class="highlight"><code class="language-bash">copilot -p "このリポジトリのアーキテクチャを5項目で要約してください"</code></pre>
+<h2 id="第1章の完了">✅ 第1章の完了</h2>
+<ul>
+<li>リポジトリと開発環境を準備した。</li>
+<li><code>/init</code> でプロジェクトとデザイン方針の指示を作った。</li>
+<li>生成された変更を採用前に確認した。</li>
+<li>ファイルやプロジェクトの情報を指定してコードを調べた。</li>
+</ul></article><nav class="chapter-nav" aria-label="章の移動"><a href="00-overview.html">← 前の章：🎮 Mona Mayhem — GitHub Copilot ワークショップ</a><a href="02-plan-and-scaffold.html">次の章 →：第2章：計画とひな形作成</a></nav></main></body></html>

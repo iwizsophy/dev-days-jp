@@ -1,0 +1,26 @@
+{
+  "checked": "2026-09-08",
+  "courses": {
+    "app": {
+      "repository": "github-samples/copilot-workshops",
+      "commit": "7ddcf241c1cd10b8e90c0df96f6bef81e710392a",
+      "source": "docs/ja-jp/app",
+      "license": "copilot-workshops.txt",
+      "translation": "上流の日本語版を取り込み、プロンプトと利用条件を補正"
+    },
+    "cli": {
+      "repository": "github-samples/copilot-workshops",
+      "commit": "7ddcf241c1cd10b8e90c0df96f6bef81e710392a",
+      "source": "docs/ja-jp/cli",
+      "license": "copilot-workshops.txt",
+      "translation": "上流の日本語版を取り込み、プロンプトと利用条件を補正"
+    },
+    "mona-mayhem": {
+      "repository": "copilot-dev-days/mona-mayhem",
+      "commit": "d376143ca3e6c0b3c63980402deaf1c4ac0a1b19",
+      "source": "workshop",
+      "license": "mona-mayhem.txt",
+      "translation": "英語原文から日本語化。VS Code・CLI 両トラックを含む"
+    }
+  }
+}

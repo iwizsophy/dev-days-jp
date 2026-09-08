@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow"><title>レッスン 1 - GitHub Copilot app のインストール | Dev Days 日本語版</title>
+<link rel="stylesheet" href="../workshops.css"><script src="../../../theme-toggle.js"></script></head><body>
+<a class="skip" href="#lesson">本文へ移動</a><header><nav aria-label="資料のナビゲーション">
+<a href="../../index.html">ワークショップ一覧</a><a href="../index.html">日本語の演習目次</a>
+<a href="../../handson-guide.html#switch">UI が違うときは CLI へ</a></nav>
+<button class="theme-toggle" type="button" onclick="toggleTheme()">☀️ ライト</button></header>
+<main id="lesson"><h1>レッスン 1 - GitHub Copilot app のインストール</h1><p class="source">非公式の日本語版 · <a href="https://github.com/github-samples/copilot-workshops/blob/7ddcf241c1cd10b8e90c0df96f6bef81e710392a/docs/ja-jp/app/1-install-copilot-app.md">参照原文</a> · <a href="../licenses/copilot-workshops.txt">MIT ライセンス</a><br>参照コミット：<code>7ddcf241c1cd</code> ／ 確認日：2026-09-08</p><aside>UI の名前・位置は教材作成時点のものです。操作できないときは <a href="../../handson-guide.html#switch">CLI の横道</a>を使ってください。利用条件は <a href="../../handson-guide.html#plans">最新情報の補足</a>を参照。実機での全演習の完走検証は未実施です。</aside><nav class="chapter-nav" aria-label="章の移動"><a href="0-prerequisites.html">← 前の章：レッスン 0 - 前提条件</a><a href="2-add-star-rating.html">次の章 →：レッスン 2 - 最初のエージェントセッションの実行</a></nav><details><summary>この章の目次</summary><div class="toc">
+<ul>
+<li><a href="#シナリオ">シナリオ</a></li>
+<li><a href="#github-copilot-app-をインストールして構成する">GitHub Copilot app をインストールして構成する</a></li>
+<li><a href="#ワークスペースを確認する">ワークスペースを確認する</a><ul>
+<li><a href="#用意されたバックログを確認する">用意されたバックログを確認する</a></li>
+</ul>
+</li>
+<li><a href="#クイックチャットを試す">クイックチャットを試す</a></li>
+<li><a href="#まとめと次のステップ">まとめと次のステップ</a></li>
+<li><a href="#リソース">リソース</a></li>
+</ul>
+</div>
+</details><article><p><a href="https://docs.github.com/copilot/concepts/agents/github-copilot-app"><strong>GitHub Copilot app</strong></a> は、エージェント主導の開発に使用するデスクトップアプリケーションです。GitHub Copilot CLI を基盤とし、GitHub とネイティブに統合されているため、リポジトリ、ブランチ、CI パイプラインをすぐに利用できます。すべての作業を自分で行うのではなく、複数のエージェントをそれぞれ分離されたワークスペースで並列に指示し、繰り返し発生するタスクを自動化するワークフロー向けに設計されています。Node.js のインストールとプロジェクトのコピーが完了したので、次はアプリをインストールして、そのリポジトリを接続します。</p>
+<p>このレッスンでは、次の内容を学習します。</p>
+<ul>
+<li>GitHub Copilot app をインストールしてサインインする。</li>
+<li>GitHub リポジトリからプロジェクトをアプリに追加する。</li>
+<li>テンプレートによって用意されたバックログを含め、ワークスペースを確認する。</li>
+<li>クイックチャットを試して、アプリ自体について学ぶ。</li>
+</ul>
+<h2 id="シナリオ">シナリオ</h2>
+<p>チームは、増え続けるバックログに対応するために AI エージェントを導入しています。Copilot app では、Issue の選択、エージェントの実行、変更のレビュー、pull request のマージを一か所から指示できます。このレッスンでは、アプリをインストールして接続し、プロジェクトについての会話を始められるようにします。</p>
+<blockquote>
+<p><strong>補足</strong>
+有効な Copilot プランが必要です。公式情報では Free を含む全プランが対象です。必要な利用枠は事前に確認してください。Copilot Business または Copilot Enterprise を使用している場合、アプリを動作させるには管理者が <strong>GitHub Copilot app</strong> ポリシー（CLI のポリシーとは別）を有効にする必要があります。</p>
+</blockquote>
+<h2 id="github-copilot-app-をインストールして構成する">GitHub Copilot app をインストールして構成する</h2>
+<p>GitHub Copilot app を使用するには、まずアプリをインストールします。Windows、macOS、Linux 向けのバージョンが用意されています。アプリをインストールして認証し、Tailspin Toys リポジトリを追加します。</p>
+<ol>
+<li>ブラウザーで <a href="https://gh.io/app">GitHub Copilot app のランディングページ</a>を開きます。</li>
+<li>使用しているプラットフォーム向けのアプリをダウンロードし、ランディングページの手順に従ってインストールします。</li>
+<li>インストールが完了したら、アプリを開きます。</li>
+<li><strong>Sign in to GitHub</strong> を選択し、画面の指示に従って認証します。GitHub Enterprise Server を使用している場合は <strong>Use GitHub Enterprise</strong> を選択し、求められたらサーバーアドレスを入力します。</li>
+<li>認証後、リポジトリを接続するよう求められます。先ほど作成した <code>&lt;YOUR_GITHUB_HANDLE&gt;/tailspin-toys</code> という名前の Tailspin Toys リポジトリを選択します。</li>
+<li><strong>Continue</strong> を選択してオンボーディングを続けます。</li>
+<li>テーマの選択を求められたら、最も好みのものを選び、<strong>Finish</strong> を選択します。</li>
+</ol>
+<blockquote>
+<p><strong>補足</strong>
+Tailspin Toys のコピーが一覧に自動的に表示されなかった場合は、アプリのオンボーディングを完了した後に追加できます。完了すると、Copilot app のホーム画面が表示されます。そこで <strong>Choose from GitHub</strong> を選択し、リポジトリ名 (\&lt;YOUR_GITHUB_HANDLE&gt;/tailspin-toys) で検索して選択します。これでリポジトリが Copilot app に追加されます。</p>
+</blockquote>
+<h2 id="ワークスペースを確認する">ワークスペースを確認する</h2>
+<p>プロジェクトを接続したら、各領域を確認します。アプリのサイドバーは、主に次の領域で構成されています。</p>
+<ul>
+<li><strong>Sessions</strong> - エージェントが作業する場所です。各セッションは分離された独自のワークスペースで実行されるため、変更が競合することなく複数のセッションを同時に実行できます。次のレッスンで最初のセッションを開始します。</li>
+<li><strong>Quick chats</strong> - 独自のブランチやワークスペースを必要としない、質問やブレインストーミング向けの簡易的な会話です。このレッスンの最後に試します。</li>
+<li><strong>My work</strong> - アプリの <strong>GitHub ネイティブ統合</strong>を通じて表示される Issue と pull request です。アプリを離れずに、Issue と pull request の参照や絞り込み、CI ステータスの確認、Issue からのセッション開始、pull request のレビューを行えます。</li>
+<li><strong>Automations</strong> - スケジュールまたはオンデマンドで実行する、保存済みのエージェントタスクです。ハーネスの終盤で作成します。</li>
+</ul>
+<h3 id="用意されたバックログを確認する">用意されたバックログを確認する</h3>
+<p>アプリは GitHub とネイティブに統合されているため、リポジトリで待機中の作業がアプリ内に表示されます。テンプレートからリポジトリを作成したときに、バックログとなる Issue が用意されています。表示されていることを確認します。</p>
+<ol>
+<li>サイドバーで <strong>My work</strong> を選択します。</li>
+<li>テンプレートはバックログに 8 件の Issue を用意しています。このハーネスでは次の 3 件に焦点を当てます。表示されていることを確認してください。</li>
+</ol>
+<ul>
+<li>Allow users to filter games by category and publisher</li>
+<li>Update our repository coding standards</li>
+<li>Implement pagination on the game list page</li>
+</ul>
+<ol start="3">
+<li>Issue を選択して詳細を読みます。各 Issue はエージェントセッションの開始点にもなります。ハーネスの後半では、これらの Issue から作業を開始します。</li>
+</ol>
+<blockquote>
+<p><strong>補足</strong>
+My work の項目一覧は自動的に絞り込まれ、Copilot app に追加したリポジトリの項目だけが表示されます。ほかのリポジトリの作業項目を表示するには、そのリポジトリをアプリに追加してください。</p>
+</blockquote>
+<h2 id="クイックチャットを試す">クイックチャットを試す</h2>
+<p>アプリに慣れるには、アプリ自体について質問するのが効果的です。その用途には <strong>quick chat</strong> が適しています。Quick chats ではブランチや worktree を作成せずに質問やブレインストーミングができるため、セッションを必要としない、その場限りの簡単な質問に最適です。</p>
+<ol>
+<li>サイドバーで <strong>Quick chats</strong> の横にある <strong>+</strong> を選択し、新しいチャットを開きます。</li>
+<li>アプリのセッションがどのように動作するかを尋ねます。</li>
+</ol>
+<pre class="highlight"><code class="language-plaintext">GitHub Copilot app は worktree をどのように使いますか？</code></pre>
+<ol start="3">
+<li>会話ビューで回答を読みます。各セッションが分離された独自の git worktree で実行されるため、変更が競合することなく複数のエージェントを並列実行できることがわかります。会話はいつでも継続でき、新しいチャットも開始できます。</li>
+</ol>
+<h2 id="まとめと次のステップ">まとめと次のステップ</h2>
+<p>GitHub Copilot app をインストールし、プロジェクトを接続して、ワークスペースを確認しました。学習した内容は次のとおりです。</p>
+<ul>
+<li>アプリをインストールして GitHub にサインインする。</li>
+<li>GitHub リポジトリからプロジェクトを追加する。</li>
+<li>ワークスペースを確認し、<strong>My work</strong> で用意されたバックログを見つける。</li>
+<li>クイックチャットを使って、その場限りの簡単な質問をする。</li>
+</ul>
+<p>次は、最初のエージェントセッションを開始し、ゲームカードに星評価を表示する最初の変更をプロジェクトに加えます。<a href="2-add-star-rating.html">レッスン 2「最初のエージェントセッションの実行」</a>に進んでください。</p>
+<h2 id="リソース">リソース</h2>
+<ul>
+<li><a href="https://docs.github.com/copilot/concepts/agents/github-copilot-app">GitHub Copilot app について</a></li>
+<li><a href="https://docs.github.com/copilot/how-tos/github-copilot-app/getting-started">GitHub Copilot app の概要</a></li>
+<li><a href="https://docs.github.com/copilot/how-tos/github-copilot-app/agent-sessions">GitHub Copilot app でのエージェントセッションの操作</a></li>
+</ul></article><nav class="chapter-nav" aria-label="章の移動"><a href="0-prerequisites.html">← 前の章：レッスン 0 - 前提条件</a><a href="2-add-star-rating.html">次の章 →：レッスン 2 - 最初のエージェントセッションの実行</a></nav></main></body></html>

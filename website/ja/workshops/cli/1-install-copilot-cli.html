@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow"><title>演習 1 - GitHub Copilot CLI をインストールする | Dev Days 日本語版</title>
+<link rel="stylesheet" href="../workshops.css"><script src="../../../theme-toggle.js"></script></head><body>
+<a class="skip" href="#lesson">本文へ移動</a><header><nav aria-label="資料のナビゲーション">
+<a href="../../index.html">ワークショップ一覧</a><a href="../index.html">日本語の演習目次</a>
+<a href="../../handson-guide.html#switch">UI が違うときは CLI へ</a></nav>
+<button class="theme-toggle" type="button" onclick="toggleTheme()">☀️ ライト</button></header>
+<main id="lesson"><h1>演習 1 - GitHub Copilot CLI をインストールする</h1><p class="source">非公式の日本語版 · <a href="https://github.com/github-samples/copilot-workshops/blob/7ddcf241c1cd10b8e90c0df96f6bef81e710392a/docs/ja-jp/cli/1-install-copilot-cli.md">参照原文</a> · <a href="../licenses/copilot-workshops.txt">MIT ライセンス</a><br>参照コミット：<code>7ddcf241c1cd</code> ／ 確認日：2026-09-08</p><aside>UI の名前・位置は教材作成時点のものです。操作できないときは <a href="../../handson-guide.html#switch">CLI の横道</a>を使ってください。利用条件は <a href="../../handson-guide.html#plans">最新情報の補足</a>を参照。実機での全演習の完走検証は未実施です。</aside><aside>このコースの <code>--yolo</code> を含む手順は、演習専用 Codespace / dev container を前提とする原文の手順です。App の途中からローカルで切り替える場合は、上の「CLI の横道」の通常対話手順を使ってください。</aside><nav class="chapter-nav" aria-label="章の移動"><a href="0-prerequisites.html">← 前の章：演習 0: 前提条件</a><a href="2-custom-instructions.html">次の章 →：演習 2 - カスタム命令 (Copilot CLI)</a></nav><details><summary>この章の目次</summary><div class="toc">
+<ul>
+<li><a href="#シナリオ">シナリオ</a></li>
+<li><a href="#codespace-でターミナルを開く">Codespace でターミナルを開く</a></li>
+<li><a href="#copilot-cli-をインストールする">Copilot CLI をインストールする</a></li>
+<li><a href="#github-で認証する">GitHub で認証する</a></li>
+<li><a href="#ディレクトリを信頼し正しく動作していることを確認する">ディレクトリを信頼し、正しく動作していることを確認する</a></li>
+<li><a href="#まとめと次のステップ">まとめと次のステップ</a></li>
+<li><a href="#リソース">リソース</a></li>
+</ul>
+</div>
+</details><article><p><a href="https://docs.github.com/copilot/concepts/agents/about-copilot-cli">GitHub Copilot CLI</a> は、ターミナルで動作する強力なエージェント型コーディング アシスタントです。コードベースの探索、コード生成、コマンド実行、外部ツールとの連携をすべてコマンド ラインから行えます。タスクを任せたり、変更を依頼したりしながら、集中を保って作業できます。最初のステップは、想像どおりツールをインストールすることです。幸い、すでによく知っているツールを使って実行できます。</p>
+<p>この演習では、次のことを学びます。</p>
+<ul>
+<li>npm を使って GitHub Copilot CLI をインストールする。</li>
+<li>GitHub アカウントで認証する。</li>
+<li>インストールを確認する。</li>
+</ul>
+<h2 id="シナリオ">シナリオ</h2>
+<p>チームでは、増え続けるバックログに対応するために AI agent を使い始めています。Copilot CLI はその機能をターミナルに持ち込みます。ターミナルは、多くの開発者が日常的に作業する場所です。この演習では、インストールと認証を済ませ、ワークショップの残りで使える状態にします。</p>
+<h2 id="codespace-でターミナルを開く">Codespace でターミナルを開く</h2>
+<p>Copilot CLI をインストールする前に、codespace でターミナル ウィンドウを開く必要があります。</p>
+<ol>
+<li>まだ開いていない場合は、codespace に戻ります。</li>
+<li><kbd>Ctrl</kbd>+<kbd>`</kbd> を押してターミナル ウィンドウを開きます。</li>
+<li>VS Code ウィンドウの下部にターミナル パネルが表示されます。</li>
+</ol>
+<h2 id="copilot-cli-をインストールする">Copilot CLI をインストールする</h2>
+<p>Copilot CLI は <a href="https://docs.github.com/copilot/how-tos/copilot-cli/set-up-copilot-cli/install-copilot-cli#installing-with-npm-all-platforms">npm</a>、<a href="https://docs.github.com/copilot/how-tos/copilot-cli/set-up-copilot-cli/install-copilot-cli#installing-with-winget-windows">WinGet</a>、<a href="https://docs.github.com/copilot/how-tos/copilot-cli/set-up-copilot-cli/install-copilot-cli#installing-with-homebrew-macos-and-linux">Homebrew</a> でインストールできます。GitHub Codespaces には Node.js があらかじめインストールされているため、この演習では npm を使って Copilot CLI をインストールします。</p>
+<ol>
+<li>ターミナルで、Node.js がインストールされており、バージョン要件を満たしていることを確認します。</li>
+</ol>
+<pre class="highlight"><code class="language-bash">node --version</code></pre>
+<p>この演習の Tailspin Toys は <strong>22.13 以上</strong>を必要とします。<code>v22.13.0</code> 以降であることを確認してください。テンプレートを更新した場合は、コピーしたリポジトリの <code>package.json</code> の <code>engines.node</code> も確認します。</p>
+<ol start="2">
+<li>npm を使って codespace に Copilot CLI をグローバル インストールします。</li>
+</ol>
+<pre class="highlight"><code class="language-bash">npm install -g @github/copilot</code></pre>
+<ol start="3">
+<li>バージョンを確認してインストールを検証します。</li>
+</ol>
+<pre class="highlight"><code class="language-bash">copilot --version</code></pre>
+<p>バージョン番号（例: <code>v1.0.XX</code>）が表示されるはずです。</p>
+<blockquote>
+<p><strong>ヒント</strong>
+権限エラーが発生した場合は、一部のシステムで <code>sudo npm install -g @github/copilot</code> の使用が必要になることがあります。ただし、GitHub Codespaces では通常必要ありません。</p>
+</blockquote>
+<h2 id="github-で認証する">GitHub で認証する</h2>
+<blockquote>
+<p><strong>補足</strong>
+<strong>GitHub CLI も確認する</strong>: PR 作成などで使う <code>gh</code> は Copilot CLI とは別のツールです。<code>gh --version</code> で確認し、<code>command not found</code> になる場合は導入します。今回の Debian 系 Codespace では <code>sudo apt-get update &amp;&amp; sudo apt-get install -y gh</code> で導入できます。ローカル PC では OS に応じて <a href="https://cli.github.com/">GitHub CLI の公式手順</a>を使ってください。導入後は <code>gh api user --jq .login</code> で演習用アカウントを確認します。既存の別アカウントを不用意に切り替えず、演習用の分離環境を使います。</p>
+</blockquote>
+<p>初回起動時に、Copilot CLI は GitHub アカウントでの認証を求めます。</p>
+<ol>
+<li>Copilot CLI を起動します。</li>
+</ol>
+<pre class="highlight"><code class="language-bash">copilot</code></pre>
+<ol start="2">
+<li>現在ログインしていない場合は、認証を求めるプロンプトが表示されます。Copilot CLI は device code を表示し、URL にアクセスするよう案内します。</li>
+<li>画面の指示に従います。
+   - 提示された URL をブラウザーで開く
+   - 求められたら device code を入力する
+   - Copilot CLI が GitHub アカウントにアクセスできるよう承認する</li>
+<li>認証が完了すると、質問やコマンドを受け付ける Copilot CLI のプロンプトが表示されます。</li>
+</ol>
+<blockquote>
+<p><strong>補足</strong>
+Codespace では、GitHub のセッションを通じてすでに認証されている場合があります。Copilot CLI が認証を求めずに起動した場合は、そのまま進めて問題ありません。</p>
+</blockquote>
+<h2 id="ディレクトリを信頼し正しく動作していることを確認する">ディレクトリを信頼し、正しく動作していることを確認する</h2>
+<p>初めて Copilot CLI のプロンプトが表示されたので、このワークショップのリポジトリを信頼済みにし、Copilot CLI が正しくインストールされ、接続されていることを確認しましょう。</p>
+<ol>
+<li>Copilot CLI からこのフォルダー内のファイルを信頼するか確認されたら、次の 3 つの選択肢が表示されます。
+   - <strong>Yes, proceed</strong>: このセッションのみ信頼する
+   - <strong>Yes, and remember this folder for future sessions</strong>: 永続的に信頼する
+   - <strong>No, exit (Esc)</strong>: ファイルへのアクセスを許可しない</li>
+<li>このワークショップでは、このリポジトリで継続して作業するため、<strong>Yes, and remember this folder for future sessions</strong> を選択します。</li>
+<li>Copilot に簡単な質問をして、正しく動作していることを確認します。</li>
+</ol>
+<pre class="highlight"><code>このプロジェクトにはどのようなファイルがありますか？</code></pre>
+<ol start="4">
+<li>Copilot がリポジトリを探索し、プロジェクト構造の概要を返すはずです。</li>
+<li><code>/help</code> コマンドを試して、利用可能な slash command を確認します。</li>
+</ol>
+<pre class="highlight"><code>/help</code></pre>
+<ol start="6">
+<li>ターミナルで次のコマンドを入力して Copilot CLI を終了します。後続の演習で再び Copilot CLI に戻ります。</li>
+</ol>
+<pre class="highlight"><code>exit</code></pre>
+<h2 id="まとめと次のステップ">まとめと次のステップ</h2>
+<p>おめでとうございます。GitHub Copilot CLI のインストールと認証が完了しました。次のことを学びました。</p>
+<ul>
+<li>npm を使って Copilot CLI をインストールする。</li>
+<li>GitHub アカウントで認証する。</li>
+<li>Copilot CLI が作業できるようにディレクトリを信頼する。</li>
+<li>インストールが正しく動作していることを確認する。</li>
+</ul>
+<p>Copilot CLI をインストールできたので、次は Copilot にプロジェクトのコンテキストを与えます。<a href="2-custom-instructions.html">演習 2 - Copilot CLI のカスタム命令</a> に進んでください。</p>
+<h2 id="リソース">リソース</h2>
+<ul>
+<li><a href="https://docs.github.com/copilot/how-tos/set-up/install-copilot-cli">GitHub Copilot CLI のインストール</a></li>
+<li><a href="https://docs.github.com/copilot/concepts/agents/about-copilot-cli">Copilot CLI について</a></li>
+<li><a href="https://docs.github.com/copilot/how-tos/use-copilot-agents/use-copilot-cli">Copilot CLI を使う</a></li>
+</ul></article><nav class="chapter-nav" aria-label="章の移動"><a href="0-prerequisites.html">← 前の章：演習 0: 前提条件</a><a href="2-custom-instructions.html">次の章 →：演習 2 - カスタム命令 (Copilot CLI)</a></nav></main></body></html>

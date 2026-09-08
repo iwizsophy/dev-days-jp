@@ -1,0 +1,36 @@
+@import url("../../styles.css");
+@import url("../../light-theme.css");
+body { font-family: system-ui, sans-serif; line-height: 1.85; }
+header, main { width: min(100% - 2.5rem, 960px); margin: auto; }
+header { display: flex; gap: 1rem; align-items: center; padding: 1.5rem 0; }
+header nav { display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; flex: 1; }
+main { padding-bottom: 4rem; overflow-wrap: anywhere; }
+h1 { font-size: clamp(1.7rem, 5vw, 2.5rem); line-height: 1.4; margin: 1rem 0; }
+h2 { margin: 2.5rem 0 1rem; line-height: 1.5; }
+h3, h4 { margin: 1.5rem 0 .75rem; }
+p, ul, ol, pre, table, blockquote, details { margin-bottom: 1rem; }
+ul, ol { padding-left: 1.7rem; }
+li { margin-bottom: .5rem; }
+a { color: inherit; text-decoration: underline; text-underline-offset: .2em; }
+a:focus-visible, button:focus-visible, summary:focus-visible { outline: 3px solid var(--neon-cyan); outline-offset: 4px; }
+img { max-width: 100%; height: auto; border: 1px solid var(--border-color); border-radius: 8px; }
+pre { white-space: pre-wrap; overflow-wrap: anywhere; padding: 1rem; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 8px; line-height: 1.6; }
+code, kbd { font-family: Consolas, monospace; }
+code { font-size: .95em; }
+blockquote, aside { background: var(--bg-card); border-left: 4px solid var(--neon-cyan); padding: 1rem; margin: 1rem 0; }
+blockquote p:last-child { margin-bottom: 0; }
+.source { font-size: .85rem; color: var(--text-secondary); }
+.chapter-nav { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; padding: 1rem 0; border-block: 1px solid var(--border-color); margin: 1.5rem 0; }
+table { border-collapse: collapse; width: 100%; }
+td, th { padding: .7rem; border: 1px solid var(--border-color); text-align: left; vertical-align: top; }
+summary { cursor: pointer; }
+.skip { position: absolute; left: -9999px; }
+.skip:focus { position: static; }
+.task-list-item { list-style: none; }
+@media (max-width: 600px) {
+    header { align-items: flex-start; }
+    header nav { display: block; }
+    header nav a { display: block; margin-bottom: .5rem; }
+    table { display: block; overflow-x: auto; }
+    td, th { min-width: 8rem; }
+}

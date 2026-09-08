@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow"><title>第4章：デザインからテーマを作る | Dev Days 日本語版</title>
+<link rel="stylesheet" href="../workshops.css"><script src="../../../theme-toggle.js"></script></head><body>
+<a class="skip" href="#lesson">本文へ移動</a><header><nav aria-label="資料のナビゲーション">
+<a href="../../index.html">ワークショップ一覧</a><a href="../index.html">日本語の演習目次</a>
+<a href="../../handson-guide.html#switch">UI が違うときは CLI へ</a></nav>
+<button class="theme-toggle" type="button" onclick="toggleTheme()">☀️ ライト</button></header>
+<main id="lesson"><h1>第4章：デザインからテーマを作る</h1><p class="source">非公式の日本語版 · <a href="https://github.com/copilot-dev-days/mona-mayhem/blob/d376143ca3e6c0b3c63980402deaf1c4ac0a1b19/workshop/04-design-vibes.md">参照原文</a> · <a href="../licenses/mona-mayhem.txt">MIT ライセンス</a><br>参照コミット：<code>d376143ca3e6</code> ／ 確認日：2026-09-08</p><aside>UI の名前・位置は教材作成時点のものです。操作できないときは <a href="../../handson-guide.html#switch">CLI の横道</a>を使ってください。利用条件は <a href="../../handson-guide.html#plans">最新情報の補足</a>を参照。実機での全演習の完走検証は未実施です。</aside><nav class="chapter-nav" aria-label="章の移動"><a href="03-agent-mode.html">← 前の章：第3章：エージェントでゲームを実装する</a><a href="05-polish.html">次の章 →：第5章：仕上げと並列作業</a></nav><details><summary>この章の目次</summary><div class="toc">
+<ul>
+<li><a href="#タスク1レトロなテーマを計画する">タスク1：レトロなテーマを計画する</a></li>
+<li><a href="#タスク2テーマを実装する">タスク2：テーマを実装する</a></li>
+<li><a href="#タスク3見た目を微調整する">タスク3：見た目を微調整する</a></li>
+<li><a href="#タスク4指示ファイルを更新する">タスク4：指示ファイルを更新する</a></li>
+<li><a href="#第4章の完了">✅ 第4章の完了</a></li>
+</ul>
+</div>
+</details><article><p>計画と実装の反復を使って、ページ全体のテーマを変更します。最初に目指す見た目を考え、表示を調整しながら、CSS の実装を Copilot に任せます。</p>
+<h2 id="タスク1レトロなテーマを計画する">タスク1：レトロなテーマを計画する</h2>
+<p>VS Code では Copilot Chat を <strong>Plan</strong> モードにします。CLI では <code>/plan</code> を使うか、<strong>Shift+Tab</strong> で計画モードに切り替えます。次を入力してください。</p>
+<pre class="highlight"><code class="language-text">このページを本格的なレトロアーケード風に変更したいです。次を含む見た目の全面改修を計画してください。
+背景の CRT 走査線、ネオンサインのように明滅するタイトル、グラデーションが変化する VS バッジ、
+ユーザー結果カードの光沢オーバーレイ、入力欄が浮かび上がるアニメーション、
+緑と紫に変化する読み込み中の文字、グラフの四角形をホバーしたときの発光を含めてください。
+暗い背景 #0a0a1a と、緑 #5fed83・紫 #8a2be2 のアクセントを維持してください。
+Google Fonts の Press Start 2P を使うダークテーマにしてください。</code></pre>
+<p>提案された計画をすぐに採用せず、効果の内容を確認します。</p>
+<ul>
+<li>「ネオンの明滅を約3秒のゆっくりした周期にしてください」のように時間を調整する。</li>
+<li>「カードの光沢オーバーレイはどう動きますか？」と具体的な効果を質問する。</li>
+<li>違和感がある部分は方法を変更してもらう。</li>
+</ul>
+<h2 id="タスク2テーマを実装する">タスク2：テーマを実装する</h2>
+<p>計画に納得したら依頼します。</p>
+<pre class="highlight"><code class="language-text">今確認したレトロアーケードのテーマ計画を実装してください。</code></pre>
+<p>スタイルシートには、次のような変更が入る可能性があります。</p>
+<ul>
+<li>走査線、ネオンの明滅、光沢、浮き上がり用の <code>@keyframes</code></li>
+<li>オーバーレイ用の <code>::before</code> / <code>::after</code></li>
+<li>テーマ色を管理する CSS カスタムプロパティ</li>
+<li>操作要素のトランジションとホバー状態</li>
+</ul>
+<p>CLI では <code>/diff</code> でスタイルの変更を確認してから採用します。</p>
+<h2 id="タスク3見た目を微調整する">タスク3：見た目を微調整する</h2>
+<p>表示が更新されない場合は、開発サーバーを <code>Ctrl+C</code> で停止して <code>npm run dev</code> で再起動し、ブラウザーを <code>Ctrl+Shift+R</code> で再読み込みします。</p>
+<p>プレビューを開いたまま、次のような指示を試します。</p>
+<ul>
+<li>「走査線が強すぎるので、不透明度を 0.03 にしてください」</li>
+<li>「タイトルに、電気がちらつくような控えめな効果を追加してください」</li>
+<li>「VS バッジのパルスをもっとはっきりさせてください」</li>
+</ul>
+<p>実際の見た目を確かめながら、アーケード筐体に合う雰囲気になるまで調整します。</p>
+<h2 id="タスク4指示ファイルを更新する">タスク4：指示ファイルを更新する</h2>
+<p>大きなデザイン上の決定を指示ファイルに残し、次のリクエストでも方針を共有できるようにします。</p>
+<p><strong>VS Code のプロンプト：</strong></p>
+<pre class="highlight"><code class="language-text">copilot-instructions.md にデザインガイドの節を追加し、レトロアーケードの配色、フォント、アニメーションの方針を記載してください。</code></pre>
+<p><strong>CLI のプロンプト：</strong></p>
+<pre class="highlight"><code class="language-text">リポジトリの指示に、レトロアーケードの短いデザインガイドを追加してください。
+配色、フォント、アニメーションの方針と、新しい UI でもネオンの見た目を維持するルールを含めてください。</code></pre>
+<p>見た目を確認できたら、指示ファイルとデザインの変更を commit します。</p>
+<h2 id="第4章の完了">✅ 第4章の完了</h2>
+<ul>
+<li>実装前にデザインの方針を計画した。</li>
+<li>短い追加指示で見た目を調整した。</li>
+<li>大きな決定を指示に残し、デザインを一貫させた。</li>
+</ul></article><nav class="chapter-nav" aria-label="章の移動"><a href="03-agent-mode.html">← 前の章：第3章：エージェントでゲームを実装する</a><a href="05-polish.html">次の章 →：第5章：仕上げと並列作業</a></nav></main></body></html>

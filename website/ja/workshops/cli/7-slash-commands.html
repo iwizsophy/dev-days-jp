@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow"><title>演習 7 - GitHub Copilot CLI のスラッシュ コマンド | Dev Days 日本語版</title>
+<link rel="stylesheet" href="../workshops.css"><script src="../../../theme-toggle.js"></script></head><body>
+<a class="skip" href="#lesson">本文へ移動</a><header><nav aria-label="資料のナビゲーション">
+<a href="../../index.html">ワークショップ一覧</a><a href="../index.html">日本語の演習目次</a>
+<a href="../../handson-guide.html#switch">UI が違うときは CLI へ</a></nav>
+<button class="theme-toggle" type="button" onclick="toggleTheme()">☀️ ライト</button></header>
+<main id="lesson"><h1>演習 7 - GitHub Copilot CLI のスラッシュ コマンド</h1><p class="source">非公式の日本語版 · <a href="https://github.com/github-samples/copilot-workshops/blob/7ddcf241c1cd10b8e90c0df96f6bef81e710392a/docs/ja-jp/cli/7-slash-commands.md">参照原文</a> · <a href="../licenses/copilot-workshops.txt">MIT ライセンス</a><br>参照コミット：<code>7ddcf241c1cd</code> ／ 確認日：2026-09-08</p><aside>UI の名前・位置は教材作成時点のものです。操作できないときは <a href="../../handson-guide.html#switch">CLI の横道</a>を使ってください。利用条件は <a href="../../handson-guide.html#plans">最新情報の補足</a>を参照。実機での全演習の完走検証は未実施です。</aside><aside>このコースの <code>--yolo</code> を含む手順は、演習専用 Codespace / dev container を前提とする原文の手順です。App の途中からローカルで切り替える場合は、上の「CLI の横道」の通常対話手順を使ってください。</aside><nav class="chapter-nav" aria-label="章の移動"><a href="6-custom-agents.html">← 前の章：演習 6 - GitHub Copilot CLI のカスタム エージェント</a><a href="8-review.html">次の章 →：演習 8 - 振り返りと次のステップ</a></nav><details><summary>この章の目次</summary><div class="toc">
+<ul>
+<li><a href="#シナリオ">シナリオ</a></li>
+<li><a href="#セッションを共有する">セッションを共有する</a></li>
+<li><a href="#copilot-cli-のコンテキストを確認する">Copilot CLI のコンテキストを確認する</a><ul>
+<li><a href="#コンテキストに関するベスト-プラクティス">コンテキストに関するベスト プラクティス</a></li>
+</ul>
+</li>
+<li><a href="#モデルを選択する">モデルを選択する</a></li>
+<li><a href="#cloud-agent-に委任する任意">cloud agent に委任する（任意）</a></li>
+<li><a href="#まとめと次のステップ">まとめと次のステップ</a></li>
+<li><a href="#リソース">リソース</a></li>
+</ul>
+</div>
+</details><article><p>優れた CLI ツールと同様に、GitHub Copilot CLI には多くの slash command が用意されています。これらのコマンドは、高度な機能、「内部で何が起きているか」に関する情報、追加の設定オプションを提供します。すでに <code>/clear</code> でコンテキストのクリアを、<code>/mcp</code> で MCP server の確認を行いました。ここでは、<code>/context</code>、<code>/model</code>、<code>/share</code>、<code>/delegate</code> など、ほかの強力なコマンドを確認します。</p>
+<h2 id="シナリオ">シナリオ</h2>
+<p>中核となる CLI フローは完了しました。ここからは追加機能として、セッションの共有、モデルの切り替え、<a href="https://docs.github.com/copilot/concepts/agents/cloud-agent/about-cloud-agent">Copilot cloud agent</a> へのタスク委任を見ていきます。</p>
+<p>この演習では次を使用します。</p>
+<ul>
+<li><code>/share</code> で GitHub gist を作成し、チームとセッションを共有する。</li>
+<li><code>/context</code> で、Copilot CLI が現在使用しているコンテキストを確認する。</li>
+<li><code>/model</code> で利用可能なモデルの一覧を確認し、必要に応じて別のモデルを選択する。</li>
+<li><code>/delegate</code> で、必要に応じてタスクを cloud agent に引き渡す。これには cloud agent が必要で、Copilot Student、Pro、Pro+、Business、Enterprise で利用できます。つまり Copilot Free を除くすべてのプランで利用可能です。</li>
+</ul>
+<h2 id="セッションを共有する">セッションを共有する</h2>
+<p>AI ツールを含め、どのツールでも使いこなすにはスキルが必要です。チームで協力し、学びを共有し合うことが、全員の体験を改善し、より質の高いコードを生み出す最善の方法です。そのために、Copilot CLI には <code>/share</code> コマンドがあります。<code>/share</code> コマンドは、使用した prompt や Copilot がたどったロジックを含むセッションの詳細を、markdown ファイルまたは GitHub gist として生成できます。</p>
+<p>チームと共有できる GitHub gist を作成してみましょう。</p>
+<blockquote>
+<p><strong>補足</strong>
+<strong>共有せず保存する横道</strong>: 外部に会話を共有しない場合は、後述の <code>/share gist</code> の代わりに <code>/share file /tmp/dev-days-cli-session.md</code> を使い、Codespace 内に保存した Markdown を確認します。ローカル PC では自分の保存先に変更してください。CLI 1.0.83 の <code>/share</code> 単独実行は、ログイン・同期済みの場合に GitHub の共有リンクを作成します。共有を止めるコマンドは <code>/share off</code> です。保存形式を明示して実行してください。<a href="https://docs.github.com/ja/copilot/how-tos/copilot-cli/use-copilot-cli/chronicle">公式のセッション保存手順</a>も参照できます。</p>
+<p><strong>ヒント</strong>
+<strong>Copilot CLI セッションを開始する</strong></p>
+<p>以下の演習を始める前に、codespace に戻ってターミナルを開きます（まだ開いていない場合は <kbd>Ctrl</kbd>+<kbd>`</kbd>）。次に、<code>--yolo</code> と <code>--enable-all-github-mcp-tools</code> を付けて Copilot CLI を起動します。</p>
+<pre class="highlight"><code class="language-bash">copilot --yolo --enable-all-github-mcp-tools</code></pre>
+<p>新しく開始する代わりに、このプロジェクトの直近のセッションを引き継ぐには <code>copilot --yolo --enable-all-github-mcp-tools --continue</code> を実行します。前の演習から Copilot CLI がすでに実行中であれば、<code>/clear</code> を送ってクリーンな会話を開始してください。</p>
+<p><code>--enable-all-github-mcp-tools</code> を付けると、現在のセッションで GitHub MCP の読み取り / 書き込みツールが有効になります。これにより、ワークショップの流れの中で Copilot がバックログを読み取り、pull request を開けるようになります。</p>
+<p><strong>注意</strong>
+<code>--yolo</code> は完全な自動権限（<code>--allow-all-tools</code>、<code>--allow-all-paths</code>、<code>--allow-all-urls</code>）を有効にします。Codespace や VM のような分離された環境でのみ使用し、日常的な開発の既定値として alias しないでください。詳しくは <a href="https://docs.github.com/copilot/how-tos/copilot-cli/use-copilot-cli/allowing-tools">Allowing and denying tool use</a> を参照してください。</p>
+</blockquote>
+<ol>
+<li>
+<p>Copilot CLI のプロンプト ウィンドウで、次のコマンドを送信します。</p>
+<pre class="highlight"><code>/share gist</code></pre>
+</li>
+<li>
+<p>少し待つと、Copilot が gist を作成し、リンクを表示します。</p>
+</li>
+<li>リンクの文字列をコピーします。</li>
+<li>新しいブラウザー タブでそのリンクを貼り付け、gist を確認します。送信した prompt、使用した skill と agent、Copilot の思考過程、さらにローカルで実行したコマンドのコードと結果まで記録されていることに注目してください。</li>
+</ol>
+<p><code>/share</code> が生成する gist と markdown ファイルは、コードがどのように生成されたかを文書化したり、望ましい結果を得るためにどのような操作を行ったかをチームと共有したりする用途に使えます。</p>
+<h2 id="copilot-cli-のコンテキストを確認する">Copilot CLI のコンテキストを確認する</h2>
+<p>より大きなタスクや複雑なタスクに取り組むと、モデルの最大 context window に近づくことがあります。window の正確なサイズは、使用しているモデルや Copilot CLI のバージョンによって異なります。context window が上限に達すると、Copilot CLI は自動的に compact を実行し、情報を要約して、現在のタスクに不要と判断した内容を取り除きます。slash command を使えば、現在のコンテキストの状態を確認することも、手動で compact することもできます。では、context window を見てみましょう。</p>
+<ol>
+<li>
+<p>Copilot CLI のプロンプト ウィンドウで、次のコマンドを送信します。</p>
+<pre class="highlight"><code>/context</code></pre>
+</li>
+<li>
+<p>少し待つと、Copilot CLI が現在のコンテキストを視覚的に表現した表示を生成します。</p>
+<p><img alt="Copilot CLI の context window のスクリーンショット" src="../assets/cli-7-context-window.png" /></p>
+</li>
+<li>
+<p>表示されているモデル名（画像と異なる場合があります）と、現在使用されている token の割合を確認します。その他の情報では、次の内容が示されています。</p>
+<table>
+<thead>
+<tr>
+<th>Title</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>System/Tools</td>
+<td>instruction file、ファイル内容、tool 定義</td>
+</tr>
+<tr>
+<td>Messages</td>
+<td>自分と Copilot の会話履歴</td>
+</tr>
+<tr>
+<td>Buffer</td>
+<td>Copilot CLI が応答生成のために確保している予約領域</td>
+</tr>
+<tr>
+<td>Free space</td>
+<td>残りの空き領域</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>次の slash command を Copilot CLI に送信し、会話履歴を compact します。</p>
+<pre class="highlight"><code>/compact</code></pre>
+</li>
+<li>
+<p>完了したら、次のコマンドを送信して現在のコンテキスト統計をもう一度表示します。</p>
+<pre class="highlight"><code>/context</code></pre>
+</li>
+<li>
+<p>コンテキストの変化を確認します。現時点では context window がまだ比較的小さいため、大きな変化は見られないかもしれません。</p>
+</li>
+</ol>
+<blockquote>
+<p><strong>補足</strong>
+Copilot CLI は、コンテキストがいっぱいになると自動的に compact を実行します。容量が 100% に近づくと、その割合がプロンプト ウィンドウの上に表示されます。通常は非同期に compact を実行するため、処理中でも Copilot との対話を続けられます。ただし、処理中の操作が数秒間ブロックされる場合があります。</p>
+</blockquote>
+<h3 id="コンテキストに関するベスト-プラクティス">コンテキストに関するベスト プラクティス</h3>
+<p>ほとんどのセッションでは、Copilot 自身が効率的にコンテキストを管理するため、特別な指示は必要ありません。ただし、状況によっては履歴を手動でクリアまたは compact したいことがあります。</p>
+<ul>
+<li>アプリケーションの別の部分や、無関係なタスクに切り替える場合は、古い無関係なコンテキストで Copilot を混乱させないよう <code>/clear</code> を使って新しい会話を始められます。</li>
+<li>最大 context window に近づいている場合は、<code>/compact</code> を手動で実行して、そのタイミングを制御できます。</li>
+</ul>
+<blockquote>
+<p><strong>注意</strong>
+繰り返しになりますが、ほとんどの場合は Copilot が直接操作なしでコンテキストを管理します。古い情報のせいで少し混乱しているように見えるときや、これから無関係なタスクに切り替えるときに、手動コマンドの利用を検討してください。</p>
+</blockquote>
+<h2 id="モデルを選択する">モデルを選択する</h2>
+<p>モデルにはそれぞれ異なる強みがあり、開発者によって好みも異なります。Copilot CLI では、使用したいモデルの一覧表示と選択ができます。</p>
+<ol>
+<li>
+<p>次の slash command を Copilot CLI に送信し、モデル一覧を表示します。</p>
+<pre class="highlight"><code>/model</code></pre>
+</li>
+<li>
+<p>モデルの一覧を確認します。表示項目はバージョンで異なります。CLI 1.0.83 ではモデル名、コンテキスト容量、推論設定が表示されました。料金倍率が必ず表示されるとは限りません。</p>
+</li>
+<li>必要であれば新しいモデルを選択します。終了したい場合は <kbd>Esc</kbd> を押します。</li>
+</ol>
+<blockquote>
+<p><strong>注意</strong>
+CLI 1.0.83 の <code>/model</code> は現在のセッションだけに適用され、将来の既定値は <code>/config model</code> で設定する案内が表示されます。この演習では一覧を確認し、変更が不要なら Esc で閉じます。既定値を不用意に変更しないでください。</p>
+</blockquote>
+<h2 id="cloud-agent-に委任する任意">cloud agent に委任する（任意）</h2>
+<p>ターミナルで作業を続けながら、時間のかかるタスクは Copilot cloud agent に任せたい場面があります。<code>/delegate</code> コマンドを使うと、現在の Copilot CLI セッションを GitHub.com に送信できます。cloud agent がそのセッションを引き継ぎ、非同期で作業し、完了すると pull request を開きます。</p>
+<blockquote>
+<p><strong>補足</strong>
+<code>/delegate</code> には cloud agent が必要です。これは Copilot Student、Pro、Pro+、Business、Enterprise で利用でき、Copilot Free では利用できません。アクセスできない場合は、このセクションを読んでからハンズオン手順はスキップしてください。</p>
+</blockquote>
+<ol>
+<li>
+<p>ワークショップ全体のコンテキストがまとめて委任されないよう、まず現在のセッションをクリアします。</p>
+<pre class="highlight"><code>/clear</code></pre>
+</li>
+<li>
+<p>小さく、スコープが明確な prompt を送信します。たとえば、バックログにある stretch goal のページネーションを委任できます。</p>
+<pre class="highlight"><code>ゲーム一覧を1ページあたり固定件数で表示し、Previous と Next で移動するページネーションを実装して、テストを追加してください。</code></pre>
+</li>
+<li>
+<p>次の slash command を送信して、セッションを cloud agent に引き渡します。続いて、委任したい prompt を確認します。</p>
+<pre class="highlight"><code>/delegate</code></pre>
+</li>
+<li>
+<p>ブラウザーで <a href="https://github.com/copilot/agents">Copilot agents</a> を開き、進捗を確認します。</p>
+</li>
+<li>この harness では、pull request が完了するまで待つ必要はありません。後で戻って確認できます。非同期 agent 作業の管理をより深く知りたい場合は、<a href="https://github-samples.github.io/copilot-workshops/cloud/">Cloud agent ハーネス</a> に進んでください。</li>
+</ol>
+<h2 id="まとめと次のステップ">まとめと次のステップ</h2>
+<p>Copilot CLI の slash command を使うと、設定の変更、セッションの共有、Copilot の内部状態に関する情報の取得ができます。このレッスンでは、次の機能を使ったり確認したりしました。</p>
+<ul>
+<li><code>/share</code> で GitHub gist を作成し、チームとセッションを共有する。</li>
+<li><code>/context</code> で、Copilot CLI が現在使用しているコンテキストを確認する。</li>
+<li><code>/model</code> で利用可能なモデルの一覧を確認し、必要に応じて別のモデルを選択する。</li>
+<li><code>/delegate</code> が cloud agent への任意の橋渡しになることを学ぶ。</li>
+</ul>
+<p>利用できる slash command はもちろんこれ以外にもあり、Copilot CLI にはまだ多くの機能があります。最後に、<a href="8-review.html">ここまでに学んだことを振り返り</a>、学習を続けるための次のステップを確認して締めくくりましょう。</p>
+<h2 id="リソース">リソース</h2>
+<ul>
+<li><a href="https://docs.github.com/copilot/how-tos/use-copilot-agents/use-copilot-cli">Copilot CLI を使う</a></li>
+<li><a href="https://docs.github.com/copilot/concepts/agents/about-copilot-cli">Copilot CLI について</a></li>
+<li><a href="https://docs.github.com/copilot/how-tos/use-copilot-agents/use-copilot-cli#context-management">Copilot CLI のコンテキスト管理</a></li>
+<li><a href="https://docs.github.com/copilot/how-tos/use-copilot-agents/use-copilot-cli#share-sessions">Copilot CLI でセッションを共有する</a></li>
+<li><a href="https://docs.github.com/copilot/how-tos/use-copilot-agents/use-copilot-cli#select-an-llm">Copilot CLI でモデルを選択する</a></li>
+</ul></article><nav class="chapter-nav" aria-label="章の移動"><a href="6-custom-agents.html">← 前の章：演習 6 - GitHub Copilot CLI のカスタム エージェント</a><a href="8-review.html">次の章 →：演習 8 - 振り返りと次のステップ</a></nav></main></body></html>

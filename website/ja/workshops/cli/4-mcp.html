@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow"><title>演習 4 - Playwright MCP サーバーで機能をテストする | Dev Days 日本語版</title>
+<link rel="stylesheet" href="../workshops.css"><script src="../../../theme-toggle.js"></script></head><body>
+<a class="skip" href="#lesson">本文へ移動</a><header><nav aria-label="資料のナビゲーション">
+<a href="../../index.html">ワークショップ一覧</a><a href="../index.html">日本語の演習目次</a>
+<a href="../../handson-guide.html#switch">UI が違うときは CLI へ</a></nav>
+<button class="theme-toggle" type="button" onclick="toggleTheme()">☀️ ライト</button></header>
+<main id="lesson"><h1>演習 4 - Playwright MCP サーバーで機能をテストする</h1><p class="source">非公式の日本語版 · <a href="https://github.com/github-samples/copilot-workshops/blob/7ddcf241c1cd10b8e90c0df96f6bef81e710392a/docs/ja-jp/cli/4-mcp.md">参照原文</a> · <a href="../licenses/copilot-workshops.txt">MIT ライセンス</a><br>参照コミット：<code>7ddcf241c1cd</code> ／ 確認日：2026-09-08</p><aside>UI の名前・位置は教材作成時点のものです。操作できないときは <a href="../../handson-guide.html#switch">CLI の横道</a>を使ってください。利用条件は <a href="../../handson-guide.html#plans">最新情報の補足</a>を参照。実機での全演習の完走検証は未実施です。</aside><aside>このコースの <code>--yolo</code> を含む手順は、演習専用 Codespace / dev container を前提とする原文の手順です。App の途中からローカルで切り替える場合は、上の「CLI の横道」の通常対話手順を使ってください。</aside><nav class="chapter-nav" aria-label="章の移動"><a href="3-generating-code.html">← 前の章：演習 3 - GitHub Copilot CLI でプロジェクト機能を追加する</a><a href="5-agent-skills.html">次の章 →：演習 5 - エージェント スキルを使う</a></nav><details><summary>この章の目次</summary><div class="toc">
+<ul>
+<li><a href="#model-context-protocol-mcp-とは">Model Context Protocol (MCP) とは</a></li>
+<li><a href="#playwright-mcp-server-を追加する">Playwright MCP server を追加する</a></li>
+<li><a href="#web-サイトを起動する">Web サイトを起動する</a></li>
+<li><a href="#フィルタリング機能をテストする">フィルタリング機能をテストする</a></li>
+<li><a href="#まとめと次のステップ">まとめと次のステップ</a></li>
+<li><a href="#リソース">リソース</a></li>
+</ul>
+</div>
+</details><article><p>Copilot CLI でフィルタリング機能を生成したので、pull request を開く前に、ブラウザーで正しく動作することを確認する必要があります。自分でアプリを操作して確認する代わりに、<strong>Playwright MCP server</strong> を接続し、Copilot に実際のブラウザーを操作させて機能をテストしてもらいます。</p>
+<p>この演習では、次のことを行います。</p>
+<ul>
+<li>Model Context Protocol（MCP）とは何か、そして MCP server がどのように Copilot CLI を拡張するかを理解する。</li>
+<li>Playwright MCP server を Copilot CLI に追加する。</li>
+<li>ブラウザーでフィルタリング機能を手動テストするよう Copilot に依頼する。</li>
+</ul>
+<h2 id="model-context-protocol-mcp-とは">Model Context Protocol (MCP) とは</h2>
+<p><a href="https://github.blog/ai-and-ml/llms/what-the-heck-is-mcp-and-why-is-everyone-talking-about-it/">Model Context Protocol (MCP)</a> は、AI agent が外部ツールやサービスと通信するための方法を提供します。MCP を使用すると、AI agent は外部ツールやサービスとリアルタイムでやり取りできます。これにより、最新情報にアクセスし（resources を利用）、代わりに操作を実行できます（tools を利用）。</p>
+<p>これらの tool や resource には、MCP server を通じてアクセスします。MCP server は AI agent と外部ツールやサービスの間をつなぐブリッジとして機能します。MCP server は、AI agent と外部ツール（既存の API や NPM package のようなローカル ツールなど）の通信を管理します。各 MCP server は、AI agent がアクセスできる別々の tool と resource のセットを表します。</p>
+<p>すでに広く使われている MCP server として、次のようなものがあります。</p>
+<ul>
+<li><strong><a href="https://github.com/github/github-mcp-server">GitHub MCP Server</a></strong>: GitHub リポジトリを管理するための API セットにアクセスできます。新しいリポジトリの作成、既存リポジトリの更新、issue や pull request の管理などを AI agent が実行できます。</li>
+<li><strong><a href="https://github.com/microsoft/playwright-mcp">Playwright MCP Server</a></strong>: Playwright を使ったブラウザー自動化機能を提供します。Web ページへの移動、フォーム入力、ボタン選択などを AI agent が実行できます。</li>
+</ul>
+<p>ほかにも、さまざまな tool や resource へのアクセスを提供する MCP server が多数あります。GitHub は、エコシステムの発見性とコントリビューションを高めるために <a href="https://github.com/mcp">MCP registry</a> を公開しています。</p>
+<blockquote>
+<p><strong>注意</strong>
+セキュリティの観点では、MCP server はプロジェクト内のほかの依存関係と同じように扱ってください。MCP server を使用する前に、ソース コードを慎重に確認し、公開元を検証し、セキュリティ上の影響を検討してください。信頼できる MCP server のみを使用し、機密性の高い resource や操作へのアクセスを与える際は慎重に判断してください。</p>
+<p><strong>補足</strong>
+<a href="https://github.com/github/github-mcp-server">GitHub MCP server</a> は Copilot CLI に<strong>組み込まれています</strong>。そのため、追加設定なしで利用でき、ワークショップ全体を通して Copilot がリポジトリを読み書きできていたのはこの server によるものです。この演習では、Copilot にブラウザーを与えるために 2 つ目の server として Playwright を追加します。</p>
+</blockquote>
+<h2 id="playwright-mcp-server-を追加する">Playwright MCP server を追加する</h2>
+<p>server を追加する最も手早い方法は、対話式の <code>/mcp add</code> コマンドです。ここでは、Copilot が制御できるブラウザーを提供する <a href="https://github.com/microsoft/playwright-mcp">Playwright MCP server</a> を登録します。</p>
+<blockquote>
+<p><strong>ヒント</strong>
+<strong>Copilot CLI セッションを開始する</strong></p>
+<p>以下の演習を始める前に、codespace に戻ってターミナルを開きます（まだ開いていない場合は <kbd>Ctrl</kbd>+<kbd>`</kbd>）。次に、<code>--yolo</code> と <code>--enable-all-github-mcp-tools</code> を付けて Copilot CLI を起動します。</p>
+<pre class="highlight"><code class="language-bash">copilot --yolo --enable-all-github-mcp-tools</code></pre>
+<p>新しく開始する代わりに、このプロジェクトの直近のセッションを引き継ぐには <code>copilot --yolo --enable-all-github-mcp-tools --continue</code> を実行します。前の演習から Copilot CLI がすでに実行中であれば、<code>/clear</code> を送ってクリーンな会話を開始してください。</p>
+<p><code>--enable-all-github-mcp-tools</code> を付けると、現在のセッションで GitHub MCP の読み取り / 書き込みツールが有効になります。これにより、ワークショップの流れの中で Copilot がバックログを読み取り、pull request を開けるようになります。</p>
+<p><strong>注意</strong>
+<code>--yolo</code> は完全な自動権限（<code>--allow-all-tools</code>、<code>--allow-all-paths</code>、<code>--allow-all-urls</code>）を有効にします。Codespace や VM のような分離された環境でのみ使用し、日常的な開発の既定値として alias しないでください。詳しくは <a href="https://docs.github.com/copilot/how-tos/copilot-cli/use-copilot-cli/allowing-tools">Allowing and denying tool use</a> を参照してください。</p>
+</blockquote>
+<ol>
+<li>
+<p>Copilot CLI セッションで、次を入力します。</p>
+<pre class="highlight"><code class="language-text">/mcp add</code></pre>
+</li>
+<li>
+<p>設定フォームが表示されます。<kbd>Tab</kbd> でフィールド間を移動し、次のように入力します。</p>
+<ul>
+<li><strong>Server Name</strong>: <code>playwright</code></li>
+<li><strong>Server Type</strong>: <strong>Local</strong>（<strong>STDIO</strong> とも表示されます）を選択する</li>
+<li><strong>Command</strong>: <code>npx @playwright/mcp@latest --headless</code></li>
+<li><strong>Tools</strong>: server のすべての tool を許可するため、<code>*</code> のままにする</li>
+</ul>
+</li>
+<li>
+<p><kbd>Ctrl</kbd>+<kbd>S</kbd> を押して保存します。server は追加され、再起動なしですぐに利用できます。</p>
+</li>
+</ol>
+<p><code>--headless</code> フラグを付けると、Playwright は表示ウィンドウなしでブラウザーを実行します。デスクトップ表示のない codespace 内ではこれが必要です。内部的には、server が <code>~/.copilot/mcp-config.json</code> に書き込まれます。</p>
+<pre class="highlight"><code class="language-json">{
+  "mcpServers": {
+    "playwright": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["@playwright/mcp@latest", "--headless"],
+      "tools": ["*"]
+    }
+  }
+}</code></pre>
+<ol start="4">
+<li>
+<p>MCP server の一覧を表示して、server が登録済みでアクティブであることを確認します。</p>
+<pre class="highlight"><code class="language-text">/mcp show</code></pre>
+</li>
+<li>
+<p>組み込みの <code>github</code> server と並んで <code>playwright</code> が表示されるはずです。</p>
+</li>
+</ol>
+<blockquote>
+<p><strong>補足</strong>
+<strong>E2E 用ブラウザーと MCP 用ブラウザーは別に確認する</strong>: Tailspin Toys の E2E 用 Chromium が導入済みでも、MCP が既定で使う Chrome が未導入のことがあります。実機検証では <code>Chromium distribution 'chrome' is not found</code> が発生しました。このエラーの場合は Codespace のシェルで <code>npx playwright install chrome</code> を実行してから MCP の操作を再試行します。<code>npx playwright install chromium</code> の再実行では、この Chrome 不足は解消しません。ほかのブラウザー名が出た場合は、MCP の起動設定とエラーメッセージを確認してください。</p>
+</blockquote>
+<h2 id="web-サイトを起動する">Web サイトを起動する</h2>
+<blockquote>
+<p><strong>補足</strong>
+<strong>Codespace で Chrome の sandbox / namespace エラーが出る場合</strong>: 分離された演習用 Codespace 内でローカルの演習サイトだけを検証するときは、Playwright の起動コマンドを <code>npx @playwright/mcp@latest --headless --no-sandbox --isolated</code> に変更し、Copilot CLI を再起動すると復旧できる場合があります。2026年9月8日の実機検証ではこの設定で MCP 接続を確認しました。<code>--no-sandbox</code> はブラウザーのサンドボックスを無効にするため、普段使いの PC や外部サイト閲覧の既定設定にはしません。設定できない場合は通常の Playwright または手動ブラウザーで機能を確認し、MCP 接続演習は未実施として記録します。</p>
+</blockquote>
+<p>Playwright MCP server がテストを実行するには、対象となるアプリが起動している必要があります。Copilot CLI で作業している間も実行し続けられるよう、<strong>別の</strong>ターミナルで Astro の dev server を起動します。</p>
+<ol>
+<li>codespace のターミナルパネルで <strong>+</strong>（新しいターミナル）を選択します。<kbd>Ctrl</kbd>+<kbd>`</kbd> はパネルの表示切り替えなので、新しいターミナルを作る操作とは異なります。Copilot を実行中のターミナルは残してください。</li>
+<li>
+<p>Web サイトを起動します。</p>
+<pre class="highlight"><code class="language-bash">npm run dev</code></pre>
+</li>
+<li>
+<p>このターミナルはそのまま動かしておきます。<code>Astro server: http://localhost:4321</code> の表示が出たら、アプリの準備は完了です。</p>
+</li>
+</ol>
+<h2 id="フィルタリング機能をテストする">フィルタリング機能をテストする</h2>
+<p>Copilot CLI セッションに戻り、Copilot に機能をテストするよう依頼します。</p>
+<p><a href="https://github.com/microsoft/playwright-mcp">Playwright MCP server</a> は、Copilot に実際のブラウザーを操作させます。自分でアプリを操作して確認する代わりに、agent がページを開き、移動し、filter を適用し、その結果を読み取って要約できます。会話を離れずに、機能が期待どおりに動作することを確認する最も速い方法です。</p>
+<p>内部的には、Playwright MCP server はスクリーンショットではなく、ページの <a href="https://github.com/microsoft/playwright-mcp">accessibility tree</a> を基に動作します。つまり、agent はボタン、リンク、リスト項目などの構造化されラベル付けされた要素を、支援技術と同じように扱います。そのため、簡単な機能確認が、軽いアクセシビリティの健全性チェックも兼ねることになります。</p>
+<p>server を接続し、アプリを起動したら、次のように Copilot に依頼して、先ほど実装したフィルタリング機能を試してもらいます。</p>
+<pre class="highlight"><code class="language-text">Playwright MCP server を使い、http://localhost:4321 で動作中のアプリをブラウザーで開いて、新しいゲームのフィルタリングを検証してください。
+
+1. ゲームページを開き、表示件数を記録する。
+2. カテゴリで絞り込み、そのカテゴリのゲームだけに一覧が更新されることを確認する。
+3. 条件を解除して publisher で絞り込み、その publisher の一覧に更新されることを確認する。
+4. カテゴリと publisher を組み合わせ、両方の条件に合う結果になることを確認する。
+
+各手順で観察した結果と、期待どおりに動かなかった点を報告してください。</code></pre>
+<p>Copilot は Playwright MCP server 経由でブラウザーを起動し、各ステップを実行して、確認結果を報告します。その要約を issue の受け入れ条件と照らし合わせて読み、違和感があれば、追跡質問をしたり、pull request を開く前にコード修正を依頼したりしてください。</p>
+<blockquote>
+<p><strong>補足</strong>
+このテストでは、アプリが <code>http://localhost:4321</code> で動作している必要があります。dev server を停止していた場合は、プロンプトを送る前に再起動してください。Copilot が初めて Playwright MCP server を使う際には、ブラウザーのダウンロードが必要になることがあります。ブラウザーが見つからないと報告された場合は、<code>npx playwright install chromium</code> を実行して再試行してください。</p>
+</blockquote>
+<h2 id="まとめと次のステップ">まとめと次のステップ</h2>
+<p>おめでとうございます。Playwright MCP server を使って、Copilot CLI で機能を手動テストできました。要点を振り返ると、次のことを行いました。</p>
+<ul>
+<li>Model Context Protocol（MCP）とは何か、そして MCP server がどのように Copilot CLI を拡張するかを学ぶ。</li>
+<li><code>/mcp add</code> で Playwright MCP server を追加する。</li>
+<li>Copilot にブラウザー操作を任せ、出荷前にフィルタリング機能を検証する。</li>
+</ul>
+<p>機能が正しく動作することを確認できたので、次の演習に進み、<a href="5-agent-skills.html">agent skill の助けを借りて pull request を開く</a> ことができます。</p>
+<h2 id="リソース">リソース</h2>
+<ul>
+<li><a href="https://github.blog/ai-and-ml/llms/what-the-heck-is-mcp-and-why-is-everyone-talking-about-it/">MCP とは何か、なぜいま注目されているのか</a></li>
+<li><a href="https://github.com/microsoft/playwright-mcp">Microsoft Playwright MCP Server</a></li>
+<li><a href="https://docs.github.com/copilot/how-tos/copilot-cli/customize-copilot/add-mcp-servers">Copilot CLI に MCP server を追加する</a></li>
+<li><a href="https://github.com/github/github-mcp-server">GitHub MCP Server</a></li>
+</ul></article><nav class="chapter-nav" aria-label="章の移動"><a href="3-generating-code.html">← 前の章：演習 3 - GitHub Copilot CLI でプロジェクト機能を追加する</a><a href="5-agent-skills.html">次の章 →：演習 5 - エージェント スキルを使う</a></nav></main></body></html>

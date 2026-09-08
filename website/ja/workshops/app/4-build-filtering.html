@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow"><title>レッスン 4 - Autopilot による機能の構築 | Dev Days 日本語版</title>
+<link rel="stylesheet" href="../workshops.css"><script src="../../../theme-toggle.js"></script></head><body>
+<a class="skip" href="#lesson">本文へ移動</a><header><nav aria-label="資料のナビゲーション">
+<a href="../../index.html">ワークショップ一覧</a><a href="../index.html">日本語の演習目次</a>
+<a href="../../handson-guide.html#switch">UI が違うときは CLI へ</a></nav>
+<button class="theme-toggle" type="button" onclick="toggleTheme()">☀️ ライト</button></header>
+<main id="lesson"><h1>レッスン 4 - Autopilot による機能の構築</h1><p class="source">非公式の日本語版 · <a href="https://github.com/github-samples/copilot-workshops/blob/7ddcf241c1cd10b8e90c0df96f6bef81e710392a/docs/ja-jp/app/4-build-filtering.md">参照原文</a> · <a href="../licenses/copilot-workshops.txt">MIT ライセンス</a><br>参照コミット：<code>7ddcf241c1cd</code> ／ 確認日：2026-09-08</p><aside>UI の名前・位置は教材作成時点のものです。操作できないときは <a href="../../handson-guide.html#switch">CLI の横道</a>を使ってください。利用条件は <a href="../../handson-guide.html#plans">最新情報の補足</a>を参照。実機での全演習の完走検証は未実施です。</aside><nav class="chapter-nav" aria-label="章の移動"><a href="3-custom-instructions.html">← 前の章：レッスン 3 - カスタム指示による Copilot のガイド</a><a href="5-mcp-playwright.html">次の章 →：レッスン 5 - Playwright MCP server によるテスト</a></nav><details><summary>この章の目次</summary><div class="toc">
+<ul>
+<li><a href="#シナリオ">シナリオ</a></li>
+<li><a href="#背景">背景</a></li>
+<li><a href="#セッションモード">セッションモード</a></li>
+<li><a href="#フィルター機能を計画する">フィルター機能を計画する</a></li>
+<li><a href="#autopilot-で構築する">Autopilot で構築する</a></li>
+<li><a href="#変更をレビューする">変更をレビューする</a></li>
+<li><a href="#quality-checks-スキルで作業を検証する">quality-checks スキルで作業を検証する</a></li>
+<li><a href="#quality-checks-スキルを確認する">quality-checks スキルを確認する</a></li>
+<li><a href="#チェックを実行する">チェックを実行する</a></li>
+<li><a href="#まとめと次のステップ">まとめと次のステップ</a></li>
+<li><a href="#リソース">リソース</a></li>
+</ul>
+</div>
+</details><article><p>ここまで、プロジェクトに小さな更新をいくつか加えました。しかし、より本格的な変更には、よりしっかりしたプロセスが必要です。GitHub Copilot app は既存のフローと連携できるように設計されており、適切なものを適切な方法で構築できます。このレッスンから3回にわたり、一般的な開発プロセスに従います。まず Issue を使って新機能を生成し、エージェントスキルで検証テストと linter を実行します。</p>
+<p>このレッスンでは、次の内容を学習します。</p>
+<ul>
+<li>フィルター機能に関する Issue から新しいセッションを開始する。</li>
+<li><strong>Plan</strong> モードで機能を計画し、<strong>Autopilot</strong> で構築する。</li>
+<li>生成されたコードが、以前マージしたドキュメント標準に従っていることを確認する。</li>
+<li>プロジェクトの <code>quality-checks</code> スキルで作業を検証する。</li>
+</ul>
+<h2 id="シナリオ">シナリオ</h2>
+<p>ホームページにはすべてのゲームが一覧表示されますが、訪問者は一覧を絞り込めません。フィルター機能に関する Issue では、<strong>カテゴリー</strong>と<strong>パブリッシャー</strong>でゲームを絞り込めるようにすることが求められています。Copilot を使ってこの機能を実装します。</p>
+<h2 id="背景">背景</h2>
+<p>AI コーディングエージェントを開発フローに導入しても、基本は変わりません。むしろ、基本はさらに重要になります。多くの開発者は、次のようなフローに従います。</p>
+<ol>
+<li>必要な作業の詳細が記載された Issue を開く。</li>
+<li>構築する内容の計画を作成する。</li>
+<li>コードを構築してレビューする。</li>
+<li>テストを実行してコードを検証する。</li>
+<li>新機能を手動で検証する。</li>
+<li>pull request (PR) を作成する。</li>
+<li>コードのレビューと継続的インテグレーションプロセスが成功したら、コードをマージする。</li>
+</ol>
+<blockquote>
+<p><strong>補足</strong>
+正確な手順はチームや Organization によって異なりますが、多くの場合は上記の流れを変形したものです。</p>
+</blockquote>
+<p>この標準的なアプローチを守ることで、AI が生成したコードが定められた要件を満たし、人間が作成したコードと同じ審査プロセスを通るようにできます。</p>
+<h2 id="セッションモード">セッションモード</h2>
+<p><strong>セッションモード</strong>は、エージェントの自律性を制御します。プロンプトフィールド下のドロップダウンから設定し、いつでも変更できます。</p>
+<ul>
+<li><strong>Interactive</strong>: ユーザーとエージェントが共同で作業します。エージェントは変更を提案し、続行前に入力を待ちます。</li>
+<li><strong>Plan</strong>: エージェントが最初に計画を作成します。計画実行前に内容をレビューして承認します。</li>
+<li><strong>Autopilot</strong>: エージェントが完全に自律して作業し、入力を待たずにコードの作成、テストの実行、反復を行います。</li>
+</ul>
+<h2 id="フィルター機能を計画する">フィルター機能を計画する</h2>
+<p>潜在的な問題を見つける最適なタイミングは、コードを作成する前です。そのためには、事前に少し計画を立てるのが効果的です。Copilot と計画を立てると、一連の手順と採用するアプローチが生成されます。その計画をレビューし、改善案があれば提案してから、計画に基づいて Copilot にコードを生成させることができます。</p>
+<p>Issue を開いて新しいセッションを開始し、Plan モードに切り替えて計画を作成します。</p>
+<ol>
+<li>ナビゲーションタブから <strong>My work</strong> を選択します。</li>
+<li><strong>Allow users to filter games by category and publisher</strong> というタイトルの Issue を選択します。</li>
+<li>右上の <strong>New session</strong> を選択します。</li>
+</ol>
+<p><img alt="GitHub Copilot app の Issue ビューで、右上の New session ボタンを矢印で示した画面" src="../assets/app-new-session-from-issue.png" /></p>
+<ol start="4">
+<li>モードに <strong>Plan</strong> と表示されるまで <kbd>Shift</kbd>+<kbd>Tab</kbd> を選択します。</li>
+</ol>
+<p><img alt="モードセレクターが Plan に設定され、矢印で示された GitHub Copilot app のプロンプトボックス" src="../assets/app-4-plan-mode.png" /></p>
+<ol start="5">
+<li>次のプロンプトを送信します。Issue から開始したため、フィルター機能の Issue はすでにこのセッションのコンテキストに含まれています。</li>
+</ol>
+<pre class="highlight"><code class="language-plaintext">Issue に記載された要件に基づいて作業を計画してください。計画中に不明点があれば質問してください。</code></pre>
+<ol start="6">
+<li>計画の作成中に、エージェントから追加の質問が提示される場合があります。自分で機能を構築するときの方針に基づいて回答します。</li>
+</ol>
+<blockquote>
+<p><strong>補足</strong>
+Copilot は確率的に動作するため、追加で尋ねられる質問は異なります。質問がまったくない場合もありますが、問題ありません。</p>
+</blockquote>
+<ol start="7">
+<li>完了すると、Copilot が計画の概要を提示します。計画をレビューしてください。クエリの構築、フィルターコントロールの追加、テストの作成が提案されているはずです。必要に応じてフィードバックを返して改善できます。エージェントは提案を新しいバージョンに反映します。</li>
+</ol>
+<h2 id="autopilot-で構築する">Autopilot で構築する</h2>
+<p>計画が完成したので、Copilot に実装を構築させます。</p>
+<ol>
+<li><strong>Plan summary</strong> ダイアログのオプション一覧で、<strong>Approve and implement with autopilot</strong> に最も近いオプションを選択します。</li>
+</ol>
+<p>Copilot が実装作業を開始します。</p>
+<blockquote>
+<p><strong>補足</strong>
+Copilot が必要なコードの作成を自動的に開始しない場合は、「確認した計画に沿って実装を開始してください」のようなプロンプトを使って開始を依頼できます。</p>
+<p>必要な更新の作成には数分かかります。エージェントはファイルを編集および作成し、テストを作成して実行し、反復します。この時間に、ここまで学習した内容を振り返ったり、飲み物を用意したりできます。</p>
+</blockquote>
+<h2 id="変更をレビューする">変更をレビューする</h2>
+<p>AI が生成したすべてのコードは、マージ前にレビューする必要があります。コードをレビューし、サイトを実行して問題がないことを確認します。</p>
+<ol>
+<li>右上の <strong>Changes</strong> を選択してコードの変更を開きます。</li>
+</ol>
+<p><img alt="GitHub Copilot app のセッションパネルにあるタブで、Changes タブを矢印で示した画面" src="../assets/app-select-changes.png" /></p>
+<ol start="2">
+<li>変更をレビューします。新しい TypeScript ファイル、Astro ファイル、テストファイルが表示されます。新しいヘルパー関数には、レッスン3でマージしたドキュメント標準に従い、依頼していなくても TSDoc doc comment とファイルヘッダーコメントが含まれていることを確認します。</li>
+<li>Copilot app の右側にあるレビューパネルで <strong>Terminal</strong> を選択します。<strong>Terminal</strong> ボタンがない場合は、<strong>+</strong> (<strong>Open in panel</strong> というラベルが付いています) を選択してから <strong>Terminal</strong> を選択します。</li>
+</ol>
+<p><img alt="GitHub Copilot app のレビューパネルにある Terminal ボタン" src="../assets/app-terminal-screenshot.png" /></p>
+<ol start="4">
+<li>ターミナルウィンドウに次のコマンドを入力し、Web アプリの開発サーバーを起動します。</li>
+</ol>
+<pre class="highlight"><code class="language-shell">npm run dev</code></pre>
+<ol start="5">
+<li>サーバーが起動したら、ブラウザーウィンドウを開きます。起動には少し時間がかかります。</li>
+<li>http://localhost:4321 に移動します。</li>
+<li>ランディングページでフィルターを使用できることを確認します。</li>
+<li>問題がある場合は、Copilot に更新を依頼できます。</li>
+<li>問題がなければ、ターミナルウィンドウに戻ります。</li>
+<li><kbd>Ctrl</kbd>+<kbd>C</kbd> を選択して開発サーバーを停止します。</li>
+</ol>
+<h2 id="quality-checks-スキルで作業を検証する">quality-checks スキルで作業を検証する</h2>
+<p>差分を目視で確認するだけで完了とすることもできますが、このチームには明確な品質基準と、それを繰り返し確認する方法があります。</p>
+<p><strong>エージェントスキル</strong>を使うと、テストの実行、ビルドの生成、pull request の作成など、繰り返し発生するタスクの実行方法を Copilot に指示できます。スキルは、エージェントが必要に応じて読み込める指示、スクリプト、リソースのフォルダーです。<a href="https://github.com/agentskills/agentskills">Agent Skills はオープン標準</a>であり、さまざまなエージェントで使用されています。そのため、同じスキルをエージェントモードの Copilot Chat、Copilot cloud agent、Copilot CLI、GitHub Copilot app で使用できます。</p>
+<p>スキルはプロジェクトの <code>.github/skills</code> フォルダー、またはグローバルの <code>~/.copilot/skills</code> に配置します。各スキルは、YAML frontmatter (<code>name</code> と <code>description</code>) と、それに続く Markdown の指示が記載された <code>SKILL.md</code> ファイルを含むフォルダーです。</p>
+<pre class="highlight"><code class="language-yaml">---
+name: quality-checks
+description: Run the project's test suites and linter to verify code changes are ready to commit, push, or merge.
+---</code></pre>
+<p>スキルには、スクリプト、アセット、参考資料を含むサブフォルダーも追加できます。完全な構造については、<a href="https://agentskills.io/specification">エージェントスキルの仕様</a>を参照してください。</p>
+<blockquote>
+<p><strong>ヒント</strong>
+スキルは動的に読み込まれます。エージェントは <code>description</code> フィールドに基づいて適用するスキルを判断します。明確でシナリオに合った説明を記述することが、スキルが使用されるか無視されるかを左右します。</p>
+</blockquote>
+<h2 id="quality-checks-スキルを確認する">quality-checks スキルを確認する</h2>
+<p>スキルの内容を確認します。</p>
+<ol>
+<li>レビューパネルが表示されていない場合は、右上の <strong>Toggle review panel</strong> を選択して開きます。</li>
+</ol>
+<p><img alt="Create PR の右側にある Toggle review panel ボタンを矢印で示した GitHub Copilot app の上部ツールバー" src="../assets/app-2-review-panel.png" /></p>
+<ol start="2">
+<li><strong>+</strong> を選択し、レビューパネルに新しい項目を追加します。</li>
+<li><strong>File</strong> を選択します。</li>
+<li><code>SKILL.md</code> を検索します。</li>
+<li>ファイル一覧から <code>SKILL.md .github/skills/quality-checks</code> を選択して開きます。</li>
+<li><code>name</code> と <code>description</code> を確認します。説明は、コード変更を commit、push、merge する前にテスト、lint、検証する必要がある場合に、このスキルを使用することをエージェントに伝えます。</li>
+<li>スキル全体を読みます。単体テスト、Playwright のエンドツーエンドテスト、ESLint の各スイートを実行するスクリプト、実行順序、一般的な失敗のデバッグ方法が記載されています。そのため、エージェントは推測するのではなく、チームの方法でチェックを実行できます。</li>
+</ol>
+<h2 id="チェックを実行する">チェックを実行する</h2>
+<p>同じフィルター機能のセッションで、エージェントに作業の検証を依頼します。スキル名を説明する必要はありません。エージェントがリクエストに一致するスキルを見つけます。</p>
+<ol>
+<li>Copilot app に戻ります。</li>
+<li>スラッシュコマンド <code>/quality-checks</code> を使ってスキルを直接呼び出し、<kbd>Enter</kbd> を選択します。</li>
+<li>エージェントはスキルに従って単体テスト、linter、エンドツーエンドテストを実行し、結果を報告します。失敗したものがあれば、問題を修正して、すべて成功するまでチェックを再実行するよう依頼します。</li>
+<li><strong>このセッションを開いたままにします。</strong> 次のレッスンでは Playwright MCP server を追加し、実際のブラウザーでフィルター機能が動作することを確認します。</li>
+</ol>
+<h2 id="まとめと次のステップ">まとめと次のステップ</h2>
+<p>実際の機能をエンドツーエンドで構築し、チームの基準に照らして検証しました。具体的には、次の作業を行いました。</p>
+<ul>
+<li>最新のプロジェクトで、フィルター機能に関する Issue から新しいセッションを開始した。</li>
+<li>Plan モードで機能を計画し、Autopilot で構築した。</li>
+<li>生成されたヘルパーが、レッスン3でマージしたドキュメント標準に従っていることを確認した。</li>
+<li><code>quality-checks</code> スキルで作業を検証した。</li>
+</ul>
+<p>次は Playwright MCP server を接続し、実際のブラウザーでフィルター機能を確認するようエージェントに依頼します。<a href="5-mcp-playwright.html">レッスン 5「Playwright MCP server によるテスト」</a>に進んでください。</p>
+<h2 id="リソース">リソース</h2>
+<ul>
+<li><a href="https://docs.github.com/copilot/how-tos/github-copilot-app/agent-sessions">GitHub Copilot app でのエージェントセッションの操作</a></li>
+<li><a href="https://docs.github.com/copilot/concepts/agents/about-agent-skills">Agent Skills について</a></li>
+<li><a href="https://docs.github.com/copilot/how-tos/github-copilot-app/customize-github-copilot-app">GitHub Copilot app のカスタマイズ</a></li>
+<li><a href="https://docs.github.com/copilot/concepts/about-cloud-and-local-sandboxes">GitHub Copilot のクラウドサンドボックスとローカルサンドボックスについて</a></li>
+</ul></article><nav class="chapter-nav" aria-label="章の移動"><a href="3-custom-instructions.html">← 前の章：レッスン 3 - カスタム指示による Copilot のガイド</a><a href="5-mcp-playwright.html">次の章 →：レッスン 5 - Playwright MCP server によるテスト</a></nav></main></body></html>

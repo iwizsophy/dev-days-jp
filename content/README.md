@@ -16,12 +16,14 @@ This suggested event agenda includes one **Session** and one **Workshop** (appro
 | Order | Session            | Type         | Estimated Time | Description                                                                           |
 | ----: | ------------------ | ------------ | -------------- | ------------------------------------------------------------------------------------- |
 |    01 | **GitHub Copilot app**   | Session      | 30–45 min      | The provided slide deck is an overview of the GitHub Copilot app.                |
-|    02 | **Hands-on Lab**       | Hands-on Lab | 60 min         | Start using the GitHub Copilot app with guided, practical exercises.                                     |
+|    02 | **Hands-on Lab**       | Hands-on Lab | 60–90 min (App), 120 min (Tailspin CLI), 60 min (Mona Mayhem) | Select one lab and reserve its full duration. |
+
+Allow another 15 minutes for setup or switching tools, plus breaks and questions. Tailspin CLI needs a 3-hour event slot with a 30-minute talk and 30 minutes for setup and closing. If time runs short, prioritize one feature, its verification, and a reviewable diff; move extensions and additional agent workflows to follow-up work.
 
 ## 🔍 Prerequisites
 
 Dev Days events are open to developers of all experience levels. Different events may cover different topics that are more relevant for a subset of developers.
-> Note: While the GitHub Copilot app and CLI are available to users on all GitHub plans, workshop exercises will consume AI credits. We recommend keeping an eye on your credit usage before and during your event so you have enough available to fully participate in the hands-on activities.
+> Checked against GitHub Docs on 2026-09-08: the [Copilot app](https://docs.github.com/en/copilot/concepts/agents/github-copilot-app) and [Copilot CLI](https://docs.github.com/en/copilot/how-tos/copilot-cli/set-up-copilot-cli/install-copilot-cli) are available with all Copilot plans. Some external lessons still list older paid-plan requirements. Free access does not guarantee enough AI credits to finish every exercise. Check usage before and during the event. Organization users must confirm the App and CLI policies separately; access to one does not establish access to the other.
 
 
 **For organizers**:
@@ -32,7 +34,7 @@ Dev Days events are open to developers of all experience levels. Different event
 
 **For attendees**:
 
-- **GitHub Copilot free subscription** at a minimum — [Sign up here](https://aka.ms/get-github-copilot-devdays)
+- **An active GitHub Copilot plan**, sufficient available usage, and a successful test prompt using the tool selected for the event — [Sign up here](https://aka.ms/get-github-copilot-devdays).
 
 - Download the [GitHub Copilot app](https://gh.io/dev-days/app) if your event includes the GitHub Copilot app session or workshop.
 
@@ -40,11 +42,19 @@ Dev Days events are open to developers of all experience levels. Different event
 
 - Laptop — Required for events that include a hands-on workshop.
 
+| Workshop | Prepare before attending |
+| --- | --- |
+| Copilot app | Git, Node.js 22.13+, the App, and your own Tailspin Toys template repository. See [App prerequisites](https://github-samples.github.io/copilot-workshops/app/0-prerequisites/). |
+| Tailspin Toys CLI | Your own Tailspin Toys template repository and a working Codespace or local dev container; install and authenticate CLI there. See [CLI prerequisites](https://github-samples.github.io/copilot-workshops/cli/0-prerequisites/). Check Codespaces availability and remaining usage if using it. |
+| Mona Mayhem CLI | Git, Node.js, CLI, and your own copy of Mona Mayhem. Check the runtime required by the selected repository revision; npm installation of CLI needs Node.js 22+. See [Mona Mayhem prerequisites](https://github.com/copilot-dev-days/mona-mayhem#prerequisites). |
+
+For this Japanese copy, use the [Japanese preparation and CLI fallback guide](../website/ja/handson-guide.html). The [Japanese workshop texts](../website/ja/workshops/index.html) cover all three current courses, including prompts. Slides, videos, and archived labs remain in their original languages. Rehearse the fallback before the event: UI changes can prevent participants from following screenshots. Continue planning, implementation, and testing in CLI on the same worktree; demonstrate App-only experiences separately. Record the lab commit, App/CLI versions, verified commands, and known UI differences during rehearsal.
+
 ## 📚 Core Content
 
 For this round of Dev Days, you have two options for your event focus:
 1. **[Recommended] GitHub Copilot app**, the only desktop experience for agent-driven development built natively on GitHub. 
-2. **GitHub Copolot CLI**, Alternatively, if your audience wants to focus on development tools in the Terminal, you may focus on the GitHub Copilot CLI.
+2. **GitHub Copilot CLI**, Alternatively, if your audience wants to focus on development tools in the Terminal, you may focus on the GitHub Copilot CLI.
 
 ### ⭐ [Recommended] Option 1: GitHub Copilot app
 
@@ -67,7 +77,7 @@ Copilot CLI is more than a chat interface. It’s an autonomous coding agent tha
 | ------------- | ------------ | --------- | ----------------------------- | ------------- |
 | [⬇️**GitHub Copilot CLI**](https://github.com/github/dev-days/releases/download/2026-07-30/copilot-CLI.pptx) | Session/Talk | ~30 min | GitHub Copilot CLI in the terminal and command-line workflows. | Beginner |
 | [**GitHub Copilot CLI: Tailspin Toys Workshop**](https://github.github.com/dev-days/) | Hands-on Lab | ~2 hr | Master GitHub Copilot in the terminal with Tailspin Toys. Covers custom instructions, Copilot CLI setup, MCP servers, custom agents, and agent skills for AI-assisted delivery. | Intermediate |
-| [**GitHub Copilot CLI: Mona Mayhem Workshop**](https://github.github.com/dev-days/) | Hands-on Lab | ~1 hr | Build a retro arcade contribution-battle game while learning context engineering, Plan Mode, Agent Mode, multi-agent workflows, and design-first development in VS Code. | Intermediate |
+| [**GitHub Copilot CLI: Mona Mayhem Workshop**](https://copilot-dev-days.github.io/mona-mayhem/?track=cli) | Hands-on Lab | ~1 hr | Build a retro arcade contribution-battle game while learning context engineering, planning, implementation, and review in Copilot CLI. | Intermediate |
 
 ## 🧠 How to use this content
 

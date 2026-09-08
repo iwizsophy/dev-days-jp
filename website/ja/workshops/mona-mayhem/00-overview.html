@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow"><title>🎮 Mona Mayhem — GitHub Copilot ワークショップ | Dev Days 日本語版</title>
+<link rel="stylesheet" href="../workshops.css"><script src="../../../theme-toggle.js"></script></head><body>
+<a class="skip" href="#lesson">本文へ移動</a><header><nav aria-label="資料のナビゲーション">
+<a href="../../index.html">ワークショップ一覧</a><a href="../index.html">日本語の演習目次</a>
+<a href="../../handson-guide.html#switch">UI が違うときは CLI へ</a></nav>
+<button class="theme-toggle" type="button" onclick="toggleTheme()">☀️ ライト</button></header>
+<main id="lesson"><h1>🎮 Mona Mayhem — GitHub Copilot ワークショップ</h1><p class="source">非公式の日本語版 · <a href="https://github.com/copilot-dev-days/mona-mayhem/blob/d376143ca3e6c0b3c63980402deaf1c4ac0a1b19/workshop/00-overview.md">参照原文</a> · <a href="../licenses/mona-mayhem.txt">MIT ライセンス</a><br>参照コミット：<code>d376143ca3e6</code> ／ 確認日：2026-09-08</p><aside>UI の名前・位置は教材作成時点のものです。操作できないときは <a href="../../handson-guide.html#switch">CLI の横道</a>を使ってください。利用条件は <a href="../../handson-guide.html#plans">最新情報の補足</a>を参照。実機での全演習の完走検証は未実施です。</aside><nav class="chapter-nav" aria-label="章の移動"><a href="01-setup.html">次の章 →：第1章：環境構築とコンテキストの設計</a></nav><details><summary>この章の目次</summary><div class="toc">
+<ul>
+<li><a href="#トラックを選ぶ">🎯 トラックを選ぶ</a></li>
+<li><a href="#開始前のチェック">📋 開始前のチェック</a><ul>
+<li><a href="#vs-code-の場合">VS Code の場合</a></li>
+<li><a href="#cli-の場合">CLI の場合</a></li>
+</ul>
+</li>
+<li><a href="#学ぶこと">🧠 学ぶこと</a><ul>
+<li><a href="#vs-code-で重点的に使う機能">VS Code で重点的に使う機能</a></li>
+<li><a href="#cli-で重点的に使う機能">CLI で重点的に使う機能</a></li>
+</ul>
+</li>
+<li><a href="#演習の構成">📚 演習の構成</a></li>
+<li><a href="#進め方のヒント">💡 進め方のヒント</a></li>
+</ul>
+</div>
+</details><article><blockquote>
+<p><strong>所要時間：</strong> 約1時間<br>
+<strong>難易度：</strong> 中級<br>
+<strong>技術構成：</strong> Astro / Node.js / TypeScript</p>
+</blockquote>
+<p>GitHub のコントリビューションを比較するレトロなアーケード風アプリ <strong>Mona Mayhem</strong> を作りながら、GitHub Copilot のさまざまな開発手順を学びます。<strong>VS Code と GitHub Copilot CLI の2つのトラック</strong>から選べます。</p>
+<h2 id="トラックを選ぶ">🎯 トラックを選ぶ</h2>
+<ul>
+<li><strong>VS Code：</strong> エディター内で Chat、Plan Mode、Agent Mode、バックグラウンドエージェント、組み込みのレビューを体験します。</li>
+<li><strong>CLI：</strong> ターミナル内で <code>copilot</code>、<code>@file</code> によるコンテキスト指定、<code>/plan</code>、自律的な編集、<code>/fleet</code>、<code>/delegate</code>、<code>/review</code> を体験します。</li>
+</ul>
+<p>好みの開発環境に合わせて選んでください。この日本語版では各章に両方の手順を載せています。自分のトラックの節だけを実行し、共通の節へ進みます。</p>
+<h2 id="開始前のチェック">📋 開始前のチェック</h2>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> 自分のアカウントで GitHub Copilot が有効になっている</li>
+<li class="task-list-item"><input type="checkbox" disabled/> Node.js がインストールされている</li>
+<li class="task-list-item"><input type="checkbox" disabled/> Git がインストールされ、設定済みである</li>
+<li class="task-list-item"><input type="checkbox" disabled/> ブラウザーとターミナルを使える</li>
+</ul>
+<h3 id="vs-code-の場合">VS Code の場合</h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> VS Code <strong>v1.107以上</strong>で、適用待ちの更新がない</li>
+<li class="task-list-item"><input type="checkbox" disabled/> <strong>GitHub Copilot</strong> 拡張機能にサインインしている</li>
+<li class="task-list-item"><input type="checkbox" disabled/> Chat パネルを開き、Agent を使える</li>
+</ul>
+<h3 id="cli-の場合">CLI の場合</h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> GitHub Copilot CLI を導入し、<code>copilot</code> コマンドを実行できる</li>
+<li class="task-list-item"><input type="checkbox" disabled/> <code>/login</code> で認証済みである</li>
+<li class="task-list-item"><input type="checkbox" disabled/> <code>/help</code>、<code>/plan</code>、<code>/review</code> などのスラッシュコマンドを使える</li>
+</ul>
+<blockquote>
+<p><strong>ヒント：</strong> VS Code ですぐに始めたい場合は、設定済みの DevContainer を利用できます。</p>
+</blockquote>
+<h2 id="学ぶこと">🧠 学ぶこと</h2>
+<table>
+<thead>
+<tr>
+<th>番号</th>
+<th>スキル</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>コンテキストの設計</td>
+<td>指示、参照ファイル、明確な制約でコードベースを Copilot に伝える</td>
+</tr>
+<tr>
+<td>2</td>
+<td>計画から始める</td>
+<td>実装前にアーキテクチャを考える</td>
+</tr>
+<tr>
+<td>3</td>
+<td>エージェントによる実装</td>
+<td>自分で監督しながら、複数手順のコーディングを任せる</td>
+</tr>
+<tr>
+<td>4</td>
+<td>デザインの反復</td>
+<td>見た目を変更し、操作の細部を調整する</td>
+</tr>
+<tr>
+<td>5</td>
+<td>並列作業</td>
+<td>エージェント、セッション、委任タスクに作業を分ける</td>
+</tr>
+</tbody>
+</table>
+<h3 id="vs-code-で重点的に使う機能">VS Code で重点的に使う機能</h3>
+<ul>
+<li><strong>Chat と Ask モード：</strong> コードの探索</li>
+<li><strong>Plan Mode：</strong> アーキテクチャとデザインの計画</li>
+<li><strong>Agent Mode：</strong> 複数ファイルの実装</li>
+<li><strong>バックグラウンド／クラウドエージェント：</strong> 並列での仕上げ</li>
+</ul>
+<h3 id="cli-で重点的に使う機能">CLI で重点的に使う機能</h3>
+<ul>
+<li><code>copilot</code> による<strong>対話セッション</strong></li>
+<li><code>/plan</code> と Shift+Tab による<strong>計画</strong></li>
+<li>許可の確認と <code>/diff</code> を伴う<strong>自律的な編集</strong></li>
+<li><code>/fleet</code>、<code>/delegate</code>、<code>/review</code> による<strong>並列処理と品質確認</strong></li>
+</ul>
+<h2 id="演習の構成">📚 演習の構成</h2>
+<table>
+<thead>
+<tr>
+<th>章</th>
+<th>題名</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="01-setup.html">01</a></td>
+<td>環境構築とコンテキストの設計</td>
+<td>自分のリポジトリと環境を準備し、必要な情報を渡す</td>
+</tr>
+<tr>
+<td><a href="02-plan-and-scaffold.html">02</a></td>
+<td>計画とひな形作成</td>
+<td>API とページの構造を設計する</td>
+</tr>
+<tr>
+<td><a href="03-agent-mode.html">03</a></td>
+<td>ゲームを実装する</td>
+<td>対戦ページとコントリビューショングラフを接続する</td>
+</tr>
+<tr>
+<td><a href="04-design-vibes.html">04</a></td>
+<td>デザインからテーマを作る</td>
+<td>レトロなアーケードの見た目に仕上げる</td>
+</tr>
+<tr>
+<td><a href="05-polish.html">05</a></td>
+<td>仕上げと並列作業</td>
+<td>UX、エラー耐性、品質を改善する</td>
+</tr>
+<tr>
+<td><a href="06-bonus.html">06</a></td>
+<td>発展課題</td>
+<td>自由課題、共有機能、追加の実験に取り組む</td>
+</tr>
+</tbody>
+</table>
+<h2 id="進め方のヒント">💡 進め方のヒント</h2>
+<ol>
+<li><strong>ブラウザーを開いておく：</strong> 編集による変化をすぐ確認します。</li>
+<li><strong>こまめに commit する：</strong> 動作する状態を保存します。</li>
+<li><strong>実装前に計画を磨く：</strong> 計画を具体化するほど、結果を評価しやすくなります。</li>
+<li><strong>変更をレビューする：</strong> 差分表示や CLI のレビューを使い、内容を確認して採用します。</li>
+<li>VS Code では、意図から外れたときにチャットの checkpoint や Undo を使えます。CLI では <code>/session</code>、<code>/context</code>、<code>/share file</code> で作業状況を確認・保存できます。</li>
+</ol></article><nav class="chapter-nav" aria-label="章の移動"><a href="01-setup.html">次の章 →：第1章：環境構築とコンテキストの設計</a></nav></main></body></html>

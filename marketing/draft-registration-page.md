@@ -40,7 +40,15 @@ Choose the format that best fits your audience, available infrastructure, and ti
 * Includes:
 
   * **1 technical session**
-  * **1 hands-on workshop (1 hour)**
+  * **1 hands-on workshop: App 60–90 minutes / Tailspin Toys CLI 120 minutes / Mona Mayhem CLI 60 minutes**
+
+Choose one workshop and replace the agenda placeholders before publishing. For Tailspin Toys CLI, allocate 30 minutes for the talk, 120 minutes for the lab, and 30 minutes for setup, breaks, questions, and closing. Reserve at least 15 minutes within that buffer for setup or switching to CLI. If the lab runs over, finish one feature, verify it, and review the diff; leave extensions for later.
+
+### Preparation to include in the attendee invitation
+
+State the selected workshop, link its prerequisites from the [content guide](../content/README.md#-prerequisites), and ask participants to complete installation, login, and a test prompt before arrival. Confirm AI usage remaining, organization policies for both App and CLI, and Codespaces access/usage if needed. Share the [Japanese workshop texts](../website/ja/workshops/index.html) for the three current courses. Slides and videos remain in their original languages; state how these will be explained during the session.
+
+UI changes may make screenshots differ from the installed App. Share the [Japanese CLI fallback guide](../website/ja/handson-guide.html) in advance. This private copy is served locally: distribute the repository to authorized participants or provide an approved handout; a localhost URL on the organizer's laptop is not an attendee URL. When copying this template into Luma, replace relative links with URLs or instructions participants can actually access.
 
 > **Important**
 > For events including a workshop, make sure the venue supports hands-on activities.

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow"><title>GitHub Copilot CLI | Dev Days 日本語版</title>
+<link rel="stylesheet" href="../workshops.css"><script src="../../../theme-toggle.js"></script></head><body>
+<a class="skip" href="#lesson">本文へ移動</a><header><nav aria-label="資料のナビゲーション">
+<a href="../../index.html">ワークショップ一覧</a><a href="../index.html">日本語の演習目次</a>
+<a href="../../handson-guide.html#switch">UI が違うときは CLI へ</a></nav>
+<button class="theme-toggle" type="button" onclick="toggleTheme()">☀️ ライト</button></header>
+<main id="lesson"><h1>GitHub Copilot CLI</h1><p class="source">非公式の日本語版 · <a href="https://github.com/github-samples/copilot-workshops/blob/7ddcf241c1cd10b8e90c0df96f6bef81e710392a/docs/ja-jp/cli/README.md">参照原文</a> · <a href="../licenses/copilot-workshops.txt">MIT ライセンス</a><br>参照コミット：<code>7ddcf241c1cd</code> ／ 確認日：2026-09-08</p><aside>UI の名前・位置は教材作成時点のものです。操作できないときは <a href="../../handson-guide.html#switch">CLI の横道</a>を使ってください。利用条件は <a href="../../handson-guide.html#plans">最新情報の補足</a>を参照。実機での全演習の完走検証は未実施です。</aside><aside>このコースの <code>--yolo</code> を含む手順は、演習専用 Codespace / dev container を前提とする原文の手順です。App の途中からローカルで切り替える場合は、上の「CLI の横道」の通常対話手順を使ってください。</aside><nav class="chapter-nav" aria-label="章の移動"><a href="0-prerequisites.html">次の章 →：演習 0: 前提条件</a></nav><details><summary>この章の目次</summary><div class="toc">
+<ul>
+<li><a href="#演習">演習</a></li>
+<li><a href="#前提条件">前提条件</a></li>
+<li><a href="#はじめる">はじめる</a></li>
+</ul>
+</div>
+</details><article><p><strong><a href="https://docs.github.com/copilot/concepts/agents/about-copilot-cli">GitHub Copilot CLI</a></strong> は、ターミナルで GitHub Copilot をエージェント型のコーディング アシスタントとして利用できるようにします。コードベースを探索し、コードを生成し、コマンドを実行し、外部ツールに接続できます。すべてコマンド ラインから行えるため、グラフィカル エディターに切り替えずに作業の流れを保てます。</p>
+<p>これらの演習では、Copilot CLI のインストールと認証から始め、カスタム命令でプロジェクトのコンテキストを与えたうえで、プラン モードを使って意図的に機能を実装します。続いて Playwright MCP サーバーを接続し、実際のブラウザーでその機能をテストします。その後、再利用可能な agent skill と custom agent で Copilot を拡張します。最後に、コンテキスト管理、モデル選択、共有に使う slash command を確認し、作成した内容を振り返ります。</p>
+<h2 id="演習">演習</h2>
+<table>
+<thead>
+<tr>
+<th>演習</th>
+<th>トピック</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="0-prerequisites.html">0. 前提条件</a></td>
+<td>セットアップ</td>
+<td>リポジトリと codespace を作成する</td>
+</tr>
+<tr>
+<td><a href="1-install-copilot-cli.html">1. Copilot CLI のインストール</a></td>
+<td>インストール</td>
+<td>Copilot CLI をインストールして認証する</td>
+</tr>
+<tr>
+<td><a href="2-custom-instructions.html">2. カスタム命令</a></td>
+<td>コンテキスト</td>
+<td>命令を追加し、Copilot CLI がどのように従うかを確認する</td>
+</tr>
+<tr>
+<td><a href="3-generating-code.html">3. コード生成</a></td>
+<td>コード生成</td>
+<td>プラン モードを使って機能を生成する</td>
+</tr>
+<tr>
+<td><a href="4-mcp.html">4. Playwright MCP によるテスト</a></td>
+<td>外部ツール</td>
+<td>Playwright MCP サーバーを追加し、ブラウザーで機能をテストする</td>
+</tr>
+<tr>
+<td><a href="5-agent-skills.html">5. エージェント スキル</a></td>
+<td>スキル</td>
+<td>専門スキルで Copilot を強化する</td>
+</tr>
+<tr>
+<td><a href="6-custom-agents.html">6. カスタム エージェント</a></td>
+<td>エージェント</td>
+<td>カスタム エージェントを確認して使用する</td>
+</tr>
+<tr>
+<td><a href="7-slash-commands.html">7. スラッシュ コマンド</a></td>
+<td>CLI 機能</td>
+<td>コンテキスト、モデル、共有、cloud agent への任意の委任を確認する</td>
+</tr>
+<tr>
+<td><a href="8-review.html">8. 振り返り</a></td>
+<td>まとめ</td>
+<td>重要な概念と次のステップを確認する</td>
+</tr>
+</tbody>
+</table>
+<h2 id="前提条件">前提条件</h2>
+<p>このワークショップに参加する前に、次を準備してください。</p>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> 有効な Copilot プランがある GitHub アカウント（Free を含む。全演習の完走に十分な利用枠があるか事前確認）</li>
+<li class="task-list-item"><input type="checkbox" disabled/> ターミナル / コマンド ライン操作の基本的な知識</li>
+<li class="task-list-item"><input type="checkbox" disabled/> インストール済みで設定済みの Git</li>
+</ul>
+<blockquote>
+<p><strong>ヒント</strong>
+認証済みの学生は <a href="https://github.com/education/students">GitHub Education</a> を通じて GitHub Copilot を無料で利用できます。<strong>Copilot Student</strong> プランには、このワークショップで使用する agent、MCP、code review、Copilot CLI の機能が含まれます。対応する機能と、演習の完走に必要な利用枠は別途確認してください。</p>
+<p><strong>補足</strong>
+Copilot Business または Copilot Enterprise を使用している場合は、管理者が Copilot CLI を有効にしていることを確認してください。</p>
+</blockquote>
+<h2 id="はじめる">はじめる</h2>
+<p><strong><a href="0-prerequisites.html">演習 0: 前提条件から始める →</a></strong></p></article><nav class="chapter-nav" aria-label="章の移動"><a href="0-prerequisites.html">次の章 →：演習 0: 前提条件</a></nav></main></body></html>

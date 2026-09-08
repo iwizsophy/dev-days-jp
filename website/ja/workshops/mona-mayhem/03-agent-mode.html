@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow"><title>第3章：エージェントでゲームを実装する | Dev Days 日本語版</title>
+<link rel="stylesheet" href="../workshops.css"><script src="../../../theme-toggle.js"></script></head><body>
+<a class="skip" href="#lesson">本文へ移動</a><header><nav aria-label="資料のナビゲーション">
+<a href="../../index.html">ワークショップ一覧</a><a href="../index.html">日本語の演習目次</a>
+<a href="../../handson-guide.html#switch">UI が違うときは CLI へ</a></nav>
+<button class="theme-toggle" type="button" onclick="toggleTheme()">☀️ ライト</button></header>
+<main id="lesson"><h1>第3章：エージェントでゲームを実装する</h1><p class="source">非公式の日本語版 · <a href="https://github.com/copilot-dev-days/mona-mayhem/blob/d376143ca3e6c0b3c63980402deaf1c4ac0a1b19/workshop/03-agent-mode.md">参照原文</a> · <a href="../licenses/mona-mayhem.txt">MIT ライセンス</a><br>参照コミット：<code>d376143ca3e6</code> ／ 確認日：2026-09-08</p><aside>UI の名前・位置は教材作成時点のものです。操作できないときは <a href="../../handson-guide.html#switch">CLI の横道</a>を使ってください。利用条件は <a href="../../handson-guide.html#plans">最新情報の補足</a>を参照。実機での全演習の完走検証は未実施です。</aside><nav class="chapter-nav" aria-label="章の移動"><a href="02-plan-and-scaffold.html">← 前の章：第2章：計画とひな形作成</a><a href="04-design-vibes.html">次の章 →：第4章：デザインからテーマを作る</a></nav><details><summary>この章の目次</summary><div class="toc">
+<ul>
+<li><a href="#タスク1対戦処理をつなぐ">タスク1：対戦処理をつなぐ</a></li>
+<li><a href="#タスク2対戦をテストする">タスク2：対戦をテストする</a></li>
+<li><a href="#タスク3フィードバックで改善する">タスク3：フィードバックで改善する</a></li>
+<li><a href="#この章のヒント">この章のヒント</a></li>
+<li><a href="#第3章の完了">✅ 第3章の完了</a></li>
+</ul>
+</div>
+</details><article><p>この章では、Copilot に計画だけでなく実装を担当してもらいます。一行ずつコードを書く代わりに、実現したいことを説明し、必要なファイルを変更してもらいます。</p>
+<h2 id="タスク1対戦処理をつなぐ">タスク1：対戦処理をつなぐ</h2>
+<ol>
+<li><strong>VS Code：</strong> Copilot Chat を <strong>Agent</strong> モードにします。<strong>CLI：</strong> 通常のコーディングの流れへ戻ります。自律的に継続させたい場合は Autopilot を利用する選択肢もあります。</li>
+<li>CLI では必要に応じて <code>@src/pages/index.astro</code> を指定し、ページをコンテキストに追加します。</li>
+<li>
+<p>次のプロンプトを入力します。</p>
+<pre class="highlight"><code class="language-text">対戦ページに、次を行うクライアント側 JavaScript を追加してください。
+1. Battle ボタンが押されたら、両方の入力欄からユーザー名を取得する。
+2. 両方が入力されているか確認し、空ならエラーを表示する。
+3. 自分たちの API から、2人のコントリビューションデータを並列で取得する。
+4. GitHub の配色を使い、1日を1つの色付き四角形としたグリッドでグラフを描画する。
+5. 2人の間に VS バッジを表示する。
+6. それぞれのユーザー名、コントリビューション合計、対象期間を表示する。
+7. 読み込み中とエラーの状態に対応する。
+8. 入力欄で Enter キーを押したときにも対戦を開始する。
+9. 今は作成済みのシンプルな UI を使う。
+コントリビューションデータの構造には TypeScript の interface を使ってください。</code></pre>
+</li>
+<li>
+<p><code>src/pages/index.astro</code> などに対する実装が進むのを確認します。</p>
+</li>
+<li>VS Code の差分表示、または CLI の <code>/diff</code> で変更内容を確認して採用します。</li>
+</ol>
+<h2 id="タスク2対戦をテストする">タスク2：対戦をテストする</h2>
+<p>変更が見えない場合は、開発サーバーを <code>Ctrl+C</code> で停止し、<code>npm run dev</code> で再起動してブラウザーを更新します。</p>
+<ol>
+<li>ユーザー名に <code>octocat</code> と <code>torvalds</code> を入力し、<strong>Battle</strong> を押します。</li>
+<li>色付きのグリッドで2人のグラフが横に並ぶことを確認します。</li>
+<li>片方または両方を空にして、入力エラーが表示されることを確認します。</li>
+<li>無効なユーザー名で、API のエラーが表示されることを確認します。</li>
+<li>どちらの入力欄でも <strong>Enter</strong> キーで対戦を開始できることを確認します。</li>
+</ol>
+<h2 id="タスク3フィードバックで改善する">タスク3：フィードバックで改善する</h2>
+<p>期待と違う場合は、具体的に追加指示を出します。</p>
+<ul>
+<li>「グラフの四角形が大きすぎるので、12×12px にしてください」</li>
+<li>「ホバー時に日付とコントリビューション数を表示するツールチップを追加してください」</li>
+<li>「読み込み中の表示にパルスアニメーションを追加してください」</li>
+</ul>
+<p>VS Code の Agent モードでは、複数ファイルの変更や反復を同じ会話で続けられます。CLI でもセッションの履歴を踏まえて追加指示を出せます。引き継いでいる情報は <code>/session</code> や <code>/context</code>、大きな変更後の追加レビューは <code>/review</code> で確認できます。</p>
+<h2 id="この章のヒント">この章のヒント</h2>
+<ul>
+<li>求める動作を具体的に伝える。</li>
+<li>意図から外れたら、大きな課題を小さなプロンプトに分ける。</li>
+<li>採用前に変更をレビューする。</li>
+<li>実装のたびにすぐ動作を確認し、問題の場所を絞る。</li>
+</ul>
+<h2 id="第3章の完了">✅ 第3章の完了</h2>
+<ul>
+<li>Copilot に複数ファイルの実装を依頼した。</li>
+<li>焦点を絞った追加指示で結果を改善した。</li>
+<li>実装、レビュー、テスト、調整という機能開発の一連の流れを体験した。</li>
+</ul></article><nav class="chapter-nav" aria-label="章の移動"><a href="02-plan-and-scaffold.html">← 前の章：第2章：計画とひな形作成</a><a href="04-design-vibes.html">次の章 →：第4章：デザインからテーマを作る</a></nav></main></body></html>

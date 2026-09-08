@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>事前準備と CLI への切り替え | Dev Days 日本語版</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="../light-theme.css">
+    <script src="../theme-toggle.js"></script>
+    <style>
+        main { max-width: 960px; margin: auto; padding: 2rem 1.25rem 4rem; overflow-wrap: anywhere; }
+        h1 { font-size: clamp(1.8rem, 5vw, 2.6rem); margin: 1.5rem 0 1rem; }
+        h2 { margin: 2.5rem 0 1rem; font-size: 1.5rem; }
+        h3 { margin: 1.5rem 0 .75rem; }
+        p, ul, ol, pre, table { margin-bottom: 1rem; }
+        ul, ol { padding-left: 1.5rem; }
+        li { margin-bottom: .5rem; }
+        a { color: inherit; text-decoration: underline; text-underline-offset: .2em; }
+        a:focus-visible, button:focus-visible { outline: 3px solid var(--neon-cyan); outline-offset: 4px; }
+        pre { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 8px; padding: 1rem; white-space: pre-wrap; overflow-wrap: anywhere; }
+        code { font-family: Consolas, monospace; }
+        .table-wrap { overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: .75rem; border: 1px solid var(--border-color); text-align: left; vertical-align: top; }
+        .note { padding: 1rem; border-left: 4px solid var(--neon-cyan); background: var(--bg-card); }
+        nav ul { display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; list-style: none; padding: 0; }
+    </style>
+</head>
+<body>
+<main>
+    <a href="index.html">← ワークショップ一覧</a>
+    <button class="theme-toggle" onclick="toggleTheme()" style="float:right;">☀️ ライト</button>
+    <h1>事前準備と CLI への切り替え</h1>
+    <p>この日本語コピー独自の補助資料です。演習本文は <a href="workshops/index.html">日本語の演習目次</a>から開けます。参照情報の確認日：<time datetime="2026-09-08">2026年9月8日</time>。同日に専用の非公開リポジトリで CLI の主要演習0〜6と追加コマンドの一部を実行し、2本の PR の CI 成功まで確認しました。実機で見つかった操作差分も本文に反映しています。任意のクラウド委任・Gist 公開、App・Mona Mayhem の実機完走、App と CLI の往復は未検証です。</p>
+    <p class="note">教材のボタン名や画面構成が現在の UI と異なり、そのまま操作できない場合があります。講師と確認しても約5分で解決しない場合は CLI へ切り替え、同じ課題の計画・実装・検証を続けます。この5分は運営上の目安です。</p>
+    <nav aria-label="補助資料の目次"><ul>
+        <li><a href="#prepare">事前準備</a></li><li><a href="#plans">プラン・利用枠</a></li>
+        <li><a href="#switch">CLI へ切り替える</a></li><li><a href="#mapping">演習との対応</a></li>
+        <li><a href="#finish">検証と復帰</a></li><li><a href="#organizer">講師の準備</a></li>
+    </ul></nav>
+
+    <section id="prepare">
+        <h2>1. 開催前に、選んだコースの準備を済ませる</h2>
+        <p>ノート PC とネット接続、自分の GitHub アカウントを用意します。演習先は自分のコピーです。この案内サイトのリポジトリで演習コマンドを実行しないでください。</p>
+        <div class="table-wrap"><table>
+            <caption>コース別の準備と確認</caption>
+            <thead><tr><th scope="col">コース</th><th scope="col">準備するもの</th><th scope="col">参加前の到達点</th></tr></thead>
+            <tbody>
+                <tr><th scope="row">Copilot App</th><td>Git、Node.js 22.13以上、App、自分の Tailspin Toys テンプレートコピー。<a href="workshops/app/0-prerequisites.html">日本語の準備手順</a></td><td>App で自分のプロジェクトを開き、ファイルの説明を依頼して応答を確認。CLI でも同じ確認を済ませる。</td></tr>
+                <tr><th scope="row">Tailspin Toys CLI</th><td>自分のテンプレートコピー、起動済み Codespace またはローカル dev container、その中に CLI。Codespaces の利用可否と残り利用枠も確認。<a href="workshops/cli/0-prerequisites.html">日本語の準備手順</a></td><td>使用するコンテナ内で <code>copilot --version</code> が成功し、プロジェクトについて応答が得られる。</td></tr>
+                <tr><th scope="row">Mona Mayhem CLI</th><td>Git、教材のリビジョンが要求する Node.js、自分のコピー、CLI。npm での CLI 導入には Node.js 22以上が必要。<a href="https://github.com/copilot-dev-days/mona-mayhem#prerequisites">教材の前提条件</a></td><td>コピーをローカルに clone し、CLI で説明を依頼。<a href="workshops/mona-mayhem/00-overview.html">教材で CLI トラック</a>を選択する。</td></tr>
+            </tbody>
+        </table></div>
+        <h3>CLI を予備として準備する</h3>
+        <p>演習に使うターミナルで実行します。Windows のローカル実行には PowerShell 6以上が必要です。Node.js の条件を確認したうえで、npm を使う場合は次の順に実行します。</p>
+        <pre><code>node --version
+npm install -g @github/copilot
+copilot --version</code></pre>
+        <p>すでに講師が確認した CLI バージョンが入っていれば、再インストールは不要です。WinGet / Homebrew などの導入方法は <a href="https://docs.github.com/en/copilot/how-tos/copilot-cli/set-up-copilot-cli/install-copilot-cli">公式インストール手順</a>を参照してください。</p>
+        <p>自分の演習リポジトリのディレクトリに移動して <code>copilot</code> を実行します。認証を求められたら画面に表示される URL とコードでログインし、信頼するディレクトリが演習用のコピーであることを確認します。次を入力し、正しいプロジェクトについて回答することを確認してください。</p>
+        <pre><code>このリポジトリの構成と起動・テスト方法を説明してください。ファイルは変更しないでください。</code></pre>
+        <p>利用可能なコマンドは CLI 内の <code>/help</code> で確認できます。通常のシェルコマンドは別のターミナルで実行するか、CLI に <code>exit</code> を入力して終了してから実行します。</p>
+    </section>
+
+    <section id="plans">
+        <h2>2. プラン名だけでなく、実際に応答できるか確認する</h2>
+        <p>確認日時点の <a href="https://docs.github.com/en/copilot/concepts/agents/github-copilot-app">App の公式情報</a>と <a href="https://docs.github.com/en/copilot/how-tos/copilot-cli/set-up-copilot-cli/install-copilot-cli">CLI の公式情報</a>では、全 Copilot プランが対象です。外部教材には Student・有料プランを必須とする古い記述が残っています。利用可否は最新の公式情報と自分のアカウントで確認してください。</p>
+        <ul>
+            <li>Free を含め、利用可能な AI クレジット・利用枠の残量を確認します。全演習を無料枠で完走できる保証はありません。</li>
+            <li>組織の Copilot を使う場合、App 用と CLI 用のポリシーは別です。予備の CLI も管理者に利用可否を確認します。</li>
+            <li>認証・利用枠・組織ポリシーによる停止は、UI を CLI に変えるだけでは解決しません。講師へ相談し、ペア作業やデモの観察に切り替えます。</li>
+        </ul>
+    </section>
+
+    <section id="switch">
+        <h2>3. UI で止まったら、同じ作業場所から CLI で続ける</h2>
+        <ol>
+            <li>講師に「教材の章・やりたい操作・実際の画面・エラー」を伝えます。ボタンの位置だけの違いなら、そのまま進めます。</li>
+            <li>App やエディター側の実行中エージェントを停止し、編集ファイルを保存します。同じファイルを両方から同時に変更しないでください。</li>
+            <li>現在のセッションが使う作業ディレクトリを確認します。App が worktree を作った場合、元の clone と別のディレクトリに変更が入っています。場所が分からなければ講師と確認し、新しく clone し直す前に変更を保全します。クラウド上のセッションは、リモートへ保存したブランチを取得してから続行する必要があります。</li>
+            <li>そのディレクトリでターミナルを開き、以下を実行します。リポジトリの場所・ブランチ・変更一覧が App の作業内容と一致していることを確認します。</li>
+        </ol>
+        <pre><code>git rev-parse --show-toplevel
+git branch --show-current
+git status --short
+git diff --stat</code></pre>
+        <p>既存の演習用ブランチなら、そのまま継続します。まだ作業を始めておらず、既定ブランチ上にいて変更がない場合だけ、未使用の名前で演習用ブランチを作ります。例：</p>
+        <pre><code>git switch -c feature/workshop-cli</code></pre>
+        <p>ブランチ名が空、想定外の変更がある、ブランチがすでに存在する、といった場合は講師と確認します。reset や clean で変更を消して進めないでください。Codespaces / dev container を使っている場合は、その環境の同じ作業場所で CLI を起動します。</p>
+        <pre><code>copilot</code></pre>
+        <p>App の会話履歴が自動で引き継がれるとは限りません。次のひな形の角括弧を実際の内容に置き換えて入力します。Issue を読み取れない場合は、自分の演習 Issue の本文を貼り付けます。</p>
+        <pre><code>ハンズオンの途中から引き継いでください。
+教材と章：[教材名・章の URL]
+課題：[Issue の URL と要件、または要件の本文]
+ここまで完了：[実装済みの内容]
+今止まっている点：[UI 操作やエラー]
+完了条件：[画面やテストで確認したい動作]
+まず README、プロジェクトの指示、現在の差分を読んでください。
+まだ変更せず、既存の作業を残して進める計画と検証方法を日本語で示してください。</code></pre>
+        <p>計画を確認し、今回扱う機能を一つに絞ってから続けます。</p>
+        <pre><code>確認した計画に沿って今回の機能を実装してください。
+既存の変更を維持し、リポジトリで定義された関連テストとビルドで検証してください。
+実行したコマンド、結果、未確認の項目を報告してください。
+commit・push・PR 作成・merge はまだ行わないでください。</code></pre>
+        <p>コマンド実行やファイル変更の許可を求められたら、演習の目的と対象を確認して許可します。この補助手順は通常の対話モードで進めます。</p>
+    </section>
+
+    <section id="mapping">
+        <h2>4. 元の演習との対応</h2>
+        <p>途中から CLI コース全体をやり直す必要はありません。今の課題を続行するための操作を、次の表から選びます。</p>
+        <div class="table-wrap"><table>
+            <caption>App の演習目的を CLI で続ける方法</caption>
+            <thead><tr><th scope="col">元の演習</th><th scope="col">CLI で進める内容</th><th scope="col">合流・完了の目安</th></tr></thead>
+            <tbody>
+                <tr><th scope="row">App 1–2：会話・最初の変更</th><td>同じリポジトリで構成を質問し、教材の小さな変更を依頼。</td><td>期待する表示が確認でき、差分を説明できる。</td></tr>
+                <tr><th scope="row">App 3：カスタム指示</th><td>教材の Issue を読み、既存の指示を保持して更新。<a href="workshops/cli/2-custom-instructions.html">CLI の指示演習</a>も参照。</td><td>指示ファイルの差分が要件に一致する。</td></tr>
+                <tr><th scope="row">App 4：計画・機能実装</th><td>上記の引き継ぎプロンプトで、フィルターなど同じ Issue を実装。<a href="workshops/cli/3-generating-code.html">CLI の実装演習</a>は参考。そちらの前段で作る helper が存在するとは仮定せず、現状を読ませる。</td><td>対象機能の動作・関連テスト・差分を確認する。スキル作成を省略した場合は未実施として記録する。</td></tr>
+                <tr><th scope="row">App 5：Playwright MCP</th><td><a href="workshops/cli/4-mcp.html">CLI の MCP 演習</a>で設定を確認。接続できなければ通常のブラウザーで同じ操作を手動検証。</td><td>機能の検証結果を記録。手動検証は MCP 接続の学習を完了した扱いにはしない。</td></tr>
+                <tr><th scope="row">App 6：Agent Merge</th><td>CLI の実装結果を Git の差分で確認し、必要なら GitHub 上で通常の PR レビューへ進む。</td><td>PR・CI の確認は可能。Agent Merge 自体の体験は講師デモまたは後日実施とする。</td></tr>
+                <tr><th scope="row">App 7–8：Canvas・定期実行</th><td>計画を文章でまとめ、次に実施する作業を記録。</td><td>Canvas・定期実行の UI 操作は講師デモまたは後日実施。CLI で同じ体験ができた扱いにはしない。</td></tr>
+                <tr><th scope="row">Mona Mayhem：VS Code の UI</th><td><a href="workshops/mona-mayhem/00-overview.html">CLI トラック</a>に切り替え、同じ章から続行。並列作業が使えなければ一つずつ実装。</td><td>現在の章のゲーム動作を確認。並列実行を省略したことを記録する。</td></tr>
+            </tbody>
+        </table></div>
+    </section>
+
+    <section id="finish">
+        <h2>5. 動作を確認し、元の演習へ戻る</h2>
+        <ol>
+            <li>README と <code>package.json</code> に定義された起動・テスト・ビルドのコマンドを確認して実行します。教材のリビジョンで異なるため、存在しないスクリプトを推測して実行しません。</li>
+            <li>起動ログの URL をブラウザーで開き、課題の完了条件を手で確認します。例：フィルターなら条件に合う結果、該当なし、条件解除。CLI の「完了」という返答だけで判断しません。</li>
+            <li>シェルで <code>git status --short</code> と <code>git diff</code> を確認します。新規ファイルは diff に出ないため、status に出たファイルも開いて読みます。</li>
+            <li>講師と結果を確認します。PR まで行うコースでは、確認済みのファイルだけを commit・push し、自分のリポジトリに PR を作成します。CI とレビューを確認してから教材の指示に従って merge します。</li>
+            <li>App に戻る場合は CLI の実行を終了し、同じ作業ディレクトリ・ブランチを App で開きます。別の clone に戻る場合は、変更を commit・push して正しいブランチを取得してから再開します。次の章が前の PR の merge を前提にする場合は、先にその前提を満たします。</li>
+        </ol>
+        <p>UI が引き続き使えなければ CLI のまま次の課題へ進めます。最低到達点は「一つの機能を実装し、動作を検証し、差分を説明できること」。省略したスキル・MCP・App 固有機能は別途記録します。</p>
+    </section>
+
+    <section id="organizer">
+        <h2>6. 講師のリハーサルと時間配分</h2>
+        <p>1回につき1コースを選び、日本語の演習本文で要件を確認します。演習時間の目安は App 60～90分、Tailspin Toys CLI 120分、Mona Mayhem CLI 60分。別途、導入・切り替えに15分と、質問・休憩の時間を確保してください。</p>
+        <p>Tailspin Toys CLI の3時間枠の例：導入・接続確認15分、講義30分、演習120分、振り返り・休憩15分。初心者が多い場合は枠を延ばすか、必須範囲を一機能の実装・検証・レビューまでに絞り、残りを発展課題とします。</p>
+        <ul>
+            <li>開催に使う教材コミット、App・CLI・Node.js のバージョン、OS、使うアカウント条件を記録する。</li>
+            <li>新しい参加者用コピーで最初から一度実行する。Tailspin Toys は自動作成される Issue が存在することも確認する。</li>
+            <li>App の途中から CLI に切り替え、変更が同じ worktree に残ること、検証できること、App に戻れることを確認する。</li>
+            <li>以下の記録を埋めて配布する。未確認の項目は未確認と表示し、検証済みと混同しない。</li>
+        </ul>
+        <pre><code>実施日・講師：未記入
+コース・教材コミット：未確認
+OS / App / CLI / Node.js バージョン：未確認
+アカウント・組織ポリシー・利用枠：未確認
+起動・テスト・ビルドの確認済みコマンド：未確認
+教材の章 / UI の相違 / CLI で続ける手順：未確認
+切り替え前後のブランチと変更の一致：未確認
+完了した項目 / デモ・後日実施にする項目：未記入</code></pre>
+        <p>このサイトはローカル閲覧用です。参加者にはアクセスが許可された案内リポジトリのコピーを事前配布してください。Python を導入した各参加者の PC で、案内リポジトリのルートから次を実行し、<a href="http://localhost:8000/ja/">日本語ページ</a>を開きます。講師の localhost URL は参加者の PC からは開けません。</p>
+        <pre><code>python -m http.server 8000 --bind 127.0.0.1 --directory website</code></pre>
+    </section>
+    <p><a href="index.html">← ワークショップ一覧へ戻る</a></p>
+</main>
+</body>
+</html>

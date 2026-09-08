@@ -49,11 +49,12 @@
 
     <section class="hero">
         <div class="container">
-            <p class="hero-subtitle">非公式の日本語訳 · 外部の教材・スライドは原本の言語で提供されます。</p>
+            <p class="hero-subtitle">非公式の日本語版 · 今期3コースの演習本文は日本語。スライド・動画は原本の言語です。</p>
             <h1>Dev Days</h1>
             <p class="hero-subtitle">GitHub Copilot を実践で学ぶハンズオンワークショップです。今期の Dev Days では、GitHub Copilot App を使ったエージェントによる開発に取り組みます。Issue の選択、エージェントの実行、変更のレビュー、プルリクエストのマージまで、ひとつの場所で進められます。</p>
             <div class="hero-cta">
                 <a href="#workshops" class="btn btn-primary">🚀 ワークショップを探す</a>
+                <a href="handson-guide.html" class="btn btn-secondary">事前準備・UI が違うときの CLI 手順</a>
                 <a href="https://gh.io/dev-days/calendar" class="btn btn-secondary" target="_blank">📍 近くのイベントを探す</a>
                 <a href="https://github.com/github/dev-days" class="btn btn-secondary" target="_blank">📦 主催者向け資料（英語）</a>
             </div>
@@ -67,8 +68,8 @@
                     <div class="stat-label">時間</div>
                 </div>
                 <div class="stat">
-                    <div class="stat-value">無料</div>
-                    <div class="stat-label">で始められます</div>
+                    <div class="stat-value">事前準備</div>
+                    <div class="stat-label">利用枠・起動を確認</div>
                 </div>
             </div>
         </div>
@@ -94,14 +95,14 @@
                         </div>
                         <span class="card-arrow">↓</span>
                     </a>
-                    <a href="https://gh.io/dev-days/workshop" class="workshop-card">
+                    <a href="workshops/app/index.html" class="workshop-card">
                         <span class="card-badge">🛠️ ワークショップ</span>
                         <div class="card-title">GitHub Copilot App ワークショップ</div>
                         <p class="card-desc">増え続けるバックログに対応するため、チームで AI エージェントを活用しましょう。Copilot App では、Issue の選択、エージェントの実行、変更のレビュー、プルリクエストのマージをまとめて進められます。このレッスンでは、インストールと接続を済ませ、プロジェクトについて相談を始めるまでを体験します。</p>
                         <div class="card-meta">
                             <span class="card-tag">ワークショップ</span>
                             <span class="card-tag">約 1～1.5 時間</span>
-                            <span class="card-tag">英語</span>
+                            <span class="card-tag">日本語</span>
                         </div>
                         <span class="card-arrow">→</span>
                     </a>
@@ -121,25 +122,25 @@
                        </div>
                        <span class="card-arrow">↓</span>
                     </a>
-                    <a href="https://gh.io/dev-days/workshop/cli" class="workshop-card">
+                    <a href="workshops/cli/index.html" class="workshop-card">
                         <span class="card-badge">🛠️ ワークショップ</span>
                         <div class="card-title">Copilot CLI ワークショップ</div>
                         <p class="card-desc">ターミナルで GitHub Copilot を使いこなしましょう。Tailspin Toys プロジェクトを使い、カスタム指示から MCP サーバー、カスタムエージェントまで実践するワークショップです。</p>
                         <div class="card-meta">
                             <span class="card-tag">ワークショップ</span>
                             <span class="card-tag">約 2 時間</span>
-                            <span class="card-tag">英語</span>
+                            <span class="card-tag">日本語</span>
                         </div>
                         <span class="card-arrow">→</span>
                     </a>
-                    <a href="https://copilot-dev-days.github.io/mona-mayhem/?track=cli" class="workshop-card">
+                    <a href="workshops/mona-mayhem/00-overview.html" class="workshop-card">
                         <span class="card-badge">🛠️ ワークショップ</span>
                         <div class="card-title">Mona Mayhem</div>
                         <p class="card-desc">レトロなアーケード風の GitHub Contribution Battle Arena を作りながら、GitHub Copilot CLI でコンテキストの設計、プロンプトによる開発、ターミナル中心の開発手順を学びます。</p>
                         <div class="card-meta">
                             <span class="card-tag">ワークショップ</span>
                             <span class="card-tag">約 60 分</span>
-                            <span class="card-tag">英語</span>
+                            <span class="card-tag">日本語</span>
                         </div>
                         <span class="card-arrow">→</span>
                     </a>
@@ -150,21 +151,25 @@
 
     <section class="prereqs">
         <div class="container">
-            <h2 class="section-title">共通の事前準備</h2>
+            <h2 class="section-title">コースに合わせた事前準備</h2>
             <div class="prereqs-grid">
                 <div class="prereq-item">
                     <span class="prereq-check">✓</span>
-                    <span><a href="https://aka.ms/get-github-copilot-devdays" target="_blank" style="color:inherit;text-decoration:underline;">GitHub Copilot Free プラン</a></span>
+                    <span>有効な Copilot プラン・AI 利用枠の残量・ログイン後の応答を確認。組織利用では App と CLI のポリシーをそれぞれ確認してください。</span>
                 </div>
                 <div class="prereq-item">
                     <span class="prereq-check">✓</span>
-                    <span><a href="https://gh.io/dev-days/app" target="_blank" style="color:inherit;text-decoration:underline;">GitHub Copilot App</a></span>
+                    <span>App：Git・Node.js 22.13以上・Copilot App・自分の Tailspin Toys リポジトリを準備。</span>
                 </div>
                 <div class="prereq-item">
                     <span class="prereq-check">✓</span>
-                    <span>ノート PC</span>
+                    <span>Tailspin Toys CLI：自分のリポジトリと Codespaces またはローカル dev container を準備し、その環境で CLI を起動。</span>
                 </div>
+                <div class="prereq-item"><span class="prereq-check">✓</span><span>Mona Mayhem CLI：Git・教材が要求する Node.js・CLI・自分の演習リポジトリを準備。</span></div>
+                <div class="prereq-item"><span class="prereq-check">✓</span><span>ノート PC とネット接続。演習本文は日本語で読めます。UI が教材と違う場合に備え、CLI も事前に動作確認します。</span></div>
             </div>
+            <p style="margin-top:1.5rem;">App・CLI は全 Copilot プランで利用できますが、無料枠だけで全演習を完走できるとは限りません。教材に古いプラン条件が残っているため、<a href="handson-guide.html#plans" style="color:inherit;text-decoration:underline;">公式情報と確認手順</a>をご覧ください。</p>
+            <p style="margin-top:1rem;"><a href="handson-guide.html" class="btn btn-secondary">コース別チェックリストと CLI への切り替え手順（日本語）</a></p>
         </div>
     </section>
 

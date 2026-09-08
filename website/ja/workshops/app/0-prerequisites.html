@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow"><title>レッスン 0 - 前提条件 | Dev Days 日本語版</title>
+<link rel="stylesheet" href="../workshops.css"><script src="../../../theme-toggle.js"></script></head><body>
+<a class="skip" href="#lesson">本文へ移動</a><header><nav aria-label="資料のナビゲーション">
+<a href="../../index.html">ワークショップ一覧</a><a href="../index.html">日本語の演習目次</a>
+<a href="../../handson-guide.html#switch">UI が違うときは CLI へ</a></nav>
+<button class="theme-toggle" type="button" onclick="toggleTheme()">☀️ ライト</button></header>
+<main id="lesson"><h1>レッスン 0 - 前提条件</h1><p class="source">非公式の日本語版 · <a href="https://github.com/github-samples/copilot-workshops/blob/7ddcf241c1cd10b8e90c0df96f6bef81e710392a/docs/ja-jp/app/0-prerequisites.md">参照原文</a> · <a href="../licenses/copilot-workshops.txt">MIT ライセンス</a><br>参照コミット：<code>7ddcf241c1cd</code> ／ 確認日：2026-09-08</p><aside>UI の名前・位置は教材作成時点のものです。操作できないときは <a href="../../handson-guide.html#switch">CLI の横道</a>を使ってください。利用条件は <a href="../../handson-guide.html#plans">最新情報の補足</a>を参照。実機での全演習の完走検証は未実施です。</aside><nav class="chapter-nav" aria-label="章の移動"><a href="index.html">← 前の章：GitHub Copilot app</a><a href="1-install-copilot-app.html">次の章 →：レッスン 1 - GitHub Copilot app のインストール</a></nav><details><summary>この章の目次</summary><div class="toc">
+<ul>
+<li><a href="#nodejs-をインストールする">Node.js をインストールする</a></li>
+<li><a href="#ラボ用リポジトリを設定する">ラボ用リポジトリを設定する</a></li>
+<li><a href="#まとめと次のステップ">まとめと次のステップ</a></li>
+<li><a href="#リソース">リソース</a></li>
+</ul>
+</div>
+</details><article><p>GitHub Copilot app は、Copilot と GitHub の両方を一元的に扱うデスクトップアプリです。Issue や pull request にすばやくアクセスでき、もちろん GitHub Copilot を使った開発も可能です。このワークショップでは、Astro で構築された Tailspin Toys アプリと GitHub Copilot app を使い、ローカル環境で作業します。始める前に、Node.js がローカルにインストールされていることを確認してから、Copilot app をインストールします。</p>
+<p>このレッスンでは、次の内容を学習します。</p>
+<ul>
+<li>プロジェクトのテストを実行できるよう Node.js をインストールする。</li>
+<li>テンプレートから Tailspin Toys プロジェクトの自分用コピーを作成する。</li>
+</ul>
+<h2 id="nodejs-をインストールする">Node.js をインストールする</h2>
+<p>いくつかのレッスンでは、エージェントに機能を構築させ、Tailspin Toys のテストスイートをローカルで実行します。そのためには <a href="https://nodejs.org/"><strong>Node.js</strong></a> (プロジェクトに必要な唯一のランタイム) が必要です。バージョン <strong>22 以降</strong>をインストールしてください。現在の <strong>LTS</strong> リリースを選ぶと安心です。</p>
+<p>どのプラットフォームでも、公式インストーラーを使うのが最も簡単です。</p>
+<ol>
+<li>Windows Terminal、macOS のターミナル、または普段使用しているターミナルを開きます。</li>
+<li>
+<p>次のコマンドを実行し、Node.js <strong>22.13 以降</strong>がインストールされていることを確認します。Tailspin Toys の必要バージョンは、コピーしたリポジトリの <code>package.json</code> の <code>engines.node</code> でも確認できます。</p>
+<pre class="highlight"><code class="language-shell">node --version</code></pre>
+</li>
+<li>
+<p><code>v22</code> 以上のバージョン番号が表示された場合は、次のセクションに進めます。</p>
+</li>
+</ol>
+<blockquote>
+<p><strong>ヒント</strong>
+Node.js がインストールされていない場合、または更新が必要な場合にのみ、以降の手順を実行してください。</p>
+</blockquote>
+<ol start="4">
+<li><a href="https://nodejs.org/en/download">Node.js のダウンロードページ</a>を開きます。</li>
+<li>使用しているオペレーティングシステム向けの <strong>LTS</strong> ビルドをダウンロードします。</li>
+<li>インストーラーを実行し、既定の設定を選択します。Windows では、<strong>Add to PATH</strong> を選択したままにします。</li>
+<li>インストールが完了したら、新しいターミナルを開きます。</li>
+<li>
+<p>新しいターミナルで次のコマンドを実行し、インストールを確認します。</p>
+<pre class="highlight"><code class="language-bash">node --version</code></pre>
+</li>
+<li>
+<p><code>v22.x.x</code> 以上が表示されることを確認します。</p>
+</li>
+</ol>
+<blockquote>
+<p><strong>ヒント</strong>
+コンテナーを使用する場合、<a href="https://www.docker.com/products/docker-desktop/"><strong>Docker</strong></a> があれば、Node.js をローカルにインストールする代わりにリポジトリの <a href="https://code.visualstudio.com/docs/devcontainers/containers">dev container</a> を使用できます。dev container には Node.js が含まれているため、両方を用意する必要はありません。</p>
+</blockquote>
+<h2 id="ラボ用リポジトリを設定する">ラボ用リポジトリを設定する</h2>
+<p>Tailspin Toys プロジェクトの自分用コピーを使って作業します。<a href="https://docs.github.com/repositories/creating-and-managing-repositories/creating-a-template-repository">テンプレートリポジトリ</a>からコピーを作成してください。新しいリポジトリにはラボに必要なすべてのファイルが含まれています。次のレッスンで、このリポジトリをアプリに接続します。</p>
+<ol>
+<li>新しいブラウザーウィンドウで、このラボの GitHub リポジトリ <code>https://github.com/github-samples/tailspin-toys</code> を開きます。</li>
+<li>
+<p>ラボ用リポジトリのページで <strong>Use this template</strong> ボタンを選択し、<strong>Create a new repository</strong> を選択して、リポジトリの自分用コピーを作成します。</p>
+<p><img alt="Use this template ボタンのドロップダウンで Create a new repository が選択されている画面" src="../assets/app-0-use-template.png" /></p>
+</li>
+<li>
+<p>GitHub または Microsoft が主催するイベントの一環としてワークショップに参加している場合は、メンターの指示に従ってください。それ以外の場合は、GitHub Copilot を利用できる Organization に新しいリポジトリを作成できます。</p>
+<p><img alt="github-samples/tailspin-toys がテンプレートに設定され、リポジトリ名が入力された Create a new repository フォーム" src="../assets/app-0-create-repository.png" /></p>
+</li>
+<li>
+<p>作成したリポジトリのパス (<strong>organization-or-user-name/repository-name</strong>) を記録します。このラボで後ほど使用します。</p>
+</li>
+</ol>
+<blockquote>
+<p><strong>補足</strong>
+テンプレートからリポジトリを作成すると、GitHub Issue のバックログが自動的に作成されます。ワークショップ全体を通してこれらの Issue を使用するため、自分で作成する必要はありません。</p>
+</blockquote>
+<h2 id="まとめと次のステップ">まとめと次のステップ</h2>
+<p>準備が整いました。プロジェクトをコンピューター上でビルドしてテストできるように Node.js をインストールし、テンプレートから Tailspin Toys リポジトリの自分用コピーを作成しました。</p>
+<p>次は GitHub Copilot app をインストールし、作成したリポジトリを接続して、ワークスペースを確認します。<a href="1-install-copilot-app.html">レッスン 1「GitHub Copilot app のインストール」</a>に進んでください。</p>
+<h2 id="リソース">リソース</h2>
+<ul>
+<li><a href="https://nodejs.org/en/download">Node.js のダウンロード</a></li>
+<li><a href="https://docs.github.com/repositories/creating-and-managing-repositories/creating-a-template-repository">テンプレートからのリポジトリの作成</a></li>
+<li><a href="https://docs.github.com/copilot/concepts/agents/github-copilot-app">GitHub Copilot app について</a></li>
+</ul></article><nav class="chapter-nav" aria-label="章の移動"><a href="index.html">← 前の章：GitHub Copilot app</a><a href="1-install-copilot-app.html">次の章 →：レッスン 1 - GitHub Copilot app のインストール</a></nav></main></body></html>

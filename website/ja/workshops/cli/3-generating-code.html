@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow"><title>演習 3 - GitHub Copilot CLI でプロジェクト機能を追加する | Dev Days 日本語版</title>
+<link rel="stylesheet" href="../workshops.css"><script src="../../../theme-toggle.js"></script></head><body>
+<a class="skip" href="#lesson">本文へ移動</a><header><nav aria-label="資料のナビゲーション">
+<a href="../../index.html">ワークショップ一覧</a><a href="../index.html">日本語の演習目次</a>
+<a href="../../handson-guide.html#switch">UI が違うときは CLI へ</a></nav>
+<button class="theme-toggle" type="button" onclick="toggleTheme()">☀️ ライト</button></header>
+<main id="lesson"><h1>演習 3 - GitHub Copilot CLI でプロジェクト機能を追加する</h1><p class="source">非公式の日本語版 · <a href="https://github.com/github-samples/copilot-workshops/blob/7ddcf241c1cd10b8e90c0df96f6bef81e710392a/docs/ja-jp/cli/3-generating-code.md">参照原文</a> · <a href="../licenses/copilot-workshops.txt">MIT ライセンス</a><br>参照コミット：<code>7ddcf241c1cd</code> ／ 確認日：2026-09-08</p><aside>UI の名前・位置は教材作成時点のものです。操作できないときは <a href="../../handson-guide.html#switch">CLI の横道</a>を使ってください。利用条件は <a href="../../handson-guide.html#plans">最新情報の補足</a>を参照。実機での全演習の完走検証は未実施です。</aside><aside>このコースの <code>--yolo</code> を含む手順は、演習専用 Codespace / dev container を前提とする原文の手順です。App の途中からローカルで切り替える場合は、上の「CLI の横道」の通常対話手順を使ってください。</aside><nav class="chapter-nav" aria-label="章の移動"><a href="2-custom-instructions.html">← 前の章：演習 2 - カスタム命令 (Copilot CLI)</a><a href="4-mcp.html">次の章 →：演習 4 - Playwright MCP サーバーで機能をテストする</a></nav><details><summary>この章の目次</summary><div class="toc">
+<ul>
+<li><a href="#シナリオ">シナリオ</a></li>
+<li><a href="#プラン-モードを活用する">プラン モードを活用する</a></li>
+<li><a href="#コードをレビューする">コードをレビューする</a></li>
+<li><a href="#まとめと次のステップ">まとめと次のステップ</a></li>
+<li><a href="#リソース">リソース</a></li>
+</ul>
+</div>
+</details><article><p>想像のとおり、GitHub Copilot CLI で実行する中心的な作業は、プロジェクトに機能やコードを追加することです。バックログの issue を 1 つ取り上げ、実装を Copilot に手伝ってもらいましょう。</p>
+<h2 id="シナリオ">シナリオ</h2>
+<p>プロジェクトのフィルタリング機能を完成させるタイミングになりました。バックログにはフィルタリングに関する issue がすでにあり、前の演習でその土台となる helper も追加しています。Copilot に issue の詳細を取得してもらい、既存の作業を考慮しながら、残りの機能を実装してもらいます。</p>
+<p>この演習では、次のことを行います。</p>
+<ul>
+<li>プラン モードを使って、フィルタリング機能を実装する計画を生成する。</li>
+<li>Copilot を使って、Web サイトにフィルタリングを追加するためのコードを生成する。</li>
+</ul>
+<p>この演習を終えるころには、プロジェクトに新しい機能が追加されています。</p>
+<h2 id="プラン-モードを活用する">プラン モードを活用する</h2>
+<p>AI の優れた使い方の 1 つが計画づくりです。何を作りたいかの大まかなイメージはあっても、アイデアを整理したり、抜けや落とし穴を洗い出したりしたい場面はよくあります。AI ツールは、追跡質問を投げかけたり、異なる問題点や不足している要素を一緒に検討したりすることで、考えを明確にする助けになります。このプロセスを支えるために、Copilot CLI にはプラン モードが用意されています。さらに、計画にかけた時間は、設定された要件により適したコードを Copilot が生成する助けにもなります。</p>
+<p>まずは、Copilot CLI のプラン モードを活用して新機能の作成プロセスを始めます。</p>
+<blockquote>
+<p><strong>ヒント</strong>
+<strong>Copilot CLI セッションを開始する</strong></p>
+<p>以下の演習を始める前に、codespace に戻ってターミナルを開きます（まだ開いていない場合は <kbd>Ctrl</kbd>+<kbd>`</kbd>）。次に、<code>--yolo</code> と <code>--enable-all-github-mcp-tools</code> を付けて Copilot CLI を起動します。</p>
+<pre class="highlight"><code class="language-bash">copilot --yolo --enable-all-github-mcp-tools</code></pre>
+<p>新しく開始する代わりに、このプロジェクトの直近のセッションを引き継ぐには <code>copilot --yolo --enable-all-github-mcp-tools --continue</code> を実行します。前の演習から Copilot CLI がすでに実行中であれば、<code>/clear</code> を送ってクリーンな会話を開始してください。</p>
+<p><code>--enable-all-github-mcp-tools</code> を付けると、現在のセッションで GitHub MCP の読み取り / 書き込みツールが有効になります。これにより、ワークショップの流れの中で Copilot がバックログを読み取り、pull request を開けるようになります。</p>
+<p><strong>注意</strong>
+<code>--yolo</code> は完全な自動権限（<code>--allow-all-tools</code>、<code>--allow-all-paths</code>、<code>--allow-all-urls</code>）を有効にします。Codespace や VM のような分離された環境でのみ使用し、日常的な開発の既定値として alias しないでください。詳しくは <a href="https://docs.github.com/copilot/how-tos/copilot-cli/use-copilot-cli/allowing-tools">Allowing and denying tool use</a> を参照してください。</p>
+</blockquote>
+<ol>
+<li>
+<p>次のプロンプトを Copilot CLI に入力し、フィルタリング issue に基づく計画を作成します。</p>
+<pre class="highlight"><code>/plan リポジトリからフィルタリング追加に関する Issue を取得してください。src/lib/publishers.ts の helper は前の演習で追加済みなので、その作業を前提に、残りのゲームのフィルタリング処理、UI、テストを計画してください。</code></pre>
+</li>
+<li>
+<p>計画を作成する過程で、Copilot から追跡質問が表示されることがあります。表示された場合は、自分ならどのように機能を実装するかに基づいて答えてください。</p>
+</li>
+<li>計画が生成されたら、その設計図をレビューします。データ レイヤーや UI の残りの変更に加え、test の生成も推奨されていることに気づくはずです。</li>
+<li>Copilot CLI は、計画に対して追加のフィードバックを提供する機会を提示します。カーソルを案内された位置まで下げ、提案を入力すると、Copilot がそれを取り込んだ新しいバージョンの計画を作成します。</li>
+<li>内容に満足したら、Copilot が提示する選択肢を選び、新機能の実装作業を開始します。</li>
+</ol>
+<blockquote>
+<p><strong>補足</strong>
+Copilot は確率的に動作するため、表示されるテキストや選択肢は完全には一致しません。ただし、実装の開始に進む選択肢が表示され、その文言は次のようなものになります。</p>
+<p><code>Yes, and switch to autopilot mode</code>.</p>
+<p>上の例のように、Copilot から <a href="https://docs.github.com/copilot/concepts/agents/copilot-cli/autopilot">autopilot mode</a> を有効にする選択肢が提示される場合があります。autopilot mode を使うと、各ステップのたびに入力を待たずに、Copilot CLI がタスクを進められます。最初の指示を与えると、タスクが完了したと判断するまで Copilot CLI が各ステップを自律的に実行します。このワークショップでは隔離された環境で動作しているため、autopilot を有効にし、すべてのツールを許可しても問題ありません。</p>
+</blockquote>
+<ol start="6">
+<li>Copilot がファイルの生成作業を開始します。</li>
+</ol>
+<blockquote>
+<p><strong>補足</strong>
+この操作には数分かかることがあります。Copilot がファイルを編集 / 作成し、test を更新 / 生成し、すべて成功することを確認するために test を実行する様子が表示されます。ここまでに確認した内容を振り返ったり、飲み物を楽しんだりするのにちょうどよい時間です。</p>
+</blockquote>
+<h2 id="コードをレビューする">コードをレビューする</h2>
+<p>AI が生成したコードは、本番環境にマージする前に必ずレビューする必要があります。ここで少し時間を取り、Copilot が新機能の実装で作成 / 変更したファイルを確認しましょう。</p>
+<ol>
+<li>
+<p>Copilot CLI で次のコマンドを使い、「diff」またはコード変更を表示します。</p>
+<pre class="highlight"><code>/diff</code></pre>
+</li>
+<li>
+<p>変更されたファイルを確認します。CLI 1.0.83 では左右の矢印キーでファイルツリーと差分のペインを切り替え、上下キーで移動します。画面下部のキー案内を優先してください。新しい filter control とクライアント側フィルタリングが実装された games 一覧ページや <code>src/lib/games.ts</code>、さらに <code>games.test.ts</code> などの test が更新されているはずです。Copilot が既存の helper を完全な実装に合わせて調整した場合は、<code>publishers.ts</code> に変更が加わることもあります。</p>
+</li>
+</ol>
+<h2 id="まとめと次のステップ">まとめと次のステップ</h2>
+<p>Copilot CLI の助けを借りて、Web サイトにフィルタリング機能を追加できました。具体的には次のことを行いました。</p>
+<ul>
+<li>プラン モードを使って、フィルタリング機能を実装する計画を生成する。</li>
+<li>Copilot を使って、Web サイトにフィルタリングを追加するためのコードを生成する。</li>
+</ul>
+<p>もちろん、次にやるべきことは、それが正しく動作することを確認することです。pull request を開く前に、<a href="4-mcp.html">Playwright MCP サーバーで機能をテスト</a> しましょう。</p>
+<h2 id="リソース">リソース</h2>
+<ul>
+<li><a href="https://docs.github.com/copilot/how-tos/use-copilot-agents/use-copilot-cli">Copilot CLI を使う</a></li>
+<li><a href="https://docs.github.com/copilot/concepts/agents/about-copilot-cli">Copilot CLI について</a></li>
+<li><a href="https://docs.github.com/copilot/how-tos/use-copilot-agents/use-copilot-cli#context-management">Copilot CLI のコンテキスト管理</a></li>
+</ul></article><nav class="chapter-nav" aria-label="章の移動"><a href="2-custom-instructions.html">← 前の章：演習 2 - カスタム命令 (Copilot CLI)</a><a href="4-mcp.html">次の章 →：演習 4 - Playwright MCP サーバーで機能をテストする</a></nav></main></body></html>
