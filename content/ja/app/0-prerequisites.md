@@ -6,6 +6,9 @@ authors:
 lastUpdated: 2026-06-30
 ---
 
+> **この章の進め方：** App を使える場合は以下の本文を進めます。UI で止まった場合は、[この章の CLI 代替手順](#cli-fallback)を使い、同じ章の合流条件を確認してください。
+
+
 GitHub Copilot app は、Copilot と GitHub の両方を一元的に扱うデスクトップアプリです。Issue や pull request にすばやくアクセスでき、もちろん GitHub Copilot を使った開発も可能です。このワークショップでは、Astro で構築された Tailspin Toys アプリと GitHub Copilot app を使い、ローカル環境で作業します。始める前に、Node.js がローカルにインストールされていることを確認してから、Copilot app をインストールします。
 
 このレッスンでは、次の内容を学習します。
@@ -15,7 +18,7 @@ GitHub Copilot app は、Copilot と GitHub の両方を一元的に扱うデス
 
 ## Node.js をインストールする
 
-いくつかのレッスンでは、エージェントに機能を構築させ、Tailspin Toys のテストスイートをローカルで実行します。そのためには [**Node.js**][nodejs] (プロジェクトに必要な唯一のランタイム) が必要です。バージョン **22 以降**をインストールしてください。現在の **LTS** リリースを選ぶと安心です。
+いくつかのレッスンでは、エージェントに機能を構築させ、Tailspin Toys のテストスイートをローカルで実行します。そのためには [**Node.js**][nodejs] (プロジェクトに必要な唯一のランタイム) が必要です。バージョン **22.13 以降**をインストールしてください。現在の **LTS** リリースを選ぶと安心です。
 
 どのプラットフォームでも、公式インストーラーを使うのが最も簡単です。
 
@@ -26,7 +29,7 @@ GitHub Copilot app は、Copilot と GitHub の両方を一元的に扱うデス
     node --version
     ```
 
-3. `v22` 以上のバージョン番号が表示された場合は、次のセクションに進めます。
+3. `v22.13.0` 以上のバージョン番号が表示された場合は、次のセクションに進めます。
 
 > [!TIP]
 > Node.js がインストールされていない場合、または更新が必要な場合にのみ、以降の手順を実行してください。
@@ -41,7 +44,7 @@ GitHub Copilot app は、Copilot と GitHub の両方を一元的に扱うデス
     node --version
     ```
 
-9. `v22.x.x` 以上が表示されることを確認します。
+9. `v22.13.0` 以上が表示されることを確認します。
 
 > [!TIP]
 > コンテナーを使用する場合、[**Docker**][docker] があれば、Node.js をローカルにインストールする代わりにリポジトリの [dev container][dev-containers] を使用できます。dev container には Node.js が含まれているため、両方を用意する必要はありません。
@@ -63,6 +66,25 @@ Tailspin Toys プロジェクトの自分用コピーを使って作業します
 
 > [!NOTE]
 > テンプレートからリポジトリを作成すると、GitHub Issue のバックログが自動的に作成されます。ワークショップ全体を通してこれらの Issue を使用するため、自分で作成する必要はありません。
+
+<a id="cli-fallback"></a>
+
+## CLI 代替手順：同じ演習コピーを準備する
+
+この章は App・CLI 共通の準備です。本文の Tailspin Toys テンプレートから自分のコピーを作成し、そのコピーを clone します。すでに App が clone した場合は同じものを使い、新しいコピーを作らないでください。
+
+Node.js 22.13以上、Git、CLI を準備します。npm を使う導入例です。
+
+```sh
+node --version
+git --version
+npm install -g @github/copilot
+copilot --version
+```
+
+自分のコピーで README を確認して `npm ci`、`npm run dev` を実行し、表示された localhost URL をブラウザーで開きます。E2E を実行する場合は README に従い `npx playwright install chromium` も実行します。CLI の認証は次章で確認します。
+
+**合流条件：** 自分のコピーが起動でき、remote が自分の repo を指していること。App のインストールが使えない場合も、CLI で本編を続けられます。App 機能の体験は未実施と記録します。
 
 ## まとめと次のステップ
 
