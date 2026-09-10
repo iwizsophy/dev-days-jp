@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow"><title>App シナリオの検証状況 | Dev Days 日本語版</title>
+<link rel="stylesheet" href="../workshops.css"><script src="../../../theme-toggle.js"></script></head><body>
+<a class="skip" href="#lesson">本文へ移動</a><header><nav aria-label="資料のナビゲーション">
+<a href="../../index.html">教材セットの入口</a><a href="../index.html">App シナリオの目次</a>
+<a href="../../handson-guide.html#switch">UI が違うときは CLI へ</a></nav>
+<button class="theme-toggle" type="button" onclick="toggleTheme()">☀️ ライト</button></header>
+<main id="lesson"><h1>App シナリオの検証状況</h1><aside>この教材セット独自の運営・補助手順です。</aside><article><p>2026年9月10日：教材の再構成・HTML 生成・内部参照を確認。今回、App の実機操作や新しいアプリ実装は実施していません。以下は開催前の実走チェックリストです。</p>
+<p>教材側の確認：サイト39ページ・内部リンク／画像／アンカー755参照が成功。2回の生成結果が一致し、App 全9章に CLI 代替手順と合流条件があることを確認しました。ブラウザーで参加者の入口、演習0への移動、章内の CLI 手順への移動と表示を確認しています。</p>
+<table>
+<thead>
+<tr>
+<th>演習</th>
+<th>合流時の確認対象</th>
+<th>App 実走</th>
+<th>同じ章の CLI 代替実走</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0 準備</td>
+<td>自分のコピー、Node、起動とテスト</td>
+<td>未検証</td>
+<td>未検証</td>
+</tr>
+<tr>
+<td>1 接続</td>
+<td>同じ checkout を開き、構成について応答</td>
+<td>未検証</td>
+<td>未検証</td>
+</tr>
+<tr>
+<td>2 星評価</td>
+<td>数値と null の表示、テスト、PR・マージ</td>
+<td>未検証</td>
+<td>未検証</td>
+</tr>
+<tr>
+<td>3 指示</td>
+<td>TSDoc・ヘッダーの標準と提示コード、PR・マージ</td>
+<td>未検証</td>
+<td>未検証</td>
+</tr>
+<tr>
+<td>4 フィルター</td>
+<td>星評価・指示を継承し、絞り込みと quality-checks</td>
+<td>未検証</td>
+<td>未検証</td>
+</tr>
+<tr>
+<td>5 MCP</td>
+<td>MCP ツールの実行、複合条件・解除等の検証</td>
+<td>未検証</td>
+<td>未検証</td>
+</tr>
+<tr>
+<td>6 マージ</td>
+<td>CI とレビュー、演習コピーへ統合</td>
+<td>未検証</td>
+<td>未検証（通常マージのみ代替可能）</td>
+</tr>
+<tr>
+<td>7 Canvas</td>
+<td>共有・保存・Issue 操作</td>
+<td>未検証</td>
+<td>機能代替不可。優先順位整理は未検証</td>
+</tr>
+<tr>
+<td>8 Automation</td>
+<td>手動実行、結果、終了状態</td>
+<td>未検証</td>
+<td>機能代替不可。単発要約は未検証</td>
+</tr>
+</tbody>
+</table>
+<p>すべての章で App → CLI → App の作業ディレクトリ・ブランチ・差分の一致も未検証です。</p>
+<h2>既存の実走結果を再利用できる範囲</h2>
+<p>2026年9月8日の Tailspin Toys <strong>CLI 独立シナリオ</strong>では、Copilot CLI 1.0.83 の応答、指示反映、フィルター実装、quality-checks、Playwright MCP、高コントラストのカスタムエージェント、PR と CI を確認しました。環境構築と問題切り分けの参考になります。</p>
+<ul>
+<li><a href="https://github.com/iwizsophy/dev-days-tailspin-cli-verification-20260908/pull/11">フィルター PR #11</a>：CI 全4ジョブ成功。</li>
+<li><a href="https://github.com/iwizsophy/dev-days-tailspin-cli-verification-20260908/pull/13">高コントラスト PR #13</a>：CI 全4ジョブ成功。</li>
+</ul>
+<p>証拠は非公開コピーのため閲覧権限が必要です。詳細はこのリポジトリの <code>content/ja/verification-2026-09-08.md</code>。星評価の実装、App の章間マージ、Agent Merge、Canvas、Automation の証拠ではありません。</p>
+<h2>1回の実走で記録する項目</h2>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>記入内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>実施日・担当</td>
+<td>日時、検証者</td>
+</tr>
+<tr>
+<td>教材・テンプレート</td>
+<td>両方のコミット SHA</td>
+</tr>
+<tr>
+<td>環境</td>
+<td>OS、Node、App、CLI のバージョン</td>
+</tr>
+<tr>
+<td>対象</td>
+<td>自分の演習 repo、branch、worktree、Issue</td>
+</tr>
+<tr>
+<td>経路</td>
+<td>App／CLI／手動／講師デモ、切り替え地点</td>
+</tr>
+<tr>
+<td>結果</td>
+<td>期待値・実測値、テスト名・件数・終了コード</td>
+</tr>
+<tr>
+<td>証拠</td>
+<td>自分の PR・CI URL、スクリーンショット等</td>
+</tr>
+<tr>
+<td>未確認・終了状態</td>
+<td>App 固有機能、制約、サーバー・Codespace 停止</td>
+</tr>
+</tbody>
+</table>
+<p><a href="instructor.html">講師ガイド</a> · <a href="../app/index.html">演習目次</a></p></article></main></body></html>

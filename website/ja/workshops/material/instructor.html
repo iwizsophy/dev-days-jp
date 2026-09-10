@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow"><title>講師ガイド：App シナリオを一本の流れで実施する | Dev Days 日本語版</title>
+<link rel="stylesheet" href="../workshops.css"><script src="../../../theme-toggle.js"></script></head><body>
+<a class="skip" href="#lesson">本文へ移動</a><header><nav aria-label="資料のナビゲーション">
+<a href="../../index.html">教材セットの入口</a><a href="../index.html">App シナリオの目次</a>
+<a href="../../handson-guide.html#switch">UI が違うときは CLI へ</a></nav>
+<button class="theme-toggle" type="button" onclick="toggleTheme()">☀️ ライト</button></header>
+<main id="lesson"><h1>講師ガイド：App シナリオを一本の流れで実施する</h1><aside>この教材セット独自の運営・補助手順です。</aside><article><h2>使用する教材</h2>
+<p>参加者には <a href="../app/index.html">App の目次</a> を配布します。CLI 独立コースと Mona Mayhem は補講用の参考資料で、本編の途中では移動しません。演習対象は各自の Tailspin Toys コピーです。教材リポジトリ内でサンプルアプリの演習を実行しないでください。</p>
+<p>参照元：<code>github/dev-days</code> の開催・運営資料、<code>github-samples/copilot-workshops</code> の App シナリオ。参照コミットとファイルは <code>content/ja/sources.json</code> に記録しています。参照元への変更送信は行いません。</p>
+<h2>180分枠の運営案</h2>
+<p>この教材セット独自の配分案です。実測の所要時間ではありません。演習0・1の導入は事前に済ませます。元シナリオの60〜90分に、CLI への切り替え支援とレビュー時間を追加します。</p>
+<table>
+<thead>
+<tr>
+<th>内容</th>
+<th style="text-align: right;">分</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>導入セッション（Dev Days の App スライドを使用可）</td>
+<td style="text-align: right;">30</td>
+</tr>
+<tr>
+<td>環境・対象リポジトリ確認（演習0・1）</td>
+<td style="text-align: right;">15</td>
+</tr>
+<tr>
+<td>星評価・PR・マージ（演習2）</td>
+<td style="text-align: right;">20</td>
+</tr>
+<tr>
+<td>指示更新・PR・マージ（演習3）</td>
+<td style="text-align: right;">15</td>
+</tr>
+<tr>
+<td>休憩</td>
+<td style="text-align: right;">10</td>
+</tr>
+<tr>
+<td>フィルター計画・実装・quality-checks（演習4）</td>
+<td style="text-align: right;">30</td>
+</tr>
+<tr>
+<td>MCP 検証（演習5）</td>
+<td style="text-align: right;">20</td>
+</tr>
+<tr>
+<td>レビュー・マージ／Agent Merge デモ（演習6）</td>
+<td style="text-align: right;">15</td>
+</tr>
+<tr>
+<td>Canvas デモ・優先順位整理（演習7）</td>
+<td style="text-align: right;">10</td>
+</tr>
+<tr>
+<td>振り返り・手動 Automation デモ（演習8）</td>
+<td style="text-align: right;">10</td>
+</tr>
+<tr>
+<td>質疑・切り替え予備</td>
+<td style="text-align: right;">5</td>
+</tr>
+</tbody>
+</table>
+<p>CI 待ちや環境構築が長引く場合は、後半をデモにして未実施の項目を記録します。「全演習完了」とは案内しません。Canvas・Automation を全員で実施する場合は、追加枠を確保します。</p>
+<h2>開催前のリハーサル</h2>
+<ul>
+<li>自分の非公開コピーで App 演習0〜8を順に試し、App/CLI・Node.js のバージョン、テンプレート SHA、OS を記録する。</li>
+<li>演習2・3のマージが演習4に引き継がれることを確認する。CLI コースで先に作る publisher helper の存在を仮定しない。</li>
+<li>各章で App を停止して同じ worktree から CLI に切り替え、App に戻って差分が同じことを確認する。</li>
+<li>App 用と CLI 用の利用ポリシー、残り利用枠、ネット接続、必要な GitHub 権限を確認する。UI 変更と認証・利用枠の問題を切り分ける。</li>
+<li>星評価の null ケース、フィルターの複合条件・解除・該当なしを確認する。seed にない条件はテスト用データで検証し、実 UI 操作と区別する。</li>
+<li>MCP 用 Chrome と E2E 用 Chromium を区別する。接続失敗はプロセス・CLI 設定と再起動を確認し、手動検証へ切り替えた場合は MCP 未実施とする。</li>
+<li>PR Readiness の YAML エラーなど既知の問題は <a href="../cli/6-custom-agents.html">CLI の参考資料</a> を参照する。確認済みの修正を演習開始前に適用する。</li>
+<li>終了時に開発サーバー・演習用 Codespace・不要な定期実行を停止する。PR や未保存の変更を消さない。</li>
+</ul>
+<h2>当日の切り替え判断</h2>
+<p>ボタンが見つからない場合は章・目的・画面を確認し、約5分で解決しなければ <a href="continuation.html">共通手順</a> とその章の CLI 手順へ案内します。ネットワーク・権限・利用枠の問題は CLI でも解決しないことがあるため、ペア作業か講師デモに切り替えます。</p>
+<p>演習6の通常マージ、演習7の Markdown での整理、演習8の単発要約は到達目標の一部を満たしますが、App 固有機能の体験には代わりません。</p>
+<h2>検証の記録</h2>
+<p><a href="verification.html">章別検証表</a> の未検証を、実測結果と証拠に基づいて更新します。以前の CLI 専用シナリオで CI が成功したことを、App シナリオの完走へ読み替えないでください。</p></article></main></body></html>

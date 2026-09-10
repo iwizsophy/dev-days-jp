@@ -3,10 +3,10 @@
 <meta name="robots" content="noindex, nofollow"><title>レッスン 7 - キャンバスを使った計画 | Dev Days 日本語版</title>
 <link rel="stylesheet" href="../workshops.css"><script src="../../../theme-toggle.js"></script></head><body>
 <a class="skip" href="#lesson">本文へ移動</a><header><nav aria-label="資料のナビゲーション">
-<a href="../../index.html">ワークショップ一覧</a><a href="../index.html">日本語の演習目次</a>
+<a href="../../index.html">教材セットの入口</a><a href="../index.html">App シナリオの目次</a>
 <a href="../../handson-guide.html#switch">UI が違うときは CLI へ</a></nav>
 <button class="theme-toggle" type="button" onclick="toggleTheme()">☀️ ライト</button></header>
-<main id="lesson"><h1>レッスン 7 - キャンバスを使った計画</h1><p class="source">非公式の日本語版 · <a href="https://github.com/github-samples/copilot-workshops/blob/7ddcf241c1cd10b8e90c0df96f6bef81e710392a/docs/ja-jp/app/7-canvases.md">参照原文</a> · <a href="../licenses/copilot-workshops.txt">MIT ライセンス</a><br>参照コミット：<code>7ddcf241c1cd</code> ／ 確認日：2026-09-08</p><aside>UI の名前・位置は教材作成時点のものです。操作できないときは <a href="../../handson-guide.html#switch">CLI の横道</a>を使ってください。利用条件は <a href="../../handson-guide.html#plans">最新情報の補足</a>を参照。実機での全演習の完走検証は未実施です。</aside><nav class="chapter-nav" aria-label="章の移動"><a href="6-agent-merge.html">← 前の章：レッスン 6 - Agent Merge によるマージ</a><a href="8-review.html">次の章 →：レッスン 8 - 振り返りと次のステップ</a></nav><details><summary>この章の目次</summary><div class="toc">
+<main id="lesson"><h1>レッスン 7 - キャンバスを使った計画</h1><p class="source">非公式の日本語版 · <a href="https://github.com/github-samples/copilot-workshops/blob/7ddcf241c1cd10b8e90c0df96f6bef81e710392a/docs/ja-jp/app/7-canvases.md">参照原文</a> · <a href="../licenses/copilot-workshops.txt">MIT ライセンス</a><br>参照コミット：<code>7ddcf241c1cd</code> ／ 確認日：2026-09-08</p><aside>UI の名前・位置は参照原文のものです。利用条件は <a href="../../handson-guide.html#plans">事前確認</a>を参照してください。</aside><aside>本編：App シナリオ。各章の CLI 代替手順はこの教材独自の補足です。App と代替経路の実走は未検証です。<a href="../material/verification.html">章別の検証状況</a></aside><nav class="chapter-nav" aria-label="章の移動"><a href="6-agent-merge.html">← 前の章：レッスン 6 - Agent Merge によるマージ</a><a href="8-review.html">次の章 →：レッスン 8 - 振り返りと次のステップ</a></nav><details><summary>この章の目次</summary><div class="toc">
 <ul>
 <li><a href="#シナリオ">シナリオ</a></li>
 <li><a href="#キャンバスとは">キャンバスとは</a></li>
@@ -14,11 +14,15 @@
 <li><a href="#作業を追跡するキャンバスを作成する">作業を追跡するキャンバスを作成する</a></li>
 <li><a href="#キャンバスを保存してリポジトリにマージする">キャンバスを保存してリポジトリにマージする</a></li>
 <li><a href="#キャンバスで作業する">キャンバスで作業する</a></li>
+<li><a href="#cli-代替手順優先順位を文書で整理する">CLI 代替手順：優先順位を文書で整理する</a></li>
 <li><a href="#まとめと次のステップ">まとめと次のステップ</a></li>
 <li><a href="#リソース">リソース</a></li>
 </ul>
 </div>
-</details><article><p>ここまでは、チャットを通じてエージェントを指示してきました。しかし、多くの作業は会話の中ではなく、ボード、ドキュメント、チェックリスト上で行われます。<strong>キャンバス</strong>は、まさにそのような作業のために、アプリ内でユーザーとエージェントが共有できる領域です。このレッスンでは、ここまで取り組んできたバックログの計画と追跡に使用する、シンプルなキャンバスを作成します。</p>
+</details><article><blockquote>
+<p><strong>この章の進め方：</strong> App を使える場合は以下の本文を進めます。UI で止まった場合は、<a href="#cli-fallback">この章の CLI 代替手順</a>を使い、同じ章の合流条件を確認してください。</p>
+</blockquote>
+<p>ここまでは、チャットを通じてエージェントを指示してきました。しかし、多くの作業は会話の中ではなく、ボード、ドキュメント、チェックリスト上で行われます。<strong>キャンバス</strong>は、まさにそのような作業のために、アプリ内でユーザーとエージェントが共有できる領域です。このレッスンでは、ここまで取り組んできたバックログの計画と追跡に使用する、シンプルなキャンバスを作成します。</p>
 <p>このレッスンでは、次の内容を学習します。</p>
 <ul>
 <li>キャンバスの概要と使用する場面を理解する。</li>
@@ -96,6 +100,15 @@
 <li>Copilot が Issue の作業を開始します。</li>
 </ol>
 <p>これで、作成したキャンバスを使って開発プロセスを効率化できました。</p>
+<p><a id="cli-fallback"></a></p>
+<h2 id="cli-代替手順優先順位を文書で整理する">CLI 代替手順：優先順位を文書で整理する</h2>
+<p>App の共有 Canvas・セッション開始ボタンを CLI で同等に再現する手順ではありません。ここでは優先順位の整理と共有可能な成果物の作成までを扱います。</p>
+<p>自分のコピーの最新 Issue 一覧と PR の状態を確認し、取得できなければ本文を貼り付けます。未使用の作業ブランチを用意して次を依頼します。</p>
+<pre class="highlight"><code class="language-text">この演習コピーの Issue から優先すべき3件を選び、理由と残りの一覧を
+docs/workshop-triage.md に日本語で整理してください。既存ファイルがあれば維持して更新します。
+Issue の URL、状態、優先理由、次の行動を含め、Issue 自体は変更しないでください。
+App の Canvas を作ったという記述はしないでください。PR・merge はまだ行いません。</code></pre>
+<p><strong>合流条件：</strong> 優先順位・理由・次の行動を説明できること。必要なら自分のコピーへの通常 PR で文書を共有します。Canvas の保存・共有・ボタン操作は講師デモまたは後日実施とし、未体験を記録して演習8へ進みます。</p>
 <h2 id="まとめと次のステップ">まとめと次のステップ</h2>
 <p>ユーザーとエージェントが共同作業できる共有領域を作成しました。具体的には、次の作業を行いました。</p>
 <ul>

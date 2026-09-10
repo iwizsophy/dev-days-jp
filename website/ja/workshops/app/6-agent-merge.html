@@ -3,19 +3,23 @@
 <meta name="robots" content="noindex, nofollow"><title>レッスン 6 - Agent Merge によるマージ | Dev Days 日本語版</title>
 <link rel="stylesheet" href="../workshops.css"><script src="../../../theme-toggle.js"></script></head><body>
 <a class="skip" href="#lesson">本文へ移動</a><header><nav aria-label="資料のナビゲーション">
-<a href="../../index.html">ワークショップ一覧</a><a href="../index.html">日本語の演習目次</a>
+<a href="../../index.html">教材セットの入口</a><a href="../index.html">App シナリオの目次</a>
 <a href="../../handson-guide.html#switch">UI が違うときは CLI へ</a></nav>
 <button class="theme-toggle" type="button" onclick="toggleTheme()">☀️ ライト</button></header>
-<main id="lesson"><h1>レッスン 6 - Agent Merge によるマージ</h1><p class="source">非公式の日本語版 · <a href="https://github.com/github-samples/copilot-workshops/blob/7ddcf241c1cd10b8e90c0df96f6bef81e710392a/docs/ja-jp/app/6-agent-merge.md">参照原文</a> · <a href="../licenses/copilot-workshops.txt">MIT ライセンス</a><br>参照コミット：<code>7ddcf241c1cd</code> ／ 確認日：2026-09-08</p><aside>UI の名前・位置は教材作成時点のものです。操作できないときは <a href="../../handson-guide.html#switch">CLI の横道</a>を使ってください。利用条件は <a href="../../handson-guide.html#plans">最新情報の補足</a>を参照。実機での全演習の完走検証は未実施です。</aside><nav class="chapter-nav" aria-label="章の移動"><a href="5-mcp-playwright.html">← 前の章：レッスン 5 - Playwright MCP server によるテスト</a><a href="7-canvases.html">次の章 →：レッスン 7 - キャンバスを使った計画</a></nav><details><summary>この章の目次</summary><div class="toc">
+<main id="lesson"><h1>レッスン 6 - Agent Merge によるマージ</h1><p class="source">非公式の日本語版 · <a href="https://github.com/github-samples/copilot-workshops/blob/7ddcf241c1cd10b8e90c0df96f6bef81e710392a/docs/ja-jp/app/6-agent-merge.md">参照原文</a> · <a href="../licenses/copilot-workshops.txt">MIT ライセンス</a><br>参照コミット：<code>7ddcf241c1cd</code> ／ 確認日：2026-09-08</p><aside>UI の名前・位置は参照原文のものです。利用条件は <a href="../../handson-guide.html#plans">事前確認</a>を参照してください。</aside><aside>本編：App シナリオ。各章の CLI 代替手順はこの教材独自の補足です。App と代替経路の実走は未検証です。<a href="../material/verification.html">章別の検証状況</a></aside><nav class="chapter-nav" aria-label="章の移動"><a href="5-mcp-playwright.html">← 前の章：レッスン 5 - Playwright MCP server によるテスト</a><a href="7-canvases.html">次の章 →：レッスン 7 - キャンバスを使った計画</a></nav><details><summary>この章の目次</summary><div class="toc">
 <ul>
 <li><a href="#シナリオ">シナリオ</a></li>
 <li><a href="#agent-merge-の概要">Agent Merge の概要</a></li>
 <li><a href="#agent-merge-で-pr-を管理する">Agent Merge で PR を管理する</a></li>
+<li><a href="#cli-代替手順通常の-pr-レビューとマージ">CLI 代替手順：通常の PR レビューとマージ</a></li>
 <li><a href="#まとめと次のステップ">まとめと次のステップ</a></li>
 <li><a href="#リソース">リソース</a></li>
 </ul>
 </div>
-</details><article><p>フィルター機能の構築と検証が完了し、ブラウザーで動作することも確認できました。最後のステップはマージです。このハーネスではすでに2回マージしており、どちらも pull request を作成して github.com で自分でマージしました。今回は、pull request のライフサイクル全体をアプリ内から管理する <strong>Agent Merge</strong> に処理を任せます。</p>
+</details><article><blockquote>
+<p><strong>この章の進め方：</strong> App を使える場合は以下の本文を進めます。UI で止まった場合は、<a href="#cli-fallback">この章の CLI 代替手順</a>を使い、同じ章の合流条件を確認してください。</p>
+</blockquote>
+<p>フィルター機能の構築と検証が完了し、ブラウザーで動作することも確認できました。最後のステップはマージです。このハーネスではすでに2回マージしており、どちらも pull request を作成して github.com で自分でマージしました。今回は、pull request のライフサイクル全体をアプリ内から管理する <strong>Agent Merge</strong> に処理を任せます。</p>
 <p>このレッスンでは、次の内容を学習します。</p>
 <ul>
 <li>Agent Merge の概要と、マージのライフサイクルを自動化する仕組みを学ぶ。</li>
@@ -48,6 +52,16 @@
 <ol start="7">
 <li>すべての CI プロセスが成功すると、つまりテストに合格すると、Copilot が pull request をマージします。</li>
 </ol>
+<p><a id="cli-fallback"></a></p>
+<h2 id="cli-代替手順通常の-pr-レビューとマージ">CLI 代替手順：通常の PR レビューとマージ</h2>
+<p>Agent Merge 自体を CLI の通常操作で体験したことにはできません。この章は自分のコピーへの通常マージで統合を学び、Agent Merge は講師デモまたは後日実施とします。</p>
+<ol>
+<li>演習4・5の同じ作業ブランチで差分と quality-checks の結果を確認します。</li>
+<li><a href="../material/continuation.html">PR・合流の共通手順</a>で自分のコピーに PR を作成します。すでに PR があればその PR を更新します。</li>
+<li>base/head、差分、CI、レビュー指摘を確認します。失敗があれば同じブランチで修正・再検証し、PR を更新します。</li>
+<li>自分のコピーへの通常マージを行い、最新の既定ブランチでフィルターと星評価が残っていることを確認します。</li>
+</ol>
+<p><strong>合流条件：</strong> PR の必要な CI とレビューが成功し、自分のコピーへ統合されていること。マージできなければ PR の状態と残作業を記録し、演習7では「すべてマージ済み」と仮定しません。Agent Merge の機能体験は別欄に記録します。</p>
 <h2 id="まとめと次のステップ">まとめと次のステップ</h2>
 <p>コードの生成、テストと検証、pull request のプロセスなど、開発プロセスの複数の部分を自動化しました。具体的には、次の作業を行いました。</p>
 <ul>

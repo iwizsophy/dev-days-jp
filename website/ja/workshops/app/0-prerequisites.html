@@ -3,25 +3,29 @@
 <meta name="robots" content="noindex, nofollow"><title>レッスン 0 - 前提条件 | Dev Days 日本語版</title>
 <link rel="stylesheet" href="../workshops.css"><script src="../../../theme-toggle.js"></script></head><body>
 <a class="skip" href="#lesson">本文へ移動</a><header><nav aria-label="資料のナビゲーション">
-<a href="../../index.html">ワークショップ一覧</a><a href="../index.html">日本語の演習目次</a>
+<a href="../../index.html">教材セットの入口</a><a href="../index.html">App シナリオの目次</a>
 <a href="../../handson-guide.html#switch">UI が違うときは CLI へ</a></nav>
 <button class="theme-toggle" type="button" onclick="toggleTheme()">☀️ ライト</button></header>
-<main id="lesson"><h1>レッスン 0 - 前提条件</h1><p class="source">非公式の日本語版 · <a href="https://github.com/github-samples/copilot-workshops/blob/7ddcf241c1cd10b8e90c0df96f6bef81e710392a/docs/ja-jp/app/0-prerequisites.md">参照原文</a> · <a href="../licenses/copilot-workshops.txt">MIT ライセンス</a><br>参照コミット：<code>7ddcf241c1cd</code> ／ 確認日：2026-09-08</p><aside>UI の名前・位置は教材作成時点のものです。操作できないときは <a href="../../handson-guide.html#switch">CLI の横道</a>を使ってください。利用条件は <a href="../../handson-guide.html#plans">最新情報の補足</a>を参照。実機での全演習の完走検証は未実施です。</aside><nav class="chapter-nav" aria-label="章の移動"><a href="index.html">← 前の章：GitHub Copilot app</a><a href="1-install-copilot-app.html">次の章 →：レッスン 1 - GitHub Copilot app のインストール</a></nav><details><summary>この章の目次</summary><div class="toc">
+<main id="lesson"><h1>レッスン 0 - 前提条件</h1><p class="source">非公式の日本語版 · <a href="https://github.com/github-samples/copilot-workshops/blob/7ddcf241c1cd10b8e90c0df96f6bef81e710392a/docs/ja-jp/app/0-prerequisites.md">参照原文</a> · <a href="../licenses/copilot-workshops.txt">MIT ライセンス</a><br>参照コミット：<code>7ddcf241c1cd</code> ／ 確認日：2026-09-08</p><aside>UI の名前・位置は参照原文のものです。利用条件は <a href="../../handson-guide.html#plans">事前確認</a>を参照してください。</aside><aside>本編：App シナリオ。各章の CLI 代替手順はこの教材独自の補足です。App と代替経路の実走は未検証です。<a href="../material/verification.html">章別の検証状況</a></aside><nav class="chapter-nav" aria-label="章の移動"><a href="index.html">← 前の章：GitHub Copilot app</a><a href="1-install-copilot-app.html">次の章 →：レッスン 1 - GitHub Copilot app のインストール</a></nav><details><summary>この章の目次</summary><div class="toc">
 <ul>
 <li><a href="#nodejs-をインストールする">Node.js をインストールする</a></li>
 <li><a href="#ラボ用リポジトリを設定する">ラボ用リポジトリを設定する</a></li>
+<li><a href="#cli-代替手順同じ演習コピーを準備する">CLI 代替手順：同じ演習コピーを準備する</a></li>
 <li><a href="#まとめと次のステップ">まとめと次のステップ</a></li>
 <li><a href="#リソース">リソース</a></li>
 </ul>
 </div>
-</details><article><p>GitHub Copilot app は、Copilot と GitHub の両方を一元的に扱うデスクトップアプリです。Issue や pull request にすばやくアクセスでき、もちろん GitHub Copilot を使った開発も可能です。このワークショップでは、Astro で構築された Tailspin Toys アプリと GitHub Copilot app を使い、ローカル環境で作業します。始める前に、Node.js がローカルにインストールされていることを確認してから、Copilot app をインストールします。</p>
+</details><article><blockquote>
+<p><strong>この章の進め方：</strong> App を使える場合は以下の本文を進めます。UI で止まった場合は、<a href="#cli-fallback">この章の CLI 代替手順</a>を使い、同じ章の合流条件を確認してください。</p>
+</blockquote>
+<p>GitHub Copilot app は、Copilot と GitHub の両方を一元的に扱うデスクトップアプリです。Issue や pull request にすばやくアクセスでき、もちろん GitHub Copilot を使った開発も可能です。このワークショップでは、Astro で構築された Tailspin Toys アプリと GitHub Copilot app を使い、ローカル環境で作業します。始める前に、Node.js がローカルにインストールされていることを確認してから、Copilot app をインストールします。</p>
 <p>このレッスンでは、次の内容を学習します。</p>
 <ul>
 <li>プロジェクトのテストを実行できるよう Node.js をインストールする。</li>
 <li>テンプレートから Tailspin Toys プロジェクトの自分用コピーを作成する。</li>
 </ul>
 <h2 id="nodejs-をインストールする">Node.js をインストールする</h2>
-<p>いくつかのレッスンでは、エージェントに機能を構築させ、Tailspin Toys のテストスイートをローカルで実行します。そのためには <a href="https://nodejs.org/"><strong>Node.js</strong></a> (プロジェクトに必要な唯一のランタイム) が必要です。バージョン <strong>22 以降</strong>をインストールしてください。現在の <strong>LTS</strong> リリースを選ぶと安心です。</p>
+<p>いくつかのレッスンでは、エージェントに機能を構築させ、Tailspin Toys のテストスイートをローカルで実行します。そのためには <a href="https://nodejs.org/"><strong>Node.js</strong></a> (プロジェクトに必要な唯一のランタイム) が必要です。バージョン <strong>22.13 以降</strong>をインストールしてください。現在の <strong>LTS</strong> リリースを選ぶと安心です。</p>
 <p>どのプラットフォームでも、公式インストーラーを使うのが最も簡単です。</p>
 <ol>
 <li>Windows Terminal、macOS のターミナル、または普段使用しているターミナルを開きます。</li>
@@ -30,7 +34,7 @@
 <pre class="highlight"><code class="language-shell">node --version</code></pre>
 </li>
 <li>
-<p><code>v22</code> 以上のバージョン番号が表示された場合は、次のセクションに進めます。</p>
+<p><code>v22.13.0</code> 以上のバージョン番号が表示された場合は、次のセクションに進めます。</p>
 </li>
 </ol>
 <blockquote>
@@ -47,7 +51,7 @@ Node.js がインストールされていない場合、または更新が必要
 <pre class="highlight"><code class="language-bash">node --version</code></pre>
 </li>
 <li>
-<p><code>v22.x.x</code> 以上が表示されることを確認します。</p>
+<p><code>v22.13.0</code> 以上が表示されることを確認します。</p>
 </li>
 </ol>
 <blockquote>
@@ -74,6 +78,16 @@ Node.js がインストールされていない場合、または更新が必要
 <p><strong>補足</strong>
 テンプレートからリポジトリを作成すると、GitHub Issue のバックログが自動的に作成されます。ワークショップ全体を通してこれらの Issue を使用するため、自分で作成する必要はありません。</p>
 </blockquote>
+<p><a id="cli-fallback"></a></p>
+<h2 id="cli-代替手順同じ演習コピーを準備する">CLI 代替手順：同じ演習コピーを準備する</h2>
+<p>この章は App・CLI 共通の準備です。本文の Tailspin Toys テンプレートから自分のコピーを作成し、そのコピーを clone します。すでに App が clone した場合は同じものを使い、新しいコピーを作らないでください。</p>
+<p>Node.js 22.13以上、Git、CLI を準備します。npm を使う導入例です。</p>
+<pre class="highlight"><code class="language-sh">node --version
+git --version
+npm install -g @github/copilot
+copilot --version</code></pre>
+<p>自分のコピーで README を確認して <code>npm ci</code>、<code>npm run dev</code> を実行し、表示された localhost URL をブラウザーで開きます。E2E を実行する場合は README に従い <code>npx playwright install chromium</code> も実行します。CLI の認証は次章で確認します。</p>
+<p><strong>合流条件：</strong> 自分のコピーが起動でき、remote が自分の repo を指していること。App のインストールが使えない場合も、CLI で本編を続けられます。App 機能の体験は未実施と記録します。</p>
 <h2 id="まとめと次のステップ">まとめと次のステップ</h2>
 <p>準備が整いました。プロジェクトをコンピューター上でビルドしてテストできるように Node.js をインストールし、テンプレートから Tailspin Toys リポジトリの自分用コピーを作成しました。</p>
 <p>次は GitHub Copilot app をインストールし、作成したリポジトリを接続して、ワークスペースを確認します。<a href="1-install-copilot-app.html">レッスン 1「GitHub Copilot app のインストール」</a>に進んでください。</p>

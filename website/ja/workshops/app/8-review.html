@@ -3,19 +3,23 @@
 <meta name="robots" content="noindex, nofollow"><title>レッスン 8 - 振り返りと次のステップ | Dev Days 日本語版</title>
 <link rel="stylesheet" href="../workshops.css"><script src="../../../theme-toggle.js"></script></head><body>
 <a class="skip" href="#lesson">本文へ移動</a><header><nav aria-label="資料のナビゲーション">
-<a href="../../index.html">ワークショップ一覧</a><a href="../index.html">日本語の演習目次</a>
+<a href="../../index.html">教材セットの入口</a><a href="../index.html">App シナリオの目次</a>
 <a href="../../handson-guide.html#switch">UI が違うときは CLI へ</a></nav>
 <button class="theme-toggle" type="button" onclick="toggleTheme()">☀️ ライト</button></header>
-<main id="lesson"><h1>レッスン 8 - 振り返りと次のステップ</h1><p class="source">非公式の日本語版 · <a href="https://github.com/github-samples/copilot-workshops/blob/7ddcf241c1cd10b8e90c0df96f6bef81e710392a/docs/ja-jp/app/8-review.md">参照原文</a> · <a href="../licenses/copilot-workshops.txt">MIT ライセンス</a><br>参照コミット：<code>7ddcf241c1cd</code> ／ 確認日：2026-09-08</p><aside>UI の名前・位置は教材作成時点のものです。操作できないときは <a href="../../handson-guide.html#switch">CLI の横道</a>を使ってください。利用条件は <a href="../../handson-guide.html#plans">最新情報の補足</a>を参照。実機での全演習の完走検証は未実施です。</aside><nav class="chapter-nav" aria-label="章の移動"><a href="7-canvases.html">← 前の章：レッスン 7 - キャンバスを使った計画</a></nav><details><summary>この章の目次</summary><div class="toc">
+<main id="lesson"><h1>レッスン 8 - 振り返りと次のステップ</h1><p class="source">非公式の日本語版 · <a href="https://github.com/github-samples/copilot-workshops/blob/7ddcf241c1cd10b8e90c0df96f6bef81e710392a/docs/ja-jp/app/8-review.md">参照原文</a> · <a href="../licenses/copilot-workshops.txt">MIT ライセンス</a><br>参照コミット：<code>7ddcf241c1cd</code> ／ 確認日：2026-09-08</p><aside>UI の名前・位置は参照原文のものです。利用条件は <a href="../../handson-guide.html#plans">事前確認</a>を参照してください。</aside><aside>本編：App シナリオ。各章の CLI 代替手順はこの教材独自の補足です。App と代替経路の実走は未検証です。<a href="../material/verification.html">章別の検証状況</a></aside><nav class="chapter-nav" aria-label="章の移動"><a href="7-canvases.html">← 前の章：レッスン 7 - キャンバスを使った計画</a></nav><details><summary>この章の目次</summary><div class="toc">
 <ul>
 <li><a href="#繰り返し発生する作業を自動化する">繰り返し発生する作業を自動化する</a></li>
 <li><a href="#ベストプラクティス">ベストプラクティス</a></li>
 <li><a href="#さらに確認する機能">さらに確認する機能</a></li>
 <li><a href="#次のステップ">次のステップ</a></li>
+<li><a href="#cli-代替手順単発の振り返りと終了確認">CLI 代替手順：単発の振り返りと終了確認</a></li>
 <li><a href="#リソース">リソース</a></li>
 </ul>
 </div>
-</details><article><p>ここ数回のレッスンでは、GitHub Copilot app を使い、アイデアから機能のマージまでを実践しました。取り組んだ内容は次のとおりです。</p>
+</details><article><blockquote>
+<p><strong>この章の進め方：</strong> App を使える場合は以下の本文を進めます。UI で止まった場合は、<a href="#cli-fallback">この章の CLI 代替手順</a>を使い、同じ章の合流条件を確認してください。</p>
+</blockquote>
+<p>ここ数回のレッスンでは、GitHub Copilot app を使い、アイデアから機能のマージまでを実践しました。取り組んだ内容は次のとおりです。</p>
 <ul>
 <li>リポジトリを接続し、アプリのワークスペースと用意されたバックログを確認した。</li>
 <li>直接指定したタスクと Issue からセッションを開始し、Plan モードと Autopilot モードでエージェントの動作を制御した。</li>
@@ -60,6 +64,14 @@ Automations はローカルまたはクラウドで実行できます。スケ�
 <h2 id="次のステップ">次のステップ</h2>
 <p>ツールを使いこなす最良の方法は、使い続けることです。実稼働コード、趣味のコード、長年構想していながら構築できていなかった小さなアプリなどに活用してください。学んだことをチームと共有し、チームからも学びましょう。そして、引き続きドキュメントを確認してください。</p>
 <p>GitHub Copilot エコシステムをさらに学ぶには、<a href="https://github-samples.github.io/copilot-workshops/vscode/">VS Code ハーネス</a>、<a href="../cli/index.html">Copilot CLI ハーネス</a>、<a href="https://github-samples.github.io/copilot-workshops/cloud/">Cloud agent ハーネス</a>を確認してください。</p>
+<p><a id="cli-fallback"></a></p>
+<h2 id="cli-代替手順単発の振り返りと終了確認">CLI 代替手順：単発の振り返りと終了確認</h2>
+<p>App の Automation を使えない場合は、同じ要約を CLI で一度だけ実行します。予約・定期実行の代替ではありません。</p>
+<pre class="highlight"><code class="language-text">この演習コピーで過去1週間にマージされた PR と、現在 open の Issue を要約してください。
+取得できなければその旨を報告し、私が貼り付ける情報だけでまとめてください。
+ファイル、Issue、PR は変更せず、定期実行も登録しないでください。</code></pre>
+<p>結果を自分の GitHub 表示と照合します。各章の成果・未確認項目・App 固有機能の体験を振り返り、開発サーバーと CLI を停止します。Codespace を使用した場合は自分の演習環境を停止し、作成した定期実行があれば不要なものを停止します。PR と未保存の作業は残します。</p>
+<p><strong>合流条件：</strong> 実際の履歴に沿う振り返りと終了確認。Automation 体験は単発要約と区別して記録します。<a href="../material/verification.html">章別検証表</a>を参照してください。</p>
 <h2 id="リソース">リソース</h2>
 <ul>
 <li><a href="https://docs.github.com/copilot/concepts/agents/github-copilot-app">GitHub Copilot app について</a></li>
