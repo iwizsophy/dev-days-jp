@@ -1,3 +1,5 @@
+> **このコピーの教材セット：** App シナリオと各章の CLI 代替手順を使用します。CLI 独立コースと Mona Mayhem は参考資料です。 [日本語の教材セット](../README.ja.md) を参照してください。以下は参照元のイベント資料です。参照元への変更送信は行いません。
+
 # 📚 Content
 
 This folder contains the **official content** for **Dev Days**, including presentation slides and hands-on labs. See [📚 Core Content](#-core-content).

@@ -1,9 +1,9 @@
 <!-- l10n-sync: english-commit-sha="84b1e89aefcc23368b2ab44fd5c133ecd9572dfc" -->
-# Dev Days 日本語版
+# Dev Days：App シナリオの日本語教材セット
 
 🌐 [English](README.md) | 日本語
 
-このリポジトリは [github/dev-days](https://github.com/github/dev-days) の履歴を引き継いだ、非公開の日本語化作業用コピーです。GitHub 公式の日本語版ではありません。原本のライセンスと著作権表示は [LICENSE](LICENSE) に保持しています。
+このリポジトリは [github/dev-days](https://github.com/github/dev-days) の履歴を引き継いだ、非公開の独立した教材セットです。App シナリオを主軸に、各章の CLI 代替手順を併記しています。GitHub 公式の日本語版ではありません。原本のライセンスと著作権表示は [LICENSE](LICENSE) に保持しています。
 
 > 🚨 **公式の Dev Days イベントを開催し、プログラムの支援を受けるには、[イベント申請フォーム](https://gh.io/dev-days-2026)に記入して Dev Days チームの承認を得る必要があります。**
 >
@@ -39,15 +39,17 @@ Dev Days の開催を希望するコミュニティリーダー向けに、こ�
 | [運営ガイド（英語）](organization) | 企画から当日の運営までの実践的な案内 | イベントチェックリスト、登録ページのひな形 |
 | [主催者向けコンテンツ（英語）](content) | セッションとワークショップの技術資料 | スライド、ハンズオン教材 |
 | [参加者向けページ（日本語）](website/ja/index.html) | ワークショップの案内 | 演習本文は日本語、スライドは原本の言語 |
-| [演習本文（日本語）](website/ja/workshops/index.html) | App・Tailspin Toys CLI・Mona Mayhem | 全3コース、概要を含む27ページ |
-| [事前準備と CLI への切り替え（日本語）](website/ja/handson-guide.html) | このコピー独自の補助資料 | コース別準備、UI が教材と異なる場合の続行手順、到達目標 |
+| [演習本文（日本語）](website/ja/workshops/index.html) | App シナリオの演習0〜8 | 各章に CLI 代替手順・合流条件 |
+| [講師ガイド](website/ja/workshops/material/instructor.html) | 開催前・当日の進行 | 時間配分・対処手順・検証表 |
+| [参考資料](website/ja/workshops/references.html) | 独立した CLI コース・Mona Mayhem | 本編の必須経路には含めない |
+| [事前準備と CLI への切り替え（日本語）](website/ja/handson-guide.html) | このコピー独自の補助資料 | App の準備、同じ課題を CLI で続ける手順、到達目標 |
 | [告知資料（英語）](marketing) | イベントを告知するための素材とテンプレート | SNS 投稿テンプレート、イベント画像 |
 
 ## 日本語版の利用と更新
 
-README、参加者向けトップページ、過去のワークショップ一覧に加え、今期の3コースの演習本文を日本語化しています。App・Tailspin Toys CLI は上流の日本語版を取り込み、Mona Mayhem は全7章を翻訳しました。自然言語プロンプトも日本語です。PowerPoint、動画、アーカイブの演習本文、主催者資料は原本の言語です。
+本編は App シナリオです。星評価、カスタム指示、フィルター、MCP、マージ、Canvas、振り返りの順に進めます。UI が使えない場合は各章の CLI 代替手順を使い、同じ課題の完了条件へ合流します。App 固有機能は通常操作で代用しても体験済みにはしません。
 
-日本語の補助資料は [事前準備と CLI への切り替え](website/ja/handson-guide.html) にまとめています。教材の画面と現在の UI が異なる場合は、同じ演習リポジトリで CLI に切り替えて続行できます。開催前に講師・参加者とも CLI の起動と応答を確認してください。演習本文の原稿・出典・再生成手順は [日本語教材の管理ガイド](content/ja/README.md)を参照してください。
+CLI 独立コースと Mona Mayhem は参考資料です。[章別の検証状況](website/ja/workshops/material/verification.html)では、以前の CLI 実走と App シナリオの未検証を区別しています。原稿と更新方法は [教材の管理ガイド](content/ja/README.md)を参照してください。
 
 サイトは公開せず、ローカルで閲覧します。リポジトリのルートで次を実行し、[日本語ページ](http://localhost:8000/ja/)を開いてください。
 
@@ -55,21 +57,9 @@ README、参加者向けトップページ、過去のワークショップ一�
 python -m http.server 8000 --bind 127.0.0.1 --directory website
 ```
 
-原本の更新は `upstream` から取り込めます。初回のみリモートを登録してください（登録済みなら不要です）。
+参照元は閲覧専用です。参照元への push・PR・Issue 作成やコメント送信は行いません。上流履歴を merge せず、[sources.json](content/ja/sources.json) の固定コミットとの差分から必要な修正だけを原稿へ反映します。教材側の課題はこのコピー内で管理します。
 
-```sh
-git remote add upstream https://github.com/github/dev-days.git
-git fetch upstream
-git merge upstream/main
-```
-
-英語を原本とし、翻訳ファイルの `l10n-sync` コメントで参照コミットを記録します。コマンド、ファイル名、製品名は翻訳せず、更新後はリンクと日本語の表示を確認してください。公開用ワークフローはこのコピーでは実行しない設定にしています。
-
-## ❓ 質問
-
-Dev Days 全般の質問は、原本の [Issues](https://github.com/github/dev-days/issues)で受け付けています。これは公開の窓口です。
-
-開催が承認された主催者は Slack チャンネルに招待され、イベント固有の質問ができます。原本への貢献については [貢献ガイド（英語）](CONTRIBUTING.md)を参照してください。
+ローカルの作業ブランチは origin/main に追跡させません。自分のリポジトリに公開する際は同名の作業ブランチを明示します。サイトの公開用ワークフローはこのコピーでは実行しない設定です。
 
 ## 商標
 

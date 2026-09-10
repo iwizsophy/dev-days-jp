@@ -29,10 +29,10 @@
 </head>
 <body>
 <main>
-    <a href="index.html">← ワークショップ一覧</a>
+    <a href="index.html">← 教材セットの入口</a>
     <button class="theme-toggle" onclick="toggleTheme()" style="float:right;">☀️ ライト</button>
     <h1>事前準備と CLI への切り替え</h1>
-    <p>この日本語コピー独自の補助資料です。演習本文は <a href="workshops/index.html">日本語の演習目次</a>から開けます。参照情報の確認日：<time datetime="2026-09-08">2026年9月8日</time>。同日に専用の非公開リポジトリで CLI の主要演習0〜6と追加コマンドの一部を実行し、2本の PR の CI 成功まで確認しました。実機で見つかった操作差分も本文に反映しています。任意のクラウド委任・Gist 公開、App・Mona Mayhem の実機完走、App と CLI の往復は未検証です。</p>
+    <p>App シナリオの補助資料です。<a href="workshops/index.html">本編の目次</a>から演習0〜8へ進みます。各章に CLI 代替手順と合流条件があります。<a href="workshops/material/instructor.html">講師ガイド</a>と<a href="workshops/material/verification.html">章別の検証状況</a>も参照してください。利用条件の参照確認日は2026年9月8日、教材再構成日は2026年9月10日です。</p>
     <p class="note">教材のボタン名や画面構成が現在の UI と異なり、そのまま操作できない場合があります。講師と確認しても約5分で解決しない場合は CLI へ切り替え、同じ課題の計画・実装・検証を続けます。この5分は運営上の目安です。</p>
     <nav aria-label="補助資料の目次"><ul>
         <li><a href="#prepare">事前準備</a></li><li><a href="#plans">プラン・利用枠</a></li>
@@ -41,15 +41,13 @@
     </ul></nav>
 
     <section id="prepare">
-        <h2>1. 開催前に、選んだコースの準備を済ませる</h2>
+        <h2>1. 開催前に App と予備の CLI を準備する</h2>
         <p>ノート PC とネット接続、自分の GitHub アカウントを用意します。演習先は自分のコピーです。この案内サイトのリポジトリで演習コマンドを実行しないでください。</p>
         <div class="table-wrap"><table>
-            <caption>コース別の準備と確認</caption>
+            <caption>本編の準備と確認</caption>
             <thead><tr><th scope="col">コース</th><th scope="col">準備するもの</th><th scope="col">参加前の到達点</th></tr></thead>
             <tbody>
                 <tr><th scope="row">Copilot App</th><td>Git、Node.js 22.13以上、App、自分の Tailspin Toys テンプレートコピー。<a href="workshops/app/0-prerequisites.html">日本語の準備手順</a></td><td>App で自分のプロジェクトを開き、ファイルの説明を依頼して応答を確認。CLI でも同じ確認を済ませる。</td></tr>
-                <tr><th scope="row">Tailspin Toys CLI</th><td>自分のテンプレートコピー、起動済み Codespace またはローカル dev container、その中に CLI。Codespaces の利用可否と残り利用枠も確認。<a href="workshops/cli/0-prerequisites.html">日本語の準備手順</a></td><td>使用するコンテナ内で <code>copilot --version</code> が成功し、プロジェクトについて応答が得られる。</td></tr>
-                <tr><th scope="row">Mona Mayhem CLI</th><td>Git、教材のリビジョンが要求する Node.js、自分のコピー、CLI。npm での CLI 導入には Node.js 22以上が必要。<a href="https://github.com/copilot-dev-days/mona-mayhem#prerequisites">教材の前提条件</a></td><td>コピーをローカルに clone し、CLI で説明を依頼。<a href="workshops/mona-mayhem/00-overview.html">教材で CLI トラック</a>を選択する。</td></tr>
             </tbody>
         </table></div>
         <h3>CLI を予備として準備する</h3>
@@ -109,23 +107,11 @@ commit・push・PR 作成・merge はまだ行わないでください。</code>
     <section id="mapping">
         <h2>4. 元の演習との対応</h2>
         <p>途中から CLI コース全体をやり直す必要はありません。今の課題を続行するための操作を、次の表から選びます。</p>
-        <div class="table-wrap"><table>
-            <caption>App の演習目的を CLI で続ける方法</caption>
-            <thead><tr><th scope="col">元の演習</th><th scope="col">CLI で進める内容</th><th scope="col">合流・完了の目安</th></tr></thead>
-            <tbody>
-                <tr><th scope="row">App 1–2：会話・最初の変更</th><td>同じリポジトリで構成を質問し、教材の小さな変更を依頼。</td><td>期待する表示が確認でき、差分を説明できる。</td></tr>
-                <tr><th scope="row">App 3：カスタム指示</th><td>教材の Issue を読み、既存の指示を保持して更新。<a href="workshops/cli/2-custom-instructions.html">CLI の指示演習</a>も参照。</td><td>指示ファイルの差分が要件に一致する。</td></tr>
-                <tr><th scope="row">App 4：計画・機能実装</th><td>上記の引き継ぎプロンプトで、フィルターなど同じ Issue を実装。<a href="workshops/cli/3-generating-code.html">CLI の実装演習</a>は参考。そちらの前段で作る helper が存在するとは仮定せず、現状を読ませる。</td><td>対象機能の動作・関連テスト・差分を確認する。スキル作成を省略した場合は未実施として記録する。</td></tr>
-                <tr><th scope="row">App 5：Playwright MCP</th><td><a href="workshops/cli/4-mcp.html">CLI の MCP 演習</a>で設定を確認。接続できなければ通常のブラウザーで同じ操作を手動検証。</td><td>機能の検証結果を記録。手動検証は MCP 接続の学習を完了した扱いにはしない。</td></tr>
-                <tr><th scope="row">App 6：Agent Merge</th><td>CLI の実装結果を Git の差分で確認し、必要なら GitHub 上で通常の PR レビューへ進む。</td><td>PR・CI の確認は可能。Agent Merge 自体の体験は講師デモまたは後日実施とする。</td></tr>
-                <tr><th scope="row">App 7–8：Canvas・定期実行</th><td>計画を文章でまとめ、次に実施する作業を記録。</td><td>Canvas・定期実行の UI 操作は講師デモまたは後日実施。CLI で同じ体験ができた扱いにはしない。</td></tr>
-                <tr><th scope="row">Mona Mayhem：VS Code の UI</th><td><a href="workshops/mona-mayhem/00-overview.html">CLI トラック</a>に切り替え、同じ章から続行。並列作業が使えなければ一つずつ実装。</td><td>現在の章のゲーム動作を確認。並列実行を省略したことを記録する。</td></tr>
-            </tbody>
-        </table></div>
+<table><thead><tr><th>本編の章</th><th>CLI での到達点</th></tr></thead><tbody><tr><td><a href="workshops/app/1-install-copilot-app.html">0–1 準備・接続</a></td><td>同じコピーで起動と応答を確認</td></tr><tr><td><a href="workshops/app/2-add-star-rating.html">2 星評価</a></td><td>数値・null を検証し、PR・マージ</td></tr><tr><td><a href="workshops/app/3-custom-instructions.html">3 カスタム指示</a></td><td>指示と提示コードを確認し、PR・マージ</td></tr><tr><td><a href="workshops/app/4-build-filtering.html">4 フィルター</a></td><td>計画・実装・quality-checks。同じブランチで5へ</td></tr><tr><td><a href="workshops/app/5-mcp-playwright.html">5 MCP</a></td><td>MCP ツールで検証。手動確認は別扱い</td></tr><tr><td><a href="workshops/app/6-agent-merge.html">6 マージ</a></td><td>通常の PR と CI 確認。Agent Merge は別体験</td></tr><tr><td><a href="workshops/app/7-canvases.html">7 Canvas</a></td><td>優先順位を Markdown に整理。Canvas は別体験</td></tr><tr><td><a href="workshops/app/8-review.html">8 振り返り</a></td><td>単発要約・終了確認。Automation は別体験</td></tr></tbody></table>
     </section>
 
     <section id="finish">
-        <h2>5. 動作を確認し、元の演習へ戻る</h2>
+        <p><a href="workshops/material/continuation.html">PR 作成・マージ・次章への合流の共通手順</a></p><h2>5. 動作を確認し、元の演習へ戻る</h2>
         <ol>
             <li>README と <code>package.json</code> に定義された起動・テスト・ビルドのコマンドを確認して実行します。教材のリビジョンで異なるため、存在しないスクリプトを推測して実行しません。</li>
             <li>起動ログの URL をブラウザーで開き、課題の完了条件を手で確認します。例：フィルターなら条件に合う結果、該当なし、条件解除。CLI の「完了」という返答だけで判断しません。</li>
@@ -157,7 +143,7 @@ OS / App / CLI / Node.js バージョン：未確認
         <p>このサイトはローカル閲覧用です。参加者にはアクセスが許可された案内リポジトリのコピーを事前配布してください。Python を導入した各参加者の PC で、案内リポジトリのルートから次を実行し、<a href="http://localhost:8000/ja/">日本語ページ</a>を開きます。講師の localhost URL は参加者の PC からは開けません。</p>
         <pre><code>python -m http.server 8000 --bind 127.0.0.1 --directory website</code></pre>
     </section>
-    <p><a href="index.html">← ワークショップ一覧へ戻る</a></p>
+    <p><a href="index.html">← 教材セットの入口へ戻る</a></p>
 </main>
 </body>
 </html>

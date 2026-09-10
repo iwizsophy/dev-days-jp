@@ -1,26 +1,35 @@
-# 日本語の演習本文
+# App シナリオを主軸とする日本語教材セット
 
-[ブラウザー用の目次](../../website/ja/workshops/index.html)から、3コースの概要・本文・前後の章へ移動できます。
+[参加者の入口](../../website/ja/index.html) → [App の演習目次](../../website/ja/workshops/index.html) → 演習0〜8の順に進めます。UI で止まった場合は各章の CLI 代替手順で同じ課題を続けます。
 
-- [Copilot App](app/README.md)：概要＋演習0～8。上流の日本語版を取り込み。
-- [Tailspin Toys CLI](cli/README.md)：概要＋演習0～8。上流の日本語版を取り込み。
-- [Mona Mayhem](mona-mayhem/00-overview.md)：概要を含む全7章。VS Code・CLI 両トラックを英語から翻訳。
+| 原稿 | 役割 |
+| --- | --- |
+| app/ | 本編。上流の日本語 App シナリオに CLI 代替手順と合流条件を併記 |
+| material/continuation.md | 切り替え、PR・マージ、App への復帰 |
+| material/instructor.md | 講師の準備、時間配分、対処手順 |
+| material/verification.md | App の各章と CLI 代替経路の検証状況 |
+| cli/、mona-mayhem/ | 独立した参考コース。必須経路には含めない |
+| verification-2026-09-08.md | CLI 独立コースの実走記録。App 完走の証拠ではない |
 
-自然言語プロンプトは日本語化しています。実行コマンド、ファイル名、型名、サンプルコードの識別子は原形を保っています。スクリーンショットは元の英語 UI のままです。App・CLI の利用条件と組織ポリシーは2026年9月8日に確認した公式情報で補正しました。Mona Mayhem のコマンド等の補正は本文中に明記しています。
+既存ファイルを再編集し、参考コースも移動せず URL を保ちます。スライド、動画、画面画像は原本の言語です。
 
-参照元・コミットは [sources.json](sources.json)、原本の利用条件は [Copilot Workshops の MIT ライセンス](licenses/copilot-workshops.txt)と [Mona Mayhem の MIT ライセンス](licenses/mona-mayhem.txt)に保存しています。このコピーは非公式です。
+## 出典と更新方針
 
-UI が教材と異なるときは [CLI の補助手順](../../website/ja/handson-guide.html)を使います。2026年9月8日に `iwizsophy` の専用非公開リポジトリで CLI の主要演習を実行し、2本の PR と CI 成功まで確認しました。実機で見つかった差分も本文に反映しています。[検証記録と未確認の範囲](verification-2026-09-08.md)を参照してください。Copilot App と Mona Mayhem の実アカウントでの完走は未検証です。
+開催資料は `github/dev-days`、演習の主軸は `github-samples/copilot-workshops` の App 版です。[sources.json](sources.json) に参照コミット・対象ファイル・独自追加の範囲を記録します。[Copilot Workshops のライセンス](licenses/copilot-workshops.txt)と [Mona Mayhem のライセンス](licenses/mona-mayhem.txt)を保持しています。
 
-## 更新と再生成
+参照元には push・PR・Issue・コメントを送信しません。上流履歴を merge せず、このコピーを独立して保守します。
 
-Markdown をこのディレクトリで編集し、リポジトリのルートで次を実行します。
+1. 前回参照コミットと更新候補の差分を読みます。閲覧または一時的な clone で比較し、教材の追跡先にはしません。
+2. 必要な差分だけ原稿へ反映し、CLI 代替手順との整合も確認します。
+3. 参照ファイルとコミットを sources.json に記録します。原文確認日と実走日を区別します。
+4. HTML を再生成してリンクを検査し、実走結果を章別に記録します。
+5. 原稿・構成変更と、生成 HTML の変更を別コミットにします。Issue を使う場合は iwizsophy/dev-days-jp のみを対象にします。
+
+## 再生成
 
 ```sh
 python -m pip install --target .workshop-tools -r scripts/requirements-workshops.txt
 python scripts/build_workshops.py
 ```
 
-HTML は `website/ja/workshops/` に生成されます。通常の閲覧時には Python の HTTP サーバー以外のビルドやネットワーク取得は不要です。再生成時に、サイト全体の内部リンク、アンカー、画像参照を確認します。
-
-上流を更新するときは `sources.json` のコミットとの変更を確認し、本文・プロンプト・画像を更新してから参照コミットを変更してください。上流の取り込み直後にローカルの利用条件補正を失わないよう、差分をレビューします。新しい章を追加した場合も HTML を再生成してください。
+原稿の変更だけなら2行目を実行します。生成先は website/ja/workshops/ です。ビルド中は外部接続せず、内部リンク・アンカー・画像を検査します。生成 HTML の直接編集は避けてください。画像は原稿用と配布サイト用に保持し、不要な再保存による差分を作らないようにします。

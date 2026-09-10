@@ -6,21 +6,79 @@
       "commit": "7ddcf241c1cd10b8e90c0df96f6bef81e710392a",
       "source": "docs/ja-jp/app",
       "license": "copilot-workshops.txt",
-      "translation": "上流の日本語版を取り込み、プロンプトと利用条件を補正"
+      "translation": "上流の日本語版を取り込み、プロンプトと利用条件を補正",
+      "role": "本編：App シナリオと章ごとの CLI 代替手順",
+      "files": [
+        "0-prerequisites.md",
+        "1-install-copilot-app.md",
+        "2-add-star-rating.md",
+        "3-custom-instructions.md",
+        "4-build-filtering.md",
+        "5-mcp-playwright.md",
+        "6-agent-merge.md",
+        "7-canvases.md",
+        "8-review.md",
+        "README.md"
+      ]
     },
     "cli": {
       "repository": "github-samples/copilot-workshops",
       "commit": "7ddcf241c1cd10b8e90c0df96f6bef81e710392a",
       "source": "docs/ja-jp/cli",
       "license": "copilot-workshops.txt",
-      "translation": "上流の日本語版を取り込み、プロンプトと利用条件を補正"
+      "translation": "上流の日本語版を取り込み、プロンプトと利用条件を補正",
+      "role": "参考：独立した CLI シナリオ",
+      "files": [
+        "0-prerequisites.md",
+        "1-install-copilot-cli.md",
+        "2-custom-instructions.md",
+        "3-generating-code.md",
+        "4-mcp.md",
+        "5-agent-skills.md",
+        "6-custom-agents.md",
+        "7-slash-commands.md",
+        "8-review.md",
+        "README.md"
+      ]
     },
     "mona-mayhem": {
       "repository": "copilot-dev-days/mona-mayhem",
       "commit": "d376143ca3e6c0b3c63980402deaf1c4ac0a1b19",
       "source": "workshop",
       "license": "mona-mayhem.txt",
-      "translation": "英語原文から日本語化。VS Code・CLI 両トラックを含む"
+      "translation": "英語原文から日本語化。VS Code・CLI 両トラックを含む",
+      "role": "参考：別シナリオ",
+      "files": [
+        "00-overview.md",
+        "01-setup.md",
+        "02-plan-and-scaffold.md",
+        "03-agent-mode.md",
+        "04-design-vibes.md",
+        "05-polish.md",
+        "06-bonus.md"
+      ]
     }
+  },
+  "material": {
+    "updated": "2026-09-10",
+    "base_scenario": "app",
+    "policy": "独立した教材として必要な差分だけ反映。参照元へ push・PR・Issue を送らない。上流履歴の merge は行わない。",
+    "event_source": {
+      "repository": "github/dev-days",
+      "commit": "84b1e89aefcc23368b2ab44fd5c133ecd9572dfc",
+      "files": [
+        "README.md",
+        "content/README.md",
+        "organization/README.md",
+        "marketing/draft-registration-page.md",
+        "website/index.html"
+      ]
+    },
+    "local_additions": [
+      "content/ja/material/*.md",
+      "content/ja/app/*.md の CLI 代替手順",
+      "website/ja/handson-guide.html"
+    ],
+    "scope": "既存の固定コミットを参照。2026-09-10 の上流最新版を取り込んだという意味ではない。"
   }
 }
