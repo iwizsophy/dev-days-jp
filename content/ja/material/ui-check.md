@@ -42,6 +42,8 @@ Windows（ビルド 26200.9445、25H2）、GitHub Copilot App 1.1.20。初期設
 | GitHub 連携・保存済みキャンバス | New → New worktree/main → Canvas を開く → Add to current session → Plan | PR #14 の修正を継承し、1通知・1応答の後、計画承認から検索実装へ移行。テスト・MCP・PR #15 の Agent Merge 成功 | ボードでのマージ後の件数更新は未確認 |
 | GitHub 連携・Run 未実行 | Run options → Run development site → Run ボタン | 項目選択だけでは開始せず、Run ボタンで起動。Stop Run development site で停止 | 自動セットアップの終了ログは未取得 |
 
+新版 v2026.09.13.1 のローカルセッションでは Run options の項目選択後に起動したため、Run / Stop の表示で実行状態を判断します。App 1.1.20 で起動・停止を2回確認し、App 内の表示、HTTP 200、停止後のポート解放を確認しました。詳細は [実走記録](verification.md)を参照してください。
+
 右クリックはチャット管理・PR 一覧行・ローカルプロジェクトで確認しました。PR 行には New session・Chat・Copy link があり、Create PR や Agent Merge はありませんでした。過去の常設メニューから移動したかは未特定です。削除・共有・アーカイブは実行していません。
 
 ## 講師が現行 App で確認する操作

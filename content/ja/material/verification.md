@@ -129,7 +129,7 @@ App と GitHub Web の実機画像13点を追加し、App 本編の旧画像参�
 
 現在の教材対応版は **v2026.09.13.1**（`aea4c027a073dd757017829bd988857877c1a545`）。Astro の更新、開発依存9件と Playwright CI イメージの整合、Vitest 4.1.11、互換範囲内の間接依存更新を適用しました。演習の src/・db/・e2e-tests/・8件の課題原稿は変更していません。旧タグは保持します。
 
-Astro 7.3 の CLI がエージェント環境でサーバーを自動的にバックグラウンド起動し、Playwright の起動監視を失敗させる問題を確認しました。dev / preview を公開 API で起動するスクリプトへ切り替え、呼び出し元がプロセスを管理できるようにしました。Windows / Node 24.19.0 でクリーンインストール、lint、全型検査、単体27件、E2E21件（build・DB 初期化・preview を含む）が成功。npm run dev の Local URL 表示、HTTP 200、停止後のポート解放も確認しました。新コードでネイティブ App の Run / Stop を再操作したという意味ではありません。
+Astro 7.3 の CLI がエージェント環境でサーバーを自動的にバックグラウンド起動し、Playwright の起動監視を失敗させる問題を確認しました。dev / preview を公開 API で起動するスクリプトへ切り替え、呼び出し元がプロセスを管理できるようにしました。Windows / Node 24.19.0 でクリーンインストール、lint、全型検査、単体27件、E2E21件（build・DB 初期化・preview を含む）が成功。npm run dev の Local URL 表示、HTTP 200、停止後のポート解放も確認しました。この時点ではコマンドによる確認で、後述の追加検証でネイティブ App の Run / Stop も再確認しました。
 
 npm audit は **Critical 0・High 0・Moderate 4・Low 0**。残る4件は drizzle-kit → @esbuild-kit/esm-loader → @esbuild-kit/core-utils → esbuild の同じ依存経路です。自動修正案は drizzle-kit の古い版への互換性を壊すダウングレードなので適用していません。通常の migrate / seed は tsx 経由ですが、到達可能性の網羅的な評価は未実施です。配布前の確認事項として残します。
 
@@ -138,3 +138,11 @@ npm audit は **Critical 0・High 0・Moderate 4・Low 0**。残る4件は drizz
 参照元 github/dev-days の 54ae7ea3b923c059cc465ac0c13d46ccda99a98e は FAQ.md と content/README.md の更新です。日本語の講師向け動画・スライド、公式イベントの受付状況・Luma 登録条件・アンケート案内を講師ガイドに選択反映しました。公式イベント固有の特典・精算条件は独立教材の保証とせず公式案内へ誘導し、既存の参照コミットと上流履歴は維持しています。
 
 [開発依存 PR の CI](https://github.com/iwizsophy/dev-days-tailspin-template/actions/runs/34759295864) と [Vitest・間接依存更新 PR の CI](https://github.com/iwizsophy/dev-days-tailspin-template/actions/runs/34759444602) はそれぞれ全4ジョブ成功後に統合しました。教材の再生成は41ページ・781参照が成功し、App 10ページだけに UI 確認注記があり、CLI 10ページ・Mona 7ページには含まれないことを検査しました。
+
+## 新版のネイティブ App Run / Stop 再確認（2026年9月13日）
+
+Windows / GitHub Copilot App 1.1.20 で、v2026.09.13.1（aea4c027a073dd757017829bd988857877c1a545）のローカル checkout を Open folder で開きました。設定確認で Accept and apply 後も確認画面が残る現象が再現。Skip for now 後、WORKSHOP.md の版名を読み取るだけのセッションを開始すると、v2026.09.13.1 と応答し Run メニューが表示されました。自動セットアップの成功を確認したわけではなく、事前に導入済みの依存を使用しています。
+
+Run options → Run development site で起動し、Stop Run development site の表示と App 内ブラウザーの Tailspin Toys を確認。実プロセスは node scripts/serve.mjs dev で、HTTP 200 を返しました。App の Stop でプロセスが終了し、4321 ポートが解放されました。続いて Run Run development site ボタンで再起動し、再度 HTTP 200 を確認して Stop。2回とも停止後に子プロセスとリスナーが残らないことを確認しました。エージェントへの依頼は版名の読み取りだけで、サーバー起動・停止は App の UI で実施しています。
+
+今回のローカルセッションでは Run メニューの項目選択後に起動しました。以前の GitHub 連携セッションの観察と区別し、教材では Run / Stop の表示を見て、起動中に誤って停止ボタンを押さない手順に修正しました。新起動方式の App Run / Stop は確認済みです。設定適用時の表示停滞、自動セットアップ終了ログ、MCP カタログからの新規保存などは別の残件として追跡します。

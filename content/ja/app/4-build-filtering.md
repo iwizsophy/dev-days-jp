@@ -106,7 +106,7 @@ AI が生成したすべてのコードは、マージ前にレビューする�
 
 > **確認済みの Run 経路（Windows App 1.1.20）：** 上部の Run development site で起動し、Browser パネルに通常の21件を表示しました。複数カテゴリ・出版社との組合せ・解除を別ブラウザーでも確認後、Stop Run development site で停止しました。単体35件・E2E25件・lint・型検査・build は成功。0件のE2E検証には専用データを使用しています。詳細は [実走記録](../material/verification.md)を参照してください。
 
-4. Run ボタンでサイトを起動します。すでにこの項目が選択されていれば **Run Run development site** を選択します。
+4. ボタンが **Run Run development site** なら選択して起動します。**Stop Run development site** ならすでに起動中なので、もう一度押さず次へ進みます。
 5. **Browser** パネルに表示されたローカル URL を確認します。実走では `http://localhost:4321/` が自動表示されました。
 6. ランディングページで複数カテゴリ、出版社との組み合わせ、解除を確認します。
 7. 問題がある場合は Copilot に更新を依頼し、再確認します。
