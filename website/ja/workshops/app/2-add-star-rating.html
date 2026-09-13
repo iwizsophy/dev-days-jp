@@ -19,7 +19,7 @@
 </ul>
 </div>
 </details><article><blockquote>
-<p><strong>この章の進め方：</strong> App で操作します。画像は参照元の画面例で、現行 UI との一致は未確認です。ボタンや機能が見つからない場合は <a href="../material/ui-check.html">UI が異なるときの確認</a>に沿って講師と確認してください。</p>
+<p><strong>この章の進め方：</strong> App で操作します。参照元の画面例は現行 UI との一致が未確認です。今回撮影した実機画像は確認日・バージョンを添えて区別しています。ボタンや機能が見つからない場合は <a href="../material/ui-check.html">UI が異なるときの確認</a>に沿って講師と確認してください。</p>
 </blockquote>
 <p>前のレッスンでは、ワークスペースを確認し、クイックチャットを使いました。ここでは、<strong>エージェントセッション</strong>を開始し、プロジェクトに最初の変更を加えます。変更は小規模なものにします。ゲームのデータにはすでに星評価が含まれていますが、ホームページのゲームカードにはまだ表示されていません。エージェントに表示を依頼し、変更をレビューして、最初の pull request としてマージします。</p>
 <p>このレッスンでは、次の内容を学習します。</p>
@@ -33,14 +33,14 @@
 <h2 id="シナリオ">シナリオ</h2>
 <p>Tailspin Toys の各ゲームには星評価を設定でき、ゲーム詳細ページにはすでに表示されています。一方、ホームページのゲームカードには、タイトル、カテゴリー、パブリッシャー、説明だけが表示されています。最初のセッションの準備運動として、各カードに既存の評価を表示するようエージェントに依頼します。小規模で自己完結した、最初のセッションに最適な変更です。</p>
 <h2 id="セッションの構造">セッションの構造</h2>
-<p><strong>セッション</strong>とは、分離された独自のワークスペースで実行されるエージェントとの会話です。すべてのセッションに<strong>専用の git worktree とブランチ</strong>が割り当てられます。そのため、一方では機能を追加し、もう一方ではバグを修正するなど、変更を競合させずに複数のセッションを同時に実行できます。セッションはリポジトリごとにグループ化されてサイドバーに表示され、選択すると切り替えられます。</p>
+<p><strong>セッション</strong>とは、プロジェクトを対象としたエージェントとの会話です。作業場所はプロジェクトの追加方法やセッションの設定によって確認が必要です。2026年9月13日の Windows App 1.1.20 では、<strong>Open folder</strong> で追加したプロジェクトの読み取りセッションは既存の checkout を直接使用し、専用 worktree は作成されませんでした。すべてのセッションが自動的に分離されるとは扱わず、編集前に作業ディレクトリとブランチを確認してください。同じ checkout を使うセッションで同時に編集しないでください。セッションはリポジトリごとにサイドバーに表示されます。</p>
 <p>セッション内には、エージェントとの<strong>会話</strong>、ファイルを調査および編集するときのエージェントの<strong>ツールアクティビティ</strong>、差分付きの<strong>変更済みファイル</strong>一覧という3つの要素が表示されます。</p>
 <h2 id="セッションを開始して変更を依頼する">セッションを開始して変更を依頼する</h2>
 <p>新しいセッションを開始し、プロジェクトの調査と機能の実装に取りかかります。<a href="1-install-copilot-app.html#github-copilot-app-をインストールして構成する">前のレッスン</a>では、GitHub リポジトリからプロジェクトを追加しました。そのリポジトリ用の新しいセッションを作成し、変更を依頼します。</p>
 <ol>
 <li>GitHub Copilot app に戻ります。アプリを閉じている場合は開きます。</li>
-<li><strong>Home screen</strong> を選択します。</li>
-<li>リポジトリに <code>tailspin-toys</code> が選択されていることを確認します。</li>
+<li>サイドバーの <strong>Projects</strong> で、自分の演習用プロジェクトの横にある <strong>+</strong>（New session in …）を選択します。Windows App 1.1.20 でこの入口を確認しました。</li>
+<li><strong>New</strong> 画面の入力欄下部に、自分の演習用コピーのプロジェクト名が表示されていることを確認します。参照画像の名前と同じである必要はありません。</li>
 </ol>
 <p><img alt="リポジトリセレクターに tailspin-toys が設定され、プロンプトの下にモデルセレクターが表示された GitHub Copilot app のプロンプトボックス" src="../assets/app-2-start-session.png" /><br><em class="source">参照元の画面例（撮影時バージョン不明・現行 UI 未照合）。位置やメニューの開き方は講師と確認してください。</em></p>
 <ol start="4">
@@ -54,7 +54,7 @@
 <ol start="5">
 <li><kbd>Enter</kbd> を選択して、プロンプトを Copilot に送信します。</li>
 </ol>
-<p>Copilot app は、最初にプロジェクトの分離されたコピーである新しい worktree を作成して作業を開始します。次にプロジェクトを調査し、新機能の追加に必要な更新対象ファイルを見つけて、必要なコードを作成します。これで Copilot app を使って新機能を追加できました。</p>
+<p>Copilot app がセッションを開始したら、作業場所とブランチを確認します。既存の checkout を直接使う場合は、今回の変更用ブランチで作業してください。エージェントはプロジェクトを調査し、新機能に必要なファイルを編集します。完了報告だけで判断せず、次の手順で実際の差分とテスト結果を確認します。</p>
 <h2 id="差分をレビューする">差分をレビューする</h2>
 <p>AI が生成したすべての変更は、どれほど小さくてもマージ前にレビューする必要があります。Copilot app 内で変更を確認します。</p>
 <ol>
@@ -79,6 +79,11 @@ Copilot は、すべての生成 AI ツールと同様に決定論的ではな�
 </blockquote>
 <h2 id="変更を確認する">変更を確認する</h2>
 <p>コードを読むだけで動作すると判断せず、視覚的にもテストします。そのためには、ターミナルからアプリを起動して、すべてが動作することを確認する必要があります。Copilot app にはターミナルが組み込まれています。</p>
+<blockquote>
+<p><strong>確認済みの起動経路（Windows App 1.1.20）：</strong> <code>.github/github-app.yml</code> を適用したセッションでは、上部の <strong>Run development site</strong> で起動し、Browser パネルに <code>http://localhost:4321/</code> が自動表示されました。確認後は同じ位置の <strong>Stop Run development site</strong> で停止できます。以下のターミナル入力経路は今回未実施です。</p>
+</blockquote>
+<p><img alt="Copilot App の検証報告と Browser パネルに表示された星評価付きゲームカード" src="../assets/app-1.1.20-20260913-star-rating.jpg" /><br><em class="source">実機撮影：2026-09-13、Windows、GitHub Copilot App 1.1.20。ローカルプロジェクトの星評価実装・検証報告と Browser パネルの表示。サーバー停止後の表示を保持した画面。PR・マージ前。</em></p>
+<p>2026年9月13日の実装では、既存の <code>StarRating</code> をカードから再利用し、<code>null</code> の場合だけカード内で <code>No rating yet</code> を表示しました。カードを実レンダリングするテストで <code>4.2</code>・<code>0</code>・<code>null</code> とリンク構造を確認し、単体30件・E2E21件・lint・型検査が成功しました。既存データの一覧表示もブラウザーで確認しています。評価には <code>Rating: X out of 5 stars</code> の読み上げ名も追加しました。検証用 PR #9 は App のエージェントが <code>gh</code> 経由で作成し、CI 全4ジョブが成功しています。App 固有の PR 作成ツールはアカウント連携エラーで失敗したため、以下の Create PR 経路の成功とは数えません。マージは未実施です。詳細は <a href="../material/verification.html">実走記録</a>を参照してください。</p>
 <ol>
 <li>Copilot app の右側にあるレビューパネルで <strong>Terminal</strong> を選択します。<strong>Terminal</strong> ボタンがない場合は、<strong>+</strong> (<strong>Open in panel</strong> というラベルが付いています) を選択してから <strong>Terminal</strong> を選択します。</li>
 </ol>
@@ -96,6 +101,9 @@ Copilot は、すべての生成 AI ツールと同様に決定論的ではな�
 </ol>
 <h2 id="最初の-pull-request-を作成してマージする">最初の pull request を作成してマージする</h2>
 <p>変更に問題がないことを確認できたので、リリースします。エージェントに pull request の作成を依頼し、github.com で自分でレビューしてマージします。今回は手動で管理します。後のレッスンでは、Copilot でこの作業の一部を自動的に処理する方法を確認します。</p>
+<blockquote>
+<p><strong>今回確認した PR の閲覧経路（Windows App 1.1.20）：</strong> GitHub 連携プロジェクトの <strong>My work</strong> → 対象 PR → <strong>Changes</strong> で差分を表示できます。<strong>Ready to merge</strong> はマージ確認画面を開き、チェック結果・未解決コメントの有無・<strong>Merge pull request</strong>・マージ方法を表示しました。ローカルフォルダーのセッションと表示される操作が異なります。以下の <strong>Create PR</strong> による新規作成は未成功です。</p>
+</blockquote>
 <ol>
 <li>右上隅にある <strong>Create PR</strong> を選択します。</li>
 <li>求められた場合は <strong>Sign in with your browser</strong> を選択し、画面の指示に従って認証します。</li>

@@ -6,10 +6,17 @@
 <a href="../../index.html">教材セットの入口</a><a href="../index.html">App シナリオの目次</a>
 <a href="../../handson-guide.html#switch">事前準備・UI の確認</a></nav>
 <button class="theme-toggle" type="button" onclick="toggleTheme()">☀️ ライト</button></header>
-<main id="lesson"><h1>App シナリオの検証状況</h1><aside>この教材セット独自の運営・補助手順です。</aside><article><p>2026年9月13日：Windows の GitHub Copilot App 1.1.20 をインストールし、利用者によるサインイン後の初期設定、プロジェクト追加メニュー、Chats の応答と右クリックメニュー、MCP 登録フォームまで確認しました。<strong>演習用コピーの接続・実装・PR・マージ・全章完走は未実施です。</strong> 詳細は <a href="ui-check.html">UI 確認表</a>を参照してください。</p>
-<p>環境：Windows ビルド 26200.9445（25H2）、App 実行ファイルの ProductVersion 1.1.20、確認アカウント iwizsophy。教材の開始コミットは <code>cfcbad744d8349a2a7b200484470c7d439bf3cb7</code>。演習用 repo・テンプレート SHA は未確定です。インストーラーの署名は GitHub, Inc. で有効でした。</p>
-<p>チャットは説明のみを依頼し、応答後の Idle を確認しました。MCP はフォームの表示までで、保存していません。開発サーバー、実装セッション、定期実行は今回まだ開始していません。UI の表示確認を機能の実走成功と混同しません。</p>
-<p>教材側の検査：41ページ・内部リンク／画像／アンカー773参照が成功。2回の生成結果が一致し、旧画像の未照合注記と新規実機画像2枚の確認日・バージョン注記が区別されることを確認しました。</p>
+<main id="lesson"><h1>App シナリオの検証状況</h1><aside>この教材セット独自の運営・補助手順です。</aside><article><p>2026年9月13日：Windows の GitHub Copilot App 1.1.20 をインストールし、利用者によるサインイン後の初期設定、プロジェクト追加メニュー、Chats の応答と右クリックメニュー、MCP 登録フォームまで確認しました。演習用コピーを <code>Projects</code> → <code>+</code> → <code>Open folder</code> で追加し、リポジトリ設定のレビューと、完全再起動後の演習 repo の読み取り・日本語応答まで確認しました。星評価は App で実装と検査を確認しました。検証用 PR は App エージェントの <code>gh</code> 経由で作成し、CI 全4ジョブが成功しました。<strong>App 固有の PR 作成経路・マージ・全章完走は未完了です。</strong> 詳細は <a href="ui-check.html">UI 確認表</a>を参照してください。</p>
+<p>環境：Windows ビルド 26200.9445（25H2）、App 実行ファイルの ProductVersion 1.1.20、確認アカウント iwizsophy。教材の開始コミットは <code>cfcbad744d8349a2a7b200484470c7d439bf3cb7</code>。インストーラーの署名は GitHub, Inc. で有効でした。</p>
+<p>演習用コピーは非公開の <code>iwizsophy/dev-days-tailspin-app-verification-20260913</code>。<code>github-samples/tailspin-toys</code> の固定コミット <code>bae003609c8cff0c51d92658b8d3bd89450464f1</code> から作成しました。<code>feature/workshop-baseline</code> の <code>641f557</code> では <code>.github/agents/pr-readiness.md</code> の無効な YAML エスケープ <code>"playwright/\*"</code> を <code>"playwright/*"</code> に修正しています。この修正は同名のリモートブランチへ push 済みで、星評価やフィルターの実装は含みません。</p>
+<p>開始状態を App 外の PowerShell で検査し、Node 24.19.0 で <code>npm ci</code>、単体テスト27件、Chromium E2E 21件、lint、型検査が成功しました。E2E はポート4321に既存サーバーがないことを確認してからビルド・previewを起動しました。これは App のセットアップスクリプトや開発サーバーの実走結果ではありません。通常の Node 24.14.1 では一部依存の要求バージョンを満たさず、検査時のみ Node 24.19.0 のパスを指定しました。</p>
+<p><code>Open folder</code> 後に <code>New session</code> と <code>Work directly in this folder for this session</code> が表示されました。続いて <code>Accept this repository configuration?</code> → <code>Review configuration</code> で <code>.github/github-app.yml</code> を表示しました。設定にはセッション作成時の <code>npm ci</code>、開発・ビルド・型検査の Run メニュー、プレビューの自動表示が含まれます。利用者が <code>Accept and apply</code> を操作しても確認画面が残り、入力欄が表示されないことを確認しました。完全再起動後は確認画面が再表示されず、設定にある Run メニューとメッセージ入力欄が表示されました。セットアップスクリプトの実行成功は未確認です。</p>
+<p>接続直後のローカルログには <code>pending-request event was not delivered to the session host</code> と <code>no session host is registered</code> の警告がありました。確認画面の停止との因果関係は調査中です。ウィンドウを通常終了して開き直しても同じ確認画面が残り、App 本体のプロセスは起動時から継続していました。利用者の承認後に App 本体を強制終了して起動し直すと、停止していた空のセッションは消え、プロジェクトの新規セッションから送信できました。強制終了には未保存の状態を失う可能性があります。今回の復帰事例であり、警告の原因や恒久対策は確定していません。</p>
+<p>再起動後の <code>Tailspin toys repository</code> セッションでは、対象 checkout の <code>src/pages/index.astro</code>、<code>src/lib/games.ts</code>、<code>GameCard.astro</code>、テスト等の読み取りと、日本語の構成説明、応答後の Idle を確認しました。検証用 checkout の差分はなく、<code>git worktree list</code> は元の <code>feature/workshop-baseline</code> のみでした。この経路で worktree が分離されたとは扱いません。チャットは説明のみを依頼し、応答後の Idle を確認しました。MCP はフォームの表示までで、保存していません。星評価の実装セッションは <code>feature/app-star-rating</code> で実行しました。レビューでヘルパーだけのテストを差し戻し、GameCard の実レンダリング（4.2・0・null）と一覧E2Eの評価表示確認へ修正しました。App から実行した単体30件・E2E21件・lint・型検査・buildが成功しました。App の Run development site で起動し、App 内 Browser と別ブラウザーで星評価を確認後、Stop Run development site で停止しました。ポート4321の待受終了も確認しました。定期実行は未作成です。UI の表示確認を機能の実走成功と混同しません。</p>
+<p>星評価は <code>9c3d619</code>、読み上げ対応は <code>0901fc7</code> にコミットし、演習コピーの <code>origin/feature/app-star-rating</code> へ push 済みです。Author・Committer はともに <code>Tetsuji Kato &lt;6571039+iwizsophy@users.noreply.github.com&gt;</code>。PR Readiness で指摘された評価の意味と尺度の不足を、カードの <code>Rating: X out of 5 stars</code> という読み上げ名と装飾部分の <code>aria-hidden</code> で修正し、実レンダリング・E2E のアサーションを追加しました。</p>
+<p><a href="https://github.com/iwizsophy/dev-days-tailspin-app-verification-20260913/pull/9">検証用 PR #9</a>（非公開・閲覧権限が必要）は main 宛てで未マージです。App のプロジェクト連携 PR ツールは GitHub アカウントを利用できないというエラーで失敗したため、App エージェントが認証済みの <code>gh</code> CLI で作成しました。これは App 固有の Create PR 操作の成功とは数えません。その後、GitHub 連携側の My work で PR #9 を開き、Changes の5ファイルの差分、Ready to merge、マージ確認画面の All checks have passed と No unresolved comments を確認しました。確認画面は閉じ、マージはまだ実行していません。Issue #8 の詳細と New session options（New session・New session in repository...・Chat）も表示確認しました。</p>
+<p>最終コミット <code>0901fc759c50ecccbc75a0ac74c178fdc46c89c7</code> の <a href="https://github.com/iwizsophy/dev-days-tailspin-app-verification-20260913/actions/runs/34750878686">CI</a> は frontend-lint・type-check・unit-tests・frontend-tests の全4ジョブが成功しました。検証用 checkout はクリーンで、ポート4321・4322の待受も終了しています。</p>
+<p>教材側の初期検査：41ページ・内部リンク／画像／アンカー773参照が成功。2回の生成結果が一致し、旧画像の未照合注記と新規実機画像2枚の確認日・バージョン注記が区別されることを確認しました。</p>
 <p>2026年9月10日：教材の再構成・HTML 生成・内部参照を確認。この時点では App の実機操作や新しいアプリ実装を実施していませんでした。</p>
 <p>前回の再構成時の確認（今回の修正前）：サイト39ページ・内部リンク／画像／アンカー755参照が成功。2回の生成結果が一致し、当時の App 全9章に CLI 代替手順と合流条件があることを確認しました。ブラウザーで参加者の入口、演習0への移動、章内の CLI 手順への移動と表示を確認しています。</p>
 <table>
@@ -25,19 +32,19 @@
 <tr>
 <td>0 準備</td>
 <td>自分のコピー、Node、起動とテスト</td>
-<td>未検証</td>
+<td>コピー作成・外部シェルで開始状態のテスト成功。後続の星評価セッションで App の Run 起動・停止を確認（初回セットアップは未確認）</td>
 <td>未検証</td>
 </tr>
 <tr>
 <td>1 接続</td>
 <td>同じ checkout を開き、構成について応答</td>
-<td>一部確認：初期設定・Chats 応答。演習 repo 接続・構成確認は未実施</td>
+<td>一部確認：初期設定・Chats 応答・Open folder・設定レビュー・完全再起動後の演習 repo の読み取りと構成への応答。GitHub 連携プロジェクトを追加し、My work の8件の Issue 表示を確認</td>
 <td>未検証</td>
 </tr>
 <tr>
 <td>2 星評価</td>
 <td>数値と null の表示、テスト、PR・マージ</td>
-<td>未検証</td>
+<td>App で実装・レビュー修正・検査・Run 起動停止を確認。gh 経由で PR #9 作成、CI 全4ジョブ成功。App 固有の PR 作成は失敗、マージは未実施</td>
 <td>未検証</td>
 </tr>
 <tr>

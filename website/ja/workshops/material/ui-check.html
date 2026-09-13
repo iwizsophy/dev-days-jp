@@ -16,7 +16,7 @@
 <li><strong>見つからなければ停止する</strong>：講師の現行 App デモかペア操作へ切り替えます。CLI の実装成功で App 演習を完了したことにはしません。</li>
 </ol>
 <h2>2026年9月13日の実機確認</h2>
-<p>Windows（ビルド 26200.9445、25H2）、GitHub Copilot App 1.1.20。利用者によるサインイン後、演習用リポジトリ未接続の状態で確認しました。</p>
+<p>Windows（ビルド 26200.9445、25H2）、GitHub Copilot App 1.1.20。初期設定と未接続状態の確認後、ローカルコピーと GitHub 連携プロジェクトをそれぞれ追加しました。</p>
 <table>
 <thead>
 <tr>
@@ -38,6 +38,60 @@
 <td>Projects の + → Add GitHub repository / Clone repository / Open folder</td>
 <td>3種類の追加入口を表示</td>
 <td>clone 完了・対象 repo の照合</td>
+</tr>
+<tr>
+<td>ローカルコピー</td>
+<td>Projects の + → Open folder → 対象フォルダー</td>
+<td>既存 checkout を直接使用。設定レビュー後に確認画面が停止したが、完全再起動後に読み取り応答が成功</td>
+<td>worktree 分離・セットアップ実行</td>
+</tr>
+<tr>
+<td>My work・ローカルフォルダーのみ登録</td>
+<td>Add GitHub repository → owner/repo を検索 → 自分の演習コピー</td>
+<td>No GitHub repositories yet から8件の Issue 一覧へ変化。ローカルフォルダーとは別のプロジェクトが追加された</td>
+<td>Issue からの実装・PR</td>
+</tr>
+<tr>
+<td>ローカルプロジェクト・新規セッション</td>
+<td>プロジェクト横の + → New → 入力欄下部のプロジェクト名 → 送信</td>
+<td>星評価の実装セッションが開始し、既存 checkout 上に指定した作業ブランチを作成</td>
+<td>GitHub 連携経路との相違</td>
+</tr>
+<tr>
+<td>ローカル実装セッション・パネル未表示</td>
+<td>Toggle panel → Workspace</td>
+<td>Browser、Terminal、Files、Canvas を表示。Changes や Create PR はこの状態では表示されなかった</td>
+<td>GitHub 連携セッションの差分・PR 操作</td>
+</tr>
+<tr>
+<td>ローカル実装セッション・PR 作成依頼</td>
+<td>エージェントのプロジェクト連携 PR ツール → gh CLI に切替</td>
+<td>App 固有ツールはアカウント連携エラー。承認後、エージェントが gh 経由で検証用 PR #9 を作成し CI 全4ジョブ成功</td>
+<td>App 固有の Create PR・マージ（Ready to merge は My work 側で表示確認）</td>
+</tr>
+<tr>
+<td>GitHub 連携・作成済み PR</td>
+<td>My work → PR #9 → Changes / Ready to merge</td>
+<td>5ファイルの差分と Checks: Passed を表示。Merge pull request ダイアログに All checks have passed・No unresolved comments・Merge pull request・Choose merge method（Merge commit）を表示</td>
+<td>マージ実行・Agent merge</td>
+</tr>
+<tr>
+<td>GitHub 連携・既存 Issue</td>
+<td>My work → Update our repository coding standards → New session options</td>
+<td>New session・New session in repository...・Chat を表示</td>
+<td>セッション送信・指示更新の実装</td>
+</tr>
+<tr>
+<td>My work・PR 一覧行</td>
+<td>PR #9 の行を右クリック</td>
+<td>New session・Chat・Copy link を表示</td>
+<td>旧 UI から移動したかは未特定</td>
+</tr>
+<tr>
+<td>ローカルプロジェクト</td>
+<td>Projects のフォルダー項目を右クリック → Settings</td>
+<td>New session・Show in Explorer・Settings・Hide・Customize…・Manage sessions・Remove folder を表示。Settings には GitHub Account の登録名が表示された</td>
+<td>アカウント連携エラーの原因・復旧</td>
 </tr>
 <tr>
 <td>会話・プロジェクト未接続</td>
@@ -65,7 +119,7 @@
 </tr>
 </tbody>
 </table>
-<p>右クリックはチャットの管理メニューで確認したもので、PR 作成や Agent Merge の入口を確認したことにはなりません。削除・共有・アーカイブは実行していません。</p>
+<p>右クリックはチャット管理・PR 一覧行・ローカルプロジェクトで確認しました。PR 行には New session・Chat・Copy link があり、Create PR や Agent Merge はありませんでした。過去の常設メニューから移動したかは未特定です。削除・共有・アーカイブは実行していません。</p>
 <h2>講師が現行 App で確認する操作</h2>
 <table>
 <thead>
@@ -81,7 +135,7 @@
 <td>1</td>
 <td>リポジトリ・Issue</td>
 <td>接続、バックログ確認</td>
-<td>Projects の + で追加入口を確認。My work の表示あり。バックログは未確認</td>
+<td>Projects の + で追加入口を確認。My work に演習コピーの8件のバックログ Issue を表示</td>
 </tr>
 <tr>
 <td>2</td>
@@ -140,6 +194,11 @@
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>2</td>
+<td><code>app-1.1.20-20260913-star-rating.jpg</code></td>
+<td>Run で起動した星評価一覧。停止後に Browser パネルへ残った表示</td>
+</tr>
 <tr>
 <td>5</td>
 <td><code>app-1.1.20-20260913-mcp-catalog.jpg</code></td>
