@@ -60,6 +60,7 @@
     }
   },
   "ui_captures": {
+    "app-1.1.20-20260913-star-rating.jpg": "実機撮影：2026-09-13、Windows、GitHub Copilot App 1.1.20。ローカルプロジェクトの星評価実装・検証報告と Browser パネルの表示。サーバー停止後の表示を保持した画面。PR・マージ前。",
     "app-1.1.20-20260913-mcp-catalog.jpg": "実機撮影：2026-09-13、Windows、GitHub Copilot App 1.1.20。MCP カタログの表示確認。サイドバーは非表示。",
     "app-1.1.20-20260913-mcp-config.jpg": "実機撮影：2026-09-13、Windows、GitHub Copilot App 1.1.20。Playwright 登録フォームの保存前。登録・ツール実行は未検証。"
   },

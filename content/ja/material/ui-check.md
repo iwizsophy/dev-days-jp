@@ -12,24 +12,33 @@
 
 ## 2026年9月13日の実機確認
 
-Windows（ビルド 26200.9445、25H2）、GitHub Copilot App 1.1.20。利用者によるサインイン後、演習用リポジトリ未接続の状態で確認しました。
+Windows（ビルド 26200.9445、25H2）、GitHub Copilot App 1.1.20。初期設定と未接続状態の確認後、ローカルコピーと GitHub 連携プロジェクトをそれぞれ追加しました。
 
 | 対象・開始状態 | 開き方 → 項目名 | 確認した結果 | 残る確認 |
 | --- | --- | --- | --- |
 | 初期設定・候補未選択 | Connect your repositories → Continue → テーマ画面 | リポジトリを選ばずホームへ進める。利用者操作を挟んで完了を確認 | 演習コピーの接続 |
 | サイドバー・プロジェクト未接続 | Projects の + → Add GitHub repository / Clone repository / Open folder | 3種類の追加入口を表示 | clone 完了・対象 repo の照合 |
+| ローカルコピー | Projects の + → Open folder → 対象フォルダー | 既存 checkout を直接使用。設定レビュー後に確認画面が停止したが、完全再起動後に読み取り応答が成功 | worktree 分離・セットアップ実行 |
+| My work・ローカルフォルダーのみ登録 | Add GitHub repository → owner/repo を検索 → 自分の演習コピー | No GitHub repositories yet から8件の Issue 一覧へ変化。ローカルフォルダーとは別のプロジェクトが追加された | Issue からの実装・PR |
+| ローカルプロジェクト・新規セッション | プロジェクト横の + → New → 入力欄下部のプロジェクト名 → 送信 | 星評価の実装セッションが開始し、既存 checkout 上に指定した作業ブランチを作成 | GitHub 連携経路との相違 |
+| ローカル実装セッション・パネル未表示 | Toggle panel → Workspace | Browser、Terminal、Files、Canvas を表示。Changes や Create PR はこの状態では表示されなかった | GitHub 連携セッションの差分・PR 操作 |
+| ローカル実装セッション・PR 作成依頼 | エージェントのプロジェクト連携 PR ツール → gh CLI に切替 | App 固有ツールはアカウント連携エラー。承認後、エージェントが gh 経由で検証用 PR #9 を作成し CI 全4ジョブ成功 | App 固有の Create PR・マージ（Ready to merge は My work 側で表示確認） |
+| GitHub 連携・作成済み PR | My work → PR #9 → Changes / Ready to merge | 5ファイルの差分と Checks: Passed を表示。Merge pull request ダイアログに All checks have passed・No unresolved comments・Merge pull request・Choose merge method（Merge commit）を表示 | マージ実行・Agent merge |
+| GitHub 連携・既存 Issue | My work → Update our repository coding standards → New session options | New session・New session in repository...・Chat を表示 | セッション送信・指示更新の実装 |
+| My work・PR 一覧行 | PR #9 の行を右クリック | New session・Chat・Copy link を表示 | 旧 UI から移動したかは未特定 |
+| ローカルプロジェクト | Projects のフォルダー項目を右クリック → Settings | New session・Show in Explorer・Settings・Hide・Customize…・Manage sessions・Remove folder を表示。Settings には GitHub Account の登録名が表示された | アカウント連携エラーの原因・復旧 |
 | 会話・プロジェクト未接続 | Chats の +（New chat）→ Chat → 質問を送信 | worktree の説明が日本語で返り、Idle になった | 実装用セッションの worktree 動作 |
 | 完了したチャット | Chats の一覧項目を右クリック | Rename、Pin、Mark as unread、Show in Explorer、Share as secret gist、Copy、Archive、Delete を表示 | 各操作の実行、実装用セッションとの違い、旧 UI からの移動 |
 | MCP 未登録 | Customize → Installed → MCP Servers | 未登録の表示を確認 | 登録保存後の表示 |
 | MCP カタログ | Customize → MCP → Playwright | Local / npx / -y @playwright/mcp@latest の登録フォームを表示 | Add server の保存、接続・ツール実行 |
 
-右クリックはチャットの管理メニューで確認したもので、PR 作成や Agent Merge の入口を確認したことにはなりません。削除・共有・アーカイブは実行していません。
+右クリックはチャット管理・PR 一覧行・ローカルプロジェクトで確認しました。PR 行には New session・Chat・Copy link があり、Create PR や Agent Merge はありませんでした。過去の常設メニューから移動したかは未特定です。削除・共有・アーカイブは実行していません。
 
 ## 講師が現行 App で確認する操作
 
 | 章 | 操作対象 | 学ぶ操作 | 入口・表記と確認範囲 |
 | --- | --- | --- | --- |
-| 1 | リポジトリ・Issue | 接続、バックログ確認 | Projects の + で追加入口を確認。My work の表示あり。バックログは未確認 |
+| 1 | リポジトリ・Issue | 接続、バックログ確認 | Projects の + で追加入口を確認。My work に演習コピーの8件のバックログ Issue を表示 |
 | 2 | リポジトリ・セッション | 開始、差分レビュー、実行、PR | New session、Changes、Terminal、Create PR、Ready to merge |
 | 3 | Issue・指示ファイル | Issue から開始、ファイル確認、PR | My work → New session、Toggle review panel |
 | 4 | Issue・セッション | 計画承認、自律実装、スキル | Plan、Autopilot、Changes、レビュー領域 |
@@ -48,6 +57,7 @@ Windows（ビルド 26200.9445、25H2）、GitHub Copilot App 1.1.20。利用者
 
 | 章 | 新規撮影画像 | 確認範囲 |
 | --- | --- | --- |
+| 2 | `app-1.1.20-20260913-star-rating.jpg` | Run で起動した星評価一覧。停止後に Browser パネルへ残った表示 |
 | 5 | `app-1.1.20-20260913-mcp-catalog.jpg` | MCP カタログに Playwright が表示される |
 | 5 | `app-1.1.20-20260913-mcp-config.jpg` | Playwright の登録フォーム・保存前 |
 
