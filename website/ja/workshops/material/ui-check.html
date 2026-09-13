@@ -73,13 +73,13 @@
 <td>GitHub 連携・作成済み PR</td>
 <td>My work → PR #9 → Changes / Ready to merge</td>
 <td>5ファイルの差分と Checks: Passed を表示。Merge pull request ダイアログに All checks have passed・No unresolved comments・Merge pull request・Choose merge method（Merge commit）を表示</td>
-<td>マージ実行・Agent merge</td>
+<td>通常マージは利用者承認後に成功。Agent merge は未実施</td>
 </tr>
 <tr>
 <td>GitHub 連携・既存 Issue</td>
 <td>My work → Update our repository coding standards → New session options</td>
 <td>New session・New session in repository...・Chat を表示</td>
-<td>セッション送信・指示更新の実装</td>
+<td>New session で専用 worktree 作成・マージ済み HEAD の継承を確認。設定承認後に送信・指示更新・検査・PR #10 作成を確認（詳細は実走記録）</td>
 </tr>
 <tr>
 <td>My work・PR 一覧行</td>
@@ -92,6 +92,18 @@
 <td>Projects のフォルダー項目を右クリック → Settings</td>
 <td>New session・Show in Explorer・Settings・Hide・Customize…・Manage sessions・Remove folder を表示。Settings には GitHub Account の登録名が表示された</td>
 <td>アカウント連携エラーの原因・復旧</td>
+</tr>
+<tr>
+<td>GitHub 連携・Issue から作った実装セッション</td>
+<td>Open changes → Changes (7) → 上部 Create PR</td>
+<td>7ファイルの差分を表示。App がコミット・push・PR #10 作成を実行し Ready to merge に変化</td>
+<td>PR #10 のマージ・後続章への継承</td>
+</tr>
+<tr>
+<td>GitHub 連携・PR 作成後</td>
+<td>Ready to merge options</td>
+<td>Agent merge の切り替えを表示</td>
+<td>有効化・許可範囲・実行</td>
 </tr>
 <tr>
 <td>会話・プロジェクト未接続</td>

@@ -104,11 +104,14 @@ GitHub Copilot を使用するすべてのプロジェクトには、充実し�
 <li>次のプロンプトを使い、Issue に記載された要件を満たすように指示ファイルを更新することを Copilot に依頼します。</li>
 </ol>
 <pre class="highlight"><code class="language-plaintext">この Issue に記載された要件に従って、プロジェクトの指示ファイルを更新してください。PR はまだ作らないでください。</code></pre>
+<blockquote>
+<p><strong>2026年9月13日の確認（Windows App 1.1.20）：</strong> GitHub 連携プロジェクトの My work → 対象 Issue → New session で専用 worktree が作成され、前章でマージした星評価を継承しました。初回は Accept this repository configuration? が表示されます。Review configuration でセットアップと Run の内容を確認してから承認してください。今回の実走では利用者の承認後に送信でき、指示ファイル・README・ESLint と最小限の書式修正を含む7ファイルを更新しました。単体30件・E2E21件・lint・型検査は成功しています。</p>
+</blockquote>
 <p>Copilot が更新を行います。</p>
 <h2 id="変更をレビューする">変更をレビューする</h2>
 <p>Copilot が行った更新を読み、更新された指示に基づいて生成するコード例も提示させます。</p>
 <ol>
-<li>右上の <strong>Changes</strong> を選択してコードの変更を開きます。</li>
+<li>入力欄の上にある <strong>Changes</strong>（Open changes）を選択してコードの変更を開きます。Windows App 1.1.20 の GitHub 連携セッションでは、右パネルに <strong>Changes (7), +43, -4</strong> が表示されました。</li>
 </ol>
 <p><img alt="GitHub Copilot app のセッションパネルにあるタブで、Changes タブを矢印で示した画面" src="../assets/app-select-changes.png" /><br><em class="source">参照元の画面例（撮影時バージョン不明・現行 UI 未照合）。位置やメニューの開き方は講師と確認してください。</em></p>
 <ol start="2">
@@ -129,7 +132,7 @@ AI は決定論的ではなく確率的に動作するため、実際のテキ�
 <h2 id="pull-request-を作成してマージする">pull request を作成してマージする</h2>
 <p>指示ファイルはリポジトリのアセットとなり、チームのほかのメンバーと共有されます。ほかのアセットと同様に、作業内容を含む PR を作成します。</p>
 <ol>
-<li>右上隅にある <strong>Create PR</strong> を選択します。</li>
+<li>右上隅にある <strong>Create PR</strong> を選択します。Windows App 1.1.20 の GitHub 連携セッションでは、この操作からコミット・push・PR 作成まで進みました。検証用 PR #10 は作成済みですが、まだマージしていません。<a href="../material/verification.html">実走記録</a>を参照してください。</li>
 <li>求められた場合は <strong>Sign in with your browser</strong> を選択し、画面の指示に従って認証します。</li>
 <li>Copilot が PR の作成を開始します。</li>
 </ol>
