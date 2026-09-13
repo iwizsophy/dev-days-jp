@@ -22,7 +22,7 @@
 </ul>
 </div>
 </details><article><blockquote>
-<p><strong>この章の進め方：</strong> App で操作します。画像は参照元の画面例で、現行 UI との一致は未確認です。ボタンや機能が見つからない場合は <a href="../material/ui-check.html">UI が異なるときの確認</a>に沿って講師と確認してください。</p>
+<p><strong>この章の進め方：</strong> App で操作します。掲載画像は Windows App 1.1.20 の実機画面です。検索・並べ替え Issue を使った操作位置の例も含むため、作業対象は本文に従って選んでください。ボタンや機能が見つからない場合は <a href="../material/ui-check.html">UI が異なるときの確認</a>に沿って講師と確認してください。</p>
 </blockquote>
 <p>ここまで、プロジェクトに小さな更新をいくつか加えました。しかし、より本格的な変更には、よりしっかりしたプロセスが必要です。GitHub Copilot app は既存のフローと連携できるように設計されており、適切なものを適切な方法で構築できます。このレッスンから3回にわたり、一般的な開発プロセスに従います。まず Issue を使って新機能を生成し、エージェントスキルで検証テストと linter を実行します。</p>
 <p>このレッスンでは、次の内容を学習します。</p>
@@ -65,11 +65,11 @@
 <li><strong>Allow users to filter games by category and publisher</strong> というタイトルの Issue を選択します。</li>
 <li>右上の <strong>New session</strong> を選択します。</li>
 </ol>
-<p><img alt="GitHub Copilot app の Issue ビューで、右上の New session ボタンを矢印で示した画面" src="../assets/app-new-session-from-issue.png" /><br><em class="source">参照元の画面例（撮影時バージョン不明・現行 UI 未照合）。位置やメニューの開き方は講師と確認してください。</em></p>
+<p><img alt="My work の Issue 一覧と選択した Issue。右上に New session" src="../assets/app-1.1.20-20260913-issue-session.png" /><br><em class="source">実機撮影：2026-09-13、Windows、GitHub Copilot App 1.1.20。撮影範囲全体を掲載（切り抜きなし）。灰色の箇所はアカウント・検証用リポジトリ・ローカルパス等の識別情報や個人の利用量をマスク。My work の Issue 一覧と右上の New session。並べ替え Issue を開いた操作位置の例で、この Issue の実装は開始していない。各章では本文の対象 Issue を選ぶ。</em></p>
 <ol start="4">
 <li>入力欄下部のモードメニュー（<strong>Mode: Interactive</strong>）を開き、<strong>Plan — Plan first, execute when ready</strong> を選択します。Windows App 1.1.20 でこの経路を確認しました。メニューには <strong>Interactive</strong>・<strong>Plan</strong>・<strong>Autopilot</strong> が表示されます。</li>
 </ol>
-<p><img alt="モードセレクターが Plan に設定され、矢印で示された GitHub Copilot app のプロンプトボックス" src="../assets/app-4-plan-mode.png" /><br><em class="source">参照元の画面例（撮影時バージョン不明・現行 UI 未照合）。位置やメニューの開き方は講師と確認してください。</em></p>
+<p><img alt="左下の Interactive、Plan、Autopilot 選択メニューと右側の Canvas" src="../assets/app-1.1.20-20260913-plan-mode.png" /><br><em class="source">実機撮影：2026-09-13、Windows、GitHub Copilot App 1.1.20。撮影範囲全体を掲載（切り抜きなし）。灰色の箇所はアカウント・検証用リポジトリ・ローカルパス等の識別情報や個人の利用量をマスク。左下のモード選択と右側の Canvas。検索 Issue を追加した後の操作例。各章では本文の対象 Issue を選ぶ。</em></p>
 <ol start="5">
 <li>次のプロンプトを送信します。Issue から開始したため、フィルター機能の Issue はすでにこのセッションのコンテキストに含まれています。</li>
 </ol>
@@ -89,6 +89,7 @@ Copilot は確率的に動作するため、追加で尋ねられる質問は異
 <ol>
 <li>計画を読んだうえで、<strong>Review plan</strong> の <strong>A. Approve and implement this plan</strong> を選択し、<strong>Continue</strong> を押します。Windows App 1.1.20 では、これにより <strong>Mode: Autopilot</strong> に切り替わって実装が始まりました。</li>
 </ol>
+<p><img alt="Review plan の承認選択肢と Continue、右側の計画パネル" src="../assets/app-1.1.20-20260913-plan-review.png" /><br><em class="source">実機撮影：2026-09-13、Windows、GitHub Copilot App 1.1.20。撮影範囲全体を掲載（切り抜きなし）。灰色の箇所はアカウント・検証用リポジトリ・ローカルパス等の識別情報や個人の利用量をマスク。Review plan の Approve and implement this plan と Continue。右側は検索機能の計画。選択だけでは開始せず Continue で承認する。</em></p>
 <p>Copilot が実装作業を開始します。</p>
 <blockquote>
 <p><strong>補足</strong>
@@ -100,11 +101,12 @@ Copilot が必要なコードの作成を自動的に開始しない場合は、
 <ol>
 <li>セッションの入力欄の上にある <strong>Changes</strong>（Open changes）を選択し、右パネルに差分を開きます。</li>
 </ol>
-<p><img alt="GitHub Copilot app のセッションパネルにあるタブで、Changes タブを矢印で示した画面" src="../assets/app-select-changes.png" /><br><em class="source">参照元の画面例（撮影時バージョン不明・現行 UI 未照合）。位置やメニューの開き方は講師と確認してください。</em></p>
+<p><img alt="左の会話欄の Changes と右の差分パネルを同時に表示した App 全体" src="../assets/app-1.1.20-20260913-changes.png" /><br><em class="source">実機撮影：2026-09-13、Windows、GitHub Copilot App 1.1.20。撮影範囲全体を掲載（切り抜きなし）。灰色の箇所はアカウント・検証用リポジトリ・ローカルパス等の識別情報や個人の利用量をマスク。会話欄の Changes と右側の差分パネル。表示コードは追加検証の検索機能で、各章の変更内容とは異なる。</em></p>
 <ol start="2">
 <li>変更をレビューします。新しい TypeScript ファイル、Astro ファイル、テストファイルが表示されます。新しいヘルパー関数には、レッスン3でマージしたドキュメント標準に従い、更新した指示に沿った TSDoc doc comment が含まれているか確認します。ファイルヘッダーは役割や制約を伝える必要がある場合に確認し、すべてのファイルへの自動追加を成功条件にしません。今回の実走ではデータアクセス関数の TSDoc を確認しました。</li>
 <li>セッション上部の <strong>Run options</strong> で <strong>Run development site</strong> を選択します。</li>
 </ol>
+<p><img alt="App 上部の Run メニューと会話・Files パネル全体" src="../assets/app-1.1.20-20260913-run-menu.png" /><br><em class="source">実機撮影：2026-09-13、Windows、GitHub Copilot App 1.1.20。撮影範囲全体を掲載（切り抜きなし）。灰色の箇所はアカウント・検証用リポジトリ・ローカルパス等の識別情報や個人の利用量をマスク。Run メニューの Run development site・Build static site・Type-check application。選択後に Run ボタンで起動する。検索機能 PR 作成後の操作例。</em></p>
 <blockquote>
 <p><strong>確認済みの Run 経路（Windows App 1.1.20）：</strong> 上部の Run development site で起動し、Browser パネルに通常の21件を表示しました。複数カテゴリ・出版社との組合せ・解除を別ブラウザーでも確認後、Stop Run development site で停止しました。単体35件・E2E25件・lint・型検査・build は成功。0件のE2E検証には専用データを使用しています。詳細は <a href="../material/verification.html">実走記録</a>を参照してください。</p>
 </blockquote>
@@ -133,7 +135,7 @@ description: Run the project's test suites and linter to verify code changes are
 <ol>
 <li>右パネルが表示されていない場合は、右上の <strong>Toggle panel</strong> を選択して開きます。</li>
 </ol>
-<p><img alt="Create PR の右側にある Toggle review panel ボタンを矢印で示した GitHub Copilot app の上部ツールバー" src="../assets/app-2-review-panel.png" /><br><em class="source">参照元の画面例（撮影時バージョン不明・現行 UI 未照合）。位置やメニューの開き方は講師と確認してください。</em></p>
+<p><img alt="右パネルの Add tab メニュー。Files、Browser、Terminal の入口" src="../assets/app-1.1.20-20260913-add-tab.png" /><br><em class="source">実機撮影：2026-09-13、Windows、GitHub Copilot App 1.1.20。撮影範囲全体を掲載（切り抜きなし）。灰色の箇所はアカウント・検証用リポジトリ・ローカルパス等の識別情報や個人の利用量をマスク。右パネルの Add tab メニュー。Terminal・Browser・Files・Canvas の入口。検索機能の実装中の操作例。</em></p>
 <ol start="2">
 <li>パネルのタブ列にある <strong>+</strong>（Add tab）を選択します。</li>
 <li><strong>Files</strong> を選択します。</li>

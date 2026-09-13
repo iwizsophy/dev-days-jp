@@ -22,7 +22,7 @@
 </ul>
 </div>
 </details><article><blockquote>
-<p><strong>この章の進め方：</strong> App で操作します。画像は参照元の画面例で、現行 UI との一致は未確認です。ボタンや機能が見つからない場合は <a href="../material/ui-check.html">UI が異なるときの確認</a>に沿って講師と確認してください。</p>
+<p><strong>この章の進め方：</strong> App で操作します。掲載画像は Windows App 1.1.20 の実機画面です。検索・並べ替え Issue を使った操作位置の例も含むため、作業対象は本文に従って選んでください。ボタンや機能が見つからない場合は <a href="../material/ui-check.html">UI が異なるときの確認</a>に沿って講師と確認してください。</p>
 </blockquote>
 <p>生成 AI を扱うとき、コンテキストは重要です。タスクを特定の方法で実行する必要がある場合や、Copilot が把握しておくべき背景情報がある場合は、そのコンテキストを利用できるようにします。特に強力なツールの1つが<a href="https://docs.github.com/copilot/customizing-copilot/about-customizing-github-copilot-chat-responses">指示ファイル</a>です。指示ファイルには、必要なコードの内容だけでなく、その構成方法も記述します。このレッスンでは、リポジトリにドキュメント標準を追加します。ここから先の多くの作業と同様に、バックログの Issue から開始し、エージェントに変更を行わせます。</p>
 <p>このレッスンでは、次の内容を学習します。</p>
@@ -68,16 +68,22 @@ GitHub Copilot を使用するすべてのプロジェクトには、充実し�
 <ol>
 <li>右パネルが表示されていない場合は、右上の <strong>Toggle panel</strong> を選択して開きます。</li>
 </ol>
-<p><img alt="Create PR の右側にある Toggle review panel ボタンを矢印で示した GitHub Copilot app の上部ツールバー" src="../assets/app-2-review-panel.png" /><br><em class="source">参照元の画面例（撮影時バージョン不明・現行 UI 未照合）。位置やメニューの開き方は講師と確認してください。</em></p>
+<p><img alt="右パネルの Add tab メニュー。Files、Browser、Terminal の入口" src="../assets/app-1.1.20-20260913-add-tab.png" /><br><em class="source">実機撮影：2026-09-13、Windows、GitHub Copilot App 1.1.20。撮影範囲全体を掲載（切り抜きなし）。灰色の箇所はアカウント・検証用リポジトリ・ローカルパス等の識別情報や個人の利用量をマスク。右パネルの Add tab メニュー。Terminal・Browser・Files・Canvas の入口。検索機能の実装中の操作例。</em></p>
 <ol start="2">
 <li>パネルのタブ列にある <strong>+</strong>（Add tab）を選択します。</li>
 <li><strong>Files</strong> を選択します。</li>
-<li><kbd>Ctrl</kbd>+<kbd>P</kbd> で <strong>Go to file</strong> を開き、<code>copilot-instructions.md</code> を検索します。Windows App 1.1.20 で確認した経路です。</li>
-<li>ファイル一覧から <code>copilot-instructions.md</code> を選択して開きます。</li>
+<li>
+<p><kbd>Ctrl</kbd>+<kbd>P</kbd> で <strong>Go to file</strong> を開き、<code>copilot-instructions.md</code> を検索します。Windows App 1.1.20 で確認した経路です。
+   <img alt="App 全体と Go to file。copilot-instructions.md の検索結果" src="../assets/app-1.1.20-20260913-file-search.png" /><br><em class="source">実機撮影：2026-09-13、Windows、GitHub Copilot App 1.1.20。撮影範囲全体を掲載（切り抜きなし）。灰色の箇所はアカウント・検証用リポジトリ・ローカルパス等の識別情報や個人の利用量をマスク。Files で Ctrl+P（Go to file）を開き、copilot-instructions.md を検索。検索機能の実装中の操作例。</em></p>
+</li>
+<li>
+<p>ファイル一覧から <code>copilot-instructions.md</code> を選択して開きます。</p>
+</li>
 <li>ファイルを確認します。プロジェクトの簡単な説明に加えて、<strong>Agent notes</strong>、<strong>Code standards</strong>、<strong>Scripts</strong>、<strong>Repository Structure</strong> などのセクションがあります。<strong>Code standards</strong> の下には、ネストされた <strong>GitHub Actions Workflows</strong> のガイダンスがあります。これらは Copilot とのすべてのやり取りに適用されます。</li>
 <li>右側のファイルツリーを確認します。<code>.github</code> が見えない場合は、ファイルパネルの歯車 <strong>View options</strong> → <strong>Show hidden files</strong> を有効にします。実走では、隠しファイルを表示すると <code>.github</code> と指示ファイルがツリーに現れました。</li>
 </ol>
 <p>フォルダーを順に開く代わりに、<strong>Go to file</strong> へ次の手順のファイル名を入力して開くこともできます。</p>
+<p><img alt="会話欄と指示ファイルの表示。右上の View options に Show hidden files" src="../assets/app-1.1.20-20260913-files-options.png" /><br><em class="source">実機撮影：2026-09-13、Windows、GitHub Copilot App 1.1.20。撮影範囲全体を掲載（切り抜きなし）。灰色の箇所はアカウント・検証用リポジトリ・ローカルパス等の識別情報や個人の利用量をマスク。Files の View options に Show hidden files・File tree position が表示された状態。会話中のテスト数37件は追加修正前の報告。</em></p>
 <ol start="8">
 <li><code>.github/instructions</code> フォルダーに移動し、ファイルを確認します。Astro ファイル、Drizzle データレイヤー、テストなどに対応する指示があります。</li>
 <li><code>.github/instructions/unit-tests.instructions.md</code> を開きます。先頭の <code>applyTo</code> フィールドに注目してください。これはリポジトリのルートを基準とする glob で、指示を適用するファイルを決定します。ここでは、TypeScript のテストファイル (<code>**/*.test.ts</code> に一致するファイルなど) が対象になります。</li>
@@ -99,7 +105,7 @@ GitHub Copilot を使用するすべてのプロジェクトには、充実し�
 <li><strong>Update our repository coding standards</strong> というタイトルの Issue を選択して開きます。</li>
 <li>右上の <strong>New session</strong> を選択し、Issue に基づく新しいセッションを開始します。</li>
 </ol>
-<p><img alt="GitHub Copilot app の Issue ビューで、右上の New session ボタンを矢印で示した画面" src="../assets/app-new-session-from-issue.png" /><br><em class="source">参照元の画面例（撮影時バージョン不明・現行 UI 未照合）。位置やメニューの開き方は講師と確認してください。</em></p>
+<p><img alt="My work の Issue 一覧と選択した Issue。右上に New session" src="../assets/app-1.1.20-20260913-issue-session.png" /><br><em class="source">実機撮影：2026-09-13、Windows、GitHub Copilot App 1.1.20。撮影範囲全体を掲載（切り抜きなし）。灰色の箇所はアカウント・検証用リポジトリ・ローカルパス等の識別情報や個人の利用量をマスク。My work の Issue 一覧と右上の New session。並べ替え Issue を開いた操作位置の例で、この Issue の実装は開始していない。各章では本文の対象 Issue を選ぶ。</em></p>
 <ol start="4">
 <li>次のプロンプトを使い、Issue に記載された要件を満たすように指示ファイルを更新することを Copilot に依頼します。</li>
 </ol>
@@ -113,7 +119,7 @@ GitHub Copilot を使用するすべてのプロジェクトには、充実し�
 <ol>
 <li>入力欄の上にある <strong>Changes</strong>（Open changes）を選択してコードの変更を開きます。Windows App 1.1.20 の GitHub 連携セッションでは、右パネルに <strong>Changes (7), +43, -4</strong> が表示されました。</li>
 </ol>
-<p><img alt="GitHub Copilot app のセッションパネルにあるタブで、Changes タブを矢印で示した画面" src="../assets/app-select-changes.png" /><br><em class="source">参照元の画面例（撮影時バージョン不明・現行 UI 未照合）。位置やメニューの開き方は講師と確認してください。</em></p>
+<p><img alt="左の会話欄の Changes と右の差分パネルを同時に表示した App 全体" src="../assets/app-1.1.20-20260913-changes.png" /><br><em class="source">実機撮影：2026-09-13、Windows、GitHub Copilot App 1.1.20。撮影範囲全体を掲載（切り抜きなし）。灰色の箇所はアカウント・検証用リポジトリ・ローカルパス等の識別情報や個人の利用量をマスク。会話欄の Changes と右側の差分パネル。表示コードは追加検証の検索機能で、各章の変更内容とは異なる。</em></p>
 <ol start="2">
 <li>更新された指示ファイルをレビューします。コードにドキュメントとコメントを追加するためのガイドラインが含まれていることを確認します。</li>
 </ol>

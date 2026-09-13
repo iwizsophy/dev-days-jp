@@ -6,7 +6,7 @@
 <a href="../../index.html">教材セットの入口</a><a href="../index.html">App シナリオの目次</a>
 <a href="../../handson-guide.html#switch">事前準備・UI の確認</a></nav>
 <button class="theme-toggle" type="button" onclick="toggleTheme()">☀️ ライト</button></header>
-<main id="lesson"><h1>App シナリオの検証状況</h1><aside>この教材セット独自の運営・補助手順です。</aside><article><p>2026年9月13日：Windows の GitHub Copilot App 1.1.20 で、接続・星評価・指示更新・フィルター実装と次章への継承を確認しました。MCP は設定形式修正とセッション再起動後に実行成功。Agent Merge は検証用 PR #12～14 で CI 成功後の自動マージを確認し、Canvas の共有保存・別セッションでの再表示・重複送信修正、Automation の手動実行も確認しました。<strong>全章の完走判定は未完了です。</strong> 残る画像照合や未実施経路は <a href="ui-check.html">UI 確認表</a>と章別表を参照してください。以下の実走記録は段階ごとの履歴であり、各段階の「未確認」「未作成」は当時の状態です。</p>
+<main id="lesson"><h1>App シナリオの検証状況</h1><aside>この教材セット独自の運営・補助手順です。</aside><article><p>2026年9月13日：Windows の GitHub Copilot App 1.1.20 で、接続・星評価・指示更新・フィルター実装と次章への継承を確認しました。MCP は設定形式修正とセッション再起動後に実行成功。Agent Merge は検証用 PR #12～14 で CI 成功後の自動マージを確認し、Canvas の共有保存・別セッションでの再表示・重複送信修正、Automation の手動実行も確認しました。<strong>全章の完走判定は未完了です。</strong> 画像の差し替え記録と未実施経路は <a href="ui-check.html">UI 確認表</a>と章別表を参照してください。以下の実走記録は段階ごとの履歴であり、各段階の「未確認」「未作成」は当時の状態です。</p>
 <p>環境：Windows ビルド 26200.9445（25H2）、App 実行ファイルの ProductVersion 1.1.20、確認アカウント iwizsophy。教材の開始コミットは <code>cfcbad744d8349a2a7b200484470c7d439bf3cb7</code>。インストーラーの署名は GitHub, Inc. で有効でした。</p>
 <p>演習用コピーは非公開の <code>iwizsophy/dev-days-tailspin-app-verification-20260913</code>。<code>github-samples/tailspin-toys</code> の固定コミット <code>bae003609c8cff0c51d92658b8d3bd89450464f1</code> から作成しました。<code>feature/workshop-baseline</code> の <code>641f557</code> では <code>.github/agents/pr-readiness.md</code> の無効な YAML エスケープ <code>"playwright/\*"</code> を <code>"playwright/*"</code> に修正しています。この修正は同名のリモートブランチへ push 済みで、星評価やフィルターの実装は含みません。</p>
 <p>開始状態を App 外の PowerShell で検査し、Node 24.19.0 で <code>npm ci</code>、単体テスト27件、Chromium E2E 21件、lint、型検査が成功しました。E2E はポート4321に既存サーバーがないことを確認してからビルド・previewを起動しました。これは App のセットアップスクリプトや開発サーバーの実走結果ではありません。通常の Node 24.14.1 では一部依存の要求バージョンを満たさず、検査時のみ Node 24.19.0 のパスを指定しました。</p>
@@ -154,4 +154,9 @@
 </tr>
 </tbody>
 </table>
-<p><a href="instructor.html">講師ガイド</a> · <a href="../app/index.html">演習目次</a></p></article></main></body></html>
+<p><a href="instructor.html">講師ガイド</a> · <a href="../app/index.html">演習目次</a></p>
+<h2>掲載画像の更新（2026年9月13日）</h2>
+<p>App と GitHub Web の実機画像13点を追加し、App 本編の旧画像参照を現行画面の操作例へ差し替えました。ウィンドウ／Web 表示範囲全体を保ち、アカウント・検証用リポジトリ・ローカルパスなどを灰色でマスクしています。マスク外の画素と元の寸法が一致することを確認しました。撮影日・環境・操作例の対象は <code>sources.json</code> に記録し、生成ページでも表示します。</p>
+<p>画像には検索機能の追加実走中の操作例も含まれます。星評価・指示更新・フィルターの各章で同じ操作位置を示す場合も、画像中の Issue・差分・テスト数がその章の結果であるとは扱いません。Agent merge の画像は Merge pull request がチェック済みなので、本文も「未選択の場合だけ選択」と修正しました。</p>
+<p>この画像更新によって未実施経路が検証済みになるわけではありません。GitHub Web 作成フォームの送信、自動セットアップの終了ログ、MCP カタログからの新規登録保存、Open folder 経路のアカウント連携エラーの恒久対策、マージ後の Canvas 件数更新は引き続き未確認です。</p>
+<p>教材の再生成は41ページ・内部リンク／画像／アンカー782参照が成功しました。掲載画像13点を目視確認し、ブラウザーで計画承認の全体画像・Continue ボタン・撮影注記の表示を確認しました。</p></article></main></body></html>

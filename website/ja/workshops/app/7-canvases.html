@@ -75,7 +75,7 @@
 <ol start="3">
 <li><strong>Agent merge</strong> を選択して Agent Merge を有効にします。</li>
 </ol>
-<p><img alt="GitHub Copilot app で展開された Create PR ドロップダウンの Agent merge オプションを矢印で示した画面" src="../assets/app-enable-agent-merge.png" /><br><em class="source">参照元の画面例（撮影時バージョン不明・現行 UI 未照合）。位置やメニューの開き方は講師と確認してください。</em></p>
+<p><img alt="App 全体と Agent merge、Create PR、Create draft PR の選択メニュー" src="../assets/app-1.1.20-20260913-agent-merge-menu.png" /><br><em class="source">実機撮影：2026-09-13、Windows、GitHub Copilot App 1.1.20。撮影範囲全体を掲載（切り抜きなし）。灰色の箇所はアカウント・検証用リポジトリ・ローカルパス等の識別情報や個人の利用量をマスク。Agent merge・Create PR・Create draft PR の選択メニュー。検索機能の PR 作成前の操作例。</em></p>
 <ol start="4">
 <li>ボタンのテキストが <strong>Agent merge</strong> に変わります。</li>
 <li><strong>Agent merge</strong> ボタンを選択し、Agent Merge のプロセスを開始します。</li>
@@ -83,9 +83,9 @@
 <p>Copilot app が PR の作成と管理を開始します。最初にプロジェクトを調査して PR の最適な作成方法を判断し、PR を作成します。</p>
 <p>しばらくすると、Copilot が再び作業を開始し、リポジトリ上ですべてのテストを実行する CI プロセスなど、PR の条件を確認します。ほかのチームメンバーによるレビュー、実行が必要なチェック (CI プロセス)、PR をマージできるかどうかのステータスを報告します。</p>
 <ol start="6">
-<li><strong>Agent merge</strong> の横にあるドロップダウンを選択してから <strong>Merge pull request</strong> を選択し、Agent Merge に pull request のマージを許可します。</li>
+<li><strong>Agent merge</strong> の横にあるドロップダウンを開き、<strong>Merge pull request</strong> のチェック状態を確認します。未選択の場合だけ選択して、マージを許可します。すでにチェックが付いている場合はそのままにします。もう一度選択すると許可が解除されます。</li>
 </ol>
-<p><img alt="Agent merge ドロップダウンで、エージェントに許可された Address reviews、Fix CI failures、Resolve conflicts の操作と、矢印で示された Merge pull request" src="../assets/app-agent-merge-merge.png" /><br><em class="source">参照元の画面例（撮影時バージョン不明・現行 UI 未照合）。位置やメニューの開き方は講師と確認してください。</em></p>
+<p><img alt="PR 作成後の App 全体。Agent merge の Merge pull request はチェック済み" src="../assets/app-1.1.20-20260913-agent-merge-permissions.png" /><br><em class="source">実機撮影：2026-09-13、Windows、GitHub Copilot App 1.1.20。撮影範囲全体を掲載（切り抜きなし）。灰色の箇所はアカウント・検証用リポジトリ・ローカルパス等の識別情報や個人の利用量をマスク。PR 作成後の Agent merge 許可設定。Merge pull request はすでにチェック済み。検索機能 PR の操作例。</em></p>
 <ol start="7">
 <li>すべての CI プロセスが成功するまで待ちます。成功すると、Copilot が pull request を自動的にマージします。</li>
 </ol>
@@ -102,7 +102,13 @@
 <li>最も関心のある Issue の1つで <strong>Add to current session</strong> を選択します。表示名は生成したキャンバスの定義によります。実走のボタン名はこの表記でした。</li>
 <li>Issue の内容が現在のセッションに1回だけ届き、確認応答が返ることを確認します。ボタンの操作はコンテキスト追加までです。実装の対象と範囲を確認し、続けてメッセージを送ります。</li>
 <li>計画から進める場合は <strong>Mode: Interactive</strong> → <strong>Plan</strong> に切り替えます。実走では「キャンバスから追加したタイトル検索 Issue の実装計画を作成し、既存フィルターと星評価を維持する」と依頼しました。</li>
+</ol>
+<p><img alt="検索 Issue を追加した Canvas と左下のモード選択メニュー" src="../assets/app-1.1.20-20260913-plan-mode.png" /><br><em class="source">実機撮影：2026-09-13、Windows、GitHub Copilot App 1.1.20。撮影範囲全体を掲載（切り抜きなし）。灰色の箇所はアカウント・検証用リポジトリ・ローカルパス等の識別情報や個人の利用量をマスク。左下のモード選択と右側の Canvas。検索 Issue を追加した後の操作例。各章では本文の対象 Issue を選ぶ。</em></p>
+<ol start="7">
 <li><strong>Review plan</strong> で計画を読み、<strong>Approve and implement this plan</strong> → <strong>Continue</strong> を選択します。実走では <strong>Autopilot</strong> に切り替わり、同じ worktree で実装が始まりました。</li>
+</ol>
+<p><img alt="検索機能の計画全体と Review plan の Continue" src="../assets/app-1.1.20-20260913-plan-review.png" /><br><em class="source">実機撮影：2026-09-13、Windows、GitHub Copilot App 1.1.20。撮影範囲全体を掲載（切り抜きなし）。灰色の箇所はアカウント・検証用リポジトリ・ローカルパス等の識別情報や個人の利用量をマスク。Review plan の Approve and implement this plan と Continue。右側は検索機能の計画。選択だけでは開始せず Continue で承認する。</em></p>
+<ol start="8">
 <li><strong>Changes</strong> で差分を確認し、テストとブラウザー検証を依頼します。実走では SQL 検索の <code>%</code>・<code>_</code> が特殊文字になる不一致をレビューで修正し、単体39件・E2E28件・キャンバス回帰3件、lint・型検査・build が成功しました。MCP による通常21件の検索・複合条件・検索0件・キーボード解除も確認しています。</li>
 <li>問題がなければ、この章で学んだ <strong>Agent merge</strong> で統合します。検証用 PR #15 は CI 全4ジョブ成功後にマージされ、検索 Issue が Closed になりました。次にボードを更新した際は、完了した Issue が未対応一覧から除かれることを確認してください。</li>
 </ol>
