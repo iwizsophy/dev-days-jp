@@ -78,7 +78,7 @@ Copilot がキャンバスの作成を開始します。
 
 3. **Agent merge** を選択して Agent Merge を有効にします。
 
-   ![GitHub Copilot app で展開された Create PR ドロップダウンの Agent merge オプションを矢印で示した画面](../../_images/app-enable-agent-merge.png)
+   ![App 全体と Agent merge、Create PR、Create draft PR の選択メニュー](../../_images/app-1.1.20-20260913-agent-merge-menu.png)
 
 4. ボタンのテキストが **Agent merge** に変わります。
 5. **Agent merge** ボタンを選択し、Agent Merge のプロセスを開始します。
@@ -87,9 +87,9 @@ Copilot app が PR の作成と管理を開始します。最初にプロジェ�
 
 しばらくすると、Copilot が再び作業を開始し、リポジトリ上ですべてのテストを実行する CI プロセスなど、PR の条件を確認します。ほかのチームメンバーによるレビュー、実行が必要なチェック (CI プロセス)、PR をマージできるかどうかのステータスを報告します。
 
-6. **Agent merge** の横にあるドロップダウンを選択してから **Merge pull request** を選択し、Agent Merge に pull request のマージを許可します。
+6. **Agent merge** の横にあるドロップダウンを開き、**Merge pull request** のチェック状態を確認します。未選択の場合だけ選択して、マージを許可します。すでにチェックが付いている場合はそのままにします。もう一度選択すると許可が解除されます。
 
-   ![Agent merge ドロップダウンで、エージェントに許可された Address reviews、Fix CI failures、Resolve conflicts の操作と、矢印で示された Merge pull request](../../_images/app-agent-merge-merge.png)
+   ![PR 作成後の App 全体。Agent merge の Merge pull request はチェック済み](../../_images/app-1.1.20-20260913-agent-merge-permissions.png)
 
 7. すべての CI プロセスが成功するまで待ちます。成功すると、Copilot が pull request を自動的にマージします。
 
@@ -110,7 +110,13 @@ Copilot app が PR の作成と管理を開始します。最初にプロジェ�
 4. 最も関心のある Issue の1つで **Add to current session** を選択します。表示名は生成したキャンバスの定義によります。実走のボタン名はこの表記でした。
 5. Issue の内容が現在のセッションに1回だけ届き、確認応答が返ることを確認します。ボタンの操作はコンテキスト追加までです。実装の対象と範囲を確認し、続けてメッセージを送ります。
 6. 計画から進める場合は **Mode: Interactive** → **Plan** に切り替えます。実走では「キャンバスから追加したタイトル検索 Issue の実装計画を作成し、既存フィルターと星評価を維持する」と依頼しました。
+
+   ![検索 Issue を追加した Canvas と左下のモード選択メニュー](../../_images/app-1.1.20-20260913-plan-mode.png)
+
 7. **Review plan** で計画を読み、**Approve and implement this plan** → **Continue** を選択します。実走では **Autopilot** に切り替わり、同じ worktree で実装が始まりました。
+
+   ![検索機能の計画全体と Review plan の Continue](../../_images/app-1.1.20-20260913-plan-review.png)
+
 8. **Changes** で差分を確認し、テストとブラウザー検証を依頼します。実走では SQL 検索の `%`・`_` が特殊文字になる不一致をレビューで修正し、単体39件・E2E28件・キャンバス回帰3件、lint・型検査・build が成功しました。MCP による通常21件の検索・複合条件・検索0件・キーボード解除も確認しています。
 9. 問題がなければ、この章で学んだ **Agent merge** で統合します。検証用 PR #15 は CI 全4ジョブ成功後にマージされ、検索 Issue が Closed になりました。次にボードを更新した際は、完了した Issue が未対応一覧から除かれることを確認してください。
 

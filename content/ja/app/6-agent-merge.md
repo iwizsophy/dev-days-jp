@@ -6,7 +6,7 @@ authors:
 lastUpdated: 2026-09-13
 ---
 
-> **この章の確認範囲：** 2026年9月13日に Windows の App 1.1.20 で、Agent merge による PR 作成と CI 全4ジョブ成功後の自動マージを確認しました。画像は参照元の画面例です。CI 失敗や競合の自動修正は未検証です。[UI 確認表](../material/ui-check.md)も参照してください。
+> **この章の確認範囲：** 2026年9月13日に Windows の App 1.1.20 で、Agent merge による PR 作成と CI 全4ジョブ成功後の自動マージを確認しました。掲載画像は検索機能 PR で撮影した同じ操作の例です。CI 失敗や競合の自動修正は未検証です。[UI 確認表](../material/ui-check.md)も参照してください。
 
 
 フィルター機能の構築と検証が完了し、ブラウザーで動作することも確認できました。最後のステップはマージです。ここまでは星評価とコーディング標準の pull request を自分で通常マージしました。今回は、pull request のライフサイクル全体をアプリ内から管理する **Agent Merge** に処理を任せます。
@@ -35,7 +35,7 @@ lastUpdated: 2026-09-13
 2. 右上隅にある **Create PR** の横のドロップダウンを選択します。
 3. **Agent merge** を選択して Agent Merge を有効にします。
 
-   ![GitHub Copilot app で展開された Create PR ドロップダウンの Agent merge オプションを矢印で示した画面](../../_images/app-enable-agent-merge.png)
+   ![App 全体と Agent merge、Create PR、Create draft PR の選択メニュー](../../_images/app-1.1.20-20260913-agent-merge-menu.png)
 
 4. ボタンのテキストが **Agent merge** に変わります。
 5. **Agent merge** ボタンを選択し、Agent Merge のプロセスを開始します。
@@ -44,9 +44,9 @@ Copilot app が PR の作成と管理を開始します。最初にプロジェ�
 
 しばらくすると、Copilot が再び作業を開始し、リポジトリ上ですべてのテストを実行する CI プロセスなど、PR の条件を確認します。ほかのチームメンバーによるレビュー、実行が必要なチェック (CI プロセス)、PR をマージできるかどうかのステータスを報告します。
 
-6. **Agent merge** の横にあるドロップダウンを選択してから **Merge pull request** を選択し、Agent Merge に pull request のマージを許可します。
+6. **Agent merge** の横にあるドロップダウンを開き、**Merge pull request** のチェック状態を確認します。未選択の場合だけ選択して、マージを許可します。すでにチェックが付いている場合はそのままにします。もう一度選択すると許可が解除されます。
 
-   ![Agent merge ドロップダウンで、エージェントに許可された Address reviews、Fix CI failures、Resolve conflicts の操作と、矢印で示された Merge pull request](../../_images/app-agent-merge-merge.png)
+   ![PR 作成後の App 全体。Agent merge の Merge pull request はチェック済み](../../_images/app-1.1.20-20260913-agent-merge-permissions.png)
 
 7. すべての CI プロセスが成功すると、つまりテストに合格すると、Copilot が pull request をマージします。
 

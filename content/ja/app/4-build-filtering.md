@@ -6,7 +6,7 @@ authors:
 lastUpdated: 2026-07-13
 ---
 
-> **この章の進め方：** App で操作します。画像は参照元の画面例で、現行 UI との一致は未確認です。ボタンや機能が見つからない場合は [UI が異なるときの確認](../material/ui-check.md)に沿って講師と確認してください。
+> **この章の進め方：** App で操作します。掲載画像は Windows App 1.1.20 の実機画面です。検索・並べ替え Issue を使った操作位置の例も含むため、作業対象は本文に従って選んでください。ボタンや機能が見つからない場合は [UI が異なるときの確認](../material/ui-check.md)に沿って講師と確認してください。
 
 
 ここまで、プロジェクトに小さな更新をいくつか加えました。しかし、より本格的な変更には、よりしっかりしたプロセスが必要です。GitHub Copilot app は既存のフローと連携できるように設計されており、適切なものを適切な方法で構築できます。このレッスンから3回にわたり、一般的な開発プロセスに従います。まず Issue を使って新機能を生成し、エージェントスキルで検証テストと linter を実行します。
@@ -57,11 +57,11 @@ Issue を開いて新しいセッションを開始し、Plan モードに切り
 2. **Allow users to filter games by category and publisher** というタイトルの Issue を選択します。
 3. 右上の **New session** を選択します。
 
-   ![GitHub Copilot app の Issue ビューで、右上の New session ボタンを矢印で示した画面](../../_images/app-new-session-from-issue.png)
+   ![My work の Issue 一覧と選択した Issue。右上に New session](../../_images/app-1.1.20-20260913-issue-session.png)
 
 4. 入力欄下部のモードメニュー（**Mode: Interactive**）を開き、**Plan — Plan first, execute when ready** を選択します。Windows App 1.1.20 でこの経路を確認しました。メニューには **Interactive**・**Plan**・**Autopilot** が表示されます。
 
-   ![モードセレクターが Plan に設定され、矢印で示された GitHub Copilot app のプロンプトボックス](../../_images/app-4-plan-mode.png)
+   ![左下の Interactive、Plan、Autopilot 選択メニューと右側の Canvas](../../_images/app-1.1.20-20260913-plan-mode.png)
 
 5. 次のプロンプトを送信します。Issue から開始したため、フィルター機能の Issue はすでにこのセッションのコンテキストに含まれています。
 
@@ -82,6 +82,8 @@ Issue を開いて新しいセッションを開始し、Plan モードに切り
 
 1. 計画を読んだうえで、**Review plan** の **A. Approve and implement this plan** を選択し、**Continue** を押します。Windows App 1.1.20 では、これにより **Mode: Autopilot** に切り替わって実装が始まりました。
 
+   ![Review plan の承認選択肢と Continue、右側の計画パネル](../../_images/app-1.1.20-20260913-plan-review.png)
+
 Copilot が実装作業を開始します。
 
 > [!NOTE]
@@ -95,10 +97,12 @@ AI が生成したすべてのコードは、マージ前にレビューする�
 
 1. セッションの入力欄の上にある **Changes**（Open changes）を選択し、右パネルに差分を開きます。
 
-   ![GitHub Copilot app のセッションパネルにあるタブで、Changes タブを矢印で示した画面](../../_images/app-select-changes.png)
+   ![左の会話欄の Changes と右の差分パネルを同時に表示した App 全体](../../_images/app-1.1.20-20260913-changes.png)
 
 2. 変更をレビューします。新しい TypeScript ファイル、Astro ファイル、テストファイルが表示されます。新しいヘルパー関数には、レッスン3でマージしたドキュメント標準に従い、更新した指示に沿った TSDoc doc comment が含まれているか確認します。ファイルヘッダーは役割や制約を伝える必要がある場合に確認し、すべてのファイルへの自動追加を成功条件にしません。今回の実走ではデータアクセス関数の TSDoc を確認しました。
 3. セッション上部の **Run options** で **Run development site** を選択します。
+
+   ![App 上部の Run メニューと会話・Files パネル全体](../../_images/app-1.1.20-20260913-run-menu.png)
 
 > **確認済みの Run 経路（Windows App 1.1.20）：** 上部の Run development site で起動し、Browser パネルに通常の21件を表示しました。複数カテゴリ・出版社との組合せ・解除を別ブラウザーでも確認後、Stop Run development site で停止しました。単体35件・E2E25件・lint・型検査・build は成功。0件のE2E検証には専用データを使用しています。詳細は [実走記録](../material/verification.md)を参照してください。
 
@@ -134,7 +138,7 @@ description: Run the project's test suites and linter to verify code changes are
 
 1. 右パネルが表示されていない場合は、右上の **Toggle panel** を選択して開きます。
 
-   ![Create PR の右側にある Toggle review panel ボタンを矢印で示した GitHub Copilot app の上部ツールバー](../../_images/app-2-review-panel.png)
+   ![右パネルの Add tab メニュー。Files、Browser、Terminal の入口](../../_images/app-1.1.20-20260913-add-tab.png)
 
 2. パネルのタブ列にある **+**（Add tab）を選択します。
 3. **Files** を選択します。

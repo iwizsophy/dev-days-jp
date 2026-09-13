@@ -58,11 +58,11 @@ Tailspin Toys プロジェクトの自分用コピーを使って作業します
 1. 新しいブラウザーウィンドウで、このラボの GitHub リポジトリ `https://github.com/github-samples/tailspin-toys` を開きます。
 2. ラボ用リポジトリのページで **Use this template** ボタンを選択し、**Create a new repository** を選択して、リポジトリの自分用コピーを作成します。
 
-    ![Use this template ボタンのドロップダウンで Create a new repository が選択されている画面](../../_images/app-0-use-template.png)
+    ![GitHub Web 全体と Use this template の Create a new repository メニュー](../../_images/app-1.1.20-20260913-template-menu.png)
 
 3. **Start with a template** が `github-samples/tailspin-toys` であることを確認します。**Include all branches** は既定の Off のままにし、**Owner** に自分または許可された組織、**Repository name** に演習用の名前を指定します。**Choose visibility** はメンターの指定に従います。2026年9月13日のフォームでは初期値は Public でした。非公開の演習にする場合は Private を選択してください。
 
-    ![github-samples/tailspin-toys がテンプレートに設定され、リポジトリ名が入力された Create a new repository フォーム](../../_images/app-0-create-repository.png)
+    ![テンプレート作成フォーム上部。Owner、未入力の Repository name、Choose visibility](../../_images/app-1.1.20-20260913-template-form.png)
 
 4. 任意項目の **Jumpstart your project with Copilot** の Prompt は、この教材では空欄のままにします。内容を確認して **Create repository** を選択します。
 5. 作成したリポジトリのパス (**organization-or-user-name/repository-name**) を記録します。このラボで後ほど使用します。

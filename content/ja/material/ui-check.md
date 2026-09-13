@@ -61,39 +61,51 @@ Windows（ビルド 26200.9445、25H2）、GitHub Copilot App 1.1.20。初期設
 
 ## 画像の更新・配布判定
 
-参照元から取り込んだ既存画像の撮影時バージョンは不明です。参照用として残し、現行画面と誤認しない注記を表示します。新たな実機画像は `sources.json` の `ui_captures` に確認日・バージョン・確認範囲を記録し、生成 HTML でも参照画像と異なる注記を表示します。未確認の画面を架空画像で置き換えません。
+参照元から取り込んだ既存画像の撮影時バージョンは不明です。元ファイルは参照用として残していますが、App 本編からの旧画像参照は実機画像へ差し替えました。新たな実機画像は `sources.json` の `ui_captures` に確認日・バージョン・確認範囲を記録し、生成 HTML でも参照画像と異なる注記を表示します。未確認の画面を架空画像で置き換えません。
 
 | 章 | 新規撮影画像 | 確認範囲 |
 | --- | --- | --- |
 | 2 | `app-1.1.20-20260913-star-rating.jpg` | Run で起動した星評価一覧。停止後に Browser パネルへ残った表示 |
 | 5 | `app-1.1.20-20260913-mcp-catalog.jpg` | MCP カタログに Playwright が表示される |
 | 5 | `app-1.1.20-20260913-mcp-config.jpg` | Playwright の登録フォーム・保存前 |
+| 0 | `app-1.1.20-20260913-template-menu.png` / `template-form.png`（同接頭辞） | GitHub Web の取得入口と作成フォーム上部。送信前 |
+| 2 | `app-1.1.20-20260913-new-session.png` | New 画面の入力欄・リポジトリ・worktree・ブランチ |
+| 2・3・4 | `app-1.1.20-20260913-changes.png` | 会話欄の Changes と差分パネル。検索実装中の操作例 |
+| 2・4 | `app-1.1.20-20260913-run-menu.png` | Run options の選択メニュー。検索機能 PR 作成後の操作例 |
+| 3・4 | `app-1.1.20-20260913-add-tab.png` | 右パネルの Files・Browser・Terminal の入口 |
+| 3 | `app-1.1.20-20260913-file-search.png` / `files-options.png`（同接頭辞） | Go to file と Show hidden files |
+| 3・4 | `app-1.1.20-20260913-issue-session.png` | My work の Issue 一覧と New session。並べ替え Issue は未着手 |
+| 4・7 | `app-1.1.20-20260913-plan-mode.png` / `plan-review.png`（同接頭辞） | 検索 Issue のコンテキスト追加後の Canvas、モード選択、計画承認 |
+| 6・7 | `app-1.1.20-20260913-agent-merge-menu.png` / `agent-merge-permissions.png`（同接頭辞） | Agent merge 選択と PR 作成後の許可状態。検索機能 PR の操作例 |
+
+
+今回追加した13点は撮影範囲を切り抜かず、App 全体（1282×892）または GitHub Web の表示範囲全体（1265×712）を掲載しています。灰色のマスクはアカウント・非公開リポジトリ名・ローカルパス・個人の利用量のみで、それ以外の画素と画像寸法は原本と一致します。操作例が本文の演習と異なる場合は画像注記に明記し、実装対象や検証成功の証拠を取り違えないようにしています。
 
 講師は各操作について、OS・App のバージョン・確認日・操作対象・開始状態・開き方（通常メニュー／右クリック等）・表示された項目名・操作後の結果を記録してください。現行画像を撮り直す場合はアカウント・非公開情報を写さず、本文の経路と同じ状態で撮影します。
 
 本番用教材として配布する前に、必須操作の経路と画像を照合し、[章別の検証状況](verification.md)を更新します。確認できない章は講師デモまたは延期として案内します。
 
-## 参照画像の確認対象
+## 旧参照画像の差し替え記録
 
-以下は取り込み済み画像の一覧です。「未確認」は画像が誤っていると断定する意味ではなく、現行 App との照合が済んでいないことを表します。演習0の画像は GitHub Web 側です。
+以下は旧画像の本文中の扱いです。旧画像の撮影時バージョンを確定したという意味ではありません。新しい画像の対象・開始状態は上表と各画像の注記を参照してください。
 
 | 章 | 画像ファイル | 状態 |
 | --- | --- | --- |
-| 0 | `app-0-use-template.png` | 未確認 |
-| 0 | `app-0-create-repository.png` | 未確認 |
-| 2 | `app-2-start-session.png` | 未確認 |
-| 2 | `app-2-review-panel.png` | 未確認 |
+| 0 | `app-0-use-template.png` | 現行の template-menu 実機画像へ差し替え |
+| 0 | `app-0-create-repository.png` | 現行の template-form 実機画像へ差し替え |
+| 2 | `app-2-start-session.png` | 現行の new-session 実機画像へ差し替え |
+| 2 | `app-2-review-panel.png` | 現行の changes / add-tab 実機画像へ差し替え |
 | 2 | `app-terminal-screenshot.png` | 本文から除去。実走した Run メニューによる起動・停止へ更新 |
-| 3 | `app-2-review-panel.png` | 未確認 |
+| 3 | `app-2-review-panel.png` | 現行の changes / add-tab 実機画像へ差し替え |
 | 3 | `app-show-folder-view.png` | 本文から除去。Files・Go to file・Show hidden files の現行経路を確認 |
-| 3 | `app-new-session-from-issue.png` | 未確認 |
-| 3 | `app-select-changes.png` | 未確認 |
-| 4 | `app-new-session-from-issue.png` | 未確認 |
-| 4 | `app-4-plan-mode.png` | 未確認 |
-| 4 | `app-select-changes.png` | 未確認 |
+| 3 | `app-new-session-from-issue.png` | 現行の issue-session 実機画像へ差し替え |
+| 3 | `app-select-changes.png` | 現行の changes 実機画像へ差し替え |
+| 4 | `app-new-session-from-issue.png` | 現行の issue-session 実機画像へ差し替え |
+| 4 | `app-4-plan-mode.png` | 現行の plan-mode 実機画像へ差し替え |
+| 4 | `app-select-changes.png` | 現行の changes 実機画像へ差し替え |
 | 4 | `app-terminal-screenshot.png` | 本文から除去。実走した Run メニューによる起動・停止へ更新 |
-| 4 | `app-2-review-panel.png` | 未確認 |
-| 6 | `app-enable-agent-merge.png` | 未確認 |
-| 6 | `app-agent-merge-merge.png` | 未確認 |
-| 7 | `app-enable-agent-merge.png` | 未確認 |
-| 7 | `app-agent-merge-merge.png` | 未確認 |
+| 4 | `app-2-review-panel.png` | 現行の changes / add-tab 実機画像へ差し替え |
+| 6 | `app-enable-agent-merge.png` | 現行の agent-merge-menu 実機画像へ差し替え |
+| 6 | `app-agent-merge-merge.png` | 現行の agent-merge-permissions 実機画像へ差し替え |
+| 7 | `app-enable-agent-merge.png` | 現行の agent-merge-menu 実機画像へ差し替え |
+| 7 | `app-agent-merge-merge.png` | 現行の agent-merge-permissions 実機画像へ差し替え |
