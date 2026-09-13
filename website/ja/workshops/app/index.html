@@ -4,9 +4,9 @@
 <link rel="stylesheet" href="../workshops.css"><script src="../../../theme-toggle.js"></script></head><body>
 <a class="skip" href="#lesson">本文へ移動</a><header><nav aria-label="資料のナビゲーション">
 <a href="../../index.html">教材セットの入口</a><a href="../index.html">App シナリオの目次</a>
-<a href="../../handson-guide.html#switch">UI が違うときは CLI へ</a></nav>
+<a href="../../handson-guide.html#switch">事前準備・UI の確認</a></nav>
 <button class="theme-toggle" type="button" onclick="toggleTheme()">☀️ ライト</button></header>
-<main id="lesson"><h1>GitHub Copilot app</h1><p class="source">非公式の日本語版 · <a href="https://github.com/github-samples/copilot-workshops/blob/7ddcf241c1cd10b8e90c0df96f6bef81e710392a/docs/ja-jp/app/README.md">参照原文</a> · <a href="../licenses/copilot-workshops.txt">MIT ライセンス</a><br>参照コミット：<code>7ddcf241c1cd</code> ／ 確認日：2026-09-08</p><aside>UI の名前・位置は参照原文のものです。利用条件は <a href="../../handson-guide.html#plans">事前確認</a>を参照してください。</aside><aside>本編：App シナリオ。各章の CLI 代替手順はこの教材独自の補足です。App と代替経路の実走は未検証です。<a href="../material/verification.html">章別の検証状況</a></aside><nav class="chapter-nav" aria-label="章の移動"><a href="0-prerequisites.html">次の章 →：レッスン 0 - 前提条件</a></nav><details><summary>この章の目次</summary><div class="toc">
+<main id="lesson"><h1>GitHub Copilot app</h1><p class="source">非公式の日本語版 · <a href="https://github.com/github-samples/copilot-workshops/blob/7ddcf241c1cd10b8e90c0df96f6bef81e710392a/docs/ja-jp/app/README.md">参照原文</a> · <a href="../licenses/copilot-workshops.txt">MIT ライセンス</a><br>参照コミット：<code>7ddcf241c1cd</code> ／ 確認日：2026-09-08</p><aside>UI の名前・位置は参照原文のものです。利用条件は <a href="../../handson-guide.html#plans">事前確認</a>を参照してください。</aside><aside>本編は App の操作を学ぶシナリオです。メニューや右クリック等の現行操作経路は未照合です。<a href="../material/verification.html">章別の検証状況</a></aside><nav class="chapter-nav" aria-label="章の移動"><a href="0-prerequisites.html">次の章 →：レッスン 0 - 前提条件</a></nav><details><summary>この章の目次</summary><div class="toc">
 <ul>
 <li><a href="#この教材セットの進め方">この教材セットの進め方</a></li>
 <li><a href="#レッスン">レッスン</a></li>
@@ -15,13 +15,14 @@
 </ul>
 </div>
 </details><article><h2 id="この教材セットの進め方">この教材セットの進め方</h2>
-<p>このセットでは <strong>App のシナリオを本編</strong>として演習0〜8を順に進めます。各章に、その課題を同じ演習コピー・ブランチで続ける CLI 代替手順と合流条件を併記しました。CLI 独立コースへ移動する必要はありません。</p>
+<p><strong>App の操作と開発体験を学ぶ本編</strong>として、演習0〜8を順に進めます。完成したコードだけでなく、App のセッション、レビュー、MCP、Agent Merge、Canvas、Automation の操作を確認します。</p>
+<p>画像は固定した参照コミットに含まれる画面例です。撮影時の App バージョンは確認できておらず、現行 UI と一致するとは限りません。</p>
 <ul>
-<li><a href="../material/continuation.html">共通の切り替え・PR・合流手順</a></li>
-<li><a href="../material/instructor.html">講師用の時間配分・対処手順</a></li>
+<li><a href="../material/ui-check.html">UI が異なるときの確認</a></li>
+<li><a href="../material/instructor.html">講師ガイド</a></li>
 <li><a href="../material/verification.html">章別の実走検証状況</a></li>
 </ul>
-<p>本編の実装は自分の Tailspin Toys コピーで行います。参照元への push・PR・Issue 作成は禁止です。App 固有の Agent Merge・Canvas・Automation は、CLI 代替を実施しても機能体験は未実施として記録します。以下の製品説明と本文は固定した参照コミットを基にしたもので、現行 UI との一致を保証しません。</p>
+<p>操作できない場合は、講師による現行 App の案内、ペア操作、App のデモの順で対応します。CLI は講師向けの緊急対応で、本編を完了する代替経路ではありません。演習先は自分の Tailspin Toys コピーです。参照元への push・PR・Issue 作成は禁止です。</p>
 <p><a href="https://docs.github.com/copilot/concepts/agents/github-copilot-app"><strong>GitHub Copilot app</strong></a> は Copilot CLI を基盤とするデスクトップアプリケーションで、エージェント主導の開発を単一の作業用ワークスペースで実現します。並列エージェントセッション、切り替え可能なセッションモード、共有キャンバス、GitHub Issue と pull request のネイティブ管理機能を備えています。さらに、リベース、レビューのフィードバック、CI の修正、マージまで pull request を導く <strong>Agent Merge</strong> も利用できます。</p>
 <p>一連のレッスンでは、アプリをインストールしてプロジェクトを設定した後、アプリのワークスペースと、テンプレートによって用意されたバックログを確認します。まず、星評価を追加する小さな変更に取り組みます。次に、Issue に基づいてカスタム指示の標準を追加し、分離されたエージェントセッションでフィルター機能を構築して、再利用可能なスキルで検証します。Playwright MCP server を追加して実際のブラウザーで機能を確認した後、段階的にマージの自動化を進め、最後は <strong>Agent Merge</strong> で pull request をマージします。最後に、共有キャンバスで共同作業し、繰り返し発生する作業を自動化します。アイデアから機能のマージまで、開発の一連の流れを体験できます。</p>
 <h2 id="レッスン">レッスン</h2>

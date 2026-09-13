@@ -4,13 +4,13 @@
 <link rel="stylesheet" href="../workshops.css"><script src="../../../theme-toggle.js"></script></head><body>
 <a class="skip" href="#lesson">本文へ移動</a><header><nav aria-label="資料のナビゲーション">
 <a href="../../index.html">教材セットの入口</a><a href="../index.html">App シナリオの目次</a>
-<a href="../../handson-guide.html#switch">UI が違うときは CLI へ</a></nav>
+<a href="../../handson-guide.html#switch">事前準備・UI の確認</a></nav>
 <button class="theme-toggle" type="button" onclick="toggleTheme()">☀️ ライト</button></header>
 <main id="lesson"><h1>講師ガイド：App シナリオを一本の流れで実施する</h1><aside>この教材セット独自の運営・補助手順です。</aside><article><h2>使用する教材</h2>
 <p>参加者には <a href="../app/index.html">App の目次</a> を配布します。CLI 独立コースと Mona Mayhem は補講用の参考資料で、本編の途中では移動しません。演習対象は各自の Tailspin Toys コピーです。教材リポジトリ内でサンプルアプリの演習を実行しないでください。</p>
 <p>参照元：<code>github/dev-days</code> の開催・運営資料、<code>github-samples/copilot-workshops</code> の App シナリオ。参照コミットとファイルは <code>content/ja/sources.json</code> に記録しています。参照元への変更送信は行いません。</p>
 <h2>180分枠の運営案</h2>
-<p>この教材セット独自の配分案です。実測の所要時間ではありません。演習0・1の導入は事前に済ませます。元シナリオの60〜90分に、CLI への切り替え支援とレビュー時間を追加します。</p>
+<p>この教材セット独自の配分案です。実測の所要時間ではありません。演習0・1の導入は事前に済ませます。元シナリオの60〜90分に、App の操作支援とレビュー時間を追加します。</p>
 <table>
 <thead>
 <tr>
@@ -70,15 +70,20 @@
 <ul>
 <li>自分の非公開コピーで App 演習0〜8を順に試し、App/CLI・Node.js のバージョン、テンプレート SHA、OS を記録する。</li>
 <li>演習2・3のマージが演習4に引き継がれることを確認する。CLI コースで先に作る publisher helper の存在を仮定しない。</li>
-<li>各章で App を停止して同じ worktree から CLI に切り替え、App に戻って差分が同じことを確認する。</li>
+<li><a href="ui-check.html">UI 確認表</a>に沿って現行 App の操作経路と画像を検証する。CLI の緊急対応は、本編と別の作業保全リハーサルとして確認する。</li>
 <li>App 用と CLI 用の利用ポリシー、残り利用枠、ネット接続、必要な GitHub 権限を確認する。UI 変更と認証・利用枠の問題を切り分ける。</li>
 <li>星評価の null ケース、フィルターの複合条件・解除・該当なしを確認する。seed にない条件はテスト用データで検証し、実 UI 操作と区別する。</li>
-<li>MCP 用 Chrome と E2E 用 Chromium を区別する。接続失敗はプロセス・CLI 設定と再起動を確認し、手動検証へ切り替えた場合は MCP 未実施とする。</li>
+<li>MCP 用 Chrome と E2E 用 Chromium を区別する。接続失敗はプロセス・App の MCP 設定と再起動を確認し、手動検証へ切り替えた場合は MCP 未実施とする。</li>
 <li>PR Readiness の YAML エラーなど既知の問題は <a href="../cli/6-custom-agents.html">CLI の参考資料</a> を参照する。確認済みの修正を演習開始前に適用する。</li>
 <li>終了時に開発サーバー・演習用 Codespace・不要な定期実行を停止する。PR や未保存の変更を消さない。</li>
 </ul>
-<h2>当日の切り替え判断</h2>
-<p>ボタンが見つからない場合は章・目的・画面を確認し、約5分で解決しなければ <a href="continuation.html">共通手順</a> とその章の CLI 手順へ案内します。ネットワーク・権限・利用枠の問題は CLI でも解決しないことがあるため、ペア作業か講師デモに切り替えます。</p>
-<p>演習6の通常マージ、演習7の Markdown での整理、演習8の単発要約は到達目標の一部を満たしますが、App 固有機能の体験には代わりません。</p>
+<h2>当日の操作支援と緊急対応</h2>
+<ol>
+<li>章・操作目的・現在の画面を確認し、<a href="ui-check.html">UI 確認表</a>に差分を記録します。画面上の位置だけで判断せず、機能名・対象リポジトリ・セッションの状態を照合します。</li>
+<li>講師が検証した現行 App の操作経路を案内します。見つからない機能に対して推測の操作を案内しません。</li>
+<li>参加者環境で使えなければ、同じ App 操作を講師デモまたはペア操作で示します。見ただけの場合は「デモ確認」とし、自分での実施と区別します。</li>
+<li>作業を保全して実装を続ける必要がある場合だけ、<a href="emergency-cli.html">講師専用 CLI 手順</a>を使います。時間が経っただけで CLI へ自動的に切り替えません。App 操作は未完了と記録します。</li>
+</ol>
+<p>環境・権限・利用枠の問題は UI の変更と分けて記録します。講師環境でも機能を確認できない章は延期し、実施できると案内しません。通常 PR、Markdown、単発要約を Agent Merge・Canvas・Automation の実施に数えないでください。</p>
 <h2>検証の記録</h2>
 <p><a href="verification.html">章別検証表</a> の未検証を、実測結果と証拠に基づいて更新します。以前の CLI 専用シナリオで CI が成功したことを、App シナリオの完走へ読み替えないでください。</p></article></main></body></html>

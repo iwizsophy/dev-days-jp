@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow"><title>App の UI が教材と異なるとき | Dev Days 日本語版</title>
+<link rel="stylesheet" href="../workshops.css"><script src="../../../theme-toggle.js"></script></head><body>
+<a class="skip" href="#lesson">本文へ移動</a><header><nav aria-label="資料のナビゲーション">
+<a href="../../index.html">教材セットの入口</a><a href="../index.html">App シナリオの目次</a>
+<a href="../../handson-guide.html#switch">事前準備・UI の確認</a></nav>
+<button class="theme-toggle" type="button" onclick="toggleTheme()">☀️ ライト</button></header>
+<main id="lesson"><h1>App の UI が教材と異なるとき</h1><aside>この教材セット独自の運営・補助手順です。</aside><article><h2>画像の位置だけで操作を探さない</h2>
+<p>「常設メニューがなくなり、右クリックから操作するようになった」という情報が寄せられています。ただし、対象の操作・App バージョン・OS は未特定です。以下は調査と講師確認の手順で、現行 UI の操作経路を確認済みという意味ではありません。</p>
+<ol>
+<li><strong>対象を確認する</strong>：リポジトリ、Issue、セッション、変更ファイル、PR のどれを操作する章かを本文から確認します。対象と現在の状態が違うと、操作が表示されないことがあります。</li>
+<li><strong>目的を確認する</strong>：「セッションを開始する」「変更をレビューする」「PR を作る」など、やりたい操作を確認します。</li>
+<li><strong>講師と入口を探す</strong>：常設メニューや対象付近の操作ボタンに加え、対象の右クリック／コンテキストメニューも確認候補です。そこに必ず目的の項目があるとは限りません。OS のコンテキストメニュー操作方法も確認します。</li>
+<li><strong>実行前に照合する</strong>：項目名、対象、作用を確認します。似た名前の merge・削除・自動化を試し押ししないでください。</li>
+<li><strong>見つからなければ停止する</strong>：講師の現行 App デモかペア操作へ切り替えます。CLI の実装成功で App 演習を完了したことにはしません。</li>
+</ol>
+<h2>講師が現行 App で確認する操作</h2>
+<table>
+<thead>
+<tr>
+<th>章</th>
+<th>操作対象</th>
+<th>学ぶ操作</th>
+<th>参照原文の入口・表記（現行未確認）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>リポジトリ・Issue</td>
+<td>接続、バックログ確認</td>
+<td>サイドバーの My work</td>
+</tr>
+<tr>
+<td>2</td>
+<td>リポジトリ・セッション</td>
+<td>開始、差分レビュー、実行、PR</td>
+<td>New session、Changes、Terminal、Create PR、Ready to merge</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Issue・指示ファイル</td>
+<td>Issue から開始、ファイル確認、PR</td>
+<td>My work → New session、Toggle review panel</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Issue・セッション</td>
+<td>計画承認、自律実装、スキル</td>
+<td>Plan、Autopilot、Changes、レビュー領域</td>
+</tr>
+<tr>
+<td>5</td>
+<td>カスタマイズ・セッション</td>
+<td>MCP 登録とツール実行</td>
+<td>原文は設定 → MCP servers。公式文書は Customize → MCP（本文修正済み、実機未確認）</td>
+</tr>
+<tr>
+<td>6</td>
+<td>PR・セッション</td>
+<td>Agent Merge と許可範囲の設定</td>
+<td>Create PR のドロップダウン、Agent merge</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Canvas・セッション</td>
+<td>作成、保存、開く、Issue 操作</td>
+<td>Home screen、New session、Agent merge</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Automation</td>
+<td>作成、手動トリガー、結果確認</td>
+<td>Automations → New automation、Manual</td>
+</tr>
+</tbody>
+</table>
+<p>演習5は2026年9月10日に <a href="https://docs.github.com/en/copilot/how-tos/github-copilot-app/customize-github-copilot-app#configuring-mcp-servers">公式文書</a>と照合し、Customize → MCP と Installed の案内へ更新しました。その他の操作と、右クリックへの移動先は未確認です。操作対象を選択した状態で、常設メニューとコンテキストメニューのどちらに表示されるかを実機で確認します。権限、セッション種別、実行状態で表示が変わる場合は条件も記録します。</p>
+<p><a href="https://docs.github.com/en/copilot/how-tos/github-copilot-app/managing-issues-and-pull-requests">Issue・PR の公式手順</a>も確認しましたが、対象操作が右クリックへ移ったという情報はこの文書では裏付けられませんでした。実機の確認が必要です。</p>
+<h2>画像の更新・配布判定</h2>
+<p>既存画像の撮影時バージョンは不明です。画像は参照用として残し、現行画面と誤認しない注記を表示します。画像を削除したり右クリックの架空画像に置き換えたりして、確認済みにはしません。</p>
+<p>講師は各操作について、OS・App のバージョン・確認日・操作対象・開始状態・開き方（通常メニュー／右クリック等）・表示された項目名・操作後の結果を記録してください。現行画像を撮り直す場合はアカウント・非公開情報を写さず、本文の経路と同じ状態で撮影します。</p>
+<p>本番用教材として配布する前に、必須操作の経路と画像を照合し、<a href="verification.html">章別の検証状況</a>を更新します。確認できない章は講師デモまたは延期として案内します。</p>
+<h2>参照画像の確認対象</h2>
+<p>以下は取り込み済み画像の一覧です。「未確認」は画像が誤っていると断定する意味ではなく、現行 App との照合が済んでいないことを表します。演習0の画像は GitHub Web 側です。</p>
+<table>
+<thead>
+<tr>
+<th>章</th>
+<th>画像ファイル</th>
+<th>状態</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td><code>app-0-use-template.png</code></td>
+<td>未確認</td>
+</tr>
+<tr>
+<td>0</td>
+<td><code>app-0-create-repository.png</code></td>
+<td>未確認</td>
+</tr>
+<tr>
+<td>2</td>
+<td><code>app-2-start-session.png</code></td>
+<td>未確認</td>
+</tr>
+<tr>
+<td>2</td>
+<td><code>app-2-review-panel.png</code></td>
+<td>未確認</td>
+</tr>
+<tr>
+<td>2</td>
+<td><code>app-terminal-screenshot.png</code></td>
+<td>未確認</td>
+</tr>
+<tr>
+<td>3</td>
+<td><code>app-2-review-panel.png</code></td>
+<td>未確認</td>
+</tr>
+<tr>
+<td>3</td>
+<td><code>app-show-folder-view.png</code></td>
+<td>未確認</td>
+</tr>
+<tr>
+<td>3</td>
+<td><code>app-new-session-from-issue.png</code></td>
+<td>未確認</td>
+</tr>
+<tr>
+<td>3</td>
+<td><code>app-select-changes.png</code></td>
+<td>未確認</td>
+</tr>
+<tr>
+<td>4</td>
+<td><code>app-new-session-from-issue.png</code></td>
+<td>未確認</td>
+</tr>
+<tr>
+<td>4</td>
+<td><code>app-4-plan-mode.png</code></td>
+<td>未確認</td>
+</tr>
+<tr>
+<td>4</td>
+<td><code>app-select-changes.png</code></td>
+<td>未確認</td>
+</tr>
+<tr>
+<td>4</td>
+<td><code>app-terminal-screenshot.png</code></td>
+<td>未確認</td>
+</tr>
+<tr>
+<td>4</td>
+<td><code>app-2-review-panel.png</code></td>
+<td>未確認</td>
+</tr>
+<tr>
+<td>6</td>
+<td><code>app-enable-agent-merge.png</code></td>
+<td>未確認</td>
+</tr>
+<tr>
+<td>6</td>
+<td><code>app-agent-merge-merge.png</code></td>
+<td>未確認</td>
+</tr>
+<tr>
+<td>7</td>
+<td><code>app-enable-agent-merge.png</code></td>
+<td>未確認</td>
+</tr>
+<tr>
+<td>7</td>
+<td><code>app-agent-merge-merge.png</code></td>
+<td>未確認</td>
+</tr>
+</tbody>
+</table></article></main></body></html>

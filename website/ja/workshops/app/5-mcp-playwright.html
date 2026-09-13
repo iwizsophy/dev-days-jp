@@ -4,21 +4,20 @@
 <link rel="stylesheet" href="../workshops.css"><script src="../../../theme-toggle.js"></script></head><body>
 <a class="skip" href="#lesson">本文へ移動</a><header><nav aria-label="資料のナビゲーション">
 <a href="../../index.html">教材セットの入口</a><a href="../index.html">App シナリオの目次</a>
-<a href="../../handson-guide.html#switch">UI が違うときは CLI へ</a></nav>
+<a href="../../handson-guide.html#switch">事前準備・UI の確認</a></nav>
 <button class="theme-toggle" type="button" onclick="toggleTheme()">☀️ ライト</button></header>
-<main id="lesson"><h1>レッスン 5 - Playwright MCP server によるテスト</h1><p class="source">非公式の日本語版 · <a href="https://github.com/github-samples/copilot-workshops/blob/7ddcf241c1cd10b8e90c0df96f6bef81e710392a/docs/ja-jp/app/5-mcp-playwright.md">参照原文</a> · <a href="../licenses/copilot-workshops.txt">MIT ライセンス</a><br>参照コミット：<code>7ddcf241c1cd</code> ／ 確認日：2026-09-08</p><aside>UI の名前・位置は参照原文のものです。利用条件は <a href="../../handson-guide.html#plans">事前確認</a>を参照してください。</aside><aside>本編：App シナリオ。各章の CLI 代替手順はこの教材独自の補足です。App と代替経路の実走は未検証です。<a href="../material/verification.html">章別の検証状況</a></aside><nav class="chapter-nav" aria-label="章の移動"><a href="4-build-filtering.html">← 前の章：レッスン 4 - Autopilot による機能の構築</a><a href="6-agent-merge.html">次の章 →：レッスン 6 - Agent Merge によるマージ</a></nav><details><summary>この章の目次</summary><div class="toc">
+<main id="lesson"><h1>レッスン 5 - Playwright MCP server によるテスト</h1><p class="source">非公式の日本語版 · <a href="https://github.com/github-samples/copilot-workshops/blob/7ddcf241c1cd10b8e90c0df96f6bef81e710392a/docs/ja-jp/app/5-mcp-playwright.md">参照原文</a> · <a href="../licenses/copilot-workshops.txt">MIT ライセンス</a><br>参照コミット：<code>7ddcf241c1cd</code> ／ 確認日：2026-09-08</p><aside>UI の名前・位置は参照原文のものです。利用条件は <a href="../../handson-guide.html#plans">事前確認</a>を参照してください。</aside><aside>本編は App の操作を学ぶシナリオです。メニューや右クリック等の現行操作経路は未照合です。<a href="../material/verification.html">章別の検証状況</a></aside><nav class="chapter-nav" aria-label="章の移動"><a href="4-build-filtering.html">← 前の章：レッスン 4 - Autopilot による機能の構築</a><a href="6-agent-merge.html">次の章 →：レッスン 6 - Agent Merge によるマージ</a></nav><details><summary>この章の目次</summary><div class="toc">
 <ul>
 <li><a href="#シナリオ">シナリオ</a></li>
 <li><a href="#model-context-protocol-mcp-とは">Model Context Protocol (MCP) とは</a></li>
 <li><a href="#playwright-mcp-server-を追加する">Playwright MCP server を追加する</a></li>
 <li><a href="#playwright-で機能を確認するよう-copilot-に依頼する">Playwright で機能を確認するよう Copilot に依頼する</a></li>
-<li><a href="#cli-代替手順同じフィルターを-playwright-mcp-で検証する">CLI 代替手順：同じフィルターを Playwright MCP で検証する</a></li>
 <li><a href="#まとめと次のステップ">まとめと次のステップ</a></li>
 <li><a href="#リソース">リソース</a></li>
 </ul>
 </div>
 </details><article><blockquote>
-<p><strong>この章の進め方：</strong> App を使える場合は以下の本文を進めます。UI で止まった場合は、<a href="#cli-fallback">この章の CLI 代替手順</a>を使い、同じ章の合流条件を確認してください。</p>
+<p><strong>この章の進め方：</strong> App で操作します。画像は参照元の画面例で、現行 UI との一致は未確認です。ボタンや機能が見つからない場合は <a href="../material/ui-check.html">UI が異なるときの確認</a>に沿って講師と確認してください。</p>
 </blockquote>
 <p>前のレッスンでは、プロジェクトの自動テストスイートを使ってフィルター機能を作成し、検証しました。テストによってコードの検証を自動化できますが、エージェント自身が動作を確認できるようにすることも効果的です。実際に作成している UI で問題を見つけた場合に、エージェントが対応できるようになります。MCP を使って AI エージェントに外部機能へのアクセスを提供する方法を確認し、Copilot が構築中のサイトを直接操作できるように Playwright MCP server を追加します。</p>
 <p>このレッスンでは、次の内容を学習します。</p>
@@ -43,16 +42,15 @@
 MCP server は、プロジェクト内のほかの依存関係と同様に扱ってください。使用する前にソースコードを慎重に確認し、発行元を検証して、セキュリティ上の影響を考慮します。信頼できる MCP server だけを使用し、機密性の高いリソースや操作へのアクセスを許可するときは注意してください。</p>
 </blockquote>
 <h2 id="playwright-mcp-server-を追加する">Playwright MCP server を追加する</h2>
-<p>MCP server はアプリの設定から追加して管理します。アプリには一般的なサーバーのカタログが含まれているため、<a href="https://github.com/microsoft/playwright-mcp">Playwright MCP server</a> は数回の操作で追加できます。</p>
+<p>2026年9月10日に確認した <a href="https://docs.github.com/en/copilot/how-tos/github-copilot-app/customize-github-copilot-app#configuring-mcp-servers">公式のカスタマイズ手順</a>に合わせ、参照原文の「設定 → MCP servers」を次の案内へ更新しました。これは公式文書との照合で、実機の操作確認は未実施です。</p>
 <ol>
-<li><kbd>Ctrl</kbd>+<kbd>,</kbd> を選択して、Copilot app の設定ページを開きます。</li>
-<li><strong>MCP servers</strong> を選択します。</li>
-<li>検索ダイアログに <code>Playwright</code> と入力します。</li>
-<li><strong>Popular MCP servers</strong> の一覧から <strong>Playwright</strong> を選択します。</li>
-<li><strong>Add server</strong> を選択し、利用可能な MCP server の一覧に追加します。</li>
-<li><kbd>Esc</kbd> を選択して設定ダイアログを閉じます。</li>
+<li>サイドバーの <strong>Customize</strong> を開きます。</li>
+<li><strong>MCP</strong> を開きます。</li>
+<li>既存の登録がないか <strong>Installed</strong> で確認します。登録済みなら重複して追加しません。</li>
+<li>未登録ならカタログで <a href="https://github.com/microsoft/playwright-mcp">Playwright MCP server</a> を探し、選択して表示される導入手順に従います。表示されなければ、カスタムサーバーを追加する操作を講師と確認します。</li>
+<li>導入後、登録状態とセッションからの利用可否を確認します。登録しただけで成功とはせず、次の節で実際のツール実行を確認します。</li>
 </ol>
-<p>これで Playwright MCP server を追加できました。</p>
+<p>Customize・MCP の項目がない場合は、App のバージョン・組織ポリシー・画面の状態を記録して講師と確認してください。ここで右クリックへ移ったと断定できる根拠はありません。</p>
 <h2 id="playwright-で機能を確認するよう-copilot-に依頼する">Playwright で機能を確認するよう Copilot に依頼する</h2>
 <p>Playwright MCP server を使って機能を手動テストするよう Copilot に依頼します。</p>
 <ol>
@@ -66,14 +64,9 @@ MCP server は、プロジェクト内のほかの依存関係と同様に扱っ
 </ol>
 <p>これで Copilot は、ユーザーと同じように機能を確認し、ブラウザーでも動作を検証しました。</p>
 <p><a id="cli-fallback"></a></p>
-<h2 id="cli-代替手順同じフィルターを-playwright-mcp-で検証する">CLI 代替手順：同じフィルターを Playwright MCP で検証する</h2>
-<p>演習4の worktree・ブランチを維持します。別ターミナルで <code>npm run dev</code> を実行し、実際の URL を確認します。CLI の <code>/mcp show</code> で既存設定を確認し、なければ <code>/mcp add</code> で名前 <code>playwright</code>、種類 STDIO、コマンド <code>npx @playwright/mcp@latest --headless</code> を登録して保存します。</p>
-<p>CLI と App の MCP 設定が共有されるとは仮定しません。接続できない場合、CLI の再起動とプロセス状態を確認します。Chrome がないエラーなら <code>npx playwright install chrome</code> を実行します。E2E 用 Chromium とは別です。Codespaces で sandbox エラーが出る場合に限り、<a href="../cli/4-mcp.html">CLI 参考資料の対処</a>を確認してください。</p>
-<pre class="highlight"><code class="language-text">Playwright MCP のブラウザーツールを使って [実際の localhost URL] を開き、
-演習4で合意したフィルター条件、複合条件、解除、キーボード操作と星評価を確認してください。
-期待値と実測値を記録し、不具合があれば修正して再検証してください。
-MCP を使えない場合は成功扱いにせず、エラーを報告してください。PR はまだ作成しません。</code></pre>
-<p><strong>合流条件：</strong> MCP ツール実行が確認でき、受け入れ条件を満たすこと。データによって0件が選べない場合はテストで補い、証拠を区別します。MCP が復旧しなければ通常のブラウザーとテストで機能を検証し、MCP は未実施と記録して演習6へ進みます。修正後は quality-checks を再実行します。</p>
+<blockquote>
+<p><strong>講師向け：</strong> 緊急の作業保全が必要な場合だけ <a href="../material/emergency-cli.html#chapter-5">対応手順</a> を参照してください。CLI の実装成功は、この章の App 操作の完了には数えません。</p>
+</blockquote>
 <h2 id="まとめと次のステップ">まとめと次のステップ</h2>
 <p>GitHub Copilot app から Playwright MCP server を使い、実際のブラウザーで機能を確認しました。学習した内容は次のとおりです。</p>
 <ul>

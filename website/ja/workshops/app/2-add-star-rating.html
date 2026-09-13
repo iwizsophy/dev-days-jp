@@ -4,9 +4,9 @@
 <link rel="stylesheet" href="../workshops.css"><script src="../../../theme-toggle.js"></script></head><body>
 <a class="skip" href="#lesson">本文へ移動</a><header><nav aria-label="資料のナビゲーション">
 <a href="../../index.html">教材セットの入口</a><a href="../index.html">App シナリオの目次</a>
-<a href="../../handson-guide.html#switch">UI が違うときは CLI へ</a></nav>
+<a href="../../handson-guide.html#switch">事前準備・UI の確認</a></nav>
 <button class="theme-toggle" type="button" onclick="toggleTheme()">☀️ ライト</button></header>
-<main id="lesson"><h1>レッスン 2 - 最初のエージェントセッションの実行</h1><p class="source">非公式の日本語版 · <a href="https://github.com/github-samples/copilot-workshops/blob/7ddcf241c1cd10b8e90c0df96f6bef81e710392a/docs/ja-jp/app/2-add-star-rating.md">参照原文</a> · <a href="../licenses/copilot-workshops.txt">MIT ライセンス</a><br>参照コミット：<code>7ddcf241c1cd</code> ／ 確認日：2026-09-08</p><aside>UI の名前・位置は参照原文のものです。利用条件は <a href="../../handson-guide.html#plans">事前確認</a>を参照してください。</aside><aside>本編：App シナリオ。各章の CLI 代替手順はこの教材独自の補足です。App と代替経路の実走は未検証です。<a href="../material/verification.html">章別の検証状況</a></aside><nav class="chapter-nav" aria-label="章の移動"><a href="1-install-copilot-app.html">← 前の章：レッスン 1 - GitHub Copilot app のインストール</a><a href="3-custom-instructions.html">次の章 →：レッスン 3 - カスタム指示による Copilot のガイド</a></nav><details><summary>この章の目次</summary><div class="toc">
+<main id="lesson"><h1>レッスン 2 - 最初のエージェントセッションの実行</h1><p class="source">非公式の日本語版 · <a href="https://github.com/github-samples/copilot-workshops/blob/7ddcf241c1cd10b8e90c0df96f6bef81e710392a/docs/ja-jp/app/2-add-star-rating.md">参照原文</a> · <a href="../licenses/copilot-workshops.txt">MIT ライセンス</a><br>参照コミット：<code>7ddcf241c1cd</code> ／ 確認日：2026-09-08</p><aside>UI の名前・位置は参照原文のものです。利用条件は <a href="../../handson-guide.html#plans">事前確認</a>を参照してください。</aside><aside>本編は App の操作を学ぶシナリオです。メニューや右クリック等の現行操作経路は未照合です。<a href="../material/verification.html">章別の検証状況</a></aside><nav class="chapter-nav" aria-label="章の移動"><a href="1-install-copilot-app.html">← 前の章：レッスン 1 - GitHub Copilot app のインストール</a><a href="3-custom-instructions.html">次の章 →：レッスン 3 - カスタム指示による Copilot のガイド</a></nav><details><summary>この章の目次</summary><div class="toc">
 <ul>
 <li><a href="#シナリオ">シナリオ</a></li>
 <li><a href="#セッションの構造">セッションの構造</a></li>
@@ -14,13 +14,12 @@
 <li><a href="#差分をレビューする">差分をレビューする</a></li>
 <li><a href="#変更を確認する">変更を確認する</a></li>
 <li><a href="#最初の-pull-request-を作成してマージする">最初の pull request を作成してマージする</a></li>
-<li><a href="#cli-代替手順星評価を表示して最初の-pr-を作る">CLI 代替手順：星評価を表示して最初の PR を作る</a></li>
 <li><a href="#まとめと次のステップ">まとめと次のステップ</a></li>
 <li><a href="#リソース">リソース</a></li>
 </ul>
 </div>
 </details><article><blockquote>
-<p><strong>この章の進め方：</strong> App を使える場合は以下の本文を進めます。UI で止まった場合は、<a href="#cli-fallback">この章の CLI 代替手順</a>を使い、同じ章の合流条件を確認してください。</p>
+<p><strong>この章の進め方：</strong> App で操作します。画像は参照元の画面例で、現行 UI との一致は未確認です。ボタンや機能が見つからない場合は <a href="../material/ui-check.html">UI が異なるときの確認</a>に沿って講師と確認してください。</p>
 </blockquote>
 <p>前のレッスンでは、ワークスペースを確認し、クイックチャットを使いました。ここでは、<strong>エージェントセッション</strong>を開始し、プロジェクトに最初の変更を加えます。変更は小規模なものにします。ゲームのデータにはすでに星評価が含まれていますが、ホームページのゲームカードにはまだ表示されていません。エージェントに表示を依頼し、変更をレビューして、最初の pull request としてマージします。</p>
 <p>このレッスンでは、次の内容を学習します。</p>
@@ -43,7 +42,7 @@
 <li><strong>Home screen</strong> を選択します。</li>
 <li>リポジトリに <code>tailspin-toys</code> が選択されていることを確認します。</li>
 </ol>
-<p><img alt="リポジトリセレクターに tailspin-toys が設定され、プロンプトの下にモデルセレクターが表示された GitHub Copilot app のプロンプトボックス" src="../assets/app-2-start-session.png" /></p>
+<p><img alt="リポジトリセレクターに tailspin-toys が設定され、プロンプトの下にモデルセレクターが表示された GitHub Copilot app のプロンプトボックス" src="../assets/app-2-start-session.png" /><br><em class="source">参照元の画面例（撮影時バージョン不明・現行 UI 未照合）。位置やメニューの開き方は講師と確認してください。</em></p>
 <ol start="4">
 <li>次のプロンプトを使って変更を依頼します。</li>
 </ol>
@@ -61,7 +60,7 @@
 <ol>
 <li>アプリの右上隅にある <strong>Toggle review panel</strong> を選択します。Copilot が行った未処理の変更がすべて表示される差分画面が開きます。</li>
 </ol>
-<p><img alt="Create PR の右側にある Toggle review panel ボタンを矢印で示した GitHub Copilot app の上部ツールバー" src="../assets/app-2-review-panel.png" /></p>
+<p><img alt="Create PR の右側にある Toggle review panel ボタンを矢印で示した GitHub Copilot app の上部ツールバー" src="../assets/app-2-review-panel.png" /><br><em class="source">参照元の画面例（撮影時バージョン不明・現行 UI 未照合）。位置やメニューの開き方は講師と確認してください。</em></p>
 <ol start="2">
 <li>ゲームの詳細表示に使用される中心的なファイル <code>GameCard.astro</code> にコードが追加されていることを確認します。次のような小さなブロックが追加されているはずです。評価がある場合は表示し、<code>starRating</code> が <code>null</code> の場合は "No rating yet" を表示します。</li>
 </ol>
@@ -83,7 +82,7 @@ Copilot は、すべての生成 AI ツールと同様に決定論的ではな�
 <ol>
 <li>Copilot app の右側にあるレビューパネルで <strong>Terminal</strong> を選択します。<strong>Terminal</strong> ボタンがない場合は、<strong>+</strong> (<strong>Open in panel</strong> というラベルが付いています) を選択してから <strong>Terminal</strong> を選択します。</li>
 </ol>
-<p><img alt="GitHub Copilot app のレビューパネルにある Terminal ボタン" src="../assets/app-terminal-screenshot.png" /></p>
+<p><img alt="GitHub Copilot app のレビューパネルにある Terminal ボタン" src="../assets/app-terminal-screenshot.png" /><br><em class="source">参照元の画面例（撮影時バージョン不明・現行 UI 未照合）。位置やメニューの開き方は講師と確認してください。</em></p>
 <ol start="2">
 <li>ターミナルウィンドウに次のコマンドを入力し、Web アプリの開発サーバーを起動します。</li>
 </ol>
@@ -110,16 +109,9 @@ Copilot は、すべての生成 AI ツールと同様に決定論的ではな�
 </ol>
 <p>これで Web サイトに新機能を反映できました。</p>
 <p><a id="cli-fallback"></a></p>
-<h2 id="cli-代替手順星評価を表示して最初の-pr-を作る">CLI 代替手順：星評価を表示して最初の PR を作る</h2>
-<p><a href="../material/continuation.html">共通手順</a>で同じ作業ブランチを開きます。未着手なら clean な既定ブランチから <code>feature/app-02-rating</code> などを作成します。CLI に引き継ぎ情報と次の要件を渡します。</p>
-<pre class="highlight"><code class="language-text">Game 型と GameCard.astro、既存の差分を確認してください。
-ホームページの各ゲームカードに既存の starRating（5点満点）を表示し、
-null の場合は「No rating yet」と表示してください。
-カードの構造は組み替えず、実装済みなら重複して追加しないでください。
-数値と null のケースを検証し、quality-checks に従って確認してください。
-commit・push・PR・merge はまだ行わないでください。</code></pre>
-<p>別のターミナルで <code>npm run dev</code> を実行して表示を確認します。seed に null がなければテスト用 fixture などで確認し、通常の UI で見た結果と区別します。</p>
-<p><strong>合流条件：</strong> 星評価と未評価の表示、関連テスト、レビューが完了していること。<a href="../material/continuation.html">PR・合流の共通手順</a>で自分のコピーに PR を作り、CI 確認後に通常マージします。最新の既定ブランチを取得して演習3へ進みます。</p>
+<blockquote>
+<p><strong>講師向け：</strong> 緊急の作業保全が必要な場合だけ <a href="../material/emergency-cli.html#chapter-2">対応手順</a> を参照してください。CLI の実装成功は、この章の App 操作の完了には数えません。</p>
+</blockquote>
 <h2 id="まとめと次のステップ">まとめと次のステップ</h2>
 <p>最初のエージェントセッションを開始し、最初の変更をリリースしました。具体的には、次の作業を行いました。</p>
 <ul>

@@ -4,9 +4,9 @@
 <link rel="stylesheet" href="../workshops.css"><script src="../../../theme-toggle.js"></script></head><body>
 <a class="skip" href="#lesson">本文へ移動</a><header><nav aria-label="資料のナビゲーション">
 <a href="../../index.html">教材セットの入口</a><a href="../index.html">App シナリオの目次</a>
-<a href="../../handson-guide.html#switch">UI が違うときは CLI へ</a></nav>
+<a href="../../handson-guide.html#switch">事前準備・UI の確認</a></nav>
 <button class="theme-toggle" type="button" onclick="toggleTheme()">☀️ ライト</button></header>
-<main id="lesson"><h1>レッスン 4 - Autopilot による機能の構築</h1><p class="source">非公式の日本語版 · <a href="https://github.com/github-samples/copilot-workshops/blob/7ddcf241c1cd10b8e90c0df96f6bef81e710392a/docs/ja-jp/app/4-build-filtering.md">参照原文</a> · <a href="../licenses/copilot-workshops.txt">MIT ライセンス</a><br>参照コミット：<code>7ddcf241c1cd</code> ／ 確認日：2026-09-08</p><aside>UI の名前・位置は参照原文のものです。利用条件は <a href="../../handson-guide.html#plans">事前確認</a>を参照してください。</aside><aside>本編：App シナリオ。各章の CLI 代替手順はこの教材独自の補足です。App と代替経路の実走は未検証です。<a href="../material/verification.html">章別の検証状況</a></aside><nav class="chapter-nav" aria-label="章の移動"><a href="3-custom-instructions.html">← 前の章：レッスン 3 - カスタム指示による Copilot のガイド</a><a href="5-mcp-playwright.html">次の章 →：レッスン 5 - Playwright MCP server によるテスト</a></nav><details><summary>この章の目次</summary><div class="toc">
+<main id="lesson"><h1>レッスン 4 - Autopilot による機能の構築</h1><p class="source">非公式の日本語版 · <a href="https://github.com/github-samples/copilot-workshops/blob/7ddcf241c1cd10b8e90c0df96f6bef81e710392a/docs/ja-jp/app/4-build-filtering.md">参照原文</a> · <a href="../licenses/copilot-workshops.txt">MIT ライセンス</a><br>参照コミット：<code>7ddcf241c1cd</code> ／ 確認日：2026-09-08</p><aside>UI の名前・位置は参照原文のものです。利用条件は <a href="../../handson-guide.html#plans">事前確認</a>を参照してください。</aside><aside>本編は App の操作を学ぶシナリオです。メニューや右クリック等の現行操作経路は未照合です。<a href="../material/verification.html">章別の検証状況</a></aside><nav class="chapter-nav" aria-label="章の移動"><a href="3-custom-instructions.html">← 前の章：レッスン 3 - カスタム指示による Copilot のガイド</a><a href="5-mcp-playwright.html">次の章 →：レッスン 5 - Playwright MCP server によるテスト</a></nav><details><summary>この章の目次</summary><div class="toc">
 <ul>
 <li><a href="#シナリオ">シナリオ</a></li>
 <li><a href="#背景">背景</a></li>
@@ -17,13 +17,12 @@
 <li><a href="#quality-checks-スキルで作業を検証する">quality-checks スキルで作業を検証する</a></li>
 <li><a href="#quality-checks-スキルを確認する">quality-checks スキルを確認する</a></li>
 <li><a href="#チェックを実行する">チェックを実行する</a></li>
-<li><a href="#cli-代替手順同じフィルター機能を計画実装する">CLI 代替手順：同じフィルター機能を計画・実装する</a></li>
 <li><a href="#まとめと次のステップ">まとめと次のステップ</a></li>
 <li><a href="#リソース">リソース</a></li>
 </ul>
 </div>
 </details><article><blockquote>
-<p><strong>この章の進め方：</strong> App を使える場合は以下の本文を進めます。UI で止まった場合は、<a href="#cli-fallback">この章の CLI 代替手順</a>を使い、同じ章の合流条件を確認してください。</p>
+<p><strong>この章の進め方：</strong> App で操作します。画像は参照元の画面例で、現行 UI との一致は未確認です。ボタンや機能が見つからない場合は <a href="../material/ui-check.html">UI が異なるときの確認</a>に沿って講師と確認してください。</p>
 </blockquote>
 <p>ここまで、プロジェクトに小さな更新をいくつか加えました。しかし、より本格的な変更には、よりしっかりしたプロセスが必要です。GitHub Copilot app は既存のフローと連携できるように設計されており、適切なものを適切な方法で構築できます。このレッスンから3回にわたり、一般的な開発プロセスに従います。まず Issue を使って新機能を生成し、エージェントスキルで検証テストと linter を実行します。</p>
 <p>このレッスンでは、次の内容を学習します。</p>
@@ -66,11 +65,11 @@
 <li><strong>Allow users to filter games by category and publisher</strong> というタイトルの Issue を選択します。</li>
 <li>右上の <strong>New session</strong> を選択します。</li>
 </ol>
-<p><img alt="GitHub Copilot app の Issue ビューで、右上の New session ボタンを矢印で示した画面" src="../assets/app-new-session-from-issue.png" /></p>
+<p><img alt="GitHub Copilot app の Issue ビューで、右上の New session ボタンを矢印で示した画面" src="../assets/app-new-session-from-issue.png" /><br><em class="source">参照元の画面例（撮影時バージョン不明・現行 UI 未照合）。位置やメニューの開き方は講師と確認してください。</em></p>
 <ol start="4">
 <li>モードに <strong>Plan</strong> と表示されるまで <kbd>Shift</kbd>+<kbd>Tab</kbd> を選択します。</li>
 </ol>
-<p><img alt="モードセレクターが Plan に設定され、矢印で示された GitHub Copilot app のプロンプトボックス" src="../assets/app-4-plan-mode.png" /></p>
+<p><img alt="モードセレクターが Plan に設定され、矢印で示された GitHub Copilot app のプロンプトボックス" src="../assets/app-4-plan-mode.png" /><br><em class="source">参照元の画面例（撮影時バージョン不明・現行 UI 未照合）。位置やメニューの開き方は講師と確認してください。</em></p>
 <ol start="5">
 <li>次のプロンプトを送信します。Issue から開始したため、フィルター機能の Issue はすでにこのセッションのコンテキストに含まれています。</li>
 </ol>
@@ -101,12 +100,12 @@ Copilot が必要なコードの作成を自動的に開始しない場合は、
 <ol>
 <li>右上の <strong>Changes</strong> を選択してコードの変更を開きます。</li>
 </ol>
-<p><img alt="GitHub Copilot app のセッションパネルにあるタブで、Changes タブを矢印で示した画面" src="../assets/app-select-changes.png" /></p>
+<p><img alt="GitHub Copilot app のセッションパネルにあるタブで、Changes タブを矢印で示した画面" src="../assets/app-select-changes.png" /><br><em class="source">参照元の画面例（撮影時バージョン不明・現行 UI 未照合）。位置やメニューの開き方は講師と確認してください。</em></p>
 <ol start="2">
 <li>変更をレビューします。新しい TypeScript ファイル、Astro ファイル、テストファイルが表示されます。新しいヘルパー関数には、レッスン3でマージしたドキュメント標準に従い、依頼していなくても TSDoc doc comment とファイルヘッダーコメントが含まれていることを確認します。</li>
 <li>Copilot app の右側にあるレビューパネルで <strong>Terminal</strong> を選択します。<strong>Terminal</strong> ボタンがない場合は、<strong>+</strong> (<strong>Open in panel</strong> というラベルが付いています) を選択してから <strong>Terminal</strong> を選択します。</li>
 </ol>
-<p><img alt="GitHub Copilot app のレビューパネルにある Terminal ボタン" src="../assets/app-terminal-screenshot.png" /></p>
+<p><img alt="GitHub Copilot app のレビューパネルにある Terminal ボタン" src="../assets/app-terminal-screenshot.png" /><br><em class="source">参照元の画面例（撮影時バージョン不明・現行 UI 未照合）。位置やメニューの開き方は講師と確認してください。</em></p>
 <ol start="4">
 <li>ターミナルウィンドウに次のコマンドを入力し、Web アプリの開発サーバーを起動します。</li>
 </ol>
@@ -137,7 +136,7 @@ description: Run the project's test suites and linter to verify code changes are
 <ol>
 <li>レビューパネルが表示されていない場合は、右上の <strong>Toggle review panel</strong> を選択して開きます。</li>
 </ol>
-<p><img alt="Create PR の右側にある Toggle review panel ボタンを矢印で示した GitHub Copilot app の上部ツールバー" src="../assets/app-2-review-panel.png" /></p>
+<p><img alt="Create PR の右側にある Toggle review panel ボタンを矢印で示した GitHub Copilot app の上部ツールバー" src="../assets/app-2-review-panel.png" /><br><em class="source">参照元の画面例（撮影時バージョン不明・現行 UI 未照合）。位置やメニューの開き方は講師と確認してください。</em></p>
 <ol start="2">
 <li><strong>+</strong> を選択し、レビューパネルに新しい項目を追加します。</li>
 <li><strong>File</strong> を選択します。</li>
@@ -155,18 +154,9 @@ description: Run the project's test suites and linter to verify code changes are
 <li><strong>このセッションを開いたままにします。</strong> 次のレッスンでは Playwright MCP server を追加し、実際のブラウザーでフィルター機能が動作することを確認します。</li>
 </ol>
 <p><a id="cli-fallback"></a></p>
-<h2 id="cli-代替手順同じフィルター機能を計画実装する">CLI 代替手順：同じフィルター機能を計画・実装する</h2>
-<p>演習2・3の変更を含む既定ブランチから <code>feature/app-04-filtering</code> などで開始します。App で着手済みなら、そのセッションの同じ worktree・ブランチを使います。自分のコピーのフィルター Issue 本文を貼り付け、<code>/plan</code>（利用できなければ通常の対話）で次を依頼します。</p>
-<pre class="highlight"><code class="language-text">この Issue に従って、カテゴリーとパブリッシャーでゲームを絞り込む計画を作ってください。
-星評価を維持し、既存の指示と差分を確認してください。
-publisher helper が存在するとは仮定せず、現在の実装から必要な変更を判断してください。
-選択方式、複数条件の意味、解除、該当なし、再読み込み時の状態を確認し、
-受け入れ条件とテスト計画を示してください。まだ実装しないでください。</code></pre>
-<p>計画への質問に答え、内容を確認したら実装を依頼します。App の Autopilot を使えなくても、通常の CLI 対話で計画を承認し、必要な操作を許可して進められます。</p>
-<pre class="highlight"><code class="language-text">確認した計画を実装し、.github/skills/quality-checks/SKILL.md を読んで
-その手順で検証してください。スキルを読み込めたか、実行コマンド、結果、
-未確認項目を報告してください。commit・push・PR・merge はまだ行わないでください。</code></pre>
-<p><strong>合流条件：</strong> 要件に沿うフィルター、星評価の維持、新しいコードの指示準拠、quality-checks の成功と差分レビュー。スキルが呼び出せず同じコマンドを手動実行した場合は、スキル体験を未実施と記録します。演習5へは同じブランチ・未マージの機能を引き継ぎます。</p>
+<blockquote>
+<p><strong>講師向け：</strong> 緊急の作業保全が必要な場合だけ <a href="../material/emergency-cli.html#chapter-4">対応手順</a> を参照してください。CLI の実装成功は、この章の App 操作の完了には数えません。</p>
+</blockquote>
 <h2 id="まとめと次のステップ">まとめと次のステップ</h2>
 <p>実際の機能をエンドツーエンドで構築し、チームの基準に照らして検証しました。具体的には、次の作業を行いました。</p>
 <ul>
