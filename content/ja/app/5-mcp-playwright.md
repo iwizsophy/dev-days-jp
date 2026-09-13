@@ -6,7 +6,7 @@ authors:
 lastUpdated: 2026-09-13
 ---
 
-> **この章の確認範囲：** 2026年9月13日に Windows の App 1.1.20 で、MCP カタログ・Installed・Playwright の登録フォームを確認し、画像を撮影しました。リポジトリ定義は信頼承認と設定形式の修正後、3サーバーが Connected になりました。新規登録の保存とセッションからのツール実行は未確認です。[UI 確認表](../material/ui-check.md)を参照してください。
+> **この章の確認範囲：** 2026年9月13日に Windows の App 1.1.20 で、リポジトリ定義の信頼承認・設定形式修正・セッション再起動後、Playwright MCP による絞り込み・解除・キーボード操作と終了処理を確認しました。通常21件データでの確認で、0件状態の MCP 検証と新規登録フォームの保存は未確認です。[UI 確認表](../material/ui-check.md)を参照してください。
 
 
 前のレッスンでは、プロジェクトの自動テストスイートを使ってフィルター機能を作成し、検証しました。テストによってコードの検証を自動化できますが、エージェント自身が動作を確認できるようにすることも効果的です。実際に作成している UI で問題を見つけた場合に、エージェントが対応できるようになります。MCP を使って AI エージェントに外部機能へのアクセスを提供する方法を確認し、Copilot が構築中のサイトを直接操作できるように Playwright MCP server を追加します。
@@ -47,7 +47,9 @@ lastUpdated: 2026-09-13
 
 実走では、本人による信頼承認後に **No MCP servers loaded** と表示されました。固定コミットから作ったコピーの `.mcp.json` は、ルートが `"servers"` でした。[公式のリポジトリ別設定形式](https://docs.github.com/en/copilot/how-tos/copilot-cli/customize-copilot/add-mcp-servers#adding-per-repository-mcp-servers)に合わせ、自分の演習コピーでこのキーを `"mcpServers"` に変更します。既存のサーバー定義・接続先はそのままにします。参照元リポジトリは変更しません。
 
-Settings の **Refresh** で再確認します。今回の修正後は GitHub・Playwright・astro-docs の3件が **Connected** になりました。ただし、既存のフィルターセッションは Playwright のブラウザー操作ツールが利用できないと報告して停止しました。Connected の表示だけで章を完了にせず、セッションから実際にツールを呼べるか確認してください。セッションへの再読み込み方法と MCP によるブラウザー検証は未確認です。
+Settings の **Refresh** で再確認します。今回の修正後は GitHub・Playwright・astro-docs の3件が **Connected** になりました。ただし、既存のフィルターセッションは Playwright のブラウザー操作ツールが利用できないと報告して停止しました。
+
+この場合は、作業を終えて待機中の同じセッションの入力欄で **`/restart-session`** を選択して送信します。[履歴を保持する公式の再起動コマンド](https://docs.github.com/en/copilot/reference/github-copilot-app-reference/slash-commands)です。実走では再起動後に未コミット変更と履歴を保持したまま Playwright MCP を呼び出せました。Connected の表示だけで章を完了にせず、セッションから実際にツールを呼べるか確認してください。
 
 ### 新規登録の手順
 
@@ -79,6 +81,8 @@ Copilot は Playwright MCP server を通じてブラウザーを起動し、各�
 
 2. Issue の受け入れ条件と照らし合わせて概要を読みます。問題がある場合は、pull request を作成する前に追加の質問をするか、コードを修正するよう依頼します。
 3. 次のレッスンでこの作業を完了するため、セッションを開いたままにします。
+
+実走では `browser_navigate`・`browser_snapshot`・`browser_click`・`browser_select_option`・`browser_find`・`browser_press_key` の呼び出しを確認しました。通常データで Strategy は4件、Puzzle を追加すると8件、CodeForge Studios も選ぶと2件、Clear filters で21件へ戻りました。出版社単独は6件、Tab と Enter による解除も21件です。0件表示は通常データでは作れないため、前章の専用 fixture による E2E テストと区別します。最後に `browser_close` と開発サーバーの停止を確認しました。
 
 これで Copilot は、ユーザーと同じように機能を確認し、ブラウザーでも動作を検証しました。
 

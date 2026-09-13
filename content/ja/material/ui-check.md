@@ -30,7 +30,7 @@ Windows（ビルド 26200.9445、25H2）、GitHub Copilot App 1.1.20。初期設
 | GitHub 連携・Issue から作った実装セッション | Open changes → Changes (7) → 上部 Create PR | 7ファイルの差分を表示。App がコミット・push・PR #10 作成を実行し Ready to merge に変化 | PR #10 のマージ・後続章への継承 |
 | GitHub 連携・PR 作成後 | Ready to merge options | Agent merge の切り替えを表示 | 有効化・許可範囲・実行 |
 | GitHub 連携・Issue #7 の新規セッション | Mode: Interactive → Plan → Review plan → Approve and implement this plan → Continue | 計画への質問に回答でき、承認後 Mode: Autopilot に切替。実装と検査を実行 | 新規実装の MCP 検証 |
-| GitHub 連携・リポジトリに .mcp.json が存在 | プロジェクトを右クリック → Settings → MCP servers | 本人の信頼承認後、servers → mcpServers 修正で3件が Connected。既存セッションはツール未公開を報告 | セッション再読み込み・MCP 実行 |
+| GitHub 連携・リポジトリに .mcp.json が存在 | プロジェクトを右クリック → Settings → MCP servers | 本人の信頼承認後、servers → mcpServers 修正で3件が Connected。/restart-session 後、同じセッションから MCP ブラウザー操作成功 | 0件状態の MCP 検証 |
 | 会話・プロジェクト未接続 | Chats の +（New chat）→ Chat → 質問を送信 | worktree の説明が日本語で返り、Idle になった | 実装用セッションの worktree 動作 |
 | 完了したチャット | Chats の一覧項目を右クリック | Rename、Pin、Mark as unread、Show in Explorer、Share as secret gist、Copy、Archive、Delete を表示 | 各操作の実行、実装用セッションとの違い、旧 UI からの移動 |
 | MCP 未登録 | Customize → Installed → MCP Servers | 未登録の表示を確認 | 登録保存後の表示 |
@@ -46,10 +46,10 @@ Windows（ビルド 26200.9445、25H2）、GitHub Copilot App 1.1.20。初期設
 | 2 | リポジトリ・セッション | 開始、差分レビュー、実行、PR | New session、Changes、Terminal、Create PR、Ready to merge |
 | 3 | Issue・指示ファイル | Issue から開始、ファイル確認、PR | My work → New session、Toggle review panel |
 | 4 | Issue・セッション | 計画承認、自律実装、スキル | Plan、Autopilot、Changes、レビュー領域 |
-| 5 | カスタマイズ・セッション | MCP 登録とツール実行 | Customize → MCP、Installed、Playwright 登録フォームを実機確認。保存とツール実行は未確認 |
-| 6 | PR・セッション | Agent Merge と許可範囲の設定 | Create PR のドロップダウン、Agent merge |
-| 7 | Canvas・セッション | 作成、保存、開く、Issue 操作 | Home screen、New session、Agent merge |
-| 8 | Automation | 作成、手動トリガー、結果確認 | Automations → New automation、Manual |
+| 5 | カスタマイズ・セッション | MCP 登録とツール実行 | リポジトリ定義の形式修正・/restart-session 後の MCP 実行を確認。新規登録フォーム保存は未確認 |
+| 6 | PR・セッション | Agent Merge と許可範囲の設定 | Create PR options → Agent merge → Agent merge。Merge pull request 有効化後、CI成功と自動マージを確認 |
+| 7 | Canvas・セッション | 作成、保存、開く、Issue 操作 | New session → New worktree/main、右パネル表示、共有保存、Agent Merge、別セッションで再表示、Add to current sessionを確認。反復送信を修正済み |
+| 8 | Automation | 作成、手動トリガー、結果確認 | Automations → New automation → Trigger: Manual → Select project → Create and run → Recent runs。Local/Succeededと出力を確認 |
 
 演習5は2026年9月10日に [公式文書](https://docs.github.com/en/copilot/how-tos/github-copilot-app/customize-github-copilot-app#configuring-mcp-servers)と照合し、9月13日に上記の範囲を実機確認しました。その他の操作は、対象を選択した状態で常設メニューとコンテキストメニューのどちらに表示されるかを確認します。権限、セッション種別、実行状態で表示が変わる場合は条件も記録します。
 

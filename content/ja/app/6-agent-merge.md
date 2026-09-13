@@ -3,13 +3,13 @@ title: "レッスン 6 - Agent Merge によるマージ"
 description: "フィルター機能の pull request を作成して My work でレビューし、マージを妨げる問題の修正とマージを Agent Merge に任せて、段階的なマージ自動化の最上位まで進みます。"
 authors:
   - geektrainer
-lastUpdated: 2026-07-09
+lastUpdated: 2026-09-13
 ---
 
-> **この章の進め方：** App で操作します。画像は参照元の画面例で、現行 UI との一致は未確認です。ボタンや機能が見つからない場合は [UI が異なるときの確認](../material/ui-check.md)に沿って講師と確認してください。
+> **この章の確認範囲：** 2026年9月13日に Windows の App 1.1.20 で、Agent merge による PR 作成と CI 全4ジョブ成功後の自動マージを確認しました。画像は参照元の画面例です。CI 失敗や競合の自動修正は未検証です。[UI 確認表](../material/ui-check.md)も参照してください。
 
 
-フィルター機能の構築と検証が完了し、ブラウザーで動作することも確認できました。最後のステップはマージです。このハーネスではすでに2回マージしており、どちらも pull request を作成して github.com で自分でマージしました。今回は、pull request のライフサイクル全体をアプリ内から管理する **Agent Merge** に処理を任せます。
+フィルター機能の構築と検証が完了し、ブラウザーで動作することも確認できました。最後のステップはマージです。ここまでは星評価とコーディング標準の pull request を自分で通常マージしました。今回は、pull request のライフサイクル全体をアプリ内から管理する **Agent Merge** に処理を任せます。
 
 このレッスンでは、次の内容を学習します。
 
@@ -25,7 +25,7 @@ lastUpdated: 2026-07-09
 
 **Agent Merge** を使うと、Copilot app で pull request をマージするまでの最終工程を自動化できます。有効にすると、アプリのセッションが pull request を読み取り、失敗した CI チェックの修正、レビューコメントへの対応、必要に応じたリベースなど、マージを妨げる問題に対処します。そして GitHub で許可され次第、pull request をマージします。バックグラウンドで動作し、アプリを再起動しても継続し、pull request がマージされると自動的に無効になります。
 
-ここまでは、github.com で自分で **Merge pull request** を選択していました。Agent Merge はその責任をエージェントに移すため、エージェントが PR の完了までを管理している間に次のタスクへ進めます。作業のレビューと承認は引き続き自分で行い、エージェントには機械的な最終工程だけを任せます。
+ここまでは、自分で **Merge pull request** を選択していました。Agent Merge はその責任をエージェントに移すため、エージェントが PR の完了までを管理している間に次のタスクへ進めます。作業のレビューと承認は引き続き自分で行い、エージェントには機械的な最終工程だけを任せます。
 
 ## Agent Merge で PR を管理する
 
@@ -49,6 +49,8 @@ Copilot app が PR の作成と管理を開始します。最初にプロジェ�
    ![Agent merge ドロップダウンで、エージェントに許可された Address reviews、Fix CI failures、Resolve conflicts の操作と、矢印で示された Merge pull request](../../_images/app-agent-merge-merge.png)
 
 7. すべての CI プロセスが成功すると、つまりテストに合格すると、Copilot が pull request をマージします。
+
+実走では、手順5で PR #12 が作成されました。手順6のメニューでは Address reviews・Fix CI failures・Resolve conflicts は有効、Merge pull request は無効でした。Merge pull request を有効にすると CI 全4ジョブ成功後に自動マージされ、App のセッションと GitHub の両方で Merged を確認しました。次章の新しい worktree がこのマージを継承していることも確認してから進めます。
 
 <a id="cli-fallback"></a>
 
