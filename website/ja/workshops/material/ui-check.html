@@ -133,20 +133,20 @@
 <tr>
 <td>MCP 未登録</td>
 <td>Customize → Installed → MCP Servers</td>
-<td>未登録の表示を確認</td>
-<td>登録保存後の表示</td>
+<td>未登録からカタログ保存後の Installed 1 への変化を確認</td>
+<td>既存登録がある場合は重複追加しない</td>
 </tr>
 <tr>
 <td>MCP カタログ</td>
 <td>Customize → MCP → Playwright</td>
-<td>Local / npx / -y @playwright/mcp@latest の登録フォームを表示</td>
-<td>Add server の保存、接続・ツール実行</td>
+<td>Local / npx / -y @playwright/mcp@latest を Add server で保存。新しい Chats で browser_tabs が成功</td>
+<td>検索欄の操作は未検証</td>
 </tr>
 <tr>
 <td>GitHub Web・テンプレート</td>
 <td>Use this template → Create a new repository</td>
 <td>作成フォームのテンプレート・Owner・Repository name・Choose visibility・Create repository を確認</td>
-<td>フォーム送信は未実施。既存の実走コピーは固定コミットから別途作成</td>
+<td>Private でフォーム送信成功。新コピーの Bootstrap 成功・課題8件を確認</td>
 </tr>
 <tr>
 <td>GitHub 連携・ファイル閲覧</td>
@@ -158,7 +158,7 @@
 <td>GitHub 連携・保存済みキャンバス</td>
 <td>New → New worktree/main → Canvas を開く → Add to current session → Plan</td>
 <td>PR #14 の修正を継承し、1通知・1応答の後、計画承認から検索実装へ移行。テスト・MCP・PR #15 の Agent Merge 成功</td>
-<td>ボードでのマージ後の件数更新は未確認</td>
+<td>開き直し・Refresh 後に未完了5件（#2～#6）。GitHub と一致</td>
 </tr>
 <tr>
 <td>GitHub 連携・Run 未実行</td>
@@ -209,7 +209,7 @@
 <td>5</td>
 <td>カスタマイズ・セッション</td>
 <td>MCP 登録とツール実行</td>
-<td>リポジトリ定義の形式修正・/restart-session 後の MCP 実行を確認。新規登録フォーム保存は未確認</td>
+<td>リポジトリ定義の形式修正・/restart-session 後の MCP 実行を確認。カタログ保存・新規チャットの browser_tabs 実行も成功</td>
 </tr>
 <tr>
 <td>6</td>
@@ -411,4 +411,6 @@
 <td>現行の agent-merge-permissions 実機画像へ差し替え</td>
 </tr>
 </tbody>
-</table></article></main></body></html>
+</table>
+<h2>操作による回避の判定（2026年9月13日）</h2>
+<p>App 本体の修正は対象外です。Open folder の設定画面停滞・PR アカウントエラーは、開始時から Add GitHub repository を使う教材経路で回避します。新コピーで設定承認・最初の応答・依存導入後の App ビルド（24ページ、Complete!）を確認。GitHub 連携側の Create PR は既存の検証用 PR #10 で成功済みです。セットアップ単独の終了コード・Open folder 自体の修復は未確認のままで、教材の回避経路の完了条件に含めません。未コミット変更の自動移動は行われないため、切替は開始前を基本とします。</p></article></main></body></html>

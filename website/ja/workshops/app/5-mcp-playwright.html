@@ -21,7 +21,7 @@
 </ul>
 </div>
 </details><article><blockquote>
-<p><strong>この章の確認範囲：</strong> 2026年9月13日に Windows の App 1.1.20 で、リポジトリ定義の信頼承認・設定形式修正・セッション再起動後、Playwright MCP による絞り込み・解除・キーボード操作と終了処理を確認しました。後続の追加検証で、隔離したテストデータによる0件表示も確認しています。新規登録フォームの保存は未確認です。<a href="../material/ui-check.html">UI 確認表</a>を参照してください。</p>
+<p><strong>この章の確認範囲：</strong> 2026年9月13日に Windows の App 1.1.20 で、リポジトリ定義の信頼承認・設定形式修正・セッション再起動後、Playwright MCP による絞り込み・解除・キーボード操作と終了処理を確認しました。後続の追加検証で、隔離したテストデータによる0件表示も確認しています。追加検証ではカタログからの新規保存と、新しいチャットからのタブ一覧取得も成功しました。<a href="../material/ui-check.html">UI 確認表</a>を参照してください。</p>
 </blockquote>
 <p>前のレッスンでは、プロジェクトの自動テストスイートを使ってフィルター機能を作成し、検証しました。テストによってコードの検証を自動化できますが、エージェント自身が動作を確認できるようにすることも効果的です。実際に作成している UI で問題を見つけた場合に、エージェントが対応できるようになります。MCP を使って AI エージェントに外部機能へのアクセスを提供する方法を確認し、Copilot が構築中のサイトを直接操作できるように Playwright MCP server を追加します。</p>
 <p>このレッスンでは、次の内容を学習します。</p>
@@ -61,7 +61,7 @@ MCP server は、プロジェクト内のほかの依存関係と同様に扱っ
 <li><strong>Installed</strong> タブの <strong>MCP Servers</strong> で既存の登録を確認します。登録済みなら重複して追加しません。実走時は未登録と表示されました。</li>
 <li>未登録なら <strong>MCP</strong> タブを開きます。実走時は <strong>Featured</strong> に <strong>Playwright</strong> が表示されました。見つからなければ <strong>Search MCP servers</strong> で検索します（検索操作は未検証）。</li>
 <li><strong>Playwright</strong> カードを選択し、登録フォームを開きます。実走時の初期値は <strong>Server name</strong> が <code>playwright</code>、種類が <strong>Local</strong>、<strong>Command</strong> が <code>npx</code>、<strong>Arguments</strong> が <code>-y @playwright/mcp@latest</code> でした。</li>
-<li>内容を確認して <strong>Add server</strong> で保存します。この保存操作以降は未検証です。導入後に <strong>Installed</strong> の登録状態とセッションからの利用可否を確認します。登録しただけで成功とはせず、次の節で実際のツール実行を確認します。</li>
+<li>内容を確認して <strong>Add server</strong> で保存します。実走ではカタログが <strong>Installed</strong> に変わり、登録件数が1件になりました。登録しただけで成功とはせず、新しいチャットまたはセッションから実際のツール実行を確認します。追加検証では、リポジトリ未接続の新しいチャットで Playwright の <code>browser_tabs</code> によるタブ一覧取得が成功し、<code>about:blank</code> が返りました。これでカタログ登録から利用までを確認しています。機能の検証は次の節で行います。</li>
 </ol>
 <p><img alt="App 1.1.20 の Customize の MCP タブ。Featured に Playwright と Add server が表示されている" src="../assets/app-1.1.20-20260913-mcp-catalog.jpg" /><br><em class="source">実機撮影：2026-09-13、Windows、GitHub Copilot App 1.1.20。MCP カタログの表示確認。サイドバーは非表示。</em></p>
 <p><img alt="Playwright 登録フォーム。Local、npx、-y @playwright/mcp@latest が表示されている。保存前の画面" src="../assets/app-1.1.20-20260913-mcp-config.jpg" /><br><em class="source">実機撮影：2026-09-13、Windows、GitHub Copilot App 1.1.20。Playwright 登録フォームの保存前。登録・ツール実行は未検証。</em></p>

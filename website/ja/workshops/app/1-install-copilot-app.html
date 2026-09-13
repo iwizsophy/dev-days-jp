@@ -51,7 +51,8 @@
 <p><strong>補足</strong>
 初期設定後の追加入口は、サイドバーの <strong>Projects</strong> の <strong>+</strong>（New project or session）→ <strong>Add GitHub repository</strong> です。同じメニューに <strong>Clone repository</strong> と <strong>Open folder</strong> も表示されます。ローカルに取得済みの自分用コピーを使う場合は、<strong>Open folder</strong> → コピーのフォルダーを選択します。この経路では既存の checkout を直接使うセッションを確認しました。設定確認が出たら <strong>Review configuration</strong> で内容を読み、自分の判断で <strong>Accept and apply</strong> を選択してください。</p>
 <p><strong>補足</strong>
-Windows App 1.1.20 の実走では、<strong>Accept and apply</strong> を押しても確認画面が残る事象がありました。ウィンドウを閉じるだけでは App 本体が終了しない場合があります。未保存の作業を確認したうえで App を完全に終了して起動し直し、プロジェクト横の <strong>+</strong> から新しいセッションを開始すると復帰しました。強制終了は未保存の状態を失う可能性があるため、講師と確認してください。この復旧例は原因の特定や恒久対策を意味しません。</p>
+Windows App 1.1.20 の <strong>Open folder</strong> では、<strong>Accept and apply</strong> 後も確認画面が残りました。教材では <strong>Add GitHub repository</strong> から演習コピーを追加し、その GitHub 連携プロジェクトで進めます。この経路では設定承認後に入力欄が表示され、新しい worktree の最初のセッション開始後に依存が導入されました。<strong>Run options → Build static site</strong> で24ページ生成と <strong>Complete!</strong> を確認しています。設定画面を通過しただけで準備完了とせず、ビルド結果まで確認してください。これは操作経路による回避であり、App 本体の不具合修正ではありません。</p>
+<p><strong>途中から切り替える場合：</strong> ローカル側の未コミット変更が、新しい GitHub 連携 worktree に自動移動することはありません。変更を保存・確認してから講師と引き継ぎます。開始時点から GitHub 連携側を使用すれば、この移動を避けられます。Open folder 側の PR 作成時のアカウントエラーも、GitHub 連携側を使うことで回避します。GitHub 連携側では App の <strong>Create PR</strong> による作成・マージを実走済みです。</p>
 </blockquote>
 <h2 id="ワークスペースを確認する">ワークスペースを確認する</h2>
 <p>プロジェクトを接続したら、各領域を確認します。アプリのサイドバーは、主に次の領域で構成されています。</p>
