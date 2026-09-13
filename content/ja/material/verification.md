@@ -121,6 +121,20 @@ App と GitHub Web の実機画像13点を追加し、App 本編の旧画像参�
 - [配布元 CI](https://github.com/iwizsophy/dev-days-tailspin-template/actions/runs/34758081782) は全4ジョブ成功。テンプレート自身の Bootstrap template issues はスキップ。
 - GitHub のテンプレート複製 API から非公開の `dev-days-tailspin-template-check-20260913` を作成。コピー先の Bootstrap template issues が成功して課題8件を自動作成し、[コピー先 CI](https://github.com/iwizsophy/dev-days-tailspin-template-check-20260913/actions/runs/34758105355) も全4ジョブ成功。配布元とコピー先の `.mcp.json` の blob SHA が一致。Web フォームの送信操作そのものは未検証です。
 
-**本番配布の保留事項：** npm audit の詳細結果に40件（Critical 1・High 24・Moderate 14・Low 1）。インストール時の要約は16件でしたが、詳細監査結果を採用しています。Astro の AVIF 最適化に関する GHSA-26w7-cxv4-gfx2 などが含まれます。個別の到達可能性と影響は未判定で、機能テスト成功を安全性の判定とは扱いません。依存更新と再検証を本番配布前に完了する必要があります。
+**旧版 v2026.09.13 の監査記録（現在版は下記）：** npm audit の詳細結果に40件（Critical 1・High 24・Moderate 14・Low 1）。インストール時の要約は16件でしたが、詳細監査結果を採用しています。Astro の AVIF 最適化に関する GHSA-26w7-cxv4-gfx2 などが含まれます。個別の到達可能性と影響は未判定で、機能テスト成功を安全性の判定とは扱いません。依存更新と再検証を本番配布前に完了する必要があります。
 
 複製後の Git tree を照合し、残る88ファイルが配布元と一致し、初期 Issue 用の9ファイルのみがワークフローにより削除されたことを確認しました。教材の再生成は41ページ・781参照が成功。教材とテンプレートの原稿・プロンプト例に個人のローカルパスがないことも再確認しました。
+
+## 配布用テンプレートの依存更新とレビュー対応（2026年9月13日）
+
+現在の教材対応版は **v2026.09.13.1**（`aea4c027a073dd757017829bd988857877c1a545`）。Astro の更新、開発依存9件と Playwright CI イメージの整合、Vitest 4.1.11、互換範囲内の間接依存更新を適用しました。演習の src/・db/・e2e-tests/・8件の課題原稿は変更していません。旧タグは保持します。
+
+Astro 7.3 の CLI がエージェント環境でサーバーを自動的にバックグラウンド起動し、Playwright の起動監視を失敗させる問題を確認しました。dev / preview を公開 API で起動するスクリプトへ切り替え、呼び出し元がプロセスを管理できるようにしました。Windows / Node 24.19.0 でクリーンインストール、lint、全型検査、単体27件、E2E21件（build・DB 初期化・preview を含む）が成功。npm run dev の Local URL 表示、HTTP 200、停止後のポート解放も確認しました。新コードでネイティブ App の Run / Stop を再操作したという意味ではありません。
+
+npm audit は **Critical 0・High 0・Moderate 4・Low 0**。残る4件は drizzle-kit → @esbuild-kit/esm-loader → @esbuild-kit/core-utils → esbuild の同じ依存経路です。自動修正案は drizzle-kit の古い版への互換性を壊すダウングレードなので適用していません。通常の migrate / seed は tsx 経由ですが、到達可能性の網羅的な評価は未実施です。配布前の確認事項として残します。
+
+教材のレビューで指摘された App の UI 確認注記を App 本編だけに限定しました。CLI・Mona の参考資料には固定コミットに基づく旨の注記を表示します。原稿と生成 HTML のコミット分離・指定 Author / Committer は既存コミットでも満たしていることを確認しました。
+
+参照元 github/dev-days の 54ae7ea3b923c059cc465ac0c13d46ccda99a98e は FAQ.md と content/README.md の更新です。日本語の講師向け動画・スライド、公式イベントの受付状況・Luma 登録条件・アンケート案内を講師ガイドに選択反映しました。公式イベント固有の特典・精算条件は独立教材の保証とせず公式案内へ誘導し、既存の参照コミットと上流履歴は維持しています。
+
+[開発依存 PR の CI](https://github.com/iwizsophy/dev-days-tailspin-template/actions/runs/34759295864) と [Vitest・間接依存更新 PR の CI](https://github.com/iwizsophy/dev-days-tailspin-template/actions/runs/34759444602) はそれぞれ全4ジョブ成功後に統合しました。教材の再生成は41ページ・781参照が成功し、App 10ページだけに UI 確認注記があり、CLI 10ページ・Mona 7ページには含まれないことを検査しました。

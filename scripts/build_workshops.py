@@ -114,11 +114,12 @@ def build():
             license_link = relative(OUTPUT / 'licenses' / meta['license'], destination)
             notice = f'<p class="source">非公式の日本語版 · {source_link} · <a href="{license_link}">MIT ライセンス</a><br>参照コミット：<code>{meta["commit"][:12]}</code> ／ 確認日：{META["checked"]}</p>'
             guide = relative(ROOT / 'website/ja/handson-guide.html', destination)
-            notice += f'<aside>UI の確認日・バージョン・未確認範囲は本文の注記を参照してください。利用条件は <a href="{guide}#plans">事前確認</a>を参照してください。</aside>'
             if course == 'app':
+                notice += f'<aside>UI の確認日・バージョン・未確認範囲は本文の注記を参照してください。利用条件は <a href="{guide}#plans">事前確認</a>を参照してください。</aside>'
                 status = relative(OUTPUT / 'material/verification.html', destination)
                 notice += f'<aside>本編は App の操作を学ぶシナリオです。一部の UI を実機確認しましたが、全章の完走は未検証です。<a href="{status}">章別の検証状況</a></aside>'
             else:
+                notice += f'<aside>参照元の固定コミットに基づく参考資料です。画面例・操作・利用条件は現在の製品と異なる場合があります。利用前に <a href="{guide}#plans">事前確認</a>と参照原文を確認してください。</aside>'
                 notice += '<aside>参考資料：本編の続きではありません。App 本編の通常の代替経路ではありません。</aside>'
             if course == 'cli':
                 notice += '<aside>このコースの <code>--yolo</code> を含む手順は、演習専用 Codespace / dev container を前提とする原文の手順です。App の途中からローカルで切り替える場合は、講師向け緊急対応の通常対話手順を使ってください。</aside>'

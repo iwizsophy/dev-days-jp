@@ -173,6 +173,6 @@ PR が作成されると、Copilot はリポジトリで実行する必要があ
 [instructions-best-practices]: https://docs.github.com/enterprise-cloud@latest/copilot/using-github-copilot/coding-agent/best-practices-for-using-copilot-to-work-on-tasks#adding-custom-instructions-to-your-repository
 [awesome-copilot]: https://awesome-copilot.github.com/
 [custom-instructions-support]: https://docs.github.com/copilot/reference/custom-instructions-support
-[ui-instructions]: https://github.com/iwizsophy/dev-days-tailspin-template/blob/v2026.09.13/.github/instructions/ui.instructions.md
-[astro-instructions]: https://github.com/iwizsophy/dev-days-tailspin-template/blob/v2026.09.13/.github/instructions/astro.instructions.md
+[ui-instructions]: https://github.com/iwizsophy/dev-days-tailspin-template/blob/v2026.09.13.1/.github/instructions/ui.instructions.md
+[astro-instructions]: https://github.com/iwizsophy/dev-days-tailspin-template/blob/v2026.09.13.1/.github/instructions/astro.instructions.md
 [managing-issues-prs]: https://docs.github.com/copilot/how-tos/github-copilot-app/managing-issues-and-pull-requests

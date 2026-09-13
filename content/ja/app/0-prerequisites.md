@@ -53,11 +53,11 @@ GitHub Copilot app は、Copilot と GitHub の両方を一元的に扱うデス
 
 Tailspin Toys プロジェクトの自分用コピーを使って作業します。[教材用の修正済み Tailspin Toys テンプレート](https://github.com/iwizsophy/dev-days-tailspin-template)から、[テンプレートからのコピー作成手順][template-repository]に沿って準備します。次のレッスンで、このリポジトリをアプリに接続します。
 
-取得先は **iwizsophy/dev-days-tailspin-template**、教材対応版は **v2026.09.13** です。非公開のため、参加者は事前に講師からアクセス権を受け取ってください。上流の固定コミット `bae003609c8cff0c51d92658b8d3bd89450464f1` をコピーし、PR Readiness の YAML・MCP の設定修正と Node バージョン指定を適用済みです。参加者による事前パッチの適用は不要です。星評価・フィルターなどの解答は含めていません。
+取得先は **iwizsophy/dev-days-tailspin-template**、教材対応版は **v2026.09.13.1** です。非公開のため、参加者は事前に講師からアクセス権を受け取ってください。上流の固定コミット `bae003609c8cff0c51d92658b8d3bd89450464f1` をコピーし、PR Readiness の YAML・MCP の設定修正、Node バージョン指定、依存更新、エージェント環境向けの起動修正を適用済みです。参加者による事前パッチの適用は不要です。星評価・フィルターなどの解答は含めていません。
 
 **Use this template** は配布元の現在の main をコピーします。講師は開催前に `workshop-source.json` の配布版と [sources.json](https://github.com/iwizsophy/dev-days-jp/blob/feature/issue-2-app-ui-verification/content/ja/sources.json) に記録したコミットの対応を確認してください。タグを指定してコピーするボタンではありません。教材リポジトリ `dev-days-jp` と、コードを変更する Tailspin Toys のコピーは別です。
 
-> **講師向けの配布判定：** この版は機能検査を通過しましたが、依存監査に Critical を含む未解決の指摘があります。参加者への本番配布前に、配布元の `WORKSHOP.md` に記録した依存更新・再検証を完了してください。
+> **講師向けの配布判定：** この版は機能検査を通過し、依存監査は Critical・High ともに0件です。drizzle-kit 配下に Moderate 4件が残るため、参加者への本番配布前に配布元の `WORKSHOP.md` の残件と確認範囲を確認してください。
 
 
 以下の2枚は取得先変更前の GitHub Web の操作位置の例です。画像中の上流名ではなく、本文の **iwizsophy/dev-days-tailspin-template** を選んでください。

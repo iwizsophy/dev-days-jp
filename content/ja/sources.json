@@ -102,18 +102,36 @@
     "exercise_template": {
       "repository": "iwizsophy/dev-days-tailspin-template",
       "visibility": "private",
-      "tag": "v2026.09.13",
-      "commit": "e498b997dbd6ccf25153f277c5daf4d95bc05b5c",
+      "tag": "v2026.09.13.1",
+      "commit": "aea4c027a073dd757017829bd988857877c1a545",
       "upstream": "github-samples/tailspin-toys",
       "upstream_commit": "bae003609c8cff0c51d92658b8d3bd89450464f1",
       "node": "24.19.0",
       "patches": [
         "PR Readiness YAML escape",
         "MCP root key mcpServers",
-        "Node version requirements and CI pin"
+        "Node version requirements and CI pin",
+        "Astro and development dependency security updates",
+        "Vitest 4.1.11 and compatible transitive updates",
+        "Foreground dev/preview API launcher and matching Playwright CI image"
       ],
       "exercise_solutions_included": false,
-      "distribution_status": "本番配布保留：依存監査の指摘への対応・再検証が必要"
-    }
+      "distribution_status": "機能検査成功。監査 Critical 0・High 0・Moderate 4・Low 0。drizzle-kit 配下の残件は WORKSHOP.md を参照"
+    },
+    "event_source_updates": [
+      {
+        "repository": "github/dev-days",
+        "commit": "54ae7ea3b923c059cc465ac0c13d46ccda99a98e",
+        "checked": "2026-09-13",
+        "files": [
+          "FAQ.md",
+          "content/README.md"
+        ],
+        "applied_to": [
+          "content/ja/material/instructor.md"
+        ],
+        "scope": "日本語講師向け動画・スライド、公式イベントの申請受付終了・Luma登録条件・アンケート案内のみを反映。クーポンや精算の個別条件は公式案内へ誘導。既存の参照コミットは保持し、履歴のmergeなし。"
+      }
+    ]
   }
 }
