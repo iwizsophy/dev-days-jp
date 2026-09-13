@@ -6,7 +6,7 @@ authors:
 lastUpdated: 2026-09-13
 ---
 
-> **この章の進め方：** GitHub Web で演習コピーを準備し、次章で App に接続します。2026年9月13日にテンプレートメニューと作成フォームを確認しました。今回の実走コピー自体は固定コミットから別途作成したもので、Web フォームからの作成完了は未検証です。[UI 確認表](../material/ui-check.md)も参照してください。
+> **この章の進め方：** GitHub Web で演習コピーを準備し、次章で App に接続します。2026年9月13日にテンプレートメニューと作成フォームを確認しました。現在の取得先は修正済みの非公開テンプレートです。テンプレート複製 API とコピー先の8件の Issue 作成は確認済みで、Web フォームの送信完了は未検証です。[UI 確認表](../material/ui-check.md)も参照してください。
 
 
 GitHub Copilot app は、Copilot と GitHub の両方を一元的に扱うデスクトップアプリです。Issue や pull request にすばやくアクセスでき、もちろん GitHub Copilot を使った開発も可能です。このワークショップでは、Astro で構築された Tailspin Toys アプリと GitHub Copilot app を使い、ローカル環境で作業します。始める前に、Node.js がローカルにインストールされていることを確認してから、Copilot app をインストールします。
@@ -23,7 +23,7 @@ GitHub Copilot app は、Copilot と GitHub の両方を一元的に扱うデス
 どのプラットフォームでも、公式インストーラーを使うのが最も簡単です。
 
 1. Windows Terminal、macOS のターミナル、または普段使用しているターミナルを開きます。
-2. 次のコマンドを実行し、Node.js のバージョンを確認します。Tailspin Toys 本体の `engines.node` は `>=22.13` ですが、検証時の `eslint-plugin-astro` と `astro-eslint-parser` は `^22.22.3 || ^24.16.0 || >=26.3.0` を要求していました。本体の最低バージョンだけで判定しないでください。
+2. 次のコマンドを実行し、Node.js のバージョンを確認します。配布テンプレートの `.nvmrc` は `24.19.0`、`engines.node` は `>=24.19.0 <25` です。上流本体の最低条件だけでは一部依存の要求を満たさなかったため、教材側で検証したバージョンを指定しています。
 
     ```shell
     node --version
@@ -51,16 +51,23 @@ GitHub Copilot app は、Copilot と GitHub の両方を一元的に扱うデス
 
 ## ラボ用リポジトリを設定する
 
-Tailspin Toys プロジェクトの自分用コピーを使って作業します。[Tailspin Toys のテンプレート](https://github.com/github-samples/tailspin-toys)から、[テンプレートからのコピー作成手順][template-repository]に沿って準備します。次のレッスンで、このリポジトリをアプリに接続します。
+Tailspin Toys プロジェクトの自分用コピーを使って作業します。[教材用の修正済み Tailspin Toys テンプレート](https://github.com/iwizsophy/dev-days-tailspin-template)から、[テンプレートからのコピー作成手順][template-repository]に沿って準備します。次のレッスンで、このリポジトリをアプリに接続します。
 
-講師から検証済みの演習コピーを案内された場合は、それを使用してください。今回の実走は `bae003609c8cff0c51d92658b8d3bd89450464f1` を出発点にしています。**Use this template** で新しく作るコピーはテンプレートの現在の内容であり、固定コミットや後の演習で加えた修正が自動的に入るわけではありません。講師は開催前に依存関係・App 設定・MCP 定義を検査してください。教材リポジトリ `dev-days-jp` と、コードを変更する Tailspin Toys のコピーは別のリポジトリです。
+取得先は **iwizsophy/dev-days-tailspin-template**、教材対応版は **v2026.09.13** です。非公開のため、参加者は事前に講師からアクセス権を受け取ってください。上流の固定コミット `bae003609c8cff0c51d92658b8d3bd89450464f1` をコピーし、PR Readiness の YAML・MCP の設定修正と Node バージョン指定を適用済みです。参加者による事前パッチの適用は不要です。星評価・フィルターなどの解答は含めていません。
 
-1. 新しいブラウザーウィンドウで、このラボの GitHub リポジトリ `https://github.com/github-samples/tailspin-toys` を開きます。
+**Use this template** は配布元の現在の main をコピーします。講師は開催前に `workshop-source.json` の配布版と [sources.json](https://github.com/iwizsophy/dev-days-jp/blob/feature/issue-2-app-ui-verification/content/ja/sources.json) に記録したコミットの対応を確認してください。タグを指定してコピーするボタンではありません。教材リポジトリ `dev-days-jp` と、コードを変更する Tailspin Toys のコピーは別です。
+
+> **講師向けの配布判定：** この版は機能検査を通過しましたが、依存監査に Critical を含む未解決の指摘があります。参加者への本番配布前に、配布元の `WORKSHOP.md` に記録した依存更新・再検証を完了してください。
+
+
+以下の2枚は取得先変更前の GitHub Web の操作位置の例です。画像中の上流名ではなく、本文の **iwizsophy/dev-days-tailspin-template** を選んでください。
+
+1. 新しいブラウザーウィンドウで、このラボの GitHub リポジトリ `https://github.com/iwizsophy/dev-days-tailspin-template` を開きます。
 2. ラボ用リポジトリのページで **Use this template** ボタンを選択し、**Create a new repository** を選択して、リポジトリの自分用コピーを作成します。
 
     ![GitHub Web 全体と Use this template の Create a new repository メニュー](../../_images/app-1.1.20-20260913-template-menu.png)
 
-3. **Start with a template** が `github-samples/tailspin-toys` であることを確認します。**Include all branches** は既定の Off のままにし、**Owner** に自分または許可された組織、**Repository name** に演習用の名前を指定します。**Choose visibility** はメンターの指定に従います。2026年9月13日のフォームでは初期値は Public でした。非公開の演習にする場合は Private を選択してください。
+3. **Start with a template** が `iwizsophy/dev-days-tailspin-template` であることを確認します。**Include all branches** は既定の Off のままにし、**Owner** に自分または許可された組織、**Repository name** に演習用の名前を指定します。**Choose visibility** はメンターの指定に従います。2026年9月13日のフォームでは初期値は Public でした。非公開の演習にする場合は Private を選択してください。
 
     ![テンプレート作成フォーム上部。Owner、未入力の Repository name、Choose visibility](../../_images/app-1.1.20-20260913-template-form.png)
 
@@ -68,7 +75,7 @@ Tailspin Toys プロジェクトの自分用コピーを使って作業します
 5. 作成したリポジトリのパス (**organization-or-user-name/repository-name**) を記録します。このラボで後ほど使用します。
 
 > [!NOTE]
-> コピー側の **Bootstrap template issues** ワークフローが成功すると、GitHub Issue のバックログが作成されます。すぐに見えない場合は、自分のコピーの **Actions** で実行結果を確認してください。参照元へ Issue を作成しないでください。
+> コピー側の **Bootstrap template issues** ワークフローが成功すると、GitHub Issue のバックログが作成されます。すぐに見えない場合は、自分のコピーの **Actions** で実行結果を確認し、自動実行されなければ **Bootstrap template issues → Run workflow** を実行します。配布元テンプレート自身ではこの処理をスキップします。参照元へ Issue を作成しないでください。
 
 <a id="cli-fallback"></a>
 

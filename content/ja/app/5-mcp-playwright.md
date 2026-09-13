@@ -41,9 +41,11 @@ lastUpdated: 2026-09-13
 
 2026年9月10日の [公式文書との照合](https://docs.github.com/en/copilot/how-tos/github-copilot-app/customize-github-copilot-app#configuring-mcp-servers)に加え、9月13日に Windows の App 1.1.20 で以下の表示を確認しました。プロジェクト未接続でも登録フォームまで開けます。
 
-> **リポジトリ定義がある場合：** 検証コピーには `.mcp.json` に Playwright などが定義されていました。GitHub 連携プロジェクトを右クリック → Settings → MCP servers で確認します。Trust repository が表示された場合は、定義内容を確認して利用者が信頼を承認します。Repository configuration の Trusted 表示とは別です。重複登録せず、既存定義を確認してから以下の新規登録手順を使ってください。
+> **リポジトリ定義がある場合：** 教材用の修正済みテンプレートには `.mcp.json` の `mcpServers` に Playwright などが定義済みです。GitHub 連携プロジェクトを右クリック → Settings → MCP servers で確認します。Trust repository が表示された場合は、定義内容を確認して利用者が信頼を承認します。Repository configuration の Trusted 表示とは別です。重複登録せず、既存定義を確認してから以下の新規登録手順を使ってください。
 
 ### 既存の設定を読み込めない場合
+
+**以下は上流から直接作成した旧コピーの復旧記録です。教材用テンプレート v2026.09.13 にはこの設定修正を適用済みなので、通常は編集不要です。**
 
 実走では、本人による信頼承認後に **No MCP servers loaded** と表示されました。固定コミットから作ったコピーの `.mcp.json` は、ルートが `"servers"` でした。[公式のリポジトリ別設定形式](https://docs.github.com/en/copilot/how-tos/copilot-cli/customize-copilot/add-mcp-servers#adding-per-repository-mcp-servers)に合わせ、自分の演習コピーでこのキーを `"mcpServers"` に変更します。既存のサーバー定義・接続先はそのままにします。参照元リポジトリは変更しません。
 

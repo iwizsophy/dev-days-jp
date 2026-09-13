@@ -108,3 +108,19 @@ App と GitHub Web の実機画像13点を追加し、App 本編の旧画像参�
 この画像更新によって未実施経路が検証済みになるわけではありません。GitHub Web 作成フォームの送信、自動セットアップの終了ログ、MCP カタログからの新規登録保存、Open folder 経路のアカウント連携エラーの恒久対策、マージ後の Canvas 件数更新は引き続き未確認です。
 
 教材の再生成は41ページ・内部リンク／画像／アンカー782参照が成功しました。掲載画像13点を目視確認し、ブラウザーで計画承認の全体画像・Continue ボタン・撮影注記の表示を確認しました。
+
+## 修正済みの配布用テンプレート（2026年9月13日）
+
+非公開の [iwizsophy/dev-days-tailspin-template](https://github.com/iwizsophy/dev-days-tailspin-template) を作成し、GitHub のテンプレート設定を有効にしました。上流の `bae003609c8cff0c51d92658b8d3bd89450464f1` のスナップショットから、演習開始用の設定修正だけを適用しています。配布版 `v2026.09.13` は `e498b997dbd6ccf25153f277c5daf4d95bc05b5c`。参照元へ変更は送信していません。
+
+- PR Readiness の YAML エスケープと MCP のルートキーを修正済み。
+- Node 24.19.0 を `.nvmrc`・package.json / lockfile・CI に反映。依存の解決バージョンは出典のまま。
+- LICENSE を保持し、README・WORKSHOP.md・workshop-source.json に出典・修正内容・未確認事項を記録。
+- アーカイブとのバイト比較で、アプリの src/・db/・e2e-tests/・8件の課題原稿が出典と同一であることを確認。演習の解答は含めていません。
+- Windows / Node 24.19.0 で npm ci・単体27件・型検査・lint・Chromium E2E21件が成功。E2E に含まれる build・DB 初期化・preview も成功。最初のサンドボックス実行はユーザー情報取得の ENOMEM で停止したため、通常の権限環境で再実行しました。
+- [配布元 CI](https://github.com/iwizsophy/dev-days-tailspin-template/actions/runs/34758081782) は全4ジョブ成功。テンプレート自身の Bootstrap template issues はスキップ。
+- GitHub のテンプレート複製 API から非公開の `dev-days-tailspin-template-check-20260913` を作成。コピー先の Bootstrap template issues が成功して課題8件を自動作成し、[コピー先 CI](https://github.com/iwizsophy/dev-days-tailspin-template-check-20260913/actions/runs/34758105355) も全4ジョブ成功。配布元とコピー先の `.mcp.json` の blob SHA が一致。Web フォームの送信操作そのものは未検証です。
+
+**本番配布の保留事項：** npm audit の詳細結果に40件（Critical 1・High 24・Moderate 14・Low 1）。インストール時の要約は16件でしたが、詳細監査結果を採用しています。Astro の AVIF 最適化に関する GHSA-26w7-cxv4-gfx2 などが含まれます。個別の到達可能性と影響は未判定で、機能テスト成功を安全性の判定とは扱いません。依存更新と再検証を本番配布前に完了する必要があります。
+
+複製後の Git tree を照合し、残る88ファイルが配布元と一致し、初期 Issue 用の9ファイルのみがワークフローにより削除されたことを確認しました。教材の再生成は41ページ・781参照が成功。教材とテンプレートの原稿・プロンプト例に個人のローカルパスがないことも再確認しました。
