@@ -3,10 +3,10 @@ title: "レッスン 8 - 振り返りと次のステップ"
 description: "GitHub Copilot app のハーネスを振り返り、繰り返し発生する作業を自動化して、次に学ぶ内容を確認します。"
 authors:
   - geektrainer
-lastUpdated: 2026-07-09
+lastUpdated: 2026-09-13
 ---
 
-> **この章の進め方：** App で操作します。画像は参照元の画面例で、現行 UI との一致は未確認です。ボタンや機能が見つからない場合は [UI が異なるときの確認](../material/ui-check.md)に沿って講師と確認してください。
+> **この章の確認範囲：** 2026年9月13日に Windows の App 1.1.20 で、ローカルの Manual automation を保存・実行し、Succeeded と要約結果を確認しました。定期実行・クラウド実行は未検証です。[UI 確認表](../material/ui-check.md)も参照してください。
 
 
 ここ数回のレッスンでは、GitHub Copilot app を使い、アイデアから機能のマージまでを実践しました。取り組んだ内容は次のとおりです。
@@ -16,7 +16,7 @@ lastUpdated: 2026-07-09
 - カスタム指示と再利用可能なスキルでエージェントをガイドした。
 - Playwright MCP server を使い、実際のブラウザーで作業をテストした。
 - 共有キャンバスでエージェントと共同作業した。
-- github.com で自分でマージする方法から、**Agent Merge** に pull request のマージを任せる方法まで、段階的なマージ自動化を使って変更をリリースした。
+- 自分で通常マージする方法から、**Agent Merge** に pull request のマージを任せる方法まで、段階的なマージ自動化を使って変更をリリースした。
 
 繰り返し発生する作業を自動化し、ベストプラクティスと今後の進め方を確認します。
 
@@ -26,15 +26,16 @@ lastUpdated: 2026-07-09
 
 1. サイドバーで **Automations** を選択してから **New automation** を選択します。
 2. `Recap my recent work` などの名前を付けます。
-3. トリガーを選択します。**Manual** はオンデマンドで実行し、**On a schedule** は自動的に実行し、**When an issue is created** は新しい Issue に反応します。このレッスンでは **Manual** を選択します。
+3. **Trigger** を開き、**Manual** を選択します。App 1.1.20 の実走では初期値は Daily で、Manual・Hourly・Daily・Weekly・CRON・Issue・Pull request が表示されました。このレッスンは Manual、**Run in the cloud** はオフで進めます。
 4. automation が何も変更しないように、次の例のような読み取り専用のプロンプトを入力します。
 
    ```plaintext
    このリポジトリで過去1週間にマージされた PR を要約し、バックログでまだ open の Issue を一覧にしてください。
    ```
 
-5. プロジェクト (Tailspin Toys リポジトリ) を選択し、automation を作成します。
-6. オンデマンドで実行し、結果を確認します。
+5. **Select project** で自分の演習用 Tailspin Toys リポジトリを選択します。GitHub 連携とローカルフォルダーの両方がある場合は、対象を取り違えないよう owner/repository 表記も確認します。
+6. **Create** の横のメニュー → **Create and run** で保存し、その場で1回実行します。保存だけなら Create を選び、後で一覧の Run ボタンから実行できます。
+7. **Recent runs** の実行結果を開き、**Succeeded** と要約内容を確認します。実走では Local・37秒で成功し、マージ済み PR 6件・Open Issue 6件という結果を GitHub の一覧と照合しました。Manual のまま保存され、定期実行は設定していません。
 
 > [!TIP]
 > Automations はローカルまたはクラウドで実行できます。スケジュールに従って無人で実行する場合は、**Run in the cloud** を有効にし、automation に使用を許可する **Tools** を選択します。出力を信頼できるようになるまでは、スケジュールされた automations の範囲を限定し、破壊的でないものにしてください。

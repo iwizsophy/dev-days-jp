@@ -7,8 +7,19 @@
 <a href="../../handson-guide.html#switch">事前準備・UI の確認</a></nav>
 <button class="theme-toggle" type="button" onclick="toggleTheme()">☀️ ライト</button></header>
 <main id="lesson"><h1>講師ガイド：App シナリオを一本の流れで実施する</h1><aside>この教材セット独自の運営・補助手順です。</aside><article><h2>使用する教材</h2>
-<p>参加者には <a href="../app/index.html">App の目次</a> を配布します。CLI 独立コースと Mona Mayhem は補講用の参考資料で、本編の途中では移動しません。演習対象は各自の Tailspin Toys コピーです。教材リポジトリ内でサンプルアプリの演習を実行しないでください。</p>
+<p>参加者には <a href="../app/index.html">App の目次</a> を配布します。CLI 独立コースと Mona Mayhem は補講用の参考資料で、本編の途中では移動しません。演習対象は<a href="https://github.com/iwizsophy/dev-days-tailspin-template">修正済みの非公開テンプレート</a>から作る各自の Tailspin Toys コピーです。参加者には事前に閲覧権限を付与し、取得先を上流に戻さないでください。教材リポジトリ内でサンプルアプリの演習を実行しないでください。</p>
 <p>参照元：<code>github/dev-days</code> の開催・運営資料、<code>github-samples/copilot-workshops</code> の App シナリオ。参照コミットとファイルは <code>content/ja/sources.json</code> に記録しています。参照元への変更送信は行いません。</p>
+<h2>日本語の講師向け資料と公式イベントの注意点</h2>
+<p>2026年9月13日に、上流の <a href="https://github.com/github/dev-days/commit/54ae7ea3b923c059cc465ac0c13d46ccda99a98e">54ae7ea</a> の FAQ・コンテンツ案内を確認しました。App の演習コードを変更する更新ではないため、以下の案内だけを反映しています。</p>
+<ul>
+<li>日本語の <a href="https://www.youtube.com/watch?v=-ZBf4wpLZKg">App 講師向け動画</a> と <a href="https://github.com/github/dev-days/releases/download/2026-07-30/copilot-app-japanese.pptx">App スライド</a> が追加されています。実演準備に利用してください。</li>
+<li>上流の <a href="https://github-samples.github.io/copilot-workshops/ja-jp/app/">日本語 App ワークショップ</a> は参照資料です。本教材では、検証した操作手順と修正済みの演習用テンプレートを使用します。</li>
+<li>指定コミット時点では、公式 Dev Days の新規イベント申請は定員到達により受付・承認を終了しています。このコピー内の旧イベント申請案内ではなく、<a href="https://github.com/github/dev-days/blob/main/FAQ.md">公式 FAQ</a> で最新の受付状況を確認してください。</li>
+<li>公式 Dev Days として承認済みのイベントは Luma で Public にし、参加登録も Luma に集約します。他サービスは告知用に使い、登録窓口を分散させません。開催日などの変更は Luma に反映します。</li>
+<li>登録項目では国・GitHub ユーザー名・職種への回答を必須とし、会社名と広告・連絡への同意は任意です。Luma 上の主催者向け必須項目を維持してください。</li>
+<li>参加者には<a href="https://gh.io/dev-days/feedback">終了後アンケート</a>を案内し、主催者は飲食費の精算申請の有無にかかわらず<a href="https://gh.io/dev-days/event-report">開催報告</a>を提出します。</li>
+</ul>
+<p>これらは公式イベントの運営条件です。独立した勉強会に公式承認や特典が付くという意味ではありません。クーポン・物品・精算はイベントごとの承認条件に従うため、全員への提供を約束せず、公式 FAQ と承認時の案内を確認します。イベントを Public にする条件と、演習用コードのリポジトリの公開範囲は別です。</p>
 <h2>180分枠の運営案</h2>
 <p>この教材セット独自の配分案です。実測の所要時間ではありません。演習0・1の導入は事前に済ませます。元シナリオの60〜90分に、App の操作支援とレビュー時間を追加します。</p>
 <table>
@@ -74,7 +85,8 @@
 <li>App 用と CLI 用の利用ポリシー、残り利用枠、ネット接続、必要な GitHub 権限を確認する。UI 変更と認証・利用枠の問題を切り分ける。</li>
 <li>星評価の null ケース、フィルターの複合条件・解除・該当なしを確認する。seed にない条件はテスト用データで検証し、実 UI 操作と区別する。</li>
 <li>MCP 用 Chrome と E2E 用 Chromium を区別する。接続失敗はプロセス・App の MCP 設定と再起動を確認し、手動検証へ切り替えた場合は MCP 未実施とする。</li>
-<li>PR Readiness の YAML エラーなど既知の問題は <a href="../cli/6-custom-agents.html">CLI の参考資料</a> を参照する。確認済みの修正を演習開始前に適用する。</li>
+<li>教材用テンプレートの YAML・MCP 修正は適用済み。配布版 v2026.09.13.1 と開始コミットを確認する。演習済みの検証リポジトリを開始用として配布しない。</li>
+<li>配布元 WORKSHOP.md の依存監査の未解決事項（drizzle-kit 配下の Moderate 4件）と確認範囲を本番配布前に確認する。機能テスト成功だけで配布可とは判定しない。</li>
 <li>終了時に開発サーバー・演習用 Codespace・不要な定期実行を停止する。PR や未保存の変更を消さない。</li>
 </ul>
 <h2>当日の操作支援と緊急対応</h2>

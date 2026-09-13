@@ -2,9 +2,22 @@
 
 ## 使用する教材
 
-参加者には [App の目次](../app/README.md) を配布します。CLI 独立コースと Mona Mayhem は補講用の参考資料で、本編の途中では移動しません。演習対象は各自の Tailspin Toys コピーです。教材リポジトリ内でサンプルアプリの演習を実行しないでください。
+参加者には [App の目次](../app/README.md) を配布します。CLI 独立コースと Mona Mayhem は補講用の参考資料で、本編の途中では移動しません。演習対象は[修正済みの非公開テンプレート](https://github.com/iwizsophy/dev-days-tailspin-template)から作る各自の Tailspin Toys コピーです。参加者には事前に閲覧権限を付与し、取得先を上流に戻さないでください。教材リポジトリ内でサンプルアプリの演習を実行しないでください。
 
 参照元：`github/dev-days` の開催・運営資料、`github-samples/copilot-workshops` の App シナリオ。参照コミットとファイルは `content/ja/sources.json` に記録しています。参照元への変更送信は行いません。
+
+## 日本語の講師向け資料と公式イベントの注意点
+
+2026年9月13日に、上流の [54ae7ea](https://github.com/github/dev-days/commit/54ae7ea3b923c059cc465ac0c13d46ccda99a98e) の FAQ・コンテンツ案内を確認しました。App の演習コードを変更する更新ではないため、以下の案内だけを反映しています。
+
+- 日本語の [App 講師向け動画](https://www.youtube.com/watch?v=-ZBf4wpLZKg) と [App スライド](https://github.com/github/dev-days/releases/download/2026-07-30/copilot-app-japanese.pptx) が追加されています。実演準備に利用してください。
+- 上流の [日本語 App ワークショップ](https://github-samples.github.io/copilot-workshops/ja-jp/app/) は参照資料です。本教材では、検証した操作手順と修正済みの演習用テンプレートを使用します。
+- 指定コミット時点では、公式 Dev Days の新規イベント申請は定員到達により受付・承認を終了しています。このコピー内の旧イベント申請案内ではなく、[公式 FAQ](https://github.com/github/dev-days/blob/main/FAQ.md) で最新の受付状況を確認してください。
+- 公式 Dev Days として承認済みのイベントは Luma で Public にし、参加登録も Luma に集約します。他サービスは告知用に使い、登録窓口を分散させません。開催日などの変更は Luma に反映します。
+- 登録項目では国・GitHub ユーザー名・職種への回答を必須とし、会社名と広告・連絡への同意は任意です。Luma 上の主催者向け必須項目を維持してください。
+- 参加者には[終了後アンケート](https://gh.io/dev-days/feedback)を案内し、主催者は飲食費の精算申請の有無にかかわらず[開催報告](https://gh.io/dev-days/event-report)を提出します。
+
+これらは公式イベントの運営条件です。独立した勉強会に公式承認や特典が付くという意味ではありません。クーポン・物品・精算はイベントごとの承認条件に従うため、全員への提供を約束せず、公式 FAQ と承認時の案内を確認します。イベントを Public にする条件と、演習用コードのリポジトリの公開範囲は別です。
 
 ## 180分枠の運営案
 
@@ -34,7 +47,8 @@ CI 待ちや環境構築が長引く場合は、後半をデモにして未実�
 - App 用と CLI 用の利用ポリシー、残り利用枠、ネット接続、必要な GitHub 権限を確認する。UI 変更と認証・利用枠の問題を切り分ける。
 - 星評価の null ケース、フィルターの複合条件・解除・該当なしを確認する。seed にない条件はテスト用データで検証し、実 UI 操作と区別する。
 - MCP 用 Chrome と E2E 用 Chromium を区別する。接続失敗はプロセス・App の MCP 設定と再起動を確認し、手動検証へ切り替えた場合は MCP 未実施とする。
-- PR Readiness の YAML エラーなど既知の問題は [CLI の参考資料](../cli/6-custom-agents.md) を参照する。確認済みの修正を演習開始前に適用する。
+- 教材用テンプレートの YAML・MCP 修正は適用済み。配布版 v2026.09.13.1 と開始コミットを確認する。演習済みの検証リポジトリを開始用として配布しない。
+- 配布元 WORKSHOP.md の依存監査の未解決事項（drizzle-kit 配下の Moderate 4件）と確認範囲を本番配布前に確認する。機能テスト成功だけで配布可とは判定しない。
 - 終了時に開発サーバー・演習用 Codespace・不要な定期実行を停止する。PR や未保存の変更を消さない。
 
 ## 当日の操作支援と緊急対応

@@ -6,7 +6,7 @@
 <a href="../../index.html">教材セットの入口</a><a href="../index.html">App シナリオの目次</a>
 <a href="../../handson-guide.html#switch">事前準備・UI の確認</a></nav>
 <button class="theme-toggle" type="button" onclick="toggleTheme()">☀️ ライト</button></header>
-<main id="lesson"><h1>レッスン 8 - 振り返りと次のステップ</h1><p class="source">非公式の日本語版 · <a href="https://github.com/github-samples/copilot-workshops/blob/7ddcf241c1cd10b8e90c0df96f6bef81e710392a/docs/ja-jp/app/8-review.md">参照原文</a> · <a href="../licenses/copilot-workshops.txt">MIT ライセンス</a><br>参照コミット：<code>7ddcf241c1cd</code> ／ 確認日：2026-09-08</p><aside>UI の名前・位置は参照原文のものです。利用条件は <a href="../../handson-guide.html#plans">事前確認</a>を参照してください。</aside><aside>本編は App の操作を学ぶシナリオです。メニューや右クリック等の現行操作経路は未照合です。<a href="../material/verification.html">章別の検証状況</a></aside><nav class="chapter-nav" aria-label="章の移動"><a href="7-canvases.html">← 前の章：レッスン 7 - キャンバスを使った計画</a></nav><details><summary>この章の目次</summary><div class="toc">
+<main id="lesson"><h1>レッスン 8 - 振り返りと次のステップ</h1><p class="source">非公式の日本語版 · <a href="https://github.com/github-samples/copilot-workshops/blob/7ddcf241c1cd10b8e90c0df96f6bef81e710392a/docs/ja-jp/app/8-review.md">参照原文</a> · <a href="../licenses/copilot-workshops.txt">MIT ライセンス</a><br>参照コミット：<code>7ddcf241c1cd</code> ／ 確認日：2026-09-08</p><aside>UI の確認日・バージョン・未確認範囲は本文の注記を参照してください。利用条件は <a href="../../handson-guide.html#plans">事前確認</a>を参照してください。</aside><aside>本編は App の操作を学ぶシナリオです。一部の UI を実機確認しましたが、全章の完走は未検証です。<a href="../material/verification.html">章別の検証状況</a></aside><nav class="chapter-nav" aria-label="章の移動"><a href="7-canvases.html">← 前の章：レッスン 7 - キャンバスを使った計画</a></nav><details><summary>この章の目次</summary><div class="toc">
 <ul>
 <li><a href="#繰り返し発生する作業を自動化する">繰り返し発生する作業を自動化する</a></li>
 <li><a href="#ベストプラクティス">ベストプラクティス</a></li>
@@ -16,7 +16,7 @@
 </ul>
 </div>
 </details><article><blockquote>
-<p><strong>この章の進め方：</strong> App で操作します。画像は参照元の画面例で、現行 UI との一致は未確認です。ボタンや機能が見つからない場合は <a href="../material/ui-check.html">UI が異なるときの確認</a>に沿って講師と確認してください。</p>
+<p><strong>この章の確認範囲：</strong> 2026年9月13日に Windows の App 1.1.20 で、ローカルの Manual automation を保存・実行し、Succeeded と要約結果を確認しました。定期実行・クラウド実行は未検証です。<a href="../material/ui-check.html">UI 確認表</a>も参照してください。</p>
 </blockquote>
 <p>ここ数回のレッスンでは、GitHub Copilot app を使い、アイデアから機能のマージまでを実践しました。取り組んだ内容は次のとおりです。</p>
 <ul>
@@ -25,7 +25,7 @@
 <li>カスタム指示と再利用可能なスキルでエージェントをガイドした。</li>
 <li>Playwright MCP server を使い、実際のブラウザーで作業をテストした。</li>
 <li>共有キャンバスでエージェントと共同作業した。</li>
-<li>github.com で自分でマージする方法から、<strong>Agent Merge</strong> に pull request のマージを任せる方法まで、段階的なマージ自動化を使って変更をリリースした。</li>
+<li>自分で通常マージする方法から、<strong>Agent Merge</strong> に pull request のマージを任せる方法まで、段階的なマージ自動化を使って変更をリリースした。</li>
 </ul>
 <p>繰り返し発生する作業を自動化し、ベストプラクティスと今後の進め方を確認します。</p>
 <h2 id="繰り返し発生する作業を自動化する">繰り返し発生する作業を自動化する</h2>
@@ -33,13 +33,14 @@
 <ol>
 <li>サイドバーで <strong>Automations</strong> を選択してから <strong>New automation</strong> を選択します。</li>
 <li><code>Recap my recent work</code> などの名前を付けます。</li>
-<li>トリガーを選択します。<strong>Manual</strong> はオンデマンドで実行し、<strong>On a schedule</strong> は自動的に実行し、<strong>When an issue is created</strong> は新しい Issue に反応します。このレッスンでは <strong>Manual</strong> を選択します。</li>
+<li><strong>Trigger</strong> を開き、<strong>Manual</strong> を選択します。App 1.1.20 の実走では初期値は Daily で、Manual・Hourly・Daily・Weekly・CRON・Issue・Pull request が表示されました。このレッスンは Manual、<strong>Run in the cloud</strong> はオフで進めます。</li>
 <li>automation が何も変更しないように、次の例のような読み取り専用のプロンプトを入力します。</li>
 </ol>
 <pre class="highlight"><code class="language-plaintext">このリポジトリで過去1週間にマージされた PR を要約し、バックログでまだ open の Issue を一覧にしてください。</code></pre>
 <ol start="5">
-<li>プロジェクト (Tailspin Toys リポジトリ) を選択し、automation を作成します。</li>
-<li>オンデマンドで実行し、結果を確認します。</li>
+<li><strong>Select project</strong> で自分の演習用 Tailspin Toys リポジトリを選択します。GitHub 連携とローカルフォルダーの両方がある場合は、対象を取り違えないよう owner/repository 表記も確認します。</li>
+<li><strong>Create</strong> の横のメニュー → <strong>Create and run</strong> で保存し、その場で1回実行します。保存だけなら Create を選び、後で一覧の Run ボタンから実行できます。</li>
+<li><strong>Recent runs</strong> の実行結果を開き、<strong>Succeeded</strong> と要約内容を確認します。実走では Local・37秒で成功し、マージ済み PR 6件・Open Issue 6件という結果を GitHub の一覧と照合しました。Manual のまま保存され、定期実行は設定していません。</li>
 </ol>
 <blockquote>
 <p><strong>ヒント</strong>

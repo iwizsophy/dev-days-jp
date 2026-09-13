@@ -6,7 +6,7 @@
 <a href="../../index.html">教材セットの入口</a><a href="../index.html">App シナリオの目次</a>
 <a href="../../handson-guide.html#switch">事前準備・UI の確認</a></nav>
 <button class="theme-toggle" type="button" onclick="toggleTheme()">☀️ ライト</button></header>
-<main id="lesson"><h1>レッスン 7 - キャンバスを使った計画</h1><p class="source">非公式の日本語版 · <a href="https://github.com/github-samples/copilot-workshops/blob/7ddcf241c1cd10b8e90c0df96f6bef81e710392a/docs/ja-jp/app/7-canvases.md">参照原文</a> · <a href="../licenses/copilot-workshops.txt">MIT ライセンス</a><br>参照コミット：<code>7ddcf241c1cd</code> ／ 確認日：2026-09-08</p><aside>UI の名前・位置は参照原文のものです。利用条件は <a href="../../handson-guide.html#plans">事前確認</a>を参照してください。</aside><aside>本編は App の操作を学ぶシナリオです。メニューや右クリック等の現行操作経路は未照合です。<a href="../material/verification.html">章別の検証状況</a></aside><nav class="chapter-nav" aria-label="章の移動"><a href="6-agent-merge.html">← 前の章：レッスン 6 - Agent Merge によるマージ</a><a href="8-review.html">次の章 →：レッスン 8 - 振り返りと次のステップ</a></nav><details><summary>この章の目次</summary><div class="toc">
+<main id="lesson"><h1>レッスン 7 - キャンバスを使った計画</h1><p class="source">非公式の日本語版 · <a href="https://github.com/github-samples/copilot-workshops/blob/7ddcf241c1cd10b8e90c0df96f6bef81e710392a/docs/ja-jp/app/7-canvases.md">参照原文</a> · <a href="../licenses/copilot-workshops.txt">MIT ライセンス</a><br>参照コミット：<code>7ddcf241c1cd</code> ／ 確認日：2026-09-08</p><aside>UI の確認日・バージョン・未確認範囲は本文の注記を参照してください。利用条件は <a href="../../handson-guide.html#plans">事前確認</a>を参照してください。</aside><aside>本編は App の操作を学ぶシナリオです。一部の UI を実機確認しましたが、全章の完走は未検証です。<a href="../material/verification.html">章別の検証状況</a></aside><nav class="chapter-nav" aria-label="章の移動"><a href="6-agent-merge.html">← 前の章：レッスン 6 - Agent Merge によるマージ</a><a href="8-review.html">次の章 →：レッスン 8 - 振り返りと次のステップ</a></nav><details><summary>この章の目次</summary><div class="toc">
 <ul>
 <li><a href="#シナリオ">シナリオ</a></li>
 <li><a href="#キャンバスとは">キャンバスとは</a></li>
@@ -19,7 +19,7 @@
 </ul>
 </div>
 </details><article><blockquote>
-<p><strong>この章の進め方：</strong> App で操作します。画像は参照元の画面例で、現行 UI との一致は未確認です。ボタンや機能が見つからない場合は <a href="../material/ui-check.html">UI が異なるときの確認</a>に沿って講師と確認してください。</p>
+<p><strong>この章の確認範囲：</strong> 2026年9月13日に Windows の App 1.1.20 で、作成・共有保存・Agent Merge・別セッションでの再表示・Issue のコンテキスト追加を確認しました。反復送信を修正した後、キャンバスから追加した検索 Issue の計画・実装・MCP 検証・Agent Merge まで追加実走しています。</p>
 </blockquote>
 <p>ここまでは、チャットを通じてエージェントを指示してきました。しかし、多くの作業は会話の中ではなく、ボード、ドキュメント、チェックリスト上で行われます。<strong>キャンバス</strong>は、まさにそのような作業のために、アプリ内でユーザーとエージェントが共有できる領域です。このレッスンでは、ここまで取り組んできたバックログの計画と追跡に使用する、シンプルなキャンバスを作成します。</p>
 <p>このレッスンでは、次の内容を学習します。</p>
@@ -51,12 +51,13 @@
 <p>星評価、ドキュメント標準、フィルター機能をすべてマージし、多くの成果をリリースしました。しかし、バックログにはまだ項目が残っています。作業をすばやくトリアージするためのキャンバスを作成します。</p>
 <ol>
 <li>GitHub Copilot app に戻ります。アプリを閉じている場合は開きます。</li>
-<li><strong>Home screen</strong> を選択します。</li>
-<li>リポジトリに <code>tailspin-toys</code> が選択されていることを確認します。</li>
+<li>サイドバーで自分の演習リポジトリの横にある <strong>New session</strong> を選択します。App 1.1.20 の実走では <strong>New</strong> 画面が開きました。</li>
+<li>入力欄の下で自分の演習リポジトリ、<strong>New worktree</strong>、<strong>main</strong> が選択されていることを確認します。作成後の worktree に前章のマージ結果が入っていることも確認します。</li>
 <li>プロンプトボックスで次のプロンプトを使用し、要件を満たすキャンバスを作成します。</li>
 </ol>
 <pre class="highlight"><code class="language-plaintext">作業の優先順位をすぐに整理できる、基本的なカンバンボードの canvas を作ってください。今対応すべき上位3件の Issue を強調し、残りは下の別の領域に配置してください。上位3枚のカードには Issue の内容と優先する理由を含めてください。各 Issue に、現在のセッションのコンテキストへ追加してすぐ作業を始められるボタンを付けてください。</code></pre>
 <p>Copilot がキャンバスの作成を開始します。</p>
+<p>実走では <strong>Issue triage board</strong> が右パネルに開き、未対応6件を上位3件と残り3件に分けて表示しました。初版は上位3件にしかボタンがなかったため、全カードに <strong>Add to current session</strong> を付けるよう追加依頼しました。表示だけで完了にせず、カード数・優先理由・更新ボタンと各カードの操作を確認してください。</p>
 <blockquote>
 <p><strong>補足</strong>
 作成には数分かかります。複雑なタスクであるため、最初のバージョンでは満足できない場合があります。理想のツールになるまで、プロンプトで構築を続けるよう依頼できます。</p>
@@ -69,9 +70,12 @@
 <pre class="highlight"><code class="language-plaintext">開発チームと共有できるよう、この canvas の定義をリポジトリに保存してください。</code></pre>
 <ol start="2">
 <li>Copilot がキャンバスファイルを保存したら、右上隅にある <strong>Create PR</strong> の横のドロップダウンを選択します。</li>
+</ol>
+<p>保存場所も確認します。実走の初版はセッション限定で、共有依頼後に <code>.github/extensions/issue-triage-board/extension.mjs</code> と README の起動手順を追加しました。これは<a href="https://docs.github.com/en/copilot/how-tos/github-copilot-app/working-with-canvas-extensions#creating-a-canvas">公式のプロジェクト共有スコープ</a>です。セッション一時フォルダーにしかない状態では、チーム共有や別セッションでの再利用を確認したことにはなりません。すでにボタンが <strong>Agent merge</strong> なら手順5へ進みます。</p>
+<ol start="3">
 <li><strong>Agent merge</strong> を選択して Agent Merge を有効にします。</li>
 </ol>
-<p><img alt="GitHub Copilot app で展開された Create PR ドロップダウンの Agent merge オプションを矢印で示した画面" src="../assets/app-enable-agent-merge.png" /><br><em class="source">参照元の画面例（撮影時バージョン不明・現行 UI 未照合）。位置やメニューの開き方は講師と確認してください。</em></p>
+<p><img alt="App 全体と Agent merge、Create PR、Create draft PR の選択メニュー" src="../assets/app-1.1.20-20260913-agent-merge-menu.png" /><br><em class="source">実機撮影：2026-09-13、Windows、GitHub Copilot App 1.1.20。撮影範囲全体を掲載（切り抜きなし）。灰色の箇所はアカウント・検証用リポジトリ・ローカルパス等の識別情報や個人の利用量をマスク。Agent merge・Create PR・Create draft PR の選択メニュー。検索機能の PR 作成前の操作例。</em></p>
 <ol start="4">
 <li>ボタンのテキストが <strong>Agent merge</strong> に変わります。</li>
 <li><strong>Agent merge</strong> ボタンを選択し、Agent Merge のプロセスを開始します。</li>
@@ -79,9 +83,9 @@
 <p>Copilot app が PR の作成と管理を開始します。最初にプロジェクトを調査して PR の最適な作成方法を判断し、PR を作成します。</p>
 <p>しばらくすると、Copilot が再び作業を開始し、リポジトリ上ですべてのテストを実行する CI プロセスなど、PR の条件を確認します。ほかのチームメンバーによるレビュー、実行が必要なチェック (CI プロセス)、PR をマージできるかどうかのステータスを報告します。</p>
 <ol start="6">
-<li><strong>Agent merge</strong> の横にあるドロップダウンを選択してから <strong>Merge pull request</strong> を選択し、Agent Merge に pull request のマージを許可します。</li>
+<li><strong>Agent merge</strong> の横にあるドロップダウンを開き、<strong>Merge pull request</strong> のチェック状態を確認します。未選択の場合だけ選択して、マージを許可します。すでにチェックが付いている場合はそのままにします。もう一度選択すると許可が解除されます。</li>
 </ol>
-<p><img alt="Agent merge ドロップダウンで、エージェントに許可された Address reviews、Fix CI failures、Resolve conflicts の操作と、矢印で示された Merge pull request" src="../assets/app-agent-merge-merge.png" /><br><em class="source">参照元の画面例（撮影時バージョン不明・現行 UI 未照合）。位置やメニューの開き方は講師と確認してください。</em></p>
+<p><img alt="PR 作成後の App 全体。Agent merge の Merge pull request はチェック済み" src="../assets/app-1.1.20-20260913-agent-merge-permissions.png" /><br><em class="source">実機撮影：2026-09-13、Windows、GitHub Copilot App 1.1.20。撮影範囲全体を掲載（切り抜きなし）。灰色の箇所はアカウント・検証用リポジトリ・ローカルパス等の識別情報や個人の利用量をマスク。PR 作成後の Agent merge 許可設定。Merge pull request はすでにチェック済み。検索機能 PR の操作例。</em></p>
 <ol start="7">
 <li>すべての CI プロセスが成功するまで待ちます。成功すると、Copilot が pull request を自動的にマージします。</li>
 </ol>
@@ -95,9 +99,22 @@
 <pre class="highlight"><code class="language-plaintext">Issue の優先順位を整理する canvas を開いてください。</code></pre>
 <ol start="3">
 <li>作成したキャンバスが新しいセッションで開いたことを確認します。</li>
-<li>最も関心のある Issue の1つで <strong>Add to current context</strong> を選択します。</li>
-<li>Copilot が Issue の作業を開始します。</li>
+<li>最も関心のある Issue の1つで <strong>Add to current session</strong> を選択します。表示名は生成したキャンバスの定義によります。実走のボタン名はこの表記でした。</li>
+<li>Issue の内容が現在のセッションに1回だけ届き、確認応答が返ることを確認します。ボタンの操作はコンテキスト追加までです。実装の対象と範囲を確認し、続けてメッセージを送ります。</li>
+<li>計画から進める場合は <strong>Mode: Interactive</strong> → <strong>Plan</strong> に切り替えます。実走では「キャンバスから追加したタイトル検索 Issue の実装計画を作成し、既存フィルターと星評価を維持する」と依頼しました。</li>
 </ol>
+<p><img alt="検索 Issue を追加した Canvas と左下のモード選択メニュー" src="../assets/app-1.1.20-20260913-plan-mode.png" /><br><em class="source">実機撮影：2026-09-13、Windows、GitHub Copilot App 1.1.20。撮影範囲全体を掲載（切り抜きなし）。灰色の箇所はアカウント・検証用リポジトリ・ローカルパス等の識別情報や個人の利用量をマスク。左下のモード選択と右側の Canvas。検索 Issue を追加した後の操作例。各章では本文の対象 Issue を選ぶ。</em></p>
+<ol start="7">
+<li><strong>Review plan</strong> で計画を読み、<strong>Approve and implement this plan</strong> → <strong>Continue</strong> を選択します。実走では <strong>Autopilot</strong> に切り替わり、同じ worktree で実装が始まりました。</li>
+</ol>
+<p><img alt="検索機能の計画全体と Review plan の Continue" src="../assets/app-1.1.20-20260913-plan-review.png" /><br><em class="source">実機撮影：2026-09-13、Windows、GitHub Copilot App 1.1.20。撮影範囲全体を掲載（切り抜きなし）。灰色の箇所はアカウント・検証用リポジトリ・ローカルパス等の識別情報や個人の利用量をマスク。Review plan の Approve and implement this plan と Continue。右側は検索機能の計画。選択だけでは開始せず Continue で承認する。</em></p>
+<ol start="8">
+<li><strong>Changes</strong> で差分を確認し、テストとブラウザー検証を依頼します。実走では SQL 検索の <code>%</code>・<code>_</code> が特殊文字になる不一致をレビューで修正し、単体39件・E2E28件・キャンバス回帰3件、lint・型検査・build が成功しました。MCP による通常21件の検索・複合条件・検索0件・キーボード解除も確認しています。</li>
+<li>問題がなければ、この章で学んだ <strong>Agent merge</strong> で統合します。検証用 PR #15 は CI 全4ジョブ成功後にマージされ、検索 Issue が Closed になりました。次にボードを更新した際は、完了した Issue が未対応一覧から除かれることを確認してください。</li>
+</ol>
+<blockquote>
+<p><strong>反復送信への対処：</strong> 初版では、通知の「Issue を追加する」という命令を受けてエージェントが追加アクションを再び呼び、通知が反復しました。Stop で処理を停止し、通知を「追加済み」の事実通知へ修正。同じ Issue の送信中・送信済みを追跡し、再入時に元の送信を待たず返す処理と回帰テストを加えました。修正後は1回のクリックで1通知・1応答となり、Refresh 後の再クリックでも通知が増えないことを確認しました。表示と保存だけでなく、この操作結果まで確認してください。</p>
+</blockquote>
 <p>これで、作成したキャンバスを使って開発プロセスを効率化できました。</p>
 <p><a id="cli-fallback"></a></p>
 <blockquote>

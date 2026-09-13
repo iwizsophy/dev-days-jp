@@ -3,10 +3,10 @@ title: "レッスン 5 - Playwright MCP server によるテスト"
 description: "Playwright MCP server を GitHub Copilot app に追加し、実際のブラウザーでフィルター機能を手動テストするようエージェントに依頼します。"
 authors:
   - geektrainer
-lastUpdated: 2026-07-09
+lastUpdated: 2026-09-13
 ---
 
-> **この章の進め方：** App で操作します。画像は参照元の画面例で、現行 UI との一致は未確認です。ボタンや機能が見つからない場合は [UI が異なるときの確認](../material/ui-check.md)に沿って講師と確認してください。
+> **この章の確認範囲：** 2026年9月13日に Windows の App 1.1.20 で、リポジトリ定義の信頼承認・設定形式修正・セッション再起動後、Playwright MCP による絞り込み・解除・キーボード操作と終了処理を確認しました。後続の追加検証で、隔離したテストデータによる0件表示も確認しています。新規登録フォームの保存は未確認です。[UI 確認表](../material/ui-check.md)を参照してください。
 
 
 前のレッスンでは、プロジェクトの自動テストスイートを使ってフィルター機能を作成し、検証しました。テストによってコードの検証を自動化できますが、エージェント自身が動作を確認できるようにすることも効果的です。実際に作成している UI で問題を見つけた場合に、エージェントが対応できるようになります。MCP を使って AI エージェントに外部機能へのアクセスを提供する方法を確認し、Copilot が構築中のサイトを直接操作できるように Playwright MCP server を追加します。
@@ -39,13 +39,33 @@ lastUpdated: 2026-07-09
 
 ## Playwright MCP server を追加する
 
-2026年9月10日に確認した [公式のカスタマイズ手順](https://docs.github.com/en/copilot/how-tos/github-copilot-app/customize-github-copilot-app#configuring-mcp-servers)に合わせ、参照原文の「設定 → MCP servers」を次の案内へ更新しました。これは公式文書との照合で、実機の操作確認は未実施です。
+2026年9月10日の [公式文書との照合](https://docs.github.com/en/copilot/how-tos/github-copilot-app/customize-github-copilot-app#configuring-mcp-servers)に加え、9月13日に Windows の App 1.1.20 で以下の表示を確認しました。プロジェクト未接続でも登録フォームまで開けます。
+
+> **リポジトリ定義がある場合：** 教材用の修正済みテンプレートには `.mcp.json` の `mcpServers` に Playwright などが定義済みです。GitHub 連携プロジェクトを右クリック → Settings → MCP servers で確認します。Trust repository が表示された場合は、定義内容を確認して利用者が信頼を承認します。Repository configuration の Trusted 表示とは別です。重複登録せず、既存定義を確認してから以下の新規登録手順を使ってください。
+
+### 既存の設定を読み込めない場合
+
+**以下は上流から直接作成した旧コピーの復旧記録です。教材用テンプレート v2026.09.13.1 にはこの設定修正を適用済みなので、通常は編集不要です。**
+
+実走では、本人による信頼承認後に **No MCP servers loaded** と表示されました。固定コミットから作ったコピーの `.mcp.json` は、ルートが `"servers"` でした。[公式のリポジトリ別設定形式](https://docs.github.com/en/copilot/how-tos/copilot-cli/customize-copilot/add-mcp-servers#adding-per-repository-mcp-servers)に合わせ、自分の演習コピーでこのキーを `"mcpServers"` に変更します。既存のサーバー定義・接続先はそのままにします。参照元リポジトリは変更しません。
+
+Settings の **Refresh** で再確認します。今回の修正後は GitHub・Playwright・astro-docs の3件が **Connected** になりました。ただし、既存のフィルターセッションは Playwright のブラウザー操作ツールが利用できないと報告して停止しました。
+
+この場合は、作業を終えて待機中の同じセッションの入力欄で **`/restart-session`** を選択して送信します。[履歴を保持する公式の再起動コマンド](https://docs.github.com/en/copilot/reference/github-copilot-app-reference/slash-commands)です。実走では再起動後に未コミット変更と履歴を保持したまま Playwright MCP を呼び出せました。Connected の表示だけで章を完了にせず、セッションから実際にツールを呼べるか確認してください。
+
+### 新規登録の手順
 
 1. サイドバーの **Customize** を開きます。
-2. **MCP** を開きます。
-3. 既存の登録がないか **Installed** で確認します。登録済みなら重複して追加しません。
-4. 未登録ならカタログで [Playwright MCP server][playwright-mcp-server] を探し、選択して表示される導入手順に従います。表示されなければ、カスタムサーバーを追加する操作を講師と確認します。
-5. 導入後、登録状態とセッションからの利用可否を確認します。登録しただけで成功とはせず、次の節で実際のツール実行を確認します。
+2. **Installed** タブの **MCP Servers** で既存の登録を確認します。登録済みなら重複して追加しません。実走時は未登録と表示されました。
+3. 未登録なら **MCP** タブを開きます。実走時は **Featured** に **Playwright** が表示されました。見つからなければ **Search MCP servers** で検索します（検索操作は未検証）。
+4. **Playwright** カードを選択し、登録フォームを開きます。実走時の初期値は **Server name** が `playwright`、種類が **Local**、**Command** が `npx`、**Arguments** が `-y @playwright/mcp@latest` でした。
+5. 内容を確認して **Add server** で保存します。この保存操作以降は未検証です。導入後に **Installed** の登録状態とセッションからの利用可否を確認します。登録しただけで成功とはせず、次の節で実際のツール実行を確認します。
+
+![App 1.1.20 の Customize の MCP タブ。Featured に Playwright と Add server が表示されている](../../_images/app-1.1.20-20260913-mcp-catalog.jpg)
+
+![Playwright 登録フォーム。Local、npx、-y @playwright/mcp@latest が表示されている。保存前の画面](../../_images/app-1.1.20-20260913-mcp-config.jpg)
+
+画像は2026年9月13日に撮影した Windows の App 1.1.20 です。アカウント情報を写さないためサイドバーを閉じています。サイドバーは左上の切り替えボタン、または `Ctrl+B` で表示します。
 
 Customize・MCP の項目がない場合は、App のバージョン・組織ポリシー・画面の状態を記録して講師と確認してください。ここで右クリックへ移ったと断定できる根拠はありません。
 
@@ -63,6 +83,10 @@ Copilot は Playwright MCP server を通じてブラウザーを起動し、各�
 
 2. Issue の受け入れ条件と照らし合わせて概要を読みます。問題がある場合は、pull request を作成する前に追加の質問をするか、コードを修正するよう依頼します。
 3. 次のレッスンでこの作業を完了するため、セッションを開いたままにします。
+
+実走では `browser_navigate`・`browser_snapshot`・`browser_click`・`browser_select_option`・`browser_find`・`browser_press_key` の呼び出しを確認しました。通常データで Strategy は4件、Puzzle を追加すると8件、CodeForge Studios も選ぶと2件、Clear filters で21件へ戻りました。出版社単独は6件、Tab と Enter による解除も21件です。最後に `browser_close` と開発サーバーの停止を確認しました。
+
+通常データでは全カテゴリと出版社の組み合わせにゲームがあるため、フィルターだけで0件にはできません。追加実走では通常 CSV を変更せず、一時的な隔離 DB に2件のテストデータを用意し、**Simulation** と **Ops Interactive** の組み合わせが0件になることを MCP で確認しました。これは前章の20件 fixture による E2E テストとは別の実操作です。検証後は一時 DB・ブラウザー・サーバーを終了しました。講師は通常データとテストデータの件数・起動先を記録し、0件を作るために通常 CSV を書き換えないでください。
 
 これで Copilot は、ユーザーと同じように機能を確認し、ブラウザーでも動作を検証しました。
 

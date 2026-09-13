@@ -3,10 +3,10 @@ title: "レッスン 3 - カスタム指示による Copilot のガイド"
 description: "GitHub Copilot app を使い、バックログの Issue から始めてカスタム指示の標準をリポジトリに追加し、変更を pull request としてマージします。"
 authors:
   - geektrainer
-lastUpdated: 2026-07-09
+lastUpdated: 2026-09-13
 ---
 
-> **この章の進め方：** App で操作します。画像は参照元の画面例で、現行 UI との一致は未確認です。ボタンや機能が見つからない場合は [UI が異なるときの確認](../material/ui-check.md)に沿って講師と確認してください。
+> **この章の進め方：** App で操作します。掲載画像は Windows App 1.1.20 の実機画面です。検索・並べ替え Issue を使った操作位置の例も含むため、作業対象は本文に従って選んでください。ボタンや機能が見つからない場合は [UI が異なるときの確認](../material/ui-check.md)に沿って講師と確認してください。
 
 
 生成 AI を扱うとき、コンテキストは重要です。タスクを特定の方法で実行する必要がある場合や、Copilot が把握しておくべき背景情報がある場合は、そのコンテキストを利用できるようにします。特に強力なツールの1つが[指示ファイル][instruction-files]です。指示ファイルには、必要なコードの内容だけでなく、その構成方法も記述します。このレッスンでは、リポジトリにドキュメント標準を追加します。ここから先の多くの作業と同様に、バックログの Issue から開始し、エージェントに変更を行わせます。
@@ -58,18 +58,22 @@ AI の使い方に唯一の方法がないのと同様に、指示ファイル�
 
 このリポジトリに含まれる指示ファイルを確認します。中心となる `copilot-instructions.md` が1つと、さまざまなタスクに対応する `*.instructions.md` ファイル一式があります。エディターまたは GitHub Web UI で開いてください。
 
-1. レビューパネルが表示されていない場合は、右上の **Toggle review panel** を選択して開きます。
+1. 右パネルが表示されていない場合は、右上の **Toggle panel** を選択して開きます。
 
-   ![Create PR の右側にある Toggle review panel ボタンを矢印で示した GitHub Copilot app の上部ツールバー](../../_images/app-2-review-panel.png)
+   ![右パネルの Add tab メニュー。Files、Browser、Terminal の入口](../../_images/app-1.1.20-20260913-add-tab.png)
 
-2. **+** を選択し、レビューパネルに新しい項目を追加します。
-3. **File** を選択します。
-4. `copilot-instructions.md` を検索します。
+2. パネルのタブ列にある **+**（Add tab）を選択します。
+3. **Files** を選択します。
+4. <kbd>Ctrl</kbd>+<kbd>P</kbd> で **Go to file** を開き、`copilot-instructions.md` を検索します。Windows App 1.1.20 で確認した経路です。
+   ![App 全体と Go to file。copilot-instructions.md の検索結果](../../_images/app-1.1.20-20260913-file-search.png)
+
 5. ファイル一覧から `copilot-instructions.md` を選択して開きます。
 6. ファイルを確認します。プロジェクトの簡単な説明に加えて、**Agent notes**、**Code standards**、**Scripts**、**Repository Structure** などのセクションがあります。**Code standards** の下には、ネストされた **GitHub Actions Workflows** のガイダンスがあります。これらは Copilot とのすべてのやり取りに適用されます。
-7. **Show folder view** を選択して、フォルダーナビゲーターを開きます。
+7. 右側のファイルツリーを確認します。`.github` が見えない場合は、ファイルパネルの歯車 **View options** → **Show hidden files** を有効にします。実走では、隠しファイルを表示すると `.github` と指示ファイルがツリーに現れました。
 
-   ![GitHub Copilot app でファイルを開いたレビューパネルにある Show folder view ボタン](../../_images/app-show-folder-view.png)
+   フォルダーを順に開く代わりに、**Go to file** へ次の手順のファイル名を入力して開くこともできます。
+
+   ![会話欄と指示ファイルの表示。右上の View options に Show hidden files](../../_images/app-1.1.20-20260913-files-options.png)
 
 8. `.github/instructions` フォルダーに移動し、ファイルを確認します。Astro ファイル、Drizzle データレイヤー、テストなどに対応する指示があります。
 9. `.github/instructions/unit-tests.instructions.md` を開きます。先頭の `applyTo` フィールドに注目してください。これはリポジトリのルートを基準とする glob で、指示を適用するファイルを決定します。ここでは、TypeScript のテストファイル (`**/*.test.ts` に一致するファイルなど) が対象になります。
@@ -90,7 +94,7 @@ AI の使い方に唯一の方法がないのと同様に、指示ファイル�
 2. **Update our repository coding standards** というタイトルの Issue を選択して開きます。
 3. 右上の **New session** を選択し、Issue に基づく新しいセッションを開始します。
 
-   ![GitHub Copilot app の Issue ビューで、右上の New session ボタンを矢印で示した画面](../../_images/app-new-session-from-issue.png)
+   ![My work の Issue 一覧と選択した Issue。右上に New session](../../_images/app-1.1.20-20260913-issue-session.png)
 
 4. 次のプロンプトを使い、Issue に記載された要件を満たすように指示ファイルを更新することを Copilot に依頼します。
 
@@ -98,15 +102,17 @@ AI の使い方に唯一の方法がないのと同様に、指示ファイル�
   この Issue に記載された要件に従って、プロジェクトの指示ファイルを更新してください。PR はまだ作らないでください。
   ```
 
+> **2026年9月13日の確認（Windows App 1.1.20）：** GitHub 連携プロジェクトの My work → 対象 Issue → New session で専用 worktree が作成され、前章でマージした星評価を継承しました。初回は Accept this repository configuration? が表示されます。Review configuration でセットアップと Run の内容を確認してから承認してください。今回の実走では利用者の承認後に送信でき、指示ファイル・README・ESLint と最小限の書式修正を含む7ファイルを更新しました。単体30件・E2E21件・lint・型検査は成功しています。
+
 Copilot が更新を行います。
 
 ## 変更をレビューする
 
 Copilot が行った更新を読み、更新された指示に基づいて生成するコード例も提示させます。
 
-1. 右上の **Changes** を選択してコードの変更を開きます。
+1. 入力欄の上にある **Changes**（Open changes）を選択してコードの変更を開きます。Windows App 1.1.20 の GitHub 連携セッションでは、右パネルに **Changes (7), +43, -4** が表示されました。
 
-   ![GitHub Copilot app のセッションパネルにあるタブで、Changes タブを矢印で示した画面](../../_images/app-select-changes.png)
+   ![左の会話欄の Changes と右の差分パネルを同時に表示した App 全体](../../_images/app-1.1.20-20260913-changes.png)
 
 2. 更新された指示ファイルをレビューします。コードにドキュメントとコメントを追加するためのガイドラインが含まれていることを確認します。
 
@@ -127,7 +133,7 @@ Copilot が行った更新を読み、更新された指示に基づいて生成
 
 指示ファイルはリポジトリのアセットとなり、チームのほかのメンバーと共有されます。ほかのアセットと同様に、作業内容を含む PR を作成します。
 
-1. 右上隅にある **Create PR** を選択します。
+1. 右上隅にある **Create PR** を選択します。Windows App 1.1.20 の GitHub 連携セッションでは、この操作からコミット・push・PR 作成まで進みました。検証用 PR #10 は作成後に通常マージし、次章の専用 worktree が更新済み規約を継承することも確認しました。[実走記録](../material/verification.md)を参照してください。
 2. 求められた場合は **Sign in with your browser** を選択し、画面の指示に従って認証します。
 3. Copilot が PR の作成を開始します。
 
@@ -167,6 +173,6 @@ PR が作成されると、Copilot はリポジトリで実行する必要があ
 [instructions-best-practices]: https://docs.github.com/enterprise-cloud@latest/copilot/using-github-copilot/coding-agent/best-practices-for-using-copilot-to-work-on-tasks#adding-custom-instructions-to-your-repository
 [awesome-copilot]: https://awesome-copilot.github.com/
 [custom-instructions-support]: https://docs.github.com/copilot/reference/custom-instructions-support
-[ui-instructions]: https://github.com/github-samples/tailspin-toys/blob/main/.github/instructions/ui.instructions.md
-[astro-instructions]: https://github.com/github-samples/tailspin-toys/blob/main/.github/instructions/astro.instructions.md
+[ui-instructions]: https://github.com/iwizsophy/dev-days-tailspin-template/blob/v2026.09.13.1/.github/instructions/ui.instructions.md
+[astro-instructions]: https://github.com/iwizsophy/dev-days-tailspin-template/blob/v2026.09.13.1/.github/instructions/astro.instructions.md
 [managing-issues-prs]: https://docs.github.com/copilot/how-tos/github-copilot-app/managing-issues-and-pull-requests

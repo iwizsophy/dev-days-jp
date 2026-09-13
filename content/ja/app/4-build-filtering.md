@@ -6,7 +6,7 @@ authors:
 lastUpdated: 2026-07-13
 ---
 
-> **この章の進め方：** App で操作します。画像は参照元の画面例で、現行 UI との一致は未確認です。ボタンや機能が見つからない場合は [UI が異なるときの確認](../material/ui-check.md)に沿って講師と確認してください。
+> **この章の進め方：** App で操作します。掲載画像は Windows App 1.1.20 の実機画面です。検索・並べ替え Issue を使った操作位置の例も含むため、作業対象は本文に従って選んでください。ボタンや機能が見つからない場合は [UI が異なるときの確認](../material/ui-check.md)に沿って講師と確認してください。
 
 
 ここまで、プロジェクトに小さな更新をいくつか加えました。しかし、より本格的な変更には、よりしっかりしたプロセスが必要です。GitHub Copilot app は既存のフローと連携できるように設計されており、適切なものを適切な方法で構築できます。このレッスンから3回にわたり、一般的な開発プロセスに従います。まず Issue を使って新機能を生成し、エージェントスキルで検証テストと linter を実行します。
@@ -57,11 +57,11 @@ Issue を開いて新しいセッションを開始し、Plan モードに切り
 2. **Allow users to filter games by category and publisher** というタイトルの Issue を選択します。
 3. 右上の **New session** を選択します。
 
-   ![GitHub Copilot app の Issue ビューで、右上の New session ボタンを矢印で示した画面](../../_images/app-new-session-from-issue.png)
+   ![My work の Issue 一覧と選択した Issue。右上に New session](../../_images/app-1.1.20-20260913-issue-session.png)
 
-4. モードに **Plan** と表示されるまで <kbd>Shift</kbd>+<kbd>Tab</kbd> を選択します。
+4. 入力欄下部のモードメニュー（**Mode: Interactive**）を開き、**Plan — Plan first, execute when ready** を選択します。Windows App 1.1.20 でこの経路を確認しました。メニューには **Interactive**・**Plan**・**Autopilot** が表示されます。
 
-   ![モードセレクターが Plan に設定され、矢印で示された GitHub Copilot app のプロンプトボックス](../../_images/app-4-plan-mode.png)
+   ![左下の Interactive、Plan、Autopilot 選択メニューと右側の Canvas](../../_images/app-1.1.20-20260913-plan-mode.png)
 
 5. 次のプロンプトを送信します。Issue から開始したため、フィルター機能の Issue はすでにこのセッションのコンテキストに含まれています。
 
@@ -80,7 +80,9 @@ Issue を開いて新しいセッションを開始し、Plan モードに切り
 
 計画が完成したので、Copilot に実装を構築させます。
 
-1. **Plan summary** ダイアログのオプション一覧で、**Approve and implement with autopilot** に最も近いオプションを選択します。
+1. 計画を読んだうえで、**Review plan** の **A. Approve and implement this plan** を選択し、**Continue** を押します。Windows App 1.1.20 では、これにより **Mode: Autopilot** に切り替わって実装が始まりました。
+
+   ![Review plan の承認選択肢と Continue、右側の計画パネル](../../_images/app-1.1.20-20260913-plan-review.png)
 
 Copilot が実装作業を開始します。
 
@@ -93,27 +95,22 @@ Copilot が実装作業を開始します。
 
 AI が生成したすべてのコードは、マージ前にレビューする必要があります。コードをレビューし、サイトを実行して問題がないことを確認します。
 
-1. 右上の **Changes** を選択してコードの変更を開きます。
+1. セッションの入力欄の上にある **Changes**（Open changes）を選択し、右パネルに差分を開きます。
 
-   ![GitHub Copilot app のセッションパネルにあるタブで、Changes タブを矢印で示した画面](../../_images/app-select-changes.png)
+   ![左の会話欄の Changes と右の差分パネルを同時に表示した App 全体](../../_images/app-1.1.20-20260913-changes.png)
 
-2. 変更をレビューします。新しい TypeScript ファイル、Astro ファイル、テストファイルが表示されます。新しいヘルパー関数には、レッスン3でマージしたドキュメント標準に従い、依頼していなくても TSDoc doc comment とファイルヘッダーコメントが含まれていることを確認します。
-3. Copilot app の右側にあるレビューパネルで **Terminal** を選択します。**Terminal** ボタンがない場合は、**+** (**Open in panel** というラベルが付いています) を選択してから **Terminal** を選択します。
+2. 変更をレビューします。新しい TypeScript ファイル、Astro ファイル、テストファイルが表示されます。新しいヘルパー関数には、レッスン3でマージしたドキュメント標準に従い、更新した指示に沿った TSDoc doc comment が含まれているか確認します。ファイルヘッダーは役割や制約を伝える必要がある場合に確認し、すべてのファイルへの自動追加を成功条件にしません。今回の実走ではデータアクセス関数の TSDoc を確認しました。
+3. セッション上部の **Run options** で **Run development site** を選択します。
 
-   ![GitHub Copilot app のレビューパネルにある Terminal ボタン](../../_images/app-terminal-screenshot.png)
+   ![App 上部の Run メニューと会話・Files パネル全体](../../_images/app-1.1.20-20260913-run-menu.png)
 
-4. ターミナルウィンドウに次のコマンドを入力し、Web アプリの開発サーバーを起動します。
+> **確認済みの Run 経路（Windows App 1.1.20）：** 上部の Run development site で起動し、Browser パネルに通常の21件を表示しました。複数カテゴリ・出版社との組合せ・解除を別ブラウザーでも確認後、Stop Run development site で停止しました。単体35件・E2E25件・lint・型検査・build は成功。0件のE2E検証には専用データを使用しています。詳細は [実走記録](../material/verification.md)を参照してください。
 
-   ```shell
-   npm run dev
-   ```
-
-5. サーバーが起動したら、ブラウザーウィンドウを開きます。起動には少し時間がかかります。
-6. http://localhost:4321 に移動します。
-7. ランディングページでフィルターを使用できることを確認します。
-8. 問題がある場合は、Copilot に更新を依頼できます。
-9. 問題がなければ、ターミナルウィンドウに戻ります。
-10. <kbd>Ctrl</kbd>+<kbd>C</kbd> を選択して開発サーバーを停止します。
+4. ボタンが **Run Run development site** なら選択して起動します。**Stop Run development site** ならすでに起動中なので、もう一度押さず次へ進みます。
+5. **Browser** パネルに表示されたローカル URL を確認します。実走では `http://localhost:4321/` が自動表示されました。
+6. ランディングページで複数カテゴリ、出版社との組み合わせ、解除を確認します。
+7. 問題がある場合は Copilot に更新を依頼し、再確認します。
+8. **Stop Run development site** を選択して開発サーバーを停止します。
 
 ## quality-checks スキルで作業を検証する
 
@@ -139,13 +136,13 @@ description: Run the project's test suites and linter to verify code changes are
 
 スキルの内容を確認します。
 
-1. レビューパネルが表示されていない場合は、右上の **Toggle review panel** を選択して開きます。
+1. 右パネルが表示されていない場合は、右上の **Toggle panel** を選択して開きます。
 
-   ![Create PR の右側にある Toggle review panel ボタンを矢印で示した GitHub Copilot app の上部ツールバー](../../_images/app-2-review-panel.png)
+   ![右パネルの Add tab メニュー。Files、Browser、Terminal の入口](../../_images/app-1.1.20-20260913-add-tab.png)
 
-2. **+** を選択し、レビューパネルに新しい項目を追加します。
-3. **File** を選択します。
-4. `SKILL.md` を検索します。
+2. パネルのタブ列にある **+**（Add tab）を選択します。
+3. **Files** を選択します。
+4. <kbd>Ctrl</kbd>+<kbd>P</kbd> で **Go to file** を開き、`SKILL.md` を検索します。
 5. ファイル一覧から `SKILL.md .github/skills/quality-checks` を選択して開きます。
 6. `name` と `description` を確認します。説明は、コード変更を commit、push、merge する前にテスト、lint、検証する必要がある場合に、このスキルを使用することをエージェントに伝えます。
 7. スキル全体を読みます。単体テスト、Playwright のエンドツーエンドテスト、ESLint の各スイートを実行するスクリプト、実行順序、一般的な失敗のデバッグ方法が記載されています。そのため、エージェントは推測するのではなく、チームの方法でチェックを実行できます。

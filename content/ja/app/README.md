@@ -3,14 +3,14 @@ slug: ja-jp/app
 title: "GitHub Copilot app"
 authors:
   - geektrainer
-lastUpdated: 2026-06-30
+lastUpdated: 2026-09-13
 ---
 
 ## この教材セットの進め方
 
 **App の操作と開発体験を学ぶ本編**として、演習0〜8を順に進めます。完成したコードだけでなく、App のセッション、レビュー、MCP、Agent Merge、Canvas、Automation の操作を確認します。
 
-画像は固定した参照コミットに含まれる画面例です。撮影時の App バージョンは確認できておらず、現行 UI と一致するとは限りません。
+App 本編の画像は、2026年9月13日の Windows App 1.1.20 と GitHub Web の実機画面へ更新しました。操作位置の例が本文の演習と異なる場合は画像注記で区別しています。今回追加した13点は画面全体を保ち、アカウントなどの識別情報をマスクしています。
 
 - [UI が異なるときの確認](../material/ui-check.md)
 - [講師ガイド](../material/instructor.md)

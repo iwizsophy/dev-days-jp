@@ -6,7 +6,7 @@
 <a href="../../index.html">教材セットの入口</a><a href="../index.html">App シナリオの目次</a>
 <a href="../../handson-guide.html#switch">事前準備・UI の確認</a></nav>
 <button class="theme-toggle" type="button" onclick="toggleTheme()">☀️ ライト</button></header>
-<main id="lesson"><h1>レッスン 0 - 前提条件</h1><p class="source">非公式の日本語版 · <a href="https://github.com/github-samples/copilot-workshops/blob/7ddcf241c1cd10b8e90c0df96f6bef81e710392a/docs/ja-jp/app/0-prerequisites.md">参照原文</a> · <a href="../licenses/copilot-workshops.txt">MIT ライセンス</a><br>参照コミット：<code>7ddcf241c1cd</code> ／ 確認日：2026-09-08</p><aside>UI の名前・位置は参照原文のものです。利用条件は <a href="../../handson-guide.html#plans">事前確認</a>を参照してください。</aside><aside>本編は App の操作を学ぶシナリオです。メニューや右クリック等の現行操作経路は未照合です。<a href="../material/verification.html">章別の検証状況</a></aside><nav class="chapter-nav" aria-label="章の移動"><a href="index.html">← 前の章：GitHub Copilot app</a><a href="1-install-copilot-app.html">次の章 →：レッスン 1 - GitHub Copilot app のインストール</a></nav><details><summary>この章の目次</summary><div class="toc">
+<main id="lesson"><h1>レッスン 0 - 前提条件</h1><p class="source">非公式の日本語版 · <a href="https://github.com/github-samples/copilot-workshops/blob/7ddcf241c1cd10b8e90c0df96f6bef81e710392a/docs/ja-jp/app/0-prerequisites.md">参照原文</a> · <a href="../licenses/copilot-workshops.txt">MIT ライセンス</a><br>参照コミット：<code>7ddcf241c1cd</code> ／ 確認日：2026-09-08</p><aside>UI の確認日・バージョン・未確認範囲は本文の注記を参照してください。利用条件は <a href="../../handson-guide.html#plans">事前確認</a>を参照してください。</aside><aside>本編は App の操作を学ぶシナリオです。一部の UI を実機確認しましたが、全章の完走は未検証です。<a href="../material/verification.html">章別の検証状況</a></aside><nav class="chapter-nav" aria-label="章の移動"><a href="index.html">← 前の章：GitHub Copilot app</a><a href="1-install-copilot-app.html">次の章 →：レッスン 1 - GitHub Copilot app のインストール</a></nav><details><summary>この章の目次</summary><div class="toc">
 <ul>
 <li><a href="#nodejs-をインストールする">Node.js をインストールする</a></li>
 <li><a href="#ラボ用リポジトリを設定する">ラボ用リポジトリを設定する</a></li>
@@ -15,7 +15,7 @@
 </ul>
 </div>
 </details><article><blockquote>
-<p><strong>この章の進め方：</strong> App で操作します。画像は参照元の画面例で、現行 UI との一致は未確認です。ボタンや機能が見つからない場合は <a href="../material/ui-check.html">UI が異なるときの確認</a>に沿って講師と確認してください。</p>
+<p><strong>この章の進め方：</strong> GitHub Web で演習コピーを準備し、次章で App に接続します。2026年9月13日にテンプレートメニューと作成フォームを確認しました。現在の取得先は修正済みの非公開テンプレートです。テンプレート複製 API とコピー先の8件の Issue 作成は確認済みで、Web フォームの送信完了は未検証です。<a href="../material/ui-check.html">UI 確認表</a>も参照してください。</p>
 </blockquote>
 <p>GitHub Copilot app は、Copilot と GitHub の両方を一元的に扱うデスクトップアプリです。Issue や pull request にすばやくアクセスでき、もちろん GitHub Copilot を使った開発も可能です。このワークショップでは、Astro で構築された Tailspin Toys アプリと GitHub Copilot app を使い、ローカル環境で作業します。始める前に、Node.js がローカルにインストールされていることを確認してから、Copilot app をインストールします。</p>
 <p>このレッスンでは、次の内容を学習します。</p>
@@ -24,16 +24,16 @@
 <li>テンプレートから Tailspin Toys プロジェクトの自分用コピーを作成する。</li>
 </ul>
 <h2 id="nodejs-をインストールする">Node.js をインストールする</h2>
-<p>いくつかのレッスンでは、エージェントに機能を構築させ、Tailspin Toys のテストスイートをローカルで実行します。そのためには <a href="https://nodejs.org/"><strong>Node.js</strong></a> (プロジェクトに必要な唯一のランタイム) が必要です。バージョン <strong>22.13 以降</strong>をインストールしてください。現在の <strong>LTS</strong> リリースを選ぶと安心です。</p>
+<p>いくつかのレッスンでは、エージェントに機能を構築させ、Tailspin Toys のテストスイートをローカルで実行します。そのためには <a href="https://nodejs.org/"><strong>Node.js</strong></a> が必要です。コピーしたリポジトリの <code>package.json</code> に加え、固定された依存関係の要求も満たすバージョンを使用してください。2026年9月13日の検証では <strong>Node.js 24.19.0</strong> を使用しました。</p>
 <p>どのプラットフォームでも、公式インストーラーを使うのが最も簡単です。</p>
 <ol>
 <li>Windows Terminal、macOS のターミナル、または普段使用しているターミナルを開きます。</li>
 <li>
-<p>次のコマンドを実行し、Node.js <strong>22.13 以降</strong>がインストールされていることを確認します。Tailspin Toys の必要バージョンは、コピーしたリポジトリの <code>package.json</code> の <code>engines.node</code> でも確認できます。</p>
+<p>次のコマンドを実行し、Node.js のバージョンを確認します。配布テンプレートの <code>.nvmrc</code> は <code>24.19.0</code>、<code>engines.node</code> は <code>&gt;=24.19.0 &lt;25</code> です。上流本体の最低条件だけでは一部依存の要求を満たさなかったため、教材側で検証したバージョンを指定しています。</p>
 <pre class="highlight"><code class="language-shell">node --version</code></pre>
 </li>
 <li>
-<p><code>v22.13.0</code> 以上のバージョン番号が表示された場合は、次のセクションに進めます。</p>
+<p>演習コピーの依存関係の要求を満たすことを確認できた場合は、次のセクションに進めます。講師は App の実行環境でも同じバージョンが選択されることを確認してください。</p>
 </li>
 </ol>
 <blockquote>
@@ -50,7 +50,7 @@ Node.js がインストールされていない場合、または更新が必要
 <pre class="highlight"><code class="language-bash">node --version</code></pre>
 </li>
 <li>
-<p><code>v22.13.0</code> 以上が表示されることを確認します。</p>
+<p>インストールしたバージョンが表示され、手順2の条件を満たすことを確認します。App がすでに起動していた場合は再起動し、古い環境変数を使い続けないようにします。</p>
 </li>
 </ol>
 <blockquote>
@@ -58,24 +58,31 @@ Node.js がインストールされていない場合、または更新が必要
 コンテナーを使用する場合、<a href="https://www.docker.com/products/docker-desktop/"><strong>Docker</strong></a> があれば、Node.js をローカルにインストールする代わりにリポジトリの <a href="https://code.visualstudio.com/docs/devcontainers/containers">dev container</a> を使用できます。dev container には Node.js が含まれているため、両方を用意する必要はありません。</p>
 </blockquote>
 <h2 id="ラボ用リポジトリを設定する">ラボ用リポジトリを設定する</h2>
-<p>Tailspin Toys プロジェクトの自分用コピーを使って作業します。<a href="https://docs.github.com/repositories/creating-and-managing-repositories/creating-a-template-repository">テンプレートリポジトリ</a>からコピーを作成してください。新しいリポジトリにはラボに必要なすべてのファイルが含まれています。次のレッスンで、このリポジトリをアプリに接続します。</p>
+<p>Tailspin Toys プロジェクトの自分用コピーを使って作業します。<a href="https://github.com/iwizsophy/dev-days-tailspin-template">教材用の修正済み Tailspin Toys テンプレート</a>から、<a href="https://docs.github.com/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template">テンプレートからのコピー作成手順</a>に沿って準備します。次のレッスンで、このリポジトリをアプリに接続します。</p>
+<p>取得先は <strong>iwizsophy/dev-days-tailspin-template</strong>、教材対応版は <strong>v2026.09.13.1</strong> です。非公開のため、参加者は事前に講師からアクセス権を受け取ってください。上流の固定コミット <code>bae003609c8cff0c51d92658b8d3bd89450464f1</code> をコピーし、PR Readiness の YAML・MCP の設定修正、Node バージョン指定、依存更新、エージェント環境向けの起動修正を適用済みです。参加者による事前パッチの適用は不要です。星評価・フィルターなどの解答は含めていません。</p>
+<p><strong>Use this template</strong> は配布元の現在の main をコピーします。講師は開催前に <code>workshop-source.json</code> の配布版と <a href="https://github.com/iwizsophy/dev-days-jp/blob/feature/issue-2-app-ui-verification/content/ja/sources.json">sources.json</a> に記録したコミットの対応を確認してください。タグを指定してコピーするボタンではありません。教材リポジトリ <code>dev-days-jp</code> と、コードを変更する Tailspin Toys のコピーは別です。</p>
+<blockquote>
+<p><strong>講師向けの配布判定：</strong> この版は機能検査を通過し、依存監査は Critical・High ともに0件です。drizzle-kit 配下に Moderate 4件が残るため、参加者への本番配布前に配布元の <code>WORKSHOP.md</code> の残件と確認範囲を確認してください。</p>
+</blockquote>
+<p>以下の2枚は取得先変更前の GitHub Web の操作位置の例です。画像中の上流名ではなく、本文の <strong>iwizsophy/dev-days-tailspin-template</strong> を選んでください。</p>
 <ol>
-<li>新しいブラウザーウィンドウで、このラボの GitHub リポジトリ <code>https://github.com/github-samples/tailspin-toys</code> を開きます。</li>
+<li>新しいブラウザーウィンドウで、このラボの GitHub リポジトリ <code>https://github.com/iwizsophy/dev-days-tailspin-template</code> を開きます。</li>
 <li>
 <p>ラボ用リポジトリのページで <strong>Use this template</strong> ボタンを選択し、<strong>Create a new repository</strong> を選択して、リポジトリの自分用コピーを作成します。</p>
-<p><img alt="Use this template ボタンのドロップダウンで Create a new repository が選択されている画面" src="../assets/app-0-use-template.png" /><br><em class="source">参照元の画面例（撮影時バージョン不明・現行 UI 未照合）。位置やメニューの開き方は講師と確認してください。</em></p>
+<p><img alt="GitHub Web 全体と Use this template の Create a new repository メニュー" src="../assets/app-1.1.20-20260913-template-menu.png" /><br><em class="source">実機撮影：2026-09-13、GitHub Web。撮影範囲全体を掲載（切り抜きなし）。灰色の箇所はアカウント・検証用リポジトリ・ローカルパス等の識別情報や個人の利用量をマスク。GitHub Web の github-samples/tailspin-toys。Use this template → Create a new repository。撮影時の main は実走の固定コミットと異なる。取得先変更前の操作位置の例。現在の取得先は iwizsophy/dev-days-tailspin-template。画像中の上流名を選ばない。</em></p>
 </li>
 <li>
-<p>GitHub または Microsoft が主催するイベントの一環としてワークショップに参加している場合は、メンターの指示に従ってください。それ以外の場合は、GitHub Copilot を利用できる Organization に新しいリポジトリを作成できます。</p>
-<p><img alt="github-samples/tailspin-toys がテンプレートに設定され、リポジトリ名が入力された Create a new repository フォーム" src="../assets/app-0-create-repository.png" /><br><em class="source">参照元の画面例（撮影時バージョン不明・現行 UI 未照合）。位置やメニューの開き方は講師と確認してください。</em></p>
+<p><strong>Start with a template</strong> が <code>iwizsophy/dev-days-tailspin-template</code> であることを確認します。<strong>Include all branches</strong> は既定の Off のままにし、<strong>Owner</strong> に自分または許可された組織、<strong>Repository name</strong> に演習用の名前を指定します。<strong>Choose visibility</strong> はメンターの指定に従います。2026年9月13日のフォームでは初期値は Public でした。非公開の演習にする場合は Private を選択してください。</p>
+<p><img alt="テンプレート作成フォーム上部。Owner、未入力の Repository name、Choose visibility" src="../assets/app-1.1.20-20260913-template-form.png" /><br><em class="source">実機撮影：2026-09-13、GitHub Web。撮影範囲全体を掲載（切り抜きなし）。灰色の箇所はアカウント・検証用リポジトリ・ローカルパス等の識別情報や個人の利用量をマスク。GitHub Web のテンプレート作成フォーム上部。Owner・Repository name・Choose visibility の位置。名前未入力・送信前。取得先変更前の操作位置の例。現在の取得先は iwizsophy/dev-days-tailspin-template。画像中の上流名を選ばない。</em></p>
 </li>
 <li>
-<p>作成したリポジトリのパス (<strong>organization-or-user-name/repository-name</strong>) を記録します。このラボで後ほど使用します。</p>
+<p>任意項目の <strong>Jumpstart your project with Copilot</strong> の Prompt は、この教材では空欄のままにします。内容を確認して <strong>Create repository</strong> を選択します。</p>
 </li>
+<li>作成したリポジトリのパス (<strong>organization-or-user-name/repository-name</strong>) を記録します。このラボで後ほど使用します。</li>
 </ol>
 <blockquote>
 <p><strong>補足</strong>
-テンプレートからリポジトリを作成すると、GitHub Issue のバックログが自動的に作成されます。ワークショップ全体を通してこれらの Issue を使用するため、自分で作成する必要はありません。</p>
+コピー側の <strong>Bootstrap template issues</strong> ワークフローが成功すると、GitHub Issue のバックログが作成されます。すぐに見えない場合は、自分のコピーの <strong>Actions</strong> で実行結果を確認し、自動実行されなければ <strong>Bootstrap template issues → Run workflow</strong> を実行します。配布元テンプレート自身ではこの処理をスキップします。参照元へ Issue を作成しないでください。</p>
 </blockquote>
 <p><a id="cli-fallback"></a></p>
 <blockquote>
@@ -87,6 +94,6 @@ Node.js がインストールされていない場合、または更新が必要
 <h2 id="リソース">リソース</h2>
 <ul>
 <li><a href="https://nodejs.org/en/download">Node.js のダウンロード</a></li>
-<li><a href="https://docs.github.com/repositories/creating-and-managing-repositories/creating-a-template-repository">テンプレートからのリポジトリの作成</a></li>
+<li><a href="https://docs.github.com/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template">テンプレートからのリポジトリの作成</a></li>
 <li><a href="https://docs.github.com/copilot/concepts/agents/github-copilot-app">GitHub Copilot app について</a></li>
 </ul></article><nav class="chapter-nav" aria-label="章の移動"><a href="index.html">← 前の章：GitHub Copilot app</a><a href="1-install-copilot-app.html">次の章 →：レッスン 1 - GitHub Copilot app のインストール</a></nav></main></body></html>

@@ -6,7 +6,7 @@
 <a href="../../index.html">教材セットの入口</a><a href="../index.html">App シナリオの目次</a>
 <a href="../../handson-guide.html#switch">事前準備・UI の確認</a></nav>
 <button class="theme-toggle" type="button" onclick="toggleTheme()">☀️ ライト</button></header>
-<main id="lesson"><h1>レッスン 1 - GitHub Copilot app のインストール</h1><p class="source">非公式の日本語版 · <a href="https://github.com/github-samples/copilot-workshops/blob/7ddcf241c1cd10b8e90c0df96f6bef81e710392a/docs/ja-jp/app/1-install-copilot-app.md">参照原文</a> · <a href="../licenses/copilot-workshops.txt">MIT ライセンス</a><br>参照コミット：<code>7ddcf241c1cd</code> ／ 確認日：2026-09-08</p><aside>UI の名前・位置は参照原文のものです。利用条件は <a href="../../handson-guide.html#plans">事前確認</a>を参照してください。</aside><aside>本編は App の操作を学ぶシナリオです。メニューや右クリック等の現行操作経路は未照合です。<a href="../material/verification.html">章別の検証状況</a></aside><nav class="chapter-nav" aria-label="章の移動"><a href="0-prerequisites.html">← 前の章：レッスン 0 - 前提条件</a><a href="2-add-star-rating.html">次の章 →：レッスン 2 - 最初のエージェントセッションの実行</a></nav><details><summary>この章の目次</summary><div class="toc">
+<main id="lesson"><h1>レッスン 1 - GitHub Copilot app のインストール</h1><p class="source">非公式の日本語版 · <a href="https://github.com/github-samples/copilot-workshops/blob/7ddcf241c1cd10b8e90c0df96f6bef81e710392a/docs/ja-jp/app/1-install-copilot-app.md">参照原文</a> · <a href="../licenses/copilot-workshops.txt">MIT ライセンス</a><br>参照コミット：<code>7ddcf241c1cd</code> ／ 確認日：2026-09-08</p><aside>UI の確認日・バージョン・未確認範囲は本文の注記を参照してください。利用条件は <a href="../../handson-guide.html#plans">事前確認</a>を参照してください。</aside><aside>本編は App の操作を学ぶシナリオです。一部の UI を実機確認しましたが、全章の完走は未検証です。<a href="../material/verification.html">章別の検証状況</a></aside><nav class="chapter-nav" aria-label="章の移動"><a href="0-prerequisites.html">← 前の章：レッスン 0 - 前提条件</a><a href="2-add-star-rating.html">次の章 →：レッスン 2 - 最初のエージェントセッションの実行</a></nav><details><summary>この章の目次</summary><div class="toc">
 <ul>
 <li><a href="#シナリオ">シナリオ</a></li>
 <li><a href="#github-copilot-app-をインストールして構成する">GitHub Copilot app をインストールして構成する</a></li>
@@ -20,7 +20,7 @@
 </ul>
 </div>
 </details><article><blockquote>
-<p><strong>この章の進め方：</strong> App で操作します。画像は参照元の画面例で、現行 UI との一致は未確認です。ボタンや機能が見つからない場合は <a href="../material/ui-check.html">UI が異なるときの確認</a>に沿って講師と確認してください。</p>
+<p><strong>この章の確認範囲：</strong> 2026年9月13日に Windows の App 1.1.20 で、インストール、サインイン後の初期設定、プロジェクト追加メニュー、Chats の応答、Open folder で追加した演習用コピーの読み取り応答を確認しました。GitHub 連携プロジェクトの追加後、My work で8件のバックログ Issue の表示も確認しました。<a href="../material/verification.html">実走記録</a>と <a href="../material/ui-check.html">UI 確認表</a>を参照してください。</p>
 </blockquote>
 <p><a href="https://docs.github.com/copilot/concepts/agents/github-copilot-app"><strong>GitHub Copilot app</strong></a> は、エージェント主導の開発に使用するデスクトップアプリケーションです。GitHub Copilot CLI を基盤とし、GitHub とネイティブに統合されているため、リポジトリ、ブランチ、CI パイプラインをすぐに利用できます。すべての作業を自分で行うのではなく、複数のエージェントをそれぞれ分離されたワークスペースで並列に指示し、繰り返し発生するタスクを自動化するワークフロー向けに設計されています。Node.js のインストールとプロジェクトのコピーが完了したので、次はアプリをインストールして、そのリポジトリを接続します。</p>
 <p>このレッスンでは、次の内容を学習します。</p>
@@ -42,22 +42,25 @@
 <li>ブラウザーで <a href="https://gh.io/app">GitHub Copilot app のランディングページ</a>を開きます。</li>
 <li>使用しているプラットフォーム向けのアプリをダウンロードし、ランディングページの手順に従ってインストールします。</li>
 <li>インストールが完了したら、アプリを開きます。</li>
-<li><strong>Sign in to GitHub</strong> を選択し、画面の指示に従って認証します。GitHub Enterprise Server を使用している場合は <strong>Use GitHub Enterprise</strong> を選択し、求められたらサーバーアドレスを入力します。</li>
-<li>認証後、リポジトリを接続するよう求められます。先ほど作成した <code>&lt;YOUR_GITHUB_HANDLE&gt;/tailspin-toys</code> という名前の Tailspin Toys リポジトリを選択します。</li>
+<li><strong>Sign in to GitHub</strong> を選択し、画面の指示に従って認証します。Windows の App 1.1.20 では、別の入口として <strong>Sign in to GitHub Enterprise Cloud (*.ghe.com)</strong> が表示されました。これは GitHub Enterprise Server の接続確認を意味しません。</li>
+<li>認証後、<strong>Connect your repositories</strong> が表示されます。演習用コピーが候補になければ <strong>Add from GitHub</strong> で探します。この実走では何も選択せず、後から追加する流れで確認しました。</li>
 <li><strong>Continue</strong> を選択してオンボーディングを続けます。</li>
 <li>テーマの選択を求められたら、最も好みのものを選び、<strong>Finish</strong> を選択します。</li>
 </ol>
 <blockquote>
 <p><strong>補足</strong>
-Tailspin Toys のコピーが一覧に自動的に表示されなかった場合は、アプリのオンボーディングを完了した後に追加できます。完了すると、Copilot app のホーム画面が表示されます。そこで <strong>Choose from GitHub</strong> を選択し、リポジトリ名 (\&lt;YOUR_GITHUB_HANDLE&gt;/tailspin-toys) で検索して選択します。これでリポジトリが Copilot app に追加されます。</p>
+初期設定後の追加入口は、サイドバーの <strong>Projects</strong> の <strong>+</strong>（New project or session）→ <strong>Add GitHub repository</strong> です。同じメニューに <strong>Clone repository</strong> と <strong>Open folder</strong> も表示されます。ローカルに取得済みの自分用コピーを使う場合は、<strong>Open folder</strong> → コピーのフォルダーを選択します。この経路では既存の checkout を直接使うセッションを確認しました。設定確認が出たら <strong>Review configuration</strong> で内容を読み、自分の判断で <strong>Accept and apply</strong> を選択してください。</p>
+<p><strong>補足</strong>
+Windows App 1.1.20 の実走では、<strong>Accept and apply</strong> を押しても確認画面が残る事象がありました。ウィンドウを閉じるだけでは App 本体が終了しない場合があります。未保存の作業を確認したうえで App を完全に終了して起動し直し、プロジェクト横の <strong>+</strong> から新しいセッションを開始すると復帰しました。強制終了は未保存の状態を失う可能性があるため、講師と確認してください。この復旧例は原因の特定や恒久対策を意味しません。</p>
 </blockquote>
 <h2 id="ワークスペースを確認する">ワークスペースを確認する</h2>
 <p>プロジェクトを接続したら、各領域を確認します。アプリのサイドバーは、主に次の領域で構成されています。</p>
 <ul>
-<li><strong>Sessions</strong> - エージェントが作業する場所です。各セッションは分離された独自のワークスペースで実行されるため、変更が競合することなく複数のセッションを同時に実行できます。次のレッスンで最初のセッションを開始します。</li>
-<li><strong>Quick chats</strong> - 独自のブランチやワークスペースを必要としない、質問やブレインストーミング向けの簡易的な会話です。このレッスンの最後に試します。</li>
+<li><strong>Projects</strong> - プロジェクトとセッションを扱う領域です。参照原文の <strong>Sessions</strong> と表示名が異なります。実装用セッションと worktree の実走は次のレッスン以降で確認します。</li>
+<li><strong>Chats</strong> - リポジトリを接続せずに質問できる会話です。参照原文の <strong>Quick chats</strong> に対応する入口として確認しました。このレッスンの最後に試します。</li>
 <li><strong>My work</strong> - アプリの <strong>GitHub ネイティブ統合</strong>を通じて表示される Issue と pull request です。アプリを離れずに、Issue と pull request の参照や絞り込み、CI ステータスの確認、Issue からのセッション開始、pull request のレビューを行えます。</li>
 <li><strong>Automations</strong> - スケジュールまたはオンデマンドで実行する、保存済みのエージェントタスクです。ハーネスの終盤で作成します。</li>
+<li><strong>Customize</strong> - MCP、Plugins、Skills、Extensions、Canvas と Installed の各タブを開く入口です。</li>
 </ul>
 <h3 id="用意されたバックログを確認する">用意されたバックログを確認する</h3>
 <p>アプリは GitHub とネイティブに統合されているため、リポジトリで待機中の作業がアプリ内に表示されます。テンプレートからリポジトリを作成したときに、バックログとなる Issue が用意されています。表示されていることを確認します。</p>
@@ -75,18 +78,21 @@ Tailspin Toys のコピーが一覧に自動的に表示されなかった場合
 </ol>
 <blockquote>
 <p><strong>補足</strong>
-My work の項目一覧は自動的に絞り込まれ、Copilot app に追加したリポジトリの項目だけが表示されます。ほかのリポジトリの作業項目を表示するには、そのリポジトリをアプリに追加してください。</p>
+<strong>Open folder</strong> だけで追加した状態では、実走時の <strong>My work</strong> は <strong>No GitHub repositories yet</strong> と表示されました。その場合は <strong>Add GitHub repository</strong> → 自分の <code>owner/repo</code> を検索 → 対象を選択します。GitHub 連携プロジェクトが追加され、演習コピーの8件の Issue が表示されることを確認しました。ローカルプロジェクトとは別項目になるため、以後は操作対象を確認してください。一覧上部の <strong>All repositories</strong> で対象を確認できます。</p>
 </blockquote>
 <h2 id="クイックチャットを試す">クイックチャットを試す</h2>
 <p>アプリに慣れるには、アプリ自体について質問するのが効果的です。その用途には <strong>quick chat</strong> が適しています。Quick chats ではブランチや worktree を作成せずに質問やブレインストーミングができるため、セッションを必要としない、その場限りの簡単な質問に最適です。</p>
 <ol>
-<li>サイドバーで <strong>Quick chats</strong> の横にある <strong>+</strong> を選択し、新しいチャットを開きます。</li>
+<li>サイドバーで <strong>Chats</strong> の横にある <strong>+</strong>（New chat）を選択します。入力欄の下が <strong>Chat</strong> であることを確認します。</li>
 <li>アプリのセッションがどのように動作するかを尋ねます。</li>
 </ol>
-<pre class="highlight"><code class="language-plaintext">GitHub Copilot app は worktree をどのように使いますか？</code></pre>
+<pre class="highlight"><code class="language-plaintext">GitHub Copilot app は worktree をどのように使いますか？
+日本語で簡潔に説明してください。説明だけを行い、ファイル変更、
+リポジトリ操作、コマンド実行はしないでください。</code></pre>
 <ol start="3">
-<li>会話ビューで回答を読みます。各セッションが分離された独自の git worktree で実行されるため、変更が競合することなく複数のエージェントを並列実行できることがわかります。会話はいつでも継続でき、新しいチャットも開始できます。</li>
+<li>送信ボタンを選択し、会話ビューで回答を読みます。2026年9月13日の実走では日本語の応答が返り、チャットが Idle になりました。回答は worktree の実動作の証拠ではありません。実装セッションでの分離は別途確認します。</li>
 </ol>
+<p>完了したチャットを <strong>Chats の一覧で右クリック</strong>すると、<strong>Rename</strong>、<strong>Pin</strong>、<strong>Mark as unread</strong>、<strong>Show in Explorer</strong>、<strong>Share as secret gist</strong>、<strong>Copy</strong>、<strong>Archive</strong>、<strong>Delete</strong> が表示されました。この確認ではメニューを開いただけで、共有・削除・アーカイブは実行していません。これらの項目が過去の常設メニューから移動したか、実装用セッションにも同じ項目があるかは未確認です。</p>
 <p><a id="cli-fallback"></a></p>
 <blockquote>
 <p><strong>講師向け：</strong> 緊急の作業保全が必要な場合だけ <a href="../material/emergency-cli.html#chapter-1">対応手順</a> を参照してください。CLI の実装成功は、この章の App 操作の完了には数えません。</p>
