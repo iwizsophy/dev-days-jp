@@ -16,25 +16,29 @@ Windows（ビルド 26200.9445、25H2）、GitHub Copilot App 1.1.20。初期設
 
 | 対象・開始状態 | 開き方 → 項目名 | 確認した結果 | 残る確認 |
 | --- | --- | --- | --- |
-| 初期設定・候補未選択 | Connect your repositories → Continue → テーマ画面 | リポジトリを選ばずホームへ進める。利用者操作を挟んで完了を確認 | 演習コピーの接続 |
+| 初期設定・候補未選択 | Connect your repositories → Continue → テーマ画面 | リポジトリを選ばずホームへ進める。利用者操作を挟んで完了を確認 | 演習コピーの接続は後続で確認済み |
 | サイドバー・プロジェクト未接続 | Projects の + → Add GitHub repository / Clone repository / Open folder | 3種類の追加入口を表示 | clone 完了・対象 repo の照合 |
 | ローカルコピー | Projects の + → Open folder → 対象フォルダー | 既存 checkout を直接使用。設定レビュー後に確認画面が停止したが、完全再起動後に読み取り応答が成功 | worktree 分離・セットアップ実行 |
-| My work・ローカルフォルダーのみ登録 | Add GitHub repository → owner/repo を検索 → 自分の演習コピー | No GitHub repositories yet から8件の Issue 一覧へ変化。ローカルフォルダーとは別のプロジェクトが追加された | Issue からの実装・PR |
+| My work・ローカルフォルダーのみ登録 | Add GitHub repository → owner/repo を検索 → 自分の演習コピー | No GitHub repositories yet から8件の Issue 一覧へ変化。ローカルフォルダーとは別のプロジェクトが追加された | Issue からの実装・PR は演習3・4で確認済み |
 | ローカルプロジェクト・新規セッション | プロジェクト横の + → New → 入力欄下部のプロジェクト名 → 送信 | 星評価の実装セッションが開始し、既存 checkout 上に指定した作業ブランチを作成 | GitHub 連携経路との相違 |
 | ローカル実装セッション・パネル未表示 | Toggle panel → Workspace | Browser、Terminal、Files、Canvas を表示。Changes や Create PR はこの状態では表示されなかった | GitHub 連携セッションの差分・PR 操作 |
 | ローカル実装セッション・PR 作成依頼 | エージェントのプロジェクト連携 PR ツール → gh CLI に切替 | App 固有ツールはアカウント連携エラー。承認後、エージェントが gh 経由で検証用 PR #9 を作成し CI 全4ジョブ成功 | App 固有の Create PR・マージ（Ready to merge は My work 側で表示確認） |
-| GitHub 連携・作成済み PR | My work → PR #9 → Changes / Ready to merge | 5ファイルの差分と Checks: Passed を表示。Merge pull request ダイアログに All checks have passed・No unresolved comments・Merge pull request・Choose merge method（Merge commit）を表示 | 通常マージは利用者承認後に成功。Agent merge は未実施 |
+| GitHub 連携・作成済み PR | My work → PR #9 → Changes / Ready to merge | 5ファイルの差分と Checks: Passed を表示。Merge pull request ダイアログに All checks have passed・No unresolved comments・Merge pull request・Choose merge method（Merge commit）を表示 | 通常マージ成功。Agent merge は後続 PR #12～14 で確認済み |
 | GitHub 連携・既存 Issue | My work → Update our repository coding standards → New session options | New session・New session in repository...・Chat を表示 | New session で専用 worktree 作成・マージ済み HEAD の継承を確認。設定承認後に送信・指示更新・検査・PR #10 作成を確認（詳細は実走記録） |
 | My work・PR 一覧行 | PR #9 の行を右クリック | New session・Chat・Copy link を表示 | 旧 UI から移動したかは未特定 |
 | ローカルプロジェクト | Projects のフォルダー項目を右クリック → Settings | New session・Show in Explorer・Settings・Hide・Customize…・Manage sessions・Remove folder を表示。Settings には GitHub Account の登録名が表示された | アカウント連携エラーの原因・復旧 |
-| GitHub 連携・Issue から作った実装セッション | Open changes → Changes (7) → 上部 Create PR | 7ファイルの差分を表示。App がコミット・push・PR #10 作成を実行し Ready to merge に変化 | PR #10 のマージ・後続章への継承 |
-| GitHub 連携・PR 作成後 | Ready to merge options | Agent merge の切り替えを表示 | 有効化・許可範囲・実行 |
-| GitHub 連携・Issue #7 の新規セッション | Mode: Interactive → Plan → Review plan → Approve and implement this plan → Continue | 計画への質問に回答でき、承認後 Mode: Autopilot に切替。実装と検査を実行 | 新規実装の MCP 検証 |
-| GitHub 連携・リポジトリに .mcp.json が存在 | プロジェクトを右クリック → Settings → MCP servers | 本人の信頼承認後、servers → mcpServers 修正で3件が Connected。/restart-session 後、同じセッションから MCP ブラウザー操作成功 | 0件状態の MCP 検証 |
-| 会話・プロジェクト未接続 | Chats の +（New chat）→ Chat → 質問を送信 | worktree の説明が日本語で返り、Idle になった | 実装用セッションの worktree 動作 |
+| GitHub 連携・Issue から作った実装セッション | Open changes → Changes (7) → 上部 Create PR | 7ファイルの差分を表示。App がコミット・push・PR #10 作成を実行し Ready to merge に変化 | 通常マージとフィルター用 worktree への継承を確認済み |
+| GitHub 連携・PR 作成後 | Ready to merge options | Agent merge の切り替えを表示 | 後続 PR #12～14 で有効化・許可範囲・実行を確認済み |
+| GitHub 連携・Issue #7 の新規セッション | Mode: Interactive → Plan → Review plan → Approve and implement this plan → Continue | 計画への質問に回答でき、承認後 Mode: Autopilot に切替。実装と検査を実行 | MCP による通常データの絞り込み検証を確認済み |
+| GitHub 連携・リポジトリに .mcp.json が存在 | プロジェクトを右クリック → Settings → MCP servers | 本人の信頼承認後、servers → mcpServers 修正で3件が Connected。/restart-session 後、同じセッションから MCP ブラウザー操作成功 | 追加実走で一時隔離 DB のフィルター0件も確認済み |
+| 会話・プロジェクト未接続 | Chats の +（New chat）→ Chat → 質問を送信 | worktree の説明が日本語で返り、Idle になった | GitHub 連携の実装用セッションでは後続章で worktree 分離を確認済み |
 | 完了したチャット | Chats の一覧項目を右クリック | Rename、Pin、Mark as unread、Show in Explorer、Share as secret gist、Copy、Archive、Delete を表示 | 各操作の実行、実装用セッションとの違い、旧 UI からの移動 |
 | MCP 未登録 | Customize → Installed → MCP Servers | 未登録の表示を確認 | 登録保存後の表示 |
 | MCP カタログ | Customize → MCP → Playwright | Local / npx / -y @playwright/mcp@latest の登録フォームを表示 | Add server の保存、接続・ツール実行 |
+| GitHub Web・テンプレート | Use this template → Create a new repository | 作成フォームのテンプレート・Owner・Repository name・Choose visibility・Create repository を確認 | フォーム送信は未実施。既存の実走コピーは固定コミットから別途作成 |
+| GitHub 連携・ファイル閲覧 | Toggle panel → Add tab → Files → Ctrl+P（Go to file） | copilot-instructions.md を検索して表示。View options → Show hidden files で .github がファイルツリーに表示 | 操作経路は確認済み |
+| GitHub 連携・保存済みキャンバス | New → New worktree/main → Canvas を開く → Add to current session → Plan | PR #14 の修正を継承し、1通知・1応答の後、計画承認から検索実装へ移行。テスト・MCP・PR #15 の Agent Merge 成功 | ボードでのマージ後の件数更新は未確認 |
+| GitHub 連携・Run 未実行 | Run options → Run development site → Run ボタン | 項目選択だけでは開始せず、Run ボタンで起動。Stop Run development site で停止 | 自動セットアップの終了ログは未取得 |
 
 右クリックはチャット管理・PR 一覧行・ローカルプロジェクトで確認しました。PR 行には New session・Chat・Copy link があり、Create PR や Agent Merge はありませんでした。過去の常設メニューから移動したかは未特定です。削除・共有・アーカイブは実行していません。
 
@@ -44,11 +48,11 @@ Windows（ビルド 26200.9445、25H2）、GitHub Copilot App 1.1.20。初期設
 | --- | --- | --- | --- |
 | 1 | リポジトリ・Issue | 接続、バックログ確認 | Projects の + で追加入口を確認。My work に演習コピーの8件のバックログ Issue を表示 |
 | 2 | リポジトリ・セッション | 開始、差分レビュー、実行、PR | New session、Changes、Terminal、Create PR、Ready to merge |
-| 3 | Issue・指示ファイル | Issue から開始、ファイル確認、PR | My work → New session、Toggle review panel |
+| 3 | Issue・指示ファイル | Issue から開始、ファイル確認、PR | My work → New session、Toggle panel → Add tab → Files → Ctrl+P |
 | 4 | Issue・セッション | 計画承認、自律実装、スキル | Plan、Autopilot、Changes、レビュー領域 |
 | 5 | カスタマイズ・セッション | MCP 登録とツール実行 | リポジトリ定義の形式修正・/restart-session 後の MCP 実行を確認。新規登録フォーム保存は未確認 |
 | 6 | PR・セッション | Agent Merge と許可範囲の設定 | Create PR options → Agent merge → Agent merge。Merge pull request 有効化後、CI成功と自動マージを確認 |
-| 7 | Canvas・セッション | 作成、保存、開く、Issue 操作 | New session → New worktree/main、右パネル表示、共有保存、Agent Merge、別セッションで再表示、Add to current sessionを確認。反復送信を修正済み |
+| 7 | Canvas・セッション | 作成、保存、開く、Issue 操作 | New → New worktree/main、共有保存・Agent Merge・別セッションで再表示・Add to current session・Plan 承認後の実装と PR #15 統合を確認。反復送信を修正済み |
 | 8 | Automation | 作成、手動トリガー、結果確認 | Automations → New automation → Trigger: Manual → Select project → Create and run → Recent runs。Local/Succeededと出力を確認 |
 
 演習5は2026年9月10日に [公式文書](https://docs.github.com/en/copilot/how-tos/github-copilot-app/customize-github-copilot-app#configuring-mcp-servers)と照合し、9月13日に上記の範囲を実機確認しました。その他の操作は、対象を選択した状態で常設メニューとコンテキストメニューのどちらに表示されるかを確認します。権限、セッション種別、実行状態で表示が変わる場合は条件も記録します。
@@ -79,15 +83,15 @@ Windows（ビルド 26200.9445、25H2）、GitHub Copilot App 1.1.20。初期設
 | 0 | `app-0-create-repository.png` | 未確認 |
 | 2 | `app-2-start-session.png` | 未確認 |
 | 2 | `app-2-review-panel.png` | 未確認 |
-| 2 | `app-terminal-screenshot.png` | 未確認 |
+| 2 | `app-terminal-screenshot.png` | 本文から除去。実走した Run メニューによる起動・停止へ更新 |
 | 3 | `app-2-review-panel.png` | 未確認 |
-| 3 | `app-show-folder-view.png` | 未確認 |
+| 3 | `app-show-folder-view.png` | 本文から除去。Files・Go to file・Show hidden files の現行経路を確認 |
 | 3 | `app-new-session-from-issue.png` | 未確認 |
 | 3 | `app-select-changes.png` | 未確認 |
 | 4 | `app-new-session-from-issue.png` | 未確認 |
 | 4 | `app-4-plan-mode.png` | 未確認 |
 | 4 | `app-select-changes.png` | 未確認 |
-| 4 | `app-terminal-screenshot.png` | 未確認 |
+| 4 | `app-terminal-screenshot.png` | 本文から除去。実走した Run メニューによる起動・停止へ更新 |
 | 4 | `app-2-review-panel.png` | 未確認 |
 | 6 | `app-enable-agent-merge.png` | 未確認 |
 | 6 | `app-agent-merge-merge.png` | 未確認 |

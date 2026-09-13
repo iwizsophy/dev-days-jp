@@ -93,29 +93,20 @@ Copilot が実装作業を開始します。
 
 AI が生成したすべてのコードは、マージ前にレビューする必要があります。コードをレビューし、サイトを実行して問題がないことを確認します。
 
-1. 右上の **Changes** を選択してコードの変更を開きます。
+1. セッションの入力欄の上にある **Changes**（Open changes）を選択し、右パネルに差分を開きます。
 
    ![GitHub Copilot app のセッションパネルにあるタブで、Changes タブを矢印で示した画面](../../_images/app-select-changes.png)
 
 2. 変更をレビューします。新しい TypeScript ファイル、Astro ファイル、テストファイルが表示されます。新しいヘルパー関数には、レッスン3でマージしたドキュメント標準に従い、更新した指示に沿った TSDoc doc comment が含まれているか確認します。ファイルヘッダーは役割や制約を伝える必要がある場合に確認し、すべてのファイルへの自動追加を成功条件にしません。今回の実走ではデータアクセス関数の TSDoc を確認しました。
-3. Copilot app の右側にあるレビューパネルで **Terminal** を選択します。**Terminal** ボタンがない場合は、**+** (**Open in panel** というラベルが付いています) を選択してから **Terminal** を選択します。
-
-   ![GitHub Copilot app のレビューパネルにある Terminal ボタン](../../_images/app-terminal-screenshot.png)
+3. セッション上部の **Run options** で **Run development site** を選択します。
 
 > **確認済みの Run 経路（Windows App 1.1.20）：** 上部の Run development site で起動し、Browser パネルに通常の21件を表示しました。複数カテゴリ・出版社との組合せ・解除を別ブラウザーでも確認後、Stop Run development site で停止しました。単体35件・E2E25件・lint・型検査・build は成功。0件のE2E検証には専用データを使用しています。詳細は [実走記録](../material/verification.md)を参照してください。
 
-4. ターミナルウィンドウに次のコマンドを入力し、Web アプリの開発サーバーを起動します。
-
-   ```shell
-   npm run dev
-   ```
-
-5. サーバーが起動したら、ブラウザーウィンドウを開きます。起動には少し時間がかかります。
-6. http://localhost:4321 に移動します。
-7. ランディングページでフィルターを使用できることを確認します。
-8. 問題がある場合は、Copilot に更新を依頼できます。
-9. 問題がなければ、ターミナルウィンドウに戻ります。
-10. <kbd>Ctrl</kbd>+<kbd>C</kbd> を選択して開発サーバーを停止します。
+4. Run ボタンでサイトを起動します。すでにこの項目が選択されていれば **Run Run development site** を選択します。
+5. **Browser** パネルに表示されたローカル URL を確認します。実走では `http://localhost:4321/` が自動表示されました。
+6. ランディングページで複数カテゴリ、出版社との組み合わせ、解除を確認します。
+7. 問題がある場合は Copilot に更新を依頼し、再確認します。
+8. **Stop Run development site** を選択して開発サーバーを停止します。
 
 ## quality-checks スキルで作業を検証する
 
@@ -141,13 +132,13 @@ description: Run the project's test suites and linter to verify code changes are
 
 スキルの内容を確認します。
 
-1. レビューパネルが表示されていない場合は、右上の **Toggle review panel** を選択して開きます。
+1. 右パネルが表示されていない場合は、右上の **Toggle panel** を選択して開きます。
 
    ![Create PR の右側にある Toggle review panel ボタンを矢印で示した GitHub Copilot app の上部ツールバー](../../_images/app-2-review-panel.png)
 
-2. **+** を選択し、レビューパネルに新しい項目を追加します。
-3. **File** を選択します。
-4. `SKILL.md` を検索します。
+2. パネルのタブ列にある **+**（Add tab）を選択します。
+3. **Files** を選択します。
+4. <kbd>Ctrl</kbd>+<kbd>P</kbd> で **Go to file** を開き、`SKILL.md` を検索します。
 5. ファイル一覧から `SKILL.md .github/skills/quality-checks` を選択して開きます。
 6. `name` と `description` を確認します。説明は、コード変更を commit、push、merge する前にテスト、lint、検証する必要がある場合に、このスキルを使用することをエージェントに伝えます。
 7. スキル全体を読みます。単体テスト、Playwright のエンドツーエンドテスト、ESLint の各スイートを実行するスクリプト、実行順序、一般的な失敗のデバッグ方法が記載されています。そのため、エージェントは推測するのではなく、チームの方法でチェックを実行できます。

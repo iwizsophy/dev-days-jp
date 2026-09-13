@@ -1,6 +1,6 @@
 # App シナリオの検証状況
 
-2026年9月13日：Windows の GitHub Copilot App 1.1.20 をインストールし、利用者によるサインイン後の初期設定、プロジェクト追加メニュー、Chats の応答と右クリックメニュー、MCP 登録フォームまで確認しました。演習用コピーを `Projects` → `+` → `Open folder` で追加し、リポジトリ設定のレビューと、完全再起動後の演習 repo の読み取り・日本語応答まで確認しました。星評価は App で実装と検査を確認しました。検証用 PR は App エージェントの `gh` 経由で作成し、CI 全4ジョブが成功しました。その後、My work から通常マージが成功しました。指示更新の演習では GitHub 連携セッションの Create PR から PR #10 を作成できました。**Agent Merge・全章完走は未完了です。** 詳細は [UI 確認表](ui-check.md)を参照してください。
+2026年9月13日：Windows の GitHub Copilot App 1.1.20 で、接続・星評価・指示更新・フィルター実装と次章への継承を確認しました。MCP は設定形式修正とセッション再起動後に実行成功。Agent Merge は検証用 PR #12～14 で CI 成功後の自動マージを確認し、Canvas の共有保存・別セッションでの再表示・重複送信修正、Automation の手動実行も確認しました。**全章の完走判定は未完了です。** 残る画像照合や未実施経路は [UI 確認表](ui-check.md)と章別表を参照してください。以下の実走記録は段階ごとの履歴であり、各段階の「未確認」「未作成」は当時の状態です。
 
 環境：Windows ビルド 26200.9445（25H2）、App 実行ファイルの ProductVersion 1.1.20、確認アカウント iwizsophy。教材の開始コミットは `cfcbad744d8349a2a7b200484470c7d439bf3cb7`。インストーラーの署名は GitHub, Inc. で有効でした。
 
@@ -28,14 +28,14 @@
 
 | 演習 | 合流時の確認対象 | App 実走 | 講師の CLI 緊急対応検証 |
 | --- | --- | --- | --- |
-| 0 準備 | 自分のコピー、Node、起動とテスト | コピー作成・外部シェルで開始状態のテスト成功。後続の星評価セッションで App の Run 起動・停止を確認（初回セットアップは未確認） | 未検証 |
+| 0 準備 | 自分のコピー、Node、起動とテスト | 固定コミットからコピー作成・外部シェルで開始状態のテスト成功。GitHub Web のテンプレートメニューと作成フォームを表示確認（送信は未実施）。App の Run 起動・停止を確認。追加 worktree は初回応答前に依存導入済みだが、自動セットアップの終了ログは未確認 | 未検証 |
 | 1 接続 | 同じ checkout を開き、構成について応答 | 一部確認：初期設定・Chats 応答・Open folder・設定レビュー・完全再起動後の演習 repo の読み取りと構成への応答。GitHub 連携プロジェクトを追加し、My work の8件の Issue 表示を確認 | 未検証 |
 | 2 星評価 | 数値と null の表示、テスト、PR・マージ | App で実装・レビュー修正・検査・Run 起動停止を確認。gh 経由で PR #9 作成、CI 全4ジョブ成功。App 固有の PR 作成は失敗。My work から通常マージ成功、次章 worktree への星評価継承を確認 | 未検証 |
 | 3 指示 | TSDoc・ヘッダーの標準と提示コード、PR・マージ | Issue #8 → New session で専用 worktree を作成。HEAD が星評価マージ済みの 9107d35 と一致し、差分なし。設定承認後に7ファイル更新、単体30件・E2E21件・lint・型検査成功。指示に沿うコード例と App の Create PR による PR #10 作成・通常マージを確認。フィルター用 worktree が 1b698ac を継承 | 未検証 |
 | 4 フィルター | 星評価・指示を継承し、絞り込みと quality-checks | Issue #7 の専用 worktree が 1b698ac を継承。Plan の質問へ回答、計画承認で Autopilot に切替。実装・修正後に単体35件・E2E25件・lint・型検査・build 成功。通常21件での Run 起動・絞り込み・停止を確認。MCP 検証も成功し、PR #12 を Agent Merge で統合 | 未検証 |
-| 5 MCP | MCP ツールの実行、複合条件・解除等の検証 | 一部確認：カタログ・登録フォーム・リポジトリ定義 .mcp.json。信頼承認・設定形式修正・/restart-session 後に MCP 実行成功。通常データの複合条件・解除・出版社単独・キーボードを確認。0件の MCP 検証は未実施 | 未検証 |
+| 5 MCP | MCP ツールの実行、複合条件・解除等の検証 | リポジトリ定義 .mcp.json の信頼承認・設定形式修正・/restart-session 後に MCP 実行成功。通常データの複合条件・解除・出版社単独・キーボードを確認。追加実走では一時隔離 DB のフィルター0件も確認。カタログはフォーム表示までで保存は未実施 | 未検証 |
 | 6 マージ | CI とレビュー、演習コピーへ統合 | Agent merge から PR #12 作成、Merge pull request を有効化。CI 全4ジョブ成功後の自動マージを確認 | 未検証（通常マージのみ代替可能） |
-| 7 Canvas | 共有・保存・Issue 操作 | 新規 worktree が5c4c3acを継承。右パネル表示、6カード・全6ボタン・上位3件の理由、Refresh、共有拡張の保存、PR #13 作成を確認。PR #13 自動マージ、新規セッションで再表示成功。反復送信を修正した PR #14 も統合。1通知・1応答と再追加時の通知抑止を確認。Issue実装開始は未実施 | 機能代替不可。優先順位整理は未検証 |
+| 7 Canvas | 共有・保存・Issue 操作 | 新規 worktree が5c4c3acを継承。6カード・全6ボタン・上位3件の理由、Refresh、共有保存と PR #13 の自動マージ、別セッションで再表示成功。反復送信修正 PR #14 を統合し、1通知・1応答と再追加抑止を確認。追加実走で検索 Issue の計画・実装・MCP・PR #15 の自動マージまで確認 | 機能代替不可。優先順位整理は未検証 |
 | 8 Automation | 手動実行、結果、終了状態 | Manual・LocalでCreate and run、37秒でSucceeded。PR6件・Issue6件の要約をGitHubと照合。定期実行なし | 機能代替不可。単発要約は未検証 |
 
 Issue #8 の New session では、`~/.copilot/repos/copilot-worktrees/` 以下に `iwizsophy-issue-8-update-our-repository-coding-standards-05839e` という専用 worktree とブランチが作成されました。App が自動生成したブランチ名です。HEAD は `9107d35` で、StarRating の再利用・null の表示・読み上げ名を継承しています。新規プロジェクトでは再度 Accept this repository configuration? が表示され、Review configuration で npm ci のセットアップ、Run メニュー3項目、Browser の自動表示設定を確認しました。利用者が設定を承認すると入力欄が表示され、今回は再起動なしで送信できました。セットアップ成功の証拠はなく、最初の lint は依存未導入で失敗したため、App エージェントがこの worktree に npm ci を実行しました。
@@ -58,6 +58,22 @@ MCP の確認では、GitHub 連携プロジェクトを右クリック → Sett
 
 AutomationはAutomations → New automation → Trigger: Manual（初期値Daily）、Run in the cloudオフ、GitHub連携の検証プロジェクトを選択。`Tailspin App verification recap 20260913`という名前で読み取り専用のPR/Issue要約をCreate and runしました。Recent runsはLocal・37秒・Succeeded。応答の基準日時は2026-09-13 20:33:02 JST、マージ済みPR #9〜#14の6件、Open Issue #1〜#6の6件で、GitHubの一覧と一致しました。Manualとして保存し、定期実行は設定していません。クラウド実行・定期実行は未検証です。終了時に検証用キャンバスのタブを閉じ、開発サーバー4321の待受がないことを確認しました。
 すべての章で App → CLI → App の作業ディレクトリ・ブランチ・差分の一致も未検証です。
+
+## 追加実走：キャンバスからの実装と現行メニュー
+
+2026年9月13日、GitHub 連携プロジェクトの New → New worktree/main から `iwizsophy-studious-journey` を作成しました。作業ブランチは `iwizsophy-training-validation`、開始 HEAD は `c6e8652` で、PR #14 の修正を継承し作業ツリーはクリーンでした。最初の読み取り応答時に `node_modules/.package-lock.json` と主要依存の導入を確認しました。このセッションでエージェントは依存導入コマンドを実行していません。ただし、セットアップスクリプトの終了ログは取得できていないため、自動実行成功の確定記録とは区別します。
+
+保存済み Issue triage board を右パネルに開き、Issue #1 の Add to current session を1回選択。1通知と確認応答を確認した後、Mode: Plan でタイトル検索の計画を依頼しました。Review plan → Approve and implement this plan → Continue で Autopilot に切り替わり、同じ worktree の5ファイルを実装しました。レビューで SQL の LIKE とブラウザーの includes の特殊文字解釈の差を指摘し、`ESCAPE '!'` と `%`・`_`・`!`・バックスラッシュの回帰テストを追加しました。検索語・複数カテゴリ・出版社を同時に設定してから全解除する E2E も確認しています。
+
+最終検査は Vitest 39件、拡張の回帰3件、Playwright E2E 28件、lint・全型検査・静的 build が成功。実際の Playwright MCP は9種類・31呼び出し（セッションイベントから集計）でした。通常21件で大文字小文字を区別しない検索1件、検索＋カテゴリ＋出版社1件、検索0件、Tab/Enter 解除後21件を確認。通常の Simulation × Ops Interactive は1件で、一時隔離 DB の2件データでは同条件が0件になることも確認しました。通常 CSV は変更せず、一時 DB・MCP 生成物は削除、ブラウザーとサーバーは停止しました。
+
+App の Agent merge が `eaa82432500ad63c743c0e3ef92a8c74069343b2` を作成し、origin の同名ブランチへ push。[検証用 PR #15](https://github.com/iwizsophy/dev-days-tailspin-app-verification-20260913/pull/15) は [CI 全4ジョブ](https://github.com/iwizsophy/dev-days-tailspin-app-verification-20260913/actions/runs/34756052959) 成功後に自動マージされました。マージコミットは `6cab45db022210137cb549c9f48f07c5ae77d7ad`、Issue #1 は Closed、Author・Committer は指定の Tetsuji Kato です。作業ツリーはクリーンです。
+
+現行のファイル閲覧は Toggle panel → Add tab → Files → Ctrl+P（Go to file）で確認しました。View options → Show hidden files で `.github` を表示できました。差分は入力欄の上の Changes（Open changes）で開きます。Run options で Run development site を選択しただけでは起動せず、続いて Run ボタンを選択して起動、Stop Run development site で停止しました。教材の主手順をこの確認済み経路へ更新しています。
+
+GitHub Web は Use this template → Create a new repository から、Start with a template・Owner・Repository name・Choose visibility・Create repository を表示確認しました。フォーム送信は行っていません。閲覧時のテンプレート main は `5cea212` で、実走の固定コミットより先に進んでいました。最新版コピーの検査を今回の固定コピーの結果で代用しません。
+
+教材の追加検査は41ページ・内部リンク／画像／アンカー775参照が成功し、Canvas 章の追加手順と番号表示をブラウザーで確認しました。現行メニューの撮影素材は用意しましたが、この更新では全面差し替えは完了していません。原稿と生成 HTML は別コミットで記録します。
 
 ## 既存の実走結果を再利用できる範囲
 

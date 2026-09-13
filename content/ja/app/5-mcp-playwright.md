@@ -6,7 +6,7 @@ authors:
 lastUpdated: 2026-09-13
 ---
 
-> **この章の確認範囲：** 2026年9月13日に Windows の App 1.1.20 で、リポジトリ定義の信頼承認・設定形式修正・セッション再起動後、Playwright MCP による絞り込み・解除・キーボード操作と終了処理を確認しました。通常21件データでの確認で、0件状態の MCP 検証と新規登録フォームの保存は未確認です。[UI 確認表](../material/ui-check.md)を参照してください。
+> **この章の確認範囲：** 2026年9月13日に Windows の App 1.1.20 で、リポジトリ定義の信頼承認・設定形式修正・セッション再起動後、Playwright MCP による絞り込み・解除・キーボード操作と終了処理を確認しました。後続の追加検証で、隔離したテストデータによる0件表示も確認しています。新規登録フォームの保存は未確認です。[UI 確認表](../material/ui-check.md)を参照してください。
 
 
 前のレッスンでは、プロジェクトの自動テストスイートを使ってフィルター機能を作成し、検証しました。テストによってコードの検証を自動化できますが、エージェント自身が動作を確認できるようにすることも効果的です。実際に作成している UI で問題を見つけた場合に、エージェントが対応できるようになります。MCP を使って AI エージェントに外部機能へのアクセスを提供する方法を確認し、Copilot が構築中のサイトを直接操作できるように Playwright MCP server を追加します。
@@ -82,7 +82,9 @@ Copilot は Playwright MCP server を通じてブラウザーを起動し、各�
 2. Issue の受け入れ条件と照らし合わせて概要を読みます。問題がある場合は、pull request を作成する前に追加の質問をするか、コードを修正するよう依頼します。
 3. 次のレッスンでこの作業を完了するため、セッションを開いたままにします。
 
-実走では `browser_navigate`・`browser_snapshot`・`browser_click`・`browser_select_option`・`browser_find`・`browser_press_key` の呼び出しを確認しました。通常データで Strategy は4件、Puzzle を追加すると8件、CodeForge Studios も選ぶと2件、Clear filters で21件へ戻りました。出版社単独は6件、Tab と Enter による解除も21件です。0件表示は通常データでは作れないため、前章の専用 fixture による E2E テストと区別します。最後に `browser_close` と開発サーバーの停止を確認しました。
+実走では `browser_navigate`・`browser_snapshot`・`browser_click`・`browser_select_option`・`browser_find`・`browser_press_key` の呼び出しを確認しました。通常データで Strategy は4件、Puzzle を追加すると8件、CodeForge Studios も選ぶと2件、Clear filters で21件へ戻りました。出版社単独は6件、Tab と Enter による解除も21件です。最後に `browser_close` と開発サーバーの停止を確認しました。
+
+通常データでは全カテゴリと出版社の組み合わせにゲームがあるため、フィルターだけで0件にはできません。追加実走では通常 CSV を変更せず、一時的な隔離 DB に2件のテストデータを用意し、**Simulation** と **Ops Interactive** の組み合わせが0件になることを MCP で確認しました。これは前章の20件 fixture による E2E テストとは別の実操作です。検証後は一時 DB・ブラウザー・サーバーを終了しました。講師は通常データとテストデータの件数・起動先を記録し、0件を作るために通常 CSV を書き換えないでください。
 
 これで Copilot は、ユーザーと同じように機能を確認し、ブラウザーでも動作を検証しました。
 

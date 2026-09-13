@@ -58,18 +58,18 @@ AI の使い方に唯一の方法がないのと同様に、指示ファイル�
 
 このリポジトリに含まれる指示ファイルを確認します。中心となる `copilot-instructions.md` が1つと、さまざまなタスクに対応する `*.instructions.md` ファイル一式があります。エディターまたは GitHub Web UI で開いてください。
 
-1. レビューパネルが表示されていない場合は、右上の **Toggle review panel** を選択して開きます。
+1. 右パネルが表示されていない場合は、右上の **Toggle panel** を選択して開きます。
 
    ![Create PR の右側にある Toggle review panel ボタンを矢印で示した GitHub Copilot app の上部ツールバー](../../_images/app-2-review-panel.png)
 
-2. **+** を選択し、レビューパネルに新しい項目を追加します。
-3. **File** を選択します。
-4. `copilot-instructions.md` を検索します。
+2. パネルのタブ列にある **+**（Add tab）を選択します。
+3. **Files** を選択します。
+4. <kbd>Ctrl</kbd>+<kbd>P</kbd> で **Go to file** を開き、`copilot-instructions.md` を検索します。Windows App 1.1.20 で確認した経路です。
 5. ファイル一覧から `copilot-instructions.md` を選択して開きます。
 6. ファイルを確認します。プロジェクトの簡単な説明に加えて、**Agent notes**、**Code standards**、**Scripts**、**Repository Structure** などのセクションがあります。**Code standards** の下には、ネストされた **GitHub Actions Workflows** のガイダンスがあります。これらは Copilot とのすべてのやり取りに適用されます。
-7. **Show folder view** を選択して、フォルダーナビゲーターを開きます。
+7. 右側のファイルツリーを確認します。`.github` が見えない場合は、ファイルパネルの歯車 **View options** → **Show hidden files** を有効にします。実走では、隠しファイルを表示すると `.github` と指示ファイルがツリーに現れました。
 
-   ![GitHub Copilot app でファイルを開いたレビューパネルにある Show folder view ボタン](../../_images/app-show-folder-view.png)
+   フォルダーを順に開く代わりに、**Go to file** へ次の手順のファイル名を入力して開くこともできます。
 
 8. `.github/instructions` フォルダーに移動し、ファイルを確認します。Astro ファイル、Drizzle データレイヤー、テストなどに対応する指示があります。
 9. `.github/instructions/unit-tests.instructions.md` を開きます。先頭の `applyTo` フィールドに注目してください。これはリポジトリのルートを基準とする glob で、指示を適用するファイルを決定します。ここでは、TypeScript のテストファイル (`**/*.test.ts` に一致するファイルなど) が対象になります。

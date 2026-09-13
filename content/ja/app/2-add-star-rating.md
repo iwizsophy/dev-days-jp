@@ -56,7 +56,7 @@ Copilot app がセッションを開始したら、作業場所とブランチ�
 
 AI が生成したすべての変更は、どれほど小さくてもマージ前にレビューする必要があります。Copilot app 内で変更を確認します。
 
-1. アプリの右上隅にある **Toggle review panel** を選択します。Copilot が行った未処理の変更がすべて表示される差分画面が開きます。
+1. 実装セッションの入力欄の上にある **Changes**（Open changes）を選択します。Windows App 1.1.20 では右パネルに **Changes** が開き、未コミットのファイル数と差分が表示されました。パネル全体の表示切り替えは右上の **Toggle panel** です。
 
    ![Create PR の右側にある Toggle review panel ボタンを矢印で示した GitHub Copilot app の上部ツールバー](../../_images/app-2-review-panel.png)
 
@@ -79,35 +79,26 @@ AI が生成したすべての変更は、どれほど小さくてもマージ�
 
 ## 変更を確認する
 
-コードを読むだけで動作すると判断せず、視覚的にもテストします。そのためには、ターミナルからアプリを起動して、すべてが動作することを確認する必要があります。Copilot app にはターミナルが組み込まれています。
+コードを読むだけで動作すると判断せず、App の Run メニューからサイトを起動して、視覚的にも確認します。
 
-> **確認済みの起動経路（Windows App 1.1.20）：** `.github/github-app.yml` を適用したセッションでは、上部の **Run development site** で起動し、Browser パネルに `http://localhost:4321/` が自動表示されました。確認後は同じ位置の **Stop Run development site** で停止できます。以下のターミナル入力経路は今回未実施です。
+> **確認済みの起動経路（Windows App 1.1.20）：** `.github/github-app.yml` を適用したセッションの Run メニューを使います。実行項目がない場合は、演習コピーの設定と適用状態を講師と確認してください。
 
 ![Copilot App の検証報告と Browser パネルに表示された星評価付きゲームカード](../../_images/app-1.1.20-20260913-star-rating.jpg)
 
 2026年9月13日の実装では、既存の `StarRating` をカードから再利用し、`null` の場合だけカード内で `No rating yet` を表示しました。カードを実レンダリングするテストで `4.2`・`0`・`null` とリンク構造を確認し、単体30件・E2E21件・lint・型検査が成功しました。既存データの一覧表示もブラウザーで確認しています。評価には `Rating: X out of 5 stars` の読み上げ名も追加しました。検証用 PR #9 は App のエージェントが `gh` 経由で作成し、CI 全4ジョブが成功しています。App 固有の PR 作成ツールはアカウント連携エラーで失敗したため、以下の Create PR 経路の成功とは数えません。その後、My work → PR #9 → Ready to merge → Merge pull request で通常マージが成功し、次章の新規 worktree へ星評価が継承されました。詳細は [実走記録](../material/verification.md)を参照してください。
 
-1. Copilot app の右側にあるレビューパネルで **Terminal** を選択します。**Terminal** ボタンがない場合は、**+** (**Open in panel** というラベルが付いています) を選択してから **Terminal** を選択します。
+1. セッション上部の **Run options** で **Run development site** を選び、Run ボタンで実行します。すでにこの項目が選択されていれば **Run Run development site** を選択します。
+2. 起動後、**Browser** パネルに表示されたローカル URL を確認します。実走では `http://localhost:4321/` が自動表示されました。
+3. ランディングページのゲームカードに星評価が表示されていることを確認します。未評価の扱いはテスト結果でも確認してください。
+4. セッション上部の **Stop Run development site** を選択して停止します。停止後も Browser に最後の画面が残る場合があります。画面が残ることをサーバー稼働の証拠にはしません。
 
-   ![GitHub Copilot app のレビューパネルにある Terminal ボタン](../../_images/app-terminal-screenshot.png)
-
-2. ターミナルウィンドウに次のコマンドを入力し、Web アプリの開発サーバーを起動します。
-
-   ```shell
-   npm run dev
-   ```
-
-3. サーバーが起動したら、ブラウザーウィンドウを開きます。起動には少し時間がかかります。
-4. http://localhost:4321 に移動します。
-5. ランディングページのすべてのゲームに星評価が表示されていることを確認します。
-6. ターミナルウィンドウに戻ります。
-7. <kbd>Ctrl</kbd>+<kbd>C</kbd> を選択して開発サーバーを停止します。
+App 内のターミナルを開く場合は **Toggle panel** → **+**（Add tab）→ **Terminal** です。この入口の表示は確認しましたが、ターミナルへの直接入力による起動は今回の実走には含めません。
 
 ## 最初の pull request を作成してマージする
 
 変更に問題がないことを確認できたので、リリースします。エージェントに pull request の作成を依頼し、github.com で自分でレビューしてマージします。今回は手動で管理します。後のレッスンでは、Copilot でこの作業の一部を自動的に処理する方法を確認します。
 
-> **今回確認した PR の閲覧経路（Windows App 1.1.20）：** GitHub 連携プロジェクトの **My work** → 対象 PR → **Changes** で差分を表示できます。**Ready to merge** はマージ確認画面を開き、チェック結果・未解決コメントの有無・**Merge pull request**・マージ方法を表示しました。ローカルフォルダーのセッションと表示される操作が異なります。以下の **Create PR** による新規作成は未成功です。
+> **今回確認した PR の経路（Windows App 1.1.20）：** GitHub 連携セッションでは次章の PR #10 で **Create PR** による作成が成功しました。**My work** → 対象 PR → **Changes** で差分を表示でき、**Ready to merge** でチェック結果・未解決コメント・**Merge pull request**・マージ方法を確認できます。星評価のローカルフォルダー経路では App 固有の PR 作成が失敗したため、接続方法を区別してください。
 
 1. 右上隅にある **Create PR** を選択します。
 2. 求められた場合は **Sign in with your browser** を選択し、画面の指示に従って認証します。
