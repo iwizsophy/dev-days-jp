@@ -6,7 +6,7 @@
 <a href="../../index.html">教材セットの入口</a><a href="../index.html">App シナリオの目次</a>
 <a href="../../handson-guide.html#switch">事前準備・UI の確認</a></nav>
 <button class="theme-toggle" type="button" onclick="toggleTheme()">☀️ ライト</button></header>
-<main id="lesson"><h1>App シナリオの検証状況</h1><aside>この教材セット独自の運営・補助手順です。</aside><article><p>2026年9月13日：Windows の GitHub Copilot App 1.1.20 で、接続・星評価・指示更新・フィルター実装と次章への継承を確認しました。MCP は設定形式修正とセッション再起動後に実行成功。Agent Merge は検証用 PR #12～14 で CI 成功後の自動マージを確認し、Canvas の共有保存・別セッションでの再表示・重複送信修正、Automation の手動実行も確認しました。<strong>全章の完走判定は未完了です。</strong> 画像の差し替え記録と未実施経路は <a href="ui-check.html">UI 確認表</a>と章別表を参照してください。以下の実走記録は段階ごとの履歴であり、各段階の「未確認」「未作成」は当時の状態です。</p>
+<main id="lesson"><h1>App シナリオの検証状況</h1><aside>この教材セット独自の運営・補助手順です。</aside><article><p>2026年9月13日：Windows の GitHub Copilot App 1.1.20 で、接続・星評価・指示更新・フィルター実装と次章への継承を確認しました。MCP は設定形式修正とセッション再起動後に実行成功。Agent Merge は検証用 PR #12～14 で CI 成功後の自動マージを確認し、Canvas の共有保存・別セッションでの再表示・重複送信修正、Automation の手動実行も確認しました。<strong>Issue #2 の残る操作確認は、GitHub 連携経路と手動 Refresh を使う回避手順で確認しました。</strong> 新版から全章を通し直した結果や、App 本体の不具合修正を意味しません。 画像の差し替え記録と未実施経路は <a href="ui-check.html">UI 確認表</a>と章別表を参照してください。以下の実走記録は段階ごとの履歴であり、各段階の「未確認」「未作成」は当時の状態です。</p>
 <p>環境：Windows ビルド 26200.9445（25H2）、App 実行ファイルの ProductVersion 1.1.20、確認アカウント iwizsophy。教材の開始コミットは <code>cfcbad744d8349a2a7b200484470c7d439bf3cb7</code>。インストーラーの署名は GitHub, Inc. で有効でした。</p>
 <p>演習用コピーは非公開の <code>iwizsophy/dev-days-tailspin-app-verification-20260913</code>。<code>github-samples/tailspin-toys</code> の固定コミット <code>bae003609c8cff0c51d92658b8d3bd89450464f1</code> から作成しました。<code>feature/workshop-baseline</code> の <code>641f557</code> では <code>.github/agents/pr-readiness.md</code> の無効な YAML エスケープ <code>"playwright/\*"</code> を <code>"playwright/*"</code> に修正しています。この修正は同名のリモートブランチへ push 済みで、星評価やフィルターの実装は含みません。</p>
 <p>開始状態を App 外の PowerShell で検査し、Node 24.19.0 で <code>npm ci</code>、単体テスト27件、Chromium E2E 21件、lint、型検査が成功しました。E2E はポート4321に既存サーバーがないことを確認してからビルド・previewを起動しました。これは App のセットアップスクリプトや開発サーバーの実走結果ではありません。通常の Node 24.14.1 では一部依存の要求バージョンを満たさず、検査時のみ Node 24.19.0 のパスを指定しました。</p>
@@ -32,7 +32,7 @@
 <tr>
 <td>0 準備</td>
 <td>自分のコピー、Node、起動とテスト</td>
-<td>固定コミットからコピー作成・外部シェルで開始状態のテスト成功。GitHub Web のテンプレートメニューと作成フォームを表示確認（送信は未実施）。App の Run 起動・停止を確認。追加 worktree は初回応答前に依存導入済みだが、自動セットアップの終了ログは未確認</td>
+<td>固定コミットからコピー作成・外部シェルで開始状態のテスト成功。GitHub Web で Private のコピー作成・課題8件の自動作成を確認。Add GitHub repository で設定承認・初回応答後の依存導入・App ビルド24ページ成功。セットアップ単独の終了コードは未取得</td>
 <td>未検証</td>
 </tr>
 <tr>
@@ -62,7 +62,7 @@
 <tr>
 <td>5 MCP</td>
 <td>MCP ツールの実行、複合条件・解除等の検証</td>
-<td>リポジトリ定義 .mcp.json の信頼承認・設定形式修正・/restart-session 後に MCP 実行成功。通常データの複合条件・解除・出版社単独・キーボードを確認。追加実走では一時隔離 DB のフィルター0件も確認。カタログはフォーム表示までで保存は未実施</td>
+<td>リポジトリ定義 .mcp.json の信頼承認・設定形式修正・/restart-session 後に MCP 実行成功。通常データの複合条件・解除・出版社単独・キーボードを確認。追加実走では一時隔離 DB のフィルター0件も確認。カタログ保存後に Installed 1 を確認し、新規 Chats で browser_tabs が成功</td>
 <td>未検証</td>
 </tr>
 <tr>
@@ -74,7 +74,7 @@
 <tr>
 <td>7 Canvas</td>
 <td>共有・保存・Issue 操作</td>
-<td>新規 worktree が5c4c3acを継承。6カード・全6ボタン・上位3件の理由、Refresh、共有保存と PR #13 の自動マージ、別セッションで再表示成功。反復送信修正 PR #14 を統合し、1通知・1応答と再追加抑止を確認。追加実走で検索 Issue の計画・実装・MCP・PR #15 の自動マージまで確認</td>
+<td>新規 worktree が5c4c3acを継承。6カード・全6ボタン・上位3件の理由、Refresh、共有保存と PR #13 の自動マージ、別セッションで再表示成功。反復送信修正 PR #14 を統合し、1通知・1応答と再追加抑止を確認。追加実走で検索 Issue の計画・実装・MCP・PR #15 の自動マージまで確認。開き直し・Refresh 後は未完了5件で GitHub と一致</td>
 <td>機能代替不可。優先順位整理は未検証</td>
 </tr>
 <tr>
@@ -183,4 +183,14 @@
 <h2>新版のネイティブ App Run / Stop 再確認（2026年9月13日）</h2>
 <p>Windows / GitHub Copilot App 1.1.20 で、v2026.09.13.1（aea4c027a073dd757017829bd988857877c1a545）のローカル checkout を Open folder で開きました。設定確認で Accept and apply 後も確認画面が残る現象が再現。Skip for now 後、WORKSHOP.md の版名を読み取るだけのセッションを開始すると、v2026.09.13.1 と応答し Run メニューが表示されました。自動セットアップの成功を確認したわけではなく、事前に導入済みの依存を使用しています。</p>
 <p>Run options → Run development site で起動し、Stop Run development site の表示と App 内ブラウザーの Tailspin Toys を確認。実プロセスは node scripts/serve.mjs dev で、HTTP 200 を返しました。App の Stop でプロセスが終了し、4321 ポートが解放されました。続いて Run Run development site ボタンで再起動し、再度 HTTP 200 を確認して Stop。2回とも停止後に子プロセスとリスナーが残らないことを確認しました。エージェントへの依頼は版名の読み取りだけで、サーバー起動・停止は App の UI で実施しています。</p>
-<p>今回のローカルセッションでは Run メニューの項目選択後に起動しました。以前の GitHub 連携セッションの観察と区別し、教材では Run / Stop の表示を見て、起動中に誤って停止ボタンを押さない手順に修正しました。新起動方式の App Run / Stop は確認済みです。設定適用時の表示停滞、自動セットアップ終了ログ、MCP カタログからの新規保存などは別の残件として追跡します。</p></article></main></body></html>
+<p>今回のローカルセッションでは Run メニューの項目選択後に起動しました。以前の GitHub 連携セッションの観察と区別し、教材では Run / Stop の表示を見て、起動中に誤って停止ボタンを押さない手順に修正しました。新起動方式の App Run / Stop は確認済みです。設定適用時の表示停滞、自動セットアップ終了ログ、MCP カタログからの新規保存などは別の残件として追跡します。</p>
+<h2>操作による回避の追加確認（2026年9月13日）</h2>
+<p>目的は教材を進められる操作経路の確認です。GitHub Copilot App 本体のコード・バイナリ・内部データは修正していません。Open folder 自体の不具合修復や自動セットアップ単独の終了ログ取得を、Issue #2 の完了条件から分けました。</p>
+<ul>
+<li><strong>Web 作成：</strong> v2026.09.13.1 のテンプレートから GitHub Web の Create repository を送信し、非公開の <a href="https://github.com/iwizsophy/dev-days-tailspin-ui-check-20260913">検証コピー</a> を作成。Include all branches は Off。<a href="https://github.com/iwizsophy/dev-days-tailspin-ui-check-20260913/actions/runs/34761264030">Bootstrap</a> 成功後、課題 #1～#8 を確認しました。コピー先 main は <code>35d81de40262527b184c7632f9f02d64f504e26e</code>。</li>
+<li><strong>設定画面・準備：</strong> 新コピーを Add GitHub repository から追加。Review configuration → Accept and apply 後に入力欄へ進みました。新 worktree は開始前に node_modules がなく、最初の読み取り応答後に存在しました。エージェントの実行記録は WORKSHOP.md の view のみです。続いて App の Run options → Build static site を選択し、画面出力の24ページ生成・Complete!・シェルへの復帰を確認して Stop。自動セットアップ単独の終了コードは取得していませんが、依存導入後に実際の App ビルドが完了する経路を確認しました。</li>
+<li><strong>PR の回避経路：</strong> Open folder のアカウントエラーを修復したとは扱いません。開始時から GitHub 連携側を使います。この経路の App Create PR は <a href="https://github.com/iwizsophy/dev-days-tailspin-app-verification-20260913/pull/10">PR #10</a> の作成・マージで実走済み。今回の新コピーの読み取り確認だけを PR 作成成功とは数えていません。</li>
+<li><strong>MCP カタログ：</strong> Customize → MCP → Playwright の初期値を Add server で保存し、Installed 1 を確認。リポジトリ未接続の新しい Chats「Playwright MCP verification」で Playwright · Manage tabs（action: list）が成功し、about:blank を取得しました。既存リポジトリの .mcp.json による実行とは別の確認です。</li>
+<li><strong>Canvas：</strong> PR #15 マージ済みの検索セッションで Add tab → Canvas → Issue triage board。開いた後に Refresh を選択し、5 open issues loaded. と #2～#6 を確認しました。Closed の #1・#7・#8 はなく、GitHub の Issue 一覧と一致。手動更新を教材手順とし、マージ通知による自動更新は主張しません。</li>
+</ul>
+<p>今回の変更は教材原稿・生成ページ・検証記録です。CLI の代替コースや、すべての App 開始状態を検証済みに変更するものではありません。</p></article></main></body></html>

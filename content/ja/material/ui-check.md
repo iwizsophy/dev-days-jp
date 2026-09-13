@@ -35,11 +35,11 @@ Windows（ビルド 26200.9445、25H2）、GitHub Copilot App 1.1.20。初期設
 | GitHub 連携・リポジトリに .mcp.json が存在 | プロジェクトを右クリック → Settings → MCP servers | 本人の信頼承認後、servers → mcpServers 修正で3件が Connected。/restart-session 後、同じセッションから MCP ブラウザー操作成功 | 追加実走で一時隔離 DB のフィルター0件も確認済み |
 | 会話・プロジェクト未接続 | Chats の +（New chat）→ Chat → 質問を送信 | worktree の説明が日本語で返り、Idle になった | GitHub 連携の実装用セッションでは後続章で worktree 分離を確認済み |
 | 完了したチャット | Chats の一覧項目を右クリック | Rename、Pin、Mark as unread、Show in Explorer、Share as secret gist、Copy、Archive、Delete を表示 | 各操作の実行、実装用セッションとの違い、旧 UI からの移動 |
-| MCP 未登録 | Customize → Installed → MCP Servers | 未登録の表示を確認 | 登録保存後の表示 |
-| MCP カタログ | Customize → MCP → Playwright | Local / npx / -y @playwright/mcp@latest の登録フォームを表示 | Add server の保存、接続・ツール実行 |
-| GitHub Web・テンプレート | Use this template → Create a new repository | 作成フォームのテンプレート・Owner・Repository name・Choose visibility・Create repository を確認 | フォーム送信は未実施。既存の実走コピーは固定コミットから別途作成 |
+| MCP 未登録 | Customize → Installed → MCP Servers | 未登録からカタログ保存後の Installed 1 への変化を確認 | 既存登録がある場合は重複追加しない |
+| MCP カタログ | Customize → MCP → Playwright | Local / npx / -y @playwright/mcp@latest を Add server で保存。新しい Chats で browser_tabs が成功 | 検索欄の操作は未検証 |
+| GitHub Web・テンプレート | Use this template → Create a new repository | 作成フォームのテンプレート・Owner・Repository name・Choose visibility・Create repository を確認 | Private でフォーム送信成功。新コピーの Bootstrap 成功・課題8件を確認 |
 | GitHub 連携・ファイル閲覧 | Toggle panel → Add tab → Files → Ctrl+P（Go to file） | copilot-instructions.md を検索して表示。View options → Show hidden files で .github がファイルツリーに表示 | 操作経路は確認済み |
-| GitHub 連携・保存済みキャンバス | New → New worktree/main → Canvas を開く → Add to current session → Plan | PR #14 の修正を継承し、1通知・1応答の後、計画承認から検索実装へ移行。テスト・MCP・PR #15 の Agent Merge 成功 | ボードでのマージ後の件数更新は未確認 |
+| GitHub 連携・保存済みキャンバス | New → New worktree/main → Canvas を開く → Add to current session → Plan | PR #14 の修正を継承し、1通知・1応答の後、計画承認から検索実装へ移行。テスト・MCP・PR #15 の Agent Merge 成功 | 開き直し・Refresh 後に未完了5件（#2～#6）。GitHub と一致 |
 | GitHub 連携・Run 未実行 | Run options → Run development site → Run ボタン | 項目選択だけでは開始せず、Run ボタンで起動。Stop Run development site で停止 | 自動セットアップの終了ログは未取得 |
 
 新版 v2026.09.13.1 のローカルセッションでは Run options の項目選択後に起動したため、Run / Stop の表示で実行状態を判断します。App 1.1.20 で起動・停止を2回確認し、App 内の表示、HTTP 200、停止後のポート解放を確認しました。詳細は [実走記録](verification.md)を参照してください。
@@ -54,7 +54,7 @@ Windows（ビルド 26200.9445、25H2）、GitHub Copilot App 1.1.20。初期設
 | 2 | リポジトリ・セッション | 開始、差分レビュー、実行、PR | New session、Changes、Terminal、Create PR、Ready to merge |
 | 3 | Issue・指示ファイル | Issue から開始、ファイル確認、PR | My work → New session、Toggle panel → Add tab → Files → Ctrl+P |
 | 4 | Issue・セッション | 計画承認、自律実装、スキル | Plan、Autopilot、Changes、レビュー領域 |
-| 5 | カスタマイズ・セッション | MCP 登録とツール実行 | リポジトリ定義の形式修正・/restart-session 後の MCP 実行を確認。新規登録フォーム保存は未確認 |
+| 5 | カスタマイズ・セッション | MCP 登録とツール実行 | リポジトリ定義の形式修正・/restart-session 後の MCP 実行を確認。カタログ保存・新規チャットの browser_tabs 実行も成功 |
 | 6 | PR・セッション | Agent Merge と許可範囲の設定 | Create PR options → Agent merge → Agent merge。Merge pull request 有効化後、CI成功と自動マージを確認 |
 | 7 | Canvas・セッション | 作成、保存、開く、Issue 操作 | New → New worktree/main、共有保存・Agent Merge・別セッションで再表示・Add to current session・Plan 承認後の実装と PR #15 統合を確認。反復送信を修正済み |
 | 8 | Automation | 作成、手動トリガー、結果確認 | Automations → New automation → Trigger: Manual → Select project → Create and run → Recent runs。Local/Succeededと出力を確認 |
@@ -113,3 +113,7 @@ Windows（ビルド 26200.9445、25H2）、GitHub Copilot App 1.1.20。初期設
 | 6 | `app-agent-merge-merge.png` | 現行の agent-merge-permissions 実機画像へ差し替え |
 | 7 | `app-enable-agent-merge.png` | 現行の agent-merge-menu 実機画像へ差し替え |
 | 7 | `app-agent-merge-merge.png` | 現行の agent-merge-permissions 実機画像へ差し替え |
+
+## 操作による回避の判定（2026年9月13日）
+
+App 本体の修正は対象外です。Open folder の設定画面停滞・PR アカウントエラーは、開始時から Add GitHub repository を使う教材経路で回避します。新コピーで設定承認・最初の応答・依存導入後の App ビルド（24ページ、Complete!）を確認。GitHub 連携側の Create PR は既存の検証用 PR #10 で成功済みです。セットアップ単独の終了コード・Open folder 自体の修復は未確認のままで、教材の回避経路の完了条件に含めません。未コミット変更の自動移動は行われないため、切替は開始前を基本とします。
