@@ -3,10 +3,10 @@ title: "レッスン 5 - Playwright MCP server によるテスト"
 description: "Playwright MCP server を GitHub Copilot app に追加し、実際のブラウザーでフィルター機能を手動テストするようエージェントに依頼します。"
 authors:
   - geektrainer
-lastUpdated: 2026-07-09
+lastUpdated: 2026-09-13
 ---
 
-> **この章の進め方：** App で操作します。画像は参照元の画面例で、現行 UI との一致は未確認です。ボタンや機能が見つからない場合は [UI が異なるときの確認](../material/ui-check.md)に沿って講師と確認してください。
+> **この章の確認範囲：** 2026年9月13日に Windows の App 1.1.20 で、MCP カタログ・Installed・Playwright の登録フォームを確認し、画像を撮影しました。登録の保存、サーバー起動、セッションからのツール実行は未実施です。[UI 確認表](../material/ui-check.md)を参照してください。
 
 
 前のレッスンでは、プロジェクトの自動テストスイートを使ってフィルター機能を作成し、検証しました。テストによってコードの検証を自動化できますが、エージェント自身が動作を確認できるようにすることも効果的です。実際に作成している UI で問題を見つけた場合に、エージェントが対応できるようになります。MCP を使って AI エージェントに外部機能へのアクセスを提供する方法を確認し、Copilot が構築中のサイトを直接操作できるように Playwright MCP server を追加します。
@@ -39,13 +39,19 @@ lastUpdated: 2026-07-09
 
 ## Playwright MCP server を追加する
 
-2026年9月10日に確認した [公式のカスタマイズ手順](https://docs.github.com/en/copilot/how-tos/github-copilot-app/customize-github-copilot-app#configuring-mcp-servers)に合わせ、参照原文の「設定 → MCP servers」を次の案内へ更新しました。これは公式文書との照合で、実機の操作確認は未実施です。
+2026年9月10日の [公式文書との照合](https://docs.github.com/en/copilot/how-tos/github-copilot-app/customize-github-copilot-app#configuring-mcp-servers)に加え、9月13日に Windows の App 1.1.20 で以下の表示を確認しました。プロジェクト未接続でも登録フォームまで開けます。
 
 1. サイドバーの **Customize** を開きます。
-2. **MCP** を開きます。
-3. 既存の登録がないか **Installed** で確認します。登録済みなら重複して追加しません。
-4. 未登録ならカタログで [Playwright MCP server][playwright-mcp-server] を探し、選択して表示される導入手順に従います。表示されなければ、カスタムサーバーを追加する操作を講師と確認します。
-5. 導入後、登録状態とセッションからの利用可否を確認します。登録しただけで成功とはせず、次の節で実際のツール実行を確認します。
+2. **Installed** タブの **MCP Servers** で既存の登録を確認します。登録済みなら重複して追加しません。実走時は未登録と表示されました。
+3. 未登録なら **MCP** タブを開きます。実走時は **Featured** に **Playwright** が表示されました。見つからなければ **Search MCP servers** で検索します（検索操作は未検証）。
+4. **Playwright** カードを選択し、登録フォームを開きます。実走時の初期値は **Server name** が `playwright`、種類が **Local**、**Command** が `npx`、**Arguments** が `-y @playwright/mcp@latest` でした。
+5. 内容を確認して **Add server** で保存します。この保存操作以降は未検証です。導入後に **Installed** の登録状態とセッションからの利用可否を確認します。登録しただけで成功とはせず、次の節で実際のツール実行を確認します。
+
+![App 1.1.20 の Customize の MCP タブ。Featured に Playwright と Add server が表示されている](../../_images/app-1.1.20-20260913-mcp-catalog.jpg)
+
+![Playwright 登録フォーム。Local、npx、-y @playwright/mcp@latest が表示されている。保存前の画面](../../_images/app-1.1.20-20260913-mcp-config.jpg)
+
+画像は2026年9月13日に撮影した Windows の App 1.1.20 です。アカウント情報を写さないためサイドバーを閉じています。サイドバーは左上の切り替えボタン、または `Ctrl+B` で表示します。
 
 Customize・MCP の項目がない場合は、App のバージョン・組織ポリシー・画面の状態を記録して講師と確認してください。ここで右クリックへ移ったと断定できる根拠はありません。
 

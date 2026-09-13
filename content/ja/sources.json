@@ -59,8 +59,12 @@
       ]
     }
   },
+  "ui_captures": {
+    "app-1.1.20-20260913-mcp-catalog.jpg": "実機撮影：2026-09-13、Windows、GitHub Copilot App 1.1.20。MCP カタログの表示確認。サイドバーは非表示。",
+    "app-1.1.20-20260913-mcp-config.jpg": "実機撮影：2026-09-13、Windows、GitHub Copilot App 1.1.20。Playwright 登録フォームの保存前。登録・ツール実行は未検証。"
+  },
   "material": {
-    "updated": "2026-09-10",
+    "updated": "2026-09-13",
     "base_scenario": "app",
     "policy": "独立した教材として必要な差分だけ反映。参照元へ push・PR・Issue を送らない。上流履歴の merge は行わない。",
     "event_source": {

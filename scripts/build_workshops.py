@@ -79,6 +79,16 @@ def shell(title, body, destination, extra=''):
 <main id="lesson"><h1>{escape(title)}</h1>{extra}{body}</main></body></html>\n'''
 
 
+def image_notice(match):
+    tag = match[0]
+    src = re.search(r'\bsrc="([^"]+)"', tag)
+    filename = Path(unquote(urlsplit(src[1]).path)).name if src else ''
+    caption = META.get('ui_captures', {}).get(filename)
+    if caption is None:
+        caption = '参照元の画面例（撮影時バージョン不明・現行 UI 未照合）。位置やメニューの開き方は講師と確認してください。'
+    return tag + '<br><em class="source">' + escape(caption) + '</em>'
+
+
 def build():
     OUTPUT.mkdir(parents=True, exist_ok=True)
     (OUTPUT / 'licenses').mkdir(exist_ok=True)
@@ -93,7 +103,7 @@ def build():
             renderer = markdown.Markdown(extensions=['tables', 'toc', 'sane_lists', 'pymdownx.superfences', 'pymdownx.tasklist'], extension_configs={'toc': {'slugify': slugify_unicode}, 'pymdownx.superfences': {'disable_indented_code_blocks': False}})
             body = transform_links(renderer.convert(text), source, destination)
             if course == 'app':
-                body = re.sub(r'(<img[^>]+>)', r'\1<br><em class="source">参照元の画面例（撮影時バージョン不明・現行 UI 未照合）。位置やメニューの開き方は講師と確認してください。</em>', body)
+                body = re.sub(r'<img\b[^>]+>', image_notice, body)
             prevnext = []
             for n, label in [(i - 1, '← 前の章'), (i + 1, '次の章 →')]:
                 if 0 <= n < len(files):
@@ -104,10 +114,10 @@ def build():
             license_link = relative(OUTPUT / 'licenses' / meta['license'], destination)
             notice = f'<p class="source">非公式の日本語版 · {source_link} · <a href="{license_link}">MIT ライセンス</a><br>参照コミット：<code>{meta["commit"][:12]}</code> ／ 確認日：{META["checked"]}</p>'
             guide = relative(ROOT / 'website/ja/handson-guide.html', destination)
-            notice += f'<aside>UI の名前・位置は参照原文のものです。利用条件は <a href="{guide}#plans">事前確認</a>を参照してください。</aside>'
+            notice += f'<aside>UI の確認日・バージョン・未確認範囲は本文の注記を参照してください。利用条件は <a href="{guide}#plans">事前確認</a>を参照してください。</aside>'
             if course == 'app':
                 status = relative(OUTPUT / 'material/verification.html', destination)
-                notice += f'<aside>本編は App の操作を学ぶシナリオです。メニューや右クリック等の現行操作経路は未照合です。<a href="{status}">章別の検証状況</a></aside>'
+                notice += f'<aside>本編は App の操作を学ぶシナリオです。一部の UI を実機確認しましたが、全章の完走は未検証です。<a href="{status}">章別の検証状況</a></aside>'
             else:
                 notice += '<aside>参考資料：本編の続きではありません。App 本編の通常の代替経路ではありません。</aside>'
             if course == 'cli':
