@@ -6,7 +6,7 @@
 <a href="../../index.html">教材セットの入口</a><a href="../index.html">App シナリオの目次</a>
 <a href="../../handson-guide.html#switch">事前準備・UI の確認</a></nav>
 <button class="theme-toggle" type="button" onclick="toggleTheme()">☀️ ライト</button></header>
-<main id="lesson"><h1>レッスン 5 - Playwright MCP server によるテスト</h1><p class="source">非公式の日本語版 · <a href="https://github.com/github-samples/copilot-workshops/blob/7ddcf241c1cd10b8e90c0df96f6bef81e710392a/docs/ja-jp/app/5-mcp-playwright.md">参照原文</a> · <a href="../licenses/copilot-workshops.txt">MIT ライセンス</a><br>参照コミット：<code>7ddcf241c1cd</code> ／ 確認日：2026-09-08</p><aside>UI の名前・位置は参照原文のものです。利用条件は <a href="../../handson-guide.html#plans">事前確認</a>を参照してください。</aside><aside>本編は App の操作を学ぶシナリオです。メニューや右クリック等の現行操作経路は未照合です。<a href="../material/verification.html">章別の検証状況</a></aside><nav class="chapter-nav" aria-label="章の移動"><a href="4-build-filtering.html">← 前の章：レッスン 4 - Autopilot による機能の構築</a><a href="6-agent-merge.html">次の章 →：レッスン 6 - Agent Merge によるマージ</a></nav><details><summary>この章の目次</summary><div class="toc">
+<main id="lesson"><h1>レッスン 5 - Playwright MCP server によるテスト</h1><p class="source">非公式の日本語版 · <a href="https://github.com/github-samples/copilot-workshops/blob/7ddcf241c1cd10b8e90c0df96f6bef81e710392a/docs/ja-jp/app/5-mcp-playwright.md">参照原文</a> · <a href="../licenses/copilot-workshops.txt">MIT ライセンス</a><br>参照コミット：<code>7ddcf241c1cd</code> ／ 確認日：2026-09-08</p><aside>UI の確認日・バージョン・未確認範囲は本文の注記を参照してください。利用条件は <a href="../../handson-guide.html#plans">事前確認</a>を参照してください。</aside><aside>本編は App の操作を学ぶシナリオです。一部の UI を実機確認しましたが、全章の完走は未検証です。<a href="../material/verification.html">章別の検証状況</a></aside><nav class="chapter-nav" aria-label="章の移動"><a href="4-build-filtering.html">← 前の章：レッスン 4 - Autopilot による機能の構築</a><a href="6-agent-merge.html">次の章 →：レッスン 6 - Agent Merge によるマージ</a></nav><details><summary>この章の目次</summary><div class="toc">
 <ul>
 <li><a href="#シナリオ">シナリオ</a></li>
 <li><a href="#model-context-protocol-mcp-とは">Model Context Protocol (MCP) とは</a></li>
@@ -17,7 +17,7 @@
 </ul>
 </div>
 </details><article><blockquote>
-<p><strong>この章の進め方：</strong> App で操作します。画像は参照元の画面例で、現行 UI との一致は未確認です。ボタンや機能が見つからない場合は <a href="../material/ui-check.html">UI が異なるときの確認</a>に沿って講師と確認してください。</p>
+<p><strong>この章の確認範囲：</strong> 2026年9月13日に Windows の App 1.1.20 で、MCP カタログ・Installed・Playwright の登録フォームを確認し、画像を撮影しました。登録の保存、サーバー起動、セッションからのツール実行は未実施です。<a href="../material/ui-check.html">UI 確認表</a>を参照してください。</p>
 </blockquote>
 <p>前のレッスンでは、プロジェクトの自動テストスイートを使ってフィルター機能を作成し、検証しました。テストによってコードの検証を自動化できますが、エージェント自身が動作を確認できるようにすることも効果的です。実際に作成している UI で問題を見つけた場合に、エージェントが対応できるようになります。MCP を使って AI エージェントに外部機能へのアクセスを提供する方法を確認し、Copilot が構築中のサイトを直接操作できるように Playwright MCP server を追加します。</p>
 <p>このレッスンでは、次の内容を学習します。</p>
@@ -42,14 +42,17 @@
 MCP server は、プロジェクト内のほかの依存関係と同様に扱ってください。使用する前にソースコードを慎重に確認し、発行元を検証して、セキュリティ上の影響を考慮します。信頼できる MCP server だけを使用し、機密性の高いリソースや操作へのアクセスを許可するときは注意してください。</p>
 </blockquote>
 <h2 id="playwright-mcp-server-を追加する">Playwright MCP server を追加する</h2>
-<p>2026年9月10日に確認した <a href="https://docs.github.com/en/copilot/how-tos/github-copilot-app/customize-github-copilot-app#configuring-mcp-servers">公式のカスタマイズ手順</a>に合わせ、参照原文の「設定 → MCP servers」を次の案内へ更新しました。これは公式文書との照合で、実機の操作確認は未実施です。</p>
+<p>2026年9月10日の <a href="https://docs.github.com/en/copilot/how-tos/github-copilot-app/customize-github-copilot-app#configuring-mcp-servers">公式文書との照合</a>に加え、9月13日に Windows の App 1.1.20 で以下の表示を確認しました。プロジェクト未接続でも登録フォームまで開けます。</p>
 <ol>
 <li>サイドバーの <strong>Customize</strong> を開きます。</li>
-<li><strong>MCP</strong> を開きます。</li>
-<li>既存の登録がないか <strong>Installed</strong> で確認します。登録済みなら重複して追加しません。</li>
-<li>未登録ならカタログで <a href="https://github.com/microsoft/playwright-mcp">Playwright MCP server</a> を探し、選択して表示される導入手順に従います。表示されなければ、カスタムサーバーを追加する操作を講師と確認します。</li>
-<li>導入後、登録状態とセッションからの利用可否を確認します。登録しただけで成功とはせず、次の節で実際のツール実行を確認します。</li>
+<li><strong>Installed</strong> タブの <strong>MCP Servers</strong> で既存の登録を確認します。登録済みなら重複して追加しません。実走時は未登録と表示されました。</li>
+<li>未登録なら <strong>MCP</strong> タブを開きます。実走時は <strong>Featured</strong> に <strong>Playwright</strong> が表示されました。見つからなければ <strong>Search MCP servers</strong> で検索します（検索操作は未検証）。</li>
+<li><strong>Playwright</strong> カードを選択し、登録フォームを開きます。実走時の初期値は <strong>Server name</strong> が <code>playwright</code>、種類が <strong>Local</strong>、<strong>Command</strong> が <code>npx</code>、<strong>Arguments</strong> が <code>-y @playwright/mcp@latest</code> でした。</li>
+<li>内容を確認して <strong>Add server</strong> で保存します。この保存操作以降は未検証です。導入後に <strong>Installed</strong> の登録状態とセッションからの利用可否を確認します。登録しただけで成功とはせず、次の節で実際のツール実行を確認します。</li>
 </ol>
+<p><img alt="App 1.1.20 の Customize の MCP タブ。Featured に Playwright と Add server が表示されている" src="../assets/app-1.1.20-20260913-mcp-catalog.jpg" /><br><em class="source">実機撮影：2026-09-13、Windows、GitHub Copilot App 1.1.20。MCP カタログの表示確認。サイドバーは非表示。</em></p>
+<p><img alt="Playwright 登録フォーム。Local、npx、-y @playwright/mcp@latest が表示されている。保存前の画面" src="../assets/app-1.1.20-20260913-mcp-config.jpg" /><br><em class="source">実機撮影：2026-09-13、Windows、GitHub Copilot App 1.1.20。Playwright 登録フォームの保存前。登録・ツール実行は未検証。</em></p>
+<p>画像は2026年9月13日に撮影した Windows の App 1.1.20 です。アカウント情報を写さないためサイドバーを閉じています。サイドバーは左上の切り替えボタン、または <code>Ctrl+B</code> で表示します。</p>
 <p>Customize・MCP の項目がない場合は、App のバージョン・組織ポリシー・画面の状態を記録して講師と確認してください。ここで右クリックへ移ったと断定できる根拠はありません。</p>
 <h2 id="playwright-で機能を確認するよう-copilot-に依頼する">Playwright で機能を確認するよう Copilot に依頼する</h2>
 <p>Playwright MCP server を使って機能を手動テストするよう Copilot に依頼します。</p>
