@@ -19,7 +19,7 @@
 </ul>
 </div>
 </details><article><blockquote>
-<p><strong>この章の進め方：</strong> App で操作します。画像は参照元の画面例で、現行 UI との一致は未確認です。ボタンや機能が見つからない場合は <a href="../material/ui-check.html">UI が異なるときの確認</a>に沿って講師と確認してください。</p>
+<p><strong>この章の確認範囲：</strong> 2026年9月13日に Windows の App 1.1.20 で、作成・共有保存・Agent Merge・別セッションでの再表示・Issue のコンテキスト追加を確認しました。コンテキスト追加の反復送信を修正して再検証しています。ボタンは計画用コンテキストへの追加までで、Issue の実装開始は未検証です。画像は参照元の画面例です。</p>
 </blockquote>
 <p>ここまでは、チャットを通じてエージェントを指示してきました。しかし、多くの作業は会話の中ではなく、ボード、ドキュメント、チェックリスト上で行われます。<strong>キャンバス</strong>は、まさにそのような作業のために、アプリ内でユーザーとエージェントが共有できる領域です。このレッスンでは、ここまで取り組んできたバックログの計画と追跡に使用する、シンプルなキャンバスを作成します。</p>
 <p>このレッスンでは、次の内容を学習します。</p>
@@ -51,12 +51,13 @@
 <p>星評価、ドキュメント標準、フィルター機能をすべてマージし、多くの成果をリリースしました。しかし、バックログにはまだ項目が残っています。作業をすばやくトリアージするためのキャンバスを作成します。</p>
 <ol>
 <li>GitHub Copilot app に戻ります。アプリを閉じている場合は開きます。</li>
-<li><strong>Home screen</strong> を選択します。</li>
-<li>リポジトリに <code>tailspin-toys</code> が選択されていることを確認します。</li>
+<li>サイドバーで自分の演習リポジトリの横にある <strong>New session</strong> を選択します。App 1.1.20 の実走では <strong>New</strong> 画面が開きました。</li>
+<li>入力欄の下で自分の演習リポジトリ、<strong>New worktree</strong>、<strong>main</strong> が選択されていることを確認します。作成後の worktree に前章のマージ結果が入っていることも確認します。</li>
 <li>プロンプトボックスで次のプロンプトを使用し、要件を満たすキャンバスを作成します。</li>
 </ol>
 <pre class="highlight"><code class="language-plaintext">作業の優先順位をすぐに整理できる、基本的なカンバンボードの canvas を作ってください。今対応すべき上位3件の Issue を強調し、残りは下の別の領域に配置してください。上位3枚のカードには Issue の内容と優先する理由を含めてください。各 Issue に、現在のセッションのコンテキストへ追加してすぐ作業を始められるボタンを付けてください。</code></pre>
 <p>Copilot がキャンバスの作成を開始します。</p>
+<p>実走では <strong>Issue triage board</strong> が右パネルに開き、未対応6件を上位3件と残り3件に分けて表示しました。初版は上位3件にしかボタンがなかったため、全カードに <strong>Add to current session</strong> を付けるよう追加依頼しました。表示だけで完了にせず、カード数・優先理由・更新ボタンと各カードの操作を確認してください。</p>
 <blockquote>
 <p><strong>補足</strong>
 作成には数分かかります。複雑なタスクであるため、最初のバージョンでは満足できない場合があります。理想のツールになるまで、プロンプトで構築を続けるよう依頼できます。</p>
@@ -69,8 +70,9 @@
 <pre class="highlight"><code class="language-plaintext">開発チームと共有できるよう、この canvas の定義をリポジトリに保存してください。</code></pre>
 <ol start="2">
 <li>Copilot がキャンバスファイルを保存したら、右上隅にある <strong>Create PR</strong> の横のドロップダウンを選択します。</li>
-<li><strong>Agent merge</strong> を選択して Agent Merge を有効にします。</li>
 </ol>
+<p>保存場所も確認します。実走の初版はセッション限定で、共有依頼後に <code>.github/extensions/issue-triage-board/extension.mjs</code> と README の起動手順を追加しました。これは<a href="https://docs.github.com/en/copilot/how-tos/github-copilot-app/working-with-canvas-extensions#creating-a-canvas">公式のプロジェクト共有スコープ</a>です。セッション一時フォルダーにしかない状態では、チーム共有や別セッションでの再利用を確認したことにはなりません。すでにボタンが <strong>Agent merge</strong> なら手順5へ進みます。
+3. <strong>Agent merge</strong> を選択して Agent Merge を有効にします。</p>
 <p><img alt="GitHub Copilot app で展開された Create PR ドロップダウンの Agent merge オプションを矢印で示した画面" src="../assets/app-enable-agent-merge.png" /><br><em class="source">参照元の画面例（撮影時バージョン不明・現行 UI 未照合）。位置やメニューの開き方は講師と確認してください。</em></p>
 <ol start="4">
 <li>ボタンのテキストが <strong>Agent merge</strong> に変わります。</li>
@@ -95,9 +97,12 @@
 <pre class="highlight"><code class="language-plaintext">Issue の優先順位を整理する canvas を開いてください。</code></pre>
 <ol start="3">
 <li>作成したキャンバスが新しいセッションで開いたことを確認します。</li>
-<li>最も関心のある Issue の1つで <strong>Add to current context</strong> を選択します。</li>
-<li>Copilot が Issue の作業を開始します。</li>
+<li>最も関心のある Issue の1つで <strong>Add to current session</strong> を選択します。表示名は生成したキャンバスの定義によります。実走のボタン名はこの表記でした。</li>
+<li>Issue の内容が現在のセッションに届くことを確認します。実走では計画用コンテキストへ追加して確認応答を返すところまでとし、Issue の実装は開始しませんでした。実装を進める場合は、対象と範囲を確認してから依頼します。</li>
 </ol>
+<blockquote>
+<p><strong>反復送信への対処：</strong> 初版では、通知の「Issue を追加する」という命令を受けてエージェントが追加アクションを再び呼び、通知が反復しました。Stop で処理を停止し、通知を「追加済み」の事実通知へ修正。同じ Issue の送信中・送信済みを追跡し、再入時に元の送信を待たず返す処理と回帰テストを加えました。修正後は1回のクリックで1通知・1応答となり、Refresh 後の再クリックでも通知が増えないことを確認しました。表示と保存だけでなく、この操作結果まで確認してください。</p>
+</blockquote>
 <p>これで、作成したキャンバスを使って開発プロセスを効率化できました。</p>
 <p><a id="cli-fallback"></a></p>
 <blockquote>

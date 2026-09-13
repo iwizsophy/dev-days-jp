@@ -114,8 +114,8 @@
 <tr>
 <td>GitHub 連携・リポジトリに .mcp.json が存在</td>
 <td>プロジェクトを右クリック → Settings → MCP servers</td>
-<td>本人の信頼承認後、servers → mcpServers 修正で3件が Connected。既存セッションはツール未公開を報告</td>
-<td>セッション再読み込み・MCP 実行</td>
+<td>本人の信頼承認後、servers → mcpServers 修正で3件が Connected。/restart-session 後、同じセッションから MCP ブラウザー操作成功</td>
+<td>0件状態の MCP 検証</td>
 </tr>
 <tr>
 <td>会話・プロジェクト未接続</td>
@@ -183,25 +183,25 @@
 <td>5</td>
 <td>カスタマイズ・セッション</td>
 <td>MCP 登録とツール実行</td>
-<td>Customize → MCP、Installed、Playwright 登録フォームを実機確認。保存とツール実行は未確認</td>
+<td>リポジトリ定義の形式修正・/restart-session 後の MCP 実行を確認。新規登録フォーム保存は未確認</td>
 </tr>
 <tr>
 <td>6</td>
 <td>PR・セッション</td>
 <td>Agent Merge と許可範囲の設定</td>
-<td>Create PR のドロップダウン、Agent merge</td>
+<td>Create PR options → Agent merge → Agent merge。Merge pull request 有効化後、CI成功と自動マージを確認</td>
 </tr>
 <tr>
 <td>7</td>
 <td>Canvas・セッション</td>
 <td>作成、保存、開く、Issue 操作</td>
-<td>Home screen、New session、Agent merge</td>
+<td>New session → New worktree/main、右パネル表示、共有保存、Agent Merge、別セッションで再表示、Add to current sessionを確認。反復送信を修正済み</td>
 </tr>
 <tr>
 <td>8</td>
 <td>Automation</td>
 <td>作成、手動トリガー、結果確認</td>
-<td>Automations → New automation、Manual</td>
+<td>Automations → New automation → Trigger: Manual → Select project → Create and run → Recent runs。Local/Succeededと出力を確認</td>
 </tr>
 </tbody>
 </table>
