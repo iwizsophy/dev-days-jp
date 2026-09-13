@@ -50,19 +50,19 @@
 <tr>
 <td>3 指示</td>
 <td>TSDoc・ヘッダーの標準と提示コード、PR・マージ</td>
-<td>Issue #8 → New session で専用 worktree を作成。HEAD が星評価マージ済みの 9107d35 と一致し、差分なし。設定承認後に7ファイル更新、単体30件・E2E21件・lint・型検査成功。指示に沿うコード例と App の Create PR による PR #10 作成を確認。未マージ</td>
+<td>Issue #8 → New session で専用 worktree を作成。HEAD が星評価マージ済みの 9107d35 と一致し、差分なし。設定承認後に7ファイル更新、単体30件・E2E21件・lint・型検査成功。指示に沿うコード例と App の Create PR による PR #10 作成・通常マージを確認。フィルター用 worktree が 1b698ac を継承</td>
 <td>未検証</td>
 </tr>
 <tr>
 <td>4 フィルター</td>
 <td>星評価・指示を継承し、絞り込みと quality-checks</td>
-<td>未検証</td>
+<td>Issue #7 の専用 worktree が 1b698ac を継承。Plan の質問へ回答、計画承認で Autopilot に切替。実装・修正後に単体35件・E2E25件・lint・型検査・build 成功。通常21件での Run 起動・絞り込み・停止を確認。MCP 検証前で未コミット</td>
 <td>未検証</td>
 </tr>
 <tr>
 <td>5 MCP</td>
 <td>MCP ツールの実行、複合条件・解除等の検証</td>
-<td>一部確認：カタログ・登録フォーム。保存・ツール実行は未実施</td>
+<td>一部確認：カタログ・登録フォーム・リポジトリ定義 .mcp.json。MCP servers に Trust repository が表示され、本人操作待ち。ツール実行は未実施</td>
 <td>未検証</td>
 </tr>
 <tr>
@@ -87,7 +87,10 @@
 </table>
 <p>Issue #8 の New session では、<code>~/.copilot/repos/copilot-worktrees/</code> 以下に <code>iwizsophy-issue-8-update-our-repository-coding-standards-05839e</code> という専用 worktree とブランチが作成されました。App が自動生成したブランチ名です。HEAD は <code>9107d35</code> で、StarRating の再利用・null の表示・読み上げ名を継承しています。新規プロジェクトでは再度 Accept this repository configuration? が表示され、Review configuration で npm ci のセットアップ、Run メニュー3項目、Browser の自動表示設定を確認しました。利用者が設定を承認すると入力欄が表示され、今回は再起動なしで送信できました。セットアップ成功の証拠はなく、最初の lint は依存未導入で失敗したため、App エージェントがこの worktree に npm ci を実行しました。</p>
 <p>指示更新は <code>.github/copilot-instructions.md</code>、Astro・Drizzle・UI の指示3ファイル、README、eslint.config.js、Layout.astro の7ファイルです。意図を説明するコメント、exported function の TSDoc、注入可能な db、Astro Props の契約を記載しました。ESLint の single quotes・semicolons に合わせた既存コード修正は Layout.astro の3行のみ。単体30件、E2E21件、lint、型検査（診断ゼロ）が成功し、ポート4321のサーバー停止も確認しました。表示のみの Publisher 関数例にはファイルヘッダー、TSDoc、db の注入説明が含まれ、ファイルは追加されていません。例の要件を明示して依頼した結果であり、新規セッションで自動的に指示が反映されることの証明ではありません。</p>
-<p>App の Open changes で Changes (7), +43, -4 を確認後、上部の Create PR を操作しました。App がコミット・同名ブランチへの push・PR 作成まで実行し、<a href="https://github.com/iwizsophy/dev-days-tailspin-app-verification-20260913/pull/10">検証用 PR #10</a> を作成しました。ブランチ名は App が変更した <code>iwizsophy-repository-coding-standards</code>、コミットは <code>97da644d628d0e5b0aaa1c893912a45a2f68b0fc</code>。Author・Committer は指定の Tetsuji Kato で、checkout はクリーンです。これは GitHub 連携プロジェクトの専用 worktree 経路での成功であり、ローカルフォルダー側の連携エラーが修復されたことは意味しません。Ready to merge options に Agent merge の切り替えを表示しましたが、有効化していません。PR #10 の <a href="https://github.com/iwizsophy/dev-days-tailspin-app-verification-20260913/actions/runs/34751902435">CI</a> は全4ジョブ成功しました。PR #10 は未マージです。</p>
+<p>App の Open changes で Changes (7), +43, -4 を確認後、上部の Create PR を操作しました。App がコミット・同名ブランチへの push・PR 作成まで実行し、<a href="https://github.com/iwizsophy/dev-days-tailspin-app-verification-20260913/pull/10">検証用 PR #10</a> を作成しました。ブランチ名は App が変更した <code>iwizsophy-repository-coding-standards</code>、コミットは <code>97da644d628d0e5b0aaa1c893912a45a2f68b0fc</code>。Author・Committer は指定の Tetsuji Kato で、checkout はクリーンです。これは GitHub 連携プロジェクトの専用 worktree 経路での成功であり、ローカルフォルダー側の連携エラーが修復されたことは意味しません。Ready to merge options に Agent merge の切り替えを表示しましたが、有効化していません。PR #10 の <a href="https://github.com/iwizsophy/dev-days-tailspin-app-verification-20260913/actions/runs/34751902435">CI</a> は全4ジョブ成功しました。利用者による以後の検証用リポジトリ操作の承認後、App の Ready to merge → Merge pull request で PR #10 を通常マージしました。マージコミットは <code>1b698acc404d35ddf48b0b9df539e1257ff88fec</code> です。</p>
+<p>フィルター演習は Issue #7 → New session で、<code>iwizsophy-issue-7-allow-users-to-filter-games-by-category-91fbc5</code> という専用 worktree を作成しました。App がブランチ名を <code>iwizsophy-filter-games-by-category-and-publisher</code> に変更しています。HEAD は <code>1b698ac</code>。今回は設定承認を再表示せず開始できました。Mode メニューで Plan を選択し、カテゴリ内は OR・出版社とは AND の質問に回答。Review plan → Approve and implement this plan → Continue で Mode: Autopilot に切り替わりました。</p>
+<p>フィルターのレビューでは、出版社のラベル不整合、複数カテゴリを実際には選ばないテスト、存在しない選択肢を DOM に注入する0件テストを修正しました。通常 CSV は全5カテゴリ×4出版社を含むため、0件条件には20件の E2E 専用 CSV と分離 SQLite を使います。本番21件の CSV は変更していません。最終検査は単体35件・E2E25件・lint・型検査・build・diff --check が成功。App の Run development site で通常データを起動し、別ブラウザーで21件 → Strategy 4件 → Puzzle 追加8件 → CodeForge Studios 追加2件 → Clear filters 21件を確認しました。App の Stop で停止し、4321 の待受終了も確認しました。このブラウザー確認は Playwright MCP の実行証拠ではありません。新しいデータアクセス関数の TSDoc は確認できましたが、ファイルヘッダーが自動追加されたとは扱いません。フィルター変更は未コミットで、PR は未作成です。</p>
+<p>MCP の確認では、GitHub 連携プロジェクトを右クリック → Settings → MCP servers に Trust this repository / Trust repository が表示されました。Repository configuration の Trusted 表示とは別の確認です。コピーに既存の <code>.mcp.json</code> は GitHub（https://api.githubcopilot.com/mcp/）、Playwright（npx @playwright/mcp@latest）、astro-docs（https://mcp.docs.astro.build/mcp）を定義しています。重複登録せず、MCP 信頼確認の本人操作待ちで停止しています。</p>
 <p>すべての章で App → CLI → App の作業ディレクトリ・ブランチ・差分の一致も未検証です。</p>
 <h2>既存の実走結果を再利用できる範囲</h2>
 <p>2026年9月8日の Tailspin Toys <strong>CLI 独立シナリオ</strong>では、Copilot CLI 1.0.83 の応答、指示反映、フィルター実装、quality-checks、Playwright MCP、高コントラストのカスタムエージェント、PR と CI を確認しました。環境構築と問題切り分けの参考になります。</p>
