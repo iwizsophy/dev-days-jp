@@ -23,10 +23,12 @@ Windows（ビルド 26200.9445、25H2）、GitHub Copilot App 1.1.20。初期設
 | ローカルプロジェクト・新規セッション | プロジェクト横の + → New → 入力欄下部のプロジェクト名 → 送信 | 星評価の実装セッションが開始し、既存 checkout 上に指定した作業ブランチを作成 | GitHub 連携経路との相違 |
 | ローカル実装セッション・パネル未表示 | Toggle panel → Workspace | Browser、Terminal、Files、Canvas を表示。Changes や Create PR はこの状態では表示されなかった | GitHub 連携セッションの差分・PR 操作 |
 | ローカル実装セッション・PR 作成依頼 | エージェントのプロジェクト連携 PR ツール → gh CLI に切替 | App 固有ツールはアカウント連携エラー。承認後、エージェントが gh 経由で検証用 PR #9 を作成し CI 全4ジョブ成功 | App 固有の Create PR・マージ（Ready to merge は My work 側で表示確認） |
-| GitHub 連携・作成済み PR | My work → PR #9 → Changes / Ready to merge | 5ファイルの差分と Checks: Passed を表示。Merge pull request ダイアログに All checks have passed・No unresolved comments・Merge pull request・Choose merge method（Merge commit）を表示 | マージ実行・Agent merge |
-| GitHub 連携・既存 Issue | My work → Update our repository coding standards → New session options | New session・New session in repository...・Chat を表示 | セッション送信・指示更新の実装 |
+| GitHub 連携・作成済み PR | My work → PR #9 → Changes / Ready to merge | 5ファイルの差分と Checks: Passed を表示。Merge pull request ダイアログに All checks have passed・No unresolved comments・Merge pull request・Choose merge method（Merge commit）を表示 | 通常マージは利用者承認後に成功。Agent merge は未実施 |
+| GitHub 連携・既存 Issue | My work → Update our repository coding standards → New session options | New session・New session in repository...・Chat を表示 | New session で専用 worktree 作成・マージ済み HEAD の継承を確認。設定承認後に送信・指示更新・検査・PR #10 作成を確認（詳細は実走記録） |
 | My work・PR 一覧行 | PR #9 の行を右クリック | New session・Chat・Copy link を表示 | 旧 UI から移動したかは未特定 |
 | ローカルプロジェクト | Projects のフォルダー項目を右クリック → Settings | New session・Show in Explorer・Settings・Hide・Customize…・Manage sessions・Remove folder を表示。Settings には GitHub Account の登録名が表示された | アカウント連携エラーの原因・復旧 |
+| GitHub 連携・Issue から作った実装セッション | Open changes → Changes (7) → 上部 Create PR | 7ファイルの差分を表示。App がコミット・push・PR #10 作成を実行し Ready to merge に変化 | PR #10 のマージ・後続章への継承 |
+| GitHub 連携・PR 作成後 | Ready to merge options | Agent merge の切り替えを表示 | 有効化・許可範囲・実行 |
 | 会話・プロジェクト未接続 | Chats の +（New chat）→ Chat → 質問を送信 | worktree の説明が日本語で返り、Idle になった | 実装用セッションの worktree 動作 |
 | 完了したチャット | Chats の一覧項目を右クリック | Rename、Pin、Mark as unread、Show in Explorer、Share as secret gist、Copy、Archive、Delete を表示 | 各操作の実行、実装用セッションとの違い、旧 UI からの移動 |
 | MCP 未登録 | Customize → Installed → MCP Servers | 未登録の表示を確認 | 登録保存後の表示 |

@@ -1,6 +1,6 @@
 # App シナリオの検証状況
 
-2026年9月13日：Windows の GitHub Copilot App 1.1.20 をインストールし、利用者によるサインイン後の初期設定、プロジェクト追加メニュー、Chats の応答と右クリックメニュー、MCP 登録フォームまで確認しました。演習用コピーを `Projects` → `+` → `Open folder` で追加し、リポジトリ設定のレビューと、完全再起動後の演習 repo の読み取り・日本語応答まで確認しました。星評価は App で実装と検査を確認しました。検証用 PR は App エージェントの `gh` 経由で作成し、CI 全4ジョブが成功しました。**App 固有の PR 作成経路・マージ・全章完走は未完了です。** 詳細は [UI 確認表](ui-check.md)を参照してください。
+2026年9月13日：Windows の GitHub Copilot App 1.1.20 をインストールし、利用者によるサインイン後の初期設定、プロジェクト追加メニュー、Chats の応答と右クリックメニュー、MCP 登録フォームまで確認しました。演習用コピーを `Projects` → `+` → `Open folder` で追加し、リポジトリ設定のレビューと、完全再起動後の演習 repo の読み取り・日本語応答まで確認しました。星評価は App で実装と検査を確認しました。検証用 PR は App エージェントの `gh` 経由で作成し、CI 全4ジョブが成功しました。その後、My work から通常マージが成功しました。指示更新の演習では GitHub 連携セッションの Create PR から PR #10 を作成できました。**Agent Merge・全章完走は未完了です。** 詳細は [UI 確認表](ui-check.md)を参照してください。
 
 環境：Windows ビルド 26200.9445（25H2）、App 実行ファイルの ProductVersion 1.1.20、確認アカウント iwizsophy。教材の開始コミットは `cfcbad744d8349a2a7b200484470c7d439bf3cb7`。インストーラーの署名は GitHub, Inc. で有効でした。
 
@@ -16,7 +16,7 @@
 
 星評価は `9c3d619`、読み上げ対応は `0901fc7` にコミットし、演習コピーの `origin/feature/app-star-rating` へ push 済みです。Author・Committer はともに `Tetsuji Kato <6571039+iwizsophy@users.noreply.github.com>`。PR Readiness で指摘された評価の意味と尺度の不足を、カードの `Rating: X out of 5 stars` という読み上げ名と装飾部分の `aria-hidden` で修正し、実レンダリング・E2E のアサーションを追加しました。
 
-[検証用 PR #9](https://github.com/iwizsophy/dev-days-tailspin-app-verification-20260913/pull/9)（非公開・閲覧権限が必要）は main 宛てで未マージです。App のプロジェクト連携 PR ツールは GitHub アカウントを利用できないというエラーで失敗したため、App エージェントが認証済みの `gh` CLI で作成しました。これは App 固有の Create PR 操作の成功とは数えません。その後、GitHub 連携側の My work で PR #9 を開き、Changes の5ファイルの差分、Ready to merge、マージ確認画面の All checks have passed と No unresolved comments を確認しました。確認画面は閉じ、マージはまだ実行していません。Issue #8 の詳細と New session options（New session・New session in repository...・Chat）も表示確認しました。
+[検証用 PR #9](https://github.com/iwizsophy/dev-days-tailspin-app-verification-20260913/pull/9)（非公開・閲覧権限が必要）は main 宛てで、利用者承認後に App からマージしました。App のプロジェクト連携 PR ツールは GitHub アカウントを利用できないというエラーで失敗したため、App エージェントが認証済みの `gh` CLI で作成しました。これは App 固有の Create PR 操作の成功とは数えません。その後、GitHub 連携側の My work で PR #9 を開き、Changes の5ファイルの差分、Ready to merge、マージ確認画面の All checks have passed と No unresolved comments を確認しました。利用者の承認後、同じ確認画面の Merge pull request（Merge commit）を実行し、GitHub 上の MERGED とマージコミット `9107d35c8539bb0327ec21d6b1e86f42b33a4392` を確認しました。これは通常マージであり Agent Merge の検証ではありません。Issue #8 の詳細と New session options（New session・New session in repository...・Chat）も表示確認しました。
 
 最終コミット `0901fc759c50ecccbc75a0ac74c178fdc46c89c7` の [CI](https://github.com/iwizsophy/dev-days-tailspin-app-verification-20260913/actions/runs/34750878686) は frontend-lint・type-check・unit-tests・frontend-tests の全4ジョブが成功しました。検証用 checkout はクリーンで、ポート4321・4322の待受も終了しています。
 
@@ -30,13 +30,19 @@
 | --- | --- | --- | --- |
 | 0 準備 | 自分のコピー、Node、起動とテスト | コピー作成・外部シェルで開始状態のテスト成功。後続の星評価セッションで App の Run 起動・停止を確認（初回セットアップは未確認） | 未検証 |
 | 1 接続 | 同じ checkout を開き、構成について応答 | 一部確認：初期設定・Chats 応答・Open folder・設定レビュー・完全再起動後の演習 repo の読み取りと構成への応答。GitHub 連携プロジェクトを追加し、My work の8件の Issue 表示を確認 | 未検証 |
-| 2 星評価 | 数値と null の表示、テスト、PR・マージ | App で実装・レビュー修正・検査・Run 起動停止を確認。gh 経由で PR #9 作成、CI 全4ジョブ成功。App 固有の PR 作成は失敗、マージは未実施 | 未検証 |
-| 3 指示 | TSDoc・ヘッダーの標準と提示コード、PR・マージ | 未検証 | 未検証 |
+| 2 星評価 | 数値と null の表示、テスト、PR・マージ | App で実装・レビュー修正・検査・Run 起動停止を確認。gh 経由で PR #9 作成、CI 全4ジョブ成功。App 固有の PR 作成は失敗。My work から通常マージ成功、次章 worktree への星評価継承を確認 | 未検証 |
+| 3 指示 | TSDoc・ヘッダーの標準と提示コード、PR・マージ | Issue #8 → New session で専用 worktree を作成。HEAD が星評価マージ済みの 9107d35 と一致し、差分なし。設定承認後に7ファイル更新、単体30件・E2E21件・lint・型検査成功。指示に沿うコード例と App の Create PR による PR #10 作成を確認。未マージ | 未検証 |
 | 4 フィルター | 星評価・指示を継承し、絞り込みと quality-checks | 未検証 | 未検証 |
 | 5 MCP | MCP ツールの実行、複合条件・解除等の検証 | 一部確認：カタログ・登録フォーム。保存・ツール実行は未実施 | 未検証 |
 | 6 マージ | CI とレビュー、演習コピーへ統合 | 未検証 | 未検証（通常マージのみ代替可能） |
 | 7 Canvas | 共有・保存・Issue 操作 | 未検証 | 機能代替不可。優先順位整理は未検証 |
 | 8 Automation | 手動実行、結果、終了状態 | 未検証 | 機能代替不可。単発要約は未検証 |
+
+Issue #8 の New session では、`~/.copilot/repos/copilot-worktrees/` 以下に `iwizsophy-issue-8-update-our-repository-coding-standards-05839e` という専用 worktree とブランチが作成されました。App が自動生成したブランチ名です。HEAD は `9107d35` で、StarRating の再利用・null の表示・読み上げ名を継承しています。新規プロジェクトでは再度 Accept this repository configuration? が表示され、Review configuration で npm ci のセットアップ、Run メニュー3項目、Browser の自動表示設定を確認しました。利用者が設定を承認すると入力欄が表示され、今回は再起動なしで送信できました。セットアップ成功の証拠はなく、最初の lint は依存未導入で失敗したため、App エージェントがこの worktree に npm ci を実行しました。
+
+指示更新は `.github/copilot-instructions.md`、Astro・Drizzle・UI の指示3ファイル、README、eslint.config.js、Layout.astro の7ファイルです。意図を説明するコメント、exported function の TSDoc、注入可能な db、Astro Props の契約を記載しました。ESLint の single quotes・semicolons に合わせた既存コード修正は Layout.astro の3行のみ。単体30件、E2E21件、lint、型検査（診断ゼロ）が成功し、ポート4321のサーバー停止も確認しました。表示のみの Publisher 関数例にはファイルヘッダー、TSDoc、db の注入説明が含まれ、ファイルは追加されていません。例の要件を明示して依頼した結果であり、新規セッションで自動的に指示が反映されることの証明ではありません。
+
+App の Open changes で Changes (7), +43, -4 を確認後、上部の Create PR を操作しました。App がコミット・同名ブランチへの push・PR 作成まで実行し、[検証用 PR #10](https://github.com/iwizsophy/dev-days-tailspin-app-verification-20260913/pull/10) を作成しました。ブランチ名は App が変更した `iwizsophy-repository-coding-standards`、コミットは `97da644d628d0e5b0aaa1c893912a45a2f68b0fc`。Author・Committer は指定の Tetsuji Kato で、checkout はクリーンです。これは GitHub 連携プロジェクトの専用 worktree 経路での成功であり、ローカルフォルダー側の連携エラーが修復されたことは意味しません。Ready to merge options に Agent merge の切り替えを表示しましたが、有効化していません。PR #10 の [CI](https://github.com/iwizsophy/dev-days-tailspin-app-verification-20260913/actions/runs/34751902435) は全4ジョブ成功しました。PR #10 は未マージです。
 
 すべての章で App → CLI → App の作業ディレクトリ・ブランチ・差分の一致も未検証です。
 

@@ -3,7 +3,7 @@ title: "レッスン 3 - カスタム指示による Copilot のガイド"
 description: "GitHub Copilot app を使い、バックログの Issue から始めてカスタム指示の標準をリポジトリに追加し、変更を pull request としてマージします。"
 authors:
   - geektrainer
-lastUpdated: 2026-07-09
+lastUpdated: 2026-09-13
 ---
 
 > **この章の進め方：** App で操作します。画像は参照元の画面例で、現行 UI との一致は未確認です。ボタンや機能が見つからない場合は [UI が異なるときの確認](../material/ui-check.md)に沿って講師と確認してください。
@@ -98,13 +98,15 @@ AI の使い方に唯一の方法がないのと同様に、指示ファイル�
   この Issue に記載された要件に従って、プロジェクトの指示ファイルを更新してください。PR はまだ作らないでください。
   ```
 
+> **2026年9月13日の確認（Windows App 1.1.20）：** GitHub 連携プロジェクトの My work → 対象 Issue → New session で専用 worktree が作成され、前章でマージした星評価を継承しました。初回は Accept this repository configuration? が表示されます。Review configuration でセットアップと Run の内容を確認してから承認してください。今回の実走では利用者の承認後に送信でき、指示ファイル・README・ESLint と最小限の書式修正を含む7ファイルを更新しました。単体30件・E2E21件・lint・型検査は成功しています。
+
 Copilot が更新を行います。
 
 ## 変更をレビューする
 
 Copilot が行った更新を読み、更新された指示に基づいて生成するコード例も提示させます。
 
-1. 右上の **Changes** を選択してコードの変更を開きます。
+1. 入力欄の上にある **Changes**（Open changes）を選択してコードの変更を開きます。Windows App 1.1.20 の GitHub 連携セッションでは、右パネルに **Changes (7), +43, -4** が表示されました。
 
    ![GitHub Copilot app のセッションパネルにあるタブで、Changes タブを矢印で示した画面](../../_images/app-select-changes.png)
 
@@ -127,7 +129,7 @@ Copilot が行った更新を読み、更新された指示に基づいて生成
 
 指示ファイルはリポジトリのアセットとなり、チームのほかのメンバーと共有されます。ほかのアセットと同様に、作業内容を含む PR を作成します。
 
-1. 右上隅にある **Create PR** を選択します。
+1. 右上隅にある **Create PR** を選択します。Windows App 1.1.20 の GitHub 連携セッションでは、この操作からコミット・push・PR 作成まで進みました。検証用 PR #10 は作成済みですが、まだマージしていません。[実走記録](../material/verification.md)を参照してください。
 2. 求められた場合は **Sign in with your browser** を選択し、画面の指示に従って認証します。
 3. Copilot が PR の作成を開始します。
 
