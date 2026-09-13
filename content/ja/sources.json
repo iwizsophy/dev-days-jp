@@ -7,7 +7,7 @@
       "source": "docs/ja-jp/app",
       "license": "copilot-workshops.txt",
       "translation": "上流の日本語版を取り込み、プロンプトと利用条件を補正",
-      "role": "本編：App シナリオと章ごとの CLI 代替手順",
+      "role": "本編：App の操作・開発体験。現行 UI の照合は未完了",
       "files": [
         "0-prerequisites.md",
         "1-install-copilot-app.md",
@@ -76,9 +76,10 @@
     },
     "local_additions": [
       "content/ja/material/*.md",
-      "content/ja/app/*.md の CLI 代替手順",
+      "content/ja/app/*.md の UI 注意書き",
       "website/ja/handson-guide.html"
     ],
-    "scope": "既存の固定コミットを参照。2026-09-10 の上流最新版を取り込んだという意味ではない。"
+    "scope": "既存の固定コミットを参照。2026-09-10 の上流最新版を取り込んだという意味ではない。",
+    "cli_policy": "講師専用の緊急対応。本編の App 操作完了には数えない。"
   }
 }

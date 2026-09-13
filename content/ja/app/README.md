@@ -8,14 +8,15 @@ lastUpdated: 2026-06-30
 
 ## この教材セットの進め方
 
-このセットでは **App のシナリオを本編**として演習0〜8を順に進めます。各章に、その課題を同じ演習コピー・ブランチで続ける CLI 代替手順と合流条件を併記しました。CLI 独立コースへ移動する必要はありません。
+**App の操作と開発体験を学ぶ本編**として、演習0〜8を順に進めます。完成したコードだけでなく、App のセッション、レビュー、MCP、Agent Merge、Canvas、Automation の操作を確認します。
 
-- [共通の切り替え・PR・合流手順](../material/continuation.md)
-- [講師用の時間配分・対処手順](../material/instructor.md)
+画像は固定した参照コミットに含まれる画面例です。撮影時の App バージョンは確認できておらず、現行 UI と一致するとは限りません。
+
+- [UI が異なるときの確認](../material/ui-check.md)
+- [講師ガイド](../material/instructor.md)
 - [章別の実走検証状況](../material/verification.md)
 
-本編の実装は自分の Tailspin Toys コピーで行います。参照元への push・PR・Issue 作成は禁止です。App 固有の Agent Merge・Canvas・Automation は、CLI 代替を実施しても機能体験は未実施として記録します。以下の製品説明と本文は固定した参照コミットを基にしたもので、現行 UI との一致を保証しません。
-
+操作できない場合は、講師による現行 App の案内、ペア操作、App のデモの順で対応します。CLI は講師向けの緊急対応で、本編を完了する代替経路ではありません。演習先は自分の Tailspin Toys コピーです。参照元への push・PR・Issue 作成は禁止です。
 
 [**GitHub Copilot app**](https://docs.github.com/copilot/concepts/agents/github-copilot-app) は Copilot CLI を基盤とするデスクトップアプリケーションで、エージェント主導の開発を単一の作業用ワークスペースで実現します。並列エージェントセッション、切り替え可能なセッションモード、共有キャンバス、GitHub Issue と pull request のネイティブ管理機能を備えています。さらに、リベース、レビューのフィードバック、CI の修正、マージまで pull request を導く **Agent Merge** も利用できます。
 

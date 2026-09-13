@@ -3,7 +3,7 @@
 
 🌐 [English](README.md) | 日本語
 
-このリポジトリは [github/dev-days](https://github.com/github/dev-days) の履歴を引き継いだ、非公開の独立した教材セットです。App シナリオを主軸に、各章の CLI 代替手順を併記しています。GitHub 公式の日本語版ではありません。原本のライセンスと著作権表示は [LICENSE](LICENSE) に保持しています。
+このリポジトリは [github/dev-days](https://github.com/github/dev-days) の履歴を引き継いだ、非公開の独立した教材セットです。App シナリオを主軸に、CLI は講師向けの緊急対応として分離しています。GitHub 公式の日本語版ではありません。原本のライセンスと著作権表示は [LICENSE](LICENSE) に保持しています。
 
 > 🚨 **公式の Dev Days イベントを開催し、プログラムの支援を受けるには、[イベント申請フォーム](https://gh.io/dev-days-2026)に記入して Dev Days チームの承認を得る必要があります。**
 >
@@ -39,15 +39,15 @@ Dev Days の開催を希望するコミュニティリーダー向けに、こ�
 | [運営ガイド（英語）](organization) | 企画から当日の運営までの実践的な案内 | イベントチェックリスト、登録ページのひな形 |
 | [主催者向けコンテンツ（英語）](content) | セッションとワークショップの技術資料 | スライド、ハンズオン教材 |
 | [参加者向けページ（日本語）](website/ja/index.html) | ワークショップの案内 | 演習本文は日本語、スライドは原本の言語 |
-| [演習本文（日本語）](website/ja/workshops/index.html) | App シナリオの演習0〜8 | 各章に CLI 代替手順・合流条件 |
+| [演習本文（日本語）](website/ja/workshops/index.html) | App シナリオの演習0〜8 | App の操作・到達目標 |
 | [講師ガイド](website/ja/workshops/material/instructor.html) | 開催前・当日の進行 | 時間配分・対処手順・検証表 |
 | [参考資料](website/ja/workshops/references.html) | 独立した CLI コース・Mona Mayhem | 本編の必須経路には含めない |
-| [事前準備と CLI への切り替え（日本語）](website/ja/handson-guide.html) | このコピー独自の補助資料 | App の準備、同じ課題を CLI で続ける手順、到達目標 |
+| [App の事前準備と UI 確認（日本語）](website/ja/handson-guide.html) | このコピー独自の補助資料 | App の準備、UI が異なる場合の講師確認、到達目標 |
 | [告知資料（英語）](marketing) | イベントを告知するための素材とテンプレート | SNS 投稿テンプレート、イベント画像 |
 
 ## 日本語版の利用と更新
 
-本編は App シナリオです。星評価、カスタム指示、フィルター、MCP、マージ、Canvas、振り返りの順に進めます。UI が使えない場合は各章の CLI 代替手順を使い、同じ課題の完了条件へ合流します。App 固有機能は通常操作で代用しても体験済みにはしません。
+本編は App シナリオです。星評価、カスタム指示、フィルター、MCP、マージ、Canvas、振り返りの順に進めます。UI が使えない場合は講師と現行 App の操作を確認し、App のデモやペア操作で補います。CLI は緊急対応で、App 演習の完了には数えません。App 固有機能は通常操作で代用しても体験済みにはしません。
 
 CLI 独立コースと Mona Mayhem は参考資料です。[章別の検証状況](website/ja/workshops/material/verification.html)では、以前の CLI 実走と App シナリオの未検証を区別しています。原稿と更新方法は [教材の管理ガイド](content/ja/README.md)を参照してください。
 

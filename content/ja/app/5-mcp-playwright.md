@@ -6,7 +6,7 @@ authors:
 lastUpdated: 2026-07-09
 ---
 
-> **この章の進め方：** App を使える場合は以下の本文を進めます。UI で止まった場合は、[この章の CLI 代替手順](#cli-fallback)を使い、同じ章の合流条件を確認してください。
+> **この章の進め方：** App で操作します。画像は参照元の画面例で、現行 UI との一致は未確認です。ボタンや機能が見つからない場合は [UI が異なるときの確認](../material/ui-check.md)に沿って講師と確認してください。
 
 
 前のレッスンでは、プロジェクトの自動テストスイートを使ってフィルター機能を作成し、検証しました。テストによってコードの検証を自動化できますが、エージェント自身が動作を確認できるようにすることも効果的です。実際に作成している UI で問題を見つけた場合に、エージェントが対応できるようになります。MCP を使って AI エージェントに外部機能へのアクセスを提供する方法を確認し、Copilot が構築中のサイトを直接操作できるように Playwright MCP server を追加します。
@@ -39,16 +39,15 @@ lastUpdated: 2026-07-09
 
 ## Playwright MCP server を追加する
 
-MCP server はアプリの設定から追加して管理します。アプリには一般的なサーバーのカタログが含まれているため、[Playwright MCP server][playwright-mcp-server] は数回の操作で追加できます。
+2026年9月10日に確認した [公式のカスタマイズ手順](https://docs.github.com/en/copilot/how-tos/github-copilot-app/customize-github-copilot-app#configuring-mcp-servers)に合わせ、参照原文の「設定 → MCP servers」を次の案内へ更新しました。これは公式文書との照合で、実機の操作確認は未実施です。
 
-1. <kbd>Ctrl</kbd>+<kbd>,</kbd> を選択して、Copilot app の設定ページを開きます。
-2. **MCP servers** を選択します。
-3. 検索ダイアログに `Playwright` と入力します。
-4. **Popular MCP servers** の一覧から **Playwright** を選択します。
-5. **Add server** を選択し、利用可能な MCP server の一覧に追加します。
-6. <kbd>Esc</kbd> を選択して設定ダイアログを閉じます。
+1. サイドバーの **Customize** を開きます。
+2. **MCP** を開きます。
+3. 既存の登録がないか **Installed** で確認します。登録済みなら重複して追加しません。
+4. 未登録ならカタログで [Playwright MCP server][playwright-mcp-server] を探し、選択して表示される導入手順に従います。表示されなければ、カスタムサーバーを追加する操作を講師と確認します。
+5. 導入後、登録状態とセッションからの利用可否を確認します。登録しただけで成功とはせず、次の節で実際のツール実行を確認します。
 
-これで Playwright MCP server を追加できました。
+Customize・MCP の項目がない場合は、App のバージョン・組織ポリシー・画面の状態を記録して講師と確認してください。ここで右クリックへ移ったと断定できる根拠はありません。
 
 ## Playwright で機能を確認するよう Copilot に依頼する
 
@@ -69,20 +68,7 @@ Copilot は Playwright MCP server を通じてブラウザーを起動し、各�
 
 <a id="cli-fallback"></a>
 
-## CLI 代替手順：同じフィルターを Playwright MCP で検証する
-
-演習4の worktree・ブランチを維持します。別ターミナルで `npm run dev` を実行し、実際の URL を確認します。CLI の `/mcp show` で既存設定を確認し、なければ `/mcp add` で名前 `playwright`、種類 STDIO、コマンド `npx @playwright/mcp@latest --headless` を登録して保存します。
-
-CLI と App の MCP 設定が共有されるとは仮定しません。接続できない場合、CLI の再起動とプロセス状態を確認します。Chrome がないエラーなら `npx playwright install chrome` を実行します。E2E 用 Chromium とは別です。Codespaces で sandbox エラーが出る場合に限り、[CLI 参考資料の対処](../cli/4-mcp.md)を確認してください。
-
-```text
-Playwright MCP のブラウザーツールを使って [実際の localhost URL] を開き、
-演習4で合意したフィルター条件、複合条件、解除、キーボード操作と星評価を確認してください。
-期待値と実測値を記録し、不具合があれば修正して再検証してください。
-MCP を使えない場合は成功扱いにせず、エラーを報告してください。PR はまだ作成しません。
-```
-
-**合流条件：** MCP ツール実行が確認でき、受け入れ条件を満たすこと。データによって0件が選べない場合はテストで補い、証拠を区別します。MCP が復旧しなければ通常のブラウザーとテストで機能を検証し、MCP は未実施と記録して演習6へ進みます。修正後は quality-checks を再実行します。
+> **講師向け：** 緊急の作業保全が必要な場合だけ [対応手順](../material/emergency-cli.md#chapter-5) を参照してください。CLI の実装成功は、この章の App 操作の完了には数えません。
 
 ## まとめと次のステップ
 
