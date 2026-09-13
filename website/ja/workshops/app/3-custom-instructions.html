@@ -66,18 +66,18 @@ GitHub Copilot を使用するすべてのプロジェクトには、充実し�
 <h2 id="このプロジェクトのカスタム指示ファイルを確認する">このプロジェクトのカスタム指示ファイルを確認する</h2>
 <p>このリポジトリに含まれる指示ファイルを確認します。中心となる <code>copilot-instructions.md</code> が1つと、さまざまなタスクに対応する <code>*.instructions.md</code> ファイル一式があります。エディターまたは GitHub Web UI で開いてください。</p>
 <ol>
-<li>レビューパネルが表示されていない場合は、右上の <strong>Toggle review panel</strong> を選択して開きます。</li>
+<li>右パネルが表示されていない場合は、右上の <strong>Toggle panel</strong> を選択して開きます。</li>
 </ol>
 <p><img alt="Create PR の右側にある Toggle review panel ボタンを矢印で示した GitHub Copilot app の上部ツールバー" src="../assets/app-2-review-panel.png" /><br><em class="source">参照元の画面例（撮影時バージョン不明・現行 UI 未照合）。位置やメニューの開き方は講師と確認してください。</em></p>
 <ol start="2">
-<li><strong>+</strong> を選択し、レビューパネルに新しい項目を追加します。</li>
-<li><strong>File</strong> を選択します。</li>
-<li><code>copilot-instructions.md</code> を検索します。</li>
+<li>パネルのタブ列にある <strong>+</strong>（Add tab）を選択します。</li>
+<li><strong>Files</strong> を選択します。</li>
+<li><kbd>Ctrl</kbd>+<kbd>P</kbd> で <strong>Go to file</strong> を開き、<code>copilot-instructions.md</code> を検索します。Windows App 1.1.20 で確認した経路です。</li>
 <li>ファイル一覧から <code>copilot-instructions.md</code> を選択して開きます。</li>
 <li>ファイルを確認します。プロジェクトの簡単な説明に加えて、<strong>Agent notes</strong>、<strong>Code standards</strong>、<strong>Scripts</strong>、<strong>Repository Structure</strong> などのセクションがあります。<strong>Code standards</strong> の下には、ネストされた <strong>GitHub Actions Workflows</strong> のガイダンスがあります。これらは Copilot とのすべてのやり取りに適用されます。</li>
-<li><strong>Show folder view</strong> を選択して、フォルダーナビゲーターを開きます。</li>
+<li>右側のファイルツリーを確認します。<code>.github</code> が見えない場合は、ファイルパネルの歯車 <strong>View options</strong> → <strong>Show hidden files</strong> を有効にします。実走では、隠しファイルを表示すると <code>.github</code> と指示ファイルがツリーに現れました。</li>
 </ol>
-<p><img alt="GitHub Copilot app でファイルを開いたレビューパネルにある Show folder view ボタン" src="../assets/app-show-folder-view.png" /><br><em class="source">参照元の画面例（撮影時バージョン不明・現行 UI 未照合）。位置やメニューの開き方は講師と確認してください。</em></p>
+<p>フォルダーを順に開く代わりに、<strong>Go to file</strong> へ次の手順のファイル名を入力して開くこともできます。</p>
 <ol start="8">
 <li><code>.github/instructions</code> フォルダーに移動し、ファイルを確認します。Astro ファイル、Drizzle データレイヤー、テストなどに対応する指示があります。</li>
 <li><code>.github/instructions/unit-tests.instructions.md</code> を開きます。先頭の <code>applyTo</code> フィールドに注目してください。これはリポジトリのルートを基準とする glob で、指示を適用するファイルを決定します。ここでは、TypeScript のテストファイル (<code>**/*.test.ts</code> に一致するファイルなど) が対象になります。</li>

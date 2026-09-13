@@ -19,7 +19,7 @@
 </ul>
 </div>
 </details><article><blockquote>
-<p><strong>この章の確認範囲：</strong> 2026年9月13日に Windows の App 1.1.20 で、作成・共有保存・Agent Merge・別セッションでの再表示・Issue のコンテキスト追加を確認しました。コンテキスト追加の反復送信を修正して再検証しています。ボタンは計画用コンテキストへの追加までで、Issue の実装開始は未検証です。画像は参照元の画面例です。</p>
+<p><strong>この章の確認範囲：</strong> 2026年9月13日に Windows の App 1.1.20 で、作成・共有保存・Agent Merge・別セッションでの再表示・Issue のコンテキスト追加を確認しました。反復送信を修正した後、キャンバスから追加した検索 Issue の計画・実装・MCP 検証・Agent Merge まで追加実走しています。</p>
 </blockquote>
 <p>ここまでは、チャットを通じてエージェントを指示してきました。しかし、多くの作業は会話の中ではなく、ボード、ドキュメント、チェックリスト上で行われます。<strong>キャンバス</strong>は、まさにそのような作業のために、アプリ内でユーザーとエージェントが共有できる領域です。このレッスンでは、ここまで取り組んできたバックログの計画と追跡に使用する、シンプルなキャンバスを作成します。</p>
 <p>このレッスンでは、次の内容を学習します。</p>
@@ -71,8 +71,10 @@
 <ol start="2">
 <li>Copilot がキャンバスファイルを保存したら、右上隅にある <strong>Create PR</strong> の横のドロップダウンを選択します。</li>
 </ol>
-<p>保存場所も確認します。実走の初版はセッション限定で、共有依頼後に <code>.github/extensions/issue-triage-board/extension.mjs</code> と README の起動手順を追加しました。これは<a href="https://docs.github.com/en/copilot/how-tos/github-copilot-app/working-with-canvas-extensions#creating-a-canvas">公式のプロジェクト共有スコープ</a>です。セッション一時フォルダーにしかない状態では、チーム共有や別セッションでの再利用を確認したことにはなりません。すでにボタンが <strong>Agent merge</strong> なら手順5へ進みます。
-3. <strong>Agent merge</strong> を選択して Agent Merge を有効にします。</p>
+<p>保存場所も確認します。実走の初版はセッション限定で、共有依頼後に <code>.github/extensions/issue-triage-board/extension.mjs</code> と README の起動手順を追加しました。これは<a href="https://docs.github.com/en/copilot/how-tos/github-copilot-app/working-with-canvas-extensions#creating-a-canvas">公式のプロジェクト共有スコープ</a>です。セッション一時フォルダーにしかない状態では、チーム共有や別セッションでの再利用を確認したことにはなりません。すでにボタンが <strong>Agent merge</strong> なら手順5へ進みます。</p>
+<ol start="3">
+<li><strong>Agent merge</strong> を選択して Agent Merge を有効にします。</li>
+</ol>
 <p><img alt="GitHub Copilot app で展開された Create PR ドロップダウンの Agent merge オプションを矢印で示した画面" src="../assets/app-enable-agent-merge.png" /><br><em class="source">参照元の画面例（撮影時バージョン不明・現行 UI 未照合）。位置やメニューの開き方は講師と確認してください。</em></p>
 <ol start="4">
 <li>ボタンのテキストが <strong>Agent merge</strong> に変わります。</li>
@@ -98,7 +100,11 @@
 <ol start="3">
 <li>作成したキャンバスが新しいセッションで開いたことを確認します。</li>
 <li>最も関心のある Issue の1つで <strong>Add to current session</strong> を選択します。表示名は生成したキャンバスの定義によります。実走のボタン名はこの表記でした。</li>
-<li>Issue の内容が現在のセッションに届くことを確認します。実走では計画用コンテキストへ追加して確認応答を返すところまでとし、Issue の実装は開始しませんでした。実装を進める場合は、対象と範囲を確認してから依頼します。</li>
+<li>Issue の内容が現在のセッションに1回だけ届き、確認応答が返ることを確認します。ボタンの操作はコンテキスト追加までです。実装の対象と範囲を確認し、続けてメッセージを送ります。</li>
+<li>計画から進める場合は <strong>Mode: Interactive</strong> → <strong>Plan</strong> に切り替えます。実走では「キャンバスから追加したタイトル検索 Issue の実装計画を作成し、既存フィルターと星評価を維持する」と依頼しました。</li>
+<li><strong>Review plan</strong> で計画を読み、<strong>Approve and implement this plan</strong> → <strong>Continue</strong> を選択します。実走では <strong>Autopilot</strong> に切り替わり、同じ worktree で実装が始まりました。</li>
+<li><strong>Changes</strong> で差分を確認し、テストとブラウザー検証を依頼します。実走では SQL 検索の <code>%</code>・<code>_</code> が特殊文字になる不一致をレビューで修正し、単体39件・E2E28件・キャンバス回帰3件、lint・型検査・build が成功しました。MCP による通常21件の検索・複合条件・検索0件・キーボード解除も確認しています。</li>
+<li>問題がなければ、この章で学んだ <strong>Agent merge</strong> で統合します。検証用 PR #15 は CI 全4ジョブ成功後にマージされ、検索 Issue が Closed になりました。次にボードを更新した際は、完了した Issue が未対応一覧から除かれることを確認してください。</li>
 </ol>
 <blockquote>
 <p><strong>反復送信への対処：</strong> 初版では、通知の「Issue を追加する」という命令を受けてエージェントが追加アクションを再び呼び、通知が反復しました。Stop で処理を停止し、通知を「追加済み」の事実通知へ修正。同じ Issue の送信中・送信済みを追跡し、再入時に元の送信を待たず返す処理と回帰テストを加えました。修正後は1回のクリックで1通知・1応答となり、Refresh 後の再クリックでも通知が増えないことを確認しました。表示と保存だけでなく、この操作結果まで確認してください。</p>

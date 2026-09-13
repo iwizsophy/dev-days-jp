@@ -31,7 +31,7 @@
 <td>初期設定・候補未選択</td>
 <td>Connect your repositories → Continue → テーマ画面</td>
 <td>リポジトリを選ばずホームへ進める。利用者操作を挟んで完了を確認</td>
-<td>演習コピーの接続</td>
+<td>演習コピーの接続は後続で確認済み</td>
 </tr>
 <tr>
 <td>サイドバー・プロジェクト未接続</td>
@@ -49,7 +49,7 @@
 <td>My work・ローカルフォルダーのみ登録</td>
 <td>Add GitHub repository → owner/repo を検索 → 自分の演習コピー</td>
 <td>No GitHub repositories yet から8件の Issue 一覧へ変化。ローカルフォルダーとは別のプロジェクトが追加された</td>
-<td>Issue からの実装・PR</td>
+<td>Issue からの実装・PR は演習3・4で確認済み</td>
 </tr>
 <tr>
 <td>ローカルプロジェクト・新規セッション</td>
@@ -73,7 +73,7 @@
 <td>GitHub 連携・作成済み PR</td>
 <td>My work → PR #9 → Changes / Ready to merge</td>
 <td>5ファイルの差分と Checks: Passed を表示。Merge pull request ダイアログに All checks have passed・No unresolved comments・Merge pull request・Choose merge method（Merge commit）を表示</td>
-<td>通常マージは利用者承認後に成功。Agent merge は未実施</td>
+<td>通常マージ成功。Agent merge は後続 PR #12～14 で確認済み</td>
 </tr>
 <tr>
 <td>GitHub 連携・既存 Issue</td>
@@ -97,31 +97,31 @@
 <td>GitHub 連携・Issue から作った実装セッション</td>
 <td>Open changes → Changes (7) → 上部 Create PR</td>
 <td>7ファイルの差分を表示。App がコミット・push・PR #10 作成を実行し Ready to merge に変化</td>
-<td>PR #10 のマージ・後続章への継承</td>
+<td>通常マージとフィルター用 worktree への継承を確認済み</td>
 </tr>
 <tr>
 <td>GitHub 連携・PR 作成後</td>
 <td>Ready to merge options</td>
 <td>Agent merge の切り替えを表示</td>
-<td>有効化・許可範囲・実行</td>
+<td>後続 PR #12～14 で有効化・許可範囲・実行を確認済み</td>
 </tr>
 <tr>
 <td>GitHub 連携・Issue #7 の新規セッション</td>
 <td>Mode: Interactive → Plan → Review plan → Approve and implement this plan → Continue</td>
 <td>計画への質問に回答でき、承認後 Mode: Autopilot に切替。実装と検査を実行</td>
-<td>新規実装の MCP 検証</td>
+<td>MCP による通常データの絞り込み検証を確認済み</td>
 </tr>
 <tr>
 <td>GitHub 連携・リポジトリに .mcp.json が存在</td>
 <td>プロジェクトを右クリック → Settings → MCP servers</td>
 <td>本人の信頼承認後、servers → mcpServers 修正で3件が Connected。/restart-session 後、同じセッションから MCP ブラウザー操作成功</td>
-<td>0件状態の MCP 検証</td>
+<td>追加実走で一時隔離 DB のフィルター0件も確認済み</td>
 </tr>
 <tr>
 <td>会話・プロジェクト未接続</td>
 <td>Chats の +（New chat）→ Chat → 質問を送信</td>
 <td>worktree の説明が日本語で返り、Idle になった</td>
-<td>実装用セッションの worktree 動作</td>
+<td>GitHub 連携の実装用セッションでは後続章で worktree 分離を確認済み</td>
 </tr>
 <tr>
 <td>完了したチャット</td>
@@ -140,6 +140,30 @@
 <td>Customize → MCP → Playwright</td>
 <td>Local / npx / -y @playwright/mcp@latest の登録フォームを表示</td>
 <td>Add server の保存、接続・ツール実行</td>
+</tr>
+<tr>
+<td>GitHub Web・テンプレート</td>
+<td>Use this template → Create a new repository</td>
+<td>作成フォームのテンプレート・Owner・Repository name・Choose visibility・Create repository を確認</td>
+<td>フォーム送信は未実施。既存の実走コピーは固定コミットから別途作成</td>
+</tr>
+<tr>
+<td>GitHub 連携・ファイル閲覧</td>
+<td>Toggle panel → Add tab → Files → Ctrl+P（Go to file）</td>
+<td>copilot-instructions.md を検索して表示。View options → Show hidden files で .github がファイルツリーに表示</td>
+<td>操作経路は確認済み</td>
+</tr>
+<tr>
+<td>GitHub 連携・保存済みキャンバス</td>
+<td>New → New worktree/main → Canvas を開く → Add to current session → Plan</td>
+<td>PR #14 の修正を継承し、1通知・1応答の後、計画承認から検索実装へ移行。テスト・MCP・PR #15 の Agent Merge 成功</td>
+<td>ボードでのマージ後の件数更新は未確認</td>
+</tr>
+<tr>
+<td>GitHub 連携・Run 未実行</td>
+<td>Run options → Run development site → Run ボタン</td>
+<td>項目選択だけでは開始せず、Run ボタンで起動。Stop Run development site で停止</td>
+<td>自動セットアップの終了ログは未取得</td>
 </tr>
 </tbody>
 </table>
@@ -171,7 +195,7 @@
 <td>3</td>
 <td>Issue・指示ファイル</td>
 <td>Issue から開始、ファイル確認、PR</td>
-<td>My work → New session、Toggle review panel</td>
+<td>My work → New session、Toggle panel → Add tab → Files → Ctrl+P</td>
 </tr>
 <tr>
 <td>4</td>
@@ -195,7 +219,7 @@
 <td>7</td>
 <td>Canvas・セッション</td>
 <td>作成、保存、開く、Issue 操作</td>
-<td>New session → New worktree/main、右パネル表示、共有保存、Agent Merge、別セッションで再表示、Add to current sessionを確認。反復送信を修正済み</td>
+<td>New → New worktree/main、共有保存・Agent Merge・別セッションで再表示・Add to current session・Plan 承認後の実装と PR #15 統合を確認。反復送信を修正済み</td>
 </tr>
 <tr>
 <td>8</td>
@@ -271,7 +295,7 @@
 <tr>
 <td>2</td>
 <td><code>app-terminal-screenshot.png</code></td>
-<td>未確認</td>
+<td>本文から除去。実走した Run メニューによる起動・停止へ更新</td>
 </tr>
 <tr>
 <td>3</td>
@@ -281,7 +305,7 @@
 <tr>
 <td>3</td>
 <td><code>app-show-folder-view.png</code></td>
-<td>未確認</td>
+<td>本文から除去。Files・Go to file・Show hidden files の現行経路を確認</td>
 </tr>
 <tr>
 <td>3</td>
@@ -311,7 +335,7 @@
 <tr>
 <td>4</td>
 <td><code>app-terminal-screenshot.png</code></td>
-<td>未確認</td>
+<td>本文から除去。実走した Run メニューによる起動・停止へ更新</td>
 </tr>
 <tr>
 <td>4</td>
