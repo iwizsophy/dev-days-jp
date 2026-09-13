@@ -62,7 +62,7 @@
 <tr>
 <td>5 MCP</td>
 <td>MCP ツールの実行、複合条件・解除等の検証</td>
-<td>一部確認：カタログ・登録フォーム・リポジトリ定義 .mcp.json。MCP servers に Trust repository が表示され、本人操作待ち。ツール実行は未実施</td>
+<td>一部確認：カタログ・登録フォーム・リポジトリ定義 .mcp.json。本人が信頼承認後、設定形式の修正により3サーバーが Connected。既存セッションには Playwright ツールが公開されず停止。ツール実行は未実施</td>
 <td>未検証</td>
 </tr>
 <tr>
@@ -90,7 +90,7 @@
 <p>App の Open changes で Changes (7), +43, -4 を確認後、上部の Create PR を操作しました。App がコミット・同名ブランチへの push・PR 作成まで実行し、<a href="https://github.com/iwizsophy/dev-days-tailspin-app-verification-20260913/pull/10">検証用 PR #10</a> を作成しました。ブランチ名は App が変更した <code>iwizsophy-repository-coding-standards</code>、コミットは <code>97da644d628d0e5b0aaa1c893912a45a2f68b0fc</code>。Author・Committer は指定の Tetsuji Kato で、checkout はクリーンです。これは GitHub 連携プロジェクトの専用 worktree 経路での成功であり、ローカルフォルダー側の連携エラーが修復されたことは意味しません。Ready to merge options に Agent merge の切り替えを表示しましたが、有効化していません。PR #10 の <a href="https://github.com/iwizsophy/dev-days-tailspin-app-verification-20260913/actions/runs/34751902435">CI</a> は全4ジョブ成功しました。利用者による以後の検証用リポジトリ操作の承認後、App の Ready to merge → Merge pull request で PR #10 を通常マージしました。マージコミットは <code>1b698acc404d35ddf48b0b9df539e1257ff88fec</code> です。</p>
 <p>フィルター演習は Issue #7 → New session で、<code>iwizsophy-issue-7-allow-users-to-filter-games-by-category-91fbc5</code> という専用 worktree を作成しました。App がブランチ名を <code>iwizsophy-filter-games-by-category-and-publisher</code> に変更しています。HEAD は <code>1b698ac</code>。今回は設定承認を再表示せず開始できました。Mode メニューで Plan を選択し、カテゴリ内は OR・出版社とは AND の質問に回答。Review plan → Approve and implement this plan → Continue で Mode: Autopilot に切り替わりました。</p>
 <p>フィルターのレビューでは、出版社のラベル不整合、複数カテゴリを実際には選ばないテスト、存在しない選択肢を DOM に注入する0件テストを修正しました。通常 CSV は全5カテゴリ×4出版社を含むため、0件条件には20件の E2E 専用 CSV と分離 SQLite を使います。本番21件の CSV は変更していません。最終検査は単体35件・E2E25件・lint・型検査・build・diff --check が成功。App の Run development site で通常データを起動し、別ブラウザーで21件 → Strategy 4件 → Puzzle 追加8件 → CodeForge Studios 追加2件 → Clear filters 21件を確認しました。App の Stop で停止し、4321 の待受終了も確認しました。このブラウザー確認は Playwright MCP の実行証拠ではありません。新しいデータアクセス関数の TSDoc は確認できましたが、ファイルヘッダーが自動追加されたとは扱いません。フィルター変更は未コミットで、PR は未作成です。</p>
-<p>MCP の確認では、GitHub 連携プロジェクトを右クリック → Settings → MCP servers に Trust this repository / Trust repository が表示されました。Repository configuration の Trusted 表示とは別の確認です。コピーに既存の <code>.mcp.json</code> は GitHub（https://api.githubcopilot.com/mcp/）、Playwright（npx @playwright/mcp@latest）、astro-docs（https://mcp.docs.astro.build/mcp）を定義しています。重複登録せず、MCP 信頼確認の本人操作待ちで停止しています。</p>
+<p>MCP の確認では、GitHub 連携プロジェクトを右クリック → Settings → MCP servers に Trust this repository / Trust repository が表示されました。Repository configuration の Trusted 表示とは別の確認です。コピーに既存の <code>.mcp.json</code> は GitHub（https://api.githubcopilot.com/mcp/）、Playwright（npx @playwright/mcp@latest）、astro-docs（https://mcp.docs.astro.build/mcp）を定義しています。本人の信頼承認後、No MCP servers loaded を確認しました。設定のルートを servers から mcpServers に変更し、接続先を維持したまま Refresh 後に3サーバーの Connected 表示を確認しました。修正は外部シェルで実施し、<a href="https://github.com/iwizsophy/dev-days-tailspin-app-verification-20260913/pull/11">検証用 PR #11</a> は CI 全4ジョブ成功後にマージ（9a444be）。フィルター worktree にも同じ修正を7644b85として反映しています。既存フィルターセッションに MCP 実走を依頼すると、Playwright の browser 操作ツールが利用可能一覧に存在しないと報告して停止しました。Connected はセッション内の実行証拠ではありません。セッションの再読み込み方法は未確認で、MCP によるブラウザー検証も未実施です。フィルター変更は未コミットのまま保持しています。</p>
 <p>すべての章で App → CLI → App の作業ディレクトリ・ブランチ・差分の一致も未検証です。</p>
 <h2>既存の実走結果を再利用できる範囲</h2>
 <p>2026年9月8日の Tailspin Toys <strong>CLI 独立シナリオ</strong>では、Copilot CLI 1.0.83 の応答、指示反映、フィルター実装、quality-checks、Playwright MCP、高コントラストのカスタムエージェント、PR と CI を確認しました。環境構築と問題切り分けの参考になります。</p>

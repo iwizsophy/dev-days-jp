@@ -10,14 +10,18 @@
 <ul>
 <li><a href="#シナリオ">シナリオ</a></li>
 <li><a href="#model-context-protocol-mcp-とは">Model Context Protocol (MCP) とは</a></li>
-<li><a href="#playwright-mcp-server-を追加する">Playwright MCP server を追加する</a></li>
+<li><a href="#playwright-mcp-server-を追加する">Playwright MCP server を追加する</a><ul>
+<li><a href="#既存の設定を読み込めない場合">既存の設定を読み込めない場合</a></li>
+<li><a href="#新規登録の手順">新規登録の手順</a></li>
+</ul>
+</li>
 <li><a href="#playwright-で機能を確認するよう-copilot-に依頼する">Playwright で機能を確認するよう Copilot に依頼する</a></li>
 <li><a href="#まとめと次のステップ">まとめと次のステップ</a></li>
 <li><a href="#リソース">リソース</a></li>
 </ul>
 </div>
 </details><article><blockquote>
-<p><strong>この章の確認範囲：</strong> 2026年9月13日に Windows の App 1.1.20 で、MCP カタログ・Installed・Playwright の登録フォームを確認し、画像を撮影しました。登録の保存、サーバー起動、セッションからのツール実行は未実施です。<a href="../material/ui-check.html">UI 確認表</a>を参照してください。</p>
+<p><strong>この章の確認範囲：</strong> 2026年9月13日に Windows の App 1.1.20 で、MCP カタログ・Installed・Playwright の登録フォームを確認し、画像を撮影しました。リポジトリ定義は信頼承認と設定形式の修正後、3サーバーが Connected になりました。新規登録の保存とセッションからのツール実行は未確認です。<a href="../material/ui-check.html">UI 確認表</a>を参照してください。</p>
 </blockquote>
 <p>前のレッスンでは、プロジェクトの自動テストスイートを使ってフィルター機能を作成し、検証しました。テストによってコードの検証を自動化できますが、エージェント自身が動作を確認できるようにすることも効果的です。実際に作成している UI で問題を見つけた場合に、エージェントが対応できるようになります。MCP を使って AI エージェントに外部機能へのアクセスを提供する方法を確認し、Copilot が構築中のサイトを直接操作できるように Playwright MCP server を追加します。</p>
 <p>このレッスンでは、次の内容を学習します。</p>
@@ -44,8 +48,12 @@ MCP server は、プロジェクト内のほかの依存関係と同様に扱っ
 <h2 id="playwright-mcp-server-を追加する">Playwright MCP server を追加する</h2>
 <p>2026年9月10日の <a href="https://docs.github.com/en/copilot/how-tos/github-copilot-app/customize-github-copilot-app#configuring-mcp-servers">公式文書との照合</a>に加え、9月13日に Windows の App 1.1.20 で以下の表示を確認しました。プロジェクト未接続でも登録フォームまで開けます。</p>
 <blockquote>
-<p><strong>リポジトリ定義がある場合：</strong> 検証コピーには <code>.mcp.json</code> に Playwright などが定義されていました。GitHub 連携プロジェクトを右クリック → Settings → MCP servers で確認します。Trust repository が表示された場合は、定義内容を確認して利用者が信頼を承認します。Repository configuration の Trusted 表示とは別です。今回の実走はこの本人操作待ちで停止しており、接続・ツール実行は未確認です。重複登録せず、既存定義を確認してから以下の新規登録手順を使ってください。</p>
+<p><strong>リポジトリ定義がある場合：</strong> 検証コピーには <code>.mcp.json</code> に Playwright などが定義されていました。GitHub 連携プロジェクトを右クリック → Settings → MCP servers で確認します。Trust repository が表示された場合は、定義内容を確認して利用者が信頼を承認します。Repository configuration の Trusted 表示とは別です。重複登録せず、既存定義を確認してから以下の新規登録手順を使ってください。</p>
 </blockquote>
+<h3 id="既存の設定を読み込めない場合">既存の設定を読み込めない場合</h3>
+<p>実走では、本人による信頼承認後に <strong>No MCP servers loaded</strong> と表示されました。固定コミットから作ったコピーの <code>.mcp.json</code> は、ルートが <code>"servers"</code> でした。<a href="https://docs.github.com/en/copilot/how-tos/copilot-cli/customize-copilot/add-mcp-servers#adding-per-repository-mcp-servers">公式のリポジトリ別設定形式</a>に合わせ、自分の演習コピーでこのキーを <code>"mcpServers"</code> に変更します。既存のサーバー定義・接続先はそのままにします。参照元リポジトリは変更しません。</p>
+<p>Settings の <strong>Refresh</strong> で再確認します。今回の修正後は GitHub・Playwright・astro-docs の3件が <strong>Connected</strong> になりました。ただし、既存のフィルターセッションは Playwright のブラウザー操作ツールが利用できないと報告して停止しました。Connected の表示だけで章を完了にせず、セッションから実際にツールを呼べるか確認してください。セッションへの再読み込み方法と MCP によるブラウザー検証は未確認です。</p>
+<h3 id="新規登録の手順">新規登録の手順</h3>
 <ol>
 <li>サイドバーの <strong>Customize</strong> を開きます。</li>
 <li><strong>Installed</strong> タブの <strong>MCP Servers</strong> で既存の登録を確認します。登録済みなら重複して追加しません。実走時は未登録と表示されました。</li>
