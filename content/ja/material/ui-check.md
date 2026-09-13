@@ -29,6 +29,8 @@ Windows（ビルド 26200.9445、25H2）、GitHub Copilot App 1.1.20。初期設
 | ローカルプロジェクト | Projects のフォルダー項目を右クリック → Settings | New session・Show in Explorer・Settings・Hide・Customize…・Manage sessions・Remove folder を表示。Settings には GitHub Account の登録名が表示された | アカウント連携エラーの原因・復旧 |
 | GitHub 連携・Issue から作った実装セッション | Open changes → Changes (7) → 上部 Create PR | 7ファイルの差分を表示。App がコミット・push・PR #10 作成を実行し Ready to merge に変化 | PR #10 のマージ・後続章への継承 |
 | GitHub 連携・PR 作成後 | Ready to merge options | Agent merge の切り替えを表示 | 有効化・許可範囲・実行 |
+| GitHub 連携・Issue #7 の新規セッション | Mode: Interactive → Plan → Review plan → Approve and implement this plan → Continue | 計画への質問に回答でき、承認後 Mode: Autopilot に切替。実装と検査を実行 | 新規実装の MCP 検証 |
+| GitHub 連携・リポジトリに .mcp.json が存在 | プロジェクトを右クリック → Settings → MCP servers | Trust this repository / Trust repository を表示。Repository configuration の Trusted とは別 | 本人による信頼確認・MCP 接続・実行 |
 | 会話・プロジェクト未接続 | Chats の +（New chat）→ Chat → 質問を送信 | worktree の説明が日本語で返り、Idle になった | 実装用セッションの worktree 動作 |
 | 完了したチャット | Chats の一覧項目を右クリック | Rename、Pin、Mark as unread、Show in Explorer、Share as secret gist、Copy、Archive、Delete を表示 | 各操作の実行、実装用セッションとの違い、旧 UI からの移動 |
 | MCP 未登録 | Customize → Installed → MCP Servers | 未登録の表示を確認 | 登録保存後の表示 |

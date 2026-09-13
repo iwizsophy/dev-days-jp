@@ -41,6 +41,8 @@ lastUpdated: 2026-09-13
 
 2026年9月10日の [公式文書との照合](https://docs.github.com/en/copilot/how-tos/github-copilot-app/customize-github-copilot-app#configuring-mcp-servers)に加え、9月13日に Windows の App 1.1.20 で以下の表示を確認しました。プロジェクト未接続でも登録フォームまで開けます。
 
+> **リポジトリ定義がある場合：** 検証コピーには `.mcp.json` に Playwright などが定義されていました。GitHub 連携プロジェクトを右クリック → Settings → MCP servers で確認します。Trust repository が表示された場合は、定義内容を確認して利用者が信頼を承認します。Repository configuration の Trusted 表示とは別です。今回の実走はこの本人操作待ちで停止しており、接続・ツール実行は未確認です。重複登録せず、既存定義を確認してから以下の新規登録手順を使ってください。
+
 1. サイドバーの **Customize** を開きます。
 2. **Installed** タブの **MCP Servers** で既存の登録を確認します。登録済みなら重複して追加しません。実走時は未登録と表示されました。
 3. 未登録なら **MCP** タブを開きます。実走時は **Featured** に **Playwright** が表示されました。見つからなければ **Search MCP servers** で検索します（検索操作は未検証）。

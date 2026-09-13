@@ -59,7 +59,7 @@ Issue を開いて新しいセッションを開始し、Plan モードに切り
 
    ![GitHub Copilot app の Issue ビューで、右上の New session ボタンを矢印で示した画面](../../_images/app-new-session-from-issue.png)
 
-4. モードに **Plan** と表示されるまで <kbd>Shift</kbd>+<kbd>Tab</kbd> を選択します。
+4. 入力欄下部のモードメニュー（**Mode: Interactive**）を開き、**Plan — Plan first, execute when ready** を選択します。Windows App 1.1.20 でこの経路を確認しました。メニューには **Interactive**・**Plan**・**Autopilot** が表示されます。
 
    ![モードセレクターが Plan に設定され、矢印で示された GitHub Copilot app のプロンプトボックス](../../_images/app-4-plan-mode.png)
 
@@ -80,7 +80,7 @@ Issue を開いて新しいセッションを開始し、Plan モードに切り
 
 計画が完成したので、Copilot に実装を構築させます。
 
-1. **Plan summary** ダイアログのオプション一覧で、**Approve and implement with autopilot** に最も近いオプションを選択します。
+1. 計画を読んだうえで、**Review plan** の **A. Approve and implement this plan** を選択し、**Continue** を押します。Windows App 1.1.20 では、これにより **Mode: Autopilot** に切り替わって実装が始まりました。
 
 Copilot が実装作業を開始します。
 
@@ -97,10 +97,12 @@ AI が生成したすべてのコードは、マージ前にレビューする�
 
    ![GitHub Copilot app のセッションパネルにあるタブで、Changes タブを矢印で示した画面](../../_images/app-select-changes.png)
 
-2. 変更をレビューします。新しい TypeScript ファイル、Astro ファイル、テストファイルが表示されます。新しいヘルパー関数には、レッスン3でマージしたドキュメント標準に従い、依頼していなくても TSDoc doc comment とファイルヘッダーコメントが含まれていることを確認します。
+2. 変更をレビューします。新しい TypeScript ファイル、Astro ファイル、テストファイルが表示されます。新しいヘルパー関数には、レッスン3でマージしたドキュメント標準に従い、更新した指示に沿った TSDoc doc comment が含まれているか確認します。ファイルヘッダーは役割や制約を伝える必要がある場合に確認し、すべてのファイルへの自動追加を成功条件にしません。今回の実走ではデータアクセス関数の TSDoc を確認しました。
 3. Copilot app の右側にあるレビューパネルで **Terminal** を選択します。**Terminal** ボタンがない場合は、**+** (**Open in panel** というラベルが付いています) を選択してから **Terminal** を選択します。
 
    ![GitHub Copilot app のレビューパネルにある Terminal ボタン](../../_images/app-terminal-screenshot.png)
+
+> **確認済みの Run 経路（Windows App 1.1.20）：** 上部の Run development site で起動し、Browser パネルに通常の21件を表示しました。複数カテゴリ・出版社との組合せ・解除を別ブラウザーでも確認後、Stop Run development site で停止しました。単体35件・E2E25件・lint・型検査・build は成功。0件のE2E検証には専用データを使用しています。詳細は [実走記録](../material/verification.md)を参照してください。
 
 4. ターミナルウィンドウに次のコマンドを入力し、Web アプリの開発サーバーを起動します。
 
