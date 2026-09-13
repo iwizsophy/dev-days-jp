@@ -1,6 +1,8 @@
 <!-- l10n-sync: english-commit-sha="84b1e89aefcc23368b2ab44fd5c133ecd9572dfc" -->
 # Dev Days：App シナリオの日本語教材セット
 
+配布用の参加者 PDF と講師用別冊は、Markdown から `python scripts/build_distribution.py` で生成できます。初回の準備・配布方法は [PDF 教材の作成ガイド](docs/pdf-distribution.md)を参照してください。
+
 🌐 [English](README.md) | 日本語
 
 このリポジトリは [github/dev-days](https://github.com/github/dev-days) の履歴を引き継いだ、非公開の独立した教材セットです。App シナリオを主軸に、CLI は講師向けの緊急対応として分離しています。GitHub 公式の日本語版ではありません。原本のライセンスと著作権表示は [LICENSE](LICENSE) に保持しています。

@@ -1,3 +1,6 @@
 .workshop-sources/
 .workshop-tools/
 __pycache__/
+output/pdf/
+tmp/pdfs/
+scripts/pdf/node_modules/

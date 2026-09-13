@@ -1,0 +1,33 @@
+@page { size: A4; margin: 17mm 16mm 18mm; }
+* { box-sizing: border-box; }
+html { color: #172c40; background: white; }
+body { font: 10pt/1.6 "Noto Sans JP", "Noto Sans CJK JP", "Meiryo", sans-serif; margin: 0; }
+h1,h2,h3,h4 { line-height: 1.4; break-after: avoid; }
+h1 { font-size: 23pt; border-bottom: 2pt solid #087f8c; padding-bottom: 5mm; margin: 0 0 8mm; }
+h2 { font-size: 15pt; color: #075b72; margin-top: 8mm; }
+h3 { font-size: 12pt; margin-top: 6mm; }
+p { orphans: 3; widows: 3; }
+a { color: #006b86; text-decoration: underline; overflow-wrap: anywhere; }
+li { margin-bottom: 2mm; }
+ul,ol { padding-left: 6mm; }
+blockquote { margin: 4mm 0; border-left: 3pt solid #36a3ac; padding: 1mm 4mm; background: #f0f7f8; }
+pre { break-inside: avoid; white-space: pre-wrap; overflow-wrap: anywhere; font: 9pt/1.6 "Noto Sans JP", "Noto Sans Mono CJK JP", "Meiryo", monospace; padding: 4mm; border: 1px solid #b7cbd3; border-radius: 2mm; background: #f4f7fa; }
+code { font-family: "Noto Sans JP", "Noto Sans Mono CJK JP", "Meiryo", monospace; font-size: .94em; overflow-wrap: anywhere; }
+pre code { font: inherit; }
+figure { margin: 5mm 0; break-inside: avoid; }
+img { display: block; max-width: 100%; max-height: 205mm; width: auto; height: auto; margin: auto; object-fit: contain; }
+figcaption { font-size: 8pt; line-height: 1.5; color: #496273; margin-top: 2mm; }
+table { border-collapse: collapse; width: 100%; font-size: 8.5pt; table-layout: fixed; }
+th,td { border: 1px solid #bccbd3; padding: 2mm; overflow-wrap: anywhere; vertical-align: top; }
+th { background: #e7f1f4; }
+thead { display: table-header-group; }
+tr { break-inside: avoid; }
+.chapter,.contents,.credits { break-before: page; }
+.cover { min-height: 235mm; padding-top: 24mm; }
+.cover .eyebrow { color: #087f8c; letter-spacing: .15em; font-weight: bold; }
+.cover h1 { font-size: 34pt; margin: 8mm 0 12mm; }
+.cover .subtitle { font-size: 18pt; }
+.cover .meta { margin-top: 16mm; padding: 6mm; background: #f0f7f8; font-size: 10pt; }
+.contents li { margin-bottom: 4mm; }
+.source { color: #496273; font-size: 8pt; }
+.credits pre { font: 8pt/1.5 monospace; }

@@ -28,6 +28,8 @@
 
 ## 再生成
 
+画像込みの参加者用 PDF と講師用別冊も、同じ原稿から生成できます。[PDF 教材の作成と配布](../../docs/pdf-distribution.md)を参照してください。Web と PDF をまとめて更新するコマンドは `python scripts/build_distribution.py` です。
+
 ```sh
 python -m pip install --target .workshop-tools -r scripts/requirements-workshops.txt
 python scripts/build_workshops.py
