@@ -51,7 +51,7 @@ MCP server は、プロジェクト内のほかの依存関係と同様に扱っ
 <p><strong>リポジトリ定義がある場合：</strong> 教材用の修正済みテンプレートには <code>.mcp.json</code> の <code>mcpServers</code> に Playwright などが定義済みです。GitHub 連携プロジェクトを右クリック → Settings → MCP servers で確認します。Trust repository が表示された場合は、定義内容を確認して利用者が信頼を承認します。Repository configuration の Trusted 表示とは別です。重複登録せず、既存定義を確認してから以下の新規登録手順を使ってください。</p>
 </blockquote>
 <h3 id="既存の設定を読み込めない場合">既存の設定を読み込めない場合</h3>
-<p><strong>以下は上流から直接作成した旧コピーの復旧記録です。教材用テンプレート v2026.09.13 にはこの設定修正を適用済みなので、通常は編集不要です。</strong></p>
+<p><strong>以下は上流から直接作成した旧コピーの復旧記録です。教材用テンプレート v2026.09.13.1 にはこの設定修正を適用済みなので、通常は編集不要です。</strong></p>
 <p>実走では、本人による信頼承認後に <strong>No MCP servers loaded</strong> と表示されました。固定コミットから作ったコピーの <code>.mcp.json</code> は、ルートが <code>"servers"</code> でした。<a href="https://docs.github.com/en/copilot/how-tos/copilot-cli/customize-copilot/add-mcp-servers#adding-per-repository-mcp-servers">公式のリポジトリ別設定形式</a>に合わせ、自分の演習コピーでこのキーを <code>"mcpServers"</code> に変更します。既存のサーバー定義・接続先はそのままにします。参照元リポジトリは変更しません。</p>
 <p>Settings の <strong>Refresh</strong> で再確認します。今回の修正後は GitHub・Playwright・astro-docs の3件が <strong>Connected</strong> になりました。ただし、既存のフィルターセッションは Playwright のブラウザー操作ツールが利用できないと報告して停止しました。</p>
 <p>この場合は、作業を終えて待機中の同じセッションの入力欄で <strong><code>/restart-session</code></strong> を選択して送信します。<a href="https://docs.github.com/en/copilot/reference/github-copilot-app-reference/slash-commands">履歴を保持する公式の再起動コマンド</a>です。実走では再起動後に未コミット変更と履歴を保持したまま Playwright MCP を呼び出せました。Connected の表示だけで章を完了にせず、セッションから実際にツールを呼べるか確認してください。</p>

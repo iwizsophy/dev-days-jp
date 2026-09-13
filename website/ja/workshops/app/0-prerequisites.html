@@ -59,10 +59,10 @@ Node.js がインストールされていない場合、または更新が必要
 </blockquote>
 <h2 id="ラボ用リポジトリを設定する">ラボ用リポジトリを設定する</h2>
 <p>Tailspin Toys プロジェクトの自分用コピーを使って作業します。<a href="https://github.com/iwizsophy/dev-days-tailspin-template">教材用の修正済み Tailspin Toys テンプレート</a>から、<a href="https://docs.github.com/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template">テンプレートからのコピー作成手順</a>に沿って準備します。次のレッスンで、このリポジトリをアプリに接続します。</p>
-<p>取得先は <strong>iwizsophy/dev-days-tailspin-template</strong>、教材対応版は <strong>v2026.09.13</strong> です。非公開のため、参加者は事前に講師からアクセス権を受け取ってください。上流の固定コミット <code>bae003609c8cff0c51d92658b8d3bd89450464f1</code> をコピーし、PR Readiness の YAML・MCP の設定修正と Node バージョン指定を適用済みです。参加者による事前パッチの適用は不要です。星評価・フィルターなどの解答は含めていません。</p>
+<p>取得先は <strong>iwizsophy/dev-days-tailspin-template</strong>、教材対応版は <strong>v2026.09.13.1</strong> です。非公開のため、参加者は事前に講師からアクセス権を受け取ってください。上流の固定コミット <code>bae003609c8cff0c51d92658b8d3bd89450464f1</code> をコピーし、PR Readiness の YAML・MCP の設定修正、Node バージョン指定、依存更新、エージェント環境向けの起動修正を適用済みです。参加者による事前パッチの適用は不要です。星評価・フィルターなどの解答は含めていません。</p>
 <p><strong>Use this template</strong> は配布元の現在の main をコピーします。講師は開催前に <code>workshop-source.json</code> の配布版と <a href="https://github.com/iwizsophy/dev-days-jp/blob/feature/issue-2-app-ui-verification/content/ja/sources.json">sources.json</a> に記録したコミットの対応を確認してください。タグを指定してコピーするボタンではありません。教材リポジトリ <code>dev-days-jp</code> と、コードを変更する Tailspin Toys のコピーは別です。</p>
 <blockquote>
-<p><strong>講師向けの配布判定：</strong> この版は機能検査を通過しましたが、依存監査に Critical を含む未解決の指摘があります。参加者への本番配布前に、配布元の <code>WORKSHOP.md</code> に記録した依存更新・再検証を完了してください。</p>
+<p><strong>講師向けの配布判定：</strong> この版は機能検査を通過し、依存監査は Critical・High ともに0件です。drizzle-kit 配下に Moderate 4件が残るため、参加者への本番配布前に配布元の <code>WORKSHOP.md</code> の残件と確認範囲を確認してください。</p>
 </blockquote>
 <p>以下の2枚は取得先変更前の GitHub Web の操作位置の例です。画像中の上流名ではなく、本文の <strong>iwizsophy/dev-days-tailspin-template</strong> を選んでください。</p>
 <ol>
