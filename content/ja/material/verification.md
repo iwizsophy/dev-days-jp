@@ -33,7 +33,7 @@
 | 2 星評価 | 数値と null の表示、テスト、PR・マージ | App で実装・レビュー修正・検査・Run 起動停止を確認。gh 経由で PR #9 作成、CI 全4ジョブ成功。App 固有の PR 作成は失敗。My work から通常マージ成功、次章 worktree への星評価継承を確認 | 未検証 |
 | 3 指示 | TSDoc・ヘッダーの標準と提示コード、PR・マージ | Issue #8 → New session で専用 worktree を作成。HEAD が星評価マージ済みの 9107d35 と一致し、差分なし。設定承認後に7ファイル更新、単体30件・E2E21件・lint・型検査成功。指示に沿うコード例と App の Create PR による PR #10 作成・通常マージを確認。フィルター用 worktree が 1b698ac を継承 | 未検証 |
 | 4 フィルター | 星評価・指示を継承し、絞り込みと quality-checks | Issue #7 の専用 worktree が 1b698ac を継承。Plan の質問へ回答、計画承認で Autopilot に切替。実装・修正後に単体35件・E2E25件・lint・型検査・build 成功。通常21件での Run 起動・絞り込み・停止を確認。MCP 検証前で未コミット | 未検証 |
-| 5 MCP | MCP ツールの実行、複合条件・解除等の検証 | 一部確認：カタログ・登録フォーム・リポジトリ定義 .mcp.json。MCP servers に Trust repository が表示され、本人操作待ち。ツール実行は未実施 | 未検証 |
+| 5 MCP | MCP ツールの実行、複合条件・解除等の検証 | 一部確認：カタログ・登録フォーム・リポジトリ定義 .mcp.json。本人が信頼承認後、設定形式の修正により3サーバーが Connected。既存セッションには Playwright ツールが公開されず停止。ツール実行は未実施 | 未検証 |
 | 6 マージ | CI とレビュー、演習コピーへ統合 | 未検証 | 未検証（通常マージのみ代替可能） |
 | 7 Canvas | 共有・保存・Issue 操作 | 未検証 | 機能代替不可。優先順位整理は未検証 |
 | 8 Automation | 手動実行、結果、終了状態 | 未検証 | 機能代替不可。単発要約は未検証 |
@@ -48,7 +48,7 @@ App の Open changes で Changes (7), +43, -4 を確認後、上部の Create PR
 
 フィルターのレビューでは、出版社のラベル不整合、複数カテゴリを実際には選ばないテスト、存在しない選択肢を DOM に注入する0件テストを修正しました。通常 CSV は全5カテゴリ×4出版社を含むため、0件条件には20件の E2E 専用 CSV と分離 SQLite を使います。本番21件の CSV は変更していません。最終検査は単体35件・E2E25件・lint・型検査・build・diff --check が成功。App の Run development site で通常データを起動し、別ブラウザーで21件 → Strategy 4件 → Puzzle 追加8件 → CodeForge Studios 追加2件 → Clear filters 21件を確認しました。App の Stop で停止し、4321 の待受終了も確認しました。このブラウザー確認は Playwright MCP の実行証拠ではありません。新しいデータアクセス関数の TSDoc は確認できましたが、ファイルヘッダーが自動追加されたとは扱いません。フィルター変更は未コミットで、PR は未作成です。
 
-MCP の確認では、GitHub 連携プロジェクトを右クリック → Settings → MCP servers に Trust this repository / Trust repository が表示されました。Repository configuration の Trusted 表示とは別の確認です。コピーに既存の `.mcp.json` は GitHub（https://api.githubcopilot.com/mcp/）、Playwright（npx @playwright/mcp@latest）、astro-docs（https://mcp.docs.astro.build/mcp）を定義しています。重複登録せず、MCP 信頼確認の本人操作待ちで停止しています。
+MCP の確認では、GitHub 連携プロジェクトを右クリック → Settings → MCP servers に Trust this repository / Trust repository が表示されました。Repository configuration の Trusted 表示とは別の確認です。コピーに既存の `.mcp.json` は GitHub（https://api.githubcopilot.com/mcp/）、Playwright（npx @playwright/mcp@latest）、astro-docs（https://mcp.docs.astro.build/mcp）を定義しています。本人の信頼承認後、No MCP servers loaded を確認しました。設定のルートを servers から mcpServers に変更し、接続先を維持したまま Refresh 後に3サーバーの Connected 表示を確認しました。修正は外部シェルで実施し、[検証用 PR #11](https://github.com/iwizsophy/dev-days-tailspin-app-verification-20260913/pull/11) は CI 全4ジョブ成功後にマージ（9a444be）。フィルター worktree にも同じ修正を7644b85として反映しています。既存フィルターセッションに MCP 実走を依頼すると、Playwright の browser 操作ツールが利用可能一覧に存在しないと報告して停止しました。Connected はセッション内の実行証拠ではありません。セッションの再読み込み方法は未確認で、MCP によるブラウザー検証も未実施です。フィルター変更は未コミットのまま保持しています。
 
 すべての章で App → CLI → App の作業ディレクトリ・ブランチ・差分の一致も未検証です。
 

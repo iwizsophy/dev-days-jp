@@ -6,7 +6,7 @@ authors:
 lastUpdated: 2026-09-13
 ---
 
-> **この章の確認範囲：** 2026年9月13日に Windows の App 1.1.20 で、MCP カタログ・Installed・Playwright の登録フォームを確認し、画像を撮影しました。登録の保存、サーバー起動、セッションからのツール実行は未実施です。[UI 確認表](../material/ui-check.md)を参照してください。
+> **この章の確認範囲：** 2026年9月13日に Windows の App 1.1.20 で、MCP カタログ・Installed・Playwright の登録フォームを確認し、画像を撮影しました。リポジトリ定義は信頼承認と設定形式の修正後、3サーバーが Connected になりました。新規登録の保存とセッションからのツール実行は未確認です。[UI 確認表](../material/ui-check.md)を参照してください。
 
 
 前のレッスンでは、プロジェクトの自動テストスイートを使ってフィルター機能を作成し、検証しました。テストによってコードの検証を自動化できますが、エージェント自身が動作を確認できるようにすることも効果的です。実際に作成している UI で問題を見つけた場合に、エージェントが対応できるようになります。MCP を使って AI エージェントに外部機能へのアクセスを提供する方法を確認し、Copilot が構築中のサイトを直接操作できるように Playwright MCP server を追加します。
@@ -41,7 +41,15 @@ lastUpdated: 2026-09-13
 
 2026年9月10日の [公式文書との照合](https://docs.github.com/en/copilot/how-tos/github-copilot-app/customize-github-copilot-app#configuring-mcp-servers)に加え、9月13日に Windows の App 1.1.20 で以下の表示を確認しました。プロジェクト未接続でも登録フォームまで開けます。
 
-> **リポジトリ定義がある場合：** 検証コピーには `.mcp.json` に Playwright などが定義されていました。GitHub 連携プロジェクトを右クリック → Settings → MCP servers で確認します。Trust repository が表示された場合は、定義内容を確認して利用者が信頼を承認します。Repository configuration の Trusted 表示とは別です。今回の実走はこの本人操作待ちで停止しており、接続・ツール実行は未確認です。重複登録せず、既存定義を確認してから以下の新規登録手順を使ってください。
+> **リポジトリ定義がある場合：** 検証コピーには `.mcp.json` に Playwright などが定義されていました。GitHub 連携プロジェクトを右クリック → Settings → MCP servers で確認します。Trust repository が表示された場合は、定義内容を確認して利用者が信頼を承認します。Repository configuration の Trusted 表示とは別です。重複登録せず、既存定義を確認してから以下の新規登録手順を使ってください。
+
+### 既存の設定を読み込めない場合
+
+実走では、本人による信頼承認後に **No MCP servers loaded** と表示されました。固定コミットから作ったコピーの `.mcp.json` は、ルートが `"servers"` でした。[公式のリポジトリ別設定形式](https://docs.github.com/en/copilot/how-tos/copilot-cli/customize-copilot/add-mcp-servers#adding-per-repository-mcp-servers)に合わせ、自分の演習コピーでこのキーを `"mcpServers"` に変更します。既存のサーバー定義・接続先はそのままにします。参照元リポジトリは変更しません。
+
+Settings の **Refresh** で再確認します。今回の修正後は GitHub・Playwright・astro-docs の3件が **Connected** になりました。ただし、既存のフィルターセッションは Playwright のブラウザー操作ツールが利用できないと報告して停止しました。Connected の表示だけで章を完了にせず、セッションから実際にツールを呼べるか確認してください。セッションへの再読み込み方法と MCP によるブラウザー検証は未確認です。
+
+### 新規登録の手順
 
 1. サイドバーの **Customize** を開きます。
 2. **Installed** タブの **MCP Servers** で既存の登録を確認します。登録済みなら重複して追加しません。実走時は未登録と表示されました。
