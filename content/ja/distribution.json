@@ -1,0 +1,15 @@
+{
+  "edition": "2026.09.13",
+  "template_tag": "v2026.09.13.1",
+  "template_url": "https://github.com/iwizsophy/dev-days-tailspin-template",
+  "books": {
+    "participant": {
+      "title": "参加者用ハンドブック",
+      "chapters": ["app/README.md", "app/0-prerequisites.md", "app/1-install-copilot-app.md", "app/2-add-star-rating.md", "app/3-custom-instructions.md", "app/4-build-filtering.md", "app/5-mcp-playwright.md", "app/6-agent-merge.md", "app/7-canvases.md", "app/8-review.md"]
+    },
+    "instructor": {
+      "title": "講師用ガイド・検証記録",
+      "chapters": ["material/instructor.md", "material/ui-check.md", "material/verification.md", "material/emergency-cli.md"]
+    }
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "name": "dev-days-workshop-pdf",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Local Chromium renderer for workshop distribution PDFs",
+  "dependencies": { "playwright": "1.62.1" }
+}

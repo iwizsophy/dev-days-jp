@@ -1,0 +1,5 @@
+-r requirements-workshops.txt
+beautifulsoup4==4.13.5
+pypdf==6.10.0
+PyMuPDF==1.26.4
+Pillow==12.3.0
