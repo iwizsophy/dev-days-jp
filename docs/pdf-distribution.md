@@ -63,6 +63,8 @@ python scripts/render_pdf_review.py output/pdf/dev-days-app-instructor.pdf
 
 ## GitHub Actions から取得
 
+リポジトリで GitHub Actions が有効になっていることが前提です。無効のままでもローカル生成は利用できます。有効化はリポジトリ管理者が設定を確認して実施します。
+
 このコピーの **Actions → Build workshop distribution → Run workflow** で対象ブランチを指定します。成功した実行の **workshop-pdf** artifact に2冊と manifest が入っています。**workshop-pdf-visual-review** は目視確認用です。非公開リポジトリのアクセス権を持つ管理者が取得し、参加者には参加者用 PDF を配布します。artifact の保存期間は PDF が30日、確認画像が7日です。
 
 ワークフローは対象パスの PR と教材ブランチへの push でも動作します。外部への公開や Release 作成は行いません。原稿・生成機構と、生成 Web ページに差分がある場合は別コミットにします。

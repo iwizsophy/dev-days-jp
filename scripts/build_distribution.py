@@ -47,6 +47,13 @@ def book_html(paths, label, config, ref, digest, web_base=None):
                     sibling = heading.find_next_sibling('p')
                     if sibling: sibling.decompose()
                     heading.decompose()
+        for table in soup.select('table'):
+            headers = [th.get_text() for th in table.select('thead th')]
+            if len(headers) == 4 and 'App 実走' in headers:
+                group = soup.new_tag('colgroup')
+                for width in [14, 24, 48, 14]:
+                    col = soup.new_tag('col'); col['style'] = f'width:{width}%'; group.append(col)
+                table.insert(0, group)
         prefix = anchor(path)
         for node in soup.select('[id]'):
             node['id'] = prefix + '--' + node['id']
@@ -176,6 +183,14 @@ def validate_pdf(path, titles, markup=None):
             links += item.get('/Subtype') == '/Link'
     if not links:
         raise ValueError('PDF links are missing')
+    import pymupdf
+    with pymupdf.open(path) as document:
+        for number, page in enumerate(document, 1):
+            for block in page.get_text('blocks'):
+                if len(block) > 4 and 'Dev Days / Copilot App' in str(block[4]):
+                    continue
+                if block[0] < 40 or block[2] > page.rect.width - 40 or block[1] < 42 or block[3] > page.rect.height - 45:
+                    raise ValueError(f'Content outside printable area on page {number}')
     prompts = BeautifulSoup(markup, 'html.parser').select('.chapter pre') if markup else []
     for code in prompts:
         if re.sub(r'\s+', '', code.get_text()) not in compact:
