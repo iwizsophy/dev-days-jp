@@ -10,7 +10,7 @@ p { orphans: 3; widows: 3; }
 a { color: #006b86; text-decoration: underline; overflow-wrap: anywhere; }
 li { margin-bottom: 2mm; }
 ul,ol { padding-left: 6mm; }
-blockquote { margin: 4mm 0; border-left: 3pt solid #36a3ac; padding: 1mm 4mm; background: #f0f7f8; }
+blockquote { margin: 4mm 0; border-left: 3pt solid #36a3ac; padding: 1mm 4mm; background: #f0f7f8; break-inside: avoid; }
 pre { break-inside: avoid; white-space: pre-wrap; overflow-wrap: anywhere; font: 9pt/1.6 "Noto Sans JP", "Noto Sans Mono CJK JP", "Meiryo", monospace; padding: 4mm; border: 1px solid #b7cbd3; border-radius: 2mm; background: #f4f7fa; }
 code { font-family: "Noto Sans JP", "Noto Sans Mono CJK JP", "Meiryo", monospace; font-size: .94em; overflow-wrap: anywhere; }
 pre code { font: inherit; }
