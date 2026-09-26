@@ -1,165 +1,166 @@
 ---
-title: "演習 7 - GitHub Copilot CLI のスラッシュ コマンド"
+title: "演習 7 - GitHub Copilot CLI のスラッシュコマンド"
 authors:
   - geektrainer
 lastUpdated: 2026-06-30
 ---
 
-優れた CLI ツールと同様に、GitHub Copilot CLI には多くの slash command が用意されています。これらのコマンドは、高度な機能、「内部で何が起きているか」に関する情報、追加の設定オプションを提供します。すでに `/clear` でコンテキストのクリアを、`/mcp` で MCP server の確認を行いました。ここでは、`/context`、`/model`、`/share`、`/delegate` など、ほかの強力なコマンドを確認します。
+完成度の高い CLI ツールと同様に、GitHub Copilot CLI には多様な**スラッシュコマンド（Slash commands）**が用意されています。これらのコマンドを使用することで、高度な機能の呼び出し、内部動作ステータスの可視化、環境設定の動的変更が可能になります。
+
+これまでの演習でも、会話リセットの `/clear` や MCP サーバー設定の `/mcp` を使用してきました。本演習では、コンテキスト管理（`/context`、`/compact`）、モデル選択（`/model`）、セッション共有（`/share`）、および Cloud agent への委任（`/delegate`）といった強力なコマンド群の活用法を学びます。
 
 ## シナリオ
 
-中核となる CLI フローは完了しました。ここからは追加機能として、セッションの共有、モデルの切り替え、[Copilot cloud agent][about-cloud-agent] へのタスク委任を見ていきます。
+中核的な開発フローは完了しました。本演習では応用機能として、チームとのセッション共有、LLM モデルの柔軟な切り替え、および時間のかかるタスクを [Copilot cloud agent][about-cloud-agent] へオフロードする委任フローを体験します。
 
-この演習では次を使用します。
+この演習では、次の内容を学習します。
 
-- `/share` で GitHub gist を作成し、チームとセッションを共有する。
-- `/context` で、Copilot CLI が現在使用しているコンテキストを確認する。
-- `/model` で利用可能なモデルの一覧を確認し、必要に応じて別のモデルを選択する。
-- `/delegate` で、必要に応じてタスクを cloud agent に引き渡す。これには cloud agent が必要で、Copilot Student、Pro、Pro+、Business、Enterprise で利用できます。つまり Copilot Free を除くすべてのプランで利用可能です。
+- `/share` コマンドを用いてセッションログを GitHub gist またはローカルファイルとして出力・共有する
+- `/context` コマンドでエージェントが現在消費しているトークン使用率と内訳を確認する
+- `/model` コマンドで利用可能な LLM モデル一覧を確認し、必要に応じて切り替える
+- `/delegate` コマンドを用いて、長時間のタスクを非同期動作の Cloud agent へ委任する（※Cloud agent は Copilot Free を除く有料プランまたは Student プランで利用可能）
 
 ## セッションを共有する
 
-AI ツールを含め、どのツールでも使いこなすにはスキルが必要です。チームで協力し、学びを共有し合うことが、全員の体験を改善し、より質の高いコードを生み出す最善の方法です。そのために、Copilot CLI には `/share` コマンドがあります。`/share` コマンドは、使用した prompt や Copilot がたどったロジックを含むセッションの詳細を、markdown ファイルまたは GitHub gist として生成できます。
+AI ツールを使いこなすノウハウをチーム全体で蓄積・共有することは、開発組織全体の生産性とコード品質を向上させる最善のアプローチです。Copilot CLI の `/share` コマンドを使用すると、投入したプロンプト、エージェントの思考プロセス、ツールの実行結果を含む完全な対話履歴を、Markdown ファイルまたは GitHub gist としてエクスポートできます。
 
-チームと共有できる GitHub gist を作成してみましょう。
+チームメンバーと知見を共有するための GitHub gist を作成してみましょう。
 
 > [!NOTE]
-> **共有せず保存する横道**: 外部に会話を共有しない場合は、後述の `/share gist` の代わりに `/share file /tmp/dev-days-cli-session.md` を使い、Codespace 内に保存した Markdown を確認します。ローカル PC では自分の保存先に変更してください。CLI 1.0.83 の `/share` 単独実行は、ログイン・同期済みの場合に GitHub の共有リンクを作成します。共有を止めるコマンドは `/share off` です。保存形式を明示して実行してください。[公式のセッション保存手順](https://docs.github.com/ja/copilot/how-tos/copilot-cli/use-copilot-cli/chronicle)も参照できます。
+> **外部へ共有せずローカルに保存する場合の代替手順**  
+> 組織のポリシー等により外部へ会話ログを公開できない場合は、後述の `/share gist` の代わりに `/share file /tmp/dev-days-cli-session.md` を実行し、Codespace 内にローカル Markdown ファイルとして保存してください（手元の PC の場合は任意のローカルパスを指定します）。  
+> なお、CLI 1.0.83 において引数なしで `/share` を単独実行すると、ログイン・同期済みのアカウント環境では GitHub 上に公開共有リンクが自動生成されます。共有を解除するコマンドは `/share off` です。出力先と公開範囲を明示して実行するよう留意してください（詳細は [公式のセッション記録ドキュメント](https://docs.github.com/ja/copilot/how-tos/copilot-cli/use-copilot-cli/chronicle) を参照してください）。
 
 > [!TIP]
-> **Copilot CLI セッションを開始する**
->
-> 以下の演習を始める前に、codespace に戻ってターミナルを開きます（まだ開いていない場合は <kbd>Ctrl</kbd>+<kbd>\`</kbd>）。次に、`--yolo` と `--enable-all-github-mcp-tools` を付けて Copilot CLI を起動します。
+> **Copilot CLI セッションの開始方法**  
+> Codespace のターミナルで、次のオプションを指定して Copilot CLI を起動します。
 >
 > ```bash
 > copilot --yolo --enable-all-github-mcp-tools
 > ```
 >
-> 新しく開始する代わりに、このプロジェクトの直近のセッションを引き継ぐには `copilot --yolo --enable-all-github-mcp-tools --continue` を実行します。前の演習から Copilot CLI がすでに実行中であれば、`/clear` を送ってクリーンな会話を開始してください。
->
-> `--enable-all-github-mcp-tools` を付けると、現在のセッションで GitHub MCP の読み取り / 書き込みツールが有効になります。これにより、ワークショップの流れの中で Copilot がバックログを読み取り、pull request を開けるようになります。
+> 既存のセッションを引き継ぐ場合は `copilot --yolo --enable-all-github-mcp-tools --continue` を実行します。すでに起動中の場合は `/clear` を送信して新しい会話を開始してください。
 
 > [!CAUTION]
-> `--yolo` は完全な自動権限（`--allow-all-tools`、`--allow-all-paths`、`--allow-all-urls`）を有効にします。Codespace や VM のような分離された環境でのみ使用し、日常的な開発の既定値として alias しないでください。詳しくは [Allowing and denying tool use][allow-all-warning] を参照してください。
+> `--yolo` オプションは、ツール実行やファイル変更時の確認ダイアログをすべて省略する完全自動化フラグ（`--allow-all-tools`、`--allow-all-paths`、`--allow-all-urls`）を有効にします。Codespace や仮想マシンのような分離された安全な環境でのみ使用し、日常的なローカル開発の既定エイリアスとして設定しないよう注意してください。詳しくは [ツールの許可と拒否に関するドキュメント][allow-all-warning] を参照してください。
 
 [allow-all-warning]: https://docs.github.com/copilot/how-tos/copilot-cli/use-copilot-cli/allowing-tools
-1. Copilot CLI のプロンプト ウィンドウで、次のコマンドを送信します。
 
-    ```
-    /share gist
-    ```
+1. Copilot CLI のプロンプトで次のコマンドを入力して送信します。
 
-2. 少し待つと、Copilot が gist を作成し、リンクを表示します。
-3. リンクの文字列をコピーします。
-4. 新しいブラウザー タブでそのリンクを貼り付け、gist を確認します。送信した prompt、使用した skill と agent、Copilot の思考過程、さらにローカルで実行したコマンドのコードと結果まで記録されていることに注目してください。
+   ```plaintext
+   /share gist
+   ```
 
-`/share` が生成する gist と markdown ファイルは、コードがどのように生成されたかを文書化したり、望ましい結果を得るためにどのような操作を行ったかをチームと共有したりする用途に使えます。
+2. 処理が完了すると、Copilot CLI が秘密の gist を生成し、アクセス用 URL リンクを表示します。
+3. 表示された URL をコピーします。
+4. Web ブラウザーの新しいタブでその URL を開き、gist の内容を確認します。送信したプロンプト、利用されたスキルやエージェント、Copilot の思考ログ、実行されたコマンドとその標準出力が漏れなく構造化されて記録されていることを確認してください。
+
+このログは、AI を活用した実装プロセスの記録や、チーム内での効果的なプロンプティング手法の共有資料として活用できます。
 
 ## Copilot CLI のコンテキストを確認する
 
-より大きなタスクや複雑なタスクに取り組むと、モデルの最大 context window に近づくことがあります。window の正確なサイズは、使用しているモデルや Copilot CLI のバージョンによって異なります。context window が上限に達すると、Copilot CLI は自動的に compact を実行し、情報を要約して、現在のタスクに不要と判断した内容を取り除きます。slash command を使えば、現在のコンテキストの状態を確認することも、手動で compact することもできます。では、context window を見てみましょう。
+複雑な実装や長時間の対話を進めると、モデル固有のコンテキストウィンドウ上限に近づくことがあります。コンテキスト上限に達した場合、Copilot CLI は自動的に履歴の要約（コンパクション）を実行し、重要度の低い古い情報を破棄して空き領域を確保します。スラッシュコマンドを使用すれば、現在のコンテキスト消費状況を可視化したり、手動で要約を実行したりできます。
 
-1. Copilot CLI のプロンプト ウィンドウで、次のコマンドを送信します。
+1. Copilot CLI のプロンプトで次のコマンドを送信します。
 
-    ```
-    /context
-    ```
+   ```plaintext
+   /context
+   ```
 
-2. 少し待つと、Copilot CLI が現在のコンテキストを視覚的に表現した表示を生成します。
+2. 現在のコンテキスト内訳がターミナル上に視覚的に出力されます。
 
-    ![Copilot CLI の context window のスクリーンショット](../../_images/cli-7-context-window.png)
+   ![Copilot CLI の context window のスクリーンショット](../../_images/cli-7-context-window.png)
 
-3. 表示されているモデル名（画像と異なる場合があります）と、現在使用されている token の割合を確認します。その他の情報では、次の内容が示されています。
+3. 使用中のモデル名およびトークン使用率（パーセンテージ）を確認します。内訳の各項目は以下の通りです。
 
-    | Title        | Description |
-    | ------------ | ------------------------------------------------------ |
-    | System/Tools | instruction file、ファイル内容、tool 定義 |
-    | Messages     | 自分と Copilot の会話履歴 |
-    | Buffer       | Copilot CLI が応答生成のために確保している予約領域 |
-    | Free space   | 残りの空き領域 |
+   | 項目名 | 内容説明 |
+   |---|---|
+   | **System/Tools** | 指示ファイル、参照されたファイル内容、MCP ツール定義 |
+   | **Messages** | ユーザーと Copilot 間の会話履歴 |
+   | **Buffer** | Copilot CLI が次の応答を生成するために予約している出力枠 |
+   | **Free space** | 現在利用可能な残りの空きトークン枠 |
 
-4. 次の slash command を Copilot CLI に送信し、会話履歴を compact します。
+4. 次のコマンドを送信し、会話履歴を手動で要約・圧縮（compact）します。
 
-    ```
-    /compact
-    ```
+   ```plaintext
+   /compact
+   ```
 
-5. 完了したら、次のコマンドを送信して現在のコンテキスト統計をもう一度表示します。
+5. 圧縮完了後、再度コンテキスト統計を表示して変化を確認します。
 
-    ```
-    /context
-    ```
+   ```plaintext
+   /context
+   ```
 
-6. コンテキストの変化を確認します。現時点では context window がまだ比較的小さいため、大きな変化は見られないかもしれません。
+6. Messages の消費量が削減され、Free space が回復していることを確認します（対話履歴がまだ短い場合は顕著な変化が現れないこともあります）。
 
 > [!NOTE]
-> Copilot CLI は、コンテキストがいっぱいになると自動的に compact を実行します。容量が 100% に近づくと、その割合がプロンプト ウィンドウの上に表示されます。通常は非同期に compact を実行するため、処理中でも Copilot との対話を続けられます。ただし、処理中の操作が数秒間ブロックされる場合があります。
+> Copilot CLI は、コンテキスト容量が上限に近づくとバックグラウンドで自動的に compact を実行します。容量が 100% に近づくと警告表示が出現します。通常は非同期で実行されるため対話を継続できますが、一時的に数秒間応答待ちとなる場合があります。
 
-### コンテキストに関するベスト プラクティス
+### コンテキスト管理のベストプラクティス
 
-ほとんどのセッションでは、Copilot 自身が効率的にコンテキストを管理するため、特別な指示は必要ありません。ただし、状況によっては履歴を手動でクリアまたは compact したいことがあります。
+通常、Copilot CLI はコンテキストを自律的かつ効率的に管理するため、人間が頻繁に手動操作する必要はありません。ただし、次のような局面では手動介入が有効です。
 
-- アプリケーションの別の部分や、無関係なタスクに切り替える場合は、古い無関係なコンテキストで Copilot を混乱させないよう `/clear` を使って新しい会話を始められます。
-- 最大 context window に近づいている場合は、`/compact` を手動で実行して、そのタイミングを制御できます。
-
-> [!CAUTION]
-> 繰り返しになりますが、ほとんどの場合は Copilot が直接操作なしでコンテキストを管理します。古い情報のせいで少し混乱しているように見えるときや、これから無関係なタスクに切り替えるときに、手動コマンドの利用を検討してください。
+- **作業対象のコンテキスト切り替え**：  
+  全く無関係な新しい機能開発やバグ修正に着手する際は、古いコードの残骸によるハルシネーション（幻覚）を防ぐため、`/clear` でクリーンなセッションを開始する。
+- **長大なタスクの節目**：  
+  コンテキストが逼迫してきた段階で、適切なタイミングで `/compact` を明示実行して履歴を整理する。
 
 ## モデルを選択する
 
-モデルにはそれぞれ異なる強みがあり、開発者によって好みも異なります。Copilot CLI では、使用したいモデルの一覧表示と選択ができます。
+LLM にはそれぞれ異なる強み（推論力、コード生成速度、トークンコスト等）があり、開発者の好みやタスクの性質に応じた使い分けが可能です。Copilot CLI では、セッション内で使用するモデルを自由に切り替えることができます。
 
-1. 次の slash command を Copilot CLI に送信し、モデル一覧を表示します。
+1. 次のスラッシュコマンドを入力して送信します。
 
-    ```
-    /model
-    ```
+   ```plaintext
+   /model
+   ```
 
-2. モデルの一覧を確認します。表示項目はバージョンで異なります。CLI 1.0.83 ではモデル名、コンテキスト容量、推論設定が表示されました。料金倍率が必ず表示されるとは限りません。
-3. 必要であれば新しいモデルを選択します。終了したい場合は <kbd>Esc</kbd> を押します。
+2. 利用可能なモデルの一覧メニューが表示されます（表示内容は CLI のバージョンや契約プランにより異なります。CLI 1.0.83 ではモデル名、コンテキスト長、推論設定などが表示されます）。
+3. 矢印キーで任意のモデルを選択するか、変更せずそのまま終了する場合は <kbd>Esc</kbd> キーを押します。
 
 > [!CAUTION]
-> CLI 1.0.83 の `/model` は現在のセッションだけに適用され、将来の既定値は `/config model` で設定する案内が表示されます。この演習では一覧を確認し、変更が不要なら Esc で閉じます。既定値を不用意に変更しないでください。
+> CLI 1.0.83 において `/model` で選択した設定は**現在のセッションにのみ適用**されます。以降の全セッションに恒久適用する既定値を設定したい場合は、別途 `/config model` を使用します。本演習では一覧を確認するに留め、不要な既定値の変更は避けてください。
 
-## cloud agent に委任する（任意）
+## Cloud agent に委任する（任意ステップ）
 
-ターミナルで作業を続けながら、時間のかかるタスクは Copilot cloud agent に任せたい場面があります。`/delegate` コマンドを使うと、現在の Copilot CLI セッションを GitHub.com に送信できます。cloud agent がそのセッションを引き継ぎ、非同期で作業し、完了すると pull request を開きます。
+ローカルターミナルでの作業を止めずに、完了まで時間を要する重たいタスクをバックグラウンドで実行させたい場合があります。`/delegate` コマンドを使用すると、現在のタスクを GitHub のクラウド基盤（[Copilot cloud agent][about-cloud-agent]）へ引き渡すことができます。Cloud agent は非同期にコードの生成やテストを行い、完了すると自動的に pull request を起票してくれます。
 
 > [!NOTE]
-> `/delegate` には cloud agent が必要です。これは Copilot Student、Pro、Pro+、Business、Enterprise で利用でき、Copilot Free では利用できません。アクセスできない場合は、このセクションを読んでからハンズオン手順はスキップしてください。
+> `/delegate` の利用には Copilot cloud agent へのアクセス権が必要です。これは Copilot Free を除く有料プラン（Pro、Pro+、Business、Enterprise）および Student プランで利用可能です。対象プランをお持ちでない場合は、本セクションの内容を一読したうえで手順自体はスキップして構いません。
 
-1. ワークショップ全体のコンテキストがまとめて委任されないよう、まず現在のセッションをクリアします。
+1. これまでの会話履歴が混入しないよう、まずセッションをクリアします。
 
-    ```
-    /clear
-    ```
+   ```plaintext
+   /clear
+   ```
 
-2. 小さく、スコープが明確な prompt を送信します。たとえば、バックログにある stretch goal のページネーションを委任できます。
+2. 独立した明確なタスクをプロンプトとして送信します（例: ページネーションの実装）。
 
-    ```
-    ゲーム一覧を1ページあたり固定件数で表示し、Previous と Next で移動するページネーションを実装して、テストを追加してください。
-    ```
+   ```plaintext
+   ゲーム一覧を1ページあたり固定件数で表示し、Previous と Next で移動するページネーションを実装して、テストを追加してください。
+   ```
 
-3. 次の slash command を送信して、セッションを cloud agent に引き渡します。続いて、委任したい prompt を確認します。
+3. 次のコマンドを送信し、タスクを Cloud agent へ委任します。
 
-    ```
-    /delegate
-    ```
+   ```plaintext
+   /delegate
+   ```
 
-4. ブラウザーで [Copilot agents](https://github.com/copilot/agents) を開き、進捗を確認します。
-5. この harness では、pull request が完了するまで待つ必要はありません。後で戻って確認できます。非同期 agent 作業の管理をより深く知りたい場合は、[Cloud agent ハーネス][cloud-harness-link] に進んでください。
+4. Web ブラウザーで [Copilot agents（github.com/copilot/agents）](https://github.com/copilot/agents) を開き、クラウド上でタスクが非同期に進行する様子を確認します。
+5. 本演習では PR の完了まで待機する必要はありません。非同期エージェントの詳細な運用フローを学びたい場合は、[Cloud agent ハーネス][cloud-harness-link] も合わせて参照してください。
 
 ## まとめと次のステップ
 
-Copilot CLI の slash command を使うと、設定の変更、セッションの共有、Copilot の内部状態に関する情報の取得ができます。このレッスンでは、次の機能を使ったり確認したりしました。
+Copilot CLI の豊富なスラッシュコマンドを活用し、環境設定の確認、セッション共有、コンテキスト管理、モデル切り替え、およびクラウド委任を体験しました。本演習で実施した主な内容は次の通りです。
 
-- `/share` で GitHub gist を作成し、チームとセッションを共有する。
-- `/context` で、Copilot CLI が現在使用しているコンテキストを確認する。
-- `/model` で利用可能なモデルの一覧を確認し、必要に応じて別のモデルを選択する。
-- `/delegate` が cloud agent への任意の橋渡しになることを学ぶ。
+- `/share` コマンドを用いて、対話ログや思考過程を GitHub gist またはローカルファイルとして出力した
+- `/context` および `/compact` コマンドにより、トークン消費の可視化と手動整理を実施した
+- `/model` コマンドにより、利用可能な LLM モデルの選択肢とセッション単位の適用方法を確認した
+- `/delegate` コマンドにより、長時間のタスクを非同期の Cloud agent へ引き渡す委任フローを理解した
 
-利用できる slash command はもちろんこれ以外にもあり、Copilot CLI にはまだ多くの機能があります。最後に、[ここまでに学んだことを振り返り][next-lesson]、学習を続けるための次のステップを確認して締めくくりましょう。
+次はいよいよ最終レッスンです。CLI コース全体で習得した技術と概念を振り返り、実践に向けたロードマップを総括します。[演習 8 - 振り返り][next-lesson] へ進んでください。
 
 ## リソース
 
@@ -177,5 +178,4 @@ Copilot CLI の slash command を使うと、設定の変更、セッション�
 [context-management]: https://docs.github.com/copilot/how-tos/use-copilot-agents/use-copilot-cli#context-management
 [share-sessions]: https://docs.github.com/copilot/how-tos/use-copilot-agents/use-copilot-cli#share-sessions
 [selecting-models]: https://docs.github.com/copilot/how-tos/use-copilot-agents/use-copilot-cli#select-an-llm
-
 [cloud-harness-link]: https://github-samples.github.io/copilot-workshops/cloud/

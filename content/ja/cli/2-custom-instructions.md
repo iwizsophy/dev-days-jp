@@ -1,5 +1,5 @@
 ---
-title: "演習 2 - カスタム命令 (Copilot CLI)"
+title: "演習 2 - カスタム指示 (Copilot CLI)"
 authors:
   - geektrainer
 lastUpdated: 2026-06-30
@@ -7,143 +7,132 @@ lastUpdated: 2026-06-30
 
 [← 前のレッスン: Copilot CLI のインストール][previous-lesson] · [次のレッスン: CLI でコードを生成する →][next-lesson]
 
-生成 AI を使って作業するときは、コンテキストが重要です。特定のやり方で進める必要があるタスクや、Copilot に知っておいてほしい背景情報がある場合は、そのコンテキストを確実に渡すことが大切です。Copilot を補助するためのツールはいくつかあり、このワークショップ全体で確認していきます。最初に取り上げるのは [instruction file][instruction-files] です。instruction file は通常、コードそのものをどのように構成すべきかに重点を置きます。これにより、どのようなコードが必要かだけでなく、どのように構成すべきかも Copilot に理解させられます。
+生成 AI を活用するにあたり、コンテキスト（文脈や設計意図）の提供は極めて重要です。特定の設計方針に沿ってタスクを実装させたい場合や、事前に知っておくべき前提知識がある場合は、それらを正確に伝達する必要があります。Copilot を補助するツールのうち、本演習ではまず[指示ファイル（Instruction files）][instruction-files]を取り上げます。指示ファイルは、コードに求める機能だけでなく、コードの構成方法や規約をエージェントに遵守させるための強力な手段です。
 
-この演習では、次のことを行います。
+この演習では、次の内容を学習します。
 
-- リポジトリの custom instruction と、パス単位で適用される instruction file を通じて、プロジェクト固有のコンテキスト、コーディング ガイドライン、ドキュメント標準がどのように Copilot に渡るかを確認する。
-- *現在の* instruction のまま、フィルタリングの最初のデータ スライス（publishers helper）を生成する。
-- `.github/copilot-instructions.md` に、リポジトリ全体に適用される新しい標準を追加する。
-- フォローアップのプロンプトを実行し、再生成されたコードが新しい標準を取り入れる様子を確認する。
-- instruction の更新と helper を commit し、次の演習でその続きに取り組めるようにする。
+- リポジトリ全体へのカスタム指示とパス単位の指示ファイルを通じて、プロジェクト固有の規約やドキュメント標準がどのように Copilot へ伝達されるかを理解する
+- *既存の* 指示に従って、フィルター機能の第一歩となるデータアクセス関数（publishers helper）を生成する
+- `.github/copilot-instructions.md` を編集し、リポジトリ全体に適用される新しいドキュメント標準を追加する
+- 再度プロンプトを実行し、再生成されたコードが新しい標準（TSDoc やファイルヘッダー）を取り入れる様子を確認する
+- 指示ファイルの更新と生成コードをコミットし、次章の実装準備を整える
 
 > [!CAUTION]
-> 生成されたコードは、設定した標準から外れることがあります。Copilot は非決定的です。目的は、instruction を更新したあとに振る舞いの傾向がどう変わるかを確認することであり、出力を 1 文字単位で一致させることではありません。
+> AI の出力は確率的に変動するため、指示を更新する前であってもドキュメントコメントが含まれる場合があります。本演習の目的は出力を一字一句一致させることではなく、指示ファイルを更新した後にエージェントの振る舞いの傾向がどう変化するかを体感することです。
 
-## Instruction files
+## 指示ファイル（Instruction files）
 
 ### シナリオ
 
-優れた開発チームと同様に、Tailspin Toys にも開発プラクティスに関するガイドラインと要件があります。たとえば次のような内容です。
+成熟した開発組織と同様に、Tailspin Toys にも開発プラクティスに関するガイドラインと要件が存在します。たとえば次のような項目です。
 
-- データ レイヤーには常に unit test が必要です。
-- UI はダーク モードで、モダンな印象にする必要があります。
-- ドキュメントは TSDoc の doc comment としてコード内に追加する必要があります。
-- 各ファイルの先頭には、そのファイルの役割を説明するコメント ブロックを追加する必要があります。
+- データアクセス層には必ず単体テストを用意する
+- UI はモダンなダークモードを採用する
+- コード内ドキュメントは TSDoc 形式のドキュメントコメント（doc comment）として記述する
+- 各ファイルの先頭には、モジュールの役割を説明するコメントブロックを配置する
 
-Instruction file を使うことで、これらのプラクティスに沿ってタスクを実行するために必要な情報を Copilot に確実に渡せます。
+指示ファイルを活用することで、これらのプラクティスに沿ってタスクを実行するために必要な情報を Copilot へ確実に提供できます。
 
-### Custom instructions
+### カスタム指示の構造
 
-Custom instruction を使うと、コンテキストや設定を Copilot に渡せるため、コーディング スタイルや要件をより正確に理解させられます。これは非常に強力な機能であり、より関連性の高い提案やコード スニペットを Copilot から引き出すのに役立ちます。好みのコーディング規約、使用するライブラリ、含めたいコメントの種類まで指定できます。instruction はリポジトリ全体に対して作成することも、タスク レベルのコンテキストとして特定のファイル種別向けに作成することもできます。
+カスタム指示を使うと、Copilot にプロジェクト固有の前提や要件を正確に理解させることができます。希望するコーディング規約、採用ライブラリ、記述すべきコメントの粒度に至るまで指定でき、リポジトリ全体に一律適用するものと、特定ファイル種別のタスクに応じて適用するものの2階層で管理できます。
 
-instruction file には 2 種類あります。
-
-- `.github/copilot-instructions.md` は、リポジトリへの**すべて**のリクエストで Copilot に送られる単一の instruction file です。このファイルにはプロジェクト レベルの情報、つまり Copilot に送るほとんどの chat や CLI リクエストに関連するコンテキストを含める必要があります。たとえば、使用している技術スタック、作成中のものの概要、ベスト プラクティス、その他のグローバル ガイダンスなどです。
-- `.github/instructions/*.instructions.md` ファイルは、特定のタスクやファイル種別向けに作成できます。TypeScript や Astro のような特定の言語向けガイドラインや、UI component 作成、unit test 追加などのタスク向けガイドラインを提供するために使えます。
+1. **リポジトリ全体の指示（`.github/copilot-instructions.md`）**  
+   リポジトリに対する**すべての**リクエストで Copilot に送信される単一の指示ファイルです。採用技術スタック、アーキテクチャの概要、全体的なコーディング規約など、プロジェクト全体に関係するグローバルなガイダンスを記載します。
+2. **パス固有の指示ファイル（`.github/instructions/*.instructions.md`）**  
+   特定のタスクやファイル種類向けに作成する個別指示ファイルです。TypeScript や Astro などの特定言語向け規約、UI コンポーネント作成、単体テスト実装といった具体的タスクに応じたガイドラインを定義します。
 
 > [!NOTE]
-> IDE で作業している場合、instruction file は Copilot Chat でのコード生成にのみ使用されます。コード補完や next-edit suggestion には使われません。
->
-> Copilot Chat、Copilot CLI、Copilot cloud agent は、コード生成時にリポジトリ レベルの instruction file と `*.instructions.md` ファイル（`applyTo` front matter 付き）の両方を使用します。
->
-> さらに、Copilot は [ほかの標準を使った instruction file][custom-instructions-support] もサポートしており、AGENTS.md や CLAUDE.md ファイルも利用できます。
+> IDE 上で作業する場合、指示ファイルはチャット（Copilot Chat）でのコード生成時にのみ参照され、インライン補完や次編集候補（next-edit suggestion）には使用されません。  
+> 一方、Copilot Chat、Copilot CLI、Copilot cloud agent は、コード生成時にリポジトリ全体の指示ファイルと `*.instructions.md` ファイル（`applyTo` frontmatter 付き）の両方を自動参照します。  
+> また、Copilot は AGENTS.md や CLAUDE.md といった他ツールの標準指示ファイルの取り込みにも対応しています。
 
-### Instruction file を管理するためのベスト プラクティス
+### 指示ファイルを管理するためのベストプラクティス
 
-instruction file の作成に関する詳しい説明は、このワークショップの範囲外です。ただし、サンプル プロジェクトに含まれている例は、代表的なアプローチを示しています。大まかには次のとおりです。
+本サンプルプロジェクトに含まれている構成は、代表的なベストプラクティスを示しています。
 
-- `copilot-instructions.md` の instruction は、何を作っているかの説明、プロジェクト構造、グローバルなコーディング標準など、プロジェクト レベルのガイダンスに集中させます。
-- `*.instructions.md` ファイルは、ファイル種別（unit test、Astro component、データ レイヤー）や特定のタスク向けに、具体的な instruction を提供するために使います。
-- 自然言語を使います。ガイダンスは明確に保ちます。コードの望ましい形と望ましくない形の両方の例を示します。
+- `copilot-instructions.md` には、開発対象の概要、プロジェクト構造、全体的なコーディング規約など、プロジェクト共通のハイレベルなガイダンスを集約する
+- `*.instructions.md` ファイルは、ファイル種別（単体テスト、Astro コンポーネント、データアクセス層）や個別タスクに特化した具体的な指示を記述する
+- 明快な自然言語を用い、望ましいコード例（Good）と避けるべきコード例（Bad）を併記する
 
-instruction file の作り方に唯一の正解があるわけではなく、AI の使い方にも唯一の正解はありません。試行錯誤しながら、自分のプロジェクトに最適な方法を見つけてください。
+指示ファイルの記述に単一の絶対的な正解はありません。チームの文化や開発の進展に合わせて反復的に改善していくことが推奨されます。
 
 > [!TIP]
-> GitHub Copilot を使うすべてのプロジェクトには、充実した instruction file のセットがあるべきです。このプロジェクトの instruction file を見ていくと、[UI 更新][ui-instructions] や [Astro][astro-instructions] など、多くの種類のタスク向けのファイルがあることに気づくかもしれません。
->
-> Copilot は instruction file の生成も支援できます。各 surface で公開方法は異なります（たとえば VS Code の **Configure Chat → Generate Agent Instructions** や、Copilot CLI の `/init` など）。現在使用している surface のレッスンで、関係がある場面に案内があります。
->
-> テンプレートや出発点を探していますか。instruction file、custom agent、そのほかのリソースが集まったリポジトリ [awesome-copilot][awesome-copilot] を確認してください。
+> テンプレートや作成の出発点を探している場合は、指示ファイルやカスタムエージェントの実例が集約されているリポジトリ [awesome-copilot][awesome-copilot] を参考にしてください。
 
 [ui-instructions]: https://github.com/github-samples/tailspin-toys/blob/main/.github/instructions/ui.instructions.md
 [astro-instructions]: https://github.com/github-samples/tailspin-toys/blob/main/.github/instructions/astro.instructions.md
 [awesome-copilot]: https://github.com/github/awesome-copilot
 [custom-instructions-support]: https://docs.github.com/copilot/reference/custom-instructions-support
-## このプロジェクトの custom instruction file を確認する
 
-このリポジトリに含まれている instruction file をひととおり読んでみましょう。中核となる `copilot-instructions.md` が 1 つあり、さまざまなタスク向けの `*.instructions.md` ファイル群があります。エディターまたは GitHub の Web UI で開いて確認します。
+## このプロジェクトのカスタム指示ファイルを確認する
+
+本リポジトリに配置されている指示ファイルを確認してみましょう。
 
 1. `.github/copilot-instructions.md` を開きます。
-2. ファイルを確認し、プロジェクトの簡潔な説明に加えて、**Agent notes**、**Code standards**、**Scripts**、**Repository Structure** などのセクションに注目します。**Code standards** の中にある **GitHub Actions Workflows** に関するガイダンスにも注目してください。これらは Copilot とのあらゆるやり取りに適用されます。
-3. `.github/instructions` フォルダーを開いて中を見てみます。Astro ファイル、Drizzle データ レイヤー、test などに関する instruction があることを確認してください。
-4. `.github/instructions/unit-tests.instructions.md` を開きます。先頭にある `applyTo` フィールドに注目してください。ここには、どのファイルに instruction を適用するかを決める glob パターン（repo root からの相対パス）が設定されています。この例では、任意の TypeScript test ファイル（たとえば `**/*.test.ts` に一致するもの）が対象になります。
-5. このプロジェクトの unit test 作成に特化した instruction を確認します。
-6. 最後に `.github/instructions/drizzle.instructions.md` を開き、一番下までスクロールします。ほかの instruction file（`unit-tests.instructions.md` など）や、プロジェクト内の既存ファイルへのリンクがあることに注目してください。これにより、大きな instruction セットを小さく再利用しやすい単位に分割し、コード生成時に Copilot が従うべき例を示せます。（そこに書かれているパスは repo root ではなく instruction file からの相対パスです。）
+2. プロジェクト概要に加えて、**Agent notes**、**Code standards**、**Scripts**、**Repository Structure** などのセクションが定義されていることを確認します。**Code standards** 配下には **GitHub Actions Workflows** の指針もネストされており、これらは Copilot との全対話に共通して適用されます。
+3. `.github/instructions` フォルダーを展開し、配置されているファイルを確認します。Astro、Drizzle データレイヤー、単体テストなどに向けた指示ファイルが並んでいます。
+4. `.github/instructions/unit-tests.instructions.md` を開きます。先頭の `applyTo` フィールドに注目してください。ここにはリポジトリルートを基準とする glob パターンが記述されており、指示を適用するファイル（例: `**/*.test.ts` に一致する TypeScript テストファイル）が限定されています。
+5. 続けて `.github/instructions/drizzle.instructions.md` を開き、末尾までスクロールします。他の指示ファイル（`unit-tests.instructions.md` 等）やプロジェクト内の既存ファイルへの相対リンクが記載されている点に注目してください。指示セットを小規模かつ再利用可能なファイルへ分割し、コード生成時に参照すべき実例を Copilot に提示する構造になっています（ここに記載された相対パスは、リポジトリルートではなく指示ファイル自身の位置を基準とします）。
 
 > [!NOTE]
-> `copilot-instructions.md` の **Code formatting requirements** セクションには、このプロジェクトのコーディング標準が記載されていますが、コード内ドキュメントはまだ必須ではありません。次の手順で、TSDoc の doc comment とファイル コメント ヘッダーのルールを追加します。
+> 現在の `copilot-instructions.md` の **Code formatting requirements** セクションにはコーディング標準が記載されていますが、コード内のドキュメントコメントに関する規則はまだ含まれていません。後続の手順で、TSDoc ドキュメントコメントおよびファイルヘッダーコメントの規約を追加します。
+
 ## ブランチを作成する
 
-コード変更を行うため、作業用ブランチを作成します。
+コードの変更作業を進めるため、専用の作業ブランチを作成します。
 
-1. codespace のターミナルで、新しいブランチを作成して切り替えます。
+1. Codespace のターミナルで、新しいブランチを作成して切り替えます。
 
    ```bash
    git checkout -b feature/update-custom-instructions
    ```
 
-2. Copilot CLI がインストール済みで、認証されていることを確認します。
+2. Copilot CLI がインストールされ、認証済みであることを確認します。
 
    ```bash
    copilot --version
    ```
 
-   コマンドが見つからない場合や、まだログインしていない場合は、[演習 1 - GitHub Copilot CLI のインストール](1-install-copilot-cli.md) に戻ってください。
+## 指示を更新する*前に* Copilot CLI を使う
 
-## instruction を更新する*前に* Copilot CLI を使う
-
-custom instruction の効果を見るため、まずは現在の instruction を使ってコードを生成します。その後でファイルを更新し、フォローアップのプロンプトを実行します。
+カスタム指示の効果を比較検証するため、まずは現在の指示のままコードを生成させます。
 
 > [!TIP]
-> **Copilot CLI セッションを開始する**
->
-> 以下の演習を始める前に、codespace に戻ってターミナルを開きます（まだ開いていない場合は <kbd>Ctrl</kbd>+<kbd>\`</kbd>）。次に、`--yolo` と `--enable-all-github-mcp-tools` を付けて Copilot CLI を起動します。
+> **Copilot CLI セッションの開始方法**  
+> Codespace のターミナルで、次のオプションを指定して Copilot CLI を起動します。
 >
 > ```bash
 > copilot --yolo --enable-all-github-mcp-tools
 > ```
 >
-> 新しく開始する代わりに、このプロジェクトの直近のセッションを引き継ぐには `copilot --yolo --enable-all-github-mcp-tools --continue` を実行します。前の演習から Copilot CLI がすでに実行中であれば、`/clear` を送ってクリーンな会話を開始してください。
->
-> `--enable-all-github-mcp-tools` を付けると、現在のセッションで GitHub MCP の読み取り / 書き込みツールが有効になります。これにより、ワークショップの流れの中で Copilot がバックログを読み取り、pull request を開けるようになります。
+> 既存のセッションを引き継ぐ場合は `copilot --yolo --enable-all-github-mcp-tools --continue` を実行します。すでに起動中の場合は `/clear` を送信して新しい会話を開始してください。  
+> `--enable-all-github-mcp-tools` を指定すると、GitHub MCP の読み取り／書き込みツールが有効化され、エージェントがバックログの Issue を参照したり pull request を作成したりできるようになります。
 
 > [!CAUTION]
-> `--yolo` は完全な自動権限（`--allow-all-tools`、`--allow-all-paths`、`--allow-all-urls`）を有効にします。Codespace や VM のような分離された環境でのみ使用し、日常的な開発の既定値として alias しないでください。詳しくは [Allowing and denying tool use][allow-all-warning] を参照してください。
+> `--yolo` オプションは、ツール実行やファイル変更時の確認ダイアログをすべて省略する完全自動化フラグ（`--allow-all-tools`、`--allow-all-paths`、`--allow-all-urls`）を有効にします。Codespace や仮想マシンのような分離された安全な環境でのみ使用し、日常的なローカル開発の既定エイリアスとして設定しないよう注意してください。詳しくは [ツールの許可と拒否に関するドキュメント][allow-all-warning] を参照してください。
 
 [allow-all-warning]: https://docs.github.com/copilot/how-tos/copilot-cli/use-copilot-cli/allowing-tools
-1. `.github/copilot-instructions.md` を自動的に読み取れるよう、Copilot CLI セッションが**repository root** から実行されていることを確認します。
-2. Copilot CLI のプロンプトで、フィルタリング UI が利用する publishers helper を生成するよう依頼します。
+
+1. `.github/copilot-instructions.md` を自動認識させるため、Copilot CLI が**リポジトリのルートディレクトリ**で実行されていることを確認します。
+2. Copilot CLI のプロンプトで、フィルター機能で使用する publishers helper の作成を指示します。
 
    ```plaintext
    すべての publisher の name と id の一覧を返すデータアクセス用 helper を、src/lib/publishers.ts に作成してください。まだテストは実行しないでください。
    ```
 
-3. Copilot CLI はプロジェクトを探索し、計画を提案し、この `--yolo` セッションでファイルを書き込みます。ターミナル出力の変化を確認し、その後エディターでレビューします。
+3. Copilot CLI はコードベースを探索し、計画を提示したうえでファイルを生成します。
 4. 生成された `src/lib/publishers.ts` をエディターで開きます。
-5. helper が型付き関数として生成され、第一引数に `db` client を受け取り、publishers の型付き配列を返していることを確認してください。これは `.github/instructions/drizzle.instructions.md` にあるデータ レイヤーの規約（`src/lib/*.ts` に適用される）によるものです。
-6. 生成されたコードに、TSDoc の doc comment とファイル レベルのコメント ヘッダーが**含まれていない**ことを確認します。
-
-> [!CAUTION]
-> Copilot は確率的に動作するため、指示しなくても doc comment を追加する可能性があります。その場合でも問題ありません。instruction 更新後に一貫性が向上することが、この演習での重要なポイントです。
+5. 第一引数に `db` クライアントを受け取り、publishers の型付き配列を返す関数が生成されていることを確認します（これは `.github/instructions/drizzle.instructions.md` に定義された規約が自動適用された結果です）。
+6. この段階では、生成されたコードに TSDoc ドキュメントコメントやファイルヘッダーコメントが**含まれていない**ことを確認します。
 
 ## 新しいリポジトリ標準を追加する
 
-先ほど説明したように、`.github/copilot-instructions.md` は Copilot にプロジェクト レベルの情報を提供するためのファイルです。リポジトリのコーディング標準を文書化し、コード提案の質を高めましょう。
+`.github/copilot-instructions.md` を更新し、プロジェクト全体のコーディング規約にドキュメント作成ルールを追加します。
 
-1. `.github/copilot-instructions.md` をもう一度開きます。
-2. **Code formatting requirements** セクションを探します。27 行目付近にあるはずです。ここにプロジェクトのコーディング標準が記載されている一方で、コード内ドキュメントに関するルールがまだないことに注目してください。そのため、生成された helper には doc comment がありませんでした。
-3. 既存の標準のすぐ下に、次の markdown 行を追加して、ファイル コメント ヘッダーと TSDoc の doc comment を追加するよう Copilot に指示します。
+1. `.github/copilot-instructions.md` を開きます。
+2. **Code formatting requirements** セクション（27行目付近）を探します。コード内ドキュメントに関するルールがまだ存在しないことを確認します。
+3. 既存の規約リストの直下に、次の Markdown 行を追記します。
 
    ```markdown
    - export するすべての関数に、目的、引数、戻り値を説明する TSDoc コメントを付けてください。
@@ -152,21 +141,19 @@ custom instruction の効果を見るため、まずは現在の instruction を
 
 4. `copilot-instructions.md` を保存します。
 
-> [!TIP]
-> 前のレッスンで見たとおり、instruction file はグローバル ガイダンス向けのリポジトリ レベル（`.github/copilot-instructions.md`）にも、特定の言語、ファイル種別、タスク向けの `*.instructions.md` としても作成できます。いま追加した doc comment ルールのような、プロジェクト全体に適用する標準を置く場所としては、リポジトリ レベルのファイルが適切です。
 ## プロンプトを再実行して変化を確認する
 
-instruction に doc comment ルールを追加したので、先ほど生成した publishers ファイルを更新するよう Copilot CLI に依頼します。同じ標準ディレクティブが、書き換えの方向性を導きます。
+指示ファイルにドキュメント規約を追加したので、先ほど生成したファイルを更新させます。
 
-1. Copilot CLI セッションで `/clear` を送信し、新しい会話を始めます。
+1. Copilot CLI のプロンプトで `/clear` を送信し、会話履歴をリセットします。
 2. 次のプロンプトを送信します。
 
    ```plaintext
    src/lib/publishers.ts を、.github/copilot-instructions.md にある最新のドキュメント規約に従って更新してください。
    ```
 
-3. 編集が完了したら、`src/lib/publishers.ts` をもう一度開きます。
-4. ファイルの先頭に、次のようなコメント ブロックが追加されていることを確認します。
+3. 更新完了後、`src/lib/publishers.ts` をエディターで再確認します。
+4. ファイルの先頭に、モジュールの役割を説明するファイルヘッダーコメントが追加されたことを確認します。
 
    ```typescript
    /**
@@ -175,7 +162,7 @@ instruction に doc comment ルールを追加したので、先ほど生成し�
     */
    ```
 
-5. 生成された関数に、次のような TSDoc の doc comment が含まれていることを確認します。
+5. 生成された関数に、次のような TSDoc ドキュメントコメントが付与されていることを確認します。
 
    ```typescript
    /**
@@ -186,32 +173,32 @@ instruction に doc comment ルールを追加したので、先ほど生成し�
     */
    ```
 
-6. この更新済みファイルはそのまま残してください。次の演習で、この最初のデータ スライスを土台として使います。
+6. この更新されたファイルは、次章の実装の土台として使用するためそのまま保持します。
 
-## フィルタリングの最初のスライスを commit して push する
+## 変更を検証してコミット・push する
 
 > [!IMPORTANT]
-> commit の前に、リポジトリの `.github/skills/quality-checks/SKILL.md` に従って検証します。Copilot に「quality-checks スキルを使い、追加した helper の単体テストを用意して、既存のテスト、lint、型チェックを実行してください。失敗した場合は修正し、まだ commit はしないでください」と依頼してください。最初の生成でテストを省いた場合も、この段階で追加します。変更と結果を確認し、追加したテストも `git add` してください。
+> コミットを作成する前に、リポジトリの `.github/skills/quality-checks/SKILL.md` に従ってコードを検証します。Copilot CLI に「quality-checks スキルを使い、追加した helper の単体テストを用意して、既存のテスト、lint、型チェックを実行してください。失敗した場合は修正し、まだ commit はしないでください」と依頼してください。テストが成功することを確認したうえで、追加されたテストコードもコミット対象に含めます。
 
-1. ターミナルで、変更されたファイルを確認します。
+1. ターミナルで変更ステータスを確認します。
 
    ```bash
    git status
    ```
 
-2. instruction の更新と helper を stage します。
+2. 更新した指示ファイル、ヘルパー関数、およびテストファイルをステージングします。
 
    ```bash
    git add .github/copilot-instructions.md src/lib/publishers.ts
    ```
 
-3. 変更を commit します。
+3. 変更をコミットします。
 
    ```bash
    git commit -m "Add doc comment standards and publishers helper foundation"
    ```
 
-4. ブランチを push します。
+4. ブランチをリモートリポジトリへ push します。
 
    ```bash
    git push -u origin feature/update-custom-instructions
@@ -219,14 +206,14 @@ instruction に doc comment ルールを追加したので、先ほど生成し�
 
 ## まとめと次のステップ
 
-このプロジェクトの instruction file から Copilot がどのようにコンテキストを取得するかを確認し、そのうえで Copilot CLI を使って次のことを行いました。
+指示ファイルから Copilot がコンテキストを取得する仕組みを理解し、CLI を通じて以下の作業を完了しました。
 
-- *既存の* instruction を使って、フィルタリング用の publishers data-access helper の土台を生成する。
-- `.github/copilot-instructions.md` に、リポジトリ全体の新しい標準を追加する。
-- フォローアップのプロンプトを実行し、再生成されたコードが新しい標準を取り入れる様子を確認する。
-- instruction の更新と helper の土台の両方を commit して push する。
+- 既存の指示に従って、フィルター機能の土台となる publishers ヘルパー関数を生成した
+- `.github/copilot-instructions.md` にリポジトリ共通のドキュメント規約を追加した
+- プロンプトを再実行し、更新された指示に基づいて TSDoc やファイルヘッダーが正しく付与されることを確認した
+- 変更内容を検証したうえでコミットし、リモートへ push した
 
-次は、[コード生成の演習][next-lesson] で、これらの instruction を適用しながらバックログの作業を実装します。
+次は、これらの指示を土台として、バックログの Issue に基づく本格的な機能実装を Plan モードで進めます。[演習 3 - コード生成][next-lesson] へ進んでください。
 
 ## リソース
 

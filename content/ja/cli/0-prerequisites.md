@@ -5,60 +5,58 @@ authors:
 lastUpdated: 2026-06-30
 ---
 
-Copilot CLI の演習を始める前に、必要な準備を整えます。Tailspin Toys リポジトリの自分用コピーを作成し、[codespace][codespaces] を立ち上げます。次の演習では、その統合ターミナルを使って Copilot CLI をインストールし、実行します。
+Copilot CLI の演習を始める前に、開発環境の準備を整えます。Tailspin Toys リポジトリの個人用コピーを作成し、[Codespaces][codespaces] 環境を起動します。後続の演習では、その統合ターミナルを使用して Copilot CLI のインストールおよびコマンド実行を行います。
 
-## ラボ用リポジトリを設定する
+## ラボ用リポジトリを準備する
 
-これから作成するコード用にリポジトリのコピーを作成するため、[template][template-repository] からインスタンスを作成します。新しいインスタンスにはラボに必要なすべてのファイルが含まれており、演習を進める間はこのリポジトリを使用します。
+本演習でコード変更を加えるためのリポジトリとして、[テンプレートリポジトリ][template-repository]から新しいインスタンスを作成します。このテンプレートにはハンズオンに必要なすべてのソースコードが含まれており、以降の演習はこのリポジトリ上で進めます。
 
-1. 新しいブラウザー ウィンドウで、このラボの GitHub リポジトリ `https://github.com/github-samples/tailspin-toys` に移動します。
-2. ラボ用リポジトリ ページの **Use this template** ボタンを選択して、自分用のリポジトリ コピーを作成します。次に **Create a new repository** を選択します。
+1. Web ブラウザーで、本ラボのテンプレートリポジトリ `https://github.com/github-samples/tailspin-toys` にアクセスします。
+2. 画面右上にある **Use this template** ボタンをクリックし、**Create a new repository** を選択して自分用リポジトリの作成画面を開きます。
 
     ![「Use this template」ボタン](../../_images/ex0-use-template.png)
 
-3. GitHub または Microsoft が主催するイベントの一環としてこのワークショップを進めている場合は、メンターから案内された手順に従ってください。そうでない場合は、GitHub Copilot にアクセスできる organization に新しいリポジトリを作成できます。
+3. GitHub または Microsoft 主催のハンズオンイベントとして参加している場合は、講師の案内に従って作成先（Owner）を指定してください。個人で受講している場合は、GitHub Copilot の利用権限を持つ自身のアカウントまたは Organization を選択して作成します。
 
     ![リポジトリ テンプレートの設定を入力する画面](../../_images/ex0-repository-settings.png)
 
-4. 後でラボ内で参照するため、作成したリポジトリ パス（**organization-or-user-name/repository-name**）を控えておいてください。
+4. 後続の演習で参照するため、作成したリポジトリのパス（**organization-or-user-name/repository-name**）を記録しておきます。
 
 > [!NOTE]
-> **バックログの準備は完了しています**
->
-> テンプレートからリポジトリを作成すると、GitHub issue のバックログが自動的に作成されます。ワークショップ全体を通してこれらの issue を使って作業するため、自分で起票する必要はありません。
+> **バックログ（Issue）は自動で準備されます**  
+> テンプレートからリポジトリを生成すると、ワークフローにより演習用の GitHub Issue 群が自動的に起票されます。ワークショップ全体を通じてこれらの既存 Issue を使用して開発を進めるため、自身で手動起票する必要はありません。
 
-## Codespace を作成する
+## Codespace を起動する
 
-次は、codespace を使ってラボの演習を進めます。
+続いて、演習の実行基盤となるクラウド開発環境（Codespace）を立ち上げます。
 
-[GitHub Codespaces][codespaces] はクラウドベースの開発環境であり、ブラウザーから直接コードの作成、実行、デバッグを行えます。複数のプログラミング言語、拡張機能、ツールに対応したフル機能の IDE を提供します。
+[GitHub Codespaces][codespaces] は、ブラウザーから直接コードの編集、コマンド実行、デバッグを行えるクラウド開発環境です。Node.js、拡張機能、CLI ツールなど、本演習に必要なすべての依存関係があらかじめプリインストールされた統合開発環境（IDE）が提供されます。
 
-1. 新しく作成したリポジトリに移動します。
-2. 緑色の **Code** ボタンを選択します。
+1. 新しく作成した自分用のリポジトリページを開きます。
+2. 緑色の **Code** ボタンをクリックします。
 
     ![「Code」ボタンを選択する](../../_images/ex0-code-button.png)
 
-3. **Codespaces** タブを選択し、**Create codespace on main**（または **+**）を選択して新しい codespace を作成します。既存の Codespace がある場合は、その名前を選んで再開できます。
+3. **Codespaces** タブを選択し、**Create codespace on main**（または **+** アイコン）をクリックして新しい Codespace を作成します（すでに稼働中の Codespace が存在する場合は、その一覧から選択して再接続することも可能です）。
 
     ![新しい codespace を作成する](../../_images/ex0-create-codespace.png)
 
-Codespace の作成には数分かかりますが、すべてのサービスを手動でインストールするよりははるかに速く完了します。その間に、次に扱う GitHub Copilot のほかの機能を確認しておくこともできます。
+Codespace のコンテナ構築には数分を要しますが、手元のマシンに個別に依存ツールを手動セットアップするよりも確実かつ高速に環境が整います。
 
 > [!CAUTION]
-> 後続の演習で codespace に戻ります。いまのところは、ブラウザーのタブで開いたままにしておいてください。
+> 後続の演習ではこの Codespace の画面に戻って作業を行います。ブラウザーのタブを閉じずに開いたままにしておいてください。
 
 > [!NOTE]
-> このワークショップは、codespace またはローカルの [dev container][dev-containers] 内で実行する前提で作られています。どちらでも、必要な前提条件がすべてインストールされた環境を用意できるため、スムーズに進められます。ローカルで実行したい場合は、クローンしたリポジトリを VS Code で開き、表示されたら **Reopen in Container** を選択してください。VS Code が、codespace と同じ dev container を構築します。
+> 本ワークショップは、Codespace またはローカル端末の [Dev Containers][dev-containers] 上で実行することを前提に設計されています。いずれの方式でも、共通のコンテナ定義により必要なツール群が完全にセットアップされた同一環境が再現されます。ローカル端末で進めたい場合は、リポジトリをローカルにクローンして VS Code で開き、プロンプトが表示されたら **Reopen in Container** を選択してください。Codespace と全く同じ Dev Container 環境がローカル上に構築されます。
 
 [codespaces]: https://github.com/features/codespaces
 [dev-containers]: https://code.visualstudio.com/docs/devcontainers/containers
-## まとめ
 
-おめでとうございます。ラボ用リポジトリのコピーを作成できました。さらに、Copilot CLI を使い始めるときに使用する codespace の作成も開始しました。
+## まとめと次のステップ
 
-## 次のステップ
+自分用の演習リポジトリを作成し、Copilot CLI を実行するためのクラウド開発環境（Codespace）の起動を開始しました。
 
-Copilot CLI をインストールし、GitHub アカウントで認証しましょう。[演習 1 - GitHub Copilot CLI のインストール][next-lesson] に進みます。
+次は、立ち上がった環境のターミナルで Copilot CLI をインストールし、GitHub アカウントで認証を行います。[演習 1 - GitHub Copilot CLI のインストール][next-lesson] へ進んでください。
 
 ## リソース
 

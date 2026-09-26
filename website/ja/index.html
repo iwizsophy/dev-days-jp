@@ -8,21 +8,21 @@
 <main id="material">
 <p>Dev Days · 非公式の日本語教材セット</p>
 <h1>Copilot App で開発の流れを体験する</h1>
-<p>Tailspin Toys に星評価とフィルターを追加し、指示・テスト・レビューを通じて開発の流れを体験します。App 版の演習0〜8を一本の順序で進めます。</p>
+<p>架空の EC サイト「Tailspin Toys」を題材に、星評価コンポーネントやフィルター機能を追加しながら、カスタム指示、自動テスト、コードレビューを通じた最新の開発ワークフローを体験します。App 版の演習 0 から 8 までを単一の一貫したストーリーに沿って進めます。</p>
 <p><a class="start" href="workshops/app/0-prerequisites.html">演習0：事前準備から始める →</a></p>
 <p><a href="workshops/index.html">全体の目次と到達目標を見る</a></p>
-<aside>画像は参照元の画面例です。現行 UI ではメニューの位置や開き方が異なる可能性があります。操作できない場合は講師と確認してください。現行 UI との照合は未完了です。</aside>
+<aside>掲載しているスクリーンショットは参照元教材の画面例です。現行の Copilot App ではメニューの配置や呼び出し手順が一部異なっている可能性があります。画面上で該当操作が見当たらない場合は、講師とともに手順を確認してください。なお、現行 UI との完全な突合検証は未完了の段階です。</aside>
 <h2>今回の流れ</h2>
-<p>準備・接続 → 星評価 → カスタム指示 → フィルター → MCP 検証 → マージ → Canvas → 振り返り</p>
+<p>準備・接続 → 星評価の実装 → カスタム指示の適用 → フィルター機能の追加 → MCP によるテスト検証 → Agent Merge → Canvas での可視化 → 全体の振り返り</p>
 <div class="material-grid">
-<section class="material-card"><h2>参加前に</h2><p>Git、Node.js 22.13以上、Copilot App、自分の Tailspin Toys コピーを準備し、App で応答を確認します。</p><p><a href="handson-guide.html#prepare">準備と利用条件</a></p></section>
-<section class="material-card"><h2>途中で止まったら</h2><p>操作対象と目的を確認し、講師が確認した現行 App の経路で進めます。難しい場合は App のデモやペア操作で補います。</p><p><a href="workshops/material/ui-check.html">メニュー・右クリック等の確認</a></p></section>
-<section class="material-card"><h2>講師・運営向け</h2><p>3時間枠の配分案、リハーサル項目、UI 差分への対処、章別の検証表を用意しています。</p><p><a href="workshops/material/instructor.html">講師ガイド</a> · <a href="workshops/material/verification.html">検証状況</a></p></section>
+<section class="material-card"><h2>参加前の準備</h2><p>Git、Node.js 22.13 以上、GitHub Copilot App、およびご自身のアカウントへフォークした Tailspin Toys リポジトリを準備し、Copilot App 上で正常に応答が得られることを確認しておきます。</p><p><a href="handson-guide.html#prepare">受講準備と利用条件の確認</a></p></section>
+<section class="material-card"><h2>途中でつまずいたら</h2><p>操作対象のファイルと本来の目的をまず再確認し、講師が実機確認した現行 App の代替手順に沿って進めてください。操作が難しい局面では、講師による実演デモやペアプログラミングで補います。</p><p><a href="workshops/material/ui-check.html">メニュー・右クリック操作等の確認</a></p></section>
+<section class="material-card"><h2>講師・運営の皆さまへ</h2><p>3 時間枠でのタイムスケジュール案、リハーサル必須項目、UI 差異へのトラブル対応手順、および章別の動作検証ステータス表を用意しています。</p><p><a href="workshops/material/instructor.html">講師向け運営ガイド</a> · <a href="workshops/material/verification.html">章別検証状況</a></p></section>
 </div>
-<h2>実施範囲を確認する</h2>
-<p>本編の現行 App 操作は実走未検証です。CLI は講師向け緊急対応で、App 演習を完了する代替ルートではありません。以前の CLI 独立コースの検証結果は参考として区別しています。Agent Merge・Canvas・Automation は、通常の Git 操作や単発実行で代用しても、その機能を体験した扱いにはしません。</p>
-<h2>参考資料</h2>
-<p><a href="workshops/references.html">独立した CLI コース・Mona Mayhem</a>は補講用です。本編の受講には不要です。</p>
-<p><a href="https://github.com/github/dev-days/releases/download/2026-07-30/copilot-app-english.pptx">App セッションの英語スライド</a> · <a href="archive.html">過去のワークショップ</a></p>
-<footer><p>参照元：<a href="https://github.com/github/dev-days">github/dev-days</a>（開催資料）、<a href="https://github.com/github-samples/copilot-workshops">github-samples/copilot-workshops</a>（演習本文）。原本のライセンスと著作権表示を保持しています。</p><p>この教材はローカル閲覧用です。参照元への変更送信は行いません。</p></footer>
+<h2>教材の実施範囲と前提条件</h2>
+<p>本編で扱う現行 Copilot App の操作手順は、実機による全工程の実走検証が未完了の状態にあります。記載されている CLI 手順は講師向けの緊急回避策であり、App 演習の代用として完了扱いにするルートではありません。また、過去に実走検証済みの「CLI 独立コース」の検証結果は、本編とは明確に区別して管理しています。Agent Merge、Canvas、および Automation などの App 固有機能については、通常の Git 操作や単発のコマンド実行で代替したとしても、それらの機能を実際に体験した実績としては扱いません。</p>
+<h2>参考資料・補足コース</h2>
+<p><a href="workshops/references.html">独立した CLI コースおよび Mona Mayhem</a> は補講用の発展コンテンツです。本編ハンズオンの受講にあたっては必須ではありません。</p>
+<p><a href="https://github.com/github/dev-days/releases/download/2026-07-30/copilot-app-english.pptx">App セッション公式英語スライド（PPTX）</a> · <a href="archive.html">過去のワークショップ教材アーカイブ</a></p>
+<footer><p>参照元：<a href="https://github.com/github/dev-days">github/dev-days</a>（イベント開催資料）、<a href="https://github.com/github-samples/copilot-workshops">github-samples/copilot-workshops</a>（演習本文）。原本のライセンスおよび著作権表示を保持しています。</p><p>この教材はローカル環境での学習・閲覧用です。参照元リポジトリへの直接の変更送信は行いません。</p></footer>
 </main></body></html>
