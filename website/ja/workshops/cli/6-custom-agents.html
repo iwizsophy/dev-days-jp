@@ -1,103 +1,96 @@
 <!DOCTYPE html>
 <html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex, nofollow"><title>演習 6 - GitHub Copilot CLI のカスタム エージェント | Dev Days 日本語版</title>
+<meta name="robots" content="noindex, nofollow"><title>演習 6 - GitHub Copilot CLI のカスタムエージェント | Dev Days 日本語版</title>
 <link rel="stylesheet" href="../workshops.css"><script src="../../../theme-toggle.js"></script></head><body>
 <a class="skip" href="#lesson">本文へ移動</a><header><nav aria-label="資料のナビゲーション">
 <a href="../../index.html">教材セットの入口</a><a href="../index.html">App シナリオの目次</a>
 <a href="../../handson-guide.html#switch">事前準備・UI の確認</a></nav>
 <button class="theme-toggle" type="button" onclick="toggleTheme()">☀️ ライト</button></header>
-<main id="lesson"><h1>演習 6 - GitHub Copilot CLI のカスタム エージェント</h1><p class="source">非公式の日本語版 · <a href="https://github.com/github-samples/copilot-workshops/blob/7ddcf241c1cd10b8e90c0df96f6bef81e710392a/docs/ja-jp/cli/6-custom-agents.md">参照原文</a> · <a href="../licenses/copilot-workshops.txt">MIT ライセンス</a><br>参照コミット：<code>7ddcf241c1cd</code> ／ 確認日：2026-09-08</p><aside>参照元の固定コミットに基づく参考資料です。画面例・操作・利用条件は現在の製品と異なる場合があります。利用前に <a href="../../handson-guide.html#plans">事前確認</a>と参照原文を確認してください。</aside><aside>参考資料：本編の続きではありません。App 本編の通常の代替経路ではありません。</aside><aside>このコースの <code>--yolo</code> を含む手順は、演習専用 Codespace / dev container を前提とする原文の手順です。App の途中からローカルで切り替える場合は、講師向け緊急対応の通常対話手順を使ってください。</aside><nav class="chapter-nav" aria-label="章の移動"><a href="5-agent-skills.html">← 前の章：演習 5 - エージェント スキルを使う</a><a href="7-slash-commands.html">次の章 →：演習 7 - GitHub Copilot CLI のスラッシュ コマンド</a></nav><details><summary>この章の目次</summary><div class="toc">
+<main id="lesson"><h1>演習 6 - GitHub Copilot CLI のカスタムエージェント</h1><p class="source">非公式の日本語版 · <a href="https://github.com/github-samples/copilot-workshops/blob/7ddcf241c1cd10b8e90c0df96f6bef81e710392a/docs/ja-jp/cli/6-custom-agents.md">参照原文</a> · <a href="../licenses/copilot-workshops.txt">MIT ライセンス</a><br>参照コミット：<code>7ddcf241c1cd</code> ／ 確認日：2026-09-08</p><aside>参照元の固定コミットに基づく参考資料です。画面例・操作・利用条件は現在の製品と異なる場合があります。利用前に <a href="../../handson-guide.html#plans">事前確認</a>と参照原文を確認してください。</aside><aside>参考資料：本編の続きではありません。App 本編の通常の代替経路ではありません。</aside><aside>このコースの <code>--yolo</code> を含む手順は、演習専用 Codespace / dev container を前提とする原文の手順です。App の途中からローカルで切り替える場合は、講師向け緊急対応の通常対話手順を使ってください。</aside><nav class="chapter-nav" aria-label="章の移動"><a href="5-agent-skills.html">← 前の章：演習 5 - エージェントスキルを使う</a><a href="7-slash-commands.html">次の章 →：演習 7 - GitHub Copilot CLI のスラッシュコマンド</a></nav><details><summary>この章の目次</summary><div class="toc">
 <ul>
-<li><a href="#custom-agent-とは">custom agent とは</a><ul>
-<li><a href="#custom-agent-と-agent-skill-の比較">custom agent と agent skill の比較</a></li>
+<li><a href="#カスタムエージェントとは">カスタムエージェントとは</a><ul>
+<li><a href="#カスタムエージェントとエージェントスキルの違い">カスタムエージェントとエージェントスキルの違い</a></li>
 </ul>
 </li>
 <li><a href="#シナリオ">シナリオ</a></li>
-<li><a href="#アクセシビリティ-custom-agent-を確認する">アクセシビリティ custom agent を確認する</a></li>
-<li><a href="#copilot-cli-で-custom-agent-を使う">Copilot CLI で custom agent を使う</a></li>
+<li><a href="#アクセシビリティカスタムエージェントを確認する">アクセシビリティカスタムエージェントを確認する</a></li>
+<li><a href="#copilot-cli-でカスタムエージェントを使う">Copilot CLI でカスタムエージェントを使う</a></li>
 <li><a href="#まとめと次のステップ">まとめと次のステップ</a></li>
 <li><a href="#リソース">リソース</a></li>
 </ul>
 </div>
-</details><article><h2 id="custom-agent-とは">custom agent とは</h2>
-<p>GitHub Copilot の <a href="https://docs.github.com/copilot/concepts/agents/cloud-agent/about-custom-agents">カスタム エージェント</a> を使うと、開発ワークフロー内の特定のタスクや領域に合わせた専門的な AI アシスタントを作成できます。リポジトリの <code>.github/agents</code> フォルダー内にある markdown ファイルで agent を定義することで、focused instruction、best practice、コーディング パターン、ドメイン固有の知識を Copilot に与え、特定の種類の作業をより効果的に進められるようにできます。チームは自分たちの専門知識を再利用可能な agent として定義できます。たとえば、<a href="https://www.w3.org/WAI/standards-guidelines/wcag/">WCAG</a> への準拠を徹底するアクセシビリティ agent、secure coding practice に従うセキュリティ agent、一定の test pattern を保つ testing agent などです。</p>
-<p>custom agent は、プロジェクトの <code>.github/agents</code> フォルダー、またはグローバルな <code>~/.copilot/agents</code> にある markdown ファイルで定義します。各ファイルには、少なくとも <code>name</code> と <code>description</code> を含む YAML frontmatter があり、その後に agent の振る舞い、専門性、instruction を定義する markdown プロンプトが続きます。</p>
-<h3 id="custom-agent-と-agent-skill-の比較">custom agent と agent skill の比較</h3>
-<p>custom agent と <a href="https://docs.github.com/copilot/concepts/agents/about-agent-skills">agent skill</a> には、概念的に重なる部分があります。どちらも主に markdown ファイルで定義され、AI にどのように作業すべきかを伝えます。最も分かりやすい区別は、<strong>custom agent</strong> は作業者で、<strong>skill</strong> はツールだということです。</p>
-<p>custom agent には独自の context window があり、作業を進める中で skill（さらにはほかの agent）をオーケストレーションすることを前提に設計されています。このラボでは、アクセシビリティ custom agent がガイドラインに照らしてサイトをレビューし、更新します。その過程で、pull request ワークフロー用の skill や、test の実行と管理を行う skill などを呼び出すことがあります。</p>
+</details><article><h2 id="カスタムエージェントとは">カスタムエージェントとは</h2>
+<p>GitHub Copilot の<a href="https://docs.github.com/copilot/concepts/agents/cloud-agent/about-custom-agents">カスタムエージェント（Custom Agents）</a>を使用すると、開発ワークフロー内の特定のタスクや専門領域に特化した AI アシスタントを構築できます。リポジトリ内の <code>.github/agents</code> フォルダーに Markdown ファイルを配置することで、焦点を絞った指示（focused instructions）、ベストプラクティス、コーディングパターン、およびドメイン固有の知見をエージェントに与え、特定分野の作業を極めて高い精度で遂行させることができます。</p>
+<p>開発チームは、自チームの専門知識を再利用可能なエージェントとして標準化できます。たとえば、<a href="https://www.w3.org/WAI/standards-guidelines/wcag/">WCAG</a> への適合を徹底するアクセシビリティエージェント、セキュアコーディング規約を監査するセキュリティエージェント、厳格なテストカバレッジを維持するテスティングエージェントなどが典型例です。</p>
+<p>カスタムエージェントは、リポジトリの <code>.github/agents</code> フォルダー（または端末のグローバル環境 <code>~/.copilot/agents</code>）にある Markdown ファイルで定義します。各ファイルには、少なくとも <code>name</code> と <code>description</code> を含む YAML frontmatter が必須であり、それに続いてエージェントのペルソナ、専門知識、指示文を Markdown で記述します。</p>
+<h3 id="カスタムエージェントとエージェントスキルの違い">カスタムエージェントとエージェントスキルの違い</h3>
+<p>カスタムエージェントと<a href="https://docs.github.com/copilot/concepts/agents/about-agent-skills">エージェントスキル</a>は、どちらも主に Markdown ファイルで定義されるため概念的な近しさがありますが、その役割分担は明確です。<strong>カスタムエージェントが「作業者（専門家）」</strong>であるのに対し、<strong>エージェントスキルは作業者が手に取る「道具（ツール）」</strong>にあたります。</p>
+<p>カスタムエージェントは独自の独立したコンテキストウィンドウを保持し、作業プロセスの中で複数のスキル（場合によっては他のエージェント）をオーケストレーション（統合管理）して課題を解決します。本演習で扱うアクセシビリティエージェントは、ガイドラインに照らしてサイトをレビュー・改修する過程で、単体テスト実行スキルや pull request 作成用スキルを自律的に呼び出して作業を完走させます。</p>
 <blockquote>
 <p><strong>補足</strong>
-custom agent の書き方に、唯一の「正しい」方法はありません。AI 全般に言えることですが、自分の環境やシナリオに合う形を見つけるために、テストと反復を行ってください。</p>
+カスタムエージェントのプロンプト構成に単一の絶対解はありません。実際の開発シナリオに合わせてテストと反復を行い、最適な指示をブラッシュアップしてください。</p>
 </blockquote>
 <h2 id="シナリオ">シナリオ</h2>
-<p>多くの Web アプリケーションは、すべてのユーザーにとって十分にアクセシブルとは言えず、現在作業している Web サイトも例外ではありません。アクセシビリティ上の不足を特定して解消するために、custom agent を使用します。</p>
-<p>Tailspin Toys は、自社のクラウドファンディング プラットフォームを、視覚能力や好みにかかわらずすべてのユーザーが利用しやすいものにしたいと考えています。最近のユーザー フィードバックでは、現在の dark theme はテキストと背景色のコントラストが不十分で読みにくいという指摘がありました。このアクセシビリティ上の懸念に対応するため、デザイン チームは、ユーザーがオン / オフを切り替えられる high-contrast mode の実装を求めています。</p>
-<p>アクセシビリティは重要であるため、できるだけ早く実装したいと考えています。そこで、機能生成のために custom agent を活用します。
-この演習では、次のことを行います。</p>
+<p>多くの Web アプリケーションでは、アクセシビリティへの配慮が不足しがちです。Tailspin Toys のクラウドファンディングサイトも例外ではありません。視覚特性や好みの異なるすべてのユーザーにとって利用しやすいプラットフォームを目指すため、アクセシビリティ専用のカスタムエージェントを投入して改修を行います。</p>
+<p>ユーザーからのフィードバックにより、現在のダークテーマは文字と背景色のコントラスト比が不十分で視認性が低いという課題が判明しました。この問題に対処するため、デザインチームはユーザーが手動でオン／オフを切り替えられるハイコントラストモードの実装を求めています。</p>
+<p>この演習では、次の内容を学習します。</p>
 <ul>
-<li>custom agent を確認する。</li>
-<li>custom agent を有効にし、Copilot CLI を使ってタスクを割り当てる。</li>
+<li>リポジトリに定義されたアクセシビリティカスタムエージェントの構成を確認する</li>
+<li>Copilot CLI からカスタムエージェントを呼び出し、タスクを委譲して自律実装させる</li>
 </ul>
-<h2 id="アクセシビリティ-custom-agent-を確認する">アクセシビリティ custom agent を確認する</h2>
+<h2 id="アクセシビリティカスタムエージェントを確認する">アクセシビリティカスタムエージェントを確認する</h2>
 <blockquote>
 <p><strong>補足</strong>
-<strong>付属エージェントの YAML エラー</strong>: 2026年9月8日時点のテンプレートでは、<code>/agent</code> を開くと <code>.github/agents/pr-readiness.md</code> に <code>unknown escape character</code> が表示されました。同ファイルの <code>tools</code> にある <code>"playwright/\*"</code> を <code>"playwright/*"</code> に修正してください。YAML の二重引用符内で <code>\*</code> は有効なエスケープではありません。修正後に CLI を再起動して一覧を確認します。これは PR Readiness の読み込みエラーであり、一覧に表示される Accessibility agent は選択できます。</p>
+<strong>付属エージェントの YAML 構文エラーに関する注意</strong><br />
+2026年9月8日時点のテンプレート環境において、<code>/agent</code> コマンドを実行した際に <code>.github/agents/pr-readiness.md</code> の YAML 解析で <code>unknown escape character</code> エラーが発生する事例がありました。もしこのエラーが表示された場合は、該当ファイルの <code>tools</code> セクションにある <code>"playwright/\*"</code> を <code>"playwright/*"</code> へ修正してください（YAML のダブルクォート文字列内では <code>\*</code> は無効なエスケープシーケンスです）。修正後に CLI を再起動することでエラーが解消します。なお、本演習で使用する Accessibility agent 自体は正常に選択可能です。</p>
 </blockquote>
-<p>アクセシビリティ用の custom agent は、すでに用意されています。Copilot をどのように導くのか理解するために、その内容を確認しましょう。</p>
+<p>リポジトリにあらかじめ用意されているアクセシビリティエージェントの定義を確認します。</p>
 <ol>
 <li><code>.github/agents/accessibility.md</code> を開きます。</li>
-<li><code>name</code> フィールドと <code>description</code> フィールドを持つ YAML frontmatter を確認します。</li>
+<li>先頭の <code>name</code> および <code>description</code> を含む YAML frontmatter を確認します（これらはエージェント定義において必須の項目です）。</li>
+<li>続く Markdown 本文の各セクションを読み込みます。
+   - アクセシブルな Web サイトを構築する際の中核的責務
+   - WCAG に準拠したコントラスト比やセマンティック HTML のベストプラクティス
+   - HTML、CSS、JavaScript の具体的実装パターン
+   - アクセシビリティ対応で陥りがちな典型的なアンチパターン</li>
 </ol>
-<blockquote>
-<p><strong>注意</strong>
-<code>name</code> と <code>description</code> を含む frontmatter は、custom agent に必須です。</p>
-</blockquote>
-<ol start="3">
-<li>続いて、次の内容が示されている各セクションを読みます。
-   - アクセシブルな Web サイトのコードを生成するときの中核的な責務。
-   - アクセシビリティのベスト プラクティス。
-   - HTML、CSS、JavaScript のコード例。
-   - よくある落とし穴やミスの一覧。</li>
-</ol>
-<h2 id="copilot-cli-で-custom-agent-を使う">Copilot CLI で custom agent を使う</h2>
+<h2 id="copilot-cli-でカスタムエージェントを使う">Copilot CLI でカスタムエージェントを使う</h2>
 <blockquote>
 <p><strong>補足</strong>
-<strong>関連 Issue がない場合</strong>: 2026年9月8日時点のテンプレートには、高コントラストモードの初期 Issue が含まれていません。自分の演習リポジトリの Issue 一覧を確認し、見つからなければ、次のプロンプトの「詳細はリポジトリの関連 Issue を取得して確認してください。」を「関連 Issue はありません。以下を今回の要件として、この演習リポジトリ内に Issue を作成してから実装してください。」に置き換えます。テンプレートの <code>CONTRIBUTING.md</code> は PR に対応する Issue を求めています。別のリポジトリの Issue を探す必要はありません。</p>
+<strong>対応する Issue が存在しない場合の対処</strong><br />
+2026年9月8日時点のテンプレートでは、高コントラストモードに関する Issue があらかじめ起票されていない場合があります。演習リポジトリの Issue 一覧を確認し、該当 Issue が見当たらない場合は、後述のプロンプト内にある「詳細はリポジトリの関連 Issue を取得して確認してください。」の部分を、次のように置き換えて送信してください。<br />
+「関連 Issue はありません。以下を今回の要件として、この演習リポジトリ内に Issue を作成してから実装してください。」（リポジトリの <code>CONTRIBUTING.md</code> では PR に紐づく Issue の存在が求められているためです）。</p>
 </blockquote>
-<p>Copilot CLI では、<code>/agent</code> コマンドを使って custom agent を開始できます。では、Web サイトに対してアクセシビリティの確認を実行しましょう。</p>
+<p>Copilot CLI で <code>/agent</code> コマンドを実行し、アクセシビリティエージェントを起動してタスクを依頼しましょう。</p>
 <blockquote>
 <p><strong>ヒント</strong>
-<strong>Copilot CLI セッションを開始する</strong></p>
-<p>以下の演習を始める前に、codespace に戻ってターミナルを開きます（まだ開いていない場合は <kbd>Ctrl</kbd>+<kbd>`</kbd>）。次に、<code>--yolo</code> と <code>--enable-all-github-mcp-tools</code> を付けて Copilot CLI を起動します。</p>
+<strong>Copilot CLI セッションの開始方法</strong><br />
+Codespace のターミナルで、次のオプションを指定して Copilot CLI を起動します。</p>
 <pre class="highlight"><code class="language-bash">copilot --yolo --enable-all-github-mcp-tools</code></pre>
-<p>新しく開始する代わりに、このプロジェクトの直近のセッションを引き継ぐには <code>copilot --yolo --enable-all-github-mcp-tools --continue</code> を実行します。前の演習から Copilot CLI がすでに実行中であれば、<code>/clear</code> を送ってクリーンな会話を開始してください。</p>
-<p><code>--enable-all-github-mcp-tools</code> を付けると、現在のセッションで GitHub MCP の読み取り / 書き込みツールが有効になります。これにより、ワークショップの流れの中で Copilot がバックログを読み取り、pull request を開けるようになります。</p>
+<p>既存のセッションを引き継ぐ場合は <code>copilot --yolo --enable-all-github-mcp-tools --continue</code> を実行します。すでに起動中の場合は <code>/clear</code> を送信して新しい会話を開始してください。</p>
 <p><strong>注意</strong>
-<code>--yolo</code> は完全な自動権限（<code>--allow-all-tools</code>、<code>--allow-all-paths</code>、<code>--allow-all-urls</code>）を有効にします。Codespace や VM のような分離された環境でのみ使用し、日常的な開発の既定値として alias しないでください。詳しくは <a href="https://docs.github.com/copilot/how-tos/copilot-cli/use-copilot-cli/allowing-tools">Allowing and denying tool use</a> を参照してください。</p>
+<code>--yolo</code> オプションは、ツール実行やファイル変更時の確認ダイアログをすべて省略する完全自動化フラグ（<code>--allow-all-tools</code>、<code>--allow-all-paths</code>、<code>--allow-all-urls</code>）を有効にします。Codespace や仮想マシンのような分離された安全な環境でのみ使用し、日常的なローカル開発の既定エイリアスとして設定しないよう注意してください。詳しくは <a href="https://docs.github.com/copilot/how-tos/copilot-cli/use-copilot-cli/allowing-tools">ツールの許可と拒否に関するドキュメント</a> を参照してください。</p>
 </blockquote>
 <ol>
-<li>Copilot CLI のプロンプト ウィンドウで <code>/agent</code> と入力し、<kbd>Enter</kbd> を押して agent の一覧を表示します。</li>
-<li>利用可能な agent の一覧から <strong>Accessibility agent</strong> を選択します。</li>
-<li>
-<p>次のプロンプトを使い、アクセシビリティ agent に対してアクセシビリティ関連のバックログ項目をレビューし、修正を生成するよう依頼します。</p>
-<pre class="highlight"><code>サイトのアクセシビリティをレビューしてください。詳細はリポジトリの関連 Issue を取得して確認してください。ページを再読み込みしても設定が維持される高コントラストモードの切り替えを実装し、変更に対する e2e テストを用意してください。その後、変更を含む PR を作成してください。</code></pre>
-</li>
-<li>
-<p>Copilot がタスクの実行を開始します。まず issue を取得し、その後レビュー、更新の生成、最後に PR の作成へと進みます。PR を作成するときに、このプロジェクトの PR 用 skill を利用していることにも気づくはずです。</p>
-</li>
+<li>Copilot CLI の対話プロンプトで <code>/agent</code> と入力し、<kbd>Enter</kbd> を押します。</li>
+<li>表示されたエージェント一覧から <strong>Accessibility agent</strong> を選択します。</li>
+<li>次のプロンプトを入力し、アクセシビリティのレビューと高コントラストモードの実装を指示します。</li>
+</ol>
+<pre class="highlight"><code class="language-plaintext">サイトのアクセシビリティをレビューしてください。詳細はリポジトリの関連 Issue を取得して確認してください。ページを再読み込みしても設定が維持される高コントラストモードの切り替えを実装し、変更に対する e2e テストを用意してください。その後、変更を含む PR を作成してください。</code></pre>
+<ol start="4">
+<li>エージェントがタスクの自律処理を開始します。Issue の要件を分析し、コードの改修と E2E テストの追加を行い、最後に前章で確認した <code>make-contribution</code> スキルを自動的に呼び出して pull request を起票する一連の流れを確認してください。</li>
 </ol>
 <blockquote>
 <p><strong>補足</strong>
-この処理には数分かかることがあります。ここまでに学んだ内容を振り返ったり、飲み物を楽しんだり、Copilot CLI で利用できる追加コマンドを扱う次のモジュールを先に読んだりするのによい時間です。</p>
+この処理の完了には数分かかる場合があります。エージェントがテストを実行し、自己修正を繰り返しながら PR を仕上げていくログを眺めて待ちましょう。</p>
 </blockquote>
 <h2 id="まとめと次のステップ">まとめと次のステップ</h2>
-<p>このレッスンでは、GitHub Copilot の <a href="https://docs.github.com/copilot/how-tos/use-copilot-agents/use-copilot-cli#use-custom-agents">カスタム エージェント</a> を確認しました。custom agent は、特定のタスクや領域に合わせた専門的な AI アシスタントです。custom agent を使うと、チームの専門知識や標準を再利用可能な agent に落とし込み、Copilot が特定の種類の作業をより効果的に行えるよう導けます。</p>
-<p>このレッスンで確認した内容は次のとおりです。</p>
+<p>特定領域の専門知識をカプセル化した <a href="https://docs.github.com/copilot/how-tos/use-copilot-agents/use-copilot-cli#use-custom-agents">カスタムエージェント</a> を活用しました。本演習で実施した主な内容は次の通りです。</p>
 <ul>
-<li>custom agent がどのように定義されるか。</li>
-<li>Copilot CLI で custom agent を使う方法。</li>
+<li>カスタムエージェントの構造（YAML frontmatter と指示本文）およびスキルとの役割分担を理解した</li>
+<li><code>/agent</code> コマンドを用いて Accessibility agent を呼び出し、高コントラスト機能の実装からテスト・PR 作成までを自律実行させた</li>
 </ul>
-<p>次は、<a href="7-slash-commands.html">いくつかの slash command</a> を確認し、Copilot CLI の追加テクニックを学びましょう。</p>
+<p>次は、Copilot CLI をより柔軟に制御するための各種スラッシュコマンドを網羅し、コンテキスト管理やモデル選択のテクニックを学習します。<a href="7-slash-commands.html">演習 7 - スラッシュコマンド</a> へ進んでください。</p>
 <h2 id="リソース">リソース</h2>
 <ul>
 <li><a href="https://docs.github.com/copilot/how-tos/use-copilot-agents/use-copilot-cli#use-custom-agents">カスタム エージェント</a></li>
@@ -105,4 +98,4 @@ custom agent の書き方に、唯一の「正しい」方法はありません�
 <li><a href="https://github.com/github/awesome-copilot/tree/main/agents">awesome-copilot のカスタム エージェント</a></li>
 <li><a href="https://docs.github.com/copilot/how-tos/administer-copilot/manage-for-organization/prepare-for-custom-agents">organization で custom agent を使う準備</a></li>
 <li><a href="https://docs.github.com/copilot/how-tos/administer-copilot/manage-for-enterprise/manage-agents/prepare-for-custom-agents">enterprise で custom agent を使う準備</a></li>
-</ul></article><nav class="chapter-nav" aria-label="章の移動"><a href="5-agent-skills.html">← 前の章：演習 5 - エージェント スキルを使う</a><a href="7-slash-commands.html">次の章 →：演習 7 - GitHub Copilot CLI のスラッシュ コマンド</a></nav></main></body></html>
+</ul></article><nav class="chapter-nav" aria-label="章の移動"><a href="5-agent-skills.html">← 前の章：演習 5 - エージェントスキルを使う</a><a href="7-slash-commands.html">次の章 →：演習 7 - GitHub Copilot CLI のスラッシュコマンド</a></nav></main></body></html>

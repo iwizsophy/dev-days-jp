@@ -12,71 +12,79 @@
 <li><a href="#タスク2api-をテストする">タスク2：API をテストする</a></li>
 <li><a href="#タスク3対戦ページを計画する">タスク3：対戦ページを計画する</a></li>
 <li><a href="#タスク4ひな形を確認する">タスク4：ひな形を確認する</a></li>
-<li><a href="#第2章の完了">✅ 第2章の完了</a></li>
+<li><a href="#第2章の完了チェック">✅ 第2章の完了チェック</a></li>
 </ul>
 </div>
-</details><article><p>コードを書く前に、Copilot の計画機能でアーキテクチャを検討します。計画を先に立てることで、システムの構造を考え、コード生成に必要な情報を渡せます。</p>
+</details><article><p>コードを実際に書き始める前に、Copilot の計画機能（Plan モード）を活用してアーキテクチャを検討します。あらかじめ計画を立てておくことで、システム全体の構造を十分に吟味できるだけでなく、続くコード生成プロセスに対しても精度の高い前提情報を渡せます。</p>
 <h2 id="タスク1api-の構造を計画する">タスク1：API の構造を計画する</h2>
 <ol>
-<li><strong>VS Code：</strong> Chat パネル下部のモード選択で <strong>Plan</strong> に切り替えます。<strong>CLI：</strong> <strong>Shift+Tab</strong> で計画モードへ移るか、<code>/plan</code> を使います。</li>
+<li>計画モードへ切り替えます。
+   - <strong>VS Code：</strong> Chat パネル下部にあるモード選択ドロップダウンから <strong>Plan</strong> を選択します。
+   - <strong>CLI：</strong> <strong>Shift+Tab</strong> を押して計画モードへ切り替えるか、コマンド <code>/plan</code> を実行します。</li>
 <li>
-<p>次のプロンプトを入力します。</p>
+<p>次のプロンプトを入力して送信します。</p>
 <pre class="highlight"><code class="language-text">任意のユーザー名について GitHub のコントリビューションデータを取得する、サーバー側の API プロキシを作りたいです。
 エンドポイントは https://github.com/{username}.contribs で、JSON を返します。
 ブラウザーから直接取得した際の CORS 制約を避けるため、サーバー側で取得します。
 ルートの構造、エラー処理、キャッシュ戦略を含めて実装を計画してください。</code></pre>
 </li>
 <li>
-<p><strong>計画をレビュー</strong>します。不明点を質問し、違和感があれば変更を提案して、納得できるまで調整します。</p>
+<p><strong>提示された計画をレビューします。</strong> 不明な点があれば Copilot へ質問し、設計に違和感がある場合は変更を提案して、納得がいくまで計画を調整してください。</p>
 </li>
-<li><strong>VS Code：</strong> <strong>Agent</strong> モードに切り替えて実装を依頼します。<strong>CLI：</strong> 確認済みの計画の実装を依頼し、<code>/diff</code> で編集結果を確認します。</li>
+<li>計画が確定したら、実装へ進みます。
+   - <strong>VS Code：</strong> モードを <strong>Agent</strong> に切り替え、計画に基づく実装を依頼します。
+   - <strong>CLI：</strong> 確認済みの計画を実装するよう依頼し、完了後に <code>/diff</code> を実行して編集内容を確認します。</li>
 <li>
-<p>次の API ルートが作成されていることを確認します。</p>
+<p>次の API ルートファイルが作成されていることを確認します。</p>
 <pre class="highlight"><code class="language-text">src/pages/api/contributions/[username].ts</code></pre>
 </li>
 </ol>
 <blockquote>
-<p><strong>日本語版の補足：</strong> <code>.contribs</code> の応答形式は原文の前提です。実際の HTTP ステータスと Content-Type、レスポンスを確認し、一致しなければ講師と取得方法を確認してください。認証情報をクライアント側に埋め込んで解決しないでください。</p>
+<p><strong>補足</strong>
+<strong>日本語版の補足：</strong> <code>.contribs</code> というエンドポイントの応答形式は、原文教材が前提としている仕様です。実際の HTTP ステータスコード、Content-Type、およびレスポンス本文を確認してください。もし想定どおりのデータが得られない場合は、勝手に認証情報をクライアント側コードへ埋め込んで解決しようとせず、講師とともに適切な取得方法を確認してください。</p>
 </blockquote>
 <h2 id="タスク2api-をテストする">タスク2：API をテストする</h2>
 <blockquote>
-<p><strong>変更が反映されない場合：</strong> 開発サーバーを <code>Ctrl+C</code> で停止し、<code>npm run dev</code> で再起動します。</p>
+<p><strong>ヒント</strong>
+<strong>変更が反映されない場合：</strong> 開発サーバーを実行しているターミナルで <code>Ctrl+C</code> を押して停止し、再度 <code>npm run dev</code> を実行して再起動してください。</p>
 </blockquote>
 <ol>
 <li>
-<p>開発サーバーが動いていることを確認し、別のターミナルから実行します。</p>
+<p>開発サーバーが稼働していることを確認し、別のターミナルウィンドウから次の curl コマンドを実行します。</p>
 <pre class="highlight"><code class="language-bash">curl http://localhost:4321/api/contributions/octocat</code></pre>
 </li>
 <li>
-<p>コントリビューションデータを含む JSON が返ることを確認します。</p>
+<p>コントリビューションデータを含む JSON レスポンスが正常に返ってくることを確認します。</p>
 </li>
-<li>無効なユーザー名でも試し、適切なエラーレスポンスを返すことを確認します。</li>
+<li>存在しない無効なユーザー名でもリクエストを試し、適切なエラーレスポンスが返されることを確認します。</li>
 </ol>
 <h2 id="タスク3対戦ページを計画する">タスク3：対戦ページを計画する</h2>
 <ol>
-<li>Plan モードへ戻ります。CLI では <code>/plan</code> も使えます。</li>
+<li>再び Plan モードへ戻ります（CLI では <code>/plan</code> も利用可能です）。</li>
 <li>
-<p>次を入力します。</p>
+<p>次のプロンプトを入力して送信します。</p>
 <pre class="highlight"><code class="language-text">次にメインページが必要です。「Mona Mayhem - GitHub Contribution Battle Arena」の対戦ページを計画してください。
 Player 1 と Player 2 のユーザー名入力欄、対戦ボタン、結果表示領域を用意します。
 この段階ではレイアウトや装飾を作り込みすぎず、シンプルな UI にしてください。
 HTML の構造、基本的なスタイル、対戦操作の流れを計画してください。</code></pre>
 </li>
 <li>
-<p>計画を読み、質問や変更提案を通じて改善します。</p>
+<p>提示された計画を精読し、質問や修正提案を重ねて内容をブラッシュアップします。</p>
 </li>
-<li><strong>VS Code：</strong> Agent モードで実装します。<strong>CLI：</strong> 計画の実装を依頼し、<code>/diff</code> で HTML と CSS のひな形を確認します。</li>
+<li>実装を依頼します。
+   - <strong>VS Code：</strong> Agent モードに切り替えて実装を依頼します。
+   - <strong>CLI：</strong> 計画の実装を依頼し、<code>/diff</code> で生成された HTML と CSS のひな形を確認します。</li>
 </ol>
 <h2 id="タスク4ひな形を確認する">タスク4：ひな形を確認する</h2>
 <ol>
-<li>ブラウザーで http://localhost:4321 を開きます。</li>
-<li>ゲームのタイトル、2つのユーザー名入力欄、対戦ボタンがあることを確認します。</li>
-<li><strong>ボタンがまだ動かなくても正常です。</strong> 操作とデータをつなぐ処理は次章で実装します。</li>
+<li>ブラウザーで <a href="http://localhost:4321">http://localhost:4321</a> を開きます。</li>
+<li>画面上にゲームのタイトル、2 人分のユーザー名入力欄、そして対戦ボタンが配置されていることを確認します。</li>
+<li><strong>この段階では、ボタンをクリックしてもまだ動作しませんが正常です。</strong> ユーザー操作とデータを連携させるロジックは、次章で実装します。</li>
 </ol>
-<p>表示が更新されない場合は、開発サーバーを再起動してブラウザーを更新します。</p>
-<h2 id="第2章の完了">✅ 第2章の完了</h2>
-<ul>
-<li>実装前に計画を立てた。</li>
-<li>アーキテクチャに納得できるまで計画を調整した。</li>
-<li>計画から実装へ進み、API とページのひな形を確認した。</li>
+<p>画面の表示が更新されない場合は、開発サーバーを再起動したうえでブラウザーをリロードしてください。</p>
+<h2 id="第2章の完了チェック">✅ 第2章の完了チェック</h2>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> コード実装を始める前に、Copilot とともに設計計画を立てた。</li>
+<li class="task-list-item"><input type="checkbox" disabled/> アーキテクチャに納得できるまで Copilot へ質問や調整を行い、計画をブラッシュアップした。</li>
+<li class="task-list-item"><input type="checkbox" disabled/> 確定した計画に基づいて実装を進め、API および対戦ページのひな形が作成されたことを確認した。</li>
 </ul></article><nav class="chapter-nav" aria-label="章の移動"><a href="01-setup.html">← 前の章：第1章：環境構築とコンテキストの設計</a><a href="03-agent-mode.html">次の章 →：第3章：エージェントでゲームを実装する</a></nav></main></body></html>

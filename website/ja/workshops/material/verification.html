@@ -6,191 +6,219 @@
 <a href="../../index.html">教材セットの入口</a><a href="../index.html">App シナリオの目次</a>
 <a href="../../handson-guide.html#switch">事前準備・UI の確認</a></nav>
 <button class="theme-toggle" type="button" onclick="toggleTheme()">☀️ ライト</button></header>
-<main id="lesson"><h1>App シナリオの検証状況</h1><aside>この教材セット独自の運営・補助手順です。</aside><article><p>2026年9月13日：Windows の GitHub Copilot App 1.1.20 で、接続・星評価・指示更新・フィルター実装と次章への継承を確認しました。MCP は設定形式修正とセッション再起動後に実行成功。Agent Merge は検証用 PR #12～14 で CI 成功後の自動マージを確認し、Canvas の共有保存・別セッションでの再表示・重複送信修正、Automation の手動実行も確認しました。<strong>Issue #2 の残る操作確認は、GitHub 連携経路と手動 Refresh を使う回避手順で確認しました。</strong> 新版から全章を通し直した結果や、App 本体の不具合修正を意味しません。 画像の差し替え記録と未実施経路は <a href="ui-check.html">UI 確認表</a>と章別表を参照してください。以下の実走記録は段階ごとの履歴であり、各段階の「未確認」「未作成」は当時の状態です。</p>
-<p>環境：Windows ビルド 26200.9445（25H2）、App 実行ファイルの ProductVersion 1.1.20、確認アカウント iwizsophy。教材の開始コミットは <code>cfcbad744d8349a2a7b200484470c7d439bf3cb7</code>。インストーラーの署名は GitHub, Inc. で有効でした。</p>
-<p>演習用コピーは非公開の <code>iwizsophy/dev-days-tailspin-app-verification-20260913</code>。<code>github-samples/tailspin-toys</code> の固定コミット <code>bae003609c8cff0c51d92658b8d3bd89450464f1</code> から作成しました。<code>feature/workshop-baseline</code> の <code>641f557</code> では <code>.github/agents/pr-readiness.md</code> の無効な YAML エスケープ <code>"playwright/\*"</code> を <code>"playwright/*"</code> に修正しています。この修正は同名のリモートブランチへ push 済みで、星評価やフィルターの実装は含みません。</p>
-<p>開始状態を App 外の PowerShell で検査し、Node 24.19.0 で <code>npm ci</code>、単体テスト27件、Chromium E2E 21件、lint、型検査が成功しました。E2E はポート4321に既存サーバーがないことを確認してからビルド・previewを起動しました。これは App のセットアップスクリプトや開発サーバーの実走結果ではありません。通常の Node 24.14.1 では一部依存の要求バージョンを満たさず、検査時のみ Node 24.19.0 のパスを指定しました。</p>
-<p><code>Open folder</code> 後に <code>New session</code> と <code>Work directly in this folder for this session</code> が表示されました。続いて <code>Accept this repository configuration?</code> → <code>Review configuration</code> で <code>.github/github-app.yml</code> を表示しました。設定にはセッション作成時の <code>npm ci</code>、開発・ビルド・型検査の Run メニュー、プレビューの自動表示が含まれます。利用者が <code>Accept and apply</code> を操作しても確認画面が残り、入力欄が表示されないことを確認しました。完全再起動後は確認画面が再表示されず、設定にある Run メニューとメッセージ入力欄が表示されました。セットアップスクリプトの実行成功は未確認です。</p>
-<p>接続直後のローカルログには <code>pending-request event was not delivered to the session host</code> と <code>no session host is registered</code> の警告がありました。確認画面の停止との因果関係は調査中です。ウィンドウを通常終了して開き直しても同じ確認画面が残り、App 本体のプロセスは起動時から継続していました。利用者の承認後に App 本体を強制終了して起動し直すと、停止していた空のセッションは消え、プロジェクトの新規セッションから送信できました。強制終了には未保存の状態を失う可能性があります。今回の復帰事例であり、警告の原因や恒久対策は確定していません。</p>
-<p>再起動後の <code>Tailspin toys repository</code> セッションでは、対象 checkout の <code>src/pages/index.astro</code>、<code>src/lib/games.ts</code>、<code>GameCard.astro</code>、テスト等の読み取りと、日本語の構成説明、応答後の Idle を確認しました。検証用 checkout の差分はなく、<code>git worktree list</code> は元の <code>feature/workshop-baseline</code> のみでした。この経路で worktree が分離されたとは扱いません。チャットは説明のみを依頼し、応答後の Idle を確認しました。MCP はフォームの表示までで、保存していません。星評価の実装セッションは <code>feature/app-star-rating</code> で実行しました。レビューでヘルパーだけのテストを差し戻し、GameCard の実レンダリング（4.2・0・null）と一覧E2Eの評価表示確認へ修正しました。App から実行した単体30件・E2E21件・lint・型検査・buildが成功しました。App の Run development site で起動し、App 内 Browser と別ブラウザーで星評価を確認後、Stop Run development site で停止しました。ポート4321の待受終了も確認しました。定期実行は未作成です。UI の表示確認を機能の実走成功と混同しません。</p>
-<p>星評価は <code>9c3d619</code>、読み上げ対応は <code>0901fc7</code> にコミットし、演習コピーの <code>origin/feature/app-star-rating</code> へ push 済みです。Author・Committer はともに <code>Tetsuji Kato &lt;6571039+iwizsophy@users.noreply.github.com&gt;</code>。PR Readiness で指摘された評価の意味と尺度の不足を、カードの <code>Rating: X out of 5 stars</code> という読み上げ名と装飾部分の <code>aria-hidden</code> で修正し、実レンダリング・E2E のアサーションを追加しました。</p>
-<p><a href="https://github.com/iwizsophy/dev-days-tailspin-app-verification-20260913/pull/9">検証用 PR #9</a>（非公開・閲覧権限が必要）は main 宛てで、利用者承認後に App からマージしました。App のプロジェクト連携 PR ツールは GitHub アカウントを利用できないというエラーで失敗したため、App エージェントが認証済みの <code>gh</code> CLI で作成しました。これは App 固有の Create PR 操作の成功とは数えません。その後、GitHub 連携側の My work で PR #9 を開き、Changes の5ファイルの差分、Ready to merge、マージ確認画面の All checks have passed と No unresolved comments を確認しました。利用者の承認後、同じ確認画面の Merge pull request（Merge commit）を実行し、GitHub 上の MERGED とマージコミット <code>9107d35c8539bb0327ec21d6b1e86f42b33a4392</code> を確認しました。これは通常マージであり Agent Merge の検証ではありません。Issue #8 の詳細と New session options（New session・New session in repository...・Chat）も表示確認しました。</p>
-<p>最終コミット <code>0901fc759c50ecccbc75a0ac74c178fdc46c89c7</code> の <a href="https://github.com/iwizsophy/dev-days-tailspin-app-verification-20260913/actions/runs/34750878686">CI</a> は frontend-lint・type-check・unit-tests・frontend-tests の全4ジョブが成功しました。検証用 checkout はクリーンで、ポート4321・4322の待受も終了しています。</p>
-<p>教材側の初期検査：41ページ・内部リンク／画像／アンカー773参照が成功。2回の生成結果が一致し、旧画像の未照合注記と新規実機画像2枚の確認日・バージョン注記が区別されることを確認しました。</p>
-<p>2026年9月10日：教材の再構成・HTML 生成・内部参照を確認。この時点では App の実機操作や新しいアプリ実装を実施していませんでした。</p>
-<p>前回の再構成時の確認（今回の修正前）：サイト39ページ・内部リンク／画像／アンカー755参照が成功。2回の生成結果が一致し、当時の App 全9章に CLI 代替手順と合流条件があることを確認しました。ブラウザーで参加者の入口、演習0への移動、章内の CLI 手順への移動と表示を確認しています。</p>
+<main id="lesson"><h1>App シナリオの検証状況</h1><aside>この教材セット独自の運営・補助手順です。</aside><article><p>本ドキュメントは、Windows 環境の GitHub Copilot App 1.1.20 における実機検証の記録です。接続、星評価、指示更新、フィルター実装と次章への継承、Playwright MCP、Agent Merge（自動マージ）、Canvas（共有保存・反復送信バグ修正・別セッション再表示）、Automation（手動実行）を確認しました。</p>
+<blockquote>
+<p><strong>重要</strong>
+<strong>Issue #2 の残る操作確認は、GitHub 連携経路と手動 Refresh を使う回避手順で確認したものです。</strong> 新版から全章を通し直した結果や、App 本体の不具合修復を意味するものではありません。画像の差し替え記録と未実施経路は <a href="ui-check.html">UI 確認表</a> と本表を参照してください。以下の実走記録は段階ごとの履歴であり、各段階の「未確認」「未作成」は当時の状態です。</p>
+</blockquote>
+<h2>1. 検証環境とベースラインの確認</h2>
+<ul>
+<li><strong>検証実施日</strong>：2026年9月13日</li>
+<li><strong>OS 環境</strong>：Windows 11（ビルド 26200.9445、25H2）</li>
+<li><strong>ツール</strong>：GitHub Copilot App 1.1.20（インストーラー署名：GitHub, Inc. 有効）、Node.js 24.19.0</li>
+<li><strong>アカウント</strong>：<code>iwizsophy</code></li>
+<li><strong>教材の開始コミット</strong>：<code>cfcbad744d8349a2a7b200484470c7d439bf3cb7</code></li>
+<li><strong>演習用コピー</strong>：非公開リポジトリ <code>iwizsophy/dev-days-tailspin-app-verification-20260913</code>（<code>github-samples/tailspin-toys</code> の固定コミット <code>bae003609c8cff0c51d92658b8d3bd89450464f1</code> から作成）</li>
+</ul>
+<h3>ベースラインの修正</h3>
+<p>演習用コピーの <code>feature/workshop-baseline</code>（コミット <code>641f557</code>）において、<code>.github/agents/pr-readiness.md</code> 内の無効な YAML エスケープ <code>"playwright/\*"</code> を <code>"playwright/*"</code> に修正し、同名リモートブランチへ push しました（星評価やフィルターの実装は含みません）。</p>
+<h3>外部シェルでの初期状態検査</h3>
+<p>App 外の PowerShell から Node 24.19.0 を明示指定して検査を実施し、<code>npm ci</code>、単体テスト27件、Chromium E2E 21件、lint、型検査がすべて成功することを確認しました。E2E はポート4321に既存サーバーがないことを確認した上でビルドおよび preview を起動しています（通常の Node 24.14.1 では一部依存の要求バージョンを満たさないため、検査時のみ Node 24.19.0 のパスを使用しました。これは App のセットアップスクリプトや開発サーバーの実走結果ではありません）。</p>
+<h2>2. 章別の検証結果一覧（合流条件・App 実走・CLI 緊急対応）</h2>
 <table>
 <thead>
 <tr>
-<th>演習</th>
-<th>合流時の確認対象</th>
-<th>App 実走</th>
-<th>講師の CLI 緊急対応検証</th>
+<th style="text-align: left;">演習</th>
+<th style="text-align: left;">合流時の確認対象</th>
+<th style="text-align: left;">App 実走の確認結果</th>
+<th style="text-align: left;">講師の CLI 緊急対応検証</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>0 準備</td>
-<td>自分のコピー、Node、起動とテスト</td>
-<td>固定コミットからコピー作成・外部シェルで開始状態のテスト成功。GitHub Web で Private のコピー作成・課題8件の自動作成を確認。Add GitHub repository で設定承認・初回応答後の依存導入・App ビルド24ページ成功。セットアップ単独の終了コードは未取得</td>
-<td>未検証</td>
+<td style="text-align: left;"><strong>0 準備</strong></td>
+<td style="text-align: left;">自分のコピー、Node、起動とテスト</td>
+<td style="text-align: left;">固定コミットからのコピー作成、外部シェルでのテスト成功。GitHub Web で Private コピー作成・課題8件の自動作成を確認。Add GitHub repository で設定承認・初回応答後の依存導入・App ビルド24ページ成功。セットアップ単独の終了コードは未取得</td>
+<td style="text-align: left;">未検証</td>
 </tr>
 <tr>
-<td>1 接続</td>
-<td>同じ checkout を開き、構成について応答</td>
-<td>一部確認：初期設定・Chats 応答・Open folder・設定レビュー・完全再起動後の演習 repo の読み取りと構成への応答。GitHub 連携プロジェクトを追加し、My work の8件の Issue 表示を確認</td>
-<td>未検証</td>
+<td style="text-align: left;"><strong>1 接続</strong></td>
+<td style="text-align: left;">同じ checkout を開き、構成について応答</td>
+<td style="text-align: left;">一部確認：初期設定、Chats 応答、Open folder、設定レビュー、完全再起動後の演習 repo 読み取りと構成への応答。GitHub 連携プロジェクトを追加し、My work の8件の Issue 表示を確認</td>
+<td style="text-align: left;">未検証</td>
 </tr>
 <tr>
-<td>2 星評価</td>
-<td>数値と null の表示、テスト、PR・マージ</td>
-<td>App で実装・レビュー修正・検査・Run 起動停止を確認。gh 経由で PR #9 作成、CI 全4ジョブ成功。App 固有の PR 作成は失敗。My work から通常マージ成功、次章 worktree への星評価継承を確認</td>
-<td>未検証</td>
+<td style="text-align: left;"><strong>2 星評価</strong></td>
+<td style="text-align: left;">数値と null の表示、テスト、PR・マージ</td>
+<td style="text-align: left;">App で実装・レビュー修正・検査・Run 起動停止を確認。gh 経由で PR #9 作成、CI 全4ジョブ成功。App 固有の PR 作成は失敗。My work から通常マージ成功、次章 worktree への星評価継承を確認</td>
+<td style="text-align: left;">未検証</td>
 </tr>
 <tr>
-<td>3 指示</td>
-<td>TSDoc・ヘッダーの標準と提示コード、PR・マージ</td>
-<td>Issue #8 → New session で専用 worktree を作成。HEAD が星評価マージ済みの 9107d35 と一致し、差分なし。設定承認後に7ファイル更新、単体30件・E2E21件・lint・型検査成功。指示に沿うコード例と App の Create PR による PR #10 作成・通常マージを確認。フィルター用 worktree が 1b698ac を継承</td>
-<td>未検証</td>
+<td style="text-align: left;"><strong>3 指示</strong></td>
+<td style="text-align: left;">TSDoc・ヘッダーの標準と提示コード、PR・マージ</td>
+<td style="text-align: left;">Issue #8 → New session で専用 worktree を作成。HEAD が星評価マージ済みの <code>9107d35</code> と一致し差分なし。設定承認後に7ファイル更新、単体30件・E2E 21件・lint・型検査成功。指示に沿うコード例と App の Create PR による PR #10 作成・通常マージを確認。フィルター用 worktree が <code>1b698ac</code> を継承</td>
+<td style="text-align: left;">未検証</td>
 </tr>
 <tr>
-<td>4 フィルター</td>
-<td>星評価・指示を継承し、絞り込みと quality-checks</td>
-<td>Issue #7 の専用 worktree が 1b698ac を継承。Plan の質問へ回答、計画承認で Autopilot に切替。実装・修正後に単体35件・E2E25件・lint・型検査・build 成功。通常21件での Run 起動・絞り込み・停止を確認。MCP 検証も成功し、PR #12 を Agent Merge で統合</td>
-<td>未検証</td>
+<td style="text-align: left;"><strong>4 フィルター</strong></td>
+<td style="text-align: left;">星評価・指示を継承し、絞り込みと quality-checks</td>
+<td style="text-align: left;">Issue #7 の専用 worktree が <code>1b698ac</code> を継承。Plan の質問へ回答し、計画承認で Autopilot に切替。実装・修正後に単体35件・E2E 25件・lint・型検査・build 成功。通常21件での Run 起動・絞り込み・停止を確認。MCP 検証も成功し、PR #12 を Agent Merge で統合</td>
+<td style="text-align: left;">未検証</td>
 </tr>
 <tr>
-<td>5 MCP</td>
-<td>MCP ツールの実行、複合条件・解除等の検証</td>
-<td>リポジトリ定義 .mcp.json の信頼承認・設定形式修正・/restart-session 後に MCP 実行成功。通常データの複合条件・解除・出版社単独・キーボードを確認。追加実走では一時隔離 DB のフィルター0件も確認。カタログ保存後に Installed 1 を確認し、新規 Chats で browser_tabs が成功</td>
-<td>未検証</td>
+<td style="text-align: left;"><strong>5 MCP</strong></td>
+<td style="text-align: left;">MCP ツールの実行、複合条件・解除等の検証</td>
+<td style="text-align: left;">リポジトリ定義 <code>.mcp.json</code> の信頼承認・設定形式修正・<code>/restart-session</code> 後に MCP 実行成功。通常データの複合条件・解除・出版社単独・キーボードを確認。追加実走では一時隔離 DB のフィルター0件も確認。カタログ保存後に Installed 1 を確認し、新規 Chats で <code>browser_tabs</code> が成功</td>
+<td style="text-align: left;">未検証</td>
 </tr>
 <tr>
-<td>6 マージ</td>
-<td>CI とレビュー、演習コピーへ統合</td>
-<td>Agent merge から PR #12 作成、Merge pull request を有効化。CI 全4ジョブ成功後の自動マージを確認</td>
-<td>未検証（通常マージのみ代替可能）</td>
+<td style="text-align: left;"><strong>6 マージ</strong></td>
+<td style="text-align: left;">CI とレビュー、演習コピーへ統合</td>
+<td style="text-align: left;">Agent merge から PR #12 作成、Merge pull request を有効化。CI 全4ジョブ成功後の自動マージを確認</td>
+<td style="text-align: left;">未検証（通常マージのみ代替可能）</td>
 </tr>
 <tr>
-<td>7 Canvas</td>
-<td>共有・保存・Issue 操作</td>
-<td>新規 worktree が5c4c3acを継承。6カード・全6ボタン・上位3件の理由、Refresh、共有保存と PR #13 の自動マージ、別セッションで再表示成功。反復送信修正 PR #14 を統合し、1通知・1応答と再追加抑止を確認。追加実走で検索 Issue の計画・実装・MCP・PR #15 の自動マージまで確認。開き直し・Refresh 後は未完了5件で GitHub と一致</td>
-<td>機能代替不可。優先順位整理は未検証</td>
+<td style="text-align: left;"><strong>7 Canvas</strong></td>
+<td style="text-align: left;">共有・保存・Issue 操作</td>
+<td style="text-align: left;">新規 worktree が <code>5c4c3ac</code> を継承。6カード・全6ボタン・上位3件の理由、Refresh、共有保存と PR #13 の自動マージ、別セッションでの再表示に成功。反復送信修正 PR #14 を統合し、1通知・1応答と再追加抑止を確認。追加実走で検索 Issue の計画・実装・MCP・PR #15 の自動マージまで確認。開き直し・Refresh 後は未完了5件で GitHub と一致</td>
+<td style="text-align: left;">機能代替不可。優先順位整理は未検証</td>
 </tr>
 <tr>
-<td>8 Automation</td>
-<td>手動実行、結果、終了状態</td>
-<td>Manual・LocalでCreate and run、37秒でSucceeded。PR6件・Issue6件の要約をGitHubと照合。定期実行なし</td>
-<td>機能代替不可。単発要約は未検証</td>
+<td style="text-align: left;"><strong>8 Automation</strong></td>
+<td style="text-align: left;">手動実行、結果、終了状態</td>
+<td style="text-align: left;">Manual・Local で Create and run を実行し、37秒で Succeeded。PR 6件・Issue 6件の要約を GitHub と照合。定期実行なし</td>
+<td style="text-align: left;">機能代替不可。単発要約は未検証</td>
 </tr>
 </tbody>
 </table>
-<p>Issue #8 の New session では、<code>~/.copilot/repos/copilot-worktrees/</code> 以下に <code>iwizsophy-issue-8-update-our-repository-coding-standards-05839e</code> という専用 worktree とブランチが作成されました。App が自動生成したブランチ名です。HEAD は <code>9107d35</code> で、StarRating の再利用・null の表示・読み上げ名を継承しています。新規プロジェクトでは再度 Accept this repository configuration? が表示され、Review configuration で npm ci のセットアップ、Run メニュー3項目、Browser の自動表示設定を確認しました。利用者が設定を承認すると入力欄が表示され、今回は再起動なしで送信できました。セットアップ成功の証拠はなく、最初の lint は依存未導入で失敗したため、App エージェントがこの worktree に npm ci を実行しました。</p>
-<p>指示更新は <code>.github/copilot-instructions.md</code>、Astro・Drizzle・UI の指示3ファイル、README、eslint.config.js、Layout.astro の7ファイルです。意図を説明するコメント、exported function の TSDoc、注入可能な db、Astro Props の契約を記載しました。ESLint の single quotes・semicolons に合わせた既存コード修正は Layout.astro の3行のみ。単体30件、E2E21件、lint、型検査（診断ゼロ）が成功し、ポート4321のサーバー停止も確認しました。表示のみの Publisher 関数例にはファイルヘッダー、TSDoc、db の注入説明が含まれ、ファイルは追加されていません。例の要件を明示して依頼した結果であり、新規セッションで自動的に指示が反映されることの証明ではありません。</p>
-<p>App の Open changes で Changes (7), +43, -4 を確認後、上部の Create PR を操作しました。App がコミット・同名ブランチへの push・PR 作成まで実行し、<a href="https://github.com/iwizsophy/dev-days-tailspin-app-verification-20260913/pull/10">検証用 PR #10</a> を作成しました。ブランチ名は App が変更した <code>iwizsophy-repository-coding-standards</code>、コミットは <code>97da644d628d0e5b0aaa1c893912a45a2f68b0fc</code>。Author・Committer は指定の Tetsuji Kato で、checkout はクリーンです。これは GitHub 連携プロジェクトの専用 worktree 経路での成功であり、ローカルフォルダー側の連携エラーが修復されたことは意味しません。Ready to merge options に Agent merge の切り替えを表示しましたが、有効化していません。PR #10 の <a href="https://github.com/iwizsophy/dev-days-tailspin-app-verification-20260913/actions/runs/34751902435">CI</a> は全4ジョブ成功しました。利用者による以後の検証用リポジトリ操作の承認後、App の Ready to merge → Merge pull request で PR #10 を通常マージしました。マージコミットは <code>1b698acc404d35ddf48b0b9df539e1257ff88fec</code> です。</p>
-<p>フィルター演習は Issue #7 → New session で、<code>iwizsophy-issue-7-allow-users-to-filter-games-by-category-91fbc5</code> という専用 worktree を作成しました。App がブランチ名を <code>iwizsophy-filter-games-by-category-and-publisher</code> に変更しています。HEAD は <code>1b698ac</code>。今回は設定承認を再表示せず開始できました。Mode メニューで Plan を選択し、カテゴリ内は OR・出版社とは AND の質問に回答。Review plan → Approve and implement this plan → Continue で Mode: Autopilot に切り替わりました。</p>
-<p>フィルターのレビューでは、出版社のラベル不整合、複数カテゴリを実際には選ばないテスト、存在しない選択肢を DOM に注入する0件テストを修正しました。通常 CSV は全5カテゴリ×4出版社を含むため、0件条件には20件の E2E 専用 CSV と分離 SQLite を使います。本番21件の CSV は変更していません。最終検査は単体35件・E2E25件・lint・型検査・build・diff --check が成功。App の Run development site で通常データを起動し、別ブラウザーで21件 → Strategy 4件 → Puzzle 追加8件 → CodeForge Studios 追加2件 → Clear filters 21件を確認しました。App の Stop で停止し、4321 の待受終了も確認しました。このブラウザー確認は Playwright MCP の実行証拠ではありません。新しいデータアクセス関数の TSDoc は確認できましたが、ファイルヘッダーが自動追加されたとは扱いません。フィルター変更は未コミットで、PR は未作成です。</p>
-<p>MCP の確認では、GitHub 連携プロジェクトを右クリック → Settings → MCP servers に Trust this repository / Trust repository が表示されました。Repository configuration の Trusted 表示とは別の確認です。コピーに既存の <code>.mcp.json</code> は GitHub（https://api.githubcopilot.com/mcp/）、Playwright（npx @playwright/mcp@latest）、astro-docs（https://mcp.docs.astro.build/mcp）を定義しています。本人の信頼承認後、No MCP servers loaded を確認しました。設定のルートを servers から mcpServers に変更し、接続先を維持したまま Refresh 後に3サーバーの Connected 表示を確認しました。修正は外部シェルで実施し、<a href="https://github.com/iwizsophy/dev-days-tailspin-app-verification-20260913/pull/11">検証用 PR #11</a> は CI 全4ジョブ成功後にマージ（9a444be）。フィルター worktree にも同じ修正を7644b85として反映しています。既存フィルターセッションに MCP 実走を依頼すると、Playwright の browser 操作ツールが利用可能一覧に存在しないと報告して停止しました。Connected はセッション内の実行証拠ではありません。その後、同じセッションで /restart-session を送信し、履歴と未コミット変更を保持して再起動しました。再依頼では Playwright MCP の browser_navigate、browser_snapshot、browser_find、browser_click、browser_select_option、browser_press_key、browser_close の呼び出しを確認。通常21件 → Strategy 4件 → Puzzle 追加8件 → CodeForge Studios 追加2件 → Clear 21件、出版社単独6件、Tab×2とEnterによる解除21件が成功しました。0件状態は通常データで作れないため MCP では未確認です。ブラウザーとサーバーの停止を確認しました。</p>
-<p>続いて Create PR options → Agent merge を選択し、Agent merge ボタンを実行。App が40ca912に機能変更をコミットし、originの同名ブランチ iwizsophy-filter-games-by-category-and-publisher にpushして<a href="https://github.com/iwizsophy/dev-days-tailspin-app-verification-20260913/pull/12">検証用 PR #12</a>を作成しました。Author・Committerは指定どおり、作業ツリーはクリーンです。Agent merge options の Address reviews・Fix CI failures・Resolve conflicts は有効、Merge pull request は初期状態で無効でした。後者を有効にすると、<a href="https://github.com/iwizsophy/dev-days-tailspin-app-verification-20260913/actions/runs/34753452098">CI全4ジョブ</a>成功後に自動マージされ、AppとGitHubの両方でMergedを確認しました。マージコミットは5c4c3ac7b0fe4690eb7efba9bd9aa429c68ecce2です。CI失敗や競合の自動修正は発生していないため未検証です。</p>
-<p>キャンバス作成は New session → New worktree/main で開始し、worktree <code>iwizsophy-symmetrical-pancake</code> の HEAD が5c4c3acを継承していました。初版はセッション限定で上位3件だけにボタンがあり、全6件への追加と共有保存を依頼して <code>.github/extensions/issue-triage-board/extension.mjs</code> と README を保存。構文・lint・単体35件・E2E25件・6カード/6ボタン/3理由・Refreshを確認しました。<a href="https://github.com/iwizsophy/dev-days-tailspin-app-verification-20260913/pull/13">PR #13</a> は98e48fa、CI全4件成功後のAgent Mergeでb15fd073d4641ecd0877f57addc3b855195d964aへ統合。今回はMerge pull requestの選択が引き継がれていました。</p>
-<p>新規セッション（worktree <code>iwizsophy-ideal-meme</code>）で既存 project:issue-triage-board を開き、HEADがb15fd073を継承していることを確認しました。Add to current sessionを1回押すと、命令形の通知を受けたエージェントがadd_issue_contextを再呼び出して通知が反復。Stop → キュー0件のStop and discardで停止しました。事実通知への変更、送信中・送信済みの重複防止、再入時の循環待ち防止を実装し、並行/逐次・送信失敗後の再試行・send内からのawait再入の3回帰テストを追加。test:extensionsとしてCIにも組み込みました。ネイティブボタンの再テストで1通知・1応答、Refresh後の再クリックで通知が増えないことを確認。<a href="https://github.com/iwizsophy/dev-days-tailspin-app-verification-20260913/pull/14">PR #14</a> は68af6d7、CI全4件成功後にc6e865264c38d33a3ff1f8156c9aaf28c1e81dd8へ自動マージしました。両PRのAuthor・Committerは指定どおり、作業ツリーはクリーンです。コンテキストからIssueの実装を始める操作は行っていません。</p>
-<p>AutomationはAutomations → New automation → Trigger: Manual（初期値Daily）、Run in the cloudオフ、GitHub連携の検証プロジェクトを選択。<code>Tailspin App verification recap 20260913</code>という名前で読み取り専用のPR/Issue要約をCreate and runしました。Recent runsはLocal・37秒・Succeeded。応答の基準日時は2026-09-13 20:33:02 JST、マージ済みPR #9〜#14の6件、Open Issue #1〜#6の6件で、GitHubの一覧と一致しました。Manualとして保存し、定期実行は設定していません。クラウド実行・定期実行は未検証です。終了時に検証用キャンバスのタブを閉じ、開発サーバー4321の待受がないことを確認しました。
-すべての章で App → CLI → App の作業ディレクトリ・ブランチ・差分の一致も未検証です。</p>
-<h2>追加実走：キャンバスからの実装と現行メニュー</h2>
-<p>2026年9月13日、GitHub 連携プロジェクトの New → New worktree/main から <code>iwizsophy-studious-journey</code> を作成しました。作業ブランチは <code>iwizsophy-training-validation</code>、開始 HEAD は <code>c6e8652</code> で、PR #14 の修正を継承し作業ツリーはクリーンでした。最初の読み取り応答時に <code>node_modules/.package-lock.json</code> と主要依存の導入を確認しました。このセッションでエージェントは依存導入コマンドを実行していません。ただし、セットアップスクリプトの終了ログは取得できていないため、自動実行成功の確定記録とは区別します。</p>
-<p>保存済み Issue triage board を右パネルに開き、Issue #1 の Add to current session を1回選択。1通知と確認応答を確認した後、Mode: Plan でタイトル検索の計画を依頼しました。Review plan → Approve and implement this plan → Continue で Autopilot に切り替わり、同じ worktree の5ファイルを実装しました。レビューで SQL の LIKE とブラウザーの includes の特殊文字解釈の差を指摘し、<code>ESCAPE '!'</code> と <code>%</code>・<code>_</code>・<code>!</code>・バックスラッシュの回帰テストを追加しました。検索語・複数カテゴリ・出版社を同時に設定してから全解除する E2E も確認しています。</p>
-<p>最終検査は Vitest 39件、拡張の回帰3件、Playwright E2E 28件、lint・全型検査・静的 build が成功。実際の Playwright MCP は9種類・31呼び出し（セッションイベントから集計）でした。通常21件で大文字小文字を区別しない検索1件、検索＋カテゴリ＋出版社1件、検索0件、Tab/Enter 解除後21件を確認。通常の Simulation × Ops Interactive は1件で、一時隔離 DB の2件データでは同条件が0件になることも確認しました。通常 CSV は変更せず、一時 DB・MCP 生成物は削除、ブラウザーとサーバーは停止しました。</p>
-<p>App の Agent merge が <code>eaa82432500ad63c743c0e3ef92a8c74069343b2</code> を作成し、origin の同名ブランチへ push。<a href="https://github.com/iwizsophy/dev-days-tailspin-app-verification-20260913/pull/15">検証用 PR #15</a> は <a href="https://github.com/iwizsophy/dev-days-tailspin-app-verification-20260913/actions/runs/34756052959">CI 全4ジョブ</a> 成功後に自動マージされました。マージコミットは <code>6cab45db022210137cb549c9f48f07c5ae77d7ad</code>、Issue #1 は Closed、Author・Committer は指定の Tetsuji Kato です。作業ツリーはクリーンです。</p>
-<p>現行のファイル閲覧は Toggle panel → Add tab → Files → Ctrl+P（Go to file）で確認しました。View options → Show hidden files で <code>.github</code> を表示できました。差分は入力欄の上の Changes（Open changes）で開きます。Run options で Run development site を選択しただけでは起動せず、続いて Run ボタンを選択して起動、Stop Run development site で停止しました。教材の主手順をこの確認済み経路へ更新しています。</p>
-<p>GitHub Web は Use this template → Create a new repository から、Start with a template・Owner・Repository name・Choose visibility・Create repository を表示確認しました。フォーム送信は行っていません。閲覧時のテンプレート main は <code>5cea212</code> で、実走の固定コミットより先に進んでいました。最新版コピーの検査を今回の固定コピーの結果で代用しません。</p>
-<p>教材の追加検査は41ページ・内部リンク／画像／アンカー775参照が成功し、Canvas 章の追加手順と番号表示をブラウザーで確認しました。現行メニューの撮影素材は用意しましたが、この更新では全面差し替えは完了していません。原稿と生成 HTML は別コミットで記録します。</p>
-<h2>既存の実走結果を再利用できる範囲</h2>
-<p>2026年9月8日の Tailspin Toys <strong>CLI 独立シナリオ</strong>では、Copilot CLI 1.0.83 の応答、指示反映、フィルター実装、quality-checks、Playwright MCP、高コントラストのカスタムエージェント、PR と CI を確認しました。環境構築と問題切り分けの参考になります。</p>
+<h2>3. 初期接続と各演習の実走詳細</h2>
+<h3>初回接続と Open folder の観察（演習1）</h3>
 <ul>
-<li><a href="https://github.com/iwizsophy/dev-days-tailspin-cli-verification-20260908/pull/11">フィルター PR #11</a>：CI 全4ジョブ成功。</li>
-<li><a href="https://github.com/iwizsophy/dev-days-tailspin-cli-verification-20260908/pull/13">高コントラスト PR #13</a>：CI 全4ジョブ成功。</li>
+<li><code>Open folder</code> 後に <code>New session</code> と <code>Work directly in this folder for this session</code> が表示されました。</li>
+<li>続いて <code>Accept this repository configuration?</code> → <code>Review configuration</code> で <code>.github/github-app.yml</code> を表示（セッション作成時の <code>npm ci</code>、Run メニュー、プレビュー自動表示を含む）。</li>
+<li>利用者が <code>Accept and apply</code> を操作しても確認画面が残り続け、プロンプト入力欄が表示されない現象を確認しました。</li>
+<li>ウィンドウを通常終了しても同一画面が残り、プロセスが継続していました。タスクマネージャー等で App プロセスを強制終了して起動し直すと、停止していた空セッションが消去され、プロジェクトの新規セッションから送信可能になりました（強制終了には未保存状態の喪失リスクがあります。今回の復帰事例であり、警告ログ <code>pending-request event was not delivered to the session host</code> 等の原因や恒久対策は未確定です）。</li>
+<li>再起動後のセッションでは、対象 checkout の各ファイル読み取り、日本語での構成説明、応答後の Idle 復帰を確認しました。差分はなく、<code>git worktree list</code> も元の <code>feature/workshop-baseline</code> のみであり、この経路では worktree は分離されていません。</li>
 </ul>
-<p>証拠は非公開コピーのため閲覧権限が必要です。詳細はこのリポジトリの <code>content/ja/verification-2026-09-08.md</code>。星評価の実装、App の章間マージ、Agent Merge、Canvas、Automation の証拠ではありません。</p>
-<h2>1回の実走で記録する項目</h2>
+<h3>演習2：星評価の実装と PR #9</h3>
+<ul>
+<li>作業ブランチ <code>feature/app-star-rating</code> でセッションを開始。</li>
+<li>実装レビューにおいて、エージェントが提示したヘルパー単体のテストを差し戻し、<code>GameCard</code> の実レンダリングテスト（4.2、0、null）および一覧 E2E の評価表示確認へ修正。</li>
+<li>PR Readiness で指摘された評価の意味と尺度の不足に対し、カードの読み上げ名 <code>Rating: X out of 5 stars</code> と装飾部分への <code>aria-hidden="true"</code> を追加（コミット <code>9c3d619</code>、<code>0901fc7</code>。Author/Committer: Tetsuji Kato）。</li>
+<li>単体30件、E2E 21件、lint、型検査、build が成功。Run development site で起動し、App 内ブラウザーと外部ブラウザーで表示を確認後、Stop で停止（ポート4321の解放を確認）。</li>
+<li><strong>PR 作成とマージ</strong>：App のプロジェクト連携 PR ツールは GitHub アカウントエラーで失敗したため、エージェントが認証済み <code>gh</code> CLI で <a href="https://github.com/iwizsophy/dev-days-tailspin-app-verification-20260913/pull/9">検証用 PR #9</a> を作成（App 固有ツールの成功とは数えない）。その後、GitHub 連携側の My work から PR #9 を開き、Changes（5ファイル差分）、All checks have passed、No unresolved comments を確認し、Merge pull request（Merge commit）を実行。マージコミット <code>9107d35</code> を確認しました（通常マージであり Agent Merge ではありません）。CI（<a href="https://github.com/iwizsophy/dev-days-tailspin-app-verification-20260913/actions/runs/34750878686">実行ログ</a>）全4ジョブ成功を確認。</li>
+</ul>
+<h3>演習3：指示更新と PR #10</h3>
+<ul>
+<li>Issue #8 から New session を開始。<code>~/.copilot/repos/copilot-worktrees/</code> 配下に <code>iwizsophy-issue-8-update-our-repository-coding-standards-05839e</code> という専用 worktree とブランチが自動生成されました。HEAD は <code>9107d35</code> を継承。</li>
+<li>設定承認後にプロンプト入力欄が表示（再起動不要）。最初の lint は依存未導入で失敗したため、エージェントが worktree 内で <code>npm ci</code> を実行。</li>
+<li><code>.github/copilot-instructions.md</code>、Astro・Drizzle・UI の指示3ファイル、README、eslint.config.js、Layout.astro の計7ファイルを更新。単体30件、E2E 21件、lint、型検査（診断ゼロ）が成功。</li>
+<li>Publisher 関数例に TSDoc とヘッダーが含まれることを確認しましたが、これはプロンプトで要件を明示して依頼した結果であり、新規セッションで自動反映されることの証明ではありません。</li>
+<li>App の Open changes（Changes (7), +43, -4）から上部の <code>Create PR</code> を実行。App がコミット・push・PR 作成まで完了し、<a href="https://github.com/iwizsophy/dev-days-tailspin-app-verification-20260913/pull/10">検証用 PR #10</a>（ブランチ：<code>iwizsophy-repository-coding-standards</code>、コミット <code>97da644</code>、Author/Committer: Tetsuji Kato）を作成。</li>
+<li>PR #10 の CI（<a href="https://github.com/iwizsophy/dev-days-tailspin-app-verification-20260913/actions/runs/34751902435">実行ログ</a>）全4ジョブ成功後、App の Ready to merge → Merge pull request で通常マージ（マージコミット <code>1b698ac</code>）。</li>
+</ul>
+<h3>演習4：フィルター計画・自律実装</h3>
+<ul>
+<li>Issue #7 から New session を開始。専用 worktree <code>iwizsophy-issue-7-allow-users-to-filter-games-by-category-91fbc5</code>（ブランチ：<code>iwizsophy-filter-games-by-category-and-publisher</code>、HEAD：<code>1b698ac</code>）を作成。</li>
+<li>Mode で Plan を選択し、カテゴリ間 OR・出版社間 AND の仕様質問に回答後、計画を承認して Mode: Autopilot へ移行し実装。</li>
+<li>レビューにて、出版社のラベル不整合、複数カテゴリを実際には選ばないテスト、存在しない選択肢を DOM に注入する0件テストを修正。通常 CSV（21件）は全組み合わせを含むため、0件条件には20件の E2E 専用 CSV と分離 SQLite を使用して検証（本番 CSV は未変更）。</li>
+<li>単体35件、E2E 25件、lint、型検査、build、<code>diff --check</code> が成功。Run development site で起動し、21件 → Strategy 4件 → Puzzle 追加8件 → CodeForge Studios 追加2件 → Clear filters 21件を確認して停止。</li>
+</ul>
+<h3>演習5：MCP 設定修正とテスト実行</h3>
+<ul>
+<li>GitHub 連携プロジェクトの Settings → MCP servers で本人の信頼承認（Trust）を実施。</li>
+<li>既存の <code>.mcp.json</code> ではルートキーが <code>servers</code> となっていたため <code>No MCP servers loaded</code> となった。ルートキーを <code>mcpServers</code> へ修正し、Refresh 後に3サーバー（GitHub、Playwright、astro-docs）の Connected 表示を確認（外部シェルで修正し、<a href="https://github.com/iwizsophy/dev-days-tailspin-app-verification-20260913/pull/11">検証用 PR #11</a> としてマージ <code>9a444be</code>。フィルター worktree にも反映 <code>7644b85</code>）。</li>
+<li>既存セッションで MCP 実行を依頼したところ、ツール一覧にブラウザーツールが存在しないと報告して停止（Connected は実行可能を保証しない）。セッション内で <code>/restart-session</code> を送信して再起動後、Playwright MCP ツール群（<code>browser_navigate</code>, <code>browser_snapshot</code>, <code>browser_click</code>, <code>browser_select_option</code>, <code>browser_press_key</code>, <code>browser_close</code>）の呼び出しに成功。</li>
+<li>通常データでの複合条件、出版社単独6件、Tab/Enter 解除を確認。</li>
+</ul>
+<h3>演習6：Agent Merge による PR #12 自動マージ</h3>
+<ul>
+<li>Create PR options → Agent merge を選択し実行。App がコミット <code>40ca912</code> を作成し push して <a href="https://github.com/iwizsophy/dev-days-tailspin-app-verification-20260913/pull/12">検証用 PR #12</a> を作成。</li>
+<li>Agent merge options のうち、Address reviews、Fix CI failures、Resolve conflicts は初期状態で有効、<code>Merge pull request</code> は初期状態で無効だったため、手動で有効化。</li>
+<li>CI 全4ジョブ（<a href="https://github.com/iwizsophy/dev-days-tailspin-app-verification-20260913/actions/runs/34753452098">実行ログ</a>）成功後、自動マージを確認（マージコミット <code>5c4c3ac</code>）。CI 失敗や競合の自動修正は発生しなかったため未検証。</li>
+</ul>
+<h3>演習7：Canvas 作成と反復送信バグの解消</h3>
+<ul>
+<li>New worktree/main で worktree <code>iwizsophy-symmetrical-pancake</code>（HEAD：<code>5c4c3ac</code>）を作成。全6カード・全6ボタン・上位3件の理由・Refresh を備えた Issue triage board（<code>.github/extensions/issue-triage-board/extension.mjs</code>）を共有保存。<a href="https://github.com/iwizsophy/dev-days-tailspin-app-verification-20260913/pull/13">PR #13</a>（コミット <code>98e48fa</code>）が Agent Merge で自動マージ（マージコミット <code>b15fd07</code>）。</li>
+<li>新規セッション（worktree <code>iwizsophy-ideal-meme</code>）でキャンバスを開き <code>Add to current session</code> を押した際、命令形通知を受けたエージェントが <code>add_issue_context</code> を再呼び出して通知が無限反復するバグが発生（Stop and discard で停止）。</li>
+<li>通知の事実化、重複防止、再入循環待ち防止を実装し、回帰テスト3件（<code>test:extensions</code>）を追加。<a href="https://github.com/iwizsophy/dev-days-tailspin-app-verification-20260913/pull/14">PR #14</a>（コミット <code>68af6d7</code>）が Agent Merge で自動マージ（マージコミット <code>c6e8652</code>）。ボタン再テストで 1通知・1応答、Refresh 後の再クリックでの重複抑止を確認。</li>
+</ul>
+<h3>演習8：Automation 手動実行</h3>
+<ul>
+<li>Automations 画面から <code>Trigger: Manual</code>、<code>Run in the cloud: Off</code>、検証プロジェクトを選択し、<code>Tailspin App verification recap 20260913</code> を作成して Create and run。</li>
+<li>Recent runs は Local・37秒・Succeeded。基準日時 2026-09-13 20:33:02 JST 時点のマージ済み PR 6件（#9〜#14）および Open Issue 6件（#1〜#6）の要約結果が GitHub 一覧と完全に一致。定期実行やクラウド実行は未検証。</li>
+</ul>
+<h2>4. 追加実走：キャンバスからの検索機能実装完走</h2>
+<p>2026年9月13日、修正済みキャンバスの実効性を証明するため、追加実走を行いました。</p>
+<ul>
+<li>GitHub 連携プロジェクトの New worktree/main から worktree <code>iwizsophy-studious-journey</code>（ブランチ：<code>iwizsophy-training-validation</code>、開始 HEAD：<code>c6e8652</code>）を作成。最初の応答時に依存導入済みを確認（エージェント自身は導入コマンド未実行。自動セットアップの終了ログは未取得）。</li>
+<li>保存済み Issue triage board を開き、Issue #1 の <code>Add to current session</code> を1回選択。1通知・確認応答を確認後、Mode: Plan でタイトル検索機能の計画を作成・承認し、Autopilot で実装。</li>
+<li>レビューにて SQL <code>LIKE</code> とブラウザー <code>includes</code> の特殊文字解釈の差異を指摘し、<code>ESCAPE '!'</code> と特殊文字（<code>%</code>, <code>_</code>, <code>!</code>, <code>\</code>）の回帰テストを追加。</li>
+<li>最終検査で Vitest 39件、拡張回帰3件、Playwright E2E 28件、lint、型検査、build が成功。実際の Playwright MCP は9種類・31回の呼び出しを記録。通常データでの検索、大文字小文字無視、複数条件絞り込み、および一時隔離 DB による0件表示を確認。</li>
+<li>App の Agent merge により <a href="https://github.com/iwizsophy/dev-days-tailspin-app-verification-20260913/pull/15">検証用 PR #15</a>（コミット <code>eaa8243</code>）を作成し、CI 全4ジョブ（<a href="https://github.com/iwizsophy/dev-days-tailspin-app-verification-20260913/actions/runs/34756052959">実行ログ</a>）成功後に自動マージ（マージコミット <code>6cab45d</code>）。Issue #1 は Closed。作業ツリーはクリーン。</li>
+<li>開き直し・手動 Refresh 後にキャンバスの未完了件数が5件（#2〜#6）となり、GitHub の実データと一致することを確認。</li>
+</ul>
+<h2>5. テンプレートの修正とセキュリティ監査記録</h2>
+<p>演習用コピーの元となる非公開リポジトリ <a href="https://github.com/iwizsophy/dev-days-tailspin-template">iwizsophy/dev-days-tailspin-template</a> を作成し、原本（<code>github-samples/tailspin-toys</code>、コミット <code>bae0036</code>）から必要な修正のみを適用しています（参照元への変更送信は行っていません）。</p>
+<h3>配布版 v2026.09.13 の監査記録</h3>
+<ul>
+<li>PR Readiness の YAML エスケープ修正、MCP の <code>mcpServers</code> ルートキー修正、Node 24.19.0 指定を適用。</li>
+<li>初期版での <code>npm audit</code> 詳細結果は <strong>40件（Critical 1・High 24・Moderate 14・Low 1）</strong>（Astro の AVIF 最適化に関する GHSA-26w7-cxv4-gfx2 等）。機能テスト成功を安全性の判定とはみなさず、本番配布前の依存更新課題として記録。</li>
+</ul>
+<h3>現在の教材対応版（v2026.09.13.1）</h3>
+<p>現在の教材対応版は <strong>v2026.09.13.1</strong>（コミット <code>aea4c027a073dd757017829bd988857877c1a545</code>）です。</p>
+<ol>
+<li><strong>Astro 7.3 のプロセス管理問題と起動スクリプト刷新</strong>：
+   Astro 7.3 の CLI がエージェント環境でサーバーを自動的にバックグラウンド起動し、Playwright の起動監視を失敗させる問題を確認。dev / preview を公開 API 経由で起動する <code>scripts/serve.mjs</code> を導入し、プロセス管理を確実にしました。</li>
+<li><strong>監査結果の改善と残存課題</strong>：
+   Vitest 4.1.11 への更新や互換範囲内の間接依存更新により、<code>npm audit</code> は <strong>Critical 0・High 0・Moderate 4・Low 0</strong> に低減。残る Moderate 4件は <code>drizzle-kit</code> 配下の <code>esbuild</code> 関連の同一経路です。自動修正案は drizzle-kit の互換性を損なうダウングレードとなるため適用していません（通常の migrate/seed は tsx 経由ですが、到達可能性の網羅的評価は未実施であり、配布前の確認事項として残します）。</li>
+<li><strong>ネイティブ App Run / Stop の再確認</strong>：
+   ローカル checkout を Open folder で開き、WORKSHOP.md の版名読み取りセッション後に Run options → Run development site で起動（実プロセス：<code>node scripts/serve.mjs dev</code>、HTTP 200 応答）。App の Stop でプロセスが終了しポート4321が解放されることを2回確認。</li>
+</ol>
+<h2>6. 実走記録の再利用境界と記録項目</h2>
+<h3>CLI 独立コースの実績を再利用できる範囲</h3>
+<p>2026年9月8日の Tailspin Toys <strong>CLI 独立シナリオ</strong>（Copilot CLI 1.0.83）の実走結果（<a href="https://github.com/iwizsophy/dev-days-tailspin-cli-verification-20260908/pull/11">フィルター PR #11</a>、<a href="https://github.com/iwizsophy/dev-days-tailspin-cli-verification-20260908/pull/13">高コントラスト PR #13</a>）は、環境構築やトラブルシューティングの参考にはなりますが、<strong>星評価の実装、App の章間マージ、Agent Merge、Canvas、Automation の証拠ではありません</strong>。</p>
+<h3>1回の実走で記録すべき必須項目</h3>
 <table>
 <thead>
 <tr>
-<th>項目</th>
-<th>記入内容</th>
+<th style="text-align: left;">項目</th>
+<th style="text-align: left;">記入内容</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>実施日・担当</td>
-<td>日時、検証者</td>
+<td style="text-align: left;"><strong>実施日・担当</strong></td>
+<td style="text-align: left;">検証日時、検証者アカウント</td>
 </tr>
 <tr>
-<td>教材・テンプレート</td>
-<td>両方のコミット SHA</td>
+<td style="text-align: left;"><strong>教材・テンプレート</strong></td>
+<td style="text-align: left;">教材リポジトリおよびテンプレート双方のコミット SHA</td>
 </tr>
 <tr>
-<td>環境</td>
-<td>OS、Node、App、CLI のバージョン</td>
+<td style="text-align: left;"><strong>実行環境</strong></td>
+<td style="text-align: left;">OS ビルド、Node.js、App、CLI のバージョン</td>
 </tr>
 <tr>
-<td>対象</td>
-<td>自分の演習 repo、branch、worktree、Issue</td>
+<td style="text-align: left;"><strong>検証対象</strong></td>
+<td style="text-align: left;">演習用リポジトリ名、ブランチ名、worktree パス、Issue 番号</td>
 </tr>
 <tr>
-<td>経路</td>
-<td>App／CLI／手動／講師デモ、切り替え地点</td>
+<td style="text-align: left;"><strong>実施経路</strong></td>
+<td style="text-align: left;">App／CLI／手動／講師デモ、切り替えが発生した地点</td>
 </tr>
 <tr>
-<td>結果</td>
-<td>期待値・実測値、テスト名・件数・終了コード</td>
+<td style="text-align: left;"><strong>実行結果</strong></td>
+<td style="text-align: left;">期待値と実測値、実行したテスト名・件数・終了コード</td>
 </tr>
 <tr>
-<td>証拠</td>
-<td>自分の PR・CI URL、スクリーンショット等</td>
+<td style="text-align: left;"><strong>客観的証拠</strong></td>
+<td style="text-align: left;">PR URL、CI 実行ログ URL、画面キャプチャ画像</td>
 </tr>
 <tr>
-<td>未確認・終了状態</td>
-<td>App 固有機能、制約、サーバー・Codespace 停止</td>
+<td style="text-align: left;"><strong>未確認・終了状態</strong></td>
+<td style="text-align: left;">未実施の App 固有機能、残存する制約、サーバー・Codespace の停止確認</td>
 </tr>
 </tbody>
 </table>
-<p><a href="instructor.html">講師ガイド</a> · <a href="../app/index.html">演習目次</a></p>
-<h2>掲載画像の更新（2026年9月13日）</h2>
-<p>App と GitHub Web の実機画像13点を追加し、App 本編の旧画像参照を現行画面の操作例へ差し替えました。ウィンドウ／Web 表示範囲全体を保ち、アカウント・検証用リポジトリ・ローカルパスなどを灰色でマスクしています。マスク外の画素と元の寸法が一致することを確認しました。撮影日・環境・操作例の対象は <code>sources.json</code> に記録し、生成ページでも表示します。</p>
-<p>画像には検索機能の追加実走中の操作例も含まれます。星評価・指示更新・フィルターの各章で同じ操作位置を示す場合も、画像中の Issue・差分・テスト数がその章の結果であるとは扱いません。Agent merge の画像は Merge pull request がチェック済みなので、本文も「未選択の場合だけ選択」と修正しました。</p>
-<p>この画像更新によって未実施経路が検証済みになるわけではありません。GitHub Web 作成フォームの送信、自動セットアップの終了ログ、MCP カタログからの新規登録保存、Open folder 経路のアカウント連携エラーの恒久対策、マージ後の Canvas 件数更新は引き続き未確認です。</p>
-<p>教材の再生成は41ページ・内部リンク／画像／アンカー782参照が成功しました。掲載画像13点を目視確認し、ブラウザーで計画承認の全体画像・Continue ボタン・撮影注記の表示を確認しました。</p>
-<h2>修正済みの配布用テンプレート（2026年9月13日）</h2>
-<p>非公開の <a href="https://github.com/iwizsophy/dev-days-tailspin-template">iwizsophy/dev-days-tailspin-template</a> を作成し、GitHub のテンプレート設定を有効にしました。上流の <code>bae003609c8cff0c51d92658b8d3bd89450464f1</code> のスナップショットから、演習開始用の設定修正だけを適用しています。配布版 <code>v2026.09.13</code> は <code>e498b997dbd6ccf25153f277c5daf4d95bc05b5c</code>。参照元へ変更は送信していません。</p>
-<ul>
-<li>PR Readiness の YAML エスケープと MCP のルートキーを修正済み。</li>
-<li>Node 24.19.0 を <code>.nvmrc</code>・package.json / lockfile・CI に反映。依存の解決バージョンは出典のまま。</li>
-<li>LICENSE を保持し、README・WORKSHOP.md・workshop-source.json に出典・修正内容・未確認事項を記録。</li>
-<li>アーカイブとのバイト比較で、アプリの src/・db/・e2e-tests/・8件の課題原稿が出典と同一であることを確認。演習の解答は含めていません。</li>
-<li>Windows / Node 24.19.0 で npm ci・単体27件・型検査・lint・Chromium E2E21件が成功。E2E に含まれる build・DB 初期化・preview も成功。最初のサンドボックス実行はユーザー情報取得の ENOMEM で停止したため、通常の権限環境で再実行しました。</li>
-<li><a href="https://github.com/iwizsophy/dev-days-tailspin-template/actions/runs/34758081782">配布元 CI</a> は全4ジョブ成功。テンプレート自身の Bootstrap template issues はスキップ。</li>
-<li>GitHub のテンプレート複製 API から非公開の <code>dev-days-tailspin-template-check-20260913</code> を作成。コピー先の Bootstrap template issues が成功して課題8件を自動作成し、<a href="https://github.com/iwizsophy/dev-days-tailspin-template-check-20260913/actions/runs/34758105355">コピー先 CI</a> も全4ジョブ成功。配布元とコピー先の <code>.mcp.json</code> の blob SHA が一致。Web フォームの送信操作そのものは未検証です。</li>
-</ul>
-<p><strong>旧版 v2026.09.13 の監査記録（現在版は下記）：</strong> npm audit の詳細結果に40件（Critical 1・High 24・Moderate 14・Low 1）。インストール時の要約は16件でしたが、詳細監査結果を採用しています。Astro の AVIF 最適化に関する GHSA-26w7-cxv4-gfx2 などが含まれます。個別の到達可能性と影響は未判定で、機能テスト成功を安全性の判定とは扱いません。依存更新と再検証を本番配布前に完了する必要があります。</p>
-<p>複製後の Git tree を照合し、残る88ファイルが配布元と一致し、初期 Issue 用の9ファイルのみがワークフローにより削除されたことを確認しました。教材の再生成は41ページ・781参照が成功。教材とテンプレートの原稿・プロンプト例に個人のローカルパスがないことも再確認しました。</p>
-<h2>配布用テンプレートの依存更新とレビュー対応（2026年9月13日）</h2>
-<p>現在の教材対応版は <strong>v2026.09.13.1</strong>（<code>aea4c027a073dd757017829bd988857877c1a545</code>）。Astro の更新、開発依存9件と Playwright CI イメージの整合、Vitest 4.1.11、互換範囲内の間接依存更新を適用しました。演習の src/・db/・e2e-tests/・8件の課題原稿は変更していません。旧タグは保持します。</p>
-<p>Astro 7.3 の CLI がエージェント環境でサーバーを自動的にバックグラウンド起動し、Playwright の起動監視を失敗させる問題を確認しました。dev / preview を公開 API で起動するスクリプトへ切り替え、呼び出し元がプロセスを管理できるようにしました。Windows / Node 24.19.0 でクリーンインストール、lint、全型検査、単体27件、E2E21件（build・DB 初期化・preview を含む）が成功。npm run dev の Local URL 表示、HTTP 200、停止後のポート解放も確認しました。この時点ではコマンドによる確認で、後述の追加検証でネイティブ App の Run / Stop も再確認しました。</p>
-<p>npm audit は <strong>Critical 0・High 0・Moderate 4・Low 0</strong>。残る4件は drizzle-kit → @esbuild-kit/esm-loader → @esbuild-kit/core-utils → esbuild の同じ依存経路です。自動修正案は drizzle-kit の古い版への互換性を壊すダウングレードなので適用していません。通常の migrate / seed は tsx 経由ですが、到達可能性の網羅的な評価は未実施です。配布前の確認事項として残します。</p>
-<p>教材のレビューで指摘された App の UI 確認注記を App 本編だけに限定しました。CLI・Mona の参考資料には固定コミットに基づく旨の注記を表示します。原稿と生成 HTML のコミット分離・指定 Author / Committer は既存コミットでも満たしていることを確認しました。</p>
-<p>参照元 github/dev-days の 54ae7ea3b923c059cc465ac0c13d46ccda99a98e は FAQ.md と content/README.md の更新です。日本語の講師向け動画・スライド、公式イベントの受付状況・Luma 登録条件・アンケート案内を講師ガイドに選択反映しました。公式イベント固有の特典・精算条件は独立教材の保証とせず公式案内へ誘導し、既存の参照コミットと上流履歴は維持しています。</p>
-<p><a href="https://github.com/iwizsophy/dev-days-tailspin-template/actions/runs/34759295864">開発依存 PR の CI</a> と <a href="https://github.com/iwizsophy/dev-days-tailspin-template/actions/runs/34759444602">Vitest・間接依存更新 PR の CI</a> はそれぞれ全4ジョブ成功後に統合しました。教材の再生成は41ページ・781参照が成功し、App 10ページだけに UI 確認注記があり、CLI 10ページ・Mona 7ページには含まれないことを検査しました。</p>
-<h2>新版のネイティブ App Run / Stop 再確認（2026年9月13日）</h2>
-<p>Windows / GitHub Copilot App 1.1.20 で、v2026.09.13.1（aea4c027a073dd757017829bd988857877c1a545）のローカル checkout を Open folder で開きました。設定確認で Accept and apply 後も確認画面が残る現象が再現。Skip for now 後、WORKSHOP.md の版名を読み取るだけのセッションを開始すると、v2026.09.13.1 と応答し Run メニューが表示されました。自動セットアップの成功を確認したわけではなく、事前に導入済みの依存を使用しています。</p>
-<p>Run options → Run development site で起動し、Stop Run development site の表示と App 内ブラウザーの Tailspin Toys を確認。実プロセスは node scripts/serve.mjs dev で、HTTP 200 を返しました。App の Stop でプロセスが終了し、4321 ポートが解放されました。続いて Run Run development site ボタンで再起動し、再度 HTTP 200 を確認して Stop。2回とも停止後に子プロセスとリスナーが残らないことを確認しました。エージェントへの依頼は版名の読み取りだけで、サーバー起動・停止は App の UI で実施しています。</p>
-<p>今回のローカルセッションでは Run メニューの項目選択後に起動しました。以前の GitHub 連携セッションの観察と区別し、教材では Run / Stop の表示を見て、起動中に誤って停止ボタンを押さない手順に修正しました。新起動方式の App Run / Stop は確認済みです。設定適用時の表示停滞、自動セットアップ終了ログ、MCP カタログからの新規保存などは別の残件として追跡します。</p>
-<h2>操作による回避の追加確認（2026年9月13日）</h2>
-<p>目的は教材を進められる操作経路の確認です。GitHub Copilot App 本体のコード・バイナリ・内部データは修正していません。Open folder 自体の不具合修復や自動セットアップ単独の終了ログ取得を、Issue #2 の完了条件から分けました。</p>
-<ul>
-<li><strong>Web 作成：</strong> v2026.09.13.1 のテンプレートから GitHub Web の Create repository を送信し、非公開の <a href="https://github.com/iwizsophy/dev-days-tailspin-ui-check-20260913">検証コピー</a> を作成。Include all branches は Off。<a href="https://github.com/iwizsophy/dev-days-tailspin-ui-check-20260913/actions/runs/34761264030">Bootstrap</a> 成功後、課題 #1～#8 を確認しました。コピー先 main は <code>35d81de40262527b184c7632f9f02d64f504e26e</code>。</li>
-<li><strong>設定画面・準備：</strong> 新コピーを Add GitHub repository から追加。Review configuration → Accept and apply 後に入力欄へ進みました。新 worktree は開始前に node_modules がなく、最初の読み取り応答後に存在しました。エージェントの実行記録は WORKSHOP.md の view のみです。続いて App の Run options → Build static site を選択し、画面出力の24ページ生成・Complete!・シェルへの復帰を確認して Stop。自動セットアップ単独の終了コードは取得していませんが、依存導入後に実際の App ビルドが完了する経路を確認しました。</li>
-<li><strong>PR の回避経路：</strong> Open folder のアカウントエラーを修復したとは扱いません。開始時から GitHub 連携側を使います。この経路の App Create PR は <a href="https://github.com/iwizsophy/dev-days-tailspin-app-verification-20260913/pull/10">PR #10</a> の作成・マージで実走済み。今回の新コピーの読み取り確認だけを PR 作成成功とは数えていません。</li>
-<li><strong>MCP カタログ：</strong> Customize → MCP → Playwright の初期値を Add server で保存し、Installed 1 を確認。リポジトリ未接続の新しい Chats「Playwright MCP verification」で Playwright · Manage tabs（action: list）が成功し、about:blank を取得しました。既存リポジトリの .mcp.json による実行とは別の確認です。</li>
-<li><strong>Canvas：</strong> PR #15 マージ済みの検索セッションで Add tab → Canvas → Issue triage board。開いた後に Refresh を選択し、5 open issues loaded. と #2～#6 を確認しました。Closed の #1・#7・#8 はなく、GitHub の Issue 一覧と一致。手動更新を教材手順とし、マージ通知による自動更新は主張しません。</li>
-</ul>
-<p>今回の変更は教材原稿・生成ページ・検証記録です。CLI の代替コースや、すべての App 開始状態を検証済みに変更するものではありません。</p></article></main></body></html>
+<p><a href="instructor.html">講師ガイド</a> · <a href="../app/index.html">演習目次</a></p></article></main></body></html>

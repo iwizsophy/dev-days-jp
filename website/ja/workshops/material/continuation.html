@@ -6,21 +6,30 @@
 <a href="../../index.html">教材セットの入口</a><a href="../index.html">App シナリオの目次</a>
 <a href="../../handson-guide.html#switch">事前準備・UI の確認</a></nav>
 <button class="theme-toggle" type="button" onclick="toggleTheme()">☀️ ライト</button></header>
-<main id="lesson"><h1>講師専用：緊急対応時の作業保全・PR・復帰</h1><aside>この教材セット独自の運営・補助手順です。</aside><article><p>本編は App の演習0〜8です。このページは講師の緊急対応用で、本編の通常経路ではありません。CLI 独立コースを最初から実施する必要はありません。教材サイトの <code>dev-days-jp</code> と、コードを改修する自分の Tailspin Toys コピーを区別してください。以下の Git・npm・Copilot コマンドは、自分の演習コピーで実行します。</p>
-<h2>切り替える前に</h2>
+<main id="lesson"><h1>講師専用：緊急対応時の作業保全・PR・復帰</h1><aside>この教材セット独自の運営・補助手順です。</aside><article><p>本教材の本編は <strong>App シナリオ（演習0〜8）</strong> です。このドキュメントは、App の停止等に伴い講師が作業を保全・復旧するための緊急対応用であり、本編の通常ルートではありません（CLI 独立コースを最初からやり直す必要はありません）。</p>
+<blockquote>
+<p><strong>注意</strong>
+<strong>教材リポジトリと演習用コピーの厳格な区別</strong>：
+教材サイトのリポジトリ（<code>dev-days-jp</code>）と、アプリのコードを改修する各自の Tailspin Toys コピーを混同しないでください。以下の Git、npm、Copilot コマンドは、必ず各自の演習用コピー環境で実行します。</p>
+</blockquote>
+<h2>1. 切り替える前の確認事項（作業ツリーの特定）</h2>
 <ol>
-<li>App の実行中エージェントを停止し、編集内容を保存します。</li>
-<li>App セッションの作業ディレクトリを確認します。worktree は元の clone と別の場所です。クラウドセッションの場合は、作業を自分のリモートブランチへ保存して取得してから続行します。場所やブランチが不明なら講師と確認します。</li>
-<li>同じ作業場所のターミナルで次を実行し、対象、ブランチ、差分を照合します。</li>
+<li><strong>エージェントの停止と保存</strong>：App 側で実行中のエージェントセッションを停止し、エディターの編集内容を確実に保存します。</li>
+<li><strong>作業場所の特定</strong>：App セッションが使用している作業ディレクトリを確認します。App の worktree はローカルの通常 clone とは異なるパス（<code>~/.copilot/repos/copilot-worktrees/...</code> 等）に存在します（クラウドセッションの場合は、作業内容を自身のリモートブランチへ push してローカルへ fetch/checkout してから続行します）。作業場所やブランチが不明な場合は講師と確認してください。</li>
+<li><strong>作業ディレクトリの照合</strong>：ターミナルで対象の作業ディレクトリを開き、次のコマンドを実行して、対象リポジトリ、ブランチ、差分を照合します。</li>
 </ol>
 <pre class="highlight"><code class="language-sh">git rev-parse --show-toplevel
 git remote -v
 git branch --show-current
 git status --short
 git diff --stat</code></pre>
-<p>remote が自分の演習コピーでない場合は停止します。参照元の <code>github/dev-days</code>、<code>github-samples/copilot-workshops</code>、<code>github-samples/tailspin-toys</code> に push・PR・Issue を送ってはいけません。既存のブランチなら作り直さず続行します。未着手で、既定ブランチが clean の場合だけ、章に応じた未使用名で <code>git switch -c feature/app-02-rating</code> のように作成します。</p>
-<h2>同じ課題を引き継ぐ</h2>
-<p><code>copilot</code> を起動します。通常の対話で進め、変更・実行の許可は内容を確認します。App の会話は自動で引き継がれるとは限りません。次の角括弧を埋め、続いて各章のプロンプトを入力してください。</p>
+<ul>
+<li><strong>リモートの確認</strong>：Git の remote が自身の演習用コピー（フォーク）でない場合は、直ちに操作を中断してください。<strong>参照元である <code>github/dev-days</code>、<code>github-samples/copilot-workshops</code>、<code>github-samples/tailspin-toys</code> に push、Pull Request、Issue を送信してはなりません。</strong></li>
+<li><strong>ブランチの選定</strong>：既存の作業ブランチがある場合は新規作成せずそのまま続行します。未着手かつ既定ブランチがクリーンな場合に限り、章に応じた未使用名（例：<code>git switch -c feature/app-02-rating</code>）でブランチを新規作成します。</li>
+</ul>
+<h2>2. CLI への課題引き継ぎ</h2>
+<p>ターミナルで <code>copilot</code> を起動します。通常の対話形式で進め、ファイル変更やコマンド実行の許可を求められた際は、必ず内容を確認してから承認してください（App での会話履歴が CLI へ自動的に引き継がれるとは限りません）。</p>
+<p>次のプロンプトの角括弧 <code>[...]</code> を実際の情報に置き換えて入力し、続いて各章の要件を伝えます。</p>
 <pre class="highlight"><code class="language-text">App シナリオの演習[番号]を、この作業ディレクトリで続けます。
 対象は自分の演習リポジトリ[owner/repo]とブランチ[名前]だけです。
 要件：[自分の Issue URL と本文、または章の要件]
@@ -29,19 +38,23 @@ README、CONTRIBUTING、指示ファイル、既存の差分を読んでくだ�
 まだ変更せず、残りの計画と検証方法を日本語で示してください。
 参照元リポジトリへの書き込みは禁止です。
 commit・push・PR・merge は個別に依頼するまで実行しないでください。</code></pre>
-<p>Issue の番号はコピーにより変わります。自分のリポジトリでタイトルと本文を確認し、取得できなければ本文を貼り付けます。必要な Issue がなければ、このコピー内だけに作成します。</p>
-<h2>品質確認から PR へ</h2>
-<p>章の確認に加え、<code>.github/skills/quality-checks/SKILL.md</code> と README に従って関連テスト・lint・型チェックを実行します。失敗を修正して再確認し、差分をレビューします。端末のシェルコマンドは CLI を終了するか、別ターミナルで実行してください。</p>
+<p>※Issue の番号は演習コピーごとに異なります。自身のリポジトリで Issue のタイトルと本文を確認し、取得できなければ本文を直接貼り付けてください（必要な Issue が存在しない場合は、自身のコピー内だけに新規起票します）。</p>
+<h2>3. 品質確認と Pull Request の作成・マージ</h2>
+<p>各章の要件確認に加え、<code>.github/skills/quality-checks/SKILL.md</code> および README に従って、単体テスト、E2E テスト、lint、型チェックを実行します。失敗した箇所は修正して再検査し、差分を注意深くレビューします（シェルの実行は CLI を一旦抜けるか、別ターミナルで行います）。</p>
 <ol>
-<li><code>git diff</code> と <code>git status --short</code> を確認し、対象のソース・テスト・文書だけをステージします。MCP の一時出力や認証情報を含めません。</li>
-<li><code>git diff --cached</code> を確認して commit します。</li>
-<li>push 先が自分のコピーで、現在のブランチが main ではないことを再確認します。<code>git push -u origin HEAD</code> で同名ブランチへ送ります。</li>
-<li>GitHub で <strong>自分のコピーを base repository</strong> とする PR を作成します。base はそのコピーの既定ブランチ、head は作業ブランチです。要件・差分・テスト結果・未確認事項を本文に記録します。</li>
-<li>PR の差分と必要な CI を確認します。演習2・3はレビュー後に自分のコピーへ通常マージして次へ進みます。演習4・5は同じブランチを維持し、演習6でマージします。</li>
+<li><strong>ステージングの確認</strong>：<code>git diff</code> および <code>git status --short</code> を確認し、対象となるソースコード、テスト、ドキュメントのみをステージングします（MCP の一時生成物や認証情報などを含めてはなりません）。</li>
+<li><strong>コミットの作成</strong>：<code>git diff --cached</code> で意図した変更のみが含まれていることを確認し、commit します。</li>
+<li><strong>リモートへの push</strong>：push 先が自身の演習コピーであり、現在のブランチが main ではないことを再確認した上で、<code>git push -u origin HEAD</code> で同名ブランチへ送信します。</li>
+<li><strong>Pull Request の作成</strong>：GitHub Web 上で、<strong>自身のコピーを base repository とする</strong> PR を作成します（base は自身の既定ブランチ、head は作業ブランチ）。PR 本文には、要件、差分、テスト結果、未確認事項を漏れなく記録します。
+   - ※PR 作成先やマージ先に誤って参照元リポジトリが表示された場合は、直ちに操作を中断し、base repository の設定を見直してください。</li>
+<li><strong>CI 確認とマージ</strong>：PR の差分および必要な CI がすべて成功したことを確認します。演習2および演習3はレビュー後に自身のコピーへ通常マージして次へ進みます（演習4および演習5はブランチを維持し、演習6でマージします）。</li>
 </ol>
-<p>PR の作成先やマージ先に参照元が表示された場合は操作を止め、base repository を確認し直してください。</p>
-<h2>次の章と App への復帰</h2>
-<p>演習2・3のマージ後は、元の clone など既定ブランチを所有する作業ディレクトリで <code>git fetch origin</code>、既定ブランチへ切り替え、<code>git pull --ff-only</code> を実行します。別 worktree で同じブランチが使用中なら、その worktree で更新します。未保存の作業を reset・clean で消してはいけません。</p>
-<p>App 操作の再開を優先します。App に戻る場合は CLI のエージェントを終了し、同じ作業ディレクトリとブランチを開き、変更とテスト結果を伝えます。開けない場合は App 操作を未完了とし、講師デモまたは後日実施へ切り替えます。演習4〜6の途中では、新しいセッションを既定ブランチから始め直さないでください。</p>
-<p>App 固有の Agent Merge・Canvas・Automation は、通常の PR や Markdown、単発実行で代用しても機能体験は未実施です。実装の到達点と App 機能の体験を別々に記録します。</p>
+<h2>4. 次の章への引き継ぎと App への復帰</h2>
+<h3>既定ブランチの同期</h3>
+<p>演習2および演習3のマージ完了後は、元の clone など既定ブランチを保持する作業ディレクトリにおいて、<code>git fetch origin</code>、既定ブランチへの切り替え、および <code>git pull --ff-only</code> を実行して最新化します（別 worktree で同ブランチがチェックアウトされている場合は、その worktree 内で更新します。未保存の作業ツリーを <code>git reset --hard</code> や <code>git clean</code> で消去してはなりません）。</p>
+<h3>App への復帰原則</h3>
+<p>本教材では、可能な限り <strong>App 操作への復帰を最優先</strong> とします。
+- App へ戻る場合は、CLI のエージェントを終了し、同じ作業ディレクトリおよび作業ブランチを App で開き、実装した変更とテスト結果をセッションに伝えます。
+- App で開けない場合は、App 操作を「未完了」とし、講師デモまたは後日実施へ切り替えます（演習4〜6の途中で、新しいセッションを既定ブランチから無闇に始め直してはなりません）。
+- <strong>機能体験の記録</strong>：App 固有の機能（Agent Merge、Canvas、Automation）は、通常の PR、Markdown、単発プロンプト等で代用しても「機能体験は未実施」として記録します。実装の到達点と、App 機能の体験状況は明確に分離して管理してください。</p>
 <p><a href="../app/index.html">演習目次へ戻る</a> · <a href="verification.html">章別の検証状況</a></p></article></main></body></html>

@@ -9,7 +9,7 @@
 <main id="lesson"><h1>レッスン 3 - カスタム指示による Copilot のガイド</h1><p class="source">非公式の日本語版 · <a href="https://github.com/github-samples/copilot-workshops/blob/7ddcf241c1cd10b8e90c0df96f6bef81e710392a/docs/ja-jp/app/3-custom-instructions.md">参照原文</a> · <a href="../licenses/copilot-workshops.txt">MIT ライセンス</a><br>参照コミット：<code>7ddcf241c1cd</code> ／ 確認日：2026-09-08</p><aside>UI の確認日・バージョン・未確認範囲は本文の注記を参照してください。利用条件は <a href="../../handson-guide.html#plans">事前確認</a>を参照してください。</aside><aside>本編は App の操作を学ぶシナリオです。一部の UI を実機確認しましたが、全章の完走は未検証です。<a href="../material/verification.html">章別の検証状況</a></aside><nav class="chapter-nav" aria-label="章の移動"><a href="2-add-star-rating.html">← 前の章：レッスン 2 - 最初のエージェントセッションの実行</a><a href="4-build-filtering.html">次の章 →：レッスン 4 - Autopilot による機能の構築</a></nav><details><summary>この章の目次</summary><div class="toc">
 <ul>
 <li><a href="#シナリオ">シナリオ</a></li>
-<li><a href="#指示ファイル">指示ファイル</a><ul>
+<li><a href="#指示ファイルの構造と役割">指示ファイルの構造と役割</a><ul>
 <li><a href="#指示ファイルを管理するためのベストプラクティス">指示ファイルを管理するためのベストプラクティス</a></li>
 </ul>
 </li>
@@ -22,148 +22,149 @@
 </ul>
 </div>
 </details><article><blockquote>
-<p><strong>この章の進め方：</strong> App で操作します。掲載画像は Windows App 1.1.20 の実機画面です。検索・並べ替え Issue を使った操作位置の例も含むため、作業対象は本文に従って選んでください。ボタンや機能が見つからない場合は <a href="../material/ui-check.html">UI が異なるときの確認</a>に沿って講師と確認してください。</p>
+<p><strong>この章の進め方：</strong> App で操作します。掲載画像は Windows App 1.1.20 の実機画面です。検索・並べ替え Issue を使った操作位置の例も含まれているため、作業対象の Issue は本文の指示に従って選択してください。ボタンや機能が見つからない場合は <a href="../material/ui-check.html">UI が異なるときの確認</a>に沿って講師と確認してください。</p>
 </blockquote>
-<p>生成 AI を扱うとき、コンテキストは重要です。タスクを特定の方法で実行する必要がある場合や、Copilot が把握しておくべき背景情報がある場合は、そのコンテキストを利用できるようにします。特に強力なツールの1つが<a href="https://docs.github.com/copilot/customizing-copilot/about-customizing-github-copilot-chat-responses">指示ファイル</a>です。指示ファイルには、必要なコードの内容だけでなく、その構成方法も記述します。このレッスンでは、リポジトリにドキュメント標準を追加します。ここから先の多くの作業と同様に、バックログの Issue から開始し、エージェントに変更を行わせます。</p>
+<p>生成 AI を活用するうえで、コンテキスト（文脈や背景情報）の提供は極めて重要です。特定の設計方針に沿ってタスクを実装させたい場合や、Copilot があらかじめ把握しておくべき前提知識がある場合は、それらをコンテキストとして利用可能な状態にしておく必要があります。</p>
+<p>そのための特に強力な手段が<a href="https://docs.github.com/copilot/customizing-copilot/about-customizing-github-copilot-chat-responses">指示ファイル（Instruction files）</a>です。指示ファイルには、期待するコードの機能要件だけでなく、コードの構成方法や規約も明記できます。本レッスンでは、リポジトリにドキュメント作成の標準規約を追加します。実際の開発現場と同様に、バックログの Issue を起点としてエージェントに変更作業を実行させます。</p>
 <p>このレッスンでは、次の内容を学習します。</p>
 <ul>
-<li>リポジトリ指示とパス固有の指示ファイルがエージェントにどのように渡されるかを確認する。</li>
-<li>バックログ内の指示に関する Issue からセッションを開始する。</li>
-<li><code>.github/copilot-instructions.md</code> にドキュメント標準を追加するようエージェントに依頼する。</li>
-<li>変更をレビューし、pull request としてマージする。</li>
+<li>リポジトリ全体への指示と、パス固有の指示ファイルがエージェントにどのように渡されるかを理解する</li>
+<li>バックログ内の指示関連 Issue から新しいセッションを開始する</li>
+<li><code>.github/copilot-instructions.md</code> にドキュメント標準を追加するようエージェントに依頼する</li>
+<li>変更内容をレビューし、pull request としてマージする</li>
 </ul>
 <h2 id="シナリオ">シナリオ</h2>
-<p>優れた開発組織と同様に、Tailspin Toys にも開発プラクティスのガイドラインと要件があります。内容は次のとおりです。</p>
+<p>成熟した開発組織と同様に、Tailspin Toys にも開発プラクティスに関するガイドラインと要件が存在します。具体的には次の2点です。</p>
 <ul>
-<li>TSDoc doc comment の形式でコードにドキュメントを追加する。</li>
-<li>フォーマット方法を文書化し、lint によって適用する。</li>
+<li>コードには TSDoc 形式のドキュメントコメント（doc comment）を付与する</li>
+<li>コードフォーマットのルールを文書化し、ESLint 等の静的検証ツールによって機械的に適用する</li>
 </ul>
-<p>指示ファイルを使用すると、示されたプラクティスに沿ってタスクを実行するために必要な情報を Copilot に提供できます。</p>
-<h2 id="指示ファイル">指示ファイル</h2>
-<p>カスタム指示を使うと、Copilot にコンテキストと設定を提供でき、コーディングスタイルや要件をより正確に理解させることができます。Copilot をガイドし、より関連性の高い提案やコードスニペットを得るための強力な機能です。希望するコーディング規約、ライブラリ、コードに含めるコメントの種類まで指定できます。リポジトリ全体に適用する指示や、タスクレベルのコンテキストとして特定のファイル種類に適用する指示を作成できます。</p>
-<p>指示ファイルには2つの種類があります。</p>
-<ul>
-<li><code>.github/copilot-instructions.md</code> は、リポジトリに対する<strong>すべての</strong>リクエストで Copilot に送信される単一の指示ファイルです。このファイルには、Copilot に送信するほとんどのチャットまたは CLI リクエストに関係する、プロジェクトレベルの情報を記載します。使用する技術スタック、構築するものの概要、ベストプラクティスなど、全体に適用するガイダンスを含められます。</li>
-<li><code>.github/instructions/*.instructions.md</code> ファイルは、特定のタスクやファイル種類向けに作成できます。特定の言語 (TypeScript や Astro など) や、UI コンポーネントまたは新しい単体テスト一式の作成といったタスクに関するガイドラインを提供できます。</li>
-</ul>
+<p>指示ファイルを活用することで、エージェントへこれらのプラクティスを共有し、提示された方針に厳密に沿ってコードを生成させることができます。</p>
+<h2 id="指示ファイルの構造と役割">指示ファイルの構造と役割</h2>
+<p>カスタム指示を定義すると、Copilot にプロジェクト固有の前提知識や設定を提供でき、期待するコーディングスタイルや要件を正確に認識させることが可能になります。規約に沿った提案や精度の高いコードスニペットを得るための基盤機能であり、推奨するコーディング規約、採用ライブラリ、コード中に記述すべきコメントの粒度に至るまで指定できます。</p>
+<p>指示ファイルには、リポジトリ全体に一律適用するものと、特定ファイル種別のタスクに応じて適用するものの2階層があります。</p>
+<ol>
+<li><strong>リポジトリ全体の指示（<code>.github/copilot-instructions.md</code>）</strong><br />
+   リポジトリに対する<strong>すべての</strong>リクエストで Copilot に送信される単一の指示ファイルです。Copilot に投げるチャットや CLI リクエスト全般に関係するプロジェクトレベルの情報（採用技術スタック、アーキテクチャの概要、全体的なベストプラクティスなど）を記載します。</li>
+<li><strong>パス固有の指示ファイル（<code>.github/instructions/*.instructions.md</code>）</strong><br />
+   特定のタスクやファイル種類向けに作成する個別指示ファイルです。特定のプログラミング言語（TypeScript や Astro など）のコーディング規約や、UI コンポーネント作成、単体テスト一式の構築といった具体的タスクに応じたガイドラインを定義します。</li>
+</ol>
 <blockquote>
 <p><strong>補足</strong>
-Copilot は AGENTS.md、CLAUDE.md、GEMINI.md を通じて指示のガイダンスを取り込むほかの標準もサポートしており、常に適切なコンテキストを提供できます。</p>
+Copilot は、AGENTS.md、CLAUDE.md、GEMINI.md といった他ツールの標準指示ファイルを通じたガイダンスの取り込みにも対応しており、環境に応じた適切なコンテキストを提供できます。</p>
 </blockquote>
 <h3 id="指示ファイルを管理するためのベストプラクティス">指示ファイルを管理するためのベストプラクティス</h3>
-<p>指示ファイルの作成方法を詳しく説明することは、このワークショップの範囲外です。ただし、サンプルプロジェクトに含まれる例は、代表的なアプローチを示しています。概要は次のとおりです。</p>
+<p>指示ファイルの詳細な設計論はこのワークショップの範囲を超えますが、本サンプルプロジェクトに含まれる構成は代表的なアプローチを示しています。基本方針は次の通りです。</p>
 <ul>
-<li><code>copilot-instructions.md</code> の指示は、構築するものの説明、プロジェクトの構造、全体的なコーディング標準など、プロジェクトレベルのガイダンスに絞ります。</li>
-<li><code>*.instructions.md</code> ファイルは、ファイル種類 (単体テスト、Astro コンポーネント、データレイヤー) または特定のタスクに固有の指示を提供するために使用します。</li>
-<li>自然言語を使います。ガイダンスは明確にし、コードの適切な例と不適切な例を提示します。</li>
+<li><code>copilot-instructions.md</code> には、開発対象の概要、プロジェクト構造、全体的なコーディング規約など、プロジェクト共通のハイレベルなガイダンスを集約する</li>
+<li><code>*.instructions.md</code> ファイルは、ファイル種別（単体テスト、Astro コンポーネント、データアクセス層など）や個別タスクに特化した具体的な指示を記述する</li>
+<li>明快な自然言語を用い、望ましいコード例（Good）と避けるべきコード例（Bad）を併記する</li>
 </ul>
-<p>AI の使い方に唯一の方法がないのと同様に、指示ファイルの作成方法にも唯一の正解はありません。プロジェクトに最適な方法は、試行を重ねることで見つけられます。</p>
+<p>指示ファイルに単一の絶対的な正解はありません。プロジェクトの成熟度やチームの文化に合わせて反復的にブラッシュアップしていくことが推奨されます。</p>
 <blockquote>
 <p><strong>ヒント</strong>
-GitHub Copilot を使用するすべてのプロジェクトには、充実した指示ファイル一式を用意することをお勧めします。このプロジェクトのファイルを確認すると、多くのコードファイル種類に対応する指示ファイルがあることがわかります。</p>
-<p>テンプレートや出発点が必要な場合は、指示ファイル、カスタムエージェントなどのリソースが揃ったリポジトリ <a href="https://awesome-copilot.github.com/">awesome-copilot</a> を確認してください。</p>
+GitHub Copilot を導入するすべてのプロジェクトにおいて、体系的な指示ファイル群を整備しておくことを強く推奨します。本プロジェクトでも、多くのコード種別に対応した個別指示ファイルが配置されています。</p>
+<p>テンプレートや作成の出発点を探している場合は、指示ファイルやカスタムエージェントの実例が集約されているリポジトリ <a href="https://awesome-copilot.github.com/">awesome-copilot</a> を参考にしてください。</p>
 </blockquote>
 <h2 id="このプロジェクトのカスタム指示ファイルを確認する">このプロジェクトのカスタム指示ファイルを確認する</h2>
-<p>このリポジトリに含まれる指示ファイルを確認します。中心となる <code>copilot-instructions.md</code> が1つと、さまざまなタスクに対応する <code>*.instructions.md</code> ファイル一式があります。エディターまたは GitHub Web UI で開いてください。</p>
+<p>本リポジトリに配置されている指示ファイルを確認しましょう。ルートとなる <code>copilot-instructions.md</code> と、個別タスクに対応する複数の <code>*.instructions.md</code> ファイルで構成されています。App 内のファイルビューアーを使って確認します。</p>
 <ol>
-<li>右パネルが表示されていない場合は、右上の <strong>Toggle panel</strong> を選択して開きます。</li>
+<li>右側のパネルが表示されていない場合は、画面右上の <strong>Toggle panel</strong> を選択して開きます。</li>
 </ol>
 <p><img alt="右パネルの Add tab メニュー。Files、Browser、Terminal の入口" src="../assets/app-1.1.20-20260913-add-tab.png" /><br><em class="source">実機撮影：2026-09-13、Windows、GitHub Copilot App 1.1.20。撮影範囲全体を掲載（切り抜きなし）。灰色の箇所はアカウント・検証用リポジトリ・ローカルパス等の識別情報や個人の利用量をマスク。右パネルの Add tab メニュー。Terminal・Browser・Files・Canvas の入口。検索機能の実装中の操作例。</em></p>
 <ol start="2">
-<li>パネルのタブ列にある <strong>+</strong>（Add tab）を選択します。</li>
-<li><strong>Files</strong> を選択します。</li>
-<li>
-<p><kbd>Ctrl</kbd>+<kbd>P</kbd> で <strong>Go to file</strong> を開き、<code>copilot-instructions.md</code> を検索します。Windows App 1.1.20 で確認した経路です。
-   <img alt="App 全体と Go to file。copilot-instructions.md の検索結果" src="../assets/app-1.1.20-20260913-file-search.png" /><br><em class="source">実機撮影：2026-09-13、Windows、GitHub Copilot App 1.1.20。撮影範囲全体を掲載（切り抜きなし）。灰色の箇所はアカウント・検証用リポジトリ・ローカルパス等の識別情報や個人の利用量をマスク。Files で Ctrl+P（Go to file）を開き、copilot-instructions.md を検索。検索機能の実装中の操作例。</em></p>
-</li>
-<li>
-<p>ファイル一覧から <code>copilot-instructions.md</code> を選択して開きます。</p>
-</li>
-<li>ファイルを確認します。プロジェクトの簡単な説明に加えて、<strong>Agent notes</strong>、<strong>Code standards</strong>、<strong>Scripts</strong>、<strong>Repository Structure</strong> などのセクションがあります。<strong>Code standards</strong> の下には、ネストされた <strong>GitHub Actions Workflows</strong> のガイダンスがあります。これらは Copilot とのすべてのやり取りに適用されます。</li>
-<li>右側のファイルツリーを確認します。<code>.github</code> が見えない場合は、ファイルパネルの歯車 <strong>View options</strong> → <strong>Show hidden files</strong> を有効にします。実走では、隠しファイルを表示すると <code>.github</code> と指示ファイルがツリーに現れました。</li>
+<li>パネル上部のタブ列にある <strong>+</strong>（Add tab）を選択します。</li>
+<li>一覧から <strong>Files</strong> を選択します。</li>
+<li><kbd>Ctrl</kbd>+<kbd>P</kbd> を押して <strong>Go to file</strong> を開き、<code>copilot-instructions.md</code> を検索します（Windows App 1.1.20 でこの操作導線を確認済みです）。</li>
 </ol>
-<p>フォルダーを順に開く代わりに、<strong>Go to file</strong> へ次の手順のファイル名を入力して開くこともできます。</p>
+<p><img alt="App 全体と Go to file。copilot-instructions.md の検索結果" src="../assets/app-1.1.20-20260913-file-search.png" /><br><em class="source">実機撮影：2026-09-13、Windows、GitHub Copilot App 1.1.20。撮影範囲全体を掲載（切り抜きなし）。灰色の箇所はアカウント・検証用リポジトリ・ローカルパス等の識別情報や個人の利用量をマスク。Files で Ctrl+P（Go to file）を開き、copilot-instructions.md を検索。検索機能の実装中の操作例。</em></p>
+<ol start="5">
+<li>検索結果から <code>copilot-instructions.md</code> を選択して開きます。</li>
+<li>ファイルの内容を確認します。プロジェクト概要に加えて、<strong>Agent notes</strong>、<strong>Code standards</strong>、<strong>Scripts</strong>、<strong>Repository Structure</strong> といったセクションが定義されています。<strong>Code standards</strong> 配下には <strong>GitHub Actions Workflows</strong> の指針もネストされており、これらは Copilot との全対話に共通して適用されます。</li>
+<li>右側のファイルツリーを確認します。もしツリー上に <code>.github</code> フォルダーが表示されていない場合は、ファイルパネル上部の歯車アイコン <strong>View options</strong> をクリックし、<strong>Show hidden files</strong> を有効にしてください。実機検証では、隠しファイル表示を有効化することで <code>.github</code> および各種指示ファイルがツリーに現れることを確認しています。</li>
+</ol>
+<p>なお、ツリーを展開する代わりに、<strong>Go to file</strong> に直接ファイル名を入力して開くことも可能です。</p>
 <p><img alt="会話欄と指示ファイルの表示。右上の View options に Show hidden files" src="../assets/app-1.1.20-20260913-files-options.png" /><br><em class="source">実機撮影：2026-09-13、Windows、GitHub Copilot App 1.1.20。撮影範囲全体を掲載（切り抜きなし）。灰色の箇所はアカウント・検証用リポジトリ・ローカルパス等の識別情報や個人の利用量をマスク。Files の View options に Show hidden files・File tree position が表示された状態。会話中のテスト数37件は追加修正前の報告。</em></p>
 <ol start="8">
-<li><code>.github/instructions</code> フォルダーに移動し、ファイルを確認します。Astro ファイル、Drizzle データレイヤー、テストなどに対応する指示があります。</li>
-<li><code>.github/instructions/unit-tests.instructions.md</code> を開きます。先頭の <code>applyTo</code> フィールドに注目してください。これはリポジトリのルートを基準とする glob で、指示を適用するファイルを決定します。ここでは、TypeScript のテストファイル (<code>**/*.test.ts</code> に一致するファイルなど) が対象になります。</li>
-<li>このプロジェクトで単体テストを作成するための固有の指示を確認します。</li>
-<li>最後に <code>.github/instructions/drizzle.instructions.md</code> を開き、末尾まで移動します。ほかの指示ファイル (<code>unit-tests.instructions.md</code> など) と、プロジェクト内の既存ファイルへのリンクに注目してください。これにより、大きな指示セットを小さく再利用可能なファイルに分割し、コード生成時に参照する例を Copilot に提示できます。そこに記載されたパスは、リポジトリのルートではなく指示ファイルを基準とします。</li>
+<li><code>.github/instructions</code> フォルダーを展開し、配置されているファイルを確認します。Astro ファイル、Drizzle データレイヤー、単体テストなどに向けた指示ファイルが並んでいます。</li>
+<li><code>.github/instructions/unit-tests.instructions.md</code> を開きます。ファイル冒頭の <code>applyTo</code> フィールドに注目してください。ここにはリポジトリルートを基準とする glob パターンが記述されており、指示を適用するファイル（例: <code>**/*.test.ts</code> に一致する TypeScript テストファイル）が限定されています。</li>
+<li>このプロジェクトで単体テストを実装する際の個別ルールがどのように定義されているかを確認します。</li>
+<li>続けて <code>.github/instructions/drizzle.instructions.md</code> を開き、末尾までスクロールします。他の指示ファイル（<code>unit-tests.instructions.md</code> 等）やプロジェクト内の既存ファイルへの相対リンクが記載されている点に注目してください。指示セットを小規模かつ再利用可能なファイルへ分割し、コード生成時に参照すべき実例を Copilot に提示する構造になっています（ここに記載された相対パスは、リポジトリルートではなく指示ファイル自身の位置を基準とします）。</li>
 </ol>
 <blockquote>
 <p><strong>補足</strong>
-<code>copilot-instructions.md</code> の <strong>Code formatting requirements</strong> セクションにはプロジェクトのコーディング標準が記載されていますが、コード内のドキュメントはまだ必須ではありません。次の手順で、TSDoc doc comment とファイルコメントヘッダーの規則を追加します。</p>
+現在の <code>copilot-instructions.md</code> の <strong>Code formatting requirements</strong> セクションにはコーディング標準が記載されていますが、コード内のドキュメントコメントに関する規則はまだ含まれていません。次の手順で、TSDoc ドキュメントコメントおよびファイルヘッダーコメントの規約を追加します。</p>
 </blockquote>
 <h2 id="指示に関する-issue-から開始する">指示に関する Issue から開始する</h2>
-<p>前のレッスンでは、直接入力したプロンプトからセッションを開始しました。しかし、多くの作業は Issue から始まります。指示ファイルを更新するために登録された Issue に基づいて新しいセッションを作成し、更新を依頼します。</p>
+<p>前章では空の会話入力欄から直接プロンプトを入力してセッションを開始しましたが、実際の開発では Issue に起票された課題を起点として作業を進めることが一般的です。指示ファイルの更新用に登録された Issue を選択し、新しいセッションを作成して作業を依頼しましょう。</p>
 <blockquote>
 <p><strong>補足</strong>
-指示ファイルは Copilot が生成するコードに大きな影響を与えるため、Copilot を明確にガイドする内容になっていることを慎重に確認してください。このレッスンのように、Copilot で最初のバージョンを作成した後、自分でレビューして更新内容が要件を満たすことを確認する方法が効果的です。</p>
+指示ファイルの内容は、以後 Copilot が生成するすべてのコード品質に直接影響を与えます。そのため、指示が Copilot を正しく導く表現になっているかを厳密に確認する必要があります。本レッスンのように、まず Copilot に初期ドラフトを作成させ、それを人間が慎重にレビューして要件適合性を検証するアプローチが極めて有効です。</p>
 </blockquote>
 <ol>
 <li>サイドバーで <strong>My work</strong> を選択します。</li>
-<li><strong>Update our repository coding standards</strong> というタイトルの Issue を選択して開きます。</li>
-<li>右上の <strong>New session</strong> を選択し、Issue に基づく新しいセッションを開始します。</li>
+<li>一覧から <strong>Update our repository coding standards</strong> というタイトルの Issue を選択して開きます。</li>
+<li>画面右上の <strong>New session</strong> を選択し、この Issue に紐づく新しいセッションを開始します。</li>
 </ol>
 <p><img alt="My work の Issue 一覧と選択した Issue。右上に New session" src="../assets/app-1.1.20-20260913-issue-session.png" /><br><em class="source">実機撮影：2026-09-13、Windows、GitHub Copilot App 1.1.20。撮影範囲全体を掲載（切り抜きなし）。灰色の箇所はアカウント・検証用リポジトリ・ローカルパス等の識別情報や個人の利用量をマスク。My work の Issue 一覧と右上の New session。並べ替え Issue を開いた操作位置の例で、この Issue の実装は開始していない。各章では本文の対象 Issue を選ぶ。</em></p>
 <ol start="4">
-<li>次のプロンプトを使い、Issue に記載された要件を満たすように指示ファイルを更新することを Copilot に依頼します。</li>
+<li>次のプロンプトを入力し、Issue の要件に従って指示ファイルを更新するよう Copilot に指示します。</li>
 </ol>
 <pre class="highlight"><code class="language-plaintext">この Issue に記載された要件に従って、プロジェクトの指示ファイルを更新してください。PR はまだ作らないでください。</code></pre>
 <blockquote>
-<p><strong>2026年9月13日の確認（Windows App 1.1.20）：</strong> GitHub 連携プロジェクトの My work → 対象 Issue → New session で専用 worktree が作成され、前章でマージした星評価を継承しました。初回は Accept this repository configuration? が表示されます。Review configuration でセットアップと Run の内容を確認してから承認してください。今回の実走では利用者の承認後に送信でき、指示ファイル・README・ESLint と最小限の書式修正を含む7ファイルを更新しました。単体30件・E2E21件・lint・型検査は成功しています。</p>
+<p><strong>2026年9月13日の実機検証（Windows App 1.1.20）：</strong><br />
+GitHub 連携プロジェクトにおいて「My work」→「対象 Issue」→「New session」を実行すると、専用の worktree が自動作成され、前章（PR #9）でマージされた星評価のコードが正しく継承されていることを確認しました。<br />
+初回セッション開始時には <strong>Accept this repository configuration?</strong> というダイアログが表示されます。<strong>Review configuration</strong> を選択してセットアップ内容や Run の定義を確認したうえで承認を行ってください。実機検証では、利用者が承認した後にプロンプトの送信が可能となりました。エージェントは指示ファイル、README、ESLint 設定、および最小限の書式修正を含む合計7ファイルを更新し、単体テスト30件、E2Eテスト21件、lint、型検査のすべてが正常に通過しました。</p>
 </blockquote>
-<p>Copilot が更新を行います。</p>
+<p>Copilot が指示ファイル等の更新作業を実行します。</p>
 <h2 id="変更をレビューする">変更をレビューする</h2>
-<p>Copilot が行った更新を読み、更新された指示に基づいて生成するコード例も提示させます。</p>
+<p>Copilot が実施した更新内容を差分ビューで精査し、さらに更新後の指示に基づいてどのようなコードが生成されるかをシミュレーションさせて確認します。</p>
 <ol>
-<li>入力欄の上にある <strong>Changes</strong>（Open changes）を選択してコードの変更を開きます。Windows App 1.1.20 の GitHub 連携セッションでは、右パネルに <strong>Changes (7), +43, -4</strong> が表示されました。</li>
+<li>会話入力欄の上部にある <strong>Changes</strong>（Open changes）を選択して差分ビューを開きます。Windows App 1.1.20 の GitHub 連携セッションでは、右パネルに <strong>Changes (7), +43, -4</strong> と表示され、変更されたファイル数と行数が確認できました。</li>
 </ol>
 <p><img alt="左の会話欄の Changes と右の差分パネルを同時に表示した App 全体" src="../assets/app-1.1.20-20260913-changes.png" /><br><em class="source">実機撮影：2026-09-13、Windows、GitHub Copilot App 1.1.20。撮影範囲全体を掲載（切り抜きなし）。灰色の箇所はアカウント・検証用リポジトリ・ローカルパス等の識別情報や個人の利用量をマスク。会話欄の Changes と右側の差分パネル。表示コードは追加検証の検索機能で、各章の変更内容とは異なる。</em></p>
 <ol start="2">
-<li>更新された指示ファイルをレビューします。コードにドキュメントとコメントを追加するためのガイドラインが含まれていることを確認します。</li>
+<li>更新された指示ファイル（<code>copilot-instructions.md</code> など）の差分をレビューします。コードへのドキュメント付与およびコメント記述に関するガイドラインが適切に追加されていることを確認します。</li>
 </ol>
 <blockquote>
 <p><strong>補足</strong>
-AI は決定論的ではなく確率的に動作するため、実際のテキストは異なります。</p>
+AI の出力は確率的に変動するため、生成される文言の細部は上記と異なる場合があります。</p>
 </blockquote>
 <ol start="3">
-<li>次のプロンプトを使い、Copilot が今後生成するコード例を作成するよう依頼します。</li>
+<li>次のプロンプトを入力し、新しい指示がコード生成にどう反映されるか、コード例の提示をエージェントに求めます。</li>
 </ol>
 <pre class="highlight"><code class="language-plaintext">ファイルを変更せず、コードの例だけを見せてください。新しい指示に従って、すべての Publishers を返すライブラリコンポーネントを作るよう依頼した場合、どのようなコードになりますか？</code></pre>
 <ol start="4">
-<li>Copilot が提案するコードをレビューします。更新された指示で求めたとおり、TSDoc doc comment とファイルヘッダーコメントが含まれていることを確認します。</li>
+<li>Copilot が提示したコード例をレビューします。更新した指示の通り、TSDoc ドキュメントコメントおよびファイルヘッダーコメントが正しく付与されていることを確認します。</li>
 </ol>
-<p>これでプロジェクトの指示ファイルを更新し、その効果を確認できました。</p>
+<p>これで、プロジェクトの指示ファイルが更新され、エージェントへの指示伝達が意図通りに機能していることを確認できました。</p>
 <h2 id="pull-request-を作成してマージする">pull request を作成してマージする</h2>
-<p>指示ファイルはリポジトリのアセットとなり、チームのほかのメンバーと共有されます。ほかのアセットと同様に、作業内容を含む PR を作成します。</p>
+<p>指示ファイルはチーム全体で共有されるリポジトリの重要な構成要素（開発資産）です。他のソースコードと同様に、変更内容を含めた pull request を作成してマージします。</p>
 <ol>
-<li>右上隅にある <strong>Create PR</strong> を選択します。Windows App 1.1.20 の GitHub 連携セッションでは、この操作からコミット・push・PR 作成まで進みました。検証用 PR #10 は作成後に通常マージし、次章の専用 worktree が更新済み規約を継承することも確認しました。<a href="../material/verification.html">実走記録</a>を参照してください。</li>
-<li>求められた場合は <strong>Sign in with your browser</strong> を選択し、画面の指示に従って認証します。</li>
-<li>Copilot が PR の作成を開始します。</li>
-</ol>
-<p>PR が作成されると、Copilot はリポジトリで実行する必要があるワークフローを監視します。しばらくすると、右上のボタンが <strong>Ready to merge</strong> に変わります。これは PR をマージする準備が整ったことを示します。</p>
-<ol start="4">
+<li>画面右上にある <strong>Create PR</strong> を選択します。Windows App 1.1.20 の GitHub 連携セッションでは、この操作からコミット作成、リモートへの push、PR 作成までが一連で実行されることを確認済みです（検証用 PR #10 を作成後に通常マージし、次章で作成される専用 worktree がこの更新済み規約を正常に継承することも確認しています。詳細は <a href="../material/verification.html">実走記録</a> を参照してください）。</li>
+<li>ブラウザー認証を求められた場合は、<strong>Sign in with your browser</strong> を選択して画面の指示に従い認証します。</li>
+<li>Copilot が pull request の作成を開始します。</li>
+<li>PR 作成後、Copilot はリポジトリの CI ワークフローの実行を監視します。全チェックが通過すると、右上のボタンが <strong>Ready to merge</strong> へ変化します。</li>
 <li><strong>Ready to merge</strong> を選択します。</li>
-<li>新しいダイアログウィンドウで <strong>Merge pull request</strong> を選択し、pull request をマージします。</li>
+<li>表示されたダイアログウィンドウで <strong>Merge pull request</strong> を選択し、pull request を main ブランチへマージします。</li>
 </ol>
 <blockquote>
 <p><strong>補足</strong>
-標準がデフォルトブランチにマージされると、すべてのメンバーと新しいセッションでプロジェクトの一部として利用できます。次のレッスンで最新のデフォルトブランチからフィルター機能のセッションを開始すると、エージェントは自動的にこの標準に従います。生成された TypeScript に、依頼していなくても TSDoc doc comment が含まれます。指示が生成コードを形作ることを示す、小さいながらも実際的な例です。</p>
+この標準規約がデフォルトブランチにマージされたことで、チームメンバー全員および今後作成されるすべての新しいセッションにおいて共通規約として適用されます。次のレッスンで最新のデフォルトブランチからフィルター機能のセッションを開始すると、エージェントは明示的に指示しなくても自動的にこの規約に従い、生成される TypeScript コードに TSDoc ドキュメントコメントを含めるようになります。指示ファイルが生成コードの振る舞いを決定づける具体例を体験できます。</p>
 </blockquote>
 <p><a id="cli-fallback"></a></p>
 <blockquote>
-<p><strong>講師向け：</strong> 緊急の作業保全が必要な場合だけ <a href="../material/emergency-cli.html#chapter-3">対応手順</a> を参照してください。CLI の実装成功は、この章の App 操作の完了には数えません。</p>
+<p><strong>講師向け：</strong> 参加者の環境でトラブルが生じ、緊急に作業を保全する必要がある場合のみ <a href="../material/emergency-cli.html#chapter-3">対応手順</a> を参照してください。なお、CLI 側で実装が完了しても、本章における App 操作の完了とは見なしません。</p>
 </blockquote>
 <h2 id="まとめと次のステップ">まとめと次のステップ</h2>
-<p>アプリが指示ファイルからコンテキストを取得する仕組みを確認し、セッションを使ってリポジトリ全体の標準を追加してマージしました。具体的には、次の作業を行いました。</p>
+<p>App が指示ファイルからコンテキストを取得する仕組みを理解し、Issue を起点とするセッションを通じてリポジトリ全体の標準規約を追加・マージしました。本章で実施した主な内容は次の通りです。</p>
 <ul>
-<li>リポジトリの <code>copilot-instructions.md</code> とパス固有の <code>*.instructions.md</code> ファイルを確認した。</li>
-<li>バックログ内の指示に関する Issue からセッションを開始した。</li>
-<li><code>.github/copilot-instructions.md</code> にドキュメント標準を追加するようエージェントに依頼した。</li>
-<li>変更をレビューし、pull request としてマージした。</li>
+<li>リポジトリ全体の <code>copilot-instructions.md</code> と、特定パス用の <code>*.instructions.md</code> ファイルの役割を確認した</li>
+<li>バックログ内の規約更新 Issue から新しいエージェントセッションを開始した</li>
+<li><code>.github/copilot-instructions.md</code> にドキュメント標準を追加するようエージェントへ依頼した</li>
+<li>変更差分をレビューし、コード生成例によって効果を確認したうえで pull request としてマージした</li>
 </ul>
-<p>次は、新しいセッションでフィルター機能を構築し、先ほどマージした標準が適用される様子を確認します。<a href="4-build-filtering.html">レッスン 4「Autopilot による機能の構築」</a>に進んでください。</p>
+<p>次は、新しいセッションでゲームの絞り込み（フィルター）機能を実装し、いまマージしたコーディング標準がエージェントによって自律的に遵守される様子を確認します。<a href="4-build-filtering.html">レッスン 4「Autopilot による機能の構築」</a> へ進んでください。</p>
 <h2 id="リソース">リソース</h2>
 <ul>
 <li><a href="https://docs.github.com/copilot/customizing-copilot/about-customizing-github-copilot-chat-responses">GitHub Copilot をカスタマイズするための指示ファイル</a></li>

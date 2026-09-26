@@ -6,100 +6,102 @@
 <a href="../../index.html">教材セットの入口</a><a href="../index.html">App シナリオの目次</a>
 <a href="../../handson-guide.html#switch">事前準備・UI の確認</a></nav>
 <button class="theme-toggle" type="button" onclick="toggleTheme()">☀️ ライト</button></header>
-<main id="lesson"><h1>講師専用：CLI による緊急の作業保全・続行</h1><aside>この教材セット独自の運営・補助手順です。</aside><article><p>App の演習を置き換える通常ルートではありません。まず App 内で現在の操作を確認し、解決できなければ App の講師デモまたはペア操作で学習を続けます。CLI は作業を失わず実装を続ける必要がある場合だけ使用し、その章の App 体験は未完了と記録します。</p>
+<main id="lesson"><h1>講師専用：CLI による緊急の作業保全・続行</h1><aside>この教材セット独自の運営・補助手順です。</aside><article><p>本手順は、App の演習を置き換える通常ルートではありません。受講者の操作が停止した場合は、まず App 内で現在の操作を確認し、解決できなければ App の講師デモまたはペア操作で学習を継続します。
+CLI は、受講者の作業成果を失わずに実装を進める必要がある場合に限り使用し、<strong>その章の App 操作体験は「未完了」として記録</strong>します。</p>
 <p><a href="instructor.html">判断基準</a> · <a href="continuation.html">作業場所と PR の確認</a></p>
 <p><a id="chapter-0"></a></p>
 <h2>演習0の緊急対応：同じ演習コピーを準備する</h2>
-<p>この章は App・CLI 共通の準備です。本文の Tailspin Toys テンプレートから自分のコピーを作成し、そのコピーを clone します。すでに App が clone した場合は同じものを使い、新しいコピーを作らないでください。</p>
-<p>Node.js 22.13以上、Git、CLI を準備します。npm を使う導入例です。</p>
+<p>この章は App および CLI 共通の環境準備です。本文の Tailspin Toys テンプレートから各自のコピーを作成し、そのコピーをローカルに clone します（すでに App 側で clone 済みのフォルダーがある場合は同じものを使い、重複して新しいコピーを作成しないでください）。</p>
+<p>Node.js 22.13 以上、Git、および Copilot CLI を準備します。npm を用いる場合の導入例は以下の通りです。</p>
 <pre class="highlight"><code class="language-sh">node --version
 git --version
 npm install -g @github/copilot
 copilot --version</code></pre>
-<p>自分のコピーで README を確認して <code>npm ci</code>、<code>npm run dev</code> を実行し、表示された localhost URL をブラウザーで開きます。E2E を実行する場合は README に従い <code>npx playwright install chromium</code> も実行します。CLI の認証は次章で確認します。</p>
-<p><strong>合流条件：</strong> 自分のコピーが起動でき、remote が自分の repo を指していること。App のインストールが使えない場合も、CLI で本編を続けられます。App 機能の体験は未実施と記録します。</p>
+<p>各自のコピーで README を確認し、<code>npm ci</code> および <code>npm run dev</code> を実行して、表示されたローカル URL をブラウザーで開きます。E2E テストを実行する場合は、README の指示に従って <code>npx playwright install chromium</code> も実行してください。CLI の認証確認は次章で行います。</p>
+<p><strong>合流条件：</strong> 各自の演習コピーがローカルで起動でき、Git の remote が自身のフォークリポジトリを指していること。App のインストールが利用できない場合でも、CLI を用いて本編の課題を継続できますが、App 機能の体験は「未実施」と記録します。</p>
 <p><a href="../app/0-prerequisites.html">App の演習本文に戻る</a></p>
 <p><a id="chapter-1"></a></p>
 <h2>演習1の緊急対応：同じプロジェクトについて質問する</h2>
-<p><a href="continuation.html">共通の切り替え手順</a>で作業場所を確認して <code>copilot</code> を起動します。求められたら自分の Copilot アカウントで認証し、フォルダーの信頼先が演習コピーであることを確認します。</p>
+<p><a href="continuation.html">共通の切り替え手順</a> に従って作業場所を確認し、ターミナルで <code>copilot</code> を起動します。認証を求められた場合は各自の Copilot アカウントでログインし、フォルダーの信頼先が演習コピーであることを確認してください。</p>
+<p>起動後、次のプロンプトを入力して応答を確認します。</p>
 <pre class="highlight"><code class="language-text">このリポジトリの構成、ゲームデータの取得方法、開発サーバーの起動方法、
 テスト・lint・型チェックの方法を説明してください。ファイルは変更しないでください。</code></pre>
-<p><strong>合流条件：</strong> Tailspin Toys の構成について応答し、README と回答が一致すること。App の Run・ターミナル・レビュー画面の説明は本文で読み、画面体験の未実施を記録します。次は同じコピーで演習2へ進みます。</p>
+<p><strong>合流条件：</strong> Tailspin Toys のリポジトリ構成について正しく日本語で応答し、README の記載と回答内容が一致していること。App の Run メニュー、ターミナル、レビュー画面の説明は本文の解説を読み、画面操作体験の未実施を記録した上で、同じコピー環境で演習2へ進みます。</p>
 <p><a href="../app/1-install-copilot-app.html">App の演習本文に戻る</a></p>
 <p><a id="chapter-2"></a></p>
 <h2>演習2の緊急対応：星評価を表示して最初の PR を作る</h2>
-<p><a href="continuation.html">共通手順</a>で同じ作業ブランチを開きます。未着手なら clean な既定ブランチから <code>feature/app-02-rating</code> などを作成します。CLI に引き継ぎ情報と次の要件を渡します。</p>
+<p><a href="continuation.html">共通手順</a> に従って同じ作業ブランチを開きます。未着手の場合は、クリーンな既定ブランチから <code>feature/app-02-rating</code> などの作業ブランチを新規作成します。CLI に対し、引き継ぎ情報と以下の要件プロンプトを渡します。</p>
 <pre class="highlight"><code class="language-text">Game 型と GameCard.astro、既存の差分を確認してください。
 ホームページの各ゲームカードに既存の starRating（5点満点）を表示し、
 null の場合は「No rating yet」と表示してください。
 カードの構造は組み替えず、実装済みなら重複して追加しないでください。
 数値と null のケースを検証し、quality-checks に従って確認してください。
 commit・push・PR・merge はまだ行わないでください。</code></pre>
-<p>別のターミナルで <code>npm run dev</code> を実行して表示を確認します。seed に null がなければテスト用 fixture などで確認し、通常の UI で見た結果と区別します。</p>
-<p><strong>合流条件：</strong> 星評価と未評価の表示、関連テスト、レビューが完了していること。<a href="continuation.html">PR・合流の共通手順</a>で自分のコピーに PR を作り、CI 確認後に通常マージします。最新の既定ブランチを取得して演習3へ進みます。</p>
+<p>別のターミナルで <code>npm run dev</code> を実行し、ブラウザーで星評価の表示を確認します。通常データ（seed）に null が存在しない場合は、テスト用 fixture 等で表示を検証し、通常の UI 操作で確認した結果と明確に区別してください。</p>
+<p><strong>合流条件：</strong> 星評価および未評価（null）の表示、関連テストの成功、差分レビューが完了していること。<a href="continuation.html">PR・合流の共通手順</a> に沿って自身のコピーに PR を作成し、CI 成功を確認した上で通常マージします。最新の既定ブランチを取得して演習3へ進みます。</p>
 <p><a href="../app/2-add-star-rating.html">App の演習本文に戻る</a></p>
 <p><a id="chapter-3"></a></p>
 <h2>演習3の緊急対応：指示を更新し、コード例で確かめる</h2>
-<p>演習2の星評価がマージされた既定ブランチから、未使用の <code>feature/app-03-instructions</code> などで開始します。途中からなら既存ブランチを使います。自分のコピーの <strong>Update our repository coding standards</strong> Issue を確認し、本文を CLI へ渡します。Issue がなければ要件を講師と確認し、自分のコピーに作成します。</p>
+<p>演習2の星評価がマージされた既定ブランチから、未使用の <code>feature/app-03-instructions</code> などのブランチを作成して開始します（途中からの切り替えであれば既存のブランチを継続使用します）。自身のコピーにある <strong>Update our repository coding standards</strong> Issue の内容を確認し、その要件を CLI へ渡します（Issue がない場合は要件を講師と確認し、自身のコピー内に起票します）。</p>
 <pre class="highlight"><code class="language-text">この Issue の要件に沿って .github/copilot-instructions.md を更新してください。
 既存の指示を維持し、TSDoc の目的・引数・返り値とファイルヘッダーの標準を追加します。
 最初に差分を読み、既に実装済みの部分は維持してください。PR はまだ作らないでください。</code></pre>
-<p>差分をレビューした後、次を依頼します。</p>
+<p>指示ファイルの差分をレビューした後、指示が反映されるかを確かめるため、次のプロンプトを依頼します。</p>
 <pre class="highlight"><code class="language-text">ファイルは変更せず、すべての Publishers を返すライブラリコンポーネントの
 コード例だけを示してください。更新した指示の TSDoc とヘッダーを反映してください。</code></pre>
-<p><strong>合流条件：</strong> 指示ファイルと提示コードが要件に一致すること。ここでは CLI 独立コースのように publisher helper のファイルを作る必要はありません。リポジトリの品質確認後、<a href="continuation.html">共通手順</a>で PR・マージを行います。演習4は星評価と指示が含まれる最新の既定ブランチから開始します。</p>
+<p><strong>合流条件：</strong> 指示ファイルと提示されたコード例が要件に一致していること。ここでは CLI 独立コースのように publisher helper の実ファイルを作成する必要はありません。リポジトリの品質確認後、<a href="continuation.html">共通手順</a> に従って PR 作成と通常マージを行います。演習4へは、星評価と指示更新が含まれる最新の既定ブランチから進みます。</p>
 <p><a href="../app/3-custom-instructions.html">App の演習本文に戻る</a></p>
 <p><a id="chapter-4"></a></p>
 <h2>演習4の緊急対応：同じフィルター機能を計画・実装する</h2>
-<p>演習2・3の変更を含む既定ブランチから <code>feature/app-04-filtering</code> などで開始します。App で着手済みなら、そのセッションの同じ worktree・ブランチを使います。自分のコピーのフィルター Issue 本文を貼り付け、<code>/plan</code>（利用できなければ通常の対話）で次を依頼します。</p>
+<p>演習2および演習3の変更を含む既定ブランチから <code>feature/app-04-filtering</code> などのブランチを作成して開始します（App で着手済みであれば、そのセッションと同じ worktree およびブランチを使用します）。自身のコピーのフィルター Issue 本文を貼り付け、<code>/plan</code>（利用できなければ通常の対話）で計画作成を依頼します。</p>
 <pre class="highlight"><code class="language-text">この Issue に従って、カテゴリーとパブリッシャーでゲームを絞り込む計画を作ってください。
 星評価を維持し、既存の指示と差分を確認してください。
 publisher helper が存在するとは仮定せず、現在の実装から必要な変更を判断してください。
 選択方式、複数条件の意味、解除、該当なし、再読み込み時の状態を確認し、
 受け入れ条件とテスト計画を示してください。まだ実装しないでください。</code></pre>
-<p>計画への質問に答え、内容を確認したら実装を依頼します。App の Autopilot を使えなくても、通常の CLI 対話で計画を承認し、必要な操作を許可して進められます。</p>
+<p>計画への質問に回答し、計画内容を確認・合意した後に実装を依頼します。App の Autopilot が利用できなくても、通常の対話で承認を与えて進めることが可能です。</p>
 <pre class="highlight"><code class="language-text">確認した計画を実装し、.github/skills/quality-checks/SKILL.md を読んで
 その手順で検証してください。スキルを読み込めたか、実行コマンド、結果、
 未確認項目を報告してください。commit・push・PR・merge はまだ行わないでください。</code></pre>
-<p><strong>合流条件：</strong> 要件に沿うフィルター、星評価の維持、新しいコードの指示準拠、quality-checks の成功と差分レビュー。スキルが呼び出せず同じコマンドを手動実行した場合は、スキル体験を未実施と記録します。演習5へは同じブランチ・未マージの機能を引き継ぎます。</p>
+<p><strong>合流条件：</strong> 要件に沿ったフィルター機能の実装、星評価の維持、新規コードの指示ファイル準拠、quality-checks の成功、および差分レビューの完了。スキルが呼び出せず同等コマンドを手動実行した場合は、スキル体験を「未実施」と記録します。演習5へは同じブランチを維持し、機能をマージせずに引き継ぎます。</p>
 <p><a href="../app/4-build-filtering.html">App の演習本文に戻る</a></p>
 <p><a id="chapter-5"></a></p>
 <h2>演習5の緊急対応：同じフィルターを Playwright MCP で検証する</h2>
-<p>演習4の worktree・ブランチを維持します。別ターミナルで <code>npm run dev</code> を実行し、実際の URL を確認します。CLI の <code>/mcp show</code> で既存設定を確認し、なければ <code>/mcp add</code> で名前 <code>playwright</code>、種類 STDIO、コマンド <code>npx @playwright/mcp@latest --headless</code> を登録して保存します。</p>
-<p>CLI と App の MCP 設定が共有されるとは仮定しません。接続できない場合、CLI の再起動とプロセス状態を確認します。Chrome がないエラーなら <code>npx playwright install chrome</code> を実行します。E2E 用 Chromium とは別です。Codespaces で sandbox エラーが出る場合に限り、<a href="../cli/4-mcp.html">CLI 参考資料の対処</a>を確認してください。</p>
+<p>演習4の worktree およびブランチをそのまま維持します。別ターミナルで <code>npm run dev</code> を起動し、実際のアクセス URL を確認します。CLI で <code>/mcp show</code> を実行して既存設定を確認し、未登録であれば <code>/mcp add</code> で名前 <code>playwright</code>、種類 <code>STDIO</code>、コマンド <code>npx @playwright/mcp@latest --headless</code> を登録して保存します。</p>
+<p>※CLI と App で MCP 設定が自動共有されるとは仮定できません。接続できない場合は CLI の再起動とプロセス状態を確認してください。Chrome が見つからないエラーの場合は <code>npx playwright install chrome</code> を実行します（E2E 用 Chromium とは別物です）。Codespaces で sandbox エラーが出る場合に限り、<a href="../cli/4-mcp.html">CLI 参考資料の対処</a> を確認してください。</p>
 <pre class="highlight"><code class="language-text">Playwright MCP のブラウザーツールを使って [実際の localhost URL] を開き、
 演習4で合意したフィルター条件、複合条件、解除、キーボード操作と星評価を確認してください。
 期待値と実測値を記録し、不具合があれば修正して再検証してください。
 MCP を使えない場合は成功扱いにせず、エラーを報告してください。PR はまだ作成しません。</code></pre>
-<p><strong>合流条件：</strong> MCP ツール実行が確認でき、受け入れ条件を満たすこと。データによって0件が選べない場合はテストで補い、証拠を区別します。MCP が復旧しなければ通常のブラウザーとテストで機能を検証し、MCP は未実施と記録して演習6へ進みます。修正後は quality-checks を再実行します。</p>
+<p><strong>合流条件：</strong> MCP ツールの実行が確認でき、フィルターの受け入れ条件を満たしていること。データ上0件が選べない場合はテストコードで補い、実証拠を区別します。MCP が復旧しない場合は、通常のブラウザー手動操作と自動テストで機能を検証し、MCP 体験は「未実施」と記録して演習6へ進みます（修正後は quality-checks を再実行します）。</p>
 <p><a href="../app/5-mcp-playwright.html">App の演習本文に戻る</a></p>
 <p><a id="chapter-6"></a></p>
 <h2>演習6の緊急対応：通常の PR レビューとマージ</h2>
-<p>Agent Merge 自体を CLI の通常操作で体験したことにはできません。この章は自分のコピーへの通常マージで統合を学び、Agent Merge は講師デモまたは後日実施とします。</p>
+<p>Agent Merge 自体の動作を CLI の通常操作で体験した扱いにはできません。この章では各自のコピーへの通常マージによってコード統合を学び、Agent Merge の体験は講師デモまたは後日実施とします。</p>
 <ol>
-<li>演習4・5の同じ作業ブランチで差分と quality-checks の結果を確認します。</li>
-<li><a href="continuation.html">PR・合流の共通手順</a>で自分のコピーに PR を作成します。すでに PR があればその PR を更新します。</li>
-<li>base/head、差分、CI、レビュー指摘を確認します。失敗があれば同じブランチで修正・再検証し、PR を更新します。</li>
-<li>自分のコピーへの通常マージを行い、最新の既定ブランチでフィルターと星評価が残っていることを確認します。</li>
+<li>演習4・5の作業ブランチにおいて、最新の差分と quality-checks の結果を確認します。</li>
+<li><a href="continuation.html">PR・合流の共通手順</a> に沿って各自のコピーに PR を作成します（すでに PR が存在する場合はその PR を更新します）。</li>
+<li>base / head、差分、CI 実行結果、レビュー指摘を確認します。失敗があれば同じブランチで修正・再検証し、PR を更新します。</li>
+<li>自身のコピーへの通常マージを実行し、最新の既定ブランチでフィルターと星評価の両方が正しく残っていることを確認します。</li>
 </ol>
-<p><strong>合流条件：</strong> PR の必要な CI とレビューが成功し、自分のコピーへ統合されていること。マージできなければ PR の状態と残作業を記録し、演習7では「すべてマージ済み」と仮定しません。Agent Merge の機能体験は別欄に記録します。</p>
+<p><strong>合流条件：</strong> PR の必要な CI とレビューが成功し、各自のコピーへ統合されていること。マージできない場合は PR の状態と残課題を記録し、演習7において「すべてマージ済み」と安易に仮定しないようにします。Agent Merge の機能体験は別欄に記録します。</p>
 <p><a href="../app/6-agent-merge.html">App の演習本文に戻る</a></p>
 <p><a id="chapter-7"></a></p>
 <h2>演習7の緊急対応：優先順位を文書で整理する</h2>
-<p>App の共有 Canvas・セッション開始ボタンを CLI で同等に再現する手順ではありません。ここでは優先順位の整理と共有可能な成果物の作成までを扱います。</p>
-<p>自分のコピーの最新 Issue 一覧と PR の状態を確認し、取得できなければ本文を貼り付けます。未使用の作業ブランチを用意して次を依頼します。</p>
+<p>App の共有 Canvas やセッション開始ボタンの挙動を、CLI 上で完全に再現することはできません。本対応では、優先順位の論理的整理と共有可能なドキュメント成果物の作成までを扱います。</p>
+<p>各自のコピーの最新 Issue 一覧と PR の状態を確認し（取得できなければ本文を貼り付け）、未使用の作業ブランチを用意して次を依頼します。</p>
 <pre class="highlight"><code class="language-text">この演習コピーの Issue から優先すべき3件を選び、理由と残りの一覧を
 docs/workshop-triage.md に日本語で整理してください。既存ファイルがあれば維持して更新します。
 Issue の URL、状態、優先理由、次の行動を含め、Issue 自体は変更しないでください。
 App の Canvas を作ったという記述はしないでください。PR・merge はまだ行いません。</code></pre>
-<p><strong>合流条件：</strong> 優先順位・理由・次の行動を説明できること。必要なら自分のコピーへの通常 PR で文書を共有します。Canvas の保存・共有・ボタン操作は講師デモまたは後日実施とし、未体験を記録して演習8へ進みます。</p>
+<p><strong>合流条件：</strong> 優先順位、選定理由、および次のアクションを論理的に説明できること。必要に応じて自身のコピーへの通常 PR でドキュメントを共有します。Canvas の共有保存やボタン操作は講師デモまたは後日実施とし、未体験を記録して演習8へ進みます。</p>
 <p><a href="../app/7-canvases.html">App の演習本文に戻る</a></p>
 <p><a id="chapter-8"></a></p>
 <h2>演習8の緊急対応：単発の振り返りと終了確認</h2>
-<p>App の Automation を使えない場合は、同じ要約を CLI で一度だけ実行します。予約・定期実行の代替ではありません。</p>
+<p>App の Automation 機能を利用できない場合は、同等の要約処理を CLI で単発実行します（予約・定期実行の代替ではありません）。</p>
 <pre class="highlight"><code class="language-text">この演習コピーで過去1週間にマージされた PR と、現在 open の Issue を要約してください。
 取得できなければその旨を報告し、私が貼り付ける情報だけでまとめてください。
 ファイル、Issue、PR は変更せず、定期実行も登録しないでください。</code></pre>
-<p>結果を自分の GitHub 表示と照合します。各章の成果・未確認項目・App 固有機能の体験を振り返り、開発サーバーと CLI を停止します。Codespace を使用した場合は自分の演習環境を停止し、作成した定期実行があれば不要なものを停止します。PR と未保存の作業は残します。</p>
-<p><strong>合流条件：</strong> 実際の履歴に沿う振り返りと終了確認。Automation 体験は単発要約と区別して記録します。<a href="verification.html">章別検証表</a>を参照してください。</p>
+<p>要約結果を各自の GitHub Web 表示と照合します。各章の成果、未確認項目、および App 固有機能の体験状況を振り返り、開発サーバーと CLI を停止します。Codespace を使用した場合は演習環境を停止し、作成した定期実行があれば不要なものを停止してください（PR や未保存の作業ツリーは消さずに残します）。</p>
+<p><strong>合流条件：</strong> 実際の開発履歴に沿った振り返りと環境の終了確認が完了していること。Automation の機能体験は単発要約の実行とは明確に区別して記録します（詳細は <a href="verification.html">章別検証表</a> を参照）。</p>
 <p><a href="../app/8-review.html">App の演習本文に戻る</a></p></article></main></body></html>

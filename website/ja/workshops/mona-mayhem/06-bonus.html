@@ -8,166 +8,207 @@
 <button class="theme-toggle" type="button" onclick="toggleTheme()">☀️ ライト</button></header>
 <main id="lesson"><h1>🎉 発展課題</h1><p class="source">非公式の日本語版 · <a href="https://github.com/copilot-dev-days/mona-mayhem/blob/d376143ca3e6c0b3c63980402deaf1c4ac0a1b19/workshop/06-bonus.md">参照原文</a> · <a href="../licenses/mona-mayhem.txt">MIT ライセンス</a><br>参照コミット：<code>d376143ca3e6</code> ／ 確認日：2026-09-08</p><aside>参照元の固定コミットに基づく参考資料です。画面例・操作・利用条件は現在の製品と異なる場合があります。利用前に <a href="../../handson-guide.html#plans">事前確認</a>と参照原文を確認してください。</aside><aside>参考資料：本編の続きではありません。App 本編の通常の代替経路ではありません。</aside><nav class="chapter-nav" aria-label="章の移動"><a href="05-polish.html">← 前の章：第5章：仕上げと並列作業</a></nav><details><summary>この章の目次</summary><div class="toc">
 <ul>
-<li><a href="#課題1勝者バナー">🏆 課題1：勝者バナー</a></li>
-<li><a href="#課題2連続日数カウンター">🏆 課題2：連続日数カウンター</a></li>
-<li><a href="#課題3対戦履歴">🏆 課題3：対戦履歴</a></li>
-<li><a href="#課題4効果音">🏆 課題4：効果音</a></li>
-<li><a href="#課題5対戦開始アニメーション">🏆 課題5：対戦開始アニメーション</a></li>
-<li><a href="#課題6グラフの凡例">🏆 課題6：グラフの凡例</a></li>
-<li><a href="#課題7結果の共有">🏆 課題7：結果の共有</a></li>
-<li><a href="#cli-の追加練習">💻 CLI の追加練習</a></li>
-<li><a href="#ワークショップ完了">🎊 ワークショップ完了</a><ul>
-<li><a href="#作ったもの">作ったもの</a></li>
-<li><a href="#練習したこと">練習したこと</a></li>
-<li><a href="#次に学ぶ">🚀 次に学ぶ</a></li>
+<li><a href="#課題1勝者バナーの表示">🏆 課題1：勝者バナーの表示</a></li>
+<li><a href="#課題2連続コントリビューション日数streakカウンター">🏆 課題2：連続コントリビューション日数（Streak）カウンター</a></li>
+<li><a href="#課題3過去の対戦履歴の保存と一覧表示">🏆 課題3：過去の対戦履歴の保存と一覧表示</a></li>
+<li><a href="#課題4web-audio-api-によるレトロアーケード効果音">🏆 課題4：Web Audio API によるレトロアーケード効果音</a></li>
+<li><a href="#課題5対戦開始カウントダウン演出">🏆 課題5：対戦開始カウントダウン演出</a></li>
+<li><a href="#課題6コントリビューショングラフの凡例表示">🏆 課題6：コントリビューショングラフの凡例表示</a></li>
+<li><a href="#課題7対戦結果のクリップボード共有">🏆 課題7：対戦結果のクリップボード共有</a></li>
+<li><a href="#cli-の発展的な追加練習">💻 CLI の発展的な追加練習</a></li>
+<li><a href="#ワークショップの完了">🎊 ワークショップの完了</a><ul>
+<li><a href="#本ワークショップで作成したもの">本ワークショップで作成したもの</a></li>
+<li><a href="#実践を通じて習得したスキル">実践を通じて習得したスキル</a></li>
+<li><a href="#次のステップ学習リソース">🚀 次のステップ（学習リソース）</a></li>
 </ul>
 </li>
 </ul>
 </div>
-</details><article><p>GitHub の対戦アプリが完成しました。ここからは自由課題に挑戦します。VS Code では <strong>Agent Mode</strong>、CLI では <code>@file</code>、<code>/plan</code>、通常モード、<code>/review</code> を組み合わせてください。</p>
-<h2 id="課題1勝者バナー">🏆 課題1：勝者バナー</h2>
-<p>両方のグラフを読み込んだ後、合計を比較して勝者を表示します。</p>
-<p><strong>作るもの：</strong></p>
+</details><article><p>GitHub コントリビューション対戦アプリ「Mona Mayhem」の基本機能が完成しました。ここからは、さらなる機能追加やユーザー体験の向上を目指す自由課題（ボーナスタスク）に挑戦します。VS Code では <strong>Agent モード</strong>、CLI では <code>@file</code>、<code>/plan</code>、通常対話モード、および <code>/review</code> を組み合わせて自律的に実装を進めてみましょう。</p>
+<hr />
+<h2 id="課題1勝者バナーの表示">🏆 課題1：勝者バナーの表示</h2>
+<p>2 人分のコントリビューショングラフを読み込んだあと、年間合計数を比較して勝敗バナーを表示します。</p>
 <ul>
-<li>2人のコントリビューション合計を比較する。</li>
-<li>差があれば <strong>「🏆 {username} WINS! 🏆」</strong> を華やかに表示する。</li>
-<li>同点なら <strong>「🤝 IT'S A TIE! 🤝」</strong> を表示する。</li>
-<li>アニメーションや紙吹雪で演出する。</li>
-</ul>
+<li><strong>実装する要件：</strong></li>
+<li>2 人のコントリビューション合計数を比較する。</li>
+<li>数値に差がある場合は、<strong>「🏆 {username} WINS! 🏆」</strong> を華やかに画面表示する。</li>
+<li>同点の場合は、<strong>「🤝 IT'S A TIE! 🤝」</strong> を表示する。</li>
+<li>
+<p>CSS アニメーションや紙吹雪エフェクトを組み合わせて勝者を演出する。</p>
+</li>
+<li>
 <p><strong>プロンプト例：</strong></p>
 <pre class="highlight"><code class="language-text">両方のコントリビューションデータを読み込んだら、合計を比較して勝者バナーを表示してください。
 多いユーザーには「🏆 {username} WINS! 🏆」、同点なら「🤝 IT'S A TIE! 🤝」を表示し、CSS アニメーションで華やかにしてください。</code></pre>
-<h2 id="課題2連続日数カウンター">🏆 課題2：連続日数カウンター</h2>
-<p>各ユーザーが連続してコントリビューションした最長日数を求めます。</p>
-<p><strong>作るもの：</strong></p>
-<ul>
-<li>データを日ごとに調べる。</li>
-<li>1件以上のコントリビューションが続いた最長の日数を求める。</li>
-<li>各ユーザーの連続日数を目立つように表示する。</li>
-<li>連続日数が長いユーザーを強調する。</li>
+</li>
 </ul>
+<hr />
+<h2 id="課題2連続コントリビューション日数streakカウンター">🏆 課題2：連続コントリビューション日数（Streak）カウンター</h2>
+<p>各ユーザーがコントリビューションを途切れさせずに継続した最長連続日数を算出します。</p>
+<ul>
+<li><strong>実装する要件：</strong></li>
+<li>コントリビューションデータを日ごとに走査する。</li>
+<li>1 日あたり 1 件以上のコントリビューションが存在する連続日数を計算し、その最長記録を割り出す。</li>
+<li>各ユーザーのグラフ近傍に最長連続日数を分かりやすく表示する。</li>
+<li>
+<p>連続日数の長いユーザー側を目立つように強調表示する。</p>
+</li>
+<li>
 <p><strong>プロンプト例：</strong></p>
 <pre class="highlight"><code class="language-text">各ユーザーのデータを分析して、コントリビューションが途切れず続いた最長日数を求める機能を追加してください。
 各グラフの下に「🔥 Longest Streak: X days」と表示してください。</code></pre>
-<h2 id="課題3対戦履歴">🏆 課題3：対戦履歴</h2>
-<p>結果を保存し、過去の対戦を見られるようにします。</p>
-<p><strong>作るもの：</strong></p>
-<ul>
-<li>ユーザー名、合計、勝者、日時を <code>localStorage</code> に保存する。</li>
-<li>対戦領域の下に <strong>Recent Battles</strong> を追加する。</li>
-<li>直近5～10件を表示する。</li>
-<li><strong>Clear History</strong> ボタンを付ける。</li>
+</li>
 </ul>
+<hr />
+<h2 id="課題3過去の対戦履歴の保存と一覧表示">🏆 課題3：過去の対戦履歴の保存と一覧表示</h2>
+<p>対戦結果をローカルストレージへ永続化し、過去の対戦カードをいつでも振り返られるようにします。</p>
+<ul>
+<li><strong>実装する要件：</strong></li>
+<li>対戦した 2 人のユーザー名、コントリビューション合計数、勝敗結果、および対戦日時を <code>localStorage</code> に保存する。</li>
+<li>対戦エリアの下部に <strong>Recent Battles</strong> セクションを新設する。</li>
+<li>直近 5〜10 件の対戦履歴を一覧表示する。</li>
+<li>
+<p>履歴データを一括消去する <strong>Clear History</strong> ボタンを設置する。</p>
+</li>
+<li>
 <p><strong>プロンプト例：</strong></p>
 <pre class="highlight"><code class="language-text">比較が終わるたびに対戦結果を localStorage に保存してください。
 「Recent Battles」に直近10件のユーザー名、コントリビューション合計、勝者、対戦日時を表示し、「Clear History」ボタンを付けてください。</code></pre>
-<h2 id="課題4効果音">🏆 課題4：効果音</h2>
-<p>外部音声ファイルを使わず、Web Audio API でレトロな効果音を作ります。</p>
-<p><strong>作るもの：</strong></p>
-<ul>
-<li>Battle! を押したときの<strong>コイン投入音</strong></li>
-<li>結果を取得できたときの<strong>パワーアップ音</strong></li>
-<li>ユーザー不在や API 障害時の<strong>爆発音</strong></li>
-<li>ミュートの切り替えボタン</li>
+</li>
 </ul>
+<hr />
+<h2 id="課題4web-audio-api-によるレトロアーケード効果音">🏆 課題4：Web Audio API によるレトロアーケード効果音</h2>
+<p>外部の音声ファイル（MP3 等）を一切読み込まず、ブラウザー標準の Web Audio API のみを用いてレトロな効果音を動的生成します。</p>
+<ul>
+<li><strong>実装する要件：</strong></li>
+<li><strong>Battle!</strong> ボタンをクリックした際の <strong>コイン投入音</strong></li>
+<li>対戦データが正常に取得できた際の <strong>パワーアップ音</strong></li>
+<li>ユーザーが存在しない場合や API 通信失敗時の <strong>爆発音</strong></li>
+<li>
+<p>音声の ON/OFF を切り替えるミュートトグルボタン</p>
+</li>
+<li>
 <p><strong>プロンプト例：</strong></p>
 <pre class="highlight"><code class="language-text">音声ファイルを使わず、Web Audio API でレトロアーケード風の効果音を追加してください。
 対戦開始にコイン投入音、結果取得にパワーアップ音、エラー時に爆発音を鳴らしてください。
 oscillator と gain node で生成し、ミュート切り替えを付けてください。</code></pre>
-<h2 id="課題5対戦開始アニメーション">🏆 課題5：対戦開始アニメーション</h2>
-<p>結果の前にカウントダウンを表示します。</p>
-<p><strong>作るもの：</strong></p>
-<ul>
-<li>Battle! を押すと全画面オーバーレイを表示する。</li>
-<li><strong>3… → 2… → 1… → ⚡ FIGHT! ⚡</strong> をアニメーションで表示する。</li>
-<li>その後、グラフを印象的な演出で表示する。</li>
-<li>CSS アニメーションまたは JavaScript で時間を制御する。</li>
+</li>
 </ul>
+<hr />
+<h2 id="課題5対戦開始カウントダウン演出">🏆 課題5：対戦開始カウントダウン演出</h2>
+<p>結果画面を即座に表示するのではなく、緊迫感のあるカウントダウン演出を挟んでゲーム性を高めます。</p>
+<ul>
+<li><strong>実装する要件：</strong></li>
+<li><strong>Battle!</strong> ボタンが押された直後に、画面全体を覆うオーバーレイを表示する。</li>
+<li><strong>3… → 2… → 1… → ⚡ FIGHT! ⚡</strong> というカウントダウンテキストをテンポよくアニメーション表示する。</li>
+<li>カウントダウン完了と同時に、両者のグラフがドラマチックにスライドインする演出を行う。</li>
+<li>
+<p>CSS アニメーションまたは JavaScript タイマーによって各段階のタイミングを緻密に制御する。</p>
+</li>
+<li>
 <p><strong>プロンプト例：</strong></p>
 <pre class="highlight"><code class="language-text">Battle! を押したときに対戦開始アニメーションを追加してください。
 オーバーレイに「3...」「2...」「1...」「⚡ FIGHT! ⚡」を約1秒ずつ表示し、その後に結果をスライドインさせてください。</code></pre>
-<h2 id="課題6グラフの凡例">🏆 課題6：グラフの凡例</h2>
-<p>コントリビューショングラフに合う色の凡例を追加します。</p>
-<p><strong>作るもの：</strong></p>
-<ul>
-<li>活動量の段階を示す横並びの凡例</li>
-<li><strong>Less</strong> から <strong>More</strong> のラベル</li>
-<li>GitHub のコントリビューション API のレスポンスに含まれる実際の配色</li>
-<li>グラフの近くへの配置</li>
+</li>
 </ul>
+<hr />
+<h2 id="課題6コントリビューショングラフの凡例表示">🏆 課題6：コントリビューショングラフの凡例表示</h2>
+<p>本家 GitHub のコントリビューショングラフと同様に、活動強度の段階を示すカラー凡例を配置します。</p>
+<ul>
+<li><strong>実装する要件：</strong></li>
+<li>活動強度のレベル（コントリビューション数）に応じた四角形を横並びで配置する。</li>
+<li>凡例の両端に <strong>Less</strong>（少）から <strong>More</strong>（多）のラベルを添える。</li>
+<li>GitHub コントリビューション API のレスポンスに含まれる実際のカラーパレットを忠実に反映する。</li>
+<li>
+<p>ユーザーが迷わないよう、各グラフのすぐ下に自然にレイアウトする。</p>
+</li>
+<li>
 <p><strong>プロンプト例：</strong></p>
 <pre class="highlight"><code class="language-text">グラフの下に、API の配色を使った凡例を追加してください。
 「Less」の最も薄い色から「More」の最も濃い色まで、色付きの四角形を横に並べ、レスポンスの実際の活動量の色に合わせてください。</code></pre>
-<h2 id="課題7結果の共有">🏆 課題7：結果の共有</h2>
-<p>1回のクリックで対戦結果をコピーできるようにします。</p>
-<p><strong>作るもの：</strong></p>
-<ul>
-<li>対戦後に表示する <strong>📋 Share Results</strong> ボタン</li>
-<li>整形した要約のクリップボードへのコピー</li>
-<li>ユーザー名、合計、勝者を含む内容</li>
-<li>短時間表示する <strong>Copied!</strong> メッセージ</li>
+</li>
 </ul>
+<hr />
+<h2 id="課題7対戦結果のクリップボード共有">🏆 課題7：対戦結果のクリップボード共有</h2>
+<p>ワンクリックで対戦結果の要約テキストをコピーし、SNS やチャットツールへ簡単に投稿できるようにします。</p>
+<ul>
+<li><strong>実装する要件：</strong></li>
+<li>対戦結果の確定後に表示される <strong>📋 Share Results</strong> ボタンを設置する。</li>
+<li>2 人のユーザー名、コントリビューション合計数、および勝者を含む整形テキストをクリップボードへ書き込む。</li>
+<li>
+<p>コピー成功時、画面上に短時間だけ <strong>Copied!</strong>（または <strong>Copied to clipboard!</strong>）というフィードバックを表示する。</p>
+</li>
+<li>
 <p><strong>プロンプト例：</strong></p>
 <pre class="highlight"><code class="language-text">整形した対戦の要約をクリップボードにコピーする「📋 Share Results」ボタンを追加してください。
 両方のユーザー名、コントリビューション合計、勝者を含めてください。
 Clipboard API を使い、「Copied to clipboard!」という確認を短時間表示してください。</code></pre>
-<h2 id="cli-の追加練習">💻 CLI の追加練習</h2>
-<ul>
-<li><code>copilot -p "現在の git diff に対する Conventional Commits 形式のメッセージを提案してください。ファイルの変更や commit はしないでください"</code> で、Git に貼り付けるメッセージだけを生成します。</li>
-<li><code>/share file</code> でセッションを Markdown に保存します。</li>
-<li><code>/session</code> と <code>/session plan</code> で、CLI が作業をどのように管理しているか確認します。</li>
+</li>
 </ul>
-<h2 id="ワークショップ完了">🎊 ワークショップ完了</h2>
-<p>ここまでで <strong>Mona Mayhem: GitHub Battle</strong> の主要な演習を終えました。</p>
-<h3 id="作ったもの">作ったもの</h3>
+<hr />
+<h2 id="cli-の発展的な追加練習">💻 CLI の発展的な追加練習</h2>
+<p>CLI の運用スキルをさらに高めたい場合は、以下の高度なコマンドや実践的なテクニックを試してみてください。</p>
 <ul>
-<li>設計に基づく Web アプリケーション</li>
-<li>レトロアーケード風でレスポンシブなランディングページ</li>
-<li>実際の GitHub データを取得・比較する対戦画面</li>
-<li>活動量を色で示す対話型グラフ</li>
-<li>エラー処理、読み込み表示、アクセシビリティの改善</li>
-<li>複数の端末に対応するレイアウト</li>
+<li><strong>コミットメッセージの自動立案：</strong><br />
+<code>copilot -p "現在の git diff に対する Conventional Commits 形式のメッセージを提案してください。ファイルの変更や commit はしないでください"</code> を実行し、Git コミットにそのまま貼り付けられる高品質なメッセージのみを生成させます。</li>
+<li><strong>セッション記録のエクスポート：</strong><br />
+<code>/share file</code> コマンドを実行し、CLI との対話ログ全体を Markdown ファイルとして保存・共有します。</li>
+<li><strong>コンテキストと計画の可視化：</strong><br />
+<code>/session</code> および <code>/session plan</code> コマンドを実行し、CLI が作業の進捗や設計プランを内部でどのように構造化して保持しているかを確認します。</li>
+</ul>
+<hr />
+<h2 id="ワークショップの完了">🎊 ワークショップの完了</h2>
+<p>お疲れさまでした！これで <strong>Mona Mayhem: GitHub Battle</strong> の主要な演習プログラムはすべて完了しました。</p>
+<h3 id="本ワークショップで作成したもの">本ワークショップで作成したもの</h3>
+<ul>
+<li>計画立案（Plan）から実装（Agent）へと段階的に組み立てた Web アプリケーション</li>
+<li>レトロアーケード筐体の世界観を表現した、レスポンシブなランディングページ</li>
+<li>GitHub API から実際の活動データを取得し、2 人のユーザーを比較する対戦画面</li>
+<li>コントリビューション強度を色で塗り分けた対話型のグリッドグラフ</li>
+<li>エラーハンドリング、ローディング表示、キーボード操作性などのアクセシビリティ改善</li>
+<li>スマートフォンからデスクトップまで柔軟に適応するマルチデバイスレイアウト</li>
 </ul>
 <blockquote>
-<p><strong>日本語版の補足：</strong> 原文の振り返りには「複数ページのアプリ」とありますが、必須演習はメインページと API ルートが中心です。自分が実際に実装・確認した範囲を完了として記録してください。</p>
+<p><strong>補足</strong>
+<strong>日本語版の補足：</strong> 原文の振り返りには「複数ページのアプリ（multi-page app）」との記述が見られますが、本ワークショップの必須課題はメインページと API ルートの実装が中心です。ご自身が実際に実装・検証した範囲を完了成果として記録してください。</p>
 </blockquote>
-<h3 id="練習したこと">練習したこと</h3>
+<h3 id="実践を通じて習得したスキル">実践を通じて習得したスキル</h3>
 <table>
 <thead>
 <tr>
-<th>スキル</th>
-<th>内容</th>
+<th>習得スキル</th>
+<th>実践内容と学び</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>コンテキストの設計</td>
-<td>適切なファイル、指示、制約を渡す</td>
+<td><strong>コンテキストの設計</strong></td>
+<td>適切なファイルパス（<code>@file</code>）、明確な指示、および制約条件を Copilot へ的確に渡すスキル</td>
 </tr>
 <tr>
-<td>計画</td>
-<td>実装前に計画を作って改善する</td>
+<td><strong>計画立案（Plan）</strong></td>
+<td>コード生成を焦らず、事前にアーキテクチャや画面遷移を Copilot と検討・調整するスキル</td>
 </tr>
 <tr>
-<td>エージェントによる開発</td>
-<td>複数ファイル・複数手順の作業を任せる</td>
+<td><strong>自律エージェントによる開発</strong></td>
+<td>複数ファイルにまたがる複雑な実装タスクを、エージェントへ自律的に実行させるスキル</td>
 </tr>
 <tr>
-<td>デザインの反復</td>
-<td>見た目の方針から、仕上がりを改善する</td>
+<td><strong>デザインの反復改善</strong></td>
+<td>大まかなビジュアル方針からスタートし、ブラウザー描画を見ながら細部をプロンプトで追い込むスキル</td>
 </tr>
 <tr>
-<td>レビューの習慣</td>
-<td>commit 前に生成された変更を確認する</td>
+<td><strong>レビューの習慣化</strong></td>
+<td>生成されたコードを盲目的に受け入れず、commit 前に必ず差分（<code>/diff</code>）を精査する習慣</td>
 </tr>
 </tbody>
 </table>
-<h3 id="次に学ぶ">🚀 次に学ぶ</h3>
+<h3 id="次のステップ学習リソース">🚀 次のステップ（学習リソース）</h3>
 <ul>
-<li><a href="https://www.youtube.com/@code">VS Code YouTube チャンネル</a>：ヒント、チュートリアル、新機能</li>
-<li><a href="https://docs.github.com/en/copilot">GitHub Copilot ドキュメント</a>：公式ガイド</li>
-<li><a href="https://docs.github.com/en/copilot/how-tos/copilot-cli">GitHub Copilot CLI ドキュメント</a>：導入、スラッシュコマンド、使い方</li>
-<li><a href="https://github.com/stefanprodan/awesome-github-copilot">Awesome GitHub Copilot</a>：コミュニティの資料と例</li>
-<li><a href="https://github.com/github/copilot-dev-days">Copilot Dev Days Workshops</a>：ほかのハンズオン</li>
+<li><a href="https://www.youtube.com/@code">VS Code YouTube チャンネル</a>：最新のヒント、実践チュートリアル、新機能の解説動画</li>
+<li><a href="https://docs.github.com/en/copilot">GitHub Copilot 公式ドキュメント</a>：機能概要から高度な活用法までの包括的なガイド</li>
+<li><a href="https://docs.github.com/en/copilot/how-tos/copilot-cli">GitHub Copilot CLI 公式ドキュメント</a>：CLI の導入手順、全スラッシュコマンドのリファレンス、実践的な使い方</li>
+<li><a href="https://github.com/stefanprodan/awesome-github-copilot">Awesome GitHub Copilot</a>：コミュニティによって厳選された便利なリソース集や実践例</li>
+<li><a href="https://github.com/github/copilot-dev-days">Copilot Dev Days Workshops</a>：本コースの基礎となった、その他の公式ハンズオン教材群</li>
 </ul>
-<p>参加ありがとうございました。計画・設計から実装・仕上げまで、ここで練習した進め方を自分のプロジェクトでも試してください。</p></article><nav class="chapter-nav" aria-label="章の移動"><a href="05-polish.html">← 前の章：第5章：仕上げと並列作業</a></nav></main></body></html>
+<p>ご参加いただき、誠にありがとうございました。計画立案から実装、デザイン調整、そして最後の仕上げに至るまで、本ワークショップで体験した AI ペアプログラミングの開発フローを、ぜひご自身の日常的な開発プロジェクトでも役立ててください。</p></article><nav class="chapter-nav" aria-label="章の移動"><a href="05-polish.html">← 前の章：第5章：仕上げと並列作業</a></nav></main></body></html>

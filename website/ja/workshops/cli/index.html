@@ -8,14 +8,14 @@
 <button class="theme-toggle" type="button" onclick="toggleTheme()">☀️ ライト</button></header>
 <main id="lesson"><h1>GitHub Copilot CLI</h1><p class="source">非公式の日本語版 · <a href="https://github.com/github-samples/copilot-workshops/blob/7ddcf241c1cd10b8e90c0df96f6bef81e710392a/docs/ja-jp/cli/README.md">参照原文</a> · <a href="../licenses/copilot-workshops.txt">MIT ライセンス</a><br>参照コミット：<code>7ddcf241c1cd</code> ／ 確認日：2026-09-08</p><aside>参照元の固定コミットに基づく参考資料です。画面例・操作・利用条件は現在の製品と異なる場合があります。利用前に <a href="../../handson-guide.html#plans">事前確認</a>と参照原文を確認してください。</aside><aside>参考資料：本編の続きではありません。App 本編の通常の代替経路ではありません。</aside><aside>このコースの <code>--yolo</code> を含む手順は、演習専用 Codespace / dev container を前提とする原文の手順です。App の途中からローカルで切り替える場合は、講師向け緊急対応の通常対話手順を使ってください。</aside><nav class="chapter-nav" aria-label="章の移動"><a href="0-prerequisites.html">次の章 →：演習 0: 前提条件</a></nav><details><summary>この章の目次</summary><div class="toc">
 <ul>
-<li><a href="#演習">演習</a></li>
+<li><a href="#演習一覧">演習一覧</a></li>
 <li><a href="#前提条件">前提条件</a></li>
 <li><a href="#はじめる">はじめる</a></li>
 </ul>
 </div>
-</details><article><p><strong><a href="https://docs.github.com/copilot/concepts/agents/about-copilot-cli">GitHub Copilot CLI</a></strong> は、ターミナルで GitHub Copilot をエージェント型のコーディング アシスタントとして利用できるようにします。コードベースを探索し、コードを生成し、コマンドを実行し、外部ツールに接続できます。すべてコマンド ラインから行えるため、グラフィカル エディターに切り替えずに作業の流れを保てます。</p>
-<p>これらの演習では、Copilot CLI のインストールと認証から始め、カスタム命令でプロジェクトのコンテキストを与えたうえで、プラン モードを使って意図的に機能を実装します。続いて Playwright MCP サーバーを接続し、実際のブラウザーでその機能をテストします。その後、再利用可能な agent skill と custom agent で Copilot を拡張します。最後に、コンテキスト管理、モデル選択、共有に使う slash command を確認し、作成した内容を振り返ります。</p>
-<h2 id="演習">演習</h2>
+</details><article><p><strong><a href="https://docs.github.com/copilot/concepts/agents/about-copilot-cli">GitHub Copilot CLI</a></strong> は、ターミナル環境において GitHub Copilot をエージェント型のコーディングアシスタントとして活用できるようにするツールです。コードベースの探索、コード生成、コマンド実行、外部ツール連携のすべてをコマンドライン上から完結して行えるため、GUI エディターへ作業コンテキストを切り替えることなく開発の流れを維持できます。</p>
+<p>本演習コースでは、Copilot CLI のインストールと認証から開始し、カスタム指示によるプロジェクト固有コンテキストの提供、Plan モードを用いた計画的な機能実装を順次体験します。さらに Playwright MCP サーバーを接続して実際のブラウザー上で機能を検証し、再利用可能なエージェントスキル（Agent Skills）やカスタムエージェントによって Copilot の機能を拡張します。最後に、コンテキスト管理・モデル選択・共有・Cloud agent への委任といったスラッシュコマンドを網羅し、学習内容を総括します。</p>
+<h2 id="演習一覧">演習一覧</h2>
 <table>
 <thead>
 <tr>
@@ -28,62 +28,62 @@
 <tr>
 <td><a href="0-prerequisites.html">0. 前提条件</a></td>
 <td>セットアップ</td>
-<td>リポジトリと codespace を作成する</td>
+<td>リポジトリと Codespace の準備</td>
 </tr>
 <tr>
 <td><a href="1-install-copilot-cli.html">1. Copilot CLI のインストール</a></td>
 <td>インストール</td>
-<td>Copilot CLI をインストールして認証する</td>
+<td>Copilot CLI のセットアップと認証</td>
 </tr>
 <tr>
-<td><a href="2-custom-instructions.html">2. カスタム命令</a></td>
+<td><a href="2-custom-instructions.html">2. カスタム指示</a></td>
 <td>コンテキスト</td>
-<td>命令を追加し、Copilot CLI がどのように従うかを確認する</td>
+<td>指示ファイルの追加とエージェントの挙動確認</td>
 </tr>
 <tr>
 <td><a href="3-generating-code.html">3. コード生成</a></td>
 <td>コード生成</td>
-<td>プラン モードを使って機能を生成する</td>
+<td>Plan モードを用いた機能の実装</td>
 </tr>
 <tr>
 <td><a href="4-mcp.html">4. Playwright MCP によるテスト</a></td>
 <td>外部ツール</td>
-<td>Playwright MCP サーバーを追加し、ブラウザーで機能をテストする</td>
+<td>Playwright MCP サーバーの追加とブラウザー検証</td>
 </tr>
 <tr>
-<td><a href="5-agent-skills.html">5. エージェント スキル</a></td>
+<td><a href="5-agent-skills.html">5. エージェントスキル</a></td>
 <td>スキル</td>
-<td>専門スキルで Copilot を強化する</td>
+<td>専門タスク用スキルによる機能拡張</td>
 </tr>
 <tr>
-<td><a href="6-custom-agents.html">6. カスタム エージェント</a></td>
+<td><a href="6-custom-agents.html">6. カスタムエージェント</a></td>
 <td>エージェント</td>
-<td>カスタム エージェントを確認して使用する</td>
+<td>カスタムエージェントの定義と実行</td>
 </tr>
 <tr>
-<td><a href="7-slash-commands.html">7. スラッシュ コマンド</a></td>
+<td><a href="7-slash-commands.html">7. スラッシュコマンド</a></td>
 <td>CLI 機能</td>
-<td>コンテキスト、モデル、共有、cloud agent への任意の委任を確認する</td>
+<td>コンテキスト、モデル選択、共有、Cloud agent への委任</td>
 </tr>
 <tr>
 <td><a href="8-review.html">8. 振り返り</a></td>
 <td>まとめ</td>
-<td>重要な概念と次のステップを確認する</td>
+<td>主要概念の総括と次のステップ</td>
 </tr>
 </tbody>
 </table>
 <h2 id="前提条件">前提条件</h2>
-<p>このワークショップに参加する前に、次を準備してください。</p>
+<p>本ワークショップを開始する前に、以下の準備が完了していることを確認してください。</p>
 <ul class="task-list">
-<li class="task-list-item"><input type="checkbox" disabled/> 有効な Copilot プランがある GitHub アカウント（Free を含む。全演習の完走に十分な利用枠があるか事前確認）</li>
-<li class="task-list-item"><input type="checkbox" disabled/> ターミナル / コマンド ライン操作の基本的な知識</li>
-<li class="task-list-item"><input type="checkbox" disabled/> インストール済みで設定済みの Git</li>
+<li class="task-list-item"><input type="checkbox" disabled/> 有効な GitHub Copilot プランが紐づいた GitHub アカウント（Free プランを含む。全演習を完走するのに十分な利用枠があることを事前に確認してください）</li>
+<li class="task-list-item"><input type="checkbox" disabled/> ターミナルおよびコマンドライン操作に関する基礎知識</li>
+<li class="task-list-item"><input type="checkbox" disabled/> インストールおよび初期設定が完了している Git 環境</li>
 </ul>
 <blockquote>
 <p><strong>ヒント</strong>
-認証済みの学生は <a href="https://github.com/education/students">GitHub Education</a> を通じて GitHub Copilot を無料で利用できます。<strong>Copilot Student</strong> プランには、このワークショップで使用する agent、MCP、code review、Copilot CLI の機能が含まれます。対応する機能と、演習の完走に必要な利用枠は別途確認してください。</p>
+認証済みの学生は <a href="https://github.com/education/students">GitHub Education</a> を通じて GitHub Copilot を無償で利用できます。<strong>Copilot Student</strong> プランには、本ワークショップで使用するエージェント、MCP、コードレビュー、Copilot CLI の各機能が含まれています（対応機能および演習完走に必要な枠残量は各自でご確認ください）。</p>
 <p><strong>補足</strong>
-Copilot Business または Copilot Enterprise を使用している場合は、管理者が Copilot CLI を有効にしていることを確認してください。</p>
+Copilot Business または Copilot Enterprise をご利用の組織では、管理者が Copilot CLI の利用ポリシーを有効化している必要があります。</p>
 </blockquote>
 <h2 id="はじめる">はじめる</h2>
 <p><strong><a href="0-prerequisites.html">演習 0: 前提条件から始める →</a></strong></p></article><nav class="chapter-nav" aria-label="章の移動"><a href="0-prerequisites.html">次の章 →：演習 0: 前提条件</a></nav></main></body></html>

@@ -8,148 +8,147 @@
 <button class="theme-toggle" type="button" onclick="toggleTheme()">☀️ ライト</button></header>
 <main id="lesson"><h1>第1章：環境構築とコンテキストの設計</h1><p class="source">非公式の日本語版 · <a href="https://github.com/copilot-dev-days/mona-mayhem/blob/d376143ca3e6c0b3c63980402deaf1c4ac0a1b19/workshop/01-setup.md">参照原文</a> · <a href="../licenses/mona-mayhem.txt">MIT ライセンス</a><br>参照コミット：<code>d376143ca3e6</code> ／ 確認日：2026-09-08</p><aside>参照元の固定コミットに基づく参考資料です。画面例・操作・利用条件は現在の製品と異なる場合があります。利用前に <a href="../../handson-guide.html#plans">事前確認</a>と参照原文を確認してください。</aside><aside>参考資料：本編の続きではありません。App 本編の通常の代替経路ではありません。</aside><nav class="chapter-nav" aria-label="章の移動"><a href="00-overview.html">← 前の章：🎮 Mona Mayhem — GitHub Copilot ワークショップ</a><a href="02-plan-and-scaffold.html">次の章 →：第2章：計画とひな形作成</a></nav><details><summary>この章の目次</summary><div class="toc">
 <ul>
-<li><a href="#セクション1初期設定">セクション1：初期設定</a><ul>
-<li><a href="#手順1自分のリポジトリを作る">手順1：自分のリポジトリを作る</a></li>
-<li><a href="#vs-code手順2-開発環境を選ぶ">VS Code：手順2 — 開発環境を選ぶ</a></li>
-<li><a href="#vs-code手順3-依存関係を導入して起動する">VS Code：手順3 — 依存関係を導入して起動する</a></li>
-<li><a href="#cli手順2-github-copilot-cli-を導入する">CLI：手順2 — GitHub Copilot CLI を導入する</a></li>
-<li><a href="#cli手順3-アプリを起動しcli-を認証する">CLI：手順3 — アプリを起動し、CLI を認証する</a></li>
+<li><a href="#セクション1初期セットアップ">セクション1：初期セットアップ</a><ul>
+<li><a href="#手順1個人用リポジトリを作成する">手順1：個人用リポジトリを作成する</a></li>
+<li><a href="#vs-code-トラック手順2-開発環境の選択と起動">VS Code トラック：手順2 — 開発環境の選択と起動</a></li>
+<li><a href="#vs-code-トラック手順3-依存関係のインストールと起動確認">VS Code トラック：手順3 — 依存関係のインストールと起動確認</a></li>
+<li><a href="#cli-トラック手順2-github-copilot-cli-のインストール">CLI トラック：手順2 — GitHub Copilot CLI のインストール</a></li>
+<li><a href="#cli-トラック手順3-アプリの起動と-cli-認証">CLI トラック：手順3 — アプリの起動と CLI 認証</a></li>
 </ul>
 </li>
-<li><a href="#セクション2コンテキストを設計する">セクション2：コンテキストを設計する</a><ul>
-<li><a href="#共通タスク1-init-で指示を作る">共通：タスク1 — /init で指示を作る</a></li>
-<li><a href="#vs-codeタスク2-バックグラウンドエージェント">VS Code：タスク2 — バックグラウンドエージェント</a></li>
-<li><a href="#vs-codeタスク3-プロジェクトを調べる">VS Code：タスク3 — プロジェクトを調べる</a></li>
-<li><a href="#cliタスク2-cli-の環境を調整する">CLI：タスク2 — CLI の環境を調整する</a></li>
-<li><a href="#cliタスク3-ターミナルからプロジェクトを調べる">CLI：タスク3 — ターミナルからプロジェクトを調べる</a></li>
+<li><a href="#セクション2コンテキストの設計">セクション2：コンテキストの設計</a><ul>
+<li><a href="#共通タスク1init-による指示ファイルの自動生成">共通タスク1：/init による指示ファイルの自動生成</a></li>
+<li><a href="#vs-code-トラックタスク2-バックグラウンドエージェントの活用">VS Code トラック：タスク2 — バックグラウンドエージェントの活用</a></li>
+<li><a href="#vs-code-トラックタスク3-プロジェクト構造の対話探索">VS Code トラック：タスク3 — プロジェクト構造の対話探索</a></li>
+<li><a href="#cli-トラックタスク2-cli-動作環境の確認と権限調整">CLI トラック：タスク2 — CLI 動作環境の確認と権限調整</a></li>
+<li><a href="#cli-トラックタスク3-ターミナルからのコードベース探索">CLI トラック：タスク3 — ターミナルからのコードベース探索</a></li>
 </ul>
 </li>
-<li><a href="#第1章の完了">✅ 第1章の完了</a></li>
+<li><a href="#第1章の完了チェック">✅ 第1章の完了チェック</a></li>
 </ul>
 </div>
-</details><article><p>開発環境を準備すると同時に、コードベースについて Copilot に伝えます。これにより、以降のプロンプトで必要なコンテキストを利用できます。</p>
-<h2 id="セクション1初期設定">セクション1：初期設定</h2>
-<h3 id="手順1自分のリポジトリを作る">手順1：自分のリポジトリを作る</h3>
+</details><article><p>開発環境のセットアップを行うと同時に、コードベースの基本構造や規約を Copilot へ的確に伝達します。あらかじめプロジェクトのコンテキストを設計しておくことで、以降の各演習においてエージェントのコード生成精度を最大限に引き出すことができます。</p>
+<h2 id="セクション1初期セットアップ">セクション1：初期セットアップ</h2>
+<h3 id="手順1個人用リポジトリを作成する">手順1：個人用リポジトリを作成する</h3>
 <ol>
-<li><a href="https://github.com/copilot-dev-days/mona-mayhem">mona-mayhem リポジトリ</a>を開きます。</li>
-<li><strong>Use this template → Create a new repository</strong> を選ぶか、fork して自分のリポジトリを作ります。</li>
-<li>テンプレートから作る場合は、名前を <code>my-mona-mayhem</code>、公開範囲を <strong>Public</strong> にします。</li>
+<li>ブラウザーで <a href="https://github.com/copilot-dev-days/mona-mayhem">mona-mayhem リポジトリ（github.com/copilot-dev-days/mona-mayhem）</a> を開きます。</li>
+<li>画面右上の <strong>Use this template</strong> → <strong>Create a new repository</strong> を選択（またはフォーク）し、自身のアカウント配下に新しいリポジトリを作成します。</li>
+<li>テンプレートから作成する場合は、リポジトリ名を <code>my-mona-mayhem</code> とし、公開設定（Visibility）を <strong>Public</strong> に指定してください。</li>
 </ol>
-<h3 id="vs-code手順2-開発環境を選ぶ">VS Code：手順2 — 開発環境を選ぶ</h3>
-<p><strong>選択肢A：ローカルの VS Code</strong></p>
+<hr />
+<h3 id="vs-code-トラック手順2-開発環境の選択と起動">VS Code トラック：手順2 — 開発環境の選択と起動</h3>
+<p>以下のいずれか都合の良い環境を選択してください。</p>
+<p><strong>選択肢A：ローカル端末の VS Code を使用する場合</strong></p>
 <ol>
-<li>VS Code で <strong>Git: Clone → Clone from GitHub</strong> を実行します。</li>
-<li>自分の <code>my-mona-mayhem</code> を選択します。</li>
-<li>案内されたら、<strong>推奨拡張機能</strong>をインストールします。</li>
+<li>VS Code を開き、コマンドパレット（<kbd>F1</kbd> または <kbd>Ctrl</kbd>/<kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>P</kbd>）から <strong>Git: Clone</strong> を実行して作成したリポジトリをクローンします。</li>
+<li>クローンしたワークスペースを開き、画面右下に表示される推奨拡張機能のインストール通知に従って必要な拡張機能を導入します。</li>
 </ol>
-<p><strong>選択肢B：GitHub Codespaces</strong></p>
+<p><strong>選択肢B：GitHub Codespaces を使用する場合</strong></p>
 <ol>
-<li>GitHub で自分のリポジトリを開きます。</li>
-<li><strong>Code → Codespaces → Create codespace on main</strong> を選択します。</li>
-<li>環境の起動と依存関係の導入が終わるまで待ちます。</li>
+<li>GitHub 上で自身のリポジトリページを開きます。</li>
+<li>緑色の <strong>Code</strong> ボタンをクリックし、<strong>Codespaces</strong> タブから <strong>Create codespace on main</strong> を選択します。</li>
+<li>コンテナ環境の構築と依存関係の初期化が完了するまで待機します。</li>
 </ol>
-<h3 id="vs-code手順3-依存関係を導入して起動する">VS Code：手順3 — 依存関係を導入して起動する</h3>
-<p>リポジトリ内で統合ターミナルを開き、順に実行します。</p>
+<h3 id="vs-code-トラック手順3-依存関係のインストールと起動確認">VS Code トラック：手順3 — 依存関係のインストールと起動確認</h3>
+<p>VS Code 内で統合ターミナルを開き、以下のコマンドを順に実行します。</p>
 <pre class="highlight"><code class="language-bash">npm install
 npm run dev</code></pre>
-<p>起動ログに表示された URL をブラウザーで開き、アプリが表示されることを確認します。</p>
-<h3 id="cli手順2-github-copilot-cli-を導入する">CLI：手順2 — GitHub Copilot CLI を導入する</h3>
-<p>自分の環境に合う方法を一つ選びます。</p>
-<p><strong>npm（全プラットフォーム、Node.js 22以上が必要）</strong></p>
+<p>ターミナルに出力されたローカル URL（通常は <code>http://localhost:4321</code>）をブラウザーで開き、初期画面が正常に表示されることを確認します。</p>
+<hr />
+<h3 id="cli-トラック手順2-github-copilot-cli-のインストール">CLI トラック：手順2 — GitHub Copilot CLI のインストール</h3>
+<p>利用環境に合わせて以下のいずれかのパッケージマネージャーを使用します。</p>
+<p><strong>npm を使用する場合（全プラットフォーム共通／Node.js 22 以上必須）</strong></p>
 <pre class="highlight"><code class="language-bash">npm install -g @github/copilot</code></pre>
-<p><strong>Homebrew（macOS / Linux）</strong></p>
+<p><strong>Homebrew を使用する場合（macOS / Linux）</strong></p>
 <pre class="highlight"><code class="language-bash">brew install --cask copilot-cli</code></pre>
 <blockquote>
-<p><strong>日本語版の補足：</strong> Homebrew のコマンドは、原文の <code>brew install copilot-cli</code> から<a href="https://docs.github.com/en/copilot/how-tos/copilot-cli/set-up-copilot-cli/install-copilot-cli">公式の導入手順</a>に合わせています。</p>
+<p><strong>補足</strong>
+Homebrew の導入コマンドは、<a href="https://docs.github.com/en/copilot/how-tos/copilot-cli/set-up-copilot-cli/install-copilot-cli">公式インストール手順</a> に準拠して <code>--cask</code> オプションを付与しています。</p>
 </blockquote>
-<p><strong>WinGet（Windows）</strong></p>
+<p><strong>WinGet を使用する場合（Windows）</strong></p>
 <pre class="highlight"><code class="language-powershell">winget install GitHub.Copilot</code></pre>
-<h3 id="cli手順3-アプリを起動しcli-を認証する">CLI：手順3 — アプリを起動し、CLI を認証する</h3>
+<h3 id="cli-トラック手順3-アプリの起動と-cli-認証">CLI トラック：手順3 — アプリの起動と CLI 認証</h3>
 <ol>
-<li>自分のリポジトリをローカルに clone し、プロジェクトのルートでターミナルを開きます。</li>
-<li>
-<p>依存関係を導入してアプリを起動します。</p>
+<li>演習用リポジトリをローカルにクローンし、リポジトリルートでターミナルを開きます。</li>
+<li>依存パッケージをインストールし、開発サーバーを起動します。</li>
+</ol>
 <pre class="highlight"><code class="language-bash">npm install
 npm run dev</code></pre>
-</li>
-<li>
-<p><strong>同じリポジトリで2つ目のターミナル</strong>を開きます。</p>
+<ol start="3">
+<li><strong>同じリポジトリルートで2つ目のターミナルタブ</strong>を新設し、Copilot CLI を起動します。</li>
+</ol>
 <pre class="highlight"><code class="language-bash">copilot</code></pre>
-</li>
-<li>
-<p>対話セッションで <code>/login</code> を入力します。</p>
-</li>
-<li>デバイス認証の案内に従い、許可を求められたら対象が自分の演習リポジトリであることを確認します。</li>
+<ol start="4">
+<li>対話プロンプトで <code>/login</code> を入力して認証を開始します。</li>
+<li>ターミナルに表示されるデバイスコード認証の案内に従ってブラウザーで承認を行い、対象リポジトリが自身の演習用リポジトリであることを確認します。</li>
 </ol>
-<p>これで、一方のターミナルではアプリのプレビュー、もう一方では Copilot CLI が動いています。</p>
-<h2 id="セクション2コンテキストを設計する">セクション2：コンテキストを設計する</h2>
-<p>コンテキストの設計とは、AI にコードベースを理解してもらうための情報を整えることです。情報が適切であるほど、その後の回答も目的に合いやすくなります。</p>
-<h3 id="共通タスク1-init-で指示を作る">共通：タスク1 — <code>/init</code> で指示を作る</h3>
+<p>これで、一方のターミナルで Web アプリのプレビューサーバーが稼働し、もう一方のターミナルで Copilot CLI の対話セッションが待機している状態が整いました。</p>
+<hr />
+<h2 id="セクション2コンテキストの設計">セクション2：コンテキストの設計</h2>
+<p><strong>コンテキストの設計</strong>とは、AI エージェントがコードベースの全体像、設計思想、コーディング規約を正確に理解できるよう、前提情報をあらかじめ構造化して提供する工程です。コンテキストが明確であるほど、生成されるコードのブレや手戻りを最小限に抑えられます。</p>
+<h3 id="共通タスク1init-による指示ファイルの自動生成">共通タスク1：<code>/init</code> による指示ファイルの自動生成</h3>
 <ol>
-<li>
-<p>Copilot Chat または CLI に入力します。</p>
-<pre class="highlight"><code class="language-text">/init プロジェクトの概要、ビルド・開発用コマンド、Astro のベストプラクティスを含む簡潔な指示を作成してください。ワークショップ教材は対象から除外してください。</code></pre>
-</li>
-<li>
-<p>生成された <code>.github/copilot-instructions.md</code> を確認します。</p>
-</li>
-<li>内容を確認して採用し、指示ファイルを commit します。</li>
+<li>Copilot Chat（VS Code）または Copilot CLI のプロンプトに以下の指示を入力して送信します。</li>
 </ol>
-<p>以降のリクエストや CLI セッションで、リポジトリ固有の指示を利用できます。</p>
-<h3 id="vs-codeタスク2-バックグラウンドエージェント">VS Code：タスク2 — バックグラウンドエージェント</h3>
+<pre class="highlight"><code class="language-text">/init プロジェクトの概要、ビルド・開発用コマンド、Astro のベストプラクティスを含む簡潔な指示を作成してください。ワークショップ教材は対象から除外してください。</code></pre>
+<ol start="2">
+<li>自動生成された <code>.github/copilot-instructions.md</code> の内容を精査します。</li>
+<li>提示された内容に問題がなければ採用し、指示ファイルを Git にコミットします。</li>
+</ol>
+<p>以降のリクエストやセッションにおいて、エージェントはこのリポジトリ固有の指示を前提として自律動作するようになります。</p>
+<hr />
+<h3 id="vs-code-トラックタスク2-バックグラウンドエージェントの活用">VS Code トラック：タスク2 — バックグラウンドエージェントの活用</h3>
 <p><strong>ローカルのバックグラウンドエージェント</strong></p>
 <ol>
-<li>Chat パネルの <strong>+</strong> で新しいチャットを開始します。</li>
-<li>下部の <strong>Local</strong> を <strong>Copilot CLI</strong> に変更します。</li>
-<li>
-<p>次のように依頼します。</p>
+<li>Chat パネル上部の <strong>+</strong>（New Chat）をクリックして新しいチャットを開始します。</li>
+<li>チャット入力欄下部の実行環境ドロップダウン（初期値: <strong>Local</strong>）を <strong>Copilot CLI</strong> に変更します。</li>
+<li>次の指示を入力して送信します。</li>
+</ol>
 <pre class="highlight"><code class="language-text">未使用変数に対する lint ルールを追加してコードスタイルを改善し、エラーを修正してください。</code></pre>
-</li>
-<li>
-<p>完了したら <strong>Review and Apply</strong> で変更を確認して適用します。必要ならセッションをアーカイブします。</p>
-</li>
+<ol start="4">
+<li>エージェントの作業完了後、<strong>Review and Apply</strong> をクリックして生成された変更差分をレビューし、問題がなければ適用します（必要に応じて完了したセッションをアーカイブします）。</li>
 </ol>
 <p><strong>クラウドエージェント</strong></p>
 <ol>
-<li><strong>+</strong> で新しいチャットを作成し、下部の <strong>Local</strong> を <strong>Cloud</strong> に変更します。</li>
-<li>
-<p>次のように依頼します。</p>
+<li><strong>+</strong> をクリックして新しいチャットを開き、実行環境を <strong>Cloud</strong> に切り替えます。</li>
+<li>次のプロンプトを送信します。</li>
+</ol>
 <pre class="highlight"><code class="language-text">README を、プロジェクトの魅力が伝わるランディングページとして改善してください。</code></pre>
-</li>
-</ol>
-<p>エディターを離れずに、lint ルール、エラー修正、README の改善を進められます。</p>
-<h3 id="vs-codeタスク3-プロジェクトを調べる">VS Code：タスク3 — プロジェクトを調べる</h3>
-<p>Copilot Chat の <strong>Ask モード</strong>で試します。</p>
+<p>GUI エディターを離れることなく、コード品質の向上やドキュメントの改善タスクをバックグラウンドで並行処理させることができます。</p>
+<h3 id="vs-code-トラックタスク3-プロジェクト構造の対話探索">VS Code トラック：タスク3 — プロジェクト構造の対話探索</h3>
+<p>Copilot Chat の <strong>Ask モード</strong>（または通常のチャット）で、コードベースに関する質問を投げかけてみます。</p>
 <ul>
-<li>「このプロジェクトのアーキテクチャを説明してください」</li>
-<li>「src ディレクトリにはどのようなファイルがあり、それぞれ何をしますか？」</li>
-<li>「Battle ボタンを動かすには、何を実装する必要がありますか？」</li>
+<li><code>このプロジェクトのアーキテクチャを説明してください</code></li>
+<li><code>src ディレクトリにはどのようなファイルがあり、それぞれ何をしますか？</code></li>
+<li><code>Battle ボタンを動かすには、何を実装する必要がありますか？</code></li>
 </ul>
-<p><code>@workspace</code> を使うと、プロジェクト全体をコンテキストとして指定できます。</p>
-<h3 id="cliタスク2-cli-の環境を調整する">CLI：タスク2 — CLI の環境を調整する</h3>
+<blockquote>
+<p><strong>ヒント</strong>
+プロンプトに <code>@workspace</code> を付与することで、ワークスペース全体を検索対象コンテキストとしてエージェントに走査させることができます。</p>
+</blockquote>
+<hr />
+<h3 id="cli-トラックタスク2-cli-動作環境の確認と権限調整">CLI トラック：タスク2 — CLI 動作環境の確認と権限調整</h3>
 <ol>
-<li><code>/help</code> で使えるスラッシュコマンドを確認します。</li>
-<li><code>/model</code> で利用できるモデルを確認します。</li>
-<li>
-<p>試行中に許可を記憶させすぎた場合は、次でリセットできます。</p>
-<pre class="highlight"><code class="language-text">/reset-allowed-tools</code></pre>
-</li>
-<li>
-<p>親ディレクトリなどを参照する必要がある場合は、<code>/add-dir PATH</code> で必要な範囲を追加します。<code>PATH</code> を実際に許可するディレクトリへ置き換えてください。</p>
-</li>
+<li><code>/help</code> を入力し、利用可能なスラッシュコマンドの一覧を確認します。</li>
+<li><code>/model</code> を入力し、現在選択されている LLM モデルを確認します。</li>
+<li>試行錯誤の過程でツールの自動実行権限を記憶させすぎた場合は、以下のコマンドで安全にリセットできます。</li>
 </ol>
-<p>簡潔なカスタム指示と、明示的なツール権限で作業範囲を整えます。</p>
-<h3 id="cliタスク3-ターミナルからプロジェクトを調べる">CLI：タスク3 — ターミナルからプロジェクトを調べる</h3>
-<p>次のプロンプトを一つずつ試します。</p>
+<pre class="highlight"><code class="language-text">/reset-allowed-tools</code></pre>
+<ol start="4">
+<li>プロジェクト外の親ディレクトリや特定パスを参照させる必要がある場合は、<code>/add-dir PATH</code> を使用してアクセス許可パスを追加します（<code>PATH</code> には実際の対象ディレクトリを指定してください）。</li>
+</ol>
+<h3 id="cli-トラックタスク3-ターミナルからのコードベース探索">CLI トラック：タスク3 — ターミナルからのコードベース探索</h3>
+<p>プロンプトに <code>@</code> 記法を用いて特定のファイルパスを明示し、ピンポイントで調査を依頼します。</p>
 <pre class="highlight"><code class="language-text">このプロジェクトの概要を説明してください。</code></pre>
 <pre class="highlight"><code class="language-text">@src/pages/api/contributions/[username].ts このファイルの役割と、ここに実装すべき内容を説明してください。</code></pre>
 <pre class="highlight"><code class="language-text">@src/pages/index.astro すでにある内容と、対戦ページを作るために追加すべき内容を説明してください。</code></pre>
-<p>対話セッションの外から、一度だけ質問することもできます。</p>
+<p>対話セッションを起動せず、シェルのワンライナーとして単発で質問することも可能です。</p>
 <pre class="highlight"><code class="language-bash">copilot -p "このリポジトリのアーキテクチャを5項目で要約してください"</code></pre>
-<h2 id="第1章の完了">✅ 第1章の完了</h2>
-<ul>
-<li>リポジトリと開発環境を準備した。</li>
-<li><code>/init</code> でプロジェクトとデザイン方針の指示を作った。</li>
-<li>生成された変更を採用前に確認した。</li>
-<li>ファイルやプロジェクトの情報を指定してコードを調べた。</li>
+<hr />
+<h2 id="第1章の完了チェック">✅ 第1章の完了チェック</h2>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> 個人用の演習リポジトリを作成し、開発サーバーのプレビューを確認した</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> <code>/init</code> コマンドを活用して、プロジェクト規約と設計方針を定めた指示ファイルをリポジトリに追加した</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> 生成されたコードや設定変更を人間がレビューしたうえでコミットした</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> ワークスペース全体や特定ファイルを指定してコードベースの構造を把握した</li>
 </ul></article><nav class="chapter-nav" aria-label="章の移動"><a href="00-overview.html">← 前の章：🎮 Mona Mayhem — GitHub Copilot ワークショップ</a><a href="02-plan-and-scaffold.html">次の章 →：第2章：計画とひな形作成</a></nav></main></body></html>
