@@ -5,11 +5,11 @@ authors:
 lastUpdated: 2026-06-30
 ---
 
-Copilot CLI の演習を始める前に、開発環境の準備を整えます。Tailspin Toys リポジトリの個人用コピーを作成し、[Codespaces][codespaces] 環境を起動します。後続の演習では、その統合ターミナルを使用して Copilot CLI のインストールおよびコマンド実行を行います。
+Copilot CLI の演習を始める前に、開発環境の準備を整えます。Tailspin Toys リポジトリの個人用コピーを作成し、[Codespaces][codespaces] 環境を起動します。後続の演習では、その統合ターミナルを使って Copilot CLI のインストールやコマンド実行を行います。
 
 ## ラボ用リポジトリを準備する
 
-本演習でコード変更を加えるためのリポジトリとして、[テンプレートリポジトリ][template-repository]から新しいインスタンスを作成します。このテンプレートにはハンズオンに必要なすべてのソースコードが含まれており、以降の演習はこのリポジトリ上で進めます。
+本演習でコードを変更するためのリポジトリとして、[テンプレートリポジトリ][template-repository]から新しいリポジトリを作成します。このテンプレートにはハンズオンに必要なすべてのソースコードが含まれており、以降の演習はこのリポジトリ上で進めます。
 
 1. Web ブラウザーで、本ラボのテンプレートリポジトリ `https://github.com/github-samples/tailspin-toys` にアクセスします。
 2. 画面右上にある **Use this template** ボタンをクリックし、**Create a new repository** を選択して自分用リポジトリの作成画面を開きます。
@@ -24,7 +24,7 @@ Copilot CLI の演習を始める前に、開発環境の準備を整えます�
 
 > [!NOTE]
 > **バックログ（Issue）は自動で準備されます**  
-> テンプレートからリポジトリを生成すると、ワークフローにより演習用の GitHub Issue 群が自動的に起票されます。ワークショップ全体を通じてこれらの既存 Issue を使用して開発を進めるため、自身で手動起票する必要はありません。
+> テンプレートからリポジトリを生成すると、ワークフローによって演習用の GitHub Issue 群が自動的に起票されます。ワークショップ全体を通じてこれらの既存 Issue を使って開発を進めるため、自分で手動起票する必要はありません。
 
 ## Codespace を起動する
 
@@ -41,13 +41,13 @@ Copilot CLI の演習を始める前に、開発環境の準備を整えます�
 
     ![新しい codespace を作成する](../../_images/ex0-create-codespace.png)
 
-Codespace のコンテナ構築には数分を要しますが、手元のマシンに個別に依存ツールを手動セットアップするよりも確実かつ高速に環境が整います。
+Codespace のコンテナ構築には数分かかりますが、手元のマシンに個別に依存ツールを手動セットアップするよりも確実かつ高速に環境が整います。
 
 > [!CAUTION]
 > 後続の演習ではこの Codespace の画面に戻って作業を行います。ブラウザーのタブを閉じずに開いたままにしておいてください。
 
 > [!NOTE]
-> 本ワークショップは、Codespace またはローカル端末の [Dev Containers][dev-containers] 上で実行することを前提に設計されています。いずれの方式でも、共通のコンテナ定義により必要なツール群が完全にセットアップされた同一環境が再現されます。ローカル端末で進めたい場合は、リポジトリをローカルにクローンして VS Code で開き、プロンプトが表示されたら **Reopen in Container** を選択してください。Codespace と全く同じ Dev Container 環境がローカル上に構築されます。
+> 本ワークショップは、Codespace またはローカル端末の [Dev Containers][dev-containers] 上で実行することを前提に設計されています。どちらの方式でも、共通のコンテナ定義によって必要なツール群が完全にセットアップされた同一環境が再現されます。ローカル端末で進めたい場合は、リポジトリをローカルにクローンして VS Code で開き、プロンプトが表示されたら **Reopen in Container** を選択してください。Codespace と全く同じ Dev Container 環境がローカル上に構築されます。
 
 [codespaces]: https://github.com/features/codespaces
 [dev-containers]: https://code.visualstudio.com/docs/devcontainers/containers
