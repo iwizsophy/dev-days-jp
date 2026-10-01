@@ -112,9 +112,11 @@ GitHub Copilot を導入するすべてのプロジェクトにおいて、体�
 </ol>
 <pre class="highlight"><code class="language-plaintext">この Issue に記載された要件に従って、プロジェクトの指示ファイルを更新してください。PR はまだ作らないでください。</code></pre>
 <blockquote>
-<p><strong>2026年9月13日の実機検証（Windows App 1.1.20）：</strong><br />
-GitHub 連携プロジェクトにおいて「My work」→「対象 Issue」→「New session」を実行すると、専用の worktree が自動作成され、前章（PR #9）でマージされた星評価のコードが正しく継承されていることを確認しました。<br />
-初回セッション開始時には <strong>Accept this repository configuration?</strong> というダイアログが表示されます。<strong>Review configuration</strong> を選択してセットアップ内容や Run の定義を確認したうえで承認を行ってください。実機検証では、利用者が承認した後にプロンプトの送信が可能となりました。エージェントは指示ファイル、README、ESLint 設定、および最小限の書式修正を含む合計7ファイルを更新し、単体テスト30件、E2Eテスト21件、lint、型検査のすべてが正常に通過しました。</p>
+<p><strong>補足</strong>
+<strong>2026年9月13日の実機検証（Windows App 1.1.20）：</strong>
+- <strong>ワークスペースの継承</strong>：GitHub 連携プロジェクトにおいて「My work」→「対象 Issue」→「New session」を実行すると専用 worktree が自動作成され、前章（PR #9）でマージされた星評価のコードが正しく引き継がれました。
+- <strong>初回承認</strong>：初回セッション開始時に <strong>Accept this repository configuration?</strong> ダイアログが表示されます。<strong>Review configuration</strong> でセットアップ内容や Run の定義を確認して承認すると、プロンプトの入力欄が表示されます。
+- <strong>生成結果</strong>：エージェントは指示ファイル、README、ESLint 設定、最小限の書式修正を含む計 7 ファイルを更新し、単体テスト 30 件、E2E テスト 21 件、lint、型検査のすべてがパスしました。</p>
 </blockquote>
 <p>Copilot が指示ファイル等の更新作業を実行します。</p>
 <h2 id="変更をレビューする">変更をレビューする</h2>
@@ -141,7 +143,8 @@ AI の出力は確率的に変動するため、生成される文言の細部�
 <h2 id="pull-request-を作成してマージする">pull request を作成してマージする</h2>
 <p>指示ファイルはチーム全体で共有されるリポジトリの重要な構成要素（開発資産）です。他のソースコードと同様に、変更内容を含めた pull request を作成してマージします。</p>
 <ol>
-<li>画面右上にある <strong>Create PR</strong> を選択します。Windows App 1.1.20 の GitHub 連携セッションでは、この操作からコミット作成、リモートへの push、PR 作成までが一連で実行されることを確認済みです（検証用 PR #10 を作成後に通常マージし、次章で作成される専用 worktree がこの更新済み規約を正常に継承することも確認しています。詳細は <a href="../material/verification.html">実走記録</a> を参照してください）。</li>
+<li>画面右上にある <strong>Create PR</strong> を選択します。
+   - Windows App 1.1.20 の GitHub 連携セッションでは、この操作からコミット作成、リモートへの push、PR 作成までが一連で実行されることを確認済みです（検証用 PR #10 を作成後に通常マージし、次章で作成される専用 worktree がこの更新済み規約を正常に継承することも確認しています。詳細は <a href="../material/verification.html">実走記録</a> を参照）。</li>
 <li>ブラウザー認証を求められた場合は、<strong>Sign in with your browser</strong> を選択して画面の指示に従い認証します。</li>
 <li>Copilot が pull request の作成を開始します。</li>
 <li>PR 作成後、Copilot はリポジトリの CI ワークフローの実行を監視します。全チェックが通過すると、右上のボタンが <strong>Ready to merge</strong> へ変化します。</li>
@@ -150,21 +153,21 @@ AI の出力は確率的に変動するため、生成される文言の細部�
 </ol>
 <blockquote>
 <p><strong>補足</strong>
-この標準規約がデフォルトブランチにマージされたことで、チームメンバー全員および今後作成されるすべての新しいセッションにおいて共通規約として適用されます。次のレッスンで最新のデフォルトブランチからフィルター機能のセッションを開始すると、エージェントは明示的に指示しなくても自動的にこの規約に従い、生成される TypeScript コードに TSDoc ドキュメントコメントを含めるようになります。指示ファイルが生成コードの振る舞いを決定づける具体例を体験できます。</p>
+この標準規約がデフォルトブランチにマージされたことで、今後のすべての新しいセッションにおいて共通規約として自動適用されます。次章で最新のデフォルトブランチからフィルター機能のセッションを開始すると、エージェントは明示的に指示しなくても自動的にこの規約に従い、生成される TypeScript コードに TSDoc ドキュメントコメントを含めるようになります。</p>
 </blockquote>
 <p><a id="cli-fallback"></a></p>
 <blockquote>
-<p><strong>講師向け：</strong> 参加者の環境でトラブルが生じ、緊急に作業を保全する必要がある場合のみ <a href="../material/emergency-cli.html#chapter-3">対応手順</a> を参照してください。なお、CLI 側で実装が完了しても、本章における App 操作の完了とは見なしません。</p>
+<p><strong>注意</strong>
+<strong>講師向け緊急対応</strong>：
+参加者の環境でトラブルが生じ、緊急に作業を保全する必要がある場合のみ <a href="../material/emergency-cli.html#chapter-3">講師専用 CLI 対応手順</a> を参照してください。なお、CLI 側で実装が完了しても、本章における App 操作の完了実績とは見なしません。</p>
 </blockquote>
 <h2 id="まとめと次のステップ">まとめと次のステップ</h2>
-<p>App が指示ファイルからコンテキストを取得する仕組みを理解し、Issue を起点とするセッションを通じてリポジトリ全体の標準規約を追加・マージしました。本章で実施した主な内容は次の通りです。</p>
-<ul>
-<li>リポジトリ全体の <code>copilot-instructions.md</code> と、特定パス用の <code>*.instructions.md</code> ファイルの役割を確認した</li>
-<li>バックログ内の規約更新 Issue から新しいエージェントセッションを開始した</li>
-<li><code>.github/copilot-instructions.md</code> にドキュメント標準を追加するようエージェントへ依頼した</li>
-<li>変更差分をレビューし、コード生成例によって効果を確認したうえで pull request としてマージした</li>
-</ul>
-<p>次は、新しいセッションでゲームの絞り込み（フィルター）機能を実装し、いまマージしたコーディング標準がエージェントによって自律的に遵守される様子を確認します。<a href="4-build-filtering.html">レッスン 4「Autopilot による機能の構築」</a> へ進んでください。</p>
+<p>App が指示ファイルからコンテキストを取得する仕組みを理解し、Issue を起点とするセッションを通じてリポジトリ全体の標準規約を追加・マージしました。
+- リポジトリ全体の <code>copilot-instructions.md</code> と、特定パス用の <code>*.instructions.md</code> ファイルの役割を確認した
+- バックログ内の規約更新 Issue から新しいエージェントセッションを開始した
+- <code>.github/copilot-instructions.md</code> にドキュメント標準を追加するようエージェントへ依頼した
+- 変更差分をレビューし、コード生成例によって効果を確認したうえで pull request としてマージした</p>
+<p>次は新しいセッションでゲームの絞り込み（フィルター）機能を実装し、いまマージしたコーディング標準がエージェントによって自律的に遵守される様子を確認します。<a href="4-build-filtering.html">レッスン 4「Autopilot による機能の構築」</a> へ進んでください。</p>
 <h2 id="リソース">リソース</h2>
 <ul>
 <li><a href="https://docs.github.com/copilot/customizing-copilot/about-customizing-github-copilot-chat-responses">GitHub Copilot をカスタマイズするための指示ファイル</a></li>

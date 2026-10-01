@@ -14,7 +14,10 @@
 <li><a href="#フィルター機能を計画する">フィルター機能を計画する</a></li>
 <li><a href="#autopilot-で構築する">Autopilot で構築する</a></li>
 <li><a href="#変更をレビューする">変更をレビューする</a></li>
-<li><a href="#quality-checks-スキルで作業を検証する">quality-checks スキルで作業を検証する</a></li>
+<li><a href="#quality-checks-スキルで作業を検証する">quality-checks スキルで作業を検証する</a><ul>
+<li><a href="#エージェントスキルagent-skillsとは">エージェントスキル（Agent Skills）とは</a></li>
+</ul>
+</li>
 <li><a href="#quality-checks-スキルを確認する">quality-checks スキルを確認する</a></li>
 <li><a href="#チェックを実行する">チェックを実行する</a></li>
 <li><a href="#まとめと次のステップ">まとめと次のステップ</a></li>
@@ -110,8 +113,11 @@ Copilot の出力は確率的に動作するため、提示される質問内容
 </ol>
 <p><img alt="App 上部の Run メニューと会話・Files パネル全体" src="../assets/app-1.1.20-20260913-run-menu.png" /><br><em class="source">実機撮影：2026-09-13、Windows、GitHub Copilot App 1.1.20。撮影範囲全体を掲載（切り抜きなし）。灰色の箇所はアカウント・検証用リポジトリ・ローカルパス等の識別情報や個人の利用量をマスク。Run メニューの Run development site・Build static site・Type-check application。選択後に Run ボタンで起動する。検索機能 PR 作成後の操作例。</em></p>
 <blockquote>
-<p><strong>実機で確認した Run 経路（Windows App 1.1.20）：</strong><br />
-上部の Run development site で起動後、Browser パネルに通常の21件のゲームが表示されることを確認しました。さらに、外部ブラウザーからも複数カテゴリーの選択、出版社との絞り込みの組み合わせ、フィルター解除の動作を確認したうえで、Stop Run development site で停止しました。単体テスト35件、E2Eテスト25件、lint、型検査、build の全検証に成功しています。なお、検索結果が0件になるパターンの E2E 検証には、専用の分離テストデータを使用しています。詳細は <a href="../material/verification.html">実走記録</a> を参照してください。</p>
+<p><strong>補足</strong>
+<strong>実機で確認した Run 経路（Windows App 1.1.20）：</strong>
+- <strong>サーバー起動と表示</strong>：上部の Run development site で起動後、Browser パネルに通常の 21 件のゲームが表示されることを確認しました。
+- <strong>機能動作</strong>：外部ブラウザーからも複数カテゴリーの選択、出版社との絞り込み、フィルター解除が正常に動作することを確認しました。
+- <strong>検証結果</strong>：単体テスト 35 件、E2E テスト 25 件、lint、型検査、build の全検証をパスしました（※検索結果 0 件の E2E 検証には専用の分離テストデータを使用）。詳細は <a href="../material/verification.html">実走記録</a> を参照してください。</p>
 </blockquote>
 <ol start="4">
 <li>ボタンが <strong>Run Run development site</strong> と表示されている場合はクリックして起動します。すでに <strong>Stop Run development site</strong> と表示されている場合は稼働中ですので、そのまま次へ進みます。</li>
@@ -121,17 +127,20 @@ Copilot の出力は確率的に動作するため、提示される質問内容
 <li>確認が完了したら、セッション上部の <strong>Stop Run development site</strong> を選択して開発サーバーを停止します。</li>
 </ol>
 <h2 id="quality-checks-スキルで作業を検証する">quality-checks スキルで作業を検証する</h2>
-<p>差分の目視確認とブラウザーでの手動操作に加えて、プロジェクトに定義された厳密な自動テスト群を実行して品質を検証します。</p>
-<p><strong>エージェントスキル（Agent Skills）</strong>は、テスト実行、ビルド生成、pull request 作成といった反復的なタスクの手順をエージェントに教え込むための仕組みです。スキルは、エージェントが必要に応じてオンデマンドで読み込む指示、スクリプト、参照リソースをまとめたフォルダーとして構成されます。<a href="https://github.com/agentskills/agentskills">Agent Skills はオープン標準</a>として策定されており、Copilot Chat（エージェントモード）、Copilot cloud agent、Copilot CLI、そして GitHub Copilot app の各環境で共通して動作します。</p>
-<p>スキルはリポジトリ内の <code>.github/skills</code> フォルダー（または端末のグローバル環境 <code>~/.copilot/skills</code>）に配置されます。各スキルフォルダー内には、YAML frontmatter（<code>name</code> と <code>description</code>）および Markdown 形式の指示文を含む <code>SKILL.md</code> ファイルが格納されています。</p>
+<p>差分の目視確認とブラウザーでの手動操作に加えて、プロジェクトに定義された自動テスト群を実行して品質を検証します。</p>
+<h3 id="エージェントスキルagent-skillsとは">エージェントスキル（Agent Skills）とは</h3>
+<p>テスト実行、ビルド生成、Pull Request 作成といった反復タスクの手順を、エージェントに教え込むための仕組みです。
+- 指示文、スクリプト、参照リソースをまとめたフォルダーとして構成される
+- <a href="https://github.com/agentskills/agentskills">オープン標準規格</a>として策定されており、Copilot Chat、Copilot cloud agent、Copilot CLI、Copilot app の各環境で共通動作する
+- リポジトリ内の <code>.github/skills</code>（または端末の <code>~/.copilot/skills</code>）に配置される</p>
+<p>各スキルフォルダー内の <code>SKILL.md</code> には、次のような YAML frontmatter と指示文が含まれます。</p>
 <pre class="highlight"><code class="language-yaml">---
 name: quality-checks
 description: Run the project's test suites and linter to verify code changes are ready to commit, push, or merge.
 ---</code></pre>
-<p>必要に応じて、補助スクリプトや静的アセットをサブフォルダーに含めることも可能です（完全な構成仕様は <a href="https://agentskills.io/specification">エージェントスキルの仕様書</a> を参照してください）。</p>
 <blockquote>
 <p><strong>ヒント</strong>
-スキルは実行時に動的に読み込まれます。エージェントは各スキルの <code>description</code> フィールドの記述を読み取り、現在のタスクに適したスキルを自律的に選択します。そのため、スキルの目的と適用条件を明確に記述しておくことが、スキルが正しく呼び出されるための鍵となります。</p>
+スキルは実行時に動的に読み込まれます。エージェントは各スキルの <code>description</code> を読み取り、現在のタスクに適したスキルを自律的に選択します。そのため、スキルの目的と適用条件を明確に記述しておくことが重要です。</p>
 </blockquote>
 <h2 id="quality-checks-スキルを確認する">quality-checks スキルを確認する</h2>
 <p>本リポジトリに用意されている <code>quality-checks</code> スキルの中身を確認してみましょう。</p>
@@ -140,34 +149,34 @@ description: Run the project's test suites and linter to verify code changes are
 </ol>
 <p><img alt="右パネルの Add tab メニュー。Files、Browser、Terminal の入口" src="../assets/app-1.1.20-20260913-add-tab.png" /><br><em class="source">実機撮影：2026-09-13、Windows、GitHub Copilot App 1.1.20。撮影範囲全体を掲載（切り抜きなし）。灰色の箇所はアカウント・検証用リポジトリ・ローカルパス等の識別情報や個人の利用量をマスク。右パネルの Add tab メニュー。Terminal・Browser・Files・Canvas の入口。検索機能の実装中の操作例。</em></p>
 <ol start="2">
-<li>パネル上部のタブ列にある <strong>+</strong>（Add tab）を選択します。</li>
+<li>パネル上部のタブ列にある <strong><code>+</code></strong>（Add tab）を選択します。</li>
 <li><strong>Files</strong> を選択します。</li>
 <li><kbd>Ctrl</kbd>+<kbd>P</kbd> を押して <strong>Go to file</strong> を開き、<code>SKILL.md</code> を検索します。</li>
 <li>検索結果から <code>SKILL.md .github/skills/quality-checks</code> を選択して開きます。</li>
 <li><code>name</code> と <code>description</code> の定義を確認します。コミット、push、マージの前にテストや linter による検証が必要な場合に本スキルを使用する旨が宣言されています。</li>
-<li>ファイル全体をスクロールして確認します。単体テスト、Playwright による E2E テスト、ESLint の各スイートを実行するコマンド体系、実行順序、および典型的な失敗時のトラブルシューティング手順が体系化されています。エージェントは推測に頼ることなく、チームが定めた正規の手順に沿って検証を遂行できます。</li>
+<li>ファイル全体を確認します。単体テスト、Playwright による E2E テスト、ESLint の各スイートを実行するコマンド体系、実行順序、および失敗時のトラブルシューティング手順が体系化されています。エージェントは推測に頼らず、チーム規定の手順に沿って検証を遂行できます。</li>
 </ol>
 <h2 id="チェックを実行する">チェックを実行する</h2>
 <p>フィルター機能を実装した同一セッション内で、エージェントに品質検証の実行を依頼します。</p>
 <ol>
 <li>Copilot app の会話画面に戻ります。</li>
 <li>スラッシュコマンド <code>/quality-checks</code> を入力して送信します（スキル名を直接指定して呼び出します）。</li>
-<li>エージェントはスキルの手順に従って単体テスト、linter、E2E テストを順次実行し、検証結果を報告します。もし失敗した項目があれば、エラーを解消して全テストが通過するまで修正を行わせます。</li>
+<li>エージェントはスキルの手順に従って単体テスト、linter、E2E テストを順次実行し、結果を報告します。失敗した項目があれば、修正を行わせて全テストを通過させます。</li>
 <li><strong>【重要】このセッションは閉じずに開いたままにしておいてください。</strong> 次のレッスンでは、Playwright MCP server を設定し、実際のブラウザーを自律操作してフィルター機能が正しく動作することを検証します。</li>
 </ol>
 <p><a id="cli-fallback"></a></p>
 <blockquote>
-<p><strong>講師向け：</strong> 参加者の環境でトラブルが生じ、緊急に作業を保全する必要がある場合のみ <a href="../material/emergency-cli.html#chapter-4">対応手順</a> を参照してください。なお、CLI 側で実装が完了しても、本章における App 操作の完了とは見なしません。</p>
+<p><strong>注意</strong>
+<strong>講師向け緊急対応</strong>：
+参加者の環境でトラブルが生じ、緊急に作業を保全する必要がある場合のみ <a href="../material/emergency-cli.html#chapter-4">講師専用 CLI 対応手順</a> を参照してください。なお、CLI 側で実装が完了しても、本章における App 操作の完了実績とは見なしません。</p>
 </blockquote>
 <h2 id="まとめと次のステップ">まとめと次のステップ</h2>
-<p>フィルター機能をエンドツーエンドで実装し、リポジトリの品質基準に基づいて自動検証を完走させました。本章で実施した主な内容は次の通りです。</p>
-<ul>
-<li>最新のコードベースから、フィルター機能の Issue に紐づく新しいセッションを開始した</li>
-<li>Plan モードで実装計画を策定・レビューし、Autopilot モードで自律実装を実行した</li>
-<li>生成されたコードにおいて、前章で定義したドキュメント標準規約（TSDoc 等）が自律的に適用されていることを確認した</li>
-<li><code>quality-checks</code> スキルを活用して単体テスト、E2E テスト、lint による検証を完了した</li>
-</ul>
-<p>次は、Playwright MCP server をプロジェクトに導入し、エージェントが実際のブラウザーを自律的に操作して検証を行う高度な自動化を体験します。<a href="5-mcp-playwright.html">レッスン 5「Playwright MCP server によるテスト」</a> へ進んでください。</p>
+<p>フィルター機能をエンドツーエンドで実装し、リポジトリの品質基準に基づいて自動検証を完走させました。
+- 最新のコードベースから、フィルター機能の Issue に紐づく新しいセッションを開始した
+- Plan モードで実装計画を策定・レビューし、Autopilot モードで自律実装を実行した
+- 生成されたコードにおいて、前章で定義したドキュメント標準規約（TSDoc 等）が自律適用されていることを確認した
+- <code>quality-checks</code> スキルを活用して単体テスト、E2E テスト、lint による検証を完了した</p>
+<p>次は Playwright MCP server をプロジェクトに導入し、エージェントが実際のブラウザーを自律操作して検証を行う高度な自動化を体験します。<a href="5-mcp-playwright.html">レッスン 5「Playwright MCP server によるテスト」</a> へ進んでください。</p>
 <h2 id="リソース">リソース</h2>
 <ul>
 <li><a href="https://docs.github.com/copilot/how-tos/github-copilot-app/agent-sessions">GitHub Copilot app でのエージェントセッションの操作</a></li>

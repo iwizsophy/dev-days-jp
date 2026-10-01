@@ -9,32 +9,32 @@
 <main id="lesson"><h1>講師ガイド：App シナリオを一本の流れで実施する</h1><aside>この教材セット独自の運営・補助手順です。</aside><article><h2>1. 使用する教材とリポジトリの分離</h2>
 <h3>教材の配布と受講者環境</h3>
 <ul>
-<li><strong>受講者への配布</strong>：参加者には <a href="../app/index.html">App の目次</a> のみを配布します。CLI 独立コースと Mona Mayhem は補講用の参考資料であり、本編の途中で受講者を移動させてはなりません。</li>
-<li><strong>演習用リポジトリ</strong>：演習は、<a href="https://github.com/iwizsophy/dev-days-tailspin-template">修正済みの非公開テンプレート</a> から各自が作成した Tailspin Toys のコピー環境で実行します。参加者には事前にテンプレートの閲覧権限を付与してください（取得先を上流リポジトリに戻してはなりません）。</li>
-<li><strong>教材リポジトリの保護</strong>：受講者が本教材リポジトリ（<code>dev-days-jp</code>）内で直接アプリ実装の演習を実行しないよう徹底してください。</li>
+<li><strong>受講者への配布</strong>：参加者には <a href="../app/index.html">App の目次</a> のみを配布します。CLI 独立コースや Mona Mayhem は補講用の参考資料です。本編の途中で受講者を移動させてはなりません。</li>
+<li><strong>演習用リポジトリ</strong>：演習は、<a href="https://github.com/iwizsophy/dev-days-tailspin-template">修正済みの非公開テンプレート</a> から各自が作成した Tailspin Toys のコピー環境で行います。参加者には事前にテンプレートの閲覧権限を付与してください（取得先を上流リポジトリに戻してはなりません）。</li>
+<li><strong>教材リポジトリの保護</strong>：受講者が本教材リポジトリ（<code>dev-days-jp</code>）内で直接アプリ実装の演習を行わないよう徹底してください。</li>
 </ul>
 <h3>参照元リポジトリの取り扱い</h3>
-<p>参照元は <code>github/dev-days</code>（開催・運営資料）および <code>github-samples/copilot-workshops</code>（App シナリオ）です。参照コミットと対象ファイルは <code>content/ja/sources.json</code> に記録されています。参照元への push や Pull Request 等の変更送信は一切行いません。</p>
+<p>参照元は <code>github/dev-days</code>（開催・運営資料）および <code>github-samples/copilot-workshops</code>（App シナリオ）です。参照コミットと対象ファイルは <code>content/ja/sources.json</code> に記録されています。参照元への push や Pull Request など、いかなる変更送信も一切行いません。</p>
 <h2>2. 講師向け資料と公式イベント運営上の注意点</h2>
-<p>2026年9月13日に、上流のコミット <a href="https://github.com/github/dev-days/commit/54ae7ea3b923c059cc465ac0c13d46ccda99a98e">54ae7ea</a> に含まれる FAQ およびコンテンツ案内を確認しました。App の演習コードを変更する更新ではないため、次の案内事項のみを反映しています。</p>
+<p>2026年9月13日に、上流のコミット <a href="https://github.com/github/dev-days/commit/54ae7ea3b923c059cc465ac0c13d46ccda99a98e">54ae7ea</a> に含まれる FAQ とコンテンツ案内を確認しました。App の演習コードを変更する更新ではないため、次の案内事項のみを反映しています。</p>
 <h3>利用可能な公式リソース</h3>
 <ul>
-<li>日本語の <a href="https://www.youtube.com/watch?v=-ZBf4wpLZKg">App 講師向け動画</a> および <a href="https://github.com/github/dev-days/releases/download/2026-07-30/copilot-app-japanese.pptx">App スライド</a> が提供されています。実演準備に活用してください。</li>
+<li>日本語の <a href="https://www.youtube.com/watch?v=-ZBf4wpLZKg">App 講師向け動画</a> および <a href="https://github.com/github/dev-days/releases/download/2026-07-30/copilot-app-japanese.pptx">App スライド</a> が提供されています。実演の準備に活用してください。</li>
 <li>上流の <a href="https://github-samples.github.io/copilot-workshops/ja-jp/app/">日本語 App ワークショップ</a> は参照用の資料です。本教材では、実機検証済みの操作手順と修正済み演習テンプレートを使用します。</li>
 </ul>
 <h3>公式イベント運営の厳格な条件</h3>
 <ul>
-<li><strong>新規申請の受付終了</strong>：指定コミットの時点で、公式 Dev Days の新規イベント申請は定員到達により受付・承認を終了しています。本コピー内の旧イベント申請案内ではなく、<a href="https://github.com/github/dev-days/blob/main/FAQ.md">公式 FAQ</a> で最新の状況を確認してください。</li>
-<li><strong>登録の一本化</strong>：公式 Dev Days として承認済みのイベントは、Luma で Public に設定し、参加登録も Luma に集約します。他の告知サービスを併用する場合も、登録窓口を分散させてはなりません。日程変更等も Luma に反映します。</li>
+<li><strong>新規申請の受付終了</strong>：指定コミットの時点で、公式 Dev Days の新規イベント申請は定員到達により受付・承認を終了しています。本コピー内の旧イベント申請案内ではなく、<a href="https://github.com/github/dev-days/blob/main/FAQ.md">公式 FAQ</a> で最新状況を確認してください。</li>
+<li><strong>登録の一本化</strong>：公式 Dev Days として承認済みのイベントは、Luma で Public に設定し、参加登録も Luma に集約します。他の告知サービスを併用する場合も、登録窓口を分散させてはなりません。日程変更なども Luma に反映します。</li>
 <li><strong>必須登録項目</strong>：登録時には、国、GitHub ユーザー名、職種への回答を必須とします（会社名および連絡への同意は任意です）。</li>
 <li><strong>報告義務</strong>：参加者には <a href="https://gh.io/dev-days/feedback">終了後アンケート</a> を案内し、主催者は飲食費精算の有無にかかわらず <a href="https://gh.io/dev-days/event-report">開催報告</a> を提出する義務があります。</li>
 </ul>
 <blockquote>
 <p><strong>重要</strong>
-上記は公式イベントとして承認された場合の運営条件です。独立した勉強会を開催しても、公式承認や特典が自動的に付与されるわけではありません。クーポン、物品、飲食精算はイベントごとの個別承認条件に従うため、受講者全員への提供を安易に約束せず、公式 FAQ と承認時の案内を確認してください。また、イベントを Public にする条件と、演習コードの公開範囲（本教材では非公開推奨）は別問題です。</p>
+上記は公式イベントとして承認された場合の運営条件です。独立した勉強会を開催しても、公式承認や特典が自動的に付与されるわけではありません。クーポン、物品、飲食精算はイベントごとの個別承認条件に従います。受講者全員への提供を安易に約束せず、公式 FAQ と承認時の案内を確認してください。また、イベントを Public にする条件と、演習コードの公開範囲（本教材では非公開推奨）は別問題です。</p>
 </blockquote>
 <h2>3. 運営時間配分案（180分枠）</h2>
-<p>以下の配分は本教材独自の運営案であり、実測所要時間ではありません。演習0および演習1の環境準備は、原則として事前準備として済ませておく前提です。原本シナリオの想定（60〜90分）に対し、App の操作支援やレビュー時間を手厚く確保しています。</p>
+<p>以下の配分は本教材独自の運営案であり、実測所要時間ではありません。演習0および演習1の環境準備は、原則として事前準備で済ませておく前提です。原本シナリオの想定（60〜90分）に対し、App の操作支援やレビュー時間を手厚く確保しています。</p>
 <table>
 <thead>
 <tr>
@@ -47,7 +47,7 @@
 <tr>
 <td style="text-align: left;"><strong>30分</strong></td>
 <td style="text-align: left;">導入セッション</td>
-<td style="text-align: left;">Dev Days の App スライド等を活用した概要説明</td>
+<td style="text-align: left;">Dev Days の App スライドなどを活用した概要説明</td>
 </tr>
 <tr>
 <td style="text-align: left;"><strong>15分</strong></td>
@@ -101,26 +101,26 @@
 </tr>
 </tbody>
 </table>
-<p><strong>進行上の注意</strong>：CI の待機時間や受講者の環境構築が長引いた場合は、無理に受講者全員の操作を継続させず、後半の演習を「講師デモ」に切り替えて進行してください。その際、受講者本人が実施していない項目を記録に残し、「全員が全演習を完了した」と案内してはなりません。Canvas や Automation を全員にハンズオンさせる場合は、別途追加枠を確保する必要があります。</p>
+<p><strong>進行上の注意</strong>：CI の待機時間や受講者の環境構築が長引いた場合は、無理に受講者全員の操作を継続させず、後半の演習を「講師デモ」に切り替えて進行してください。その際、受講者本人が実施していない項目は記録に残し、「全員が全演習を完了した」と案内してはなりません。Canvas や Automation を全員にハンズオンさせる場合は、別途追加枠を確保する必要があります。</p>
 <h2>4. 開催前のリハーサル項目</h2>
 <p>講師は開催前に、自身の非公開コピーを用いて次の項目を必ずリハーサルしてください。</p>
 <ol>
-<li><strong>環境とバージョンの記録</strong>：演習0〜8を順に通し、App および CLI のバージョン、Node.js バージョン、テンプレートのコミット SHA、OS を記録する。</li>
-<li><strong>マージ結果の継承確認</strong>：演習2および演習3のマージ結果が、演習4の開始時に正しく引き継がれていることを確認する（CLI コースのように publisher helper が事前に存在すると仮定しない）。</li>
-<li><strong>現行 UI 経路の検証</strong>：<a href="ui-check.html">UI 確認表</a> に沿って、現行 App の操作経路と画面表示を突き合わせる。CLI の緊急対応は、本編とは別の「作業保全リハーサル」として別途確認する。</li>
-<li><strong>利用権限とポリシーの切り分け</strong>：App 用および CLI 用の利用ポリシー、残り利用枠（AI Credits 等）、ネットワーク接続、必要な GitHub 権限を確認する。UI の変更と、認証や利用枠の枯渇による問題を混同しない。</li>
-<li><strong>テストケースとデータの確認</strong>：星評価の null ケース、フィルターの複合条件・解除・該当なし表示を確認する。通常データ（seed）に存在しない条件は検証用データでテストし、実際の画面操作による結果と明確に区別する。</li>
-<li><strong>MCP 実行環境の切り分け</strong>：MCP 用の Chrome と E2E 用の Chromium を明確に区別する。MCP 接続失敗時はプロセス状態、App の MCP 設定、セッション再起動を確認し、手動ブラウザー検証へ切り替えた場合は MCP 体験を「未実施」とする。</li>
-<li><strong>テンプレートの修正版確認</strong>：教材用テンプレートの YAML および MCP 修正が適用済みであること（配布版 <code>v2026.09.13.1</code> と開始コミット）を確認する。演習済みの検証リポジトリを開始用として誤配布しない。</li>
-<li><strong>依存性監査の未解決事項</strong>：配布元 WORKSHOP.md の依存監査において、未解決事項（<code>drizzle-kit</code> 配下の Moderate 4件）と確認範囲を配布前に把握しておく。機能テストの成功のみで安易に配布可能と判定しない。</li>
-<li><strong>終了時の後始末</strong>：開発サーバー、演習用 Codespace、不要な定期実行を停止する（作成した PR や未保存の作業ツリーを誤って削除しない）。</li>
+<li><strong>環境とバージョンの記録</strong>：演習0〜8を順に通し、App および CLI のバージョン、Node.js バージョン、テンプレートのコミット SHA、OS を記録します。</li>
+<li><strong>マージ結果の継承確認</strong>：演習2および演習3のマージ結果が、演習4の開始時に正しく引き継がれていることを確認します（CLI コースのように publisher helper が事前に存在すると仮定しないでください）。</li>
+<li><strong>現行 UI 経路の検証</strong>：<a href="ui-check.html">UI 確認表</a> に沿って、現行 App の操作経路と画面表示を突き合わせます。CLI の緊急対応は、本編とは別の「作業保全リハーサル」として別途確認します。</li>
+<li><strong>利用権限とポリシーの切り分け</strong>：App 用および CLI 用の利用ポリシー、残り利用枠（AI Credits など）、ネットワーク接続、必要な GitHub 権限を確認します。UI の変更と、認証や利用枠の枯渇による問題を混同しないようにしてください。</li>
+<li><strong>テストケースとデータの確認</strong>：星評価の null ケース、フィルターの複合条件・解除・該当なし表示を確認します。通常データ（seed）に存在しない条件は検証用データでテストし、実際の画面操作による結果と明確に区別します。</li>
+<li><strong>MCP 実行環境の切り分け</strong>：MCP 用の Chrome と E2E 用の Chromium を明確に区別します。MCP 接続失敗時はプロセス状態、App の MCP 設定、セッション再起動を確認してください。手動ブラウザー検証へ切り替えた場合は、MCP 体験を「未実施」とします。</li>
+<li><strong>テンプレートの修正版確認</strong>：教材用テンプレートの YAML および MCP 修正が適用済みであること（配布版 <code>v2026.09.13.1</code> と開始コミット）を確認します。演習済みの検証リポジトリを開始用として誤配布しないよう注意してください。</li>
+<li><strong>依存性監査の未解決事項</strong>：配布元 WORKSHOP.md の依存監査において、未解決事項（<code>drizzle-kit</code> 配下の Moderate 4件）と確認範囲を配布前に把握しておきます。機能テストの成功のみで安易に配布可能と判定してはなりません。</li>
+<li><strong>終了時の後始末</strong>：開発サーバー、演習用 Codespace、不要な定期実行を停止します（作成した PR や未保存の作業ツリーを誤って削除しないようにしてください）。</li>
 </ol>
 <h2>5. 当日の操作支援と緊急対応ルール</h2>
 <p>受講者が操作に詰まった場合は、次の原則に従って支援します。</p>
 <ol>
 <li><strong>現状の正確な把握</strong>：現在の章、操作の目的、現在の画面表示を確認し、<a href="ui-check.html">UI 確認表</a> と照合して差分を記録します。画面上の位置だけで探さず、機能名、対象リポジトリ、セッションの状態を照合してください。</li>
 <li><strong>推測による案内の禁止</strong>：講師が実際に検証済みの現行操作経路のみを案内します。見つからない機能に対して、推測で操作を指示してはなりません。</li>
-<li><strong>デモ・ペア操作への切り替え</strong>：受講者環境で操作が再現できない場合は、同じ操作を講師の実機デモまたはペア操作で示します。受講者が画面を見ただけの項目は「デモ確認」と記録し、受講者本人の実施とは区別します。</li>
+<li><strong>デモ・ペア操作への切り替え</strong>：受講者環境で操作が再現できない場合は、同じ操作を講師の実機デモまたはペア操作で示します。受講者が画面を見ただけの項目は「デモ確認」と記録し、受講者本人の実施とは区別してください。</li>
 <li><strong>CLI 緊急対応の限定的適用</strong>：受講者の作業を保全し、実装を前へ進める必要がある場合に限り、<a href="emergency-cli.html">講師専用 CLI 手順</a> を使用します。時間が経過したという理由だけで安易に CLI へ切り替えてはなりません。また、CLI で実装を完了させても、App の操作体験は「未完了」として記録します。</li>
 </ol>
 <h3>「機能体験」の厳格な判定基準</h3>

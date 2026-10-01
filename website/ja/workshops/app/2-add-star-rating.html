@@ -38,20 +38,24 @@
 <p>Tailspin Toys の各ゲームには星評価のデータが保持されており、ゲーム詳細ページにはすでに表示されています。一方、ホームページの一覧カードにはタイトル、カテゴリー、パブリッシャー、説明文のみが表示されており、星評価は含まれていません。</p>
 <p>そこで、最初のエージェントセッションの準備運動として、ホームページの各カードにも既存の星評価を表示するようエージェントに依頼します。対象が絞られており自己完結しているため、エージェントとの最初の共同作業として最適な課題です。</p>
 <h2 id="セッションの構造">セッションの構造</h2>
-<p><strong>セッション</strong>とは、特定のプロジェクトを対象としてエージェントと対話を行う作業空間です。セッションはリポジトリごとにサイドバーに一覧表示されます。</p>
-<p>ただし、エージェントが作業を行うディレクトリ環境については、プロジェクトの追加方法やセッションの設定に応じた確認が不可欠です。2026年9月13日の Windows App 1.1.20 実機検証では、<strong>Open folder</strong> で追加したプロジェクトの読み取りセッションは既存の checkout を直接使用しており、専用の worktree は作成されませんでした。すべてのセッションが自動的に独立した環境に分離されるとは見なさず、コードの編集を開始する前に作業ディレクトリと現在のブランチを必ず確認してください。また、同一の checkout を共有する複数セッションで同時に編集を行わないように注意が必要です。</p>
-<p>各セッションの画面内は、主に次の3つの要素で構成されています。</p>
-<ol>
-<li><strong>会話（Chat）</strong>：エージェントに対する指示や対話のログ</li>
-<li><strong>ツールアクティビティ（Tool Activity）</strong>：ファイルの調査や編集時にエージェントが実行した操作の履歴</li>
-<li><strong>変更済みファイル（Changes）</strong>：差分（diff）付きで確認できる変更ファイルの一覧</li>
-</ol>
+<p><strong>セッション</strong>とは、特定のプロジェクトを対象としてエージェントと対話を行う作業空間です。サイドバーのプロジェクト一覧から起動できます。</p>
+<blockquote>
+<p><strong>注意</strong>
+<strong>作業ディレクトリとブランチの確認</strong>：
+すべてのセッションが自動的に独立環境へ分離されるとは限りません。2026年9月13日の Windows App 1.1.20 実機検証では、<strong>Open folder</strong> で追加したプロジェクトの読み取りセッションは既存の checkout を直接参照し、専用の worktree は作成されませんでした。
+- コード編集を始める前に、作業ディレクトリと現在のブランチを必ず確認する
+- 同一の checkout を共有する複数セッションで同時に編集を行わない</p>
+</blockquote>
+<p>各セッションの画面は、主に次の 3 つの要素で構成されています。
+1. <strong>会話（Chat）</strong>：エージェントに対する指示や対話のログ
+2. <strong>ツールアクティビティ（Tool Activity）</strong>：ファイルの調査や編集時にエージェントが実行した操作履歴
+3. <strong>変更済みファイル（Changes）</strong>：差分（diff）付きで確認できる変更ファイル一覧</p>
 <h2 id="セッションを開始して変更を依頼する">セッションを開始して変更を依頼する</h2>
-<p>新しいセッションを開始し、プロジェクトの調査と機能の実装を進めましょう。<a href="1-install-copilot-app.html#github-copilot-app-をインストールして構成する">前のレッスン</a>で GitHub リポジトリから追加した演習用プロジェクトを選択し、変更を依頼します。</p>
+<p>新しいセッションを開始し、プロジェクトの調査と機能の実装を進めましょう。<a href="1-install-copilot-app.html#github-copilot-app-をインストールして構成する">前のレッスン</a> で GitHub リポジトリから追加した演習用プロジェクトを選択し、変更を依頼します。</p>
 <ol>
-<li>GitHub Copilot app を開きます（すでに開いている場合はそのまま進めます）。</li>
-<li>サイドバーの <strong>Projects</strong> で、演習用プロジェクトの横にある <strong>+</strong>（New session in …）を選択します（Windows App 1.1.20 でこの操作導線を確認済みです）。</li>
-<li><strong>New</strong> 画面の入力欄下部に、自分の演習用プロジェクト名が表示されていることを確認します（表示される名前自体は各自のリポジトリ名で構いません）。</li>
+<li>GitHub Copilot app を開きます（起動済みの場合はそのまま進めます）。</li>
+<li>サイドバーの <strong>Projects</strong> で、演習用プロジェクトの横にある <strong><code>+</code></strong>（New session in …）を選択します（Windows App 1.1.20 でこの操作導線を確認済みです）。</li>
+<li><strong>New</strong> 画面の入力欄下部に、自分の演習用プロジェクト名が表示されていることを確認します（各自のリポジトリ名が表示されていれば問題ありません）。</li>
 </ol>
 <p><img alt="App の New 画面全体。入力欄と下部のプロジェクト、New worktree、main" src="../assets/app-1.1.20-20260913-new-session.png" /><br><em class="source">実機撮影：2026-09-13、Windows、GitHub Copilot App 1.1.20。撮影範囲全体を掲載（切り抜きなし）。灰色の箇所はアカウント・検証用リポジトリ・ローカルパス等の識別情報や個人の利用量をマスク。New 画面。入力欄とモデル・リポジトリ・New worktree・main の位置。送信前。</em></p>
 <ol start="4">
@@ -60,20 +64,20 @@
 <pre class="highlight"><code class="language-plaintext">ゲームカードに各ゲームの星評価を表示してください。Game 型には starRating があり、5点満点の数値、または未評価を示す null が入ります。src/components/GameCard.astro の各カードに表示し、null の場合は「No rating yet」と表示してください。変更は小さく保ち、カードの構造は組み替えないでください。</code></pre>
 <blockquote>
 <p><strong>補足</strong>
-プロンプト内で、更新対象となるファイル名（<code>src/components/GameCard.astro</code>）をあらかじめ指定している点に注目してください。作業対象のファイルを必ず指定しなければならないわけではありませんが、エージェントにあらかじめ方向性を示すことで、意図通りのコードをすばやく生成させ、トークン消費量を抑えることができます。</p>
+プロンプト内で更新対象ファイル（<code>src/components/GameCard.astro</code>）を指定している点に注目してください。ファイルの指定は必須ではありませんが、あらかじめ方向性を示すことで、エージェントが意図通りのコードをすばやく生成し、トークン消費量も削減できます。</p>
 </blockquote>
 <ol start="5">
 <li><kbd>Enter</kbd> キーを押して、プロンプトを送信します。</li>
 </ol>
-<p>Copilot app がセッションを開始したら、実際の作業場所とブランチを確認します。既存の checkout を直接使用している場合は、今回の変更用ブランチ上にあることを確認してください。エージェントはコードベースを調査し、星評価の表示に必要な修正を加えます。なお、エージェントの完了報告テキストだけを鵜呑みにせず、必ず次の手順で実際の差分とテスト結果を自ら確認することが重要です。</p>
+<p>セッション開始後、エージェントがコードベースを調査し、星評価の表示に必要な修正を加えます。なお、エージェントの完了報告テキストだけを鵜呑みにせず、必ず次の手順で実際の差分とテスト結果を自ら確認しましょう。</p>
 <h2 id="差分をレビューする">差分をレビューする</h2>
 <p>AI が生成した変更は、どれほど小さく見えても、マージ前に人間の目でレビューする必要があります。Copilot app の機能を使って差分を確認しましょう。</p>
 <ol>
-<li>会話入力欄の上部にある <strong>Changes</strong>（Open changes）を選択します。Windows App 1.1.20 では右側のパネルに <strong>Changes</strong> が開き、変更されたファイル数とコード差分が表示されます（パネル自体の開閉は右上の <strong>Toggle panel</strong> で切り替えられます）。</li>
+<li>会話入力欄の上部にある <strong>Changes</strong>（Open changes）を選択します。Windows App 1.1.20 では右側のパネルに <strong>Changes</strong> が開き、変更されたファイル数とコード差分が表示されます（パネルの開閉は右上の <strong>Toggle panel</strong> で切り替えられます）。</li>
 </ol>
 <p><img alt="会話欄の Changes と右側の差分パネル" src="../assets/app-1.1.20-20260913-changes.png" /><br><em class="source">実機撮影：2026-09-13、Windows、GitHub Copilot App 1.1.20。撮影範囲全体を掲載（切り抜きなし）。灰色の箇所はアカウント・検証用リポジトリ・ローカルパス等の識別情報や個人の利用量をマスク。会話欄の Changes と右側の差分パネル。表示コードは追加検証の検索機能で、各章の変更内容とは異なる。</em></p>
 <ol start="2">
-<li>ゲームカードの描画を担う主要ファイル <code>src/components/GameCard.astro</code> にコードが追加されていることを確認します。通常は次のように、評価が存在する場合は数値を表示し、<code>starRating</code> が <code>null</code> の場合は "No rating yet" を表示する小さなブロックが追加されます。</li>
+<li>ゲームカードの描画を担う主要ファイル <code>src/components/GameCard.astro</code> にコードが追加されていることを確認します。通常は次のように、評価がある場合は数値を表示し、<code>starRating</code> が <code>null</code> の場合は "No rating yet" を表示する小さなブロックが追加されます。</li>
 </ol>
 <pre class="highlight"><code class="language-astro">{game.starRating !== null ? (
     &lt;span class="text-xs font-medium px-2.5 py-0.5 rounded bg-amber-900/60 text-amber-300" data-testid="game-rating"&gt;
@@ -86,59 +90,68 @@
 )}</code></pre>
 <blockquote>
 <p><strong>補足</strong>
-すべての生成 AI ツールと同様に、Copilot の出力は決定論的ではなく確率的に変動するため、実際に生成されるコードの記述は上記と完全に一致しない場合があります。ただし、ロジック自体は概ね同等のものになります。</p>
+すべての生成 AI ツールと同様に、Copilot の出力は確率的に変動するため、生成されるコードの細部は上記と完全に一致しない場合があります。ただし、全体のロジックは同等のものになります。</p>
 </blockquote>
 <h2 id="変更を確認する">変更を確認する</h2>
 <p>生成されたコードを目視で確認するだけでなく、App の Run メニューから開発サーバーを起動し、ブラウザー上で実際の表示を確認します。</p>
 <blockquote>
-<p><strong>確認済みの起動経路（Windows App 1.1.20）：</strong> <code>.github/github-app.yml</code> が適用されたセッションの Run メニューを使用します。メニューに実行項目が表示されない場合は、演習用コピーの設定内容と適用状態を講師と一緒に確認してください。</p>
+<p><strong>補足</strong>
+<strong>確認済みの起動経路（Windows App 1.1.20）：</strong>
+<code>.github/github-app.yml</code> が適用されたセッションの Run メニューを使用します。メニューに実行項目が表示されない場合は、演習用コピーの設定内容と適用状態を講師と一緒に確認してください。</p>
 </blockquote>
 <p><img alt="Copilot App の検証報告と Browser パネルに表示された星評価付きゲームカード" src="../assets/app-1.1.20-20260913-star-rating.jpg" /><br><em class="source">実機撮影：2026-09-13、Windows、GitHub Copilot App 1.1.20。ローカルプロジェクトの星評価実装・検証報告と Browser パネルの表示。サーバー停止後の表示を保持した画面。PR・マージ前。</em></p>
-<p>2026年9月13日の実機検証における実装では、既存コンポーネントである <code>StarRating</code> をカード側から再利用し、<code>null</code> の場合のみカード内で <code>No rating yet</code> を表示する構成としました。カードの実レンダリングを検証するテストにおいて <code>4.2</code>、<code>0</code>、<code>null</code> の各境界値とリンク構造を検証し、単体テスト30件、E2Eテスト21件、lint、型検査のすべてが成功することを確認しています。また、ブラウザー上でも既存データの一覧が正しく表示されることを確認しました。さらにアクセシビリティ対応として、評価には <code>Rating: X out of 5 stars</code> という読み上げラベル（アクセシブルネーム）も付与しています。</p>
-<p>なお、検証用 PR #9 の作成にあたっては、App のエージェントが <code>gh</code> コマンドを経由して作成を行い、CI の全4ジョブが正常に通過しました。当時、App 組み込みの PR 作成ツールはアカウント連携エラーで失敗したため、本検証では後述する UI 上の Create PR 経路の成功例としては計上していません。その後、App 内の「My work」→「PR #9」→「Ready to merge」→「Merge pull request」を通じて通常マージの成功を確認し、次章で作成する新規 worktree へ星評価の変更が正常に継承されたことを確かめています。詳細な経緯は <a href="../material/verification.html">実走記録</a> を参照してください。</p>
+<p>2026年9月13日の実機検証では、次の内容を確認しています。
+- <strong>実装内容</strong>：既存の <code>StarRating</code> コンポーネントを再利用し、<code>null</code> の場合のみ <code>No rating yet</code> を表示。アクセシビリティ対応として <code>Rating: X out of 5 stars</code> の読み上げラベル（アクセシブルネーム）を付与。
+- <strong>テスト検証</strong>：境界値（<code>4.2</code>、<code>0</code>、<code>null</code>）とリンク構造をテストし、単体テスト 30 件、E2E テスト 21 件、lint、型検査のすべてがパス。
+- <strong>PR 作成とマージ</strong>：検証用 PR #9 では、エージェントが <code>gh</code> コマンド経由で作成し、CI の全 4 ジョブが通過。その後、App 内の「My work」→「PR #9」→「Ready to merge」→「Merge pull request」を通じて通常マージが完了し、次章の新規 worktree へ星評価の変更が正常に引き継がれました（※当時 App 組み込みの PR 作成ツールはアカウント連携エラーとなったため、UI の Create PR 経路の成功例としては計上していません。詳細は <a href="../material/verification.html">実走記録</a> を参照）。</p>
 <h3 id="開発サーバーの起動と停止手順">開発サーバーの起動と停止手順</h3>
 <ol>
-<li>セッション上部の <strong>Run options</strong> から <strong>Run development site</strong> を選択します。ボタンの表示が <strong>Run Run development site</strong> になっている場合は、それをクリックして起動します。すでに <strong>Stop Run development site</strong> と表示されている場合は稼働中ですので、再クリックせずそのまま次の手順へ進んでください。</li>
+<li>セッション上部の <strong>Run options</strong> から <strong>Run development site</strong> を選択します。
+   - ボタンが <strong>Run Run development site</strong> と表示されている場合は、クリックして起動します。
+   - すでに <strong>Stop Run development site</strong> と表示されている場合は稼働中ですので、そのまま次の手順へ進んでください。</li>
 </ol>
 <p><img alt="App 上部の Run メニューと会話・Files パネル全体" src="../assets/app-1.1.20-20260913-run-menu.png" /><br><em class="source">実機撮影：2026-09-13、Windows、GitHub Copilot App 1.1.20。撮影範囲全体を掲載（切り抜きなし）。灰色の箇所はアカウント・検証用リポジトリ・ローカルパス等の識別情報や個人の利用量をマスク。Run メニューの Run development site・Build static site・Type-check application。選択後に Run ボタンで起動する。検索機能 PR 作成後の操作例。</em></p>
 <ol start="2">
-<li>サーバーが起動したら、<strong>Browser</strong> パネルに表示されるローカル URL を確認します（実走環境では <code>http://localhost:4321/</code> が自動的に表示されました）。</li>
-<li>トップページの各ゲームカードに、期待通り星評価が表示されていることを確認します（未評価データの表示処理についてもテスト結果と合わせて確認してください）。</li>
-<li>確認が完了したら、セッション上部の <strong>Stop Run development site</strong> を選択してサーバーを停止します。なお、サーバー停止後も Browser パネルに直前の画面描画がそのまま残る場合がありますが、画面が残っていること自体をサーバー稼働の証拠とは見なさないよう注意してください。</li>
+<li>サーバーが起動したら、<strong>Browser</strong> パネルに表示されるローカル URL を確認します（実走環境では <code>http://localhost:4321/</code> が自動表示されました）。</li>
+<li>トップページの各ゲームカードに、星評価が正しく表示されていることを確認します（未評価データの表示も確認してください）。</li>
+<li>確認後、セッション上部の <strong>Stop Run development site</strong> を選択してサーバーを停止します。
+   （※停止後も Browser パネルに直前の画面が残る場合がありますが、残像を稼働中の証拠と見なさないよう注意してください）</li>
 </ol>
 <blockquote>
 <p><strong>ヒント</strong>
-App 内で組み込みターミナルを開く場合は、<strong>Toggle panel</strong> → <strong>+</strong>（Add tab）→ <strong>Terminal</strong> からアクセスできます（この UI 導線の存在は実機で確認済みです。ただし、ターミナルから直接コマンド入力してサーバーを起動する手順は、本章の公式実走手順には含めていません）。</p>
+App 内で組み込みターミナルを開く場合は、<strong>Toggle panel</strong> → <strong><code>+</code></strong>（Add tab）→ <strong>Terminal</strong> からアクセスできます（この導線は実機確認済みです。ただし、ターミナルから直接コマンド入力してサーバーを起動する手順は、本章の標準実走手順には含めていません）。</p>
 </blockquote>
 <h2 id="最初の-pull-request-を作成してマージする">最初の pull request を作成してマージする</h2>
-<p>変更内容と動作確認に問題がないことが確認できたので、コードをリポジトリへ反映（リリース）します。エージェントに pull request の作成を依頼し、自身でレビューを行ったうえでマージを実施します。本章では手動でマージ管理を行いますが、後続のレッスンでは Copilot を用いてこれらの工程を自律的に処理させる方法も扱います。</p>
+<p>動作確認が完了したので、コードをリポジトリへ反映します。エージェントに pull request の作成を依頼し、自身でレビューを行ったうえでマージを実施します。本章では手動マージを行いますが、後続レッスンでは自律処理させる方法も体験します。</p>
 <blockquote>
-<p><strong>実機で確認した PR 経路（Windows App 1.1.20）：</strong> GitHub 連携セッションにおいては、次章で作成する PR #10 において <strong>Create PR</strong> ボタンによる作成が成功しました。作成後は <strong>My work</strong> → 対象 PR → <strong>Changes</strong> から差分を表示でき、<strong>Ready to merge</strong> 画面で CI チェック結果、未解決コメントの有無、<strong>Merge pull request</strong> ボタン、およびマージ方法の選択肢を確認できます。ただし、本章の星評価をローカルフォルダー経由で作業した際は App 組み込みの PR 作成が失敗したため、接続形態の違いに応じた挙動の差に留意してください。</p>
+<p><strong>補足</strong>
+<strong>実機で確認した PR 経路（Windows App 1.1.20）：</strong>
+GitHub 連携セッションでは、次章の PR #10 において <strong>Create PR</strong> ボタンによる作成が成功しました。作成後は <strong>My work</strong> → 対象 PR → <strong>Changes</strong> から差分を確認でき、<strong>Ready to merge</strong> 画面で CI チェック結果、未解決コメント、マージ方法の選択肢を確認できます。なお、ローカルフォルダー経由（Open folder）では組み込み PR 作成が失敗したため、接続形態の違いによる挙動差にご留意ください。</p>
 </blockquote>
 <ol>
 <li>画面右上にある <strong>Create PR</strong> を選択します。</li>
-<li>ブラウザー認証を求められた場合は、<strong>Sign in with your browser</strong> を選択し、画面の指示に従って GitHub アカウントで認証します。</li>
+<li>ブラウザー認証を求められた場合は、<strong>Sign in with your browser</strong> を選択し、画面の指示に従って認証します。</li>
 <li>Copilot が pull request の作成処理を開始します。</li>
-<li>PR が作成されると、Copilot はリポジトリ上でトリガーされた CI ワークフローの実行状態を監視します。ジョブが正常に完了すると、右上のボタンが <strong>Ready to merge</strong> へ変化します。これは PR のマージ準備が整ったことを示しています。</li>
-<li>チャット欄のすぐ上にある <strong>PR</strong> バブルを選択すると、レビューペインで対象の pull request が開きます。必要に応じてここで最終レビューを行います。</li>
+<li>PR 作成後、Copilot はリポジトリ上の CI ワークフローを監視します。ジョブが正常に完了すると、右上のボタンが <strong>Ready to merge</strong> に変化します。</li>
+<li>チャット欄のすぐ上にある <strong>PR</strong> バブルを選択し、レビューペインで pull request の内容を最終確認します。</li>
 <li>確認後、<strong>Ready to merge</strong> を選択します。</li>
-<li>表示されたダイアログウィンドウで <strong>Merge pull request</strong> を選択し、pull request を main ブランチへマージします。</li>
+<li>ダイアログウィンドウで <strong>Merge pull request</strong> を選択し、main ブランチへマージします。</li>
 </ol>
 <p>これで、最初の機能追加が Web サイトへ正常に反映されました。</p>
 <p><a id="cli-fallback"></a></p>
 <blockquote>
-<p><strong>講師向け：</strong> 参加者の環境でトラブルが生じ、緊急に作業を保全する必要がある場合のみ <a href="../material/emergency-cli.html#chapter-2">対応手順</a> を参照してください。なお、CLI 側で実装が完了しても、本章における App 操作の完了とは見なしません。</p>
+<p><strong>注意</strong>
+<strong>講師向け緊急対応</strong>：
+参加者の環境でトラブルが生じ、緊急に作業を保全する必要がある場合のみ <a href="../material/emergency-cli.html#chapter-2">講師専用 CLI 対応手順</a> を参照してください。なお、CLI 側で実装が完了しても、本章における App 操作の完了実績とは見なしません。</p>
 </blockquote>
 <h2 id="まとめと次のステップ">まとめと次のステップ</h2>
-<p>最初のエージェントセッションを開始し、最初の変更を無事にリリースできました。本章で実施した主な内容は次の通りです。</p>
-<ul>
-<li>エージェントセッションを開始し、その画面構成と作業ディレクトリの扱いを理解した</li>
-<li>ゲームカードに小規模で対象を絞った変更を加えるようエージェントへ指示した</li>
-<li>ワークスペースの差分ビュー（Changes）でコードの変更内容をレビューした</li>
-<li>アプリをローカル開発サーバーで起動し、ブラウザー上で星評価の表示を確認した</li>
-<li>pull request を作成し、CI 完了を確認したうえで手動マージを行った</li>
-</ul>
-<p>次は、エージェントの一貫したコーディング品質を保つため、リポジトリにカスタム指示（Custom Instructions）の標準ルールを追加します。バックログにある Issue を起点として作業を進めましょう。<a href="3-custom-instructions.html">レッスン 3「カスタム指示による Copilot のガイド」</a> へ進んでください。</p>
+<p>最初のエージェントセッションを開始し、最初の変更を無事にリリースできました。
+- エージェントセッションを開始し、画面構成と作業ディレクトリの扱いを理解した
+- ゲームカードに小規模で対象を絞った変更を加えるようエージェントへ指示した
+- 差分ビュー（Changes）でコードの変更内容をレビューした
+- アプリをローカル開発サーバーで起動し、ブラウザー上で星評価の表示を確認した
+- pull request を作成し、CI 完了を確認したうえで手動マージを行った</p>
+<p>次は、エージェントの一貫したコーディング品質を保つため、リポジトリにカスタム指示（Custom Instructions）の標準ルールを追加します。バックログの Issue を起点として進めましょう。<a href="3-custom-instructions.html">レッスン 3「カスタム指示による Copilot のガイド」</a> へ進んでください。</p>
 <h2 id="リソース">リソース</h2>
 <ul>
 <li><a href="https://docs.github.com/copilot/how-tos/github-copilot-app/agent-sessions">GitHub Copilot app でのエージェントセッションの操作</a></li>

@@ -61,14 +61,17 @@
 <li>リポジトリ上の全 CI プロセス（テスト、lint、ビルド等）が正常に完了すると、Copilot が pull request を自動的にマージします。</li>
 </ol>
 <h3 id="実機検証における確認記録と注意点">実機検証における確認記録と注意点</h3>
-<p>2026年9月13日の実走検証では、手順5の実行によって <strong>PR #12</strong> が自動起票されました。<br />
-手順6のドロップダウンメニューを確認したところ、初期状態では「Address reviews」「Fix CI failures」「Resolve conflicts」の3項目は有効化されていましたが、<strong>「Merge pull request」は無効（チェックなし）</strong>になっていました。<br />
-そこで手動で「Merge pull request」にチェックを入れたところ、CI の全4ジョブが正常通過した直後に自動マージが実行され、App セッション画面および GitHub の Web 画面の双方でステータスが <strong>Merged</strong> に更新されたことを確認しました。</p>
+<p>2026年9月13日の実走検証では、次の挙動を確認しました。
+- <strong>PR の自動起票</strong>：手順 5 の実行によって <strong>PR #12</strong> が自動起票されました。
+- <strong>マージ権限の設定</strong>：手順 6 のドロップダウンメニューを確認したところ、初期状態では「Address reviews」「Fix CI failures」「Resolve conflicts」の 3 項目は有効化されていましたが、<strong>「Merge pull request」は無効（チェックなし）</strong>になっていました。
+- <strong>自動マージの成功</strong>：手動で「Merge pull request」にチェックを入れたところ、CI の全 4 ジョブが正常通過した直後に自動マージが実行され、App セッション画面および GitHub の Web 画面の双方でステータスが <strong>Merged</strong> に更新されました。
+- <strong>未検証範囲</strong>：本実走では CI が一発で成功し競合も発生しなかったため、<strong>CI 失敗時の自動修正やコンフリクト解消の自律挙動については実機未検証</strong>です。</p>
 <p>次章へ進む前に、新しく作成する worktree にこのフィルター機能のマージ結果が正しく継承されていることを確認してください。</p>
-<p>なお、本実走では CI が一発で成功し競合も発生しなかったため、<strong>CI 失敗時の自動修正やコンフリクト解消の自律挙動については実機未検証</strong>です。</p>
 <p><a id="cli-fallback"></a></p>
 <blockquote>
-<p><strong>講師向け：</strong> 参加者の環境でトラブルが生じ、緊急に作業を保全する必要がある場合のみ <a href="../material/emergency-cli.html#chapter-6">対応手順</a> を参照してください。なお、CLI 側で実装が完了しても、本章における App 操作の完了とは見なしません。</p>
+<p><strong>注意</strong>
+<strong>講師向け緊急対応</strong>：
+参加者の環境でトラブルが生じ、緊急に作業を保全する必要がある場合のみ <a href="../material/emergency-cli.html#chapter-6">講師専用 CLI 対応手順</a> を参照してください。なお、CLI 側で実装が完了しても、本章における App 操作の完了実績とは見なしません。</p>
 </blockquote>
 <h2 id="まとめと次のステップ">まとめと次のステップ</h2>
 <p>コードの実装、品質検証、ブラウザー操作、そしてリリースに至る開発ライフサイクルの大部分を自動化しました。本章で実施した主な内容は次の通りです。</p>
