@@ -8,37 +8,45 @@
 <button class="theme-toggle" type="button" onclick="toggleTheme()">☀️ ライト</button></header>
 <main id="lesson"><h1>レッスン 0 - 前提条件</h1><p class="source">非公式の日本語版 · <a href="https://github.com/github-samples/copilot-workshops/blob/7ddcf241c1cd10b8e90c0df96f6bef81e710392a/docs/ja-jp/app/0-prerequisites.md">参照原文</a> · <a href="../licenses/copilot-workshops.txt">MIT ライセンス</a></p><aside>利用条件は <a href="../../handson-guide.html#plans">受講準備</a>を参照してください。</aside><nav class="chapter-nav" aria-label="章の移動"><a href="index.html">← 前の章：GitHub Copilot app</a><a href="1-install-copilot-app.html">次の章 →：レッスン 1 - GitHub Copilot app のインストール</a></nav><details><summary>この章の目次</summary><div class="toc">
 <ul>
-<li><a href="#1-nodejs-のインストールとバージョン確認">1. Node.js のインストールとバージョン確認</a><ul>
-<li><a href="#必要なバージョン">必要なバージョン</a></li>
-<li><a href="#確認とインストール手順">確認とインストール手順</a></li>
+<li><a href="#01-nodejs-のインストールとバージョン確認">0.1 Node.js のインストールとバージョン確認</a><ul>
+<li><a href="#011-確認とインストール手順">0.1.1 確認とインストール手順</a></li>
+<li><a href="#012-インストールが必要な場合">0.1.2 インストールが必要な場合</a></li>
 </ul>
 </li>
-<li><a href="#2-演習用リポジトリの作成">2. 演習用リポジトリの作成</a><ul>
-<li><a href="#使用するテンプレート">使用するテンプレート</a></li>
-<li><a href="#github-web-での作成手順">GitHub Web での作成手順</a></li>
+<li><a href="#02-演習用リポジトリの作成">0.2 演習用リポジトリの作成</a><ul>
+<li><a href="#021-使用するテンプレート">0.2.1 使用するテンプレート</a></li>
+<li><a href="#022-github-web-での作成手順">0.2.2 GitHub Web での作成手順</a></li>
 </ul>
 </li>
-<li><a href="#まとめと次のステップ">まとめと次のステップ</a></li>
-<li><a href="#リソース">リソース</a></li>
+<li><a href="#03-完了の確認">0.3 完了の確認</a></li>
+<li><a href="#04-補足">0.4 補足</a><ul>
+<li><a href="#041-この教材で体験する開発の流れ">0.4.1 この教材で体験する開発の流れ</a></li>
+<li><a href="#042-nodejsと実行環境">0.4.2 Node.jsと実行環境</a></li>
+<li><a href="#043-各自の演習用コピーを使う理由">0.4.3 各自の演習用コピーを使う理由</a></li>
+<li><a href="#044-振り返り">0.4.4 振り返り</a></li>
+</ul>
+</li>
+<li><a href="#05-次のステップ">0.5 次のステップ</a></li>
+<li><a href="#06-リソース">0.6 リソース</a></li>
 </ul>
 </div>
 </details><article><blockquote>
 <p><strong>この章の進め方</strong>
 Node.jsと各自の演習用リポジトリを準備します。GitHub Webでテンプレートからコピーを作り、次章でCopilot Appに接続します。</p>
 </blockquote>
-<p>GitHub Copilot appは、Copilotのエージェント機能とGitHubのリポジトリ管理を一元的に扱うデスクトップアプリケーションです。IssueやPull Requestに素早くアクセスでき、自律的なエージェントを活用した開発が可能です。
-機能の全体像は<a href="https://docs.github.com/en/copilot/concepts/agents/github-copilot-app">GitHub公式のCopilot appの説明</a>で確認できます。この教材では、受講者が変更の目的を伝え、エージェントの調査・実装・テストを確認し、レビューして取り込む流れを学びます。
-本ワークショップでは、Astro で構築された EC アプリ「Tailspin Toys」と GitHub Copilot app を組み合わせ、ローカル環境で開発を進めます。アプリをインストールする前に、前提環境として必要な Node.js をローカルに導入し、演習用リポジトリを用意します。</p>
+<p>操作の背景や考え方は、章末の<a href="#補足">補足</a>にまとめています。</p>
+<p>本ワークショップでは、Astro で構築された EC アプリ「Tailspin Toys」と GitHub Copilot app を組み合わせ、ローカル環境で開発を進めます。アプリをインストールする前に、前提環境として必要な Node.js をローカルに導入し、演習用リポジトリを用意します。</p>
 <p>本レッスンでの到達目標は次の 2 点です。</p>
 <ul>
 <li><strong>Node.js の導入</strong>：ローカル環境でプロジェクトのビルドとテストを実行できる適切なバージョンを用意する</li>
 <li><strong>演習用コピーの作成</strong>：修正済みテンプレートから Tailspin Toys リポジトリを作成し、初期バックログを準備する</li>
 </ul>
-<h2 id="1-nodejs-のインストールとバージョン確認">1. Node.js のインストールとバージョン確認</h2>
-<p>本ワークショップでは、エージェントが実装した機能を検証するために、ローカル環境でTailspin Toysのテストスイートを実行します。Vitestによる単体テストとPlaywrightによるE2Eテストを動かすため、ローカルPCに<a href="https://nodejs.org/">Node.js</a>が必要です。</p>
-<h3 id="必要なバージョン">必要なバージョン</h3>
+<p><a id="nodejs-のインストールとバージョン確認"></a></p>
+<h2 id="01-nodejs-のインストールとバージョン確認">0.1 Node.js のインストールとバージョン確認</h2>
 <p>本教材では、<strong>Node.js 24系のLTS版（24.19.0以降）</strong>を使用します。すでにこの条件を満たしていれば、再インストールは不要です。</p>
-<h3 id="確認とインストール手順">確認とインストール手順</h3>
+<p>次の手順で確認できるのは、現在開いているターミナルで動作するNode.jsのバージョンです。Appの実装セッションでも、エージェントが使うNode.jsが要件を満たすか確認します。確認方法は、<a href="2-add-star-rating.html#実装前の環境確認">レッスン2の実装前の環境確認</a>で説明します。</p>
+<p><a id="確認とインストール手順"></a></p>
+<h3 id="011-確認とインストール手順">0.1.1 確認とインストール手順</h3>
 <p>Node.jsを新しく導入する場合は、公式サイトのインストーラーを利用できます。すでにnvmなどでバージョンを管理している場合は、その管理方法に合わせて切り替えてください。</p>
 <ol>
 <li>ターミナル（Windows Terminal、macOS Terminal、または普段利用しているシェル）を開きます。</li>
@@ -47,14 +55,13 @@ Node.jsと各自の演習用リポジトリを準備します。GitHub Webでテ
 <pre class="highlight"><code class="language-shell">node --version</code></pre>
 </li>
 <li>
-<p>出力されたバージョンがNode.js 24系の24.19.0以降であれば、セクション2へ進みます。</p>
+<p>出力されたバージョンがNode.js 24系の24.19.0以降であれば、<a href="#演習用リポジトリの作成">演習用リポジトリの作成</a>へ進みます。</p>
 </li>
 </ol>
-<blockquote>
-<p><strong>ヒント</strong>
-Node.js が未導入、またはバージョンが適合しない場合のみ、以下のステップ 4〜9 を実行してください。</p>
-</blockquote>
-<ol start="4">
+<p><a id="インストールが必要な場合"></a></p>
+<h3 id="012-インストールが必要な場合">0.1.2 インストールが必要な場合</h3>
+<p>Node.jsが未導入、またはバージョンが適合しない場合のみ、次の手順を実行してください。</p>
+<ol>
 <li><a href="https://nodejs.org/en/download">Node.js のダウンロードページ</a> を開きます。</li>
 <li>使用しているOSに合わせて、<strong>Node.js 24系のLTS版（24.19.0以降）</strong>をダウンロードします。</li>
 <li>インストーラーを起動し、既定の設定でインストールを進めます（Windows の場合は <strong>Add to PATH</strong> が有効になっていることを確認してください）。</li>
@@ -67,22 +74,19 @@ Node.js が未導入、またはバージョンが適合しない場合のみ、
 <p>要求バージョンが正しく表示されることを確認します（※すでに Copilot App を起動していた場合は一度完全に終了して再起動し、新しい環境変数が確実に反映されるようにしてください）。</p>
 </li>
 </ol>
-<p>このコマンドで確認できるのは、現在開いているターミナルで動作するNode.jsのバージョンです。Appの実装セッションでも、エージェントが使うNode.jsが要件を満たすか確認します。確認方法は、<a href="2-add-star-rating.html#実装前の環境確認">レッスン2の実装前の環境確認</a>で説明します。</p>
-<blockquote>
-<p><strong>ヒント</strong>
-本章ではローカルに導入したNode.jsを使います。テンプレートには<a href="https://code.visualstudio.com/docs/devcontainers/containers">dev container</a>の設定も含まれていますが、<a href="https://www.docker.com/products/docker-desktop/">Docker Desktop</a>などで別の環境を使う場合は、講師の案内に従ってください。</p>
-</blockquote>
-<h2 id="2-演習用リポジトリの作成">2. 演習用リポジトリの作成</h2>
+<p><a id="演習用リポジトリの作成"></a></p>
+<h2 id="02-演習用リポジトリの作成">0.2 演習用リポジトリの作成</h2>
 <p>Tailspin Toys プロジェクトの演習用コピーを、受講者各自の GitHub アカウント上に作成します。<a href="https://github.com/iwizsophy/dev-days-tailspin-template">教材用の修正済み Tailspin Toys テンプレート</a> を開き、<a href="https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template">テンプレートからのコピー作成手順</a> に沿って進めます。</p>
-<p>後の演習でIssueの作成やコードの変更、マージを自分で行えるように、テンプレートから各自の演習用リポジトリを作成します。</p>
-<h3 id="使用するテンプレート">使用するテンプレート</h3>
+<p><a id="使用するテンプレート"></a></p>
+<h3 id="021-使用するテンプレート">0.2.1 使用するテンプレート</h3>
 <ul>
 <li><strong>取得先リポジトリ</strong>：<code>iwizsophy/dev-days-tailspin-template</code></li>
 <li><strong>使用するバージョン</strong>：<a href="https://github.com/iwizsophy/dev-days-tailspin-template/releases/tag/v2026.10.03">v2026.10.03</a></li>
 <li><strong>初期状態</strong>：星評価やフィルター機能などの演習解答コードは含まれていません。</li>
 <li><strong>リポジトリの区別</strong>：教材自体のリポジトリ（<code>dev-days-jp</code>）と、コードを変更する演習用コピー（Tailspin Toys）を混同しないようご注意ください。</li>
 </ul>
-<h3 id="github-web-での作成手順">GitHub Web での作成手順</h3>
+<p><a id="github-web-での作成手順"></a></p>
+<h3 id="022-github-web-での作成手順">0.2.2 GitHub Web での作成手順</h3>
 <blockquote>
 <p><strong>補足</strong>
 以下の画像2点は、テンプレート取得先の変更前の操作例です。画像内のリポジトリ名ではなく、本文に記載された <strong><code>iwizsophy/dev-days-tailspin-template</code></strong> を選択してください。</p>
@@ -114,15 +118,38 @@ Node.js が未導入、またはバージョンが適合しない場合のみ、
 <p><strong>補足</strong>
 コピー先リポジトリの作成後、GitHub Actions の <strong>Bootstrap template issues</strong> ワークフローが自動実行され、演習で使用する 8 件のバックログ Issue が作成されます。リポジトリの <strong>Issues</strong> タブに課題が表示されない場合は、自身のコピーの <strong>Actions</strong> タブで実行状況を確認し、必要に応じて <strong>Bootstrap template issues → Run workflow</strong> を手動実行してください。</p>
 </blockquote>
-<h2 id="まとめと次のステップ">まとめと次のステップ</h2>
+<p><a id="完了の確認"></a></p>
+<h2 id="03-完了の確認">0.3 完了の確認</h2>
 <p>事前準備が完了しました。</p>
 <ul>
 <li>ローカル環境でプロジェクトをビルド・テストできるよう Node.js を用意した</li>
 <li>テンプレートから Tailspin Toys リポジトリの自分用コピーを作成した</li>
 </ul>
+<p><a id="補足"></a></p>
+<h2 id="04-補足">0.4 補足</h2>
+<p><a id="この教材で体験する開発の流れ"></a></p>
+<h3 id="041-この教材で体験する開発の流れ">0.4.1 この教材で体験する開発の流れ</h3>
+<p>GitHub Copilot appは、Copilotのエージェント機能とGitHubのリポジトリ管理を一元的に扱うデスクトップアプリケーションです。IssueやPull Requestに素早くアクセスでき、自律的なエージェントを活用した開発が可能です。
+機能の全体像は<a href="https://docs.github.com/en/copilot/concepts/agents/github-copilot-app">GitHub公式のCopilot appの説明</a>で確認できます。この教材では、受講者が変更の目的を伝え、エージェントの調査・実装・テストを確認し、レビューして取り込む流れを学びます。
+<a id="nodejsと実行環境"></a></p>
+<h3 id="042-nodejsと実行環境">0.4.2 Node.jsと実行環境</h3>
+<p>本ワークショップでは、エージェントが実装した機能を検証するために、ローカル環境でTailspin Toysのテストスイートを実行します。Vitestによる単体テストとPlaywrightによるE2Eテストを動かすため、ローカルPCに<a href="https://nodejs.org/">Node.js</a>が必要です。</p>
+<blockquote>
+<p><strong>ヒント</strong>
+本章ではローカルに導入したNode.jsを使います。テンプレートには<a href="https://code.visualstudio.com/docs/devcontainers/containers">dev container</a>の設定も含まれていますが、<a href="https://www.docker.com/products/docker-desktop/">Docker Desktop</a>などで別の環境を使う場合は、講師の案内に従ってください。</p>
+</blockquote>
+<p><a id="各自の演習用コピーを使う理由"></a></p>
+<h3 id="043-各自の演習用コピーを使う理由">0.4.3 各自の演習用コピーを使う理由</h3>
+<p>後の演習でIssueの作成やコードの変更、マージを自分で行えるように、テンプレートから各自の演習用リポジトリを作成します。</p>
+<p><a id="振り返り"></a></p>
+<h3 id="044-振り返り">0.4.4 振り返り</h3>
 <p>次へ進む前に、「なぜ各自のコピーが必要か」「Node.jsのバージョンを確認する理由」を自分の言葉で説明してみましょう。コピーのURLと、確認したNode.jsのバージョンを控えておけば、後のトラブル時にも作業環境を照合できます。</p>
+<p><a href="#確認とインストール手順">Node.jsの確認手順に戻る</a></p>
+<p><a id="次のステップ"></a></p>
+<h2 id="05-次のステップ">0.5 次のステップ</h2>
 <p>次は GitHub Copilot app をインストールし、作成したリポジトリを接続してワークスペースの構造を確認します。<a href="1-install-copilot-app.html">レッスン 1「GitHub Copilot app のインストール」</a> に進んでください。</p>
-<h2 id="リソース">リソース</h2>
+<p><a id="リソース"></a></p>
+<h2 id="06-リソース">0.6 リソース</h2>
 <ul>
 <li><a href="https://nodejs.org/en/download">Node.js のダウンロード</a></li>
 <li><a href="https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template">テンプレートからのリポジトリの作成</a></li>

@@ -8,35 +8,34 @@
 <button class="theme-toggle" type="button" onclick="toggleTheme()">☀️ ライト</button></header>
 <main id="lesson"><h1>レッスン 6 - Agent Merge によるマージ</h1><p class="source">非公式の日本語版 · <a href="https://github.com/github-samples/copilot-workshops/blob/7ddcf241c1cd10b8e90c0df96f6bef81e710392a/docs/ja-jp/app/6-agent-merge.md">参照原文</a> · <a href="../licenses/copilot-workshops.txt">MIT ライセンス</a></p><aside>利用条件は <a href="../../handson-guide.html#plans">受講準備</a>を参照してください。</aside><nav class="chapter-nav" aria-label="章の移動"><a href="5-mcp-playwright.html">← 前の章：レッスン 5 - Playwright MCP server によるテスト</a><a href="7-canvases.html">次の章 →：レッスン 7 - キャンバスを使った計画</a></nav><details><summary>この章の目次</summary><div class="toc">
 <ul>
-<li><a href="#シナリオ">シナリオ</a></li>
-<li><a href="#agent-merge-の概要">Agent Merge の概要</a></li>
-<li><a href="#agent-merge-で-pr-を管理する">Agent Merge で PR を管理する</a><ul>
-<li><a href="#開始前にマージ条件を確認する">開始前にマージ条件を確認する</a></li>
-<li><a href="#agent-mergeを開始して結果を確かめる">Agent Mergeを開始して結果を確かめる</a></li>
-<li><a href="#マージ結果を振り返る">マージ結果を振り返る</a></li>
+<li><a href="#61-開始前にマージ条件を確認する">6.1 開始前にマージ条件を確認する</a></li>
+<li><a href="#62-agent-mergeを開始する">6.2 Agent Mergeを開始する</a></li>
+<li><a href="#63-ciとマージ結果を確認する">6.3 CIとマージ結果を確認する</a></li>
+<li><a href="#64-補足">6.4 補足</a><ul>
+<li><a href="#641-手動マージからagent-mergeへ進む理由">6.4.1 手動マージからAgent Mergeへ進む理由</a></li>
+<li><a href="#642-agent-mergeの動作と品質確認">6.4.2 Agent Mergeの動作と品質確認</a></li>
+<li><a href="#643-判断と結果の振り返り">6.4.3 判断と結果の振り返り</a></li>
 </ul>
 </li>
-<li><a href="#まとめと次のステップ">まとめと次のステップ</a></li>
-<li><a href="#リソース">リソース</a></li>
+<li><a href="#65-リソース">6.5 リソース</a></li>
 </ul>
 </div>
 </details><article><blockquote>
 <p><strong>この章の進め方</strong> 検証を終えたフィルター機能をAgent Mergeでマージします。任せる操作とマージ条件を確認してから開始し、CI全ジョブの成功と、App・GitHub双方のMergedを確かめます。</p>
 </blockquote>
 <p>前章までで、フィルター機能の実装、単体・E2Eテスト、Playwright MCPによるブラウザー操作の検証を終えました。次は、この変更をmainブランチへマージし、後続の作業から利用できるようにします。mainへの統合と、本番環境への公開は別の工程です。本章では統合までを扱います。</p>
-<p>ここまでのレッスンでは、星評価機能やドキュメント規約の pull request において人間が <strong>Merge pull request</strong> をクリックして手動マージを行いました。本レッスンでは、PR 作成から CI 監視、問題修正、そして最終マージに至る一連のライフサイクル管理をアプリ内の自律機能である <strong>Agent Merge</strong> に委ねます。</p>
-<p>レッスン2で最初に手動マージしたのは、変更差分、CIの結果、マージ先を自分で確認するためです。その経験があれば、自動化するときも何を任せたかを説明できます。今回はレッスン4で計画と実装をレビューし、レッスン5で実画面を検証したうえで、CIを待ってマージする操作をエージェントへ渡します。任せる範囲を広げても、要件を満たす変更かどうかを判断する責任は人に残ります。</p>
 <p>このレッスンでは、次の内容を学習します。</p>
 <ul>
 <li>Agent Merge の役割と、マージのライフサイクルを自律管理する仕組みを理解する</li>
 <li>フィルター機能の実装セッションで Agent Merge を有効化する</li>
 <li>PR の自動作成、CI 実行の監視、全チェック通過後の自動マージの完了を確認する</li>
 </ul>
-<h2 id="シナリオ">シナリオ</h2>
-<p>本ワークショップを通じて、コード生成、自動テスト、MCP による実ブラウザー操作と、段階的に自動化のレベルを引き上げてきました。Tailspin Toys では開発速度をさらに向上させるため、検証済みの pull request に対する機械的なマージ待機と最終処理を自動化する手法を検討しています。</p>
-<h2 id="agent-merge-の概要">Agent Merge の概要</h2>
+<p>自動化へ進む理由と振り返りの観点は、章末の<a href="#補足">補足</a>で確認できます。</p>
+<p><a id="開始前にマージ条件を確認する"></a></p>
+<h2 id="61-開始前にマージ条件を確認する">6.1 開始前にマージ条件を確認する</h2>
+<p>コードレビュー、自動テスト、UI 検証を終えたフィルター機能のコードをマージしましょう。Agent Merge を起動し、CI 監視からマージまでをエージェントに任せます。</p>
 <p><strong>Agent Merge</strong> は、pull request の作成からマージ完了までの最終工程をエージェントに自律実行させる機能です。</p>
-<p>GitHub公式では、Agent MergeがセッションにPRを確認させ、マージを妨げる問題を修正し、GitHubが許可した時点でマージすると説明しています。バックグラウンドで動作し、Appの再起動後も継続して、マージ後に終了します。<a href="https://docs.github.com/en/copilot/how-tos/github-copilot-app/managing-issues-and-pull-requests#merging-a-pull-request">公式説明「Merging a pull request」</a></p>
+<p>任せる範囲を広げても、要件を満たす変更かどうかを判断する責任は人に残ります。</p>
 <p>Agent Mergeのメニューでは、次の4項目を確認します。それぞれのチェックは、今回どの操作をエージェントに許可するかを表します。</p>
 <table>
 <thead>
@@ -69,10 +68,6 @@
 </tr>
 </tbody>
 </table>
-<p>これまでの手動マージでは、人間がCIの完了を待ってボタンを押していました。Agent Mergeではこの待機と操作を任せられます。ただし、CIが成功しても、テストに含まれない要件までは確認できません。たとえば、カテゴリを2つ選んだときに片方の結果しか表示されない実装は、件数を十分に検査していないテストを通ることがあります。前章までのレビューで確認した条件を、自動化後も品質の基準として使ってください。</p>
-<h2 id="agent-merge-で-pr-を管理する">Agent Merge で PR を管理する</h2>
-<p>コードレビュー、自動テスト、UI 検証を終えたフィルター機能のコードをマージしましょう。Agent Merge を起動し、CI 監視からマージまでをエージェントに任せます。</p>
-<h3 id="開始前にマージ条件を確認する">開始前にマージ条件を確認する</h3>
 <p>GitHubで「マージ可能」であることと、この演習で求める「CIの全ジョブ成功」は同じとは限りません。必須チェックに指定されていないジョブが実行中でも、GitHubはマージを許可する場合があります。ブランチ保護には、必須チェックや管理者による回避の設定もあります。<a href="https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches#require-status-checks-before-merging">GitHub公式の必須ステータスチェックと保護設定</a></p>
 <p>Agent Mergeを開始する<strong>前に</strong>、講師と演習用リポジトリのマージ条件を確認し、次の経路を選んでください。設定の変更は本章の必須作業ではありません。</p>
 <ul>
@@ -80,7 +75,12 @@
 <li><strong>条件が未設定、または分からない場合</strong>：先に通常の <strong>Create PR</strong> でPRを作成し、Agent Mergeを開始せず、対象PRの最新コミットに対するCI全ジョブの成功を待ちます。その後、同じセッション上部でAgent Mergeを有効にしてマージを任せます。この経路でも、自動マージの操作と結果を確認できます。</li>
 </ul>
 <p>後者では待機を人が担当するため、どこまで自動化したかを説明しやすくなります。新しいコミットが追加された場合は、古い成功結果を使わず、そのコミットのCIを確認し直してください。エージェントによる追加修正を許可する場合も、変更後の検査を待てる条件を確認してから任せます。</p>
-<h3 id="agent-mergeを開始して結果を確かめる">Agent Mergeを開始して結果を確かめる</h3>
+<blockquote>
+<p><strong>重要</strong>
+<strong>Ready to mergeは、CI全成功の証拠にはなりません。</strong> Agent MergeもGitHubが許可する条件に従って動作します。開始前に上記の経路を選び、CIの全ジョブ成功とMergedの表示を、それぞれ別に確認してください。Merge pull requestは初期状態で有効な場合があるため、開始後に解除することを前提にしないでください。</p>
+</blockquote>
+<p><a id="agent-mergeを開始する"></a></p>
+<h2 id="62-agent-mergeを開始する">6.2 Agent Mergeを開始する</h2>
 <ol>
 <li>前章まで作業していたフィルター機能の実装セッションを開きます。</li>
 <li>PR作成から任せる場合は、画面右上にある <strong>Create PR</strong> ボタンの右側にあるドロップダウン矢印を選択します。先に通常のPRを作成した場合は、CI全成功を確認してから同じセッション上部のAgent Mergeの操作へ進みます。</li>
@@ -97,19 +97,35 @@
    もし未選択になっている場合は、クリックしてチェックを入れてマージ権限を許可してください（すでにチェックが付いている場合はそのままにします。再度クリックすると許可が解除されてしまうため注意してください）。</li>
 </ol>
 <p><img alt="PR 作成後の App 全体。Agent merge の Merge pull request はチェック済み" src="../assets/app-1.1.20-20260913-agent-merge-permissions.png" /></p>
-<ol start="7">
+<p><a id="ciとマージ結果を確認する"></a></p>
+<h2 id="63-ciとマージ結果を確認する">6.3 CIとマージ結果を確認する</h2>
+<ol>
 <li>テスト、lint、ビルドなど、今回のPRに対するCIの全ジョブが成功したことを確認します。GitHubのマージ条件だけに任せず、実行中や失敗のジョブが残っていないかも確認してください。</li>
-<li>自動マージ後、AppのセッションまたはPull requestsの画面と、GitHubのPR画面の双方が <strong>Merged</strong> になったことを確かめます。</li>
-</ol>
-<blockquote>
-<p><strong>重要</strong>
-<strong>Ready to mergeは、CI全成功の証拠にはなりません。</strong> Agent MergeもGitHubが許可する条件に従って動作します。開始前に上記の経路を選び、CIの全ジョブ成功とMergedの表示を、それぞれ別に確認してください。Merge pull requestは初期状態で有効な場合があるため、開始後に解除することを前提にしないでください。</p>
-</blockquote>
-<h3 id="マージ結果を振り返る">マージ結果を振り返る</h3>
+<li>
+<p>自動マージ後、AppのセッションまたはPull requestsの画面と、GitHubのPR画面の双方が <strong>Merged</strong> になったことを確かめます。</p>
+</li>
+<li>
 <p>エージェントがレビュー対応やCI修復のためにコードを変更した場合は、その差分と変更後の検査結果も確認します。修正が発生しなかった場合は、CIの監視とマージを任せたことまでを振り返り、利用していない修復機能と区別してください。</p>
-<p>完了を確認したら、「人が判断したこと」「Agent Mergeに許可したこと」「マージの証拠」を説明してみてください。チェックを付けたこと、CIが成功したこと、マージが完了したことを区別できれば、自動化の途中で問題が起きた場合にも確認箇所を絞れます。</p>
+</li>
+<li>
 <p>次章へ進む前に、新しく作成する worktree にこのフィルター機能のマージ結果が正しく継承されていることを確認してください。</p>
-<h2 id="まとめと次のステップ">まとめと次のステップ</h2>
+</li>
+</ol>
+<p><img alt="変更を次の章へ引き継ぐ" src="../assets/app-worktree-handoff.png" /></p>
+<p><a id="補足"></a></p>
+<h2 id="64-補足">6.4 補足</h2>
+<p><a id="手動マージからagent-mergeへ進む理由"></a></p>
+<h3 id="641-手動マージからagent-mergeへ進む理由">6.4.1 手動マージからAgent Mergeへ進む理由</h3>
+<p>本ワークショップを通じて、コード生成、自動テスト、MCP による実ブラウザー操作と、段階的に自動化のレベルを引き上げてきました。Tailspin Toys では開発速度をさらに向上させるため、検証済みの pull request に対する機械的なマージ待機と最終処理を自動化する手法を検討しています。</p>
+<p>ここまでのレッスンでは、星評価機能やドキュメント規約の pull request において人間が <strong>Merge pull request</strong> をクリックして手動マージを行いました。本レッスンでは、PR 作成から CI 監視、問題修正、そして最終マージに至る一連のライフサイクル管理をアプリ内の自律機能である <strong>Agent Merge</strong> に委ねます。</p>
+<p>レッスン2で最初に手動マージしたのは、変更差分、CIの結果、マージ先を自分で確認するためです。その経験があれば、自動化するときも何を任せたかを説明できます。今回はレッスン4で計画と実装をレビューし、レッスン5で実画面を検証したうえで、CIを待ってマージする操作をエージェントへ渡します。任せる範囲を広げても、要件を満たす変更かどうかを判断する責任は人に残ります。</p>
+<p><a id="agent-mergeの動作と品質確認"></a></p>
+<h3 id="642-agent-mergeの動作と品質確認">6.4.2 Agent Mergeの動作と品質確認</h3>
+<p>GitHub公式では、Agent MergeがセッションにPRを確認させ、マージを妨げる問題を修正し、GitHubが許可した時点でマージすると説明しています。バックグラウンドで動作し、Appの再起動後も継続して、マージ後に終了します。<a href="https://docs.github.com/en/copilot/how-tos/github-copilot-app/managing-issues-and-pull-requests#merging-a-pull-request">公式説明「Merging a pull request」</a></p>
+<p>これまでの手動マージでは、人間がCIの完了を待ってボタンを押していました。Agent Mergeではこの待機と操作を任せられます。ただし、CIが成功しても、テストに含まれない要件までは確認できません。たとえば、カテゴリを2つ選んだときに片方の結果しか表示されない実装は、件数を十分に検査していないテストを通ることがあります。前章までのレビューで確認した条件を、自動化後も品質の基準として使ってください。</p>
+<p><a id="判断と結果の振り返り"></a></p>
+<h3 id="643-判断と結果の振り返り">6.4.3 判断と結果の振り返り</h3>
+<p>完了を確認したら、「人が判断したこと」「Agent Mergeに許可したこと」「マージの証拠」を説明してみてください。チェックを付けたこと、CIが成功したこと、マージが完了したことを区別できれば、自動化の途中で問題が起きた場合にも確認箇所を絞れます。</p>
 <p>実装と検証を終えた変更について、PR作成からmainへの統合までを自動化しました。本章で実施した主な内容は次の通りです。</p>
 <ul>
 <li>Agent Merge の概念と、PR の自律監視・マージ自動化の仕組みを理解した</li>
@@ -117,7 +133,9 @@
 <li>PR 作成から CI 完了の監視、そして自律マージの成功を確認した</li>
 </ul>
 <p>次は、エージェントと対話しながら複雑な作業を視覚的に計画・整理する高度な機能である<strong>キャンバス（Canvases）</strong>を活用します。<a href="7-canvases.html">レッスン 7「キャンバスを使った計画」</a> へ進んでください。</p>
-<h2 id="リソース">リソース</h2>
+<p><a href="#開始前にマージ条件を確認する">開始前にマージ条件を確認する手順へ戻る</a></p>
+<p><a id="リソース"></a></p>
+<h2 id="65-リソース">6.5 リソース</h2>
 <ul>
 <li><a href="https://docs.github.com/copilot/how-tos/github-copilot-app/managing-issues-and-pull-requests">GitHub Copilot app での Issue と pull request の管理</a></li>
 <li><a href="https://docs.github.com/copilot/concepts/agents/github-copilot-app">GitHub Copilot app について</a></li>

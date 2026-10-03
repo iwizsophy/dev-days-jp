@@ -8,24 +8,27 @@
 <button class="theme-toggle" type="button" onclick="toggleTheme()">☀️ ライト</button></header>
 <main id="lesson"><h1>レッスン 3 - カスタム指示による Copilot のガイド</h1><p class="source">非公式の日本語版 · <a href="https://github.com/github-samples/copilot-workshops/blob/7ddcf241c1cd10b8e90c0df96f6bef81e710392a/docs/ja-jp/app/3-custom-instructions.md">参照原文</a> · <a href="../licenses/copilot-workshops.txt">MIT ライセンス</a></p><aside>利用条件は <a href="../../handson-guide.html#plans">受講準備</a>を参照してください。</aside><nav class="chapter-nav" aria-label="章の移動"><a href="2-add-star-rating.html">← 前の章：レッスン 2 - 最初のエージェントセッションの実行</a><a href="4-build-filtering.html">次の章 →：レッスン 4 - Autopilot による機能の構築</a></nav><details><summary>この章の目次</summary><div class="toc">
 <ul>
-<li><a href="#シナリオ">シナリオ</a></li>
-<li><a href="#指示ファイルの構造と役割">指示ファイルの構造と役割</a><ul>
-<li><a href="#指示ファイルを管理するためのベストプラクティス">指示ファイルを管理するためのベストプラクティス</a></li>
+<li><a href="#31-シナリオ">3.1 シナリオ</a></li>
+<li><a href="#32-このプロジェクトのカスタム指示ファイルを確認する">3.2 このプロジェクトのカスタム指示ファイルを確認する</a></li>
+<li><a href="#33-指示に関する-issue-から開始する">3.3 指示に関する Issue から開始する</a></li>
+<li><a href="#34-変更をレビューする">3.4 変更をレビューする</a></li>
+<li><a href="#35-pull-request-を作成してマージする">3.5 pull request を作成してマージする</a></li>
+<li><a href="#36-まとめと次のステップ">3.6 まとめと次のステップ</a></li>
+<li><a href="#37-補足">3.7 補足</a><ul>
+<li><a href="#371-コンテキストと指示ファイル">3.7.1 コンテキストと指示ファイル</a></li>
+<li><a href="#372-指示ファイルの構造と役割">3.7.2 指示ファイルの構造と役割</a><ul>
+<li><a href="#3721-指示ファイルを管理するためのベストプラクティス">3.7.2.1 指示ファイルを管理するためのベストプラクティス</a></li>
 </ul>
 </li>
-<li><a href="#このプロジェクトのカスタム指示ファイルを確認する">このプロジェクトのカスタム指示ファイルを確認する</a></li>
-<li><a href="#指示に関する-issue-から開始する">指示に関する Issue から開始する</a></li>
-<li><a href="#変更をレビューする">変更をレビューする</a></li>
-<li><a href="#pull-request-を作成してマージする">pull request を作成してマージする</a></li>
-<li><a href="#まとめと次のステップ">まとめと次のステップ</a></li>
-<li><a href="#リソース">リソース</a></li>
+</ul>
+</li>
+<li><a href="#38-リソース">3.8 リソース</a></li>
 </ul>
 </div>
 </details><article><blockquote>
 <p><strong>この章の進め方：</strong> Appで規約更新のIssueを開き、指示ファイルとコード例をレビューしてからマージします。作業対象は画像内のIssueではなく、本文のタイトルと要件を確認して選んでください。ボタンや機能が見つからない場合は、本文の操作対象と項目名を確認し、講師に相談してください。</p>
 </blockquote>
-<p>生成 AI を活用するうえで、コンテキスト（文脈や背景情報）の提供は極めて重要です。特定の設計方針に沿ってタスクを実装させたい場合や、Copilot があらかじめ把握しておくべき前提知識がある場合は、それらをコンテキストとして利用可能な状態にしておく必要があります。</p>
-<p>そのための特に強力な手段が<a href="https://docs.github.com/en/copilot/concepts/prompting/response-customization">指示ファイル（Instruction files）</a>です。指示ファイルには、期待するコードの機能要件だけでなく、コードの構成方法や規約も明記できます。本レッスンでは、リポジトリにドキュメント作成の標準規約を追加します。実際の開発現場と同様に、バックログの Issue を起点としてエージェントに変更作業を実行させます。</p>
+<p>指示ファイルの仕組みと設計方針は、章末の<a href="#補足">補足</a>で確認できます。</p>
 <p>このレッスンでは、次の内容を学習します。</p>
 <ul>
 <li>リポジトリ全体への指示と、パス固有の指示ファイルがエージェントにどのように渡されるかを理解する</li>
@@ -33,43 +36,15 @@
 <li><code>.github/copilot-instructions.md</code> にドキュメント標準を追加するようエージェントに依頼する</li>
 <li>変更内容をレビューし、pull request としてマージする</li>
 </ul>
-<h2 id="シナリオ">シナリオ</h2>
+<p><a id="シナリオ"></a></p>
+<h2 id="31-シナリオ">3.1 シナリオ</h2>
 <p>成熟した開発組織と同様に、Tailspin Toys にも開発プラクティスに関するガイドラインと要件が存在します。具体的には次の2点です。</p>
 <ul>
 <li>コードには TSDoc 形式のドキュメントコメント（doc comment）を付与する</li>
 <li>コードフォーマットのルールを文書化し、ESLint 等の静的検証ツールによって機械的に適用する</li>
 </ul>
-<p>指示ファイルを活用すると、エージェントへこれらのプラクティスを共有し、方針に沿ったコード生成を促せます。ただし、毎回同じように指示を守ることは保証されません。GitHubの<a href="https://docs.github.com/en/copilot/concepts/prompting/response-customization">カスタム指示の説明</a>でも、AIの応答は非決定的であると説明されています。そのため、本章では指示を書いた後に生成例を読み、機械検査で確認できる規則はESLintなどでも検査します。</p>
-<p>指示と機械検査では役割が異なります。「なぜこの処理が必要かをコメントで説明する」という指示は、書く内容の判断を助けます。一方、ESLintは設定した規則への違反を検出します。lintが成功しても、コメントが実装と一致し、その理由を十分に伝えているかは人間が読む必要があります。</p>
-<h2 id="指示ファイルの構造と役割">指示ファイルの構造と役割</h2>
-<p>カスタム指示を定義すると、Copilotにプロジェクト固有の前提知識や設定を提供できます。毎回のプロンプトに同じ背景を繰り返し書く手間を減らし、規約に沿った提案を得やすくする仕組みです。推奨するコーディング規約、採用ライブラリ、コード中に記述すべきコメントの粒度まで指定できます。<a href="https://docs.github.com/en/copilot/concepts/prompting/response-customization">GitHub公式の概要</a>も、継続的に使う背景情報を指示として共有する方法を説明しています。</p>
-<p>指示ファイルには、リポジトリ全体に一律適用するものと、特定ファイル種別のタスクに応じて適用するものの2階層があります。</p>
-<ol>
-<li><strong>リポジトリ全体の指示（<code>.github/copilot-instructions.md</code>）</strong><br />
-   リポジトリに対する<strong>すべての</strong>リクエストで Copilot に送信される単一の指示ファイルです。Copilot に投げるチャットや CLI リクエスト全般に関係するプロジェクトレベルの情報（採用技術スタック、アーキテクチャの概要、全体的なベストプラクティスなど）を記載します。</li>
-<li><strong>パス固有の指示ファイル（<code>.github/instructions/*.instructions.md</code>）</strong><br />
-   特定のタスクやファイル種類向けに作成する個別指示ファイルです。特定のプログラミング言語（TypeScript や Astro など）のコーディング規約や、UI コンポーネント作成、単体テスト一式の構築といった具体的タスクに応じたガイドラインを定義します。</li>
-</ol>
-<blockquote>
-<p><strong>補足</strong>
-<code>AGENTS.md</code>、<code>CLAUDE.md</code>、<code>GEMINI.md</code>などの指示ファイルもありますが、対応する種類はCopilotの利用環境によって異なります。<a href="https://docs.github.com/copilot/reference/custom-instructions-support">対応表</a>を参照し、本演習ではテンプレートにある<code>.github/copilot-instructions.md</code>と<code>.github/instructions/</code>を確認します。</p>
-</blockquote>
-<p>Appの設定画面にも、全プロジェクト共通のApp instructionsと、プロジェクトごとのInstructionsがあります。これらの設定場所は<a href="https://docs.github.com/copilot/how-tos/github-copilot-app/customize-github-copilot-app">Appのカスタマイズ手順</a>で説明されています。本章でリポジトリ内のファイルを編集するのは、チームが同じ指示を読み、ソースコードと同じように差分レビューできる形で共有するためです。</p>
-<h3 id="指示ファイルを管理するためのベストプラクティス">指示ファイルを管理するためのベストプラクティス</h3>
-<p>指示ファイルの詳細な設計論はこのワークショップの範囲を超えますが、本サンプルプロジェクトに含まれる構成は代表的なアプローチを示しています。基本方針は次の通りです。</p>
-<ul>
-<li><code>copilot-instructions.md</code> には、開発対象の概要、プロジェクト構造、全体的なコーディング規約など、プロジェクト共通のハイレベルなガイダンスを集約する</li>
-<li><code>*.instructions.md</code> ファイルは、ファイル種別（単体テスト、Astro コンポーネント、データアクセス層など）や個別タスクに特化した具体的な指示を記述する</li>
-<li>明快な自然言語を用い、望ましいコード例（Good）と避けるべきコード例（Bad）を併記する</li>
-</ul>
-<p>指示ファイルに単一の絶対的な正解はありません。プロジェクトの成熟度やチームの文化に合わせて反復的にブラッシュアップしていくことが推奨されます。</p>
-<p>指示の粒度を決めるときは、その規則を必要とするファイルを先に考えます。たとえば、全体の技術構成は共通指示に置き、テスト用DBの作り方は単体テスト向けの指示へ置くと、用途を読み分けやすくなります。似た規則を複数ファイルへコピーすると、後の変更で食い違うことがあります。同じ対象に適用される指示は一緒に読み、既存コードや検査設定とも照合してください。</p>
-<blockquote>
-<p><strong>ヒント</strong>
-GitHub Copilot を導入するすべてのプロジェクトにおいて、体系的な指示ファイル群を整備しておくことを強く推奨します。本プロジェクトでも、多くのコード種別に対応した個別指示ファイルが配置されています。</p>
-<p>テンプレートや作成の出発点を探している場合は、指示ファイルやカスタムエージェントの実例が集約されているリポジトリ <a href="https://awesome-copilot.github.com/">awesome-copilot</a> を参考にしてください。</p>
-</blockquote>
-<h2 id="このプロジェクトのカスタム指示ファイルを確認する">このプロジェクトのカスタム指示ファイルを確認する</h2>
+<p><a id="このプロジェクトのカスタム指示ファイルを確認する"></a></p>
+<h2 id="32-このプロジェクトのカスタム指示ファイルを確認する">3.2 このプロジェクトのカスタム指示ファイルを確認する</h2>
 <p>本リポジトリに配置されている指示ファイルを確認しましょう。ルートとなる <code>copilot-instructions.md</code> と、個別タスクに対応する複数の <code>*.instructions.md</code> ファイルで構成されています。App 内のファイルビューアーを使って確認します。</p>
 <ol>
 <li>右側のパネルが表示されていない場合は、画面右上の <strong>Toggle panel</strong> を選択して開きます。</li>
@@ -101,30 +76,38 @@ GitHub Copilot を導入するすべてのプロジェクトにおいて、体�
 <p><strong>補足</strong>
 現在の<code>copilot-instructions.md</code>にはコーディング標準が記載されています。次の手順では規約更新のIssueの要件に従い、処理の意図を説明するコメント、データ層のTSDoc/JSDoc、AstroコンポーネントのPropsの説明、ESLintとREADMEへの反映を確認します。全ファイルへのヘッダーコメント追加はIssueの要件に含まれていません。</p>
 </blockquote>
-<h2 id="指示に関する-issue-から開始する">指示に関する Issue から開始する</h2>
+<p><a id="指示に関する-issue-から開始する"></a></p>
+<h2 id="33-指示に関する-issue-から開始する">3.3 指示に関する Issue から開始する</h2>
 <p>前章では空の会話入力欄から直接プロンプトを入力してセッションを開始しましたが、実際の開発では Issue に起票された課題を起点として作業を進めることが一般的です。指示ファイルの更新用に登録された Issue を選択し、新しいセッションを作成して作業を依頼しましょう。</p>
 <blockquote>
 <p><strong>補足</strong>
 指示ファイルの内容は、以後 Copilot が生成するすべてのコード品質に直接影響を与えます。そのため、指示が Copilot を正しく導く表現になっているかを厳密に確認する必要があります。本レッスンのように、まず Copilot に初期ドラフトを作成させ、それを人間が慎重にレビューして要件適合性を検証するアプローチが極めて有効です。</p>
 </blockquote>
 <ol>
-<li>サイドバーの <strong>Projects</strong> で自分の演習用プロジェクトを選択し、<strong>Issues</strong> フィルターでOpen Issueを表示します。課題が見つからない場合は、<a href="1-install-copilot-app.html#バックログ-issue-の確認">レッスン1のバックログ確認</a>に従って表示条件を見直します。</li>
-<li>一覧から<strong>Update our repository coding standards</strong>というタイトルのIssueを選択して開きます。番号だけで選ばず、タイトルと本文を確認してください。</li>
+<li>
+<p>サイドバーの <strong>Projects</strong> で自分の演習用プロジェクトを選択し、<strong>Issues</strong> フィルターでOpen Issueを表示します。課題が見つからない場合は、<a href="1-install-copilot-app.html#バックログ-issue-の確認">レッスン1のバックログ確認</a>に従って表示条件を見直します。</p>
+</li>
+<li>
+<p>一覧から<strong>Update our repository coding standards</strong>というタイトルのIssueを選択して開きます。番号だけで選ばず、タイトルと本文を確認してください。</p>
+</li>
 <li>画面右上の <strong>New session</strong> を選択し、この Issue に紐づく新しいセッションを開始します。</li>
 </ol>
+<blockquote>
+<p><strong>補足</strong>
+新しいセッションのworktreeに、前章でmainへマージした星評価の変更が含まれていることを確認してください。設定の承認を求められた場合は、<strong>Review repository content → Repository trust</strong>でセットアップ内容やRunの定義を読み、<strong>Accept for new sessions</strong>を選択します。</p>
+</blockquote>
 <p><img alt="Issueの詳細画面と右上のNew sessionボタンの操作例" src="../assets/app-1.1.20-20260913-issue-session.png" /><br><em class="source">画像内の並べ替えIssueは操作例です。演習では本文の対象Issueを選びます。</em></p>
 <ol start="4">
 <li>次のプロンプトを入力し、Issue の要件に従って指示ファイルを更新するよう Copilot に指示します。</li>
 </ol>
 <pre class="highlight"><code class="language-plaintext">この Issue に記載された要件に従って、プロジェクトの指示ファイルを更新してください。既存の指示、実装、ESLint設定に矛盾がないか確認し、必要なREADMEの説明も更新してください。変更した規則と、その規則を機械検査できる範囲を説明してください。PR はまだ作らないでください。</code></pre>
-<blockquote>
-<p><strong>補足</strong>
-新しいセッションのworktreeに、前章でmainへマージした星評価の変更が含まれていることを確認してください。設定の承認を求められた場合は、<strong>Review repository content → Repository trust</strong>でセットアップ内容やRunの定義を読み、<strong>Accept for new sessions</strong>を選択します。</p>
-</blockquote>
 <p>Copilot が指示ファイル等の更新作業を実行します。</p>
 <p>変更対象には、指示ファイルだけでなくREADMEやESLint設定が含まれる場合があります。ファイル数を正解とせず、それぞれがIssueの要件に必要な変更かを確認してください。</p>
-<h2 id="変更をレビューする">変更をレビューする</h2>
+<p><a id="変更をレビューする"></a></p>
+<h2 id="34-変更をレビューする">3.4 変更をレビューする</h2>
 <p>Copilot が実施した更新内容を差分ビューで精査し、さらに更新後の指示に基づいてどのようなコードが生成されるかをシミュレーションさせて確認します。</p>
+<p>指示ファイルを活用すると、エージェントへこれらのプラクティスを共有し、方針に沿ったコード生成を促せます。ただし、毎回同じように指示を守ることは保証されません。GitHubの<a href="https://docs.github.com/en/copilot/concepts/prompting/response-customization">カスタム指示の説明</a>でも、AIの応答は非決定的であると説明されています。そのため、本章では指示を書いた後に生成例を読み、機械検査で確認できる規則はESLintなどでも検査します。</p>
+<p>指示と機械検査では役割が異なります。「なぜこの処理が必要かをコメントで説明する」という指示は、書く内容の判断を助けます。一方、ESLintは設定した規則への違反を検出します。lintが成功しても、コメントが実装と一致し、その理由を十分に伝えているかは人間が読む必要があります。</p>
 <ol>
 <li>会話入力欄の上部にある <strong>Changes</strong>（Open changes）を選択して差分ビューを開きます。変更されたファイルの一覧と、追加・削除された行を確認します。</li>
 </ol>
@@ -146,7 +129,8 @@ AI の出力は確率的に変動するため、生成される文言の細部�
 </ol>
 <p>たとえば、テストから渡せる<code>db</code>引数があれば、コメントにもその使い方が読み取れるかを確認します。「出版社を返す」とだけ書かれていて、実際の戻り値や引数の意味が不明な場合は、具体的な修正を依頼できます。コード例は指示の伝わり方を観察する小さな試行です。この一例の成功だけで、今後の生成結果がすべて規約に適合すると判断せず、次章の実装でも確認を続けます。</p>
 <p>これで、プロジェクトの指示ファイルが更新され、エージェントへの指示伝達が意図通りに機能していることを確認できました。</p>
-<h2 id="pull-request-を作成してマージする">pull request を作成してマージする</h2>
+<p><a id="pull-request-を作成してマージする"></a></p>
+<h2 id="35-pull-request-を作成してマージする">3.5 pull request を作成してマージする</h2>
 <p>指示ファイルはチーム全体で共有されるリポジトリの重要な構成要素（開発資産）です。他のソースコードと同様に、変更内容を含めた pull request を作成してマージします。</p>
 <ol>
 <li>画面右上にある <strong>Create PR</strong> を選択します。</li>
@@ -163,7 +147,8 @@ AI の出力は確率的に変動するため、生成される文言の細部�
 <p><strong>補足</strong>
 デフォルトブランチへマージした指示は、次章で最新のmainから始めるセッションでも参照できます。新しいworktreeに更新した指示が含まれているかを確認し、生成されたTypeScriptコードのTSDocもレビューします。指示を共有することと、生成結果が指示に従ったことの確認を、それぞれ行ってください。</p>
 </blockquote>
-<h2 id="まとめと次のステップ">まとめと次のステップ</h2>
+<p><a id="まとめと次のステップ"></a></p>
+<h2 id="36-まとめと次のステップ">3.6 まとめと次のステップ</h2>
 <p>App が指示ファイルからコンテキストを取得する仕組みを理解し、Issue を起点とするセッションを通じてリポジトリ全体の標準規約を追加・マージしました。</p>
 <ul>
 <li>リポジトリ全体の <code>copilot-instructions.md</code> と、特定パス用の <code>*.instructions.md</code> ファイルの役割を確認した</li>
@@ -172,7 +157,45 @@ AI の出力は確率的に変動するため、生成される文言の細部�
 <li>変更差分をレビューし、コード生成例によって効果を確認したうえで pull request としてマージした</li>
 </ul>
 <p>この章を振り返り、追加した規則のうち「機械検査で確認したもの」と「コードを読んで判断したもの」を一つずつ挙げてみてください。次は新しいセッションでゲームの絞り込み機能を実装し、いま共有した規約が実際のコードにどう反映されるかを確認します。<a href="4-build-filtering.html">レッスン 4「Autopilot による機能の構築」</a>へ進んでください。</p>
-<h2 id="リソース">リソース</h2>
+<p><a id="補足"></a></p>
+<h2 id="37-補足">3.7 補足</h2>
+<p><a id="コンテキストと指示ファイル"></a></p>
+<h3 id="371-コンテキストと指示ファイル">3.7.1 コンテキストと指示ファイル</h3>
+<p>生成 AI を活用するうえで、コンテキスト（文脈や背景情報）の提供は極めて重要です。特定の設計方針に沿ってタスクを実装させたい場合や、Copilot があらかじめ把握しておくべき前提知識がある場合は、それらをコンテキストとして利用可能な状態にしておく必要があります。</p>
+<p>そのための特に強力な手段が<a href="https://docs.github.com/en/copilot/concepts/prompting/response-customization">指示ファイル（Instruction files）</a>です。指示ファイルには、期待するコードの機能要件だけでなく、コードの構成方法や規約も明記できます。本レッスンでは、リポジトリにドキュメント作成の標準規約を追加します。実際の開発現場と同様に、バックログの Issue を起点としてエージェントに変更作業を実行させます。</p>
+<p><a id="指示ファイルの構造と役割"></a></p>
+<h3 id="372-指示ファイルの構造と役割">3.7.2 指示ファイルの構造と役割</h3>
+<p>カスタム指示を定義すると、Copilotにプロジェクト固有の前提知識や設定を提供できます。毎回のプロンプトに同じ背景を繰り返し書く手間を減らし、規約に沿った提案を得やすくする仕組みです。推奨するコーディング規約、採用ライブラリ、コード中に記述すべきコメントの粒度まで指定できます。<a href="https://docs.github.com/en/copilot/concepts/prompting/response-customization">GitHub公式の概要</a>も、継続的に使う背景情報を指示として共有する方法を説明しています。</p>
+<p>指示ファイルには、リポジトリ全体に一律適用するものと、特定ファイル種別のタスクに応じて適用するものの2階層があります。</p>
+<ol>
+<li><strong>リポジトリ全体の指示（<code>.github/copilot-instructions.md</code>）</strong><br>
+   リポジトリに対する<strong>すべての</strong>リクエストで Copilot に送信される単一の指示ファイルです。Copilot に投げるチャットや CLI リクエスト全般に関係するプロジェクトレベルの情報（採用技術スタック、アーキテクチャの概要、全体的なベストプラクティスなど）を記載します。</li>
+<li><strong>パス固有の指示ファイル（<code>.github/instructions/*.instructions.md</code>）</strong><br>
+   特定のタスクやファイル種類向けに作成する個別指示ファイルです。特定のプログラミング言語（TypeScript や Astro など）のコーディング規約や、UI コンポーネント作成、単体テスト一式の構築といった具体的タスクに応じたガイドラインを定義します。</li>
+</ol>
+<blockquote>
+<p><strong>補足</strong>
+<code>AGENTS.md</code>、<code>CLAUDE.md</code>、<code>GEMINI.md</code>などの指示ファイルもありますが、対応する種類はCopilotの利用環境によって異なります。<a href="https://docs.github.com/copilot/reference/custom-instructions-support">対応表</a>を参照し、本演習ではテンプレートにある<code>.github/copilot-instructions.md</code>と<code>.github/instructions/</code>を確認します。</p>
+</blockquote>
+<p>Appの設定画面にも、全プロジェクト共通のApp instructionsと、プロジェクトごとのInstructionsがあります。これらの設定場所は<a href="https://docs.github.com/copilot/how-tos/github-copilot-app/customize-github-copilot-app">Appのカスタマイズ手順</a>で説明されています。本章でリポジトリ内のファイルを編集するのは、チームが同じ指示を読み、ソースコードと同じように差分レビューできる形で共有するためです。</p>
+<p><a id="指示ファイルを管理するためのベストプラクティス"></a></p>
+<h4 id="3721-指示ファイルを管理するためのベストプラクティス">3.7.2.1 指示ファイルを管理するためのベストプラクティス</h4>
+<p>指示ファイルの詳細な設計論はこのワークショップの範囲を超えますが、本サンプルプロジェクトに含まれる構成は代表的なアプローチを示しています。基本方針は次の通りです。</p>
+<ul>
+<li><code>copilot-instructions.md</code> には、開発対象の概要、プロジェクト構造、全体的なコーディング規約など、プロジェクト共通のハイレベルなガイダンスを集約する</li>
+<li><code>*.instructions.md</code> ファイルは、ファイル種別（単体テスト、Astro コンポーネント、データアクセス層など）や個別タスクに特化した具体的な指示を記述する</li>
+<li>明快な自然言語を用い、望ましいコード例（Good）と避けるべきコード例（Bad）を併記する</li>
+</ul>
+<p>指示ファイルに単一の絶対的な正解はありません。プロジェクトの成熟度やチームの文化に合わせて反復的にブラッシュアップしていくことが推奨されます。</p>
+<p>指示の粒度を決めるときは、その規則を必要とするファイルを先に考えます。たとえば、全体の技術構成は共通指示に置き、テスト用DBの作り方は単体テスト向けの指示へ置くと、用途を読み分けやすくなります。似た規則を複数ファイルへコピーすると、後の変更で食い違うことがあります。同じ対象に適用される指示は一緒に読み、既存コードや検査設定とも照合してください。</p>
+<blockquote>
+<p><strong>ヒント</strong>
+GitHub Copilot を導入するすべてのプロジェクトにおいて、体系的な指示ファイル群を整備しておくことを強く推奨します。本プロジェクトでも、多くのコード種別に対応した個別指示ファイルが配置されています。</p>
+<p>テンプレートや作成の出発点を探している場合は、指示ファイルやカスタムエージェントの実例が集約されているリポジトリ <a href="https://awesome-copilot.github.com/">awesome-copilot</a> を参考にしてください。</p>
+</blockquote>
+<p><a href="#このプロジェクトのカスタム指示ファイルを確認する">指示ファイルの確認手順へ戻る</a></p>
+<p><a id="リソース"></a></p>
+<h2 id="38-リソース">3.8 リソース</h2>
 <ul>
 <li><a href="https://docs.github.com/en/copilot/concepts/prompting/response-customization">GitHub Copilot をカスタマイズするための指示ファイル</a></li>
 <li><a href="https://docs.github.com/copilot/how-tos/github-copilot-app/customize-github-copilot-app">GitHub Copilot app のカスタマイズ</a></li>
