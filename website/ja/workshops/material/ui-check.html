@@ -6,429 +6,125 @@
 <a href="../../index.html">教材セットの入口</a><a href="../index.html">App シナリオの目次</a>
 <a href="../../handson-guide.html#switch">事前準備・UI の確認</a></nav>
 <button class="theme-toggle" type="button" onclick="toggleTheme()">☀️ ライト</button></header>
-<main id="lesson"><h1>App の UI が教材と異なるとき</h1><aside>この教材セット独自の運営・補助手順です。</aside><article><h2>1. 操作探索の原則と推測の排除</h2>
-<h3>テンプレート取得先の変更と画面例</h3>
-<p>演習0のテンプレート取得先は、修正済みの非公開リポジトリ <code>iwizsophy/dev-days-tailspin-template</code> へ変更しています。GitHub Web の掲載画像2点は、取得先変更前の操作位置を示した例です。実際の操作では、本文に記載された取得先を選択してください。なお、新テンプレートの API による複製、初期課題8件の自動作成、および CI 成功は実機で確認済みです。</p>
-<h3>「右クリック移行」の情報に対する調査と注意点</h3>
-<p>「常設メニューがなくなり、右クリックから操作するようになった」という情報が寄せられていますが、2026年9月13日に Windows の App 1.1.20 で実機確認した結果は以下の通りです。
-- PR 行の右クリックでは <code>New session</code>、<code>Chat</code>、<code>Copy link</code> が表示されましたが、<code>Create PR</code> や <code>Agent Merge</code> 自体はコンテキストメニュー内に存在しませんでした。
-- 公式ドキュメント（<a href="https://docs.github.com/en/copilot/how-tos/github-copilot-app/managing-issues-and-pull-requests">Issue/PR 管理</a>、<a href="https://docs.github.com/en/copilot/how-tos/github-copilot-app/customize-github-copilot-app#configuring-mcp-servers">MCP 設定</a>）も確認しましたが、対象操作が右クリックへ移ったという裏付けは取れていません。
-- 当初の報告が指していた具体的な操作や、過去の常設メニューから実際に移動したのかどうかは<strong>未特定</strong>のままです。</p>
-<p>したがって、<strong>画面上の「画像の位置」だけで操作を探したり、見つからない機能に対して推測で操作を案内したりしてはなりません。</strong></p>
-<h3>UI 確認の 5 ステップ</h3>
-<p>受講者が操作に迷った場合は、次の順序で確認を進めてください。</p>
+<main id="lesson"><h1>App の UI が教材と異なるとき</h1><aside>講師・運営向けの補助資料です。</aside><article><p>演習ではGitHub Copilot Appの最新版を使用してください。このページでは、教材と画面が異なるときに操作の入口を探し、演習の目的に沿って案内する方法をまとめています。</p>
+<p>検証環境、実走結果、未確認の範囲は<a href="verification.html">検証状況</a>を参照してください。講師は最新版の画面を確かめ、操作の入口と、その場で受講者が判断する内容を案内します。</p>
+<h2>1. 受講者が操作に迷ったとき</h2>
+<p>画像の位置だけを頼りにせず、操作対象と目的から確認します。ボタンが見つからないときは、表示条件やセッションの状態も調べてください。</p>
 <ol>
-<li><strong>対象を確認する</strong>：リポジトリ、Issue、セッション、変更ファイル、PR のどれを操作する場面かを本文から確認します（対象と現在の画面状態が食い違っていると、必要な操作が表示されない場合があります）。</li>
-<li><strong>目的を確認する</strong>：「セッションを開始する」「変更をレビューする」「PR を作る」など、何をしたいのかを明確にします。</li>
-<li><strong>講師と入口を探す</strong>：常設メニューや対象付近のボタンに加え、対象の右クリック／コンテキストメニューも候補として確認します（ただし、そこに必ず目的の項目があるとは限りません。OS のコンテキストメニュー操作方法も併せて確認します）。</li>
-<li><strong>実行前に照合する</strong>：項目名、作用対象、実際の動作を慎重に確認します。似た名前の merge、削除、自動化などを安易に試し押ししないでください。</li>
-<li><strong>見つからなければ停止する</strong>：講師の現行実機デモまたはペア操作へ切り替えます。CLI で実装が進んだとしても、それを App 演習の完了とはみなしません。</li>
+<li><strong>対象を確認する</strong>。リポジトリ、Issue、セッション、変更ファイル、PRのどれを操作する場面かを本文で確かめます。現在選んでいるリポジトリやセッションが違うと、必要な操作が表示されない場合があります。</li>
+<li><strong>目的を確認する</strong>。「セッションを開始する」「変更をレビューする」「PRを作る」など、何をしたいかを受講者と確認します。</li>
+<li><strong>講師と入口を探す</strong>。サイドバー、対象付近のボタン、メニューを確認します。対象のコンテキストメニューも候補ですが、目的の項目があるかは実際の表示で判断してください。</li>
+<li><strong>実行前に照合する</strong>。項目名と作用対象を読み、操作後に何が変わるかを確認します。マージ、削除、自動化など、状態を変える操作を探すために試し押ししないでください。</li>
+<li><strong>見つからなければ案内方法を切り替える</strong>。講師の現行画面でのデモ、またはペア操作で確認します。CLIで作業を進めた場合も、Appで未確認の操作は記録に残してください。</li>
 </ol>
-<h2>2. 2026年9月13日の実機確認記録</h2>
-<p>Windows（ビルド 26200.9445、25H2）、GitHub Copilot App 1.1.20。初期設定および未接続状態を確認後、ローカルコピーと GitHub 連携プロジェクトをそれぞれ追加して検証しました。</p>
+<h2>2. 操作の入口と判断すること</h2>
+<p>次の表を使って操作の入口を探してください。最新版で表記や配置が異なる場合も、右欄の確認点を使って演習の目的を確かめます。</p>
 <table>
 <thead>
 <tr>
-<th style="text-align: left;">対象・開始状態</th>
-<th style="text-align: left;">開き方 → 項目名</th>
-<th style="text-align: left;">確認した結果</th>
-<th style="text-align: left;">残る確認事項</th>
+<th style="text-align: left;">操作</th>
+<th style="text-align: left;">操作の入口・進め方</th>
+<th style="text-align: left;">学習上の確認点</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;">初期設定・候補未選択</td>
-<td style="text-align: left;">Connect your repositories → Continue → テーマ画面</td>
-<td style="text-align: left;">リポジトリを選ばずにホームへ進める。利用者操作を挟んで完了を確認</td>
-<td style="text-align: left;">演習コピーの接続は後続で確認済み</td>
+<td style="text-align: left;">演習コピーを作る</td>
+<td style="text-align: left;">GitHub WebのUse this template → Create a new repository。コピー後に課題8件の自動生成を確認する</td>
+<td style="text-align: left;">取得先と作成先を確かめ、自分の演習コピーを操作する</td>
 </tr>
 <tr>
-<td style="text-align: left;">サイドバー・プロジェクト未接続</td>
-<td style="text-align: left;">Projects の + → Add GitHub repository / Clone repository / Open folder</td>
-<td style="text-align: left;">3種類の追加入口が表示されることを確認</td>
-<td style="text-align: left;">clone 完了および対象 repo の照合</td>
+<td style="text-align: left;">リポジトリを接続する</td>
+<td style="text-align: left;">Add GitHub repositoryで演習コピーを追加</td>
+<td style="text-align: left;">教材のリポジトリと、コードを変更する演習コピーを区別する</td>
 </tr>
 <tr>
-<td style="text-align: left;">ローカルコピー</td>
-<td style="text-align: left;">Projects の + → Open folder → 対象フォルダー</td>
-<td style="text-align: left;">既存 checkout を直接使用。設定レビュー後に確認画面が停滞したが、完全再起動後に読み取り応答が成功</td>
-<td style="text-align: left;">worktree 分離・セットアップ実行</td>
+<td style="text-align: left;">初回の構成を承認する</td>
+<td style="text-align: left;">Review repository content → Repository trust → Accept for new sessions</td>
+<td style="text-align: left;">セットアップや拡張の内容を読んで承認する。MCPの信頼確認とは別の操作</td>
 </tr>
 <tr>
-<td style="text-align: left;">My work・ローカルフォルダーのみ登録</td>
-<td style="text-align: left;">Add GitHub repository → owner/repo を検索 → 自分の演習コピー</td>
-<td style="text-align: left;">「No GitHub repositories yet」から8件の Issue 一覧へ変化。ローカルフォルダーとは別のプロジェクトが追加された</td>
-<td style="text-align: left;">Issue からの実装・PR は演習3・4で確認済み</td>
+<td style="text-align: left;">Issueを探す</td>
+<td style="text-align: left;">Projectsで演習用プロジェクトを選び、Issuesフィルターを選択。必要に応じてOpen・割り当てなどの表示条件を見直す</td>
+<td style="text-align: left;">Assigned to meが空でもIssueがないとは限らない。表示条件とGitHubの一覧を照合する</td>
 </tr>
 <tr>
-<td style="text-align: left;">ローカルプロジェクト・新規セッション</td>
-<td style="text-align: left;">プロジェクト横の + → New → 入力欄下部のプロジェクト名 → 送信</td>
-<td style="text-align: left;">星評価の実装セッションが開始し、既存 checkout 上に指定した作業ブランチを作成</td>
-<td style="text-align: left;">GitHub 連携経路との相違</td>
+<td style="text-align: left;">PRを探す</td>
+<td style="text-align: left;">サイドバーのPull requests</td>
+<td style="text-align: left;">変更したリポジトリとPRの向き先が一致するかを確認する</td>
 </tr>
 <tr>
-<td style="text-align: left;">ローカル実装セッション・パネル未表示</td>
-<td style="text-align: left;">Toggle panel → Workspace</td>
-<td style="text-align: left;">Browser、Terminal、Files、Canvas を表示。Changes や Create PR はこの状態では表示されなかった</td>
-<td style="text-align: left;">GitHub 連携セッションの差分・PR 操作</td>
+<td style="text-align: left;">会話を始める</td>
+<td style="text-align: left;">サイドバーのChatsを右クリック → New chat。Chatの対象選択とInteractiveのモード表示を確認</td>
+<td style="text-align: left;">ブランチやworktreeを作る実装セッションとの違いを理解する</td>
 </tr>
 <tr>
-<td style="text-align: left;">ローカル実装セッション・PR 作成依頼</td>
-<td style="text-align: left;">エージェントのプロジェクト連携 PR ツール → gh CLI に切替</td>
-<td style="text-align: left;">App 固有ツールはアカウント連携エラー。承認後、エージェントが gh 経由で検証用 PR #9 を作成し CI 全4ジョブ成功</td>
-<td style="text-align: left;">App 固有の Create PR・マージ（Ready to merge は My work 側で表示確認）</td>
+<td style="text-align: left;">プロジェクトからセッションを始める</td>
+<td style="text-align: left;">Projectsで演習用プロジェクトを右クリック → + New session。New worktreeとmainを選ぶ</td>
+<td style="text-align: left;">対象プロジェクト、作業場所、開始元のブランチをそれぞれ確認する</td>
 </tr>
 <tr>
-<td style="text-align: left;">GitHub 連携・作成済み PR</td>
-<td style="text-align: left;">My work → PR #9 → Changes / Ready to merge</td>
-<td style="text-align: left;">5ファイルの差分と Checks: Passed を表示。Merge pull request ダイアログに All checks have passed・No unresolved comments・Merge pull request・Choose merge method（Merge commit）を表示</td>
-<td style="text-align: left;">通常マージ成功。Agent merge は後続 PR #12～14 で確認済み</td>
+<td style="text-align: left;">実行するNode.jsを確認する</td>
+<td style="text-align: left;">実装セッションでエージェントにnode --versionの実行を依頼し、ツールの出力を確認</td>
+<td style="text-align: left;">ローカルの確認結果と区別し、テストやビルドを行う環境が要件を満たすか判断する</td>
 </tr>
 <tr>
-<td style="text-align: left;">GitHub 連携・既存 Issue</td>
-<td style="text-align: left;">My work → Update our repository coding standards → New session options</td>
-<td style="text-align: left;">New session・New session in repository...・Chat を表示</td>
-<td style="text-align: left;">New session で専用 worktree 作成・マージ済み HEAD の継承を確認。設定承認後に送信・指示更新・検査・PR #10 作成を確認（詳細は実走記録）</td>
+<td style="text-align: left;">変更をレビューする</td>
+<td style="text-align: left;">実装セッションのChangesで差分を確認。Create PRからPRを作成</td>
+<td style="text-align: left;">完了報告と実際の差分・テスト結果を照合してからPR作成へ進む</td>
 </tr>
 <tr>
-<td style="text-align: left;">My work・PR 一覧行</td>
-<td style="text-align: left;">PR #9 の行を右クリック</td>
-<td style="text-align: left;">New session・Chat・Copy link を表示</td>
-<td style="text-align: left;">旧 UI から移動したかは未特定</td>
+<td style="text-align: left;">計画を承認する</td>
+<td style="text-align: left;">Review plan → Approve and implement this planで承認を送信し、実装へ進む</td>
+<td style="text-align: left;">仕様、対象外の変更、検査方法、作業を止める位置を承認前に判断する</td>
 </tr>
 <tr>
-<td style="text-align: left;">ローカルプロジェクト</td>
-<td style="text-align: left;">Projects のフォルダー項目を右クリック → Settings</td>
-<td style="text-align: left;">New session・Show in Explorer・Settings・Hide・Customize…・Manage sessions・Remove folder を表示。Settings には GitHub Account の登録名が表示された</td>
-<td style="text-align: left;">アカウント連携エラーの原因・復旧</td>
+<td style="text-align: left;">開発画面を見る</td>
+<td style="text-align: left;">Run development siteで起動。Browserが自動表示されない場合は、RunターミナルのURLを別ブラウザーで開く。終了時はStopを選択する</td>
+<td style="text-align: left;">起動、ブラウザー表示、停止を別々に確認する。URLと実行中のworktreeも照合する</td>
 </tr>
 <tr>
-<td style="text-align: left;">GitHub 連携・Issue から作った実装セッション</td>
-<td style="text-align: left;">Open changes → Changes (7) → 上部 Create PR</td>
-<td style="text-align: left;">7ファイルの差分を表示。App がコミット・push・PR #10 作成を実行し Ready to merge に変化</td>
-<td style="text-align: left;">通常マージとフィルター用 worktree への継承を確認済み</td>
+<td style="text-align: left;">MCPを使う</td>
+<td style="text-align: left;">Settings → MCP serversで定義を確認し、Trust repositoryを求められた場合は内容を読んで承認する。Connectedを確認してからセッションでツールを呼ぶ</td>
+<td style="text-align: left;">設定の表示、接続、実際のツール呼び出しを順に確認する。呼び出せない場合は信頼状態と接続設定を調べる</td>
 </tr>
 <tr>
-<td style="text-align: left;">GitHub 連携・PR 作成後</td>
-<td style="text-align: left;">Ready to merge options</td>
-<td style="text-align: left;">Agent merge の切り替えを表示</td>
-<td style="text-align: left;">後続 PR #12～14 で有効化・許可範囲・実行を確認済み</td>
+<td style="text-align: left;">通常マージを判断する</td>
+<td style="text-align: left;">Ready to mergeからチェック状態を開き、CI全ジョブの成功後にMerge pull requestで統合する</td>
+<td style="text-align: left;">Ready to mergeだけでCI全成功と判断しない。必要なCIと未解決レビューを確認する</td>
 </tr>
 <tr>
-<td style="text-align: left;">GitHub 連携・Issue #7 の新規セッション</td>
-<td style="text-align: left;">Mode: Interactive → Plan → Review plan → Approve and implement this plan → Continue</td>
-<td style="text-align: left;">計画への質問に回答でき、承認後 Mode: Autopilot に切替。実装と検査を実行</td>
-<td style="text-align: left;">MCP による通常データの絞り込み検証を確認済み</td>
+<td style="text-align: left;">Agent Mergeを使う</td>
+<td style="text-align: left;">Create PR options → Agent merge。開始前に下記のマージ条件を確認し、Merge pull requestのチェック状態も確かめる</td>
+<td style="text-align: left;">任せる操作とCI全成功を待つ経路を選ぶ。すでに有効な項目は、許可するなら切り替えずに保持する</td>
 </tr>
 <tr>
-<td style="text-align: left;">GitHub 連携・リポジトリに .mcp.json が存在</td>
-<td style="text-align: left;">プロジェクトを右クリック → Settings → MCP servers</td>
-<td style="text-align: left;">本人の信頼承認後、servers → mcpServers 修正で3件が Connected。/restart-session 後、同じセッションから MCP ブラウザー操作成功</td>
-<td style="text-align: left;">追加実走で一時隔離 DB のフィルター0件も確認済み</td>
+<td style="text-align: left;">Canvasを再利用する</td>
+<td style="text-align: left;">プロジェクト共有スコープへ保存・マージし、別セッションで開く。本文追加ボタンからIssue本文を1回追加し、Plan承認後に実装する</td>
+<td style="text-align: left;">表示、更新、共有保存、本文追加を分けて確認する。追加ボタンだけで実装を始めない</td>
 </tr>
 <tr>
-<td style="text-align: left;">会話・プロジェクト未接続</td>
-<td style="text-align: left;">Chats の +（New chat）→ Chat → 質問を送信</td>
-<td style="text-align: left;">worktree の説明が日本語で返り、Idle になった</td>
-<td style="text-align: left;">GitHub 連携の実装用セッションでは後続章で worktree 分離を確認済み</td>
-</tr>
-<tr>
-<td style="text-align: left;">完了したチャット</td>
-<td style="text-align: left;">Chats の一覧項目を右クリック</td>
-<td style="text-align: left;">Rename、Pin、Mark as unread、Show in Explorer、Share as secret gist、Copy、Archive、Delete を表示</td>
-<td style="text-align: left;">各操作の実行、実装用セッションとの違い、旧 UI からの移動</td>
-</tr>
-<tr>
-<td style="text-align: left;">MCP 未登録</td>
-<td style="text-align: left;">Customize → Installed → MCP Servers</td>
-<td style="text-align: left;">未登録からカタログ保存後の Installed 1 への変化を確認</td>
-<td style="text-align: left;">既存登録がある場合は重複追加しない</td>
-</tr>
-<tr>
-<td style="text-align: left;">MCP カタログ</td>
-<td style="text-align: left;">Customize → MCP → Playwright</td>
-<td style="text-align: left;">Local / npx / -y @playwright/mcp@latest を Add server で保存。新しい Chats で browser_tabs が成功</td>
-<td style="text-align: left;">検索欄の操作は未検証</td>
-</tr>
-<tr>
-<td style="text-align: left;">GitHub Web・テンプレート</td>
-<td style="text-align: left;">Use this template → Create a new repository</td>
-<td style="text-align: left;">作成フォームのテンプレート・Owner・Repository name・Choose visibility・Create repository を確認</td>
-<td style="text-align: left;">Private でフォーム送信成功。新コピーの Bootstrap 成功・課題8件を確認</td>
-</tr>
-<tr>
-<td style="text-align: left;">GitHub 連携・ファイル閲覧</td>
-<td style="text-align: left;">Toggle panel → Add tab → Files → Ctrl+P（Go to file）</td>
-<td style="text-align: left;">copilot-instructions.md を検索して表示。View options → Show hidden files で .github がファイルツリーに表示</td>
-<td style="text-align: left;">操作経路は確認済み</td>
-</tr>
-<tr>
-<td style="text-align: left;">GitHub 連携・保存済みキャンバス</td>
-<td style="text-align: left;">New → New worktree/main → Canvas を開く → Add to current session → Plan</td>
-<td style="text-align: left;">PR #14 の修正を継承し、1通知・1応答の後、計画承認から検索実装へ移行。テスト・MCP・PR #15 の Agent Merge 成功</td>
-<td style="text-align: left;">開き直し・Refresh 後に未完了5件（#2～#6）。GitHub と一致</td>
-</tr>
-<tr>
-<td style="text-align: left;">GitHub 連携・Run 未実行</td>
-<td style="text-align: left;">Run options → Run development site → Run ボタン</td>
-<td style="text-align: left;">項目選択だけでは開始せず、Run ボタンで起動。Stop Run development site で停止</td>
-<td style="text-align: left;">自動セットアップの終了ログは未取得</td>
+<td style="text-align: left;">Automationを実行する</td>
+<td style="text-align: left;">Automations → New automation → Trigger: Manual。Run in the cloudをオフにし、Select project → Create and run → Recent runsでLocal / Succeededと出力を確認する</td>
+<td style="text-align: left;">実行成功の表示に加え、要約の内容をGitHubの一覧と照合する</td>
 </tr>
 </tbody>
 </table>
-<blockquote>
-<p><strong>補足</strong>
-新版 v2026.09.13.1 のローカルセッションでは Run options の項目選択後に自動起動したため、画面上の「Run」および「Stop」の表示状態で実行状態を判断します。App 1.1.20 にて起動・停止を2回確認し、App 内ブラウザー表示、HTTP 200 の応答、停止後のポート解放を確認しました（詳細は <a href="verification.html">実走記録</a> を参照）。
-右クリック操作はチャット管理・PR 一覧行・ローカルプロジェクトで確認されましたが、PR 行に存在したのは New session・Chat・Copy link であり、Create PR や Agent Merge はありませんでした。過去の常設メニューから移行したのかは未特定です。なお、削除・共有・アーカイブ操作の実行は行っていません。</p>
-</blockquote>
-<h2>3. 講師が現行 App で確認すべき操作一覧</h2>
-<table>
-<thead>
-<tr>
-<th style="text-align: left;">章</th>
-<th style="text-align: left;">操作対象</th>
-<th style="text-align: left;">学ぶ操作</th>
-<th style="text-align: left;">入口・表記と確認範囲</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;"><strong>1</strong></td>
-<td style="text-align: left;">リポジトリ・Issue</td>
-<td style="text-align: left;">接続、バックログ確認</td>
-<td style="text-align: left;">Projects の <code>+</code> で追加入口を確認。My work に演習コピーの8件のバックログ Issue を表示</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>2</strong></td>
-<td style="text-align: left;">リポジトリ・セッション</td>
-<td style="text-align: left;">開始、差分レビュー、実行、PR</td>
-<td style="text-align: left;"><code>New session</code>、<code>Changes</code>、<code>Terminal</code>、<code>Create PR</code>、<code>Ready to merge</code></td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>3</strong></td>
-<td style="text-align: left;">Issue・指示ファイル</td>
-<td style="text-align: left;">Issue から開始、ファイル確認、PR</td>
-<td style="text-align: left;">My work → <code>New session</code>、Toggle panel → Add tab → <code>Files</code> → <code>Ctrl+P</code></td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>4</strong></td>
-<td style="text-align: left;">Issue・セッション</td>
-<td style="text-align: left;">計画承認、自律実装、スキル</td>
-<td style="text-align: left;"><code>Plan</code>、<code>Autopilot</code>、<code>Changes</code>、レビュー領域</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>5</strong></td>
-<td style="text-align: left;">カスタマイズ・セッション</td>
-<td style="text-align: left;">MCP 登録とツール実行</td>
-<td style="text-align: left;">リポジトリ定義の形式修正および <code>/restart-session</code> 後の MCP ツール実行を確認。カタログ保存・新規チャットでの <code>browser_tabs</code> 実行も成功</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>6</strong></td>
-<td style="text-align: left;">PR・セッション</td>
-<td style="text-align: left;">Agent Merge と許可範囲の設定</td>
-<td style="text-align: left;">Create PR options → Agent merge → <code>Agent merge</code>。<code>Merge pull request</code> 有効化後、CI 成功と自動マージを確認</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>7</strong></td>
-<td style="text-align: left;">Canvas・セッション</td>
-<td style="text-align: left;">作成、保存、開く、Issue 操作</td>
-<td style="text-align: left;"><code>New</code> → <code>New worktree/main</code>、共有保存、Agent Merge、別セッションでの再表示、<code>Add to current session</code>、Plan 承認後の実装と PR #15 統合を確認（反復送信は修正済み）</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>8</strong></td>
-<td style="text-align: left;">Automation</td>
-<td style="text-align: left;">作成、手動トリガー、結果確認</td>
-<td style="text-align: left;">Automations → <code>New automation</code> → <code>Trigger: Manual</code> → <code>Select project</code> → <code>Create and run</code> → <code>Recent runs</code>。Local / Succeeded と出力を確認</td>
-</tr>
-</tbody>
-</table>
-<p>演習5は2026年9月10日に <a href="https://docs.github.com/en/copilot/how-tos/github-copilot-app/customize-github-copilot-app#configuring-mcp-servers">公式文書</a> と照合し、9月13日に実機確認しました。その他の操作についても、対象を選択した状態で常設メニューとコンテキストメニューのどちらに表示されるかを確認してください。権限、セッション種別、実行状態によって表示が変化する場合は、その条件も併せて記録します。</p>
-<h2>4. 掲載画像の更新方針と配布判定</h2>
-<p>参照元から取り込んだ既存画像の撮影時バージョンは不明です。元画像ファイルは参照用として保管していますが、App 本編からの旧画像参照は2026年9月13日の実機画像へ差し替えました。
-新たな実機画像は <code>sources.json</code> の <code>ui_captures</code> に確認日・バージョン・確認範囲を記録し、生成 HTML でも原本画像と異なる旨の注記を表示します。未確認の画面を架空の画像で置き換えることは行いません。</p>
-<h3>新規撮影画像一覧（全13点）</h3>
-<table>
-<thead>
-<tr>
-<th style="text-align: left;">章</th>
-<th style="text-align: left;">新規撮影画像</th>
-<th style="text-align: left;">確認範囲と留意事項</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;"><strong>2</strong></td>
-<td style="text-align: left;"><code>app-1.1.20-20260913-star-rating.jpg</code></td>
-<td style="text-align: left;">Run で起動した星評価一覧。停止後に Browser パネルへ残った表示</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>5</strong></td>
-<td style="text-align: left;"><code>app-1.1.20-20260913-mcp-catalog.jpg</code></td>
-<td style="text-align: left;">MCP カタログに Playwright が表示される状態</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>5</strong></td>
-<td style="text-align: left;"><code>app-1.1.20-20260913-mcp-config.jpg</code></td>
-<td style="text-align: left;">Playwright の登録フォーム（保存前）</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>0</strong></td>
-<td style="text-align: left;"><code>app-1.1.20-20260913-template-menu.png</code><br><code>app-1.1.20-20260913-template-form.png</code></td>
-<td style="text-align: left;">GitHub Web のテンプレート取得入口と作成フォーム上部（送信前）</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>2</strong></td>
-<td style="text-align: left;"><code>app-1.1.20-20260913-new-session.png</code></td>
-<td style="text-align: left;">New 画面の入力欄、リポジトリ、worktree、ブランチ指定</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>2・3・4</strong></td>
-<td style="text-align: left;"><code>app-1.1.20-20260913-changes.png</code></td>
-<td style="text-align: left;">会話欄の Changes と差分パネル（検索機能実装中の操作例）</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>2・4</strong></td>
-<td style="text-align: left;"><code>app-1.1.20-20260913-run-menu.png</code></td>
-<td style="text-align: left;">Run options の選択メニュー（検索機能 PR 作成後の操作例）</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>3・4</strong></td>
-<td style="text-align: left;"><code>app-1.1.20-20260913-add-tab.png</code></td>
-<td style="text-align: left;">右パネルの Files・Browser・Terminal の追加入口</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>3</strong></td>
-<td style="text-align: left;"><code>app-1.1.20-20260913-file-search.png</code><br><code>app-1.1.20-20260913-files-options.png</code></td>
-<td style="text-align: left;">Go to file と Show hidden files の操作位置</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>3・4</strong></td>
-<td style="text-align: left;"><code>app-1.1.20-20260913-issue-session.png</code></td>
-<td style="text-align: left;">My work の Issue 一覧と New session（並べ替え Issue は未着手）</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>4・7</strong></td>
-<td style="text-align: left;"><code>app-1.1.20-20260913-plan-mode.png</code><br><code>app-1.1.20-20260913-plan-review.png</code></td>
-<td style="text-align: left;">検索 Issue のコンテキスト追加後の Canvas、モード選択、計画承認</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>6・7</strong></td>
-<td style="text-align: left;"><code>app-1.1.20-20260913-agent-merge-menu.png</code><br><code>app-1.1.20-20260913-agent-merge-permissions.png</code></td>
-<td style="text-align: left;">Agent merge 選択と PR 作成後の許可状態（検索機能 PR の操作例）</td>
-</tr>
-</tbody>
-</table>
-<p>新規追加した13点は撮影範囲を切り抜かず、App 全体（1282×892）または GitHub Web の表示範囲全体（1265×712）を掲載しています。個人アカウント、非公開リポジトリ名、ローカルパス、個人の利用量のみを灰色でマスクし、それ以外の画素および画像寸法は原本と同一です。操作例が本文の演習と異なる場合は画像注記に明記し、実装対象や検証成功の証拠を取り違えないように配慮しています。</p>
-<p>講師は各操作について、OS、App バージョン、確認日、操作対象、開始状態、開き方（通常メニュー／右クリック等）、表示された項目名、および操作後の結果を記録してください。画像を撮り直す場合は、個人情報や非公開情報を写さず、本文の経路と同じ状態で撮影します。
-本番教材として配布する前に必須操作の経路と画像を目視照合し、<a href="verification.html">章別の検証状況</a> を更新してください。確認できない章は講師デモまたは延期として扱います。</p>
-<h3>旧参照画像の差し替え状況</h3>
-<p>以下は旧画像の本文中での扱いです（旧画像の撮影時バージョンを確定したという意味ではありません）。</p>
-<table>
-<thead>
-<tr>
-<th style="text-align: left;">章</th>
-<th style="text-align: left;">旧画像ファイル</th>
-<th style="text-align: left;">現在の状態</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;"><strong>0</strong></td>
-<td style="text-align: left;"><code>app-0-use-template.png</code></td>
-<td style="text-align: left;">現行の template-menu 実機画像へ差し替え</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>0</strong></td>
-<td style="text-align: left;"><code>app-0-create-repository.png</code></td>
-<td style="text-align: left;">現行の template-form 実機画像へ差し替え</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>2</strong></td>
-<td style="text-align: left;"><code>app-2-start-session.png</code></td>
-<td style="text-align: left;">現行の new-session 実機画像へ差し替え</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>2</strong></td>
-<td style="text-align: left;"><code>app-2-review-panel.png</code></td>
-<td style="text-align: left;">現行の changes / add-tab 実機画像へ差し替え</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>2</strong></td>
-<td style="text-align: left;"><code>app-terminal-screenshot.png</code></td>
-<td style="text-align: left;">本文から除去。実走した Run メニューによる起動・停止へ更新</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>3</strong></td>
-<td style="text-align: left;"><code>app-2-review-panel.png</code></td>
-<td style="text-align: left;">現行の changes / add-tab 実機画像へ差し替え</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>3</strong></td>
-<td style="text-align: left;"><code>app-show-folder-view.png</code></td>
-<td style="text-align: left;">本文から除去。Files・Go to file・Show hidden files の現行経路を確認</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>3</strong></td>
-<td style="text-align: left;"><code>app-new-session-from-issue.png</code></td>
-<td style="text-align: left;">現行の issue-session 実機画像へ差し替え</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>3</strong></td>
-<td style="text-align: left;"><code>app-select-changes.png</code></td>
-<td style="text-align: left;">現行の changes 実機画像へ差し替え</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>4</strong></td>
-<td style="text-align: left;"><code>app-new-session-from-issue.png</code></td>
-<td style="text-align: left;">現行の issue-session 実機画像へ差し替え</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>4</strong></td>
-<td style="text-align: left;"><code>app-4-plan-mode.png</code></td>
-<td style="text-align: left;">現行の plan-mode 実機画像へ差し替え</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>4</strong></td>
-<td style="text-align: left;"><code>app-select-changes.png</code></td>
-<td style="text-align: left;">現行の changes 実機画像へ差し替え</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>4</strong></td>
-<td style="text-align: left;"><code>app-terminal-screenshot.png</code></td>
-<td style="text-align: left;">本文から除去。実走した Run メニューによる起動・停止へ更新</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>4</strong></td>
-<td style="text-align: left;"><code>app-2-review-panel.png</code></td>
-<td style="text-align: left;">現行の changes / add-tab 実機画像へ差し替え</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>6</strong></td>
-<td style="text-align: left;"><code>app-enable-agent-merge.png</code></td>
-<td style="text-align: left;">現行の agent-merge-menu 実機画像へ差し替え</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>6</strong></td>
-<td style="text-align: left;"><code>app-agent-merge-merge.png</code></td>
-<td style="text-align: left;">現行の agent-merge-permissions 実機画像へ差し替え</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>7</strong></td>
-<td style="text-align: left;"><code>app-enable-agent-merge.png</code></td>
-<td style="text-align: left;">現行の agent-merge-menu 実機画像へ差し替え</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>7</strong></td>
-<td style="text-align: left;"><code>app-agent-merge-merge.png</code></td>
-<td style="text-align: left;">現行の agent-merge-permissions 実機画像へ差し替え</td>
-</tr>
-</tbody>
-</table>
-<h2>5. 操作による回避の判定基準（2026年9月13日）</h2>
-<p>App 本体のコード修正は本教材の対象外です。<code>Open folder</code> における設定画面の停滞および PR 作成時のアカウントエラーは、<strong>開始時から <code>Add GitHub repository</code> を使用する教材経路を採用することで回避</strong>します。</p>
+<p>Agent Mergeを使う前の判断は、<a href="../app/6-agent-merge.html">レッスン6の開始前確認</a>に従ってください。CI全ジョブの完了を待つ条件が適用されるかを、対象リポジトリと自分の権限で確認します。条件が不明なら通常のCreate PRで作成し、最新コミットのCI全成功を待ってからAgent Mergeを開始してください。</p>
+<h2>3. 講師が最新版で確認すること</h2>
+<p>開催前に、使用するOS、Appの版、確認日を<a href="verification.html">検証状況</a>へ記録します。自分の演習コピーを接続し、上の表に沿って各章の開始状態から入口を確認してください。選択したリポジトリ、セッション種別、権限、実行状態によって表示が違う場合は、その条件と実際の項目名を記録します。</p>
+<p>確認では「ボタンが見えた」「操作できた」「期待結果を得た」を分けます。たとえばMCPのConnected表示だけでは、セッションからツールを使えるかは分かりません。ツールを呼び出した後も、フィルターの結果や解除操作まで確かめて初めて、その機能を検証したと判断できます。</p>
+<p>機能の意味はGitHub公式の<a href="https://docs.github.com/en/copilot/how-tos/github-copilot-app/agent-sessions">セッション操作</a>、<a href="https://docs.github.com/en/copilot/how-tos/github-copilot-app/managing-issues-and-pull-requests">Issue・PR管理</a>、<a href="https://docs.github.com/en/copilot/how-tos/github-copilot-app/customize-github-copilot-app">Appのカスタマイズ</a>も参照してください。公式の説明と実際の項目名が異なる場合は、対象と操作後の結果を照合して案内します。</p>
+<p>現在の未確認範囲は<a href="verification.html">検証状況</a>に集約しています。開催前に必要な操作を確認できなかった場合は、講師デモまたは延期の対象とし、同じ記録へ追記してください。HTMLやPDFの生成検査は、Appの操作確認には含めません。</p>
+<h2>4. 画像を撮り直すとき</h2>
+<p>画像は操作例として参照し、最新版の画面とは本文と上の表で照合してください。テンプレート取得先は、本文記載の<code>iwizsophy/dev-days-tailspin-template</code>を基準に確認します。画像の差し替え状況は<a href="verification.html">検証状況</a>へ記録してください。</p>
+<p>撮り直す対象は、次の操作です。優先してIssuesの表示、構成の信頼確認、計画承認を揃えます。</p>
 <ul>
-<li>新コピーにおいて、設定承認、最初の応答、依存導入後の App ビルド（24ページ生成、Complete!）を確認しました。</li>
-<li>GitHub 連携側の <code>Create PR</code> は、既存の検証用 PR #10 で成功済みです。</li>
-<li>セットアップ単独の終了コード取得や、<code>Open folder</code> 経路自体の修復は未確認のままであり、教材の回避経路の完了条件には含めません。</li>
-<li>作業ツリーの未コミット変更が自動で別経路へ移動することはないため、GitHub 連携への切り替えは演習開始前に行うことを基本とします。</li>
-</ul></article></main></body></html>
+<li>演習用テンプレートのUse this templateと作成フォーム</li>
+<li>IssuesのOpenビュー、New session、Repository trustの承認</li>
+<li>セッション開始時のリポジトリ・worktree選択、Changes、Filesによる指示ファイルの閲覧</li>
+<li>Planのレビューと承認、Runによる起動・URL確認・停止</li>
+<li>MCPの既存設定・信頼確認・接続状態と、セッションでのツール実行</li>
+<li>Agent Mergeの開始前確認と許可範囲、共有Canvasの再表示・本文追加、Automationの手動実行結果</li>
+</ul>
+<p>本文と同じ演習・開始状態で撮影し、個人情報や非公開情報は写さないようにします。撮影条件と画像の対応は<code>sources.json</code>に記録してください。マージボタンの画像だけではCI全成功は伝わらないため、画像から分かる操作と、本文で説明する判断を分けます。撮影後に実際の操作結果と説明を照合してから教材へ反映してください。</p></article></main></body></html>

@@ -6,19 +6,19 @@
 <a href="../../index.html">教材セットの入口</a><a href="../index.html">App シナリオの目次</a>
 <a href="../../handson-guide.html#switch">事前準備・UI の確認</a></nav>
 <button class="theme-toggle" type="button" onclick="toggleTheme()">☀️ ライト</button></header>
-<main id="lesson"><h1>講師専用：CLI による緊急の作業保全・続行</h1><aside>この教材セット独自の運営・補助手順です。</aside><article><p>本手順は、App の演習を置き換える通常ルートではありません。受講者の操作が停止した場合は、まず App 内で現在の操作を確認し、解決できなければ App の講師デモまたはペア操作で学習を継続します。
+<main id="lesson"><h1>講師専用：CLI による緊急の作業保全・続行</h1><aside>講師・運営向けの補助資料です。</aside><article><p>本手順は、App の演習を置き換える通常ルートではありません。受講者の操作が停止した場合は、まず App 内で現在の操作を確認し、解決できなければ App の講師デモまたはペア操作で学習を継続します。
 CLI は、受講者の作業成果を失わずに実装を進める必要がある場合に限り使用し、<strong>その章の App 操作体験は「未完了」として記録</strong>します。</p>
 <p><a href="instructor.html">判断基準</a> · <a href="continuation.html">作業場所と PR の確認</a></p>
 <p><a id="chapter-0"></a></p>
 <h2>演習0の緊急対応：同じ演習コピーを準備する</h2>
 <p>この章は App および CLI 共通の環境準備です。本文の Tailspin Toys テンプレートから各自のコピーを作成し、そのコピーをローカルに clone します（すでに App 側で clone 済みのフォルダーがある場合は同じものを使い、重複して新しいコピーを作成しないでください）。</p>
-<p>Node.js 22.13 以上、Git、および Copilot CLI を準備します。npm を用いる場合の導入例は以下の通りです。</p>
+<p>Node.jsは<a href="../app/0-prerequisites.html">演習0</a>と同じ24系のLTS版（24.19.0以降）を使い、GitとCopilot CLIを準備します。途中で実行環境まで変えると、Appでの問題とバージョン差による問題を切り分けにくくなります。npmを用いる場合のCLI導入例は次のとおりです。</p>
 <pre class="highlight"><code class="language-sh">node --version
 git --version
 npm install -g @github/copilot
 copilot --version</code></pre>
 <p>各自のコピーで README を確認し、<code>npm ci</code> および <code>npm run dev</code> を実行して、表示されたローカル URL をブラウザーで開きます。E2E テストを実行する場合は、README の指示に従って <code>npx playwright install chromium</code> も実行してください。CLI の認証確認は次章で行います。</p>
-<p><strong>合流条件：</strong> 各自の演習コピーがローカルで起動でき、Git の remote が自身のフォークリポジトリを指していること。App のインストールが利用できない場合でも、CLI を用いて本編の課題を継続できますが、App 機能の体験は「未実施」と記録します。</p>
+<p><strong>合流条件：</strong> 各自の演習コピーがローカルで起動でき、Gitのremoteがテンプレートから作成した自身の演習用リポジトリを指していること。Appのインストールが利用できない場合でも、CLIを用いて本編の課題を継続できますが、App機能の体験は「未実施」と記録します。</p>
 <p><a href="../app/0-prerequisites.html">App の演習本文に戻る</a></p>
 <p><a id="chapter-1"></a></p>
 <h2>演習1の緊急対応：同じプロジェクトについて質問する</h2>
@@ -33,9 +33,9 @@ copilot --version</code></pre>
 <p><a href="continuation.html">共通手順</a> に従って同じ作業ブランチを開きます。未着手の場合は、クリーンな既定ブランチから <code>feature/app-02-rating</code> などの作業ブランチを新規作成します。CLI に対し、引き継ぎ情報と以下の要件プロンプトを渡します。</p>
 <pre class="highlight"><code class="language-text">Game 型と GameCard.astro、既存の差分を確認してください。
 ホームページの各ゲームカードに既存の starRating（5点満点）を表示し、
-null の場合は「No rating yet」と表示してください。
+nullの場合は「No rating yet」と表示し、数値の0と未評価を区別してください。
 カードの構造は組み替えず、実装済みなら重複して追加しないでください。
-数値と null のケースを検証し、quality-checks に従って確認してください。
+0・小数・nullのケースを検証し、quality-checksに従って確認してください。
 commit・push・PR・merge はまだ行わないでください。</code></pre>
 <p>別のターミナルで <code>npm run dev</code> を実行し、ブラウザーで星評価の表示を確認します。通常データ（seed）に null が存在しない場合は、テスト用 fixture 等で表示を検証し、通常の UI 操作で確認した結果と明確に区別してください。</p>
 <p><strong>合流条件：</strong> 星評価および未評価（null）の表示、関連テストの成功、差分レビューが完了していること。<a href="continuation.html">PR・合流の共通手順</a> に沿って自身のコピーに PR を作成し、CI 成功を確認した上で通常マージします。最新の既定ブランチを取得して演習3へ進みます。</p>
@@ -44,11 +44,13 @@ commit・push・PR・merge はまだ行わないでください。</code></pre>
 <h2>演習3の緊急対応：指示を更新し、コード例で確かめる</h2>
 <p>演習2の星評価がマージされた既定ブランチから、未使用の <code>feature/app-03-instructions</code> などのブランチを作成して開始します（途中からの切り替えであれば既存のブランチを継続使用します）。自身のコピーにある <strong>Update our repository coding standards</strong> Issue の内容を確認し、その要件を CLI へ渡します（Issue がない場合は要件を講師と確認し、自身のコピー内に起票します）。</p>
 <pre class="highlight"><code class="language-text">この Issue の要件に沿って .github/copilot-instructions.md を更新してください。
-既存の指示を維持し、TSDoc の目的・引数・返り値とファイルヘッダーの標準を追加します。
-最初に差分を読み、既に実装済みの部分は維持してください。PR はまだ作らないでください。</code></pre>
+処理の意図を説明するコメント、データ層のTSDoc/JSDoc、AstroのPropsの説明を確認してください。
+既存の指示・実装・ESLint設定の矛盾を調べ、必要なREADMEの説明も更新してください。
+最初に差分を読み、既に実装済みの部分は維持してください。PRはまだ作らないでください。</code></pre>
 <p>指示ファイルの差分をレビューした後、指示が反映されるかを確かめるため、次のプロンプトを依頼します。</p>
 <pre class="highlight"><code class="language-text">ファイルは変更せず、すべての Publishers を返すライブラリコンポーネントの
-コード例だけを示してください。更新した指示の TSDoc とヘッダーを反映してください。</code></pre>
+コード例だけを示してください。更新した指示に従い、関数の役割、引数、戻り値を説明してください。</code></pre>
+<p>Issue本文を判断の基準とし、全ファイルへのヘッダー付与など、要件にない規則を追加しないでください。提示されたコメントがコードの動作と一致するかを読み、指示があるだけで生成結果の適合が保証されるとは考えないようにします。この観察の目的は<a href="../app/3-custom-instructions.html">演習3の解説</a>と同じです。</p>
 <p><strong>合流条件：</strong> 指示ファイルと提示されたコード例が要件に一致していること。ここでは CLI 独立コースのように publisher helper の実ファイルを作成する必要はありません。リポジトリの品質確認後、<a href="continuation.html">共通手順</a> に従って PR 作成と通常マージを行います。演習4へは、星評価と指示更新が含まれる最新の既定ブランチから進みます。</p>
 <p><a href="../app/3-custom-instructions.html">App の演習本文に戻る</a></p>
 <p><a id="chapter-4"></a></p>

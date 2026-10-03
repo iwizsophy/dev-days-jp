@@ -6,18 +6,19 @@
 <a href="../../index.html">教材セットの入口</a><a href="../index.html">App シナリオの目次</a>
 <a href="../../handson-guide.html#switch">事前準備・UI の確認</a></nav>
 <button class="theme-toggle" type="button" onclick="toggleTheme()">☀️ ライト</button></header>
-<main id="lesson"><h1>レッスン 7 - キャンバスを使った計画</h1><p class="source">非公式の日本語版 · <a href="https://github.com/github-samples/copilot-workshops/blob/7ddcf241c1cd10b8e90c0df96f6bef81e710392a/docs/ja-jp/app/7-canvases.md">参照原文</a> · <a href="../licenses/copilot-workshops.txt">MIT ライセンス</a><br>参照コミット：<code>7ddcf241c1cd</code> ／ 確認日：2026-09-08</p><aside>UI の確認日・バージョン・未確認範囲は本文の注記を参照してください。利用条件は <a href="../../handson-guide.html#plans">事前確認</a>を参照してください。</aside><aside>本編は App の操作を学ぶシナリオです。一部の UI を実機確認しましたが、全章の完走は未検証です。<a href="../material/verification.html">章別の検証状況</a></aside><nav class="chapter-nav" aria-label="章の移動"><a href="6-agent-merge.html">← 前の章：レッスン 6 - Agent Merge によるマージ</a><a href="8-review.html">次の章 →：レッスン 8 - 振り返りと次のステップ</a></nav><details><summary>この章の目次</summary><div class="toc">
+<main id="lesson"><h1>レッスン 7 - キャンバスを使った計画</h1><p class="source">非公式の日本語版 · <a href="https://github.com/github-samples/copilot-workshops/blob/7ddcf241c1cd10b8e90c0df96f6bef81e710392a/docs/ja-jp/app/7-canvases.md">参照原文</a> · <a href="../licenses/copilot-workshops.txt">MIT ライセンス</a></p><aside>利用条件は <a href="../../handson-guide.html#plans">受講準備</a>を参照してください。</aside><nav class="chapter-nav" aria-label="章の移動"><a href="6-agent-merge.html">← 前の章：レッスン 6 - Agent Merge によるマージ</a><a href="8-review.html">次の章 →：レッスン 8 - 振り返りと次のステップ</a></nav><details><summary>この章の目次</summary><div class="toc">
 <ul>
 <li><a href="#シナリオ">シナリオ</a></li>
 <li><a href="#キャンバスとは">キャンバスとは</a></li>
 <li><a href="#キャンバスを使用する理由">キャンバスを使用する理由</a></li>
 <li><a href="#作業を追跡するキャンバスを作成する">作業を追跡するキャンバスを作成する</a><ul>
-<li><a href="#実機検証における作成挙動">実機検証における作成挙動</a></li>
+<li><a href="#作成したボードをレビューする">作成したボードをレビューする</a></li>
 </ul>
 </li>
 <li><a href="#キャンバスを保存してリポジトリにマージする">キャンバスを保存してリポジトリにマージする</a></li>
 <li><a href="#キャンバスで作業する">キャンバスで作業する</a><ul>
-<li><a href="#実機検証におけるトラブルシューティングと確認事実">実機検証におけるトラブルシューティングと確認事実</a></li>
+<li><a href="#検索で確かめること">検索で確かめること</a></li>
+<li><a href="#ボタンや一覧が期待どおりに動かないとき">ボタンや一覧が期待どおりに動かないとき</a></li>
 </ul>
 </li>
 <li><a href="#まとめと次のステップ">まとめと次のステップ</a></li>
@@ -25,7 +26,7 @@
 </ul>
 </div>
 </details><article><blockquote>
-<p><strong>この章の確認範囲：</strong> 2026年9月13日に Windows の App 1.1.20 実機にて、キャンバスの作成、プロジェクト共有スコープでの保存、Agent Merge によるマージ、別セッションでの再表示、および Issue のセッションコンテキスト追加を確認済みです。さらに、通知の反復送信バグを修正したうえで、キャンバス経由で追加した検索 Issue の計画立案・実装・MCP 検証・Agent Merge（PR #15）までの一連の流れを追加実走しています。</p>
+<p><strong>この章の進め方</strong> Issueを比較するCanvasを作成し、Canvasだけを先にリポジトリへ共有します。別のセッションで開き直したら、検索Issueの本文を追加し、計画・実装・検証・マージへ進みます。</p>
 </blockquote>
 <p>ここまでのレッスンでは、主にチャット（会話）を通じてエージェントに指示を出してきました。しかし、実際のソフトウェア開発では、会話だけでなくカンバンボード、設計ドキュメント、リリースチェックリストといった「成果物の領域」を共有しながら作業を進める場面が多く存在します。</p>
 <p><strong>キャンバス（Canvas）</strong>は、まさにそうした具体的な作業成果物をアプリ内で人間とエージェントが直接共有・操作するための専用領域です。本レッスンでは、残りのバックログを効率的にトリアージし、作業を追跡するためのシンプルなカンバンボードキャンバスを作成します。</p>
@@ -41,6 +42,7 @@
 <h2 id="キャンバスとは">キャンバスとは</h2>
 <p><a href="https://docs.github.com/copilot/how-tos/github-copilot-app/working-with-canvas-extensions">キャンバス（Canvas）</a>は、実装計画、タスク管理ボード、リリースチェックリスト、ダッシュボードといった作業成果物を扱う、共有の対話型作業領域です。チャットは要件のすり合わせや曖昧さの解消に適していますが、構造化された成果物の作成や管理には専用の作業台（スペース）が必要です。キャンバスを用いることで、エージェントと同じ成果物領域上で直接共同作業が可能になります。</p>
 <p>キャンバスは<strong>双方向（Interactive）</strong>に操作できます。エージェントが作業の進捗に合わせてキャンバスの内容を更新できるだけでなく、人間側も同じ画面上で直接要素を編集・操作できます。指示プロンプトに基づいて初期レイアウトを生成させた後も、対話を通じて機能の追加、削除、レイアウト調整を継続的に依頼できます。作成されたキャンバスは、アプリの右パネルに展開されます。</p>
+<p>GitHub公式でも、人が画面から操作する機能と、エージェントが呼び出す機能を備えた共有領域として説明されています。使える操作は生成した拡張によって異なります。本演習では、Issue一覧の更新と本文の追加を実装させます。カードを移動する操作やGitHubのIssueを書き換える操作まで、自動で備わるわけではありません。<a href="https://docs.github.com/en/copilot/how-tos/github-copilot-app/working-with-canvas-extensions#about-canvas-extensions">公式説明「About canvas extensions」</a></p>
 <p>代表的なキャンバスの活用例は次の通りです。</p>
 <ul>
 <li><strong>Markdown canvases</strong>：日々の開発計画を整理し、Issue や PR の優先順位を俯瞰する</li>
@@ -54,93 +56,144 @@
 <li>共有画面上で人間が直接配置や優先度を修正し、その結果をエージェントに認識させて作業を継続できる</li>
 <li>会話文の応答だけでなく、目に見える成果物の変化として進捗を直感的に把握できる</li>
 </ul>
+<p>たとえば、チャットで「次に何をするか」を相談した後、ボードに上位3件と優先理由が残っていれば、選ばれなかったIssueとも比較できます。別のセッションでも同じ表示と操作を使えれば、チームは同じ手順で判断をやり直せます。共有する価値は見た目だけではありません。参照するデータ、優先する理由、作業を開始するタイミングも揃えられる点にあります。</p>
+<p>ただし、古いIssue一覧を固定表示すると、完了済みの作業をもう一度選ぶおそれがあります。本演習ではGitHubの最新Open一覧を取得し、人がRefreshしたときに更新する構成にします。これは教材で指定する動作です。Canvas自体にすべてのIssueが常時同期されると考えず、どの操作で最新情報を取得するかを確かめてください。</p>
 <h2 id="作業を追跡するキャンバスを作成する">作業を追跡するキャンバスを作成する</h2>
-<p>星評価、コーディング標準、フィルター機能のリリースを完了しましたが、バックログにはまだ対応すべき Issue が残っています。残課題を迅速にトリアージするためのキャンバスを作成しましょう。</p>
+<p>星評価、コーディング標準、フィルター機能をmainへ統合しましたが、バックログにはまだ対応すべきIssueが残っています。残課題を比較し、次の作業を選ぶためのキャンバスを作成しましょう。このセッションではCanvasを完成させ、検索機能の実装は別のセッションで始めます。</p>
 <ol>
 <li>GitHub Copilot app を開きます。</li>
-<li>サイドバーの演習用リポジトリの横にある <strong>New session</strong> を選択します（App 1.1.20 では <strong>New</strong> 画面が開きます）。</li>
+<li>サイドバーの <strong>Projects</strong> で演習用プロジェクトを右クリックし、メニューの <strong><code>+</code> New session</strong> を選択します。</li>
 <li>入力欄下部で演習用リポジトリが選ばれており、<strong>New worktree</strong> および <strong>main</strong> が指定されていることを確認します。作成された worktree に前章のマージ結果が正しく反映されていることも確認してください。</li>
 <li>次のプロンプトを入力し、カンバンボードの作成を指示します。</li>
 </ol>
-<pre class="highlight"><code class="language-plaintext">作業の優先順位をすぐに整理できる、基本的なカンバンボードの canvas を作ってください。今対応すべき上位3件の Issue を強調し、残りは下の別の領域に配置してください。上位3枚のカードには Issue の内容と優先する理由を含めてください。各 Issue に、現在のセッションのコンテキストへ追加してすぐ作業を始められるボタンを付けてください。</code></pre>
-<p>Copilot がキャンバスの作成処理を開始します。</p>
-<h3 id="実機検証における作成挙動">実機検証における作成挙動</h3>
-<p>実走検証では、右パネルに <strong>Issue triage board</strong> が開き、未対応の Issue 6件が「上位3件」と「残り3件」の2つの領域に分類されて描画されました。<br />
-なお、初版生成時点では上位3件のカードにしか操作ボタンが配置されていなかったため、「すべてのカードに <strong>Add to current session</strong> ボタンを配置してください」と追加で指示を出して修正させました。画面に描画されたことだけで完了とせず、カードの総数、優先理由の妥当性、更新ボタンの有無、および各カードのボタン動作を必ず確認してください。</p>
+<pre class="highlight"><code class="language-plaintext">作業の優先順位を整理するカンバンボードのcanvasを作ってください。
+この演習リポジトリのGitHubから最新のOpen Issue一覧を取得し、上位3件と残りを分けて表示してください。Issueを固定配列に埋め込まず、再取得できるRefreshボタンを付けてください。
+上位3件には内容と優先理由を記載し、mainへマージ済みの星評価とフィルター機能を理由に反映してください。
+すべてのIssueカードに、番号・タイトル・URL・本文全体を現在のセッションのコンテキストへ1回だけ追加するボタンを付けてください。受け取ったエージェントは受領だけを1回返し、実装や新しいセッションの作成を始めない仕様にしてください。同じセッションへの重複送信も防いでください。
+今回はCanvasの作成と確認までです。カードのIssueの実装やPR作成はまだ行わないでください。</code></pre>
+<p>Copilotがキャンバスの作成処理を開始します。公式ドキュメントでは、セッション内で<code>/create-canvas</code>に続けて必要な操作を伝える方法も案内されています。作成の入口が分からない場合は、<a href="https://docs.github.com/en/copilot/how-tos/github-copilot-app/working-with-canvas-extensions#creating-a-canvas">公式の作成手順</a>も確認してください。</p>
+<h3 id="作成したボードをレビューする">作成したボードをレビューする</h3>
+<p>画面が開いたら、まず自分のGitHubにあるOpen Issueとカード一覧を照合します。Refreshが固定配列を再描画するだけになっていないか、一覧を取得する処理も確認してください。上位3件の優先理由では、星評価とフィルター機能がマージ済みであることを前提にしていますか。機能をこれから作る予定として扱っている場合は、mainの状態を確認させて理由を修正します。</p>
+<p>本文追加ボタンは、Issueの要件を次の計画に渡す操作です。ボタンから「Issueに着手してください」と送信すると、計画を確認する前に実装が始まるおそれがあります。本文全体が1回だけ追加され、受領応答だけが返るかを確認してください。実装が始まった場合はStopで停止し、途中変更を保全したうえで、ボタンの送信内容と動作を修正します。</p>
 <blockquote>
 <p><strong>補足</strong>
 キャンバスの生成には数分を要する場合があります。複雑な UI 構築タスクであるため、1回目の生成で完全な状態にならないこともあります。求めている操作性になるまで、チャットを通じて追加の要望を伝え、反復的に修正を指示してください。</p>
 </blockquote>
 <h2 id="キャンバスを保存してリポジトリにマージする">キャンバスを保存してリポジトリにマージする</h2>
 <p>作成したキャンバスは、指示ファイルやスキルと同様に、リポジトリの恒久的な開発アセットとして管理できます。キャンバスの定義ファイルをリポジトリへコミットし、チーム全体で共有できるようにマージしましょう。</p>
+<p>Canvasの保存と検索機能の実装を別のPRにすると、ボードの動作を先にレビューできます。新しいworktreeでも同じCanvasを開けることを確認してから、カードにあるIssueへ進みます。これにより、元のセッションにしかない一時ファイルへ依存していないかも確かめられます。</p>
 <ol>
 <li>同一セッション内で、次のプロンプトを入力してキャンバス定義の保存を依頼します。</li>
 </ol>
-<pre class="highlight"><code class="language-plaintext">開発チームと共有できるよう、この canvas の定義をリポジトリに保存してください。</code></pre>
+<pre class="highlight"><code class="language-plaintext">開発チームと共有できるよう、このcanvasをプロジェクト共有スコープの
+.github/extensions/priority-kanban/extension.mjsに保存し、READMEへ別セッションで開く手順を追加してください。必要な補助ファイルも保存してください。
+最新のOpen Issue取得、Refresh、全カードの本文追加ボタン、1回の本文送信と1回の受領応答、重複送信防止を確認してください。ボタンの確認でIssueの実装を始めないでください。
+差分はCanvasと再利用手順の範囲にしてください。PRはレビュー後に作成します。</code></pre>
 <ol start="2">
 <li>エージェントがキャンバスファイルを保存したら、ファイルの保存場所を確認します。</li>
 </ol>
 <blockquote>
-<p><strong>保存先スコープの確認：</strong><br />
-2026年9月13日の実機検証時、初版はセッション限定の一時領域にのみ配置されていました。チーム共有を明示指示したところ、<code>.github/extensions/issue-triage-board/extension.mjs</code> および README の起動手順が追加されました。これは<a href="https://docs.github.com/en/copilot/how-tos/github-copilot-app/working-with-canvas-extensions#creating-a-canvas">公式のプロジェクト共有スコープ</a>に準拠した配置です。セッションの一時フォルダーにしか存在しない状態では、チーム共有や他セッションでの再利用を確認したことにはなりません。</p>
+<p><strong>保存先スコープの確認</strong> 共有する定義は<code>.github/extensions/priority-kanban/extension.mjs</code>、再利用手順はREADMEに保存します。公式では<code>.github/extensions</code>をチームで共有するプロジェクトスコープ、<code>~/.copilot/extensions</code>を個人用スコープとして説明しています。<code>priority-kanban</code>は本演習で使う拡張名です。セッションの一時領域にしかない場合は共有保存を依頼してください。<a href="https://docs.github.com/en/copilot/how-tos/github-copilot-app/working-with-canvas-extensions#how-canvas-extensions-are-structured">公式の保存先とファイル構成</a></p>
 </blockquote>
+<p>本文追加ボタンを1回押し、Issue本文全体が現在の会話に1回追加され、エージェントが受領のみを返すことを確認します。同じカードの再クリックやRefreshで通知が増えないことも確かめてください。実装が始まる場合はStopで止め、途中変更を保全してボタンの仕様を修正します。ChangesでCanvasとREADMEなどの関連ファイルだけがPRに入ることを確認してから先へ進みます。</p>
 <ol start="3">
-<li>画面右上にある <strong>Create PR</strong> 横のドロップダウンから <strong>Agent merge</strong> を選択します（すでにボタンが <strong>Agent merge</strong> になっている場合はそのまま次へ進みます）。</li>
+<li><a href="6-agent-merge.html#開始前にマージ条件を確認する">レッスン6の開始前の確認</a>に従って、CIを待つ経路を選びます。マージ条件が未設定・不明なら通常の <strong>Create PR</strong> で作成し、最新コミットのCI全成功を待ってからAgent Mergeへ進みます。CIの完了を待つ条件が適用される場合は、画面右上の <strong>Create PR</strong> 横のドロップダウンから <strong>Agent merge</strong> を選択し、PR作成から任せられます。</li>
 </ol>
-<p><img alt="App 全体と Agent merge、Create PR、Create draft PR の選択メニュー" src="../assets/app-1.1.20-20260913-agent-merge-menu.png" /><br><em class="source">実機撮影：2026-09-13、Windows、GitHub Copilot App 1.1.20。撮影範囲全体を掲載（切り抜きなし）。灰色の箇所はアカウント・検証用リポジトリ・ローカルパス等の識別情報や個人の利用量をマスク。Agent merge・Create PR・Create draft PR の選択メニュー。検索機能の PR 作成前の操作例。</em></p>
+<p><img alt="App 全体と Agent merge、Create PR、Create draft PR の選択メニュー" src="../assets/app-1.1.20-20260913-agent-merge-menu.png" /></p>
 <ol start="4">
 <li><strong>Agent merge</strong> ボタンをクリックしてマージプロセスを開始します。</li>
-<li>エージェントが pull request（検証時は PR #14）を作成し、CI チェックの監視を開始します。</li>
-<li>ドロップダウンメニューから <strong>Merge pull request</strong> のチェックボックスを確認し、チェックが入っていない場合は手動で有効化します。</li>
+<li>PR作成から任せた場合は、エージェントがpull requestを作成し、CIチェックの監視を開始します。PRの差分がCanvasと再利用手順の範囲に収まっていることも確認してください。</li>
+<li>ドロップダウンメニューから <strong>Merge pull request</strong> のチェックボックスを確認し、チェックが入っていない場合は手動で有効化します。すでにチェック済みなら、そのままにします。</li>
 </ol>
-<p><img alt="PR 作成後の App 全体。Agent merge の Merge pull request はチェック済み" src="../assets/app-1.1.20-20260913-agent-merge-permissions.png" /><br><em class="source">実機撮影：2026-09-13、Windows、GitHub Copilot App 1.1.20。撮影範囲全体を掲載（切り抜きなし）。灰色の箇所はアカウント・検証用リポジトリ・ローカルパス等の識別情報や個人の利用量をマスク。PR 作成後の Agent merge 許可設定。Merge pull request はすでにチェック済み。検索機能 PR の操作例。</em></p>
+<p><img alt="PR 作成後の App 全体。Agent merge の Merge pull request はチェック済み" src="../assets/app-1.1.20-20260913-agent-merge-permissions.png" /></p>
 <ol start="7">
-<li>CI チェックがすべて成功し、エージェントによって pull request が自動マージされるのを待ちます。</li>
+<li>CIの全ジョブ成功を確認し、自動マージ後にAppとGitHub双方の <strong>Merged</strong> を照合します。Ready to mergeだけでCI全成功とは判断しません。</li>
 </ol>
 <p>これで、チーム全体で再利用可能な共有キャンバスがリポジトリに統合されました。</p>
 <h2 id="キャンバスで作業する">キャンバスで作業する</h2>
 <p>マージされたキャンバスを、新しいセッションから呼び出して実際の開発作業に着手してみましょう。</p>
 <ol>
-<li>サイドバーで演習用リポジトリの横にある <strong>New session</strong> を選択し、新しいセッションを開始します。</li>
+<li>サイドバーの <strong>Projects</strong> で演習用プロジェクトを右クリックし、メニューの <strong><code>+</code> New session</strong> を選択します。<strong>New worktree</strong>と<strong>main</strong>を指定し、Canvasのマージを含むmainを継承していることを確認します。新しい拡張の承認画面が出た場合は、前節でレビューしたファイルと保存先を確認して承認します。</li>
 <li>次のプロンプトを入力し、保存したキャンバスを開かせます。</li>
 </ol>
-<pre class="highlight"><code class="language-plaintext">Issue の優先順位を整理する canvas を開いてください。</code></pre>
+<pre class="highlight"><code class="language-plaintext">リポジトリに保存したIssueの優先順位を整理するcanvasを開いてください。
+まだIssueの実装は始めず、最新のOpen Issueを表示してください。</code></pre>
 <ol start="3">
 <li>作成したトリアージボードキャンバスが右パネルに表示されることを確認します。</li>
-<li>着手したい Issue（例: タイトル検索機能）のカードにある <strong>Add to current session</strong> ボタンをクリックします（ボタン表示名はキャンバスの実装によりますが、実機ではこの表記でした）。</li>
+<li>タイトル検索Issueのカードで、本文を現在のセッションへ追加するボタンを1回押します。<strong>Add to current session</strong>など、ボタン名は生成した実装によって異なります。</li>
 <li>Issue の詳細内容が会話欄に1回だけ送信され、エージェントから受信の確認応答が返ることを確認します（ボタンの役割はあくまでセッションコンテキストへの追加です）。</li>
-<li>実装計画を立てるため、入力欄下部のモードを <strong>Mode: Interactive</strong> から <strong>Plan</strong> に切り替えます。実機検証では「キャンバスから追加したタイトル検索 Issue の実装計画を作成し、既存のフィルター機能と星評価を維持してください」と指示しました。</li>
+<li>本文の受領を確認してから、入力欄下部のモードを <strong>Mode: Interactive</strong> から <strong>Plan</strong> に切り替えます。次のプロンプトで検索の計画を依頼します。</li>
 </ol>
-<p><img alt="検索 Issue を追加した Canvas と左下のモード選択メニュー" src="../assets/app-1.1.20-20260913-plan-mode.png" /><br><em class="source">実機撮影：2026-09-13、Windows、GitHub Copilot App 1.1.20。撮影範囲全体を掲載（切り抜きなし）。灰色の箇所はアカウント・検証用リポジトリ・ローカルパス等の識別情報や個人の利用量をマスク。左下のモード選択と右側の Canvas。検索 Issue を追加した後の操作例。各章では本文の対象 Issue を選ぶ。</em></p>
+<pre class="highlight"><code class="language-plaintext">Canvasから追加したタイトル検索Issueの実装計画を作成してください。
+既存のデータ取得とフィルター処理を確認し、検索をどの層に追加するかとその理由を説明してください。星評価を維持し、検索条件と既存のカテゴリ・出版社フィルターをANDで組み合わせてください。
+大文字小文字、前後の空白、部分一致、検索結果0件、キーボードでの入力と解除をどう確認するか、実データから期待するタイトルと件数を示してください。
+計画の承認前には実装を始めず、承認後も差分レビューとMCP検証を終えるまではPRを作成・マージしないでください。</code></pre>
+<p><img alt="検索 Issue を追加した Canvas と左下のモード選択メニュー" src="../assets/app-1.1.20-20260913-plan-mode.png" /><br><em class="source">画像内のIssueは操作例です。演習では本文の対象Issueを選びます。</em></p>
 <ol start="7">
-<li>提示された計画を <strong>Review plan</strong> で確認し、<strong>Approve and implement this plan</strong> → <strong>Continue</strong> を選択します。セッションが <strong>Autopilot</strong> に切り替わり、実装が開始されます。</li>
+<li>提示された計画を <strong>Review plan</strong> で確認します。検索の実装場所と既存フィルターへの影響、テストで確かめる結果を読んでから <strong>Approve and implement this plan</strong> を選択してください。この選択で承認が送信されます。承認後はAutopilotでの実装を確認します。</li>
 </ol>
-<p><img alt="検索機能の計画全体と Review plan の Continue" src="../assets/app-1.1.20-20260913-plan-review.png" /><br><em class="source">実機撮影：2026-09-13、Windows、GitHub Copilot App 1.1.20。撮影範囲全体を掲載（切り抜きなし）。灰色の箇所はアカウント・検証用リポジトリ・ローカルパス等の識別情報や個人の利用量をマスク。Review plan の Approve and implement this plan と Continue。右側は検索機能の計画。選択だけでは開始せず Continue で承認する。</em></p>
+<p><img alt="検索機能の計画全体と Review plan の承認画面" src="../assets/app-1.1.20-20260913-plan-review.png" /><br><em class="source">計画の承認は本文の手順に従います。</em></p>
 <ol start="8">
-<li>実装完了後、<strong>Changes</strong> で差分をレビューし、テストおよびブラウザーでの検証を指示します。実機検証では、SQL 検索におけるワイルドカード文字（<code>%</code> や <code>_</code>）のエスケープ不備をレビュー時に指摘・修正させ、単体テスト39件、E2Eテスト28件、キャンバス回帰テスト3件、lint、型検査、build の全通過を確認しました。さらに Playwright MCP を用いて、通常データ21件での検索、複合条件、検索結果0件、およびキーボード操作による解除も確認しています。</li>
-<li>問題がなければ、前章で習得した <strong>Agent merge</strong> を指定して PR 作成とマージを委託します。検証用 PR #15 は CI 全4ジョブ通過後に自動マージされ、検索機能の Issue #1 が正常にクローズされました。</li>
-<li>キャンバス右上の <strong>Refresh</strong> ボタンをクリックし、完了した Issue がボードの未対応一覧から除外されることを確認します。</li>
+<li>実装完了後、<strong>Changes</strong>で差分をレビューし、テストとPlaywright MCPによるブラウザー検証を依頼します。下の確認表を使い、検索だけでなく星評価と既存フィルターも機能するかを確かめてください。</li>
+<li>問題がなければ、CanvasのPRと同じく<a href="6-agent-merge.html#開始前にマージ条件を確認する">レッスン6の開始前の確認</a>に従い、CI全成功を待てる経路で <strong>Agent merge</strong>を使います。CI全ジョブの成功、AppとGitHub双方のMerged、検索IssueのClosedを確認します。</li>
+<li>キャンバス右上の <strong>Refresh</strong> または <strong>一覧を更新</strong> を押し、完了したIssueがOpen一覧から除外されることを確認します。</li>
 </ol>
-<h3 id="実機検証におけるトラブルシューティングと確認事実">実機検証におけるトラブルシューティングと確認事実</h3>
+<h3 id="検索で確かめること">検索で確かめること</h3>
+<p>検索をどこに実装するかは、既存の構成を読んで決めます。ブラウザー内に検索対象のデータが揃っているなら、<code>trim</code>、<code>toLowerCase</code>、<code>includes</code>などで入力を整え、文字列の部分一致で比較する方法が考えられます。すべての検索に同じ方法を指定する必要はありません。サーバー側の取得やページ分割がある構成では、どのデータを検索対象にするかから検討します。</p>
+<p>SQL検索を使う場合は、<code>%</code>や<code>_</code>などの文字を通常の文字として扱うか、ワイルドカードとして扱うかも仕様に含めます。ブラウザー内の文字列比較なら、その処理に対応する観点を選びます。検索の実装方法を読まずにテストを追加するのではなく、入力をどこで整え、どの条件で一致と判断するかを計画と照合してください。</p>
+<p>次の表を参考に、自分のリポジトリのゲームデータから期待するタイトルと件数を決めます。タイトルやカテゴリが変更されている場合は、同じ条件に合うデータを選んでください。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">操作・条件</th>
+<th style="text-align: left;">期待する結果の決め方</th>
+<th style="text-align: left;">確認する理由</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">条件を指定せず一覧を開く</td>
+<td style="text-align: left;">検索前のタイトルと総件数を確認する</td>
+<td style="text-align: left;">検索前の基準を決める</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>sErVeR</code>を入力する</td>
+<td style="text-align: left;"><code>server</code>を含むタイトルを探す。Server SiegeとVirtual Server Simulatorがあれば、両方が対象になる</td>
+<td style="text-align: left;">大文字小文字を区別せず、タイトルの途中にも一致するか</td>
+</tr>
+<tr>
+<td style="text-align: left;">検索にStrategyとGitHub Gamesを併用する</td>
+<td style="text-align: left;">検索結果のうち、カテゴリ・出版社の両方に合うタイトルだけを残す</td>
+<td style="text-align: left;">検索と既存フィルターをANDで適用できるか</td>
+</tr>
+<tr>
+<td style="text-align: left;">どのタイトルにも含まれない検索語を入力する</td>
+<td style="text-align: left;">0件の表示</td>
+<td style="text-align: left;">空の結果でも状態が利用者に伝わるか</td>
+</tr>
+<tr>
+<td style="text-align: left;">PublisherからTabでClear filtersへ移動しEnterを押す</td>
+<td style="text-align: left;">検索・カテゴリ・出版社が解除され、検索前の一覧に戻る</td>
+<td style="text-align: left;">マウスを使わず元の一覧へ戻れるか</td>
+</tr>
+</tbody>
+</table>
+<p>検索結果でも星評価が表示されることを確認してください。前後に空白を付けた文字列<code>" sErVeR "</code>のテストでは、空白を除いた<code>sErVeR</code>と同じタイトルを期待するか、計画の仕様と照合します。<code>server</code>を含むタイトルが複数あるのに1件と決めつけると、正しい実装でもテストが失敗します。件数だけでなく対象のタイトルを先に確認すると、実装の不具合とテストの期待値の誤りを切り分けられます。</p>
+<p>MCP検証の終了時はブラウザーと開発サーバーを停止し、検証用の一時出力を片付けます。差分に関係のないファイルが入っていないか、Changesでもう一度確認してください。</p>
+<h3 id="ボタンや一覧が期待どおりに動かないとき">ボタンや一覧が期待どおりに動かないとき</h3>
 <blockquote>
 <p><strong>補足</strong>
-<strong>反復送信バグへの対処記録：</strong>
-初版のキャンバスでは、ボタン押下時に「この Issue をセッションに追加してください」という命令形の通知メッセージを会話欄へ送っていたため、これを受け取ったエージェントが自身で追加アクションを再帰的に呼び出し、同一メッセージが無限ループで送信されるバグが発生しました。
-- <strong>緊急対応</strong>：セッションの Stop で処理を強制停止。
-- <strong>改修内容</strong>：通知文言を「Issue を追加しました」という客観的な事実通知へ変更。さらに、同一 Issue の送信中・送信済み状態をフラグ管理し、再入時には即時リターンする制御ロジックと回帰テストを追加。
-- <strong>結果</strong>：1 回のクリックで正確に 1 通知・1 応答となり、ボード Refresh 後の再クリックでもメッセージが増殖しないことを実機で確認しました。</p>
+<strong>同じIssueの通知が繰り返される場合</strong>
+ボタンから「このIssueをセッションに追加してください」という命令を送ると、エージェントが再び追加アクションを呼ぶ原因になり得ます。通知が繰り返される場合は、生成したCanvasの送信内容と状態管理を確認します。</p>
+<ul>
+<li><strong>停止する</strong>：セッションの <strong>Stop</strong>で処理を止め、途中変更を保全します。</li>
+<li><strong>修正する</strong>：通知を「Issueを追加しました」のような事実の報告にし、受領応答だけを求めます。同一Issueの送信中・送信済み状態を管理し、重複する呼び出しを抑止する処理と回帰テストを追加します。</li>
+<li><strong>確かめる</strong>：1回のクリックで1通知・1応答となり、同じセッションで再クリックやRefreshを行っても通知が増えないことを確認します。</li>
+</ul>
 <p><strong>補足</strong>
-<strong>ボード手動更新の仕様：</strong>
-追加実走検証では、<strong>Add tab</strong> → <strong>Canvas</strong> → <strong>Issue triage board</strong> から再度ボードを開き、<strong>Refresh</strong> をクリックした後に <strong>5 open issues loaded.</strong> と表示され、未対応の Issue（#2〜#6）のみが正しく描画されることを確認しました。
-すでにクローズされた検索（#1）、フィルター（#7）、指示更新（#8）は一覧から除外され、GitHub 上の最新ステータスと一致しています。なお、PR マージの完了通知だけでボードが自動更新される仕様ではないため、明示的な Refresh 操作後の表示照合をもって検証完了としています。</p>
+<strong>ボード手動更新の確認</strong> マージ通知が届いても、Canvasの一覧が再取得されたとは限りません。<strong>Refresh</strong>または<strong>一覧を更新</strong>を押し、その時点のGitHubのOpen一覧と照合してください。完了した検索IssueがClosedになっていれば、更新後のボードからも除外されることを確認します。</p>
 </blockquote>
-<p>これで、キャンバスを活用した高度なタスク管理と自律エージェントの協調フローを確立できました。</p>
-<p><a id="cli-fallback"></a></p>
-<blockquote>
-<p><strong>注意</strong>
-<strong>講師向け緊急対応</strong>：
-参加者の環境でトラブルが生じ、緊急に作業を保全する必要がある場合のみ <a href="../material/emergency-cli.html#chapter-7">講師専用 CLI 対応手順</a> を参照してください。なお、CLI 側で実装が完了しても、本章における App 操作の完了実績とは見なしません。</p>
-</blockquote>
+<p>この流れで、課題の比較、計画の承認、実装と検証、完了後の一覧更新を体験しました。振り返りでは、本文追加と実装開始を分けた理由、Canvasだけを先に共有した理由、更新後の一覧をGitHubと照合した理由を説明してみてください。チームで使うCanvasを考えるときも、「誰がどの操作で何を変えるか」から必要な機能を決められます。</p>
 <h2 id="まとめと次のステップ">まとめと次のステップ</h2>
 <p>人間とエージェントが双方向で操作できる共有作業領域（キャンバス）を構築し、実際の開発フローに統合しました。本章で実施した主な内容は次の通りです。</p>
 <ul>

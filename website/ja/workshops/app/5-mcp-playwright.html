@@ -6,12 +6,12 @@
 <a href="../../index.html">教材セットの入口</a><a href="../index.html">App シナリオの目次</a>
 <a href="../../handson-guide.html#switch">事前準備・UI の確認</a></nav>
 <button class="theme-toggle" type="button" onclick="toggleTheme()">☀️ ライト</button></header>
-<main id="lesson"><h1>レッスン 5 - Playwright MCP server によるテスト</h1><p class="source">非公式の日本語版 · <a href="https://github.com/github-samples/copilot-workshops/blob/7ddcf241c1cd10b8e90c0df96f6bef81e710392a/docs/ja-jp/app/5-mcp-playwright.md">参照原文</a> · <a href="../licenses/copilot-workshops.txt">MIT ライセンス</a><br>参照コミット：<code>7ddcf241c1cd</code> ／ 確認日：2026-09-08</p><aside>UI の確認日・バージョン・未確認範囲は本文の注記を参照してください。利用条件は <a href="../../handson-guide.html#plans">事前確認</a>を参照してください。</aside><aside>本編は App の操作を学ぶシナリオです。一部の UI を実機確認しましたが、全章の完走は未検証です。<a href="../material/verification.html">章別の検証状況</a></aside><nav class="chapter-nav" aria-label="章の移動"><a href="4-build-filtering.html">← 前の章：レッスン 4 - Autopilot による機能の構築</a><a href="6-agent-merge.html">次の章 →：レッスン 6 - Agent Merge によるマージ</a></nav><details><summary>この章の目次</summary><div class="toc">
+<main id="lesson"><h1>レッスン 5 - Playwright MCP server によるテスト</h1><p class="source">非公式の日本語版 · <a href="https://github.com/github-samples/copilot-workshops/blob/7ddcf241c1cd10b8e90c0df96f6bef81e710392a/docs/ja-jp/app/5-mcp-playwright.md">参照原文</a> · <a href="../licenses/copilot-workshops.txt">MIT ライセンス</a></p><aside>利用条件は <a href="../../handson-guide.html#plans">受講準備</a>を参照してください。</aside><nav class="chapter-nav" aria-label="章の移動"><a href="4-build-filtering.html">← 前の章：レッスン 4 - Autopilot による機能の構築</a><a href="6-agent-merge.html">次の章 →：レッスン 6 - Agent Merge によるマージ</a></nav><details><summary>この章の目次</summary><div class="toc">
 <ul>
 <li><a href="#シナリオ">シナリオ</a></li>
 <li><a href="#model-context-protocol-mcp-とは">Model Context Protocol (MCP) とは</a></li>
-<li><a href="#playwright-mcp-server-を追加する">Playwright MCP server を追加する</a><ul>
-<li><a href="#既存設定が正しく読み込まれない場合の対処復旧記録">既存設定が正しく読み込まれない場合の対処（復旧記録）</a><ul>
+<li><a href="#playwright-mcp-server-の接続を確認する">Playwright MCP server の接続を確認する</a><ul>
+<li><a href="#既存設定が正しく読み込まれない場合の対処">既存設定が正しく読み込まれない場合の対処</a><ul>
 <li><a href="#セッション再起動restart-sessionの活用">セッション再起動（/restart-session）の活用</a></li>
 </ul>
 </li>
@@ -19,8 +19,9 @@
 </ul>
 </li>
 <li><a href="#playwright-で機能を確認するよう-copilot-に依頼する">Playwright で機能を確認するよう Copilot に依頼する</a><ul>
-<li><a href="#実機検証における確認記録と注意点">実機検証における確認記録と注意点</a><ul>
+<li><a href="#操作結果をレビューする観点">操作結果をレビューする観点</a><ul>
 <li><a href="#該当-0-件表示の検証について">該当 0 件表示の検証について</a></li>
+<li><a href="#検証を終えたときの確認">検証を終えたときの確認</a></li>
 </ul>
 </li>
 </ul>
@@ -30,20 +31,21 @@
 </ul>
 </div>
 </details><article><blockquote>
-<p><strong>この章の確認範囲：</strong> 2026年9月13日に Windows の App 1.1.20 実機にて、リポジトリ定義の信頼承認・設定形式修正・セッション再起動（<code>/restart-session</code>）を経て、Playwright MCP による絞り込み、解除、キーボード操作、および正常終了処理を確認済みです。後続の追加検証では、隔離したテスト用データベースを用いて0件表示の挙動も確認しました。また、カタログからの新規登録および別チャットからのタブ一覧取得も成功しています。詳細は <a href="../material/ui-check.html">UI 確認表</a> を参照してください。</p>
+<p><strong>この章の進め方：</strong> テンプレートのMCP設定を確認し、前章のセッションからPlaywrightでブラウザーを操作します。フィルターの結果とキーボード操作を確かめ、ブラウザーやサーバーの終了まで確認してください。設定画面が見つからない場合は、講師に相談してください。</p>
 </blockquote>
-<p>前章では、プロジェクトに組み込まれた自動テストスイート（単体テストや E2E テスト）を用いてフィルター機能を実装・検証しました。自動テストによる検証は不可欠ですが、エージェント自身が実際のブラウザー画面を視覚的・対話的に操作し、挙動をその目で確認できるようにすることも極めて効果的です。エージェントが実際の UI 上で表示崩れや操作の引っかかりに気づき、自律的に手直しできるようになるためです。</p>
+<p>前章では、プロジェクトに組み込まれた自動テストスイート（単体テストやE2Eテスト）を用いてフィルター機能を実装・検証しました。自動テストに加えて、エージェントが実際のブラウザーを対話的に操作し、その結果を読み取れるようにすると、テストにまだ書いていない操作順序や表示状態も調べられます。操作できない要素や期待と違う結果があれば、その場で原因を調べ、修正と再確認へ進めます。</p>
 <p>本レッスンでは、<strong>Model Context Protocol (MCP)</strong> を通じて AI エージェントに外部ツールの操作能力を付与する仕組みを学び、Copilot がローカル開発サーバー上の Web サイトを直接操作できるように <strong>Playwright MCP server</strong> を連携させます。</p>
 <p>このレッスンでは、次の内容を学習します。</p>
 <ul>
 <li>Model Context Protocol (MCP) の概念と、GitHub Copilot app における活用方法を理解する</li>
-<li>アプリの設定を通じて Playwright MCP server を追加・有効化する</li>
+<li>アプリでPlaywright MCP serverの既存設定を確認し、必要な場合に追加・有効化する</li>
 <li>エージェントに実際のブラウザーを操作させ、フィルター機能の挙動を手動テストさせる</li>
 </ul>
 <h2 id="シナリオ">シナリオ</h2>
-<p>単体テストやスクリプト化されたエンドツーエンドテストは重要ですが、UI の更新を真に保証するには、実際のブラウザー上でのユーザー操作を通じた検証が欠かせません。検証作業を高度に自動化し、新機能が仕様通りに動作するという確信を深めるため、人間のテスターと同じ操作手段をエージェントに与えて開発中サイトを検証させます。</p>
+<p>単体テストやスクリプト化されたエンドツーエンドテストに加えて、開発中のUIをユーザーの操作に沿って検証します。エージェントへブラウザーの操作手段を与え、選択欄やボタンを操作したときに、新機能が仕様どおりに動くかを確かめます。</p>
+<p>この章では、エージェントへ操作を依頼し、返ってきた観察結果から次の確認を決める探索的な検証を行います。一方、前章のE2Eテストには、決めた操作と期待結果を保存して繰り返し検査する役割があります。MCPで一度成功した操作が、そのままテストコードとして残るわけではありません。新しい不具合を見つけて修正したら、今後も確認すべき条件をE2Eテストへ追加するか検討します。</p>
 <h2 id="model-context-protocol-mcp-とは">Model Context Protocol (MCP) とは</h2>
-<p><a href="https://github.blog/ai-and-ml/llms/what-the-heck-is-mcp-and-why-is-everyone-talking-about-it/">Model Context Protocol (MCP)</a> は、AI エージェントが外部のツールやサービスと安全に双方向通信するためのオープンなプロトコルです。MCP を導入することで、AI エージェントは外部システムとリアルタイムに対話し、<strong>リソース（resources）</strong>を通じて最新情報を取得したり、<strong>ツール（tools）</strong>を通じてユーザーに代わる操作を実行したりできるようになります。</p>
+<p><a href="https://github.blog/ai-and-ml/llms/what-the-heck-is-mcp-and-why-is-everyone-talking-about-it/">Model Context Protocol (MCP)</a>は、AIエージェントが外部のツールやサービスと情報をやり取りするためのオープンなプロトコルです。MCPを導入すると、エージェントは外部システムと対話し、<strong>リソース（resources）</strong>を通じて情報を取得したり、<strong>ツール（tools）</strong>を通じてユーザーに代わる操作を実行したりできます。実際に利用できる情報や操作は、接続先と付与された権限によって決まります。</p>
 <p>エージェントは、個別の外部サービスとの橋渡しを担う <strong>MCP server</strong> を経由してこれらのツールやリソースにアクセスします。MCP server はローカルで動作するプロセス（CLI ツールや NPM パッケージ）やリモート API とエージェント間の通信を仲介します。各 MCP server は、エージェントが利用可能な固有のツールセットとリソース群を提供します。</p>
 <p>代表的な MCP server には次のようなものがあります。</p>
 <ul>
@@ -51,87 +53,124 @@
 <li><a href="https://github.com/microsoft/playwright-mcp"><strong>Playwright MCP Server</strong></a>：Playwright を用いたヘッドレス／有頭ブラウザーの自動操作機能を提供します。エージェント自身がページ遷移、フォーム入力、ボタンのクリック、DOM スナップショットの取得などを実行できます。</li>
 </ul>
 <p>GitHub は、コミュニティによる発見と貢献を促進するため <a href="https://github.com/mcp">MCP registry</a> をホストしており、多種多様な MCP server が公開されています。</p>
+<p>本演習で接続するPlaywright MCPは、主に構造化されたアクセシビリティスナップショットを使ってページを読み取ります。ボタンの名前や役割、選択状態などを調べ、クリックやキー入力のツールを呼び出します。<a href="https://github.com/microsoft/playwright-mcp">Microsoftの公式README</a>にこの動作が説明されています。画面のピクセルを見てすべての見た目を判定する仕組みではないため、色や配置などの見た目は、必要に応じてスクリーンショットや人間の画面確認でも確かめます。</p>
 <blockquote>
 <p><strong>注意</strong>
 MCP server は、プロジェクトに導入する外部ライブラリや依存関係と同様に慎重に取り扱う必要があります。導入前にソースコードや発行元を精査し、セキュリティ上の影響を評価してください。信頼できる MCP server のみを利用し、機密情報や特権的な操作へのアクセス権限を安易に付与しないよう注意してください。</p>
 </blockquote>
-<h2 id="playwright-mcp-server-を追加する">Playwright MCP server を追加する</h2>
-<p>2026年9月10日の <a href="https://docs.github.com/en/copilot/how-tos/github-copilot-app/customize-github-copilot-app#configuring-mcp-servers">公式ドキュメント</a> との照合に加え、9月13日の Windows App 1.1.20 実機において以下の設定画面と動作を確認しています。なお、プロジェクト未接続の状態であっても登録フォーム自体は開くことが可能です。</p>
+<h2 id="playwright-mcp-server-の接続を確認する">Playwright MCP server の接続を確認する</h2>
+<p><a href="https://docs.github.com/copilot/how-tos/github-copilot-app/customize-github-copilot-app">Appの公式ドキュメント</a>では、リポジトリやCopilot CLIに設定したMCP serverをAppでも利用できると説明されています。まず既存設定を確認し、未登録の場合にカタログから追加します。</p>
 <blockquote>
 <p><strong>リポジトリ側に MCP 定義が存在する場合：</strong><br />
-本教材用の修正済みテンプレートには、すでに <code>.mcp.json</code> 内の <code>mcpServers</code> フィールドに Playwright 等が定義されています。GitHub 連携プロジェクトを右クリック → <strong>Settings</strong> → <strong>MCP servers</strong> から確認できます。<br />
+本教材のテンプレートには、すでに <code>.mcp.json</code> 内の <code>mcpServers</code> フィールドに Playwright 等が定義されています。GitHub 連携プロジェクトを右クリック → <strong>Settings</strong> → <strong>MCP servers</strong> から確認できます。
 画面に <strong>Trust repository</strong> が表示された場合は、定義内容を確認のうえで利用者が信頼を承認してください（これは Repository configuration の Trusted 表示とは別の承認です）。二重登録を避けるため、既存の定義状態を確認したうえで以下の手順を参照してください。</p>
 </blockquote>
-<h3 id="既存設定が正しく読み込まれない場合の対処復旧記録">既存設定が正しく読み込まれない場合の対処（復旧記録）</h3>
-<blockquote>
-<p><strong>補足</strong>
-<strong>以下は、過去に上流から直接作成した古いリポジトリコピーを復旧した際の記録です。</strong><br />
-本教材用テンプレート（v2026.09.13.1）にはすでにこの設定修正が適用されているため、通常の受講者がこのファイルを直接編集する必要はありません。</p>
-</blockquote>
-<p>実走検証時、ユーザーによる信頼承認を行った直後に <strong>No MCP servers loaded</strong> と表示される現象が発生しました。
-- <strong>原因</strong>：固定コミットから作成したコピーの <code>.mcp.json</code> において、ルートキーが誤って <code>"servers"</code> と記述されていたため。
-- <strong>対策</strong>：<a href="https://docs.github.com/en/copilot/how-tos/copilot-cli/customize-copilot/add-mcp-servers#adding-per-repository-mcp-servers">公式のリポジトリ別設定形式</a> に適合させるため、キー名を <code>"mcpServers"</code> へ修正。
-- <strong>結果</strong>：Settings 画面の <strong>Refresh</strong> をクリックすると、GitHub、Playwright、astro-docs の 3 件がすべて <strong>Connected</strong> 状態へ移行しました。</p>
+<p><code>.mcp.json</code>にある<code>github</code>、<code>playwright</code>、<code>astro-docs</code>の接続状態を確認します。既存の<code>playwright</code>が<strong>Connected</strong>なら、同じサーバーをもう一つ追加する必要はありません。定義を見ると、<code>playwright</code>は<code>npx</code>でローカルプロセスを起動し、他の2つはHTTPのURLへ接続する構成です。実行するコマンドや接続先を読むことも、設定を信頼する判断の一部です。</p>
+<p>設定画面の<strong>Connected</strong>は接続状態の確認です。演習を進められるかは、フィルターのセッションから実際にPlaywrightのツールを呼び、結果が返るかで確かめます。たとえばタブ一覧の取得は呼び出し確認になりますが、フィルターが正しく動くことはまだ確認していません。次のブラウザー検証まで進めて、接続と機能の結果を別々に確認してください。</p>
+<h3 id="既存設定が正しく読み込まれない場合の対処">既存設定が正しく読み込まれない場合の対処</h3>
+<p><strong>No MCP servers loaded</strong>と表示される場合は、リポジトリの信頼状態と<code>.mcp.json</code>の形式を確認してください。<a href="https://docs.github.com/en/copilot/how-tos/copilot-cli/customize-copilot/add-mcp-servers#adding-per-repository-mcp-servers">公式のリポジトリ別設定形式</a>では、定義を<code>mcpServers</code>フィールドに記述します。<code>servers</code>など別のキーになっている場合は修正が必要ですが、教材テンプレートはこの形式になっているため、通常は編集不要です。</p>
+<p>設定を修正した場合は、AppのSettings画面で<strong>Refresh</strong>を選択し、接続状態を確認します。上記の公式リンクは設定ファイル形式の参照先です。CLI用の設定コマンドと、Appの画面上の操作を混同しないようにしてください。</p>
 <h4 id="セッション再起動restart-sessionの活用">セッション再起動（<code>/restart-session</code>）の活用</h4>
-<p>起動中だったフィルター機能のセッション側では、即座に Playwright のブラウザー操作ツールを呼び出せず停止する挙動が確認されました。
-この場合、セッションの会話入力欄に <strong><code>/restart-session</code></strong> と入力して送信してください。これは会話履歴や未コミットの変更差分を保持したままセッションプロセスのみを再起動する<a href="https://docs.github.com/en/copilot/reference/github-copilot-app-reference/slash-commands">公式のスラッシュコマンド</a>です。実機検証では、再起動後に未コミットの差分を保持したまま Playwright MCP のツール呼び出しが可能になることを確認しています。設定画面の Connected 表示だけで完了と判断せず、セッションから実際にツールが実行できるかを確認してください。</p>
+<p>信頼状態と接続設定を確認しても、開いているセッションからPlaywrightのツールを呼び出せない場合は、会話入力欄から<strong><code>/restart-session</code></strong>を送信して再接続を試せます。<a href="https://docs.github.com/en/copilot/reference/github-copilot-app-reference/slash-commands">App公式のスラッシュコマンド一覧</a>では、履歴を保持して現在のセッションを再起動するコマンドと説明されています。ツールを呼び出せている場合、この操作は不要です。</p>
 <h3 id="gui-からの新規登録手順">GUI からの新規登録手順</h3>
-<p>リポジトリ定義を使わず、アプリの GUI から手動登録する場合の手順は次の通りです。</p>
+<p>リポジトリ定義がなく、アプリのGUIから手動登録する場合の手順は次の通りです。教材テンプレートの既存定義でConnectedとなった場合は、この登録を飛ばして次節へ進みます。<a href="https://docs.github.com/copilot/how-tos/github-copilot-app/customize-github-copilot-app">App公式の手順</a>も、CustomizeからMCPを探し、Installedで登録済みの設定を管理する流れを説明しています。</p>
 <ol>
 <li>サイドバーの <strong>Customize</strong> を開きます。</li>
-<li><strong>Installed</strong> タブの <strong>MCP Servers</strong> で既存の登録一覧を確認します。すでに登録済みの場合は重複して追加しないよう注意してください（検証初期状態では未登録でした）。</li>
-<li>未登録の場合は <strong>MCP</strong> タブを開きます。実走検証時、<strong>Featured</strong> セクションに <strong>Playwright</strong> が掲載されていました（見つからない場合は <strong>Search MCP servers</strong> から検索してください）。</li>
-<li><strong>Playwright</strong> カードを選択して登録フォームを開きます。実走時の既定値は、<strong>Server name</strong> が <code>playwright</code>、<strong>Type</strong> が <code>Local</code>、<strong>Command</strong> が <code>npx</code>、<strong>Arguments</strong> が <code>-y @playwright/mcp@latest</code> でした。</li>
-<li>入力内容を確認し、<strong>Add server</strong> をクリックして保存します。登録が完了すると表示が <strong>Installed</strong> に切り替わり、登録数が 1 件とカウントされます。<br />
-   単に登録されたことだけで完了とせず、新しいチャットやセッションから実際のツール呼び出しを検証します。追加検証では、リポジトリ未接続の新規チャットから Playwright の <code>browser_tabs</code> ツールを呼び出してタブ一覧の取得に成功し、<code>about:blank</code> の応答が得られることを確認しました。これでカタログからの登録と動作確認が完了します。</li>
+<li><strong>Installed</strong> タブの <strong>MCP Servers</strong> で既存の登録一覧を確認します。すでに登録済みの場合は重複して追加しないよう注意してください。</li>
+<li>未登録の場合は <strong>MCP</strong> タブを開き、<strong>Playwright</strong>を探します。<strong>Featured</strong>セクションに見つからなければ、<strong>Search MCP servers</strong>から検索してください。</li>
+<li><strong>Playwright</strong> カードを選択して登録フォームを開きます。ローカルで起動する設定例は、<strong>Server name</strong> が <code>playwright</code>、<strong>Type</strong> が <code>Local</code>、<strong>Command</strong> が <code>npx</code>、<strong>Arguments</strong> が <code>-y @playwright/mcp@latest</code> です。</li>
+<li>入力内容を確認し、<strong>Add server</strong> をクリックして保存します。<strong>Installed</strong>の一覧に追加されたことを確認してください。</li>
+<li>チャットやセッションから実際のツール呼び出しを確かめます。たとえばPlaywrightの<code>browser_tabs</code>でタブ一覧を取得するよう依頼し、結果が返るかを確認します。応答に<code>about:blank</code>が含まれていても、それは開いているタブの状態です。フィルター機能の確認は次節で行います。</li>
 </ol>
-<p><img alt="App 1.1.20 の Customize の MCP タブ。Featured に Playwright と Add server が表示されている" src="../assets/app-1.1.20-20260913-mcp-catalog.jpg" /><br><em class="source">実機撮影：2026-09-13、Windows、GitHub Copilot App 1.1.20。MCP カタログの表示確認。サイドバーは非表示。</em></p>
-<p><img alt="Playwright 登録フォーム。Local、npx、-y @playwright/mcp@latest が表示されている。保存前の画面" src="../assets/app-1.1.20-20260913-mcp-config.jpg" /><br><em class="source">実機撮影：2026-09-13、Windows、GitHub Copilot App 1.1.20。Playwright 登録フォームの保存前。登録・ツール実行は未検証。</em></p>
+<p><img alt="Customize の MCP タブ。Featured に Playwright と Add server が表示されている" src="../assets/app-1.1.20-20260913-mcp-catalog.jpg" /></p>
+<p><img alt="Playwright 登録フォーム。Local、npx、-y @playwright/mcp@latest が表示されている。保存前の画面" src="../assets/app-1.1.20-20260913-mcp-config.jpg" /></p>
 <blockquote>
 <p><strong>補足</strong>
-上記の画面キャプチャは 2026年9月13日に Windows App 1.1.20 実機で撮影したものです。受講者の個人アカウント情報を保護するため、サイドバーを非表示にした状態で撮影しています（サイドバーは左上のトグルボタンまたは <kbd>Ctrl</kbd>+<kbd>B</kbd> で開閉できます）。<br />
-もし画面内に Customize や MCP のメニュー項目が見当たらない場合は、App のバージョン、組織ポリシーによる制限、および現在の画面状態を記録し、講師と一緒に確認してください。</p>
+サイドバーは左上のトグルボタンまたは<kbd>Ctrl</kbd>+<kbd>B</kbd>で開閉できます。CustomizeやMCPのメニュー項目が見当たらない場合は、Appのバージョン、組織ポリシーによる制限、および現在の画面状態を記録し、講師と一緒に確認してください。</p>
 </blockquote>
 <h2 id="playwright-で機能を確認するよう-copilot-に依頼する">Playwright で機能を確認するよう Copilot に依頼する</h2>
 <p>前章から開いたままにしているフィルター機能の実装セッションに戻り、Playwright MCP server を使って新機能の動作を手動検証するよう Copilot に指示します。</p>
 <ol>
 <li>会話入力欄に次のプロンプトを入力して送信します。</li>
 </ol>
-<pre class="highlight"><code class="language-plaintext">開発サーバーを起動し、Playwright MCP server で追加した機能を検証してください。Issue の詳細を使って、新しい動作が仕様に一致することを確認してください。</code></pre>
+<pre class="highlight"><code class="language-plaintext">このセッションで実装したフィルター機能を、Playwright MCP serverで検証してください。今回のworktreeから開発サーバーを起動し、接続したURLを報告してください。
+Issueと承認済みの計画を使い、カテゴリの複数選択、出版社との組み合わせ、解除、キーボード操作を確認してください。通常データと、前章で用意した隔離テストデータによる0件表示を分け、操作・期待結果・実際の結果を報告してください。
+検証後はbrowser_closeでブラウザーを閉じ、今回起動したサーバーを停止してください。今回作成した一時DBとMCP出力だけを片付け、テスト用CSV・テストコードや既存の成果物は残してください。実施できなかった項目も明記してください。PR作成・マージは次章まで待ってください。</code></pre>
 <ol start="2">
 <li>Copilot は Playwright MCP server を通じてブラウザーを自律起動し、検証ステップを順次実行して結果を会話欄に報告します。タスク実行中、環境によってはデスクトップ上で実際にブラウザーウィンドウが開き、自動操作される様子が視覚的に確認できます。</li>
 <li>報告された概要を Issue の受け入れ条件と照らし合わせてレビューします。もし挙動に問題があれば、pull request を作成する前に追加の指示を出してコードを修正させてください。</li>
+</ol>
+<p>「問題ありませんでした」という概要だけでは、何を確認したか判断できません。どのカテゴリと出版社を選び、何件・どのゲームが表示されたか、どのキーで解除したかを確認します。ツール呼び出しと結果も開き、実際の操作から得た報告かを読み取ってください。コードを直した場合は、影響する自動テストとブラウザー操作を再確認します。</p>
+<ol start="4">
 <li><strong>【重要】次のレッスンで Agent Merge を実施するため、このセッションは開いたままにしておきます。</strong></li>
 </ol>
-<h3 id="実機検証における確認記録と注意点">実機検証における確認記録と注意点</h3>
-<p>2026年9月13日の実走検証では、エージェントが <code>browser_navigate</code>、<code>browser_snapshot</code>、<code>browser_click</code>、<code>browser_select_option</code>、<code>browser_find</code>、<code>browser_press_key</code> といった各種ツールを自律的に呼び出すことを確認しました。</p>
-<p>検証時のデータ件数は次の通りです。
-- 通常データ（全 21 件）において、「Strategy」を選択すると 4 件に絞り込み
-- さらに「Puzzle」を追加選択すると 8 件に拡大
-- 続けてパブリッシャー「CodeForge Studios」を指定すると 2 件に絞り込み
-- 「Clear filters」をクリックすると全 21 件に正常復帰
-- パブリッシャー単独選択時は 6 件
-- キーボード操作（<kbd>Tab</kbd> および <kbd>Enter</kbd>）による絞り込み解除でも 21 件へ復帰
-- 全検証の完了後、<code>browser_close</code> によるブラウザー終了と開発サーバープロセスの正常停止を確認</p>
+<h3 id="操作結果をレビューする観点">操作結果をレビューする観点</h3>
+<p>ツールの履歴から、ページへの移動、選択欄やボタンの操作、キー入力といった流れを読み取ります。利用するツールの名前や順序を揃えることより、必要な操作と観察結果が得られることを確認します。</p>
+<p>教材の通常データで確認する操作と期待結果は、次の通りです。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">操作</th>
+<th style="text-align: left;">期待結果</th>
+<th style="text-align: left;">確認する意味</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">初期表示</td>
+<td style="text-align: left;">21件</td>
+<td style="text-align: left;">通常データの一覧を表示している</td>
+</tr>
+<tr>
+<td style="text-align: left;">Strategyを選択</td>
+<td style="text-align: left;">4件</td>
+<td style="text-align: left;">一つのカテゴリで絞れる</td>
+</tr>
+<tr>
+<td style="text-align: left;">Puzzleも追加選択</td>
+<td style="text-align: left;">8件</td>
+<td style="text-align: left;">カテゴリ同士のOR条件で、両カテゴリが含まれる</td>
+</tr>
+<tr>
+<td style="text-align: left;">GitHub Gamesも選択</td>
+<td style="text-align: left;">2件</td>
+<td style="text-align: left;">カテゴリと出版社のAND条件で絞れる</td>
+</tr>
+<tr>
+<td style="text-align: left;">Clear filtersで解除</td>
+<td style="text-align: left;">21件</td>
+<td style="text-align: left;">選択状態と一覧が初期状態へ戻る</td>
+</tr>
+<tr>
+<td style="text-align: left;">カテゴリ未選択でGitHub Gamesを選択</td>
+<td style="text-align: left;">5件</td>
+<td style="text-align: left;">出版社だけでも絞れる</td>
+</tr>
+<tr>
+<td style="text-align: left;">カテゴリ未選択でCodeForge Studiosを選択</td>
+<td style="text-align: left;">6件</td>
+<td style="text-align: left;">出版社名を変えた結果を区別できる</td>
+</tr>
+</tbody>
+</table>
+<p>通常データが同じでも、選択した出版社が異なれば期待件数は変わります。「出版社単独6件」のように名前を省かず、選択値と件数を一緒に記録してください。</p>
+<p>キーボード操作では、カテゴリをSpaceで変更できるか、現在の選択状態が分かるかも確認します。Publisherから<kbd>Tab</kbd>を使って<strong>Clear filters</strong>へ移り、<kbd>Enter</kbd>で解除して21件へ戻る操作も試してください。クリックで解除できることだけでは、キーボードでボタンへ到達して操作できることの確認にはなりません。</p>
 <h4 id="該当-0-件表示の検証について">該当 0 件表示の検証について</h4>
 <p>通常データセットには全カテゴリーと全パブリッシャーの組み合わせに必ず該当ゲームが存在するため、通常の絞り込み操作のみでは「該当件数 0 件」の画面を再現できません。</p>
-<p>そこで追加の実機検証では、本番用の通常 CSV データは一切変更せず、一時的な隔離データベースに 2 件の限定テストデータを用意したうえで、「Simulation」と「Ops Interactive」の組み合わせによって「該当ゲームが 0 件」となる画面表示を Playwright MCP 経由で確認しました（前章の 20 件 fixture による E2E テストとは別の、MCP によるブラウザー実操作検証です）。検証完了後には一時 DB、ブラウザー、サーバーをすべて破棄・終了しています。
-※講師の方は通常データとテストデータの件数・接続先を厳密に区別して管理し、0 件表示を試すために本番用の通常 CSV を書き換えないよう指導してください。</p>
+<p>前章で用意した3件の専用CSVと隔離SQLiteを使い、通常環境とは別ポートのサーバーで検証します。まずテスト用の3件を表示し、PuzzleとNova Interactiveを組み合わせると0件となることを確認します。0件の説明と結果通知を読み、<strong>Clear filters</strong>でテスト用の3件へ戻ることまで確かめます。通常環境へ戻ったときの21件と、隔離環境で解除した後の3件を混同しないでください。</p>
+<p>0件表示のために通常の<code>db/games.csv</code>を変更しないでください。報告にデータの種類、接続URL、初期件数、選択した条件、解除後の件数があれば、別の環境を検査していないかを見分けやすくなります。</p>
+<h4 id="検証を終えたときの確認">検証を終えたときの確認</h4>
+<p>ブラウザーを閉じても、開発サーバーや一時DBが残っている場合があります。次回のテストが古いサーバーへ接続しないよう、今回起動したものを終了させます。<code>browser_close</code>、サーバー停止、一時DBとMCP出力の削除を確認し、今回使ったポートに待受が残っていないことも照合してください。テストを再実行するためのCSVやテストコードは成果物なので、片付ける一時ファイルと区別します。</p>
 <p>これで、エージェント自身が実際のブラウザーをユーザーと同じように操作し、UI 機能の正常性を確認できました。</p>
-<p><a id="cli-fallback"></a></p>
-<blockquote>
-<p><strong>注意</strong>
-<strong>講師向け緊急対応</strong>：
-参加者の環境でトラブルが生じ、緊急に作業を保全する必要がある場合のみ <a href="../material/emergency-cli.html#chapter-5">講師専用 CLI 対応手順</a> を参照してください。なお、CLI 側で実装が完了しても、本章における App 操作の完了実績とは見なしません。</p>
-</blockquote>
 <h2 id="まとめと次のステップ">まとめと次のステップ</h2>
 <p>GitHub Copilot app から Playwright MCP server を呼び出し、実際のブラウザー操作を通じて新機能の動的検証を実施しました。本章で実施した主な内容は次の通りです。</p>
 <ul>
 <li>Model Context Protocol (MCP) の基本構造と、アプリに外部ツール（tools / resources）を連携させる仕組みを理解した</li>
-<li>Playwright MCP server の設定・有効化を行い、設定変更時の <code>/restart-session</code> によるセッション再接続を実践した</li>
+<li>既存のPlaywright MCP serverの設定と信頼状態を確認し、セッションから実際にツールを呼び出した。必要な場合の追加登録・再接続方法も確認した</li>
 <li>エージェントにブラウザーを自律操作させ、フィルター機能の絞り込み、複合条件、キーボード操作、解除、および0件表示を検証した</li>
 </ul>
 <p>機能の構築とブラウザー検証が無事に完了しました。次は、<strong>Agent Merge</strong> を活用し、pull request の作成、CI 監視、競合解決、およびマージまでの一連のリリース作業をエージェントに自律実行させます。<a href="6-agent-merge.html">レッスン 6「Agent Merge によるマージ」</a> へ進んでください。</p>
+<p>次へ進む前に、MCPで初めて気づいた点と、既存のE2Eテストでも確認していた点を比べてみてください。今回確認した操作・結果・残る未確認項目を整理すると、次章でPRをレビューする根拠として使えます。</p>
 <h2 id="リソース">リソース</h2>
 <ul>
 <li><a href="https://github.blog/ai-and-ml/llms/what-the-heck-is-mcp-and-why-is-everyone-talking-about-it/">MCP とは何か、なぜ注目されているのか</a></li>

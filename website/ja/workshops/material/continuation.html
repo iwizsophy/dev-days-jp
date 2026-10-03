@@ -6,7 +6,7 @@
 <a href="../../index.html">教材セットの入口</a><a href="../index.html">App シナリオの目次</a>
 <a href="../../handson-guide.html#switch">事前準備・UI の確認</a></nav>
 <button class="theme-toggle" type="button" onclick="toggleTheme()">☀️ ライト</button></header>
-<main id="lesson"><h1>講師専用：緊急対応時の作業保全・PR・復帰</h1><aside>この教材セット独自の運営・補助手順です。</aside><article><p>本教材の本編は <strong>App シナリオ（演習0〜8）</strong> です。このドキュメントは、App の停止等に伴い講師が作業を保全・復旧するための緊急対応用です。本編の通常ルートではありません（CLI 独立コースを最初からやり直す必要はありません）。</p>
+<main id="lesson"><h1>講師専用：緊急対応時の作業保全・PR・復帰</h1><aside>講師・運営向けの補助資料です。</aside><article><p>本教材の本編は <strong>App シナリオ（演習0〜8）</strong> です。このドキュメントは、App の停止等に伴い講師が作業を保全・復旧するための緊急対応用です。本編の通常ルートではありません（CLI 独立コースを最初からやり直す必要はありません）。</p>
 <blockquote>
 <p><strong>注意</strong>
 <strong>教材リポジトリと演習用コピーの厳格な区別</strong>：
@@ -24,7 +24,7 @@ git branch --show-current
 git status --short
 git diff --stat</code></pre>
 <ul>
-<li><strong>リモートの確認</strong>：Git の remote が自身の演習用コピー（フォーク）でない場合は、直ちに操作を中断してください。<strong>参照元である <code>github/dev-days</code>、<code>github-samples/copilot-workshops</code>、<code>github-samples/tailspin-toys</code> に push、Pull Request、Issue を送信してはなりません。</strong></li>
+<li><strong>リモートの確認</strong>：Gitのremoteがテンプレートから作成した自身の演習用コピーでない場合は、直ちに操作を中断してください。<strong>参照元である <code>github/dev-days</code>、<code>github-samples/copilot-workshops</code>、<code>github-samples/tailspin-toys</code> に push、Pull Request、Issue を送信してはなりません。</strong></li>
 <li><strong>ブランチの選定</strong>：既存の作業ブランチがある場合は新規作成せずそのまま続行します。未着手かつ既定ブランチがクリーンな場合に限り、章に応じた未使用名（例：<code>git switch -c feature/app-02-rating</code>）でブランチを新規作成します。</li>
 </ul>
 <h2>2. CLI への課題引き継ぎ</h2>
@@ -53,8 +53,10 @@ commit・push・PR・merge は個別に依頼するまで実行しないでく�
 <h3>既定ブランチの同期</h3>
 <p>演習2および演習3のマージ完了後は、元の clone など既定ブランチを保持する作業ディレクトリにおいて、<code>git fetch origin</code>、既定ブランチへの切り替え、および <code>git pull --ff-only</code> を実行して最新化します（別 worktree で同ブランチがチェックアウトされている場合は、その worktree 内で更新します。未保存の作業ツリーを <code>git reset --hard</code> や <code>git clean</code> で消去してはなりません）。</p>
 <h3>App への復帰原則</h3>
-<p>本教材では、可能な限り <strong>App 操作への復帰を最優先</strong> とします。
-- App へ戻る場合は、CLI のエージェントを終了し、同じ作業ディレクトリおよび作業ブランチを App で開き、実装した変更とテスト結果をセッションに伝えます。
-- App で開けない場合は、App 操作を「未完了」とし、講師デモまたは後日実施へ切り替えます（演習4〜6の途中で、新しいセッションを既定ブランチから無闇に始め直してはなりません）。
-- <strong>機能体験の記録</strong>：App 固有の機能（Agent Merge、Canvas、Automation）は、通常の PR、Markdown、単発プロンプト等で代用しても「機能体験は未実施」として記録します。実装の到達点と、App 機能の体験状況は明確に分離して管理してください。</p>
+<p>本教材では、可能な限り <strong>App 操作への復帰を最優先</strong> とします。</p>
+<ul>
+<li>App へ戻る場合は、CLI のエージェントを終了し、同じ作業ディレクトリおよび作業ブランチを App で開き、実装した変更とテスト結果をセッションに伝えます。</li>
+<li>App で開けない場合は、App 操作を「未完了」とし、講師デモまたは後日実施へ切り替えます（演習4〜6の途中で、新しいセッションを既定ブランチから無闇に始め直してはなりません）。</li>
+<li><strong>機能体験の記録</strong>：App 固有の機能（Agent Merge、Canvas、Automation）は、通常の PR、Markdown、単発プロンプト等で代用しても「機能体験は未実施」として記録します。実装の到達点と、App 機能の体験状況は明確に分離して管理してください。</li>
+</ul>
 <p><a href="../app/index.html">演習目次へ戻る</a> · <a href="verification.html">章別の検証状況</a></p></article></main></body></html>

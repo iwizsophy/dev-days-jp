@@ -1,12 +1,27 @@
 <!DOCTYPE html>
-<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>App の事前準備と UI 確認</title><link rel="stylesheet" href="workshops/workshops.css"><script src="../theme-toggle.js"></script></head>
-<body><header><nav><a href="index.html">教材の入口</a><a href="workshops/index.html">演習目次</a></nav><button class="theme-toggle" onclick="toggleTheme()">☀️ ライト</button></header><main>
-<h1>App の事前準備と UI 確認</h1>
-<p>本教材の本編は、GitHub Copilot App を用いた開発ワークフローと操作体験を習得することを主目的としています。掲載スクリーンショットと実際の画面配置が異なっている場合でも、安易に自己流で進めず、まずは講師とともに現行 App の画面と操作手順を確認してください。</p>
-<section id="prepare"><h2>事前準備の要件</h2><p>Git、Node.js 22.13 以上、GitHub Copilot App、およびご自身のアカウントへフォークした専用の Tailspin Toys リポジトリを事前にセットアップしてください。<a href="workshops/app/0-prerequisites.html">演習0</a> および <a href="workshops/app/1-install-copilot-app.html">演習1</a> に沿って、アプリの起動、リポジトリ接続、および Copilot からの正常な応答を確認しておきます。なお、教材自体のリポジトリ（dev-days-jp）上で Tailspin Toys の実装作業を行わないようご注意ください。</p></section>
-<section id="plans"><h2>対象プラン・組織権限・利用枠の確認</h2><p>2026 年 9 月 8 日に参照した<a href="https://docs.github.com/en/copilot/concepts/agents/github-copilot-app">公式ドキュメント情報</a>によると、GitHub Copilot App はすべての Copilot プランを対象として提供されています。ハンズオンの開催前に、使用する実アカウントでのアクセス権、利用可能なリクエスト枠、および所属組織における Copilot App の有効化ポリシーを必ず確認してください。なお、予備手段として用意している Copilot CLI を利用する場合も、組織側のポリシーで別途許可されている必要があります。また、Copilot の無料枠（Free プラン）のみで全 8 章の演習を最後まで完了できる保証はありません。</p></section>
-<section id="switch"><h2>画面 UI やメニュー配置が異なる場合</h2><p>参照元スクリーンショットに表示されていたボタンがコンテキストメニュー（右クリック）へ移設されているケースなど、画面上の固定位置だけでは操作の有無を正しく判断できない場合があります。画面差異に直面した際は、<a href="workshops/material/ui-check.html">操作対象・目的・メニューの確認手順</a> に基づき、講師とともに現行バージョンの操作経路を確認してください。現行の確実な操作手順が判明しない場合は、受講者が単独で立ち往生するのを避け、講師による実演デモの見学やペア操作へ切り替えます。単に時間が経過したことだけを理由にして、安易に CLI への切り替えを行わないでください。</p></section>
-<section id="mapping"><h2>学習の完了条件と成果の区別</h2><p>コードの実装機能が動作したという事実と、Copilot App 固有の UI 機能を体験できたという事実は明確に区別して評価します。通常の GitHub プルリクエスト作成、ローカル Markdown ファイルの手動作成、あるいは単発のチャット要約で作業を代替した場合、それらを Agent Merge、Canvas、および Automation の正規の体験実績として記録してはいけません。詳細な判定基準については、<a href="workshops/material/verification.html">章別の検証状況</a> を参照してください。</p></section>
-<section id="finish"><h2>演習終了後の確認と記録</h2><p>対象リポジトリのコミット履歴、コードの変更内容、および自動テストの結果を確認したうえで、各章の作業について「App 上で実際に操作した」「講師デモを視聴した」「未実施」のいずれであったかを正確に記録してください。演習終了時には、バックグラウンドで起動している開発サーバーやコンテナ環境を適切に停止し、成果物を安全に保存してください。</p></section>
-<section id="organizer"><h2>講師・運営向けサポート資料</h2><p><a href="workshops/material/instructor.html">運営ガイドと操作支援</a> · <a href="workshops/material/ui-check.html">現行 UI と画面例の確認表</a></p><p>Copilot CLI の利用は、App が操作不能となり、受講者のコード実装進度を保全する必要が生じた場合の「緊急避難措置」に厳格に限定します。具体的な切り替え基準については、<a href="workshops/material/emergency-cli.html">章別の緊急対応手順</a> および <a href="workshops/material/continuation.html">作業保全・復帰手順</a> を確認してください。CLI によるコマンド実行が成功したとしても、それは App 本編の演習を完了した実績としてはカウントしません。</p></section>
-</main></body></html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow"><title>Appの事前準備とUI確認 | Dev Days 日本語版</title>
+<link rel="stylesheet" href="workshops/workshops.css"><script src="../theme-toggle.js"></script></head><body>
+<a class="skip" href="#lesson">本文へ移動</a><header><nav aria-label="資料のナビゲーション">
+<a href="index.html">教材セットの入口</a><a href="workshops/index.html">App シナリオの目次</a>
+<a href="handson-guide.html#switch">事前準備・UI の確認</a></nav>
+<button class="theme-toggle" type="button" onclick="toggleTheme()">☀️ ライト</button></header>
+<main id="lesson"><h1>Appの事前準備とUI確認</h1><article><p>この教材では、GitHub Copilot Appを使った開発の進め方を学びます。画面の操作に加えて、その操作を行う目的と、結果を判断する根拠を説明できることを目指してください。画像と実際の配置が違うときは、現在の作業対象と目的を確認し、講師と操作経路を照合します。</p>
+<p><a id="prepare"></a></p>
+<h2>事前準備の要件</h2>
+<p>Git、Node.js 24.19.0または <code>&gt;=24.19.0 &lt;25</code>、最新版のGitHub Copilot Appと、自分の演習用リポジトリを用意します。演習コピーは、教材用テンプレートの <strong>Use this template</strong> から作成してください。バージョン管理ツールを使う場合は、インストールした版に加えて、実際に動いているNode.jsの版を確認します。</p>
+<p><a href="workshops/app/0-prerequisites.html">演習0</a>と<a href="workshops/app/1-install-copilot-app.html">演習1</a>に沿って、課題8件、Appの起動、リポジトリ接続、Copilotの応答を確認します。教材リポジトリ <code>dev-days-jp</code> と、機能を実装する演習コピーの役割を区別してください。共通の初期状態を準備すると、生成されたコードの問題と環境の問題を切り分けやすくなります。</p>
+<p><a id="plans"></a></p>
+<h2>対象プラン・組織権限・利用枠の確認</h2>
+<p><a href="https://docs.github.com/en/copilot/concepts/agents/github-copilot-app#availability">GitHub公式のApp利用条件</a>では、AppはすべてのCopilotプランを対象としています。受講前に、実際に使うアカウントでAppへ接続できること、利用枠、組織のAppポリシーを確認してください。</p>
+<p>プランで利用できることと、演習を最後まで進める利用枠があることは別です。<a href="https://docs.github.com/en/copilot/get-started/plans">プランの公式案内</a>を参照し、利用するプランの枠を確認してください。</p>
+<p><a id="switch"></a></p>
+<h2>画面やメニュー配置が異なる場合</h2>
+<p>画面やメニューが教材の画像と異なる場合は、本文の操作対象、開始状態、項目名を照合してください。Issueは <strong>Issues</strong>、PRは <strong>Pull requests</strong> から開きます。目的の項目が見つからない場合は、現在の画面と、進めたい操作を講師に伝えてください。</p>
+<p><a id="mapping"></a></p>
+<h2>学習の完了条件と成果の区別</h2>
+<p>コードが動くことに加えて、Appの機能を使って何を判断したかを確認します。Agent Mergeでは許可した操作とマージ結果、Canvasでは共有した情報と次の作業への使い方、Automationでは実行結果と要約の正確さを説明できることを目指してください。</p>
+<p>受講者は、成果物を見せるだけでなく「何を期待し、どの結果を見て、その判断をしたか」を説明します。たとえばフィルターでは、選んだ条件と該当件数、0件の状態、解除後の一覧を比べることで、要件と動作を結び付けられます。</p>
+<p><a id="finish"></a></p>
+<h2>演習終了後の確認と記録</h2>
+<p>コミット履歴、差分、テスト結果を確認し、最初の指示で伝わったことと、追加の説明が必要だったことを振り返ります。まだ確認できていないことや、次に試したいことも残してください。開発サーバーや不要な定期実行を停止し、成果物を保存します。</p></article></main></body></html>
