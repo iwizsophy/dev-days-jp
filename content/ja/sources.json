@@ -165,5 +165,23 @@
         "scope": "日本語講師向け動画・スライド、公式イベントの申請受付終了・Luma登録条件・アンケート案内のみを反映。クーポンや精算の個別条件は公式案内へ誘導。既存の参照コミットは保持し、履歴のmergeなし。"
       }
     ]
+  },
+  "learning_diagrams": {
+    "app-learning-flow.png": {
+      "source": "content/diagrams/app-learning-flow.drawio",
+      "description": "教材原稿にある開発の流れと人の判断を図示。"
+    },
+    "app-worktree-handoff.png": {
+      "source": "content/diagrams/app-worktree-handoff.drawio",
+      "description": "教材原稿にあるmainとworktreeの継承を図示。"
+    },
+    "app-mcp-evidence.png": {
+      "source": "content/diagrams/app-mcp-evidence.drawio",
+      "description": "教材原稿にあるMCP接続・呼び出し・結果・終了確認を図示。"
+    },
+    "app-plan-approval.png": {
+      "source": "content/diagrams/app-plan-approval.drawio",
+      "description": "教材原稿にあるPlanのレビューと承認の流れを図示。実画面の画像ではない。"
+    }
   }
 }
