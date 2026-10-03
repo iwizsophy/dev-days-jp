@@ -10,6 +10,12 @@ p { orphans: 3; widows: 3; }
 a { color: #006b86; text-decoration: underline; overflow-wrap: anywhere; }
 li { margin-bottom: 2mm; }
 ul,ol { padding-left: 6mm; }
+.resource-links { font-size: 9pt; line-height: 1.4; margin-top: 3mm; break-inside: avoid; }
+.resource-links h2 { display: inline; font-size: 9pt; margin: 0; }
+.resource-links h2::after { content: "　"; }
+.resources { display: inline; margin: 0; padding: 0; list-style: none; }
+.resources li { display: inline; margin: 0; }
+.resources li + li::before { content: " ・ "; }
 blockquote { margin: 4mm 0; border-left: 3pt solid #36a3ac; padding: 1mm 4mm; background: #f0f7f8; break-inside: avoid; }
 pre { break-inside: avoid; white-space: pre-wrap; overflow-wrap: anywhere; font: 9pt/1.6 "Noto Sans JP", "Noto Sans Mono CJK JP", "Meiryo", monospace; padding: 4mm; border: 1px solid #b7cbd3; border-radius: 2mm; background: #f4f7fa; }
 code { font-family: "Noto Sans JP", "Noto Sans Mono CJK JP", "Meiryo", monospace; font-size: .94em; overflow-wrap: anywhere; }
@@ -23,6 +29,7 @@ th { background: #e7f1f4; }
 thead { display: table-header-group; }
 tr { break-inside: avoid; }
 .chapter,.contents,.credits { break-before: page; }
+.chapter > h1 { text-wrap: balance; }
 .cover { min-height: 235mm; padding-top: 24mm; }
 .cover .eyebrow { color: #087f8c; letter-spacing: .15em; font-weight: bold; }
 .cover h1 { font-size: 34pt; margin: 8mm 0 12mm; }

@@ -47,6 +47,21 @@ def book_html(paths, label, config, ref, digest, web_base=None):
                     sibling = heading.find_next_sibling('p')
                     if sibling: sibling.decompose()
                     heading.decompose()
+        for heading in soup.select('h2'):
+            if heading.get_text() == 'リソース':
+                resources = heading.find_next_sibling('ul')
+                if resources:
+                    links = resources.select('a[href]')
+                    cited = {a['href'] for a in soup.select('a[href]') if resources not in a.parents}
+                    if links and all(a['href'] in cited for a in links):
+                        resources.decompose()
+                        heading.decompose()
+                        continue
+                    resources['class'] = resources.get('class', []) + ['resources']
+                    block = soup.new_tag('div', attrs={'class': 'resource-links'})
+                    heading.insert_before(block)
+                    block.append(heading)
+                    block.append(resources)
         for table in soup.select('table'):
             headers = [th.get_text() for th in table.select('thead th')]
             if len(headers) == 4 and 'App 実走' in headers:
@@ -85,7 +100,8 @@ def book_html(paths, label, config, ref, digest, web_base=None):
             img.replace_with(figure)
             figure.append(img)
             caption = soup.new_tag('figcaption')
-            caption.string = img.get('alt', '') + ' / ' + web.META.get('ui_captures', {}).get(image.name, '参照元の画面例。現行 UI は本文の注記を参照。')
+            notice = web.image_caption(image.name)
+            caption.string = img.get('alt', '') + (' / ' + notice if notice else '')
             figure.append(caption)
             expected_images += 1
         # Figures must not stay inside paragraphs; HTML parsing would otherwise relocate them.
@@ -96,14 +112,20 @@ def book_html(paths, label, config, ref, digest, web_base=None):
     toc = ''.join(f'<li><a href="#{anchor(p)}">{html.escape(t)}</a></li>' for p, t in zip(paths, titles))
     cfg = {k: html.escape(str(v)) for k, v in config.items()}
     web_link = (f'<a href="{html.escape(web_base.rstrip("/") + "/app/index.html", quote=True)}">Web 版を開く</a>' if web_base
-        else f'<a href="{source_url(web.SOURCE / "app/README.md", ref)}">オンライン原稿（リポジトリの閲覧権限が必要）</a>。Web 版は講師が案内するローカル環境で閲覧します。')
+        else f'<a href="{source_url(web.SOURCE / "app/README.md", ref)}">オンライン原稿</a>')
+    participant = paths[0].parent == web.SOURCE / 'app'
+    provenance = '' if participant else f'<br>原稿の基準コミット：{html.escape(ref)}<br>原稿識別子：{digest[:12]}'
     cover = f'''<section class="cover"><p class="eyebrow">DEV DAYS · JAPANESE WORKSHOP</p>
 <h1>GitHub Copilot App</h1><p class="subtitle">{label}</p><p>操作を確かめながら、Tailspin Toys の開発を進める</p>
-<div class="meta">教材版：{cfg['edition']}<br>対応テンプレート：{cfg['template_tag']}<br>原稿コミット：{html.escape(ref)}<br>原稿識別子：{digest[:12]}</div>
-<p>{web_link}</p><p><a href="{cfg['template_url']}">演習コードの取得先（非公開テンプレート）</a></p>
-<p class="source">非公式の独立教材です。画像は操作位置の例を含みます。確認済みの範囲は各章の注記を参照してください。プロンプトは選択・コピーできる文字で収録しています。</p></section>'''
+<div class="meta">教材版：{cfg['edition']}<br>演習用テンプレート：{cfg['template_ref']}{provenance}</div>
+<p>{web_link}</p><p><a href="{cfg['template_url']}">演習用テンプレート</a></p>
+<p class="source">非公式の独立教材です。画像は操作位置の参考です。操作は本文の項目名と手順を確認してください。プロンプトは選択・コピーできる文字で収録しています。</p></section>'''
     license_text = html.escape((web.SOURCE / 'licenses/copilot-workshops.txt').read_text(encoding='utf-8'))
-    credits = f'<section class="credits"><h1 id="credits">出典とライセンス</h1><p>日本語原稿：iwizsophy/dev-days-jp / content/ja。演習本文の参照元：{html.escape(web.META["courses"]["app"]["repository"])}、固定コミット {web.META["courses"]["app"]["commit"]}。画像の出典・確認範囲は各画像の注記を参照してください。</p><pre>{license_text}</pre></section>'
+    if participant:
+        attribution = '<a href="https://github.com/iwizsophy/dev-days-jp">日本語教材：iwizsophy/dev-days-jp</a>。<a href="https://github.com/github-samples/copilot-workshops">演習本文の参照元：github-samples/copilot-workshops</a>。'
+    else:
+        attribution = f'日本語原稿：iwizsophy/dev-days-jp / content/ja。演習本文の参照元：{html.escape(web.META["courses"]["app"]["repository"])}、固定コミット {web.META["courses"]["app"]["commit"]}。画像の撮影条件は content/ja/sources.json の ui_captures に記録しています。'
+    credits = f'<section class="credits"><h1 id="credits">出典とライセンス</h1><p>{attribution}</p><pre>{license_text}</pre></section>'
     css = (ROOT / 'scripts/pdf/print.css').read_text(encoding='utf-8')
     result = f'<!doctype html><html lang="ja"><head><meta charset="utf-8"><title>{label} | Dev Days</title><style>{css}</style></head><body>{cover}<section class="contents"><h1 id="contents">目次</h1><p>章名を選択すると本文へ移動します。PDF のしおりから各節も開けます。</p><ol>{toc}<li><a href="#credits">出典とライセンス</a></li></ol></section>{"".join(sections)}{credits}</body></html>'
     parsed = BeautifulSoup(result, 'html.parser')
@@ -212,8 +234,11 @@ def main():
     config = json.loads(CONFIG.read_text(encoding='utf-8'))
     # Detect a stale cover version instead of silently publishing conflicting versions.
     prerequisite = (web.SOURCE / 'app/0-prerequisites.md').read_text(encoding='utf-8')
-    if config['template_tag'] not in prerequisite:
-        raise ValueError('distribution.json template_tag does not match prerequisites')
+    if config['template_ref'] not in prerequisite:
+        raise ValueError('distribution.json template_ref does not match prerequisites')
+    template = web.META['material']['exercise_template']
+    if any(config[f'template_{key}'] != template[key] for key in ('ref', 'commit')):
+        raise ValueError('distribution.json template reference does not match sources.json')
     ref = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip()
     inputs = sorted(list(web.SOURCE.rglob('*.md')) + list((ROOT / 'content/_images').glob('*')) + [CONFIG, web.SOURCE / 'sources.json', web.SOURCE / 'licenses/copilot-workshops.txt', ROOT / 'scripts/pdf/print.css', ROOT / 'scripts/pdf/print.cjs', ROOT / 'scripts/build_workshops.py', Path(__file__)])
     digest = hashlib.sha256()
@@ -222,7 +247,7 @@ def main():
             digest.update(p.relative_to(ROOT).as_posix().encode()); digest.update(b'\0'); digest.update(p.read_bytes())
     args.output_dir.mkdir(parents=True, exist_ok=True)
     temp = ROOT / 'tmp/pdfs'; temp.mkdir(parents=True, exist_ok=True)
-    manifest = {'edition': config['edition'], 'template_tag': config['template_tag'], 'source_commit': ref,
+    manifest = {'edition': config['edition'], 'template_ref': config['template_ref'], 'template_commit': config['template_commit'], 'source_commit': ref,
         'source_sha256': digest.hexdigest(), 'books': {}}
     for audience in ['participant', 'instructor']:
         if args.audience not in {'all', audience}:

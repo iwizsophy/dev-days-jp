@@ -31,12 +31,38 @@ class DistributionTests(unittest.TestCase):
             self.assertTrue(all(i['src'].startswith('data:image/') for i in soup.select('img')))
             self.assertTrue(all(a['href'].startswith(('#', 'https:', 'http:', 'mailto:')) for a in soup.select('a[href]')))
             self.assertNotIn('file://', markup)
+            cited = {a['href'] for a in soup.select('a[href]')}
+            for path in paths:
+                _, body = pdf.web.title_body(path)
+                source = BeautifulSoup(pdf.web.markdown.markdown(body, extensions=['tables', 'sane_lists', 'pymdownx.superfences']), 'html.parser')
+                self.assertTrue(all(a['href'] in cited for a in source.select('a[href]') if a['href'].startswith(('https:', 'http:'))))
 
     def test_web_links_use_explicit_host_only_when_supplied(self):
         config = json.loads(pdf.CONFIG.read_text(encoding='utf-8'))
         path = pdf.web.SOURCE / 'app/0-prerequisites.md'
         markup, _, _ = pdf.book_html([path], 'test', config, 'test-ref', 'a' * 64, 'https://example.com/workshops/')
         self.assertIn('https://example.com/workshops/app/1-install-copilot-app.html', markup)
+
+    def test_participant_book_keeps_attribution_without_instructor_material(self):
+        config = json.loads(pdf.CONFIG.read_text(encoding='utf-8'))
+        rendered = {}
+        for audience, book in config['books'].items():
+            paths = [pdf.web.SOURCE / p for p in book['chapters']]
+            markup, _, _ = pdf.book_html(paths, book['title'], config, 'test-ref', 'a' * 64)
+            rendered[audience] = BeautifulSoup(markup, 'html.parser')
+        participant = rendered['participant']
+        cover = participant.select_one('.cover').get_text()
+        self.assertIn(config['edition'], cover)
+        self.assertIn(config['template_ref'], cover)
+        self.assertNotIn('test-ref', cover)
+        self.assertNotIn('a' * 12, cover)
+        self.assertFalse(any('/material/' in a['href'] for a in participant.select('a[href]')))
+        self.assertNotIn('講師向け緊急対応', participant.get_text())
+        credits = participant.select_one('.credits')
+        self.assertIn('https://github.com/github-samples/copilot-workshops', [a['href'] for a in credits.select('a[href]')])
+        self.assertIn('Copyright', credits.get_text())
+        self.assertIn('test-ref', rendered['instructor'].select_one('.cover').get_text())
+        self.assertIn('a' * 12, rendered['instructor'].select_one('.cover').get_text())
 
 
 if __name__ == '__main__':
