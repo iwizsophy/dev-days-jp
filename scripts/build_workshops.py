@@ -1,6 +1,6 @@
 """Render checked-in Japanese workshop sources; no network access required."""
 from pathlib import Path
-from html import escape
+from html import escape, unescape
 from html.parser import HTMLParser
 from urllib.parse import urlsplit, unquote
 import json
@@ -100,6 +100,50 @@ def image_notice(match):
     return tag + '<br><em class="source">' + escape(caption) + '</em>'
 
 
+def markdown_renderer():
+    return markdown.Markdown(
+        extensions=['tables', 'toc', 'sane_lists', 'pymdownx.superfences', 'pymdownx.tasklist'],
+        extension_configs={'toc': {'slugify': slugify_unicode},
+            'pymdownx.superfences': {'disable_indented_code_blocks': False}})
+
+
+def section_headings(renderer):
+    """Read H2 labels and generated anchors from the same renderer as the lesson."""
+    def walk(tokens):
+        for token in tokens:
+            if token['level'] == 2:
+                yield token['id'], unescape(token['name'])
+            yield from walk(token['children'])
+    return list(walk(renderer.toc_tokens))
+
+
+def course_index(course, destination):
+    parts = [f'<section><h2>{escape(LABELS[course])}</h2>']
+    for source in FILES[course]:
+        if source.name == 'README.md':
+            title, _ = title_body(source)
+            href = relative(TARGETS[source.resolve()], destination)
+            parts.append(f'<p class="course-overview"><a href="{escape(href, quote=True)}">{escape(title)}</a></p>')
+    parts.append('<ul class="course-chapters">')
+    for source in FILES[course]:
+        if source.name == 'README.md':
+            continue
+        title, text = title_body(source)
+        renderer = markdown_renderer()
+        renderer.convert(text)
+        href = relative(TARGETS[source.resolve()], destination)
+        parts.append(f'<li><a href="{escape(href, quote=True)}">{escape(title)}</a>')
+        headings = section_headings(renderer)
+        if headings:
+            parts.append('<ul class="course-sections">')
+            for ident, label in headings:
+                parts.append(f'<li><a href="{escape(href + "#" + ident, quote=True)}">{escape(label)}</a></li>')
+            parts.append('</ul>')
+        parts.append('</li>')
+    parts.append('</ul></section>')
+    return ''.join(parts)
+
+
 def build():
     OUTPUT.mkdir(parents=True, exist_ok=True)
     (OUTPUT / 'licenses').mkdir(exist_ok=True)
@@ -111,7 +155,7 @@ def build():
             destination = TARGETS[source.resolve()]
             destination.parent.mkdir(exist_ok=True)
             title, text = title_body(source)
-            renderer = markdown.Markdown(extensions=['tables', 'toc', 'sane_lists', 'pymdownx.superfences', 'pymdownx.tasklist'], extension_configs={'toc': {'slugify': slugify_unicode}, 'pymdownx.superfences': {'disable_indented_code_blocks': False}})
+            renderer = markdown_renderer()
             body = transform_links(renderer.convert(text), source, destination)
             if course == 'app':
                 body = re.sub(r'<img\b[^>]+>', image_notice, body)
@@ -145,12 +189,7 @@ def build():
     index = OUTPUT / 'index.html'
     body = '<p>App 版の順序・課題・到達目標に沿って Tailspin Toys を改修します。画面が教材と異なる場合は、本文の操作対象と項目名を確認し、講師に相談してください。</p>'
     body += '<p><a href="app/0-prerequisites.html">演習0から始める</a> · <a href="../handson-guide.html">受講準備を確認する</a></p>'
-    for course in ['app']:
-        files = FILES[course]
-        body += f'<section><h2>{LABELS[course]}</h2><ol>'
-        for source in files:
-            body += f'<li><a href="{relative(TARGETS[source.resolve()], index)}">{escape(title_body(source)[0])}</a></li>'
-        body += '</ol></section>'
+    body += course_index('app', index)
     body += '<p><a href="references.html">参考資料：独立した CLI コース・Mona Mayhem</a></p>'
     index.write_text(shell('App シナリオの演習目次', body, index), encoding='utf-8')
     reference = OUTPUT / 'references.html'
