@@ -3,7 +3,7 @@ slug: ja-jp/app
 title: "GitHub Copilot app"
 authors:
   - geektrainer
-lastUpdated: 2026-10-03
+lastUpdated: 2026-10-04
 ---
 
 ## この教材セットの進め方
@@ -20,6 +20,8 @@ lastUpdated: 2026-10-03
 - **Automation** による定型作業の自動化
 
 ### この演習で身につける判断
+
+![開発の流れと人が判断すること](../../_images/app-learning-flow.png)
 
 題材となるTailspin Toysは、ゲームを紹介するクラウドファンディングサイトです。利用者が支援したいゲームを探せるように、カードの星評価、カテゴリーとパブリッシャーによる絞り込み、タイトル検索を順に追加します。前の章で作った機能を残したまま次の変更を加えるため、既存の振る舞いを確かめることも各章の課題になります。
 
@@ -44,30 +46,16 @@ GitHub Copilot Appは最新版を使用してください。
 - **UI が異なる場合**：操作ボタンが見当たらない場合は、本文の操作対象と項目名を確認し、講師に相談してください。
 - **リポジトリの分離**：演習は教材用テンプレートの **Use this template** から各自が作成したTailspin Toysのコピーで行います。演習先を間違えないよう、セッション開始時とPR作成時に所有者とリポジトリ名を確認してください。参照元リポジトリへのpush、Pull Request、Issue作成は行いません。
 
-## GitHub Copilot App の概要
+### 各章の読み方
 
-[**GitHub Copilot app**](https://docs.github.com/copilot/concepts/agents/github-copilot-app) は、Copilot CLI を基盤とするデスクトップアプリケーションです。エージェント主導の開発環境をひとつのワークスペースに統合します。
+| 読む場所 | 確かめること |
+| :--- | :--- |
+| 冒頭の到達目標 | この章で何を作り、どんな判断を練習するか |
+| 番号付きの主手順 | 操作対象、依頼する範囲、次へ進める期待結果 |
+| 章末の補足 | 操作の理由、仕組み、設計上の選択と具体例 |
+| 振り返り | 判断の根拠を自分の言葉で説明できるか |
 
-主な特徴と機能：
-
-- **並列エージェントセッション**：独立した複数の作業を同時に進行
-- **セッションモードの切り替え**：計画立案（Plan）や自律実装（Autopilot）を用途に応じて選択
-- **GitHub ネイティブ管理**：Issue や Pull Request をアプリ内で直接操作
-- **Agent Merge**：許可した範囲でレビュー指摘やCI失敗への対応、競合の解消、マージを進める
-- **共有キャンバス**：アイデアやタスクを視覚的に整理
-
-本コースでは、アプリの導入と演習用リポジトリの接続から始め、バックログに用意された Issue に沿って開発を進めます。
-
-1. **星評価の追加**：小さな機能改修を通じて、セッション開始から PR 作成・マージまでの基本サイクルを体験
-2. **カスタム指示の標準化**：コーディング規約やドキュメント標準を指示ファイルに定義し、プロジェクトへ反映
-3. **フィルター機能の自律実装**：Plan モードと Autopilot モードを使い分け、スキルを活用して品質を検証
-4. **外部ツール連携（MCP）**：Playwright MCPの接続とツール実行を確認し、エージェントが実際のブラウザーを操作して動作を検証
-5. **段階的マージの自動化**：レビューと許可範囲を確認し、**Agent Merge** にPRの修正やマージを任せる
-6. **協調作業と自動化**：共有キャンバスでタスクを整理し、繰り返し発生する作業を Automation で自動化
-
-アイデアの具体化から機能のマージに至る、AI 支援開発の包括的なライフサイクルを体験できます。
-
-機能の概要は[GitHub公式のApp紹介](https://docs.github.com/en/copilot/concepts/agents/github-copilot-app#what-can-i-do-with-the-github-copilot-app)、モードごとの役割は[セッションモードの説明](https://docs.github.com/en/copilot/how-tos/github-copilot-app/agent-sessions#choosing-a-session-mode)を参照してください。本文では、その機能をTailspin Toysのどの課題に使い、どこで人が判断するかを具体的に扱います。
+節番号は「章.節」、小節番号は「章.節.小節」です。操作の番号は、独立した手順ごとに1から始まります。背景を先に知りたい場合は、主手順から補足へのリンクを使い、読んだ後に関連手順へ戻れます。
 
 ## レッスン一覧
 
@@ -101,6 +89,33 @@ GitHub Copilot Appは最新版を使用してください。
 > Copilot Business または Copilot Enterprise を利用している組織では、アプリを使用するために組織管理者が **GitHub Copilot app** ポリシー（CLI のポリシーとは別個）を有効化している必要があります。
 
 利用条件は[Appの利用可能範囲](https://docs.github.com/en/copilot/concepts/agents/github-copilot-app#availability)と[Copilotプランの公式案内](https://docs.github.com/en/copilot/get-started/plans)を参照してください。参加前に、使用するアカウントで接続できることと、利用枠や組織のポリシーを確認します。
+
+<a id="github-copilot-app-の概要"></a>
+
+## 補足：GitHub Copilot Appの概要
+
+[**GitHub Copilot app**](https://docs.github.com/copilot/concepts/agents/github-copilot-app) は、Copilot CLI を基盤とするデスクトップアプリケーションです。エージェント主導の開発環境をひとつのワークスペースに統合します。
+
+主な特徴と機能：
+
+- **並列エージェントセッション**：独立した複数の作業を同時に進行
+- **セッションモードの切り替え**：計画立案（Plan）や自律実装（Autopilot）を用途に応じて選択
+- **GitHub ネイティブ管理**：Issue や Pull Request をアプリ内で直接操作
+- **Agent Merge**：許可した範囲でレビュー指摘やCI失敗への対応、競合の解消、マージを進める
+- **共有キャンバス**：アイデアやタスクを視覚的に整理
+
+本コースでは、アプリの導入と演習用リポジトリの接続から始め、バックログに用意された Issue に沿って開発を進めます。
+
+- **星評価の追加**：小さな機能改修を通じて、セッション開始から PR 作成・マージまでの基本サイクルを体験
+- **カスタム指示の標準化**：コーディング規約やドキュメント標準を指示ファイルに定義し、プロジェクトへ反映
+- **フィルター機能の自律実装**：Plan モードと Autopilot モードを使い分け、スキルを活用して品質を検証
+- **外部ツール連携（MCP）**：Playwright MCPの接続とツール実行を確認し、エージェントが実際のブラウザーを操作して動作を検証
+- **段階的マージの自動化**：レビューと許可範囲を確認し、**Agent Merge** にPRの修正やマージを任せる
+- **協調作業と自動化**：共有キャンバスでタスクを整理し、繰り返し発生する作業を Automation で自動化
+
+アイデアの具体化から機能のマージに至る、AI 支援開発の包括的なライフサイクルを体験できます。
+
+機能の概要は[GitHub公式のApp紹介](https://docs.github.com/en/copilot/concepts/agents/github-copilot-app#what-can-i-do-with-the-github-copilot-app)、モードごとの役割は[セッションモードの説明](https://docs.github.com/en/copilot/how-tos/github-copilot-app/agent-sessions#choosing-a-session-mode)を参照してください。本文では、その機能をTailspin Toysのどの課題に使い、どこで人が判断するかを具体的に扱います。
 
 ## はじめる
 
