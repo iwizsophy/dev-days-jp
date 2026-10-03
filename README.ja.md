@@ -5,7 +5,7 @@
 
 🌐 [English](README.md) | 日本語
 
-このリポジトリは [github/dev-days](https://github.com/github/dev-days) の履歴を引き継いだ、非公開の独立した教材セットです。App シナリオを主軸に据え、CLI は講師向けの緊急対応として分離しています。GitHub 公式の日本語版ではありません。原本のライセンスと著作権表示は [LICENSE](LICENSE) に保持しています。
+このリポジトリは [github/dev-days](https://github.com/github/dev-days) の履歴を引き継いだ、独立した教材セットです。App シナリオを主軸に据え、CLI は講師向けの緊急対応として分離しています。GitHub 公式の日本語版ではありません。原本のライセンスと著作権表示は [LICENSE](LICENSE) に保持しています。
 
 > 🚨 **公式の Dev Days イベントを開催し、プログラムの支援を受けるには、[イベント申請フォーム](https://gh.io/dev-days-2026)に記入して Dev Days チームの承認を得る必要があります。**
 >
@@ -63,8 +63,8 @@ Dev Days の開催を希望するコミュニティリーダー向けに、こ�
 - **CLI の位置づけ**：CLI 手順は作業を保全して先へ進めるための「緊急対応」であり、App 演習の完了には数えません。
 - **機能体験の区別**：App 固有の機能（Agent Merge、Canvas、Automation）を通常の操作や代替手順で代用した場合、その機能を体験した扱いにはしません。
 
-### 参考コースと検証状況
-CLI 独立コースと Mona Mayhem は参考資料として収録していますが、本編の必須経路には含めません。過去の CLI 実走結果と、未検証の App シナリオを混同しないよう、章別の状況は [章別の検証状況](website/ja/workshops/material/verification.html) に記録して区別しています。原稿の管理や更新手順は [教材の管理ガイド](content/ja/README.md) を参照してください。
+### 参考コースと講師向け資料
+CLI独立コースとMona Mayhemは参考資料として収録していますが、本編の必須経路には含めません。Appは最新版を使用します。開催準備には[講師ガイド](website/ja/workshops/material/instructor.html)を参照してください。検証日・使用環境・確認範囲・結果は[検証記録](content/ja/material/verification.md)、原稿の更新手順は[教材の管理ガイド](content/ja/README.md)にまとめています。
 
 ## 開発・閲覧とリポジトリ運用方針
 

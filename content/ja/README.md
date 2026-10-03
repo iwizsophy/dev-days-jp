@@ -8,6 +8,7 @@
 
 | 原稿パス | 役割と位置づけ | 留意点 |
 | :--- | :--- | :--- |
+| `entry.md`<br>`preparation.md` | 参加者の入口と事前準備 | `website/ja/index.html` と `handson-guide.html` の生成元 |
 | `app/` | **本編**（上流の日本語 App シナリオ） | 画像と現行 UI の突き合わせ確認が必要 |
 | `material/instructor.md` | 講師ガイド | 講師の事前準備、180分の時間配分、当日の対処手順 |
 | `material/ui-check.md` | UI 確認表 | メニューや右クリック等の現行操作経路と確認対象画像 |
@@ -19,6 +20,8 @@
 ## 出典と更新方針
 
 本教材の開催資料は `github/dev-days`、演習の主軸は `github-samples/copilot-workshops` の App 版に基づいています。参照コミット、対象ファイル、および独自追加の範囲は [sources.json](sources.json) に記録し、[Copilot Workshops のライセンス](licenses/copilot-workshops.txt) および [Mona Mayhem のライセンス](licenses/mona-mayhem.txt) を保持しています。
+
+画像の撮影条件や検証履歴は `sources.json` の `ui_captures` に保持します。受講者向けに表示する補足は `ui_captions` に記載し、操作に必要な画面差や対象の違いだけを簡潔に説明します。
 
 ### 参照元の取り扱い原則
 参照元リポジトリには、push、Pull Request、Issue、コメントを一切送信しません。また、上流の履歴を merge せず、本リポジトリを独立して保守します。
@@ -42,6 +45,6 @@ python scripts/build_workshops.py
 ```
 
 - 原稿のみの変更であれば、2行目の `build_workshops.py` のみ実行すれば足ります。
-- 生成先は `website/ja/workshops/` です。ビルド処理は外部ネットワークへ接続せず、内部リンク、アンカー、画像パスの存在を厳格に検査します。
+- 演習と補助資料の生成先は `website/ja/workshops/` です。入口と事前準備は `website/ja/index.html` と `website/ja/handson-guide.html` へ生成します。ビルド処理は外部ネットワークへ接続せず、内部リンク、アンカー、画像パスの存在を検査します。
 - 生成された HTML を直接手作業で編集することは避けてください。
 - 画像は原稿用と配布サイト用に保持し、不要な再保存による無用な差分を発生させないようにします。
