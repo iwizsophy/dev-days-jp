@@ -1,0 +1,37 @@
+<mxfile host="app.diagrams.net" version="29.0.0">
+  <diagram name="計画を読んでから実装を始める">
+    <mxGraphModel dx="844" dy="330" grid="1" gridSize="10" page="0" background="#FFFFFF">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" value="計画を読んでから実装を始める" style="text;html=1;align=left;verticalAlign=middle;fontSize=24;fontStyle=1;fontFamily=Meiryo;fontColor=#172C40;" vertex="1" parent="1">
+          <mxGeometry x="0" y="0" width="844" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="c0" value="&lt;b&gt;Planで計画する&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;span style=&quot;font-size:16px&quot;&gt;仕様と検査方法を示す&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fontSize=18;spacing=10;strokeColor=#087F8C;strokeWidth=2;fillColor=#EAF5F5;fontFamily=Meiryo;fontColor=#172C40;" vertex="1" parent="1">
+          <mxGeometry x="0" y="65" width="190" height="105" as="geometry" />
+        </mxCell>
+        <mxCell id="c1" value="&lt;b&gt;人が計画を読む&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;span style=&quot;font-size:16px&quot;&gt;範囲・期待結果を確認&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fontSize=18;spacing=10;strokeColor=#087F8C;strokeWidth=2;fillColor=#EEF2FA;fontFamily=Meiryo;fontColor=#172C40;" vertex="1" parent="1">
+          <mxGeometry x="218" y="65" width="190" height="105" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#087F8C;" edge="1" parent="1" source="c0" target="c1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c2" value="&lt;b&gt;承認を送信する&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;span style=&quot;font-size:16px&quot;&gt;Approve and&lt;br&gt;implement this plan&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fontSize=18;spacing=10;strokeColor=#087F8C;strokeWidth=2;fillColor=#EAF5F5;fontFamily=Meiryo;fontColor=#172C40;" vertex="1" parent="1">
+          <mxGeometry x="436" y="65" width="190" height="105" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#087F8C;" edge="1" parent="1" source="c1" target="c2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c3" value="&lt;b&gt;実装を確認する&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;span style=&quot;font-size:16px&quot;&gt;開始を確認&lt;br&gt;モード表示も確認&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fontSize=18;spacing=10;strokeColor=#087F8C;strokeWidth=2;fillColor=#EEF2FA;fontFamily=Meiryo;fontColor=#172C40;" vertex="1" parent="1">
+          <mxGeometry x="654" y="65" width="190" height="105" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#087F8C;" edge="1" parent="1" source="c2" target="c3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="note" value="計画に不足がある場合は、承認前に修正を依頼する" style="text;html=1;align=left;verticalAlign=middle;fontSize=19;fontFamily=Meiryo;fontColor=#172C40;" vertex="1" parent="1">
+          <mxGeometry x="0" y="190" width="844" height="45" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

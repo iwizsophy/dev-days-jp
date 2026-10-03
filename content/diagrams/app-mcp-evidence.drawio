@@ -1,0 +1,43 @@
+<mxfile host="app.diagrams.net" version="29.0.0">
+  <diagram name="MCPで確認する順序">
+    <mxGraphModel dx="1062" dy="330" grid="1" gridSize="10" page="0" background="#FFFFFF">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" value="MCPで確認する順序" style="text;html=1;align=left;verticalAlign=middle;fontSize=24;fontStyle=1;fontFamily=Meiryo;fontColor=#172C40;" vertex="1" parent="1">
+          <mxGeometry x="0" y="0" width="1062" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="c0" value="&lt;b&gt;設定の定義&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;span style=&quot;font-size:16px&quot;&gt;サーバー・起動方法&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fontSize=18;spacing=10;strokeColor=#087F8C;strokeWidth=2;fillColor=#EAF5F5;fontFamily=Meiryo;fontColor=#172C40;" vertex="1" parent="1">
+          <mxGeometry x="0" y="65" width="190" height="105" as="geometry" />
+        </mxCell>
+        <mxCell id="c1" value="&lt;b&gt;接続状態&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;span style=&quot;font-size:16px&quot;&gt;Connectedを確認&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fontSize=18;spacing=10;strokeColor=#087F8C;strokeWidth=2;fillColor=#EEF2FA;fontFamily=Meiryo;fontColor=#172C40;" vertex="1" parent="1">
+          <mxGeometry x="218" y="65" width="190" height="105" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#087F8C;" edge="1" parent="1" source="c0" target="c1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c2" value="&lt;b&gt;ツール呼び出し&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;span style=&quot;font-size:16px&quot;&gt;セッションから実行&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fontSize=18;spacing=10;strokeColor=#087F8C;strokeWidth=2;fillColor=#EAF5F5;fontFamily=Meiryo;fontColor=#172C40;" vertex="1" parent="1">
+          <mxGeometry x="436" y="65" width="190" height="105" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#087F8C;" edge="1" parent="1" source="c1" target="c2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c3" value="&lt;b&gt;操作結果&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;span style=&quot;font-size:16px&quot;&gt;表示・絞り込み・解除&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fontSize=18;spacing=10;strokeColor=#087F8C;strokeWidth=2;fillColor=#EEF2FA;fontFamily=Meiryo;fontColor=#172C40;" vertex="1" parent="1">
+          <mxGeometry x="654" y="65" width="190" height="105" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#087F8C;" edge="1" parent="1" source="c2" target="c3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c4" value="&lt;b&gt;終了確認&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;span style=&quot;font-size:16px&quot;&gt;ブラウザー・サーバー停止&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fontSize=18;spacing=10;strokeColor=#087F8C;strokeWidth=2;fillColor=#EAF5F5;fontFamily=Meiryo;fontColor=#172C40;" vertex="1" parent="1">
+          <mxGeometry x="872" y="65" width="190" height="105" as="geometry" />
+        </mxCell>
+        <mxCell id="e4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#087F8C;" edge="1" parent="1" source="c3" target="c4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="note" value="接続の表示だけで、機能の検証が完了したとは判断しない" style="text;html=1;align=left;verticalAlign=middle;fontSize=19;fontFamily=Meiryo;fontColor=#172C40;" vertex="1" parent="1">
+          <mxGeometry x="0" y="190" width="1062" height="45" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
