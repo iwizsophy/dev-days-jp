@@ -20,7 +20,7 @@ git status --short
 git diff --stat
 ```
 
-- **リモートの確認**：Git の remote が自身の演習用コピー（フォーク）でない場合は、直ちに操作を中断してください。**参照元である `github/dev-days`、`github-samples/copilot-workshops`、`github-samples/tailspin-toys` に push、Pull Request、Issue を送信してはなりません。**
+- **リモートの確認**：Gitのremoteがテンプレートから作成した自身の演習用コピーでない場合は、直ちに操作を中断してください。**参照元である `github/dev-days`、`github-samples/copilot-workshops`、`github-samples/tailspin-toys` に push、Pull Request、Issue を送信してはなりません。**
 - **ブランチの選定**：既存の作業ブランチがある場合は新規作成せずそのまま続行します。未着手かつ既定ブランチがクリーンな場合に限り、章に応じた未使用名（例：`git switch -c feature/app-02-rating`）でブランチを新規作成します。
 
 ## 2. CLI への課題引き継ぎ
@@ -60,6 +60,7 @@ commit・push・PR・merge は個別に依頼するまで実行しないでく�
 
 ### App への復帰原則
 本教材では、可能な限り **App 操作への復帰を最優先** とします。
+
 - App へ戻る場合は、CLI のエージェントを終了し、同じ作業ディレクトリおよび作業ブランチを App で開き、実装した変更とテスト結果をセッションに伝えます。
 - App で開けない場合は、App 操作を「未完了」とし、講師デモまたは後日実施へ切り替えます（演習4〜6の途中で、新しいセッションを既定ブランチから無闇に始め直してはなりません）。
 - **機能体験の記録**：App 固有の機能（Agent Merge、Canvas、Automation）は、通常の PR、Markdown、単発プロンプト等で代用しても「機能体験は未実施」として記録します。実装の到達点と、App 機能の体験状況は明確に分離して管理してください。
