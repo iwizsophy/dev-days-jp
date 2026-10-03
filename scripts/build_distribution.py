@@ -29,26 +29,43 @@ def source_url(path, ref):
     return f'https://github.com/iwizsophy/dev-days-jp/blob/{quote(ref, safe="/")}/{path.relative_to(ROOT).as_posix()}'
 
 
+def heading_label(text):
+    """Ignore chapter.section numbering when recognizing special sections."""
+    return re.sub(r'^\d+(?:\.\d+)+\.?\s+', '', text.strip())
+
+
 def book_html(paths, label, config, ref, digest, web_base=None):
-    sections, titles, expected_images = [], [], 0
+    sections, titles, contents, expected_images = [], [], [], 0
     selected = {p.resolve() for p in paths}
     for path in paths:
         title, body = web.title_body(path)
         titles.append(title)
-        renderer = web.markdown.Markdown(extensions=['tables', 'toc', 'sane_lists', 'pymdownx.superfences', 'pymdownx.tasklist'],
-            extension_configs={'toc': {'slugify': web.slugify_unicode}})
+        renderer = web.markdown_renderer()
         soup = BeautifulSoup(renderer.convert(body), 'html.parser')
+        for para in list(soup.select('p')):
+            children = para.find_all(recursive=False)
+            if not para.get_text(strip=True) and len(children) == 1 and children[0].name == 'a' and children[0].has_attr('id') and not children[0].has_attr('href'):
+                para.unwrap()
+        # Keep legacy link destinations without inserting boxes between headings.
+        # A separate empty anchor can defeat Chromium's heading keep-with-next.
+        for legacy in list(soup.select('a[id]:not([href])')):
+            heading = legacy.find_next_sibling()
+            if not heading and legacy.parent.name == 'p':
+                heading = legacy.parent.find_next_sibling()
+            if not legacy.get_text(strip=True) and heading and heading.name in ('h2', 'h3', 'h4'):
+                legacy.name = 'span'
+                heading.insert(0, legacy.extract())
         if '\u2027' in soup.get_text() or re.search('[\u2f00-\u2fdf]', soup.get_text()):
             raise ValueError('Source uses characters reserved by the Japanese PDF copy correction')
         # The overview's final Web navigation duplicates the PDF contents page.
         if path.name == 'README.md':
             for heading in list(soup.select('h2')):
-                if heading.get_text() == 'はじめる':
+                if heading_label(heading.get_text()) == 'はじめる':
                     sibling = heading.find_next_sibling('p')
                     if sibling: sibling.decompose()
                     heading.decompose()
         for heading in soup.select('h2'):
-            if heading.get_text() == 'リソース':
+            if heading_label(heading.get_text()) == 'リソース':
                 resources = heading.find_next_sibling('ul')
                 if resources:
                     links = resources.select('a[href]')
@@ -69,6 +86,9 @@ def book_html(paths, label, config, ref, digest, web_base=None):
                 for width in [14, 24, 48, 14]:
                     col = soup.new_tag('col'); col['style'] = f'width:{width}%'; group.append(col)
                 table.insert(0, group)
+        for summary in soup.select('ul'):
+            if len(summary.find_all('li', recursive=False)) <= 5 and len(summary.get_text()) < 500 and not summary.select('ul, ol, img, pre, table'):
+                summary['class'] = summary.get('class', []) + ['compact-list']
         prefix = anchor(path)
         for node in soup.select('[id]'):
             node['id'] = prefix + '--' + node['id']
@@ -108,8 +128,23 @@ def book_html(paths, label, config, ref, digest, web_base=None):
         for para in list(soup.select('p')):
             if para.find('figure'):
                 para.name = 'div'
+        # Chromium can ignore keep-with-next across consecutive headings.
+        for heading in list(soup.select('h2')):
+            subsection = heading.find_next_sibling()
+            if subsection and subsection.name == 'h3':
+                first_text = subsection.find_next_sibling()
+                if first_text and first_text.name == 'p' and len(first_text.get_text()) < 800:
+                    lead = soup.new_tag('div', attrs={'class': 'section-lead'})
+                    heading.insert_before(lead)
+                    for node in (heading, subsection, first_text):
+                        lead.append(node.extract())
+        section_links = ''.join(
+            f'<li><a href="#{html.escape(heading["id"], quote=True)}">{html.escape(heading.get_text(" ", strip=True))}</a></li>'
+            for heading in soup.select('h2[id]'))
+        contents.append(f'<li><a class="contents-chapter" href="#{prefix}">{html.escape(title)}</a>'
+            + (f'<ul class="contents-sections">{section_links}</ul>' if section_links else '') + '</li>')
         sections.append(f'<section class="chapter"><h1 id="{prefix}">{html.escape(title)}</h1>{soup}</section>')
-    toc = ''.join(f'<li><a href="#{anchor(p)}">{html.escape(t)}</a></li>' for p, t in zip(paths, titles))
+    toc = ''.join(contents)
     cfg = {k: html.escape(str(v)) for k, v in config.items()}
     web_link = (f'<a href="{html.escape(web_base.rstrip("/") + "/app/index.html", quote=True)}">Web 版を開く</a>' if web_base
         else f'<a href="{source_url(web.SOURCE / "app/README.md", ref)}">オンライン原稿</a>')
@@ -127,7 +162,7 @@ def book_html(paths, label, config, ref, digest, web_base=None):
         attribution = f'日本語原稿：iwizsophy/dev-days-jp / content/ja。演習本文の参照元：{html.escape(web.META["courses"]["app"]["repository"])}、固定コミット {web.META["courses"]["app"]["commit"]}。画像の撮影条件は content/ja/sources.json の ui_captures に記録しています。'
     credits = f'<section class="credits"><h1 id="credits">出典とライセンス</h1><p>{attribution}</p><pre>{license_text}</pre></section>'
     css = (ROOT / 'scripts/pdf/print.css').read_text(encoding='utf-8')
-    result = f'<!doctype html><html lang="ja"><head><meta charset="utf-8"><title>{label} | Dev Days</title><style>{css}</style></head><body>{cover}<section class="contents"><h1 id="contents">目次</h1><p>章名を選択すると本文へ移動します。PDF のしおりから各節も開けます。</p><ol>{toc}<li><a href="#credits">出典とライセンス</a></li></ol></section>{"".join(sections)}{credits}</body></html>'
+    result = f'<!doctype html><html lang="ja"><head><meta charset="utf-8"><title>{label} | Dev Days</title><style>{css}</style></head><body>{cover}<section class="contents"><h1 id="contents">目次</h1><p>章名や節名を選択すると本文へ移動します。PDFのしおりからは小節も開けます。</p><ul class="contents-chapters">{toc}<li><a class="contents-chapter" href="#credits">出典とライセンス</a></li></ul></section>{"".join(sections)}{credits}</body></html>'
     parsed = BeautifulSoup(result, 'html.parser')
     ids = [n['id'] for n in parsed.select('[id]')]
     if len(ids) != len(set(ids)):

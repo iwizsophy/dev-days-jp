@@ -1,6 +1,8 @@
 """Regression checks for distribution links and Japanese prompt copy fidelity."""
 import json
+import re
 import unittest
+from unittest.mock import patch
 import build_distribution as pdf
 from bs4 import BeautifulSoup
 
@@ -28,14 +30,94 @@ class DistributionTests(unittest.TestCase):
             soup = BeautifulSoup(markup, 'html.parser')
             self.assertEqual(len(soup.select('.chapter')), len(titles))
             self.assertEqual(len(soup.select('img')), images)
+            self.assertFalse(soup.select('.chapter > a[id]:not([href])'))
+            self.assertFalse(soup.select('.chapter p > a[id]:not([href])'))
             self.assertTrue(all(i['src'].startswith('data:image/') for i in soup.select('img')))
             self.assertTrue(all(a['href'].startswith(('#', 'https:', 'http:', 'mailto:')) for a in soup.select('a[href]')))
             self.assertNotIn('file://', markup)
+            contents = soup.select_one('.contents')
+            self.assertFalse(contents.select('ol'))
+            expected_contents = [
+                ('#' + heading['id'], heading.get_text(' ', strip=True))
+                for chapter in soup.select('.chapter')
+                for heading in chapter.select('h1[id], h2[id]')]
+            credits = soup.select_one('.credits h1')
+            expected_contents.append(('#' + credits['id'], credits.get_text(' ', strip=True)))
+            self.assertEqual(
+                [(link['href'], link.get_text(' ', strip=True)) for link in contents.select('a[href]')],
+                expected_contents)
+            contents_targets = {link['href'] for link in contents.select('a[href]')}
+            self.assertTrue(all('#' + heading['id'] not in contents_targets for heading in soup.select('.chapter h3[id]')))
             cited = {a['href'] for a in soup.select('a[href]')}
             for path in paths:
                 _, body = pdf.web.title_body(path)
                 source = BeautifulSoup(pdf.web.markdown.markdown(body, extensions=['tables', 'sane_lists', 'pymdownx.superfences']), 'html.parser')
                 self.assertTrue(all(a['href'] in cited for a in source.select('a[href]') if a['href'].startswith(('https:', 'http:'))))
+
+    def test_web_index_has_separate_overview_and_matching_h2_links(self):
+        destination = pdf.web.OUTPUT / 'index.html'
+        soup = BeautifulSoup(pdf.web.course_index('app', destination), 'html.parser')
+        self.assertFalse(soup.select('ol'))
+        overview = pdf.web.SOURCE / 'app/README.md'
+        self.assertEqual(soup.select_one('.course-overview a')['href'],
+            pdf.web.relative(pdf.web.TARGETS[overview.resolve()], destination))
+        chapters = [path for path in pdf.web.FILES['app'] if path.name != 'README.md']
+        entries = soup.select('.course-chapters > li')
+        self.assertEqual(len(entries), len(chapters))
+        for path, entry in zip(chapters, entries):
+            with self.subTest(chapter=path.name):
+                title, body = pdf.web.title_body(path)
+                renderer = pdf.web.markdown_renderer()
+                lesson = BeautifulSoup(renderer.convert(body), 'html.parser')
+                href = pdf.web.relative(pdf.web.TARGETS[path.resolve()], destination)
+                self.assertEqual(entry.find('a', recursive=False)['href'], href)
+                self.assertEqual(entry.find('a', recursive=False).get_text(), title)
+                self.assertEqual(
+                    [(a['href'], a.get_text()) for a in entry.select('.course-sections a')],
+                    [(href + '#' + h['id'], h.get_text()) for h in lesson.select('h2[id]')])
+
+    def test_app_section_numbers_are_continuous_within_each_chapter(self):
+        for path in pdf.web.FILES['app']:
+            _, body = pdf.web.title_body(path)
+            renderer = pdf.web.markdown_renderer()
+            soup = BeautifulSoup(renderer.convert(body), 'html.parser')
+            if path.name == 'README.md':
+                self.assertTrue(all(not re.match(r'^\d+(?:\.\d+)+\s', h.get_text()) for h in soup.select('h2, h3')))
+                continue
+            chapter = int(path.name.split('-', 1)[0])
+            section = subsection = 0
+            for heading in soup.select('h2, h3'):
+                if heading.name == 'h2':
+                    section += 1
+                    subsection = 0
+                    expected = f'{chapter}.{section}'
+                else:
+                    self.assertGreater(section, 0, f'{path.name}: H3 before H2')
+                    subsection += 1
+                    expected = f'{chapter}.{section}.{subsection}'
+                with self.subTest(chapter=path.name, heading=heading.get_text()):
+                    self.assertRegex(heading.get_text(), '^' + re.escape(expected) + r'\s+')
+            self.assertGreater(section, 0)
+
+    def test_numbered_navigation_and_resource_headings_keep_pdf_cleanup(self):
+        config = json.loads(pdf.CONFIG.read_text(encoding='utf-8'))
+        path = pdf.web.SOURCE / 'app/README.md'
+        for cited_in_prose in [False, True]:
+            with self.subTest(cited_in_prose=cited_in_prose):
+                citation = '[Reference](https://example.com/reference)' if cited_in_prose else 'Main text.'
+                body = ('## 0.1 はじめる\n\n[Start](https://example.com/start)\n\n'
+                    '## 0.2 Main\n\n' + citation + '\n\n'
+                    '## 0.3 リソース\n\n- [Reference](https://example.com/reference)\n')
+                with patch.object(pdf.web, 'title_body', return_value=('Overview', body)):
+                    markup, _, _ = pdf.book_html([path], 'test', config, 'test-ref', 'a' * 64)
+                soup = BeautifulSoup(markup, 'html.parser')
+                chapter = soup.select_one('.chapter')
+                headings = [h.get_text() for h in chapter.select('h2')]
+                self.assertNotIn('0.1 はじめる', headings)
+                self.assertNotIn('https://example.com/start', [a['href'] for a in chapter.select('a[href]')])
+                self.assertEqual('0.3 リソース' in headings, not cited_in_prose)
+                self.assertEqual(bool(chapter.select('.resource-links .resources')), not cited_in_prose)
+                self.assertIn('https://example.com/reference', [a['href'] for a in chapter.select('a[href]')])
 
     def test_web_links_use_explicit_host_only_when_supplied(self):
         config = json.loads(pdf.CONFIG.read_text(encoding='utf-8'))
