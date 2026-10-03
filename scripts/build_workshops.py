@@ -22,6 +22,13 @@ FILES = {key: sorted((SOURCE / key).glob('*.md'), key=lambda p: (p.name != 'READ
 TARGETS = {p.resolve(): OUTPUT / key / ('index.html' if p.name == 'README.md' else p.stem + '.html') for key, files in FILES.items() for p in files}
 SUPPORT = sorted((SOURCE / 'material').glob('*.md'))
 TARGETS.update({p.resolve(): OUTPUT / 'material' / (p.stem + '.html') for p in SUPPORT})
+SITE_PAGES = {
+    SOURCE / 'entry.md': ROOT / 'website/ja/index.html',
+    SOURCE / 'preparation.md': ROOT / 'website/ja/handson-guide.html',
+}
+TARGETS.update({p.resolve(): dest for p, dest in SITE_PAGES.items()})
+for page in [ROOT / 'website/ja/archive.html', OUTPUT / 'references.html']:
+    TARGETS[page.resolve()] = page
 
 
 def relative(target, origin):
@@ -79,13 +86,17 @@ def shell(title, body, destination, extra=''):
 <main id="lesson"><h1>{escape(title)}</h1>{extra}{body}</main></body></html>\n'''
 
 
+def image_caption(filename):
+    return META.get('ui_captions', {}).get(filename, '')
+
+
 def image_notice(match):
     tag = match[0]
     src = re.search(r'\bsrc="([^"]+)"', tag)
     filename = Path(unquote(urlsplit(src[1]).path)).name if src else ''
-    caption = META.get('ui_captures', {}).get(filename)
-    if caption is None:
-        caption = '参照元の画面例（撮影時バージョン不明・現行 UI 未照合）。位置やメニューの開き方は講師と確認してください。'
+    caption = image_caption(filename)
+    if not caption:
+        return tag
     return tag + '<br><em class="source">' + escape(caption) + '</em>'
 
 
@@ -112,12 +123,10 @@ def build():
             upstream = f"https://github.com/{meta['repository']}/blob/{meta['commit']}/{meta['source']}/{source.name}"
             source_link = f'<a href="{upstream}">参照原文</a>'
             license_link = relative(OUTPUT / 'licenses' / meta['license'], destination)
-            notice = f'<p class="source">非公式の日本語版 · {source_link} · <a href="{license_link}">MIT ライセンス</a><br>参照コミット：<code>{meta["commit"][:12]}</code> ／ 確認日：{META["checked"]}</p>'
+            notice = f'<p class="source">非公式の日本語版 · {source_link} · <a href="{license_link}">MIT ライセンス</a></p>'
             guide = relative(ROOT / 'website/ja/handson-guide.html', destination)
             if course == 'app':
-                notice += f'<aside>UI の確認日・バージョン・未確認範囲は本文の注記を参照してください。利用条件は <a href="{guide}#plans">事前確認</a>を参照してください。</aside>'
-                status = relative(OUTPUT / 'material/verification.html', destination)
-                notice += f'<aside>本編は App の操作を学ぶシナリオです。一部の UI を実機確認しましたが、全章の完走は未検証です。<a href="{status}">章別の検証状況</a></aside>'
+                notice += f'<aside>利用条件は <a href="{guide}#plans">受講準備</a>を参照してください。</aside>'
             else:
                 notice += f'<aside>参照元の固定コミットに基づく参考資料です。画面例・操作・利用条件は現在の製品と異なる場合があります。利用前に <a href="{guide}#plans">事前確認</a>と参照原文を確認してください。</aside>'
                 notice += '<aside>参考資料：本編の続きではありません。App 本編の通常の代替経路ではありません。</aside>'
@@ -125,27 +134,27 @@ def build():
                 notice += '<aside>このコースの <code>--yolo</code> を含む手順は、演習専用 Codespace / dev container を前提とする原文の手順です。App の途中からローカルで切り替える場合は、講師向け緊急対応の通常対話手順を使ってください。</aside>'
             toc = '<details><summary>この章の目次</summary>' + renderer.toc + '</details>'
             destination.write_text(shell(title, nav + toc + '<article>' + body + '</article>' + nav, destination, notice), encoding='utf-8')
-    for source in SUPPORT:
+    for source in [*SUPPORT, *SITE_PAGES]:
         destination = TARGETS[source.resolve()]
         destination.parent.mkdir(exist_ok=True)
         title, text = title_body(source)
         body = markdown.markdown(text, extensions=['tables', 'sane_lists', 'pymdownx.superfences'])
         body = transform_links(body, source, destination)
-        destination.write_text(shell(title, '<article>' + body + '</article>', destination,
-                                    '<aside>この教材セット独自の運営・補助手順です。</aside>'), encoding='utf-8')
+        notice = '<aside>講師・運営向けの補助資料です。</aside>' if source in SUPPORT else ''
+        destination.write_text(shell(title, '<article>' + body + '</article>', destination, notice), encoding='utf-8')
     index = OUTPUT / 'index.html'
-    body = '<p>App 版の順序・課題・到達目標に沿って Tailspin Toys を改修します。UI が一致しない場合は講師と現行 App の操作を確認します。CLI は緊急の作業保全に限定し、本編の完了には数えません。</p>'
-    body += '<p><a href="app/0-prerequisites.html">演習0から始める</a> · <a href="material/ui-check.html">UI が異なるときの確認</a> · <a href="material/instructor.html">講師ガイド</a> · <a href="material/verification.html">検証状況</a></p>'
+    body = '<p>App 版の順序・課題・到達目標に沿って Tailspin Toys を改修します。画面が教材と異なる場合は、本文の操作対象と項目名を確認し、講師に相談してください。</p>'
+    body += '<p><a href="app/0-prerequisites.html">演習0から始める</a> · <a href="../handson-guide.html">受講準備を確認する</a></p>'
     for course in ['app']:
         files = FILES[course]
         body += f'<section><h2>{LABELS[course]}</h2><ol>'
         for source in files:
             body += f'<li><a href="{relative(TARGETS[source.resolve()], index)}">{escape(title_body(source)[0])}</a></li>'
         body += '</ol></section>'
-    body += '<p><a href="references.html">参考資料：独立した CLI コース・Mona Mayhem・運営原本</a></p>'
+    body += '<p><a href="references.html">参考資料：独立した CLI コース・Mona Mayhem</a></p>'
     index.write_text(shell('App シナリオの演習目次', body, index), encoding='utf-8')
     reference = OUTPUT / 'references.html'
-    body = '<p>以下は別シナリオの参考資料です。CLI による緊急対応は講師ガイドから参照してください。</p>'
+    body = '<p>以下は本編とは独立した発展課題です。Appの演習0〜8を終えてから、目的に合わせて参照してください。</p>'
     for course in ['cli', 'mona-mayhem']:
         body += f'<section><h2>{LABELS[course]}（参考）</h2><ul>'
         for source in FILES[course]:
@@ -154,7 +163,7 @@ def build():
     body += '<p><a href="https://github.com/github/dev-days">イベント資料の参照元</a> · <a href="https://github.com/github-samples/copilot-workshops">演習本文の参照元</a>（どちらも閲覧用）</p>'
     reference.write_text(shell('参考資料', body, reference), encoding='utf-8')
     verify()
-    print(f'Built {sum(map(len, FILES.values()))} lesson/overview pages, {len(SUPPORT)} support pages, and two indexes.')
+    print(f'Built {sum(map(len, FILES.values()))} lesson/overview pages, {len(SUPPORT)} support pages, {len(SITE_PAGES)} entry/guide pages, and two indexes.')
 
 
 class Links(HTMLParser):
