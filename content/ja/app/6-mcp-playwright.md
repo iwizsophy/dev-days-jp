@@ -48,7 +48,7 @@ Playwrightの接続を確かめ、通常環境と隔離環境でブラウザー�
 1. フィルター実装セッションのFilesで`.mcp.json`を開き、`mcpServers`にある`playwright`の定義を読みます。`npx`でローカルプロセスを起動するコマンドと引数を確認してください。ほかの定義は、今回必要なPlaywrightと区別して読みます。
 2. サイドバーの**Customize**を開き、**Installed**の**MCP Servers**で登録済みのPlaywrightを確認します。表示される設定の適用先も読み、既存の接続があれば重複して追加しません。設定画面が見つからなければ、講師に相談してください。
 
-   ![CustomizeのInstalledで確認する既存のPlaywright接続](../../_images/verification-20261004/app-20261004-05-mcp-installed.jpg)
+   ![CustomizeのInstalledで確認する既存のPlaywright接続](../../_images/app-20261004-public/app-20261004-05-mcp-installed.jpg)
 
 3. **Trust repository**などの承認を求められた場合は、実行するコマンドや接続先を読み、内容を確認して承認します。信頼状態とサーバーの接続状態をそれぞれ確かめてください。
 4. フィルター実装セッションに戻り、次のプロンプトを送信します。
@@ -82,7 +82,7 @@ Playwrightの接続を確かめ、通常環境と隔離環境でブラウザー�
 
    「問題ありませんでした」という概要だけでは、何を確認したか判断できません。どのカテゴリと出版社を選び、何件・どのゲームが表示されたか、どのキーで解除したかを確認します。ツール呼び出しと結果も開き、実際の操作から得た報告かを読み取ってください。コードを直した場合は、影響する自動テストとブラウザー操作を再確認します。報告が「未実施なし」でも、表の操作に対応する履歴が見つからなければ、実際にその操作を行うよう補足してください。
 
-   ![Playwright MCPの操作結果で確認するフィルターの2件とタイトル](../../_images/verification-20261004/app-20261004-05-mcp-result-combined.jpg)
+   ![Playwright MCPの操作結果で確認するフィルターの2件とタイトル](../../_images/app-20261004-public/app-20261004-05-mcp-result-combined.jpg)
 
 4. 次章のAgent Mergeで同じ変更を共有するため、このセッションは開いたままにします。
 
@@ -117,7 +117,7 @@ Playwrightの接続を確かめ、通常環境と隔離環境でブラウザー�
 
 前章で用意した3件の専用CSVと隔離SQLiteを使い、通常環境とは別ポートのサーバーで検証します。まずテスト用の3件を表示し、PuzzleとNova Interactiveを組み合わせると0件となることを確認します。0件の説明と結果通知を読んだら、Clear filtersでテスト用の3件へ戻ることまで確かめてください。通常環境へ戻ったときの21件と、隔離環境で解除した後の3件を混同しないでください。
 
-![隔離した3件のテスト環境で、PuzzleとNova Interactiveを選んだ0件の表示例](../../_images/verification-20261004/app-20261004-05-isolated-zero.jpg)
+![隔離した3件のテスト環境で、PuzzleとNova Interactiveを選んだ0件の表示例](../../_images/app-20261004-public/app-20261004-05-isolated-zero.jpg)
 
 0件表示のために通常の`db/games.csv`や通常DBを変更しないでください。報告にデータの種類、接続URL、初期件数、選択した条件、解除後の件数があれば、別の環境を検査していないかを見分けやすくなります。
 
@@ -139,7 +139,7 @@ Playwrightの接続を確かめ、通常環境と隔離環境でブラウザー�
 - 既存のPlaywright MCP serverの設定と信頼状態を確認し、セッションから実際にツールを呼び出した。必要な場合の追加登録・再接続方法も確認した
 - エージェントにブラウザーを自律操作させ、フィルター機能の絞り込み、複合条件、キーボード操作、解除、および0件表示を検証した
 
-受け入れ条件の確認と後片付けを終えたら、次章へ進みます。次は、Agent Mergeを活用し、PRの作成、CI監視、競合解決、およびマージまでの一連のリリース作業をエージェントに自律実行させます。[第7章「Agent Mergeによるマージ」][next-lesson] へ進んでください。
+受け入れ条件の確認と後片付けを終えたら、次章へ進みます。次章では、自分でPRを作成して最新のCIがすべて成功したことを確認し、Agent Mergeへマージを任せます。mainへの統合結果を確認するところまでが、この演習の範囲です。[第7章「Agent Mergeによるマージ」][next-lesson] へ進んでください。
 
 次へ進む前に、MCPで初めて気づいた点と、既存のE2Eテストでも確認していた点を比べてみてください。今回確認した操作・結果・残る未確認項目を整理すると、次章でPRをレビューする根拠として使えます。
 
@@ -205,7 +205,7 @@ No MCP servers loadedと表示される場合は、リポジトリの信頼状�
 5. 入力内容を確認し、Add serverをクリックして保存します。**Installed**の一覧に追加されたことを確認してください。
 6. チャットやセッションから実際のツール呼び出しを確かめます。たとえばPlaywrightの`browser_tabs`でタブ一覧を取得するよう依頼し、結果が返るかを確認します。応答に`about:blank`が含まれていても、それは開いているタブの状態です。接続できたら、[ブラウザー検証の手順](#playwright-で機能を確認するよう-copilot-に依頼する)へ戻ります。
 
-![既存のPlaywright設定で確認するLocal、npxと引数の例](../../_images/verification-20261004/app-20261004-05-playwright-config.jpg)
+![既存のPlaywright設定で確認するLocal、npxと引数の例](../../_images/app-20261004-public/app-20261004-05-playwright-config.jpg)
 
 画像は既存設定の内容を読む例です。新規追加の手順では、保存後の一覧と実際の呼び出し結果まで確認してください。
 
@@ -220,7 +220,7 @@ No MCP servers loadedと表示される場合は、リポジトリの信頼状�
 - [Microsoft Playwright MCP Server][playwright-mcp-server]
 - [GitHub Copilot appでのMCP serverの構成][customize-app]
 
-[next-lesson]: 6-agent-merge.md
+[next-lesson]: 7-agent-merge.md
 [mcp-blog-post]: https://github.blog/ai-and-ml/llms/what-the-heck-is-mcp-and-why-is-everyone-talking-about-it/
 [playwright-mcp-server]: https://github.com/microsoft/playwright-mcp
 [customize-app]: https://docs.github.com/copilot/how-tos/github-copilot-app/customize-github-copilot-app

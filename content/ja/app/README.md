@@ -71,7 +71,7 @@ GitHub Copilot Appは最新版を使用してください。
 | [4. カスタム指示による Copilot のガイド][ex3] | コンテキスト | Issue に基づくドキュメント標準（TSDoc）の追加とマージ |
 | [5. Autopilot による機能の構築][ex4] | コア機能 | Plan / Autopilot モードによるフィルター実装とスキル検証 |
 | [6. Playwright MCP によるテスト][ex5] | 外部ツール | Playwright MCPの接続・実行を確認し、ブラウザー操作で機能を検証 |
-| [7. Agent Merge によるマージ][ex6] | マージ | Agent Merge による PR 修正と CI 連携自動マージ |
+| [7. Agent Merge によるマージ][ex6] | マージ | Agent Mergeの開始条件とmainへの自動マージ |
 | [8. キャンバスを使った計画][ex7] | コラボレーション | 共有キャンバスを作成し、Issue の計画・追跡と実装連携を実行 |
 | [9. 振り返りと次のステップ][ex8] | まとめ | 開発プロセスの振り返り、手動 Automation による要約実行 |
 
@@ -114,7 +114,7 @@ Appでは、次の機能を使って作業を進められます。
 - カスタム指示の標準化：コーディング規約やドキュメント標準を指示ファイルに定義し、プロジェクトへ反映
 - フィルター機能の自律実装：Plan モードと Autopilot モードを使い分け、スキルを活用して品質を検証
 - 外部ツール連携（MCP）：Playwright MCPの接続とツール実行を確認し、エージェントが実際のブラウザーを操作して動作を検証
-- 段階的マージの自動化：レビューと許可範囲を確認し、Agent Merge にPRの修正やマージを任せる
+- 段階的マージの自動化：差分とCIをレビューし、条件がそろったPRのマージをAgent Mergeに任せる
 - 協調作業と自動化：共有キャンバスでタスクを整理し、繰り返し発生する作業をAutomationで自動化
 
 アイデアの具体化から機能のマージに至る、AI 支援開発の包括的なライフサイクルを体験できます。
@@ -125,14 +125,14 @@ Appでは、次の機能を使って作業を進められます。
 
 [レッスン 1「前提条件」から始める →][ex0]
 
-[ex0]: 0-prerequisites.md
-[ex1]: 1-install-copilot-app.md
-[ex2]: 2-add-star-rating.md
-[ex3]: 3-custom-instructions.md
-[ex4]: 4-build-filtering.md
-[ex5]: 5-mcp-playwright.md
-[ex6]: 6-agent-merge.md
-[ex7]: 7-canvases.md
-[ex8]: 8-review.md
+[ex0]: 1-prerequisites.md
+[ex1]: 2-install-copilot-app.md
+[ex2]: 3-add-star-rating.md
+[ex3]: 4-custom-instructions.md
+[ex4]: 5-build-filtering.md
+[ex5]: 6-mcp-playwright.md
+[ex6]: 7-agent-merge.md
+[ex7]: 8-canvases.md
+[ex8]: 9-review.md
 [install-git]: https://github.com/git-guides/install-git
 [callout-student-plan-education]: https://github.com/education/students

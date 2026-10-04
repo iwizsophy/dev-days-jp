@@ -44,7 +44,7 @@ lastUpdated: 2026-10-04
 
 3. **New** 画面の入力欄下部に、自分の演習用プロジェクト名が表示されていることを確認します。実行場所は **New worktree**、開始元は **main** を選びます。モードは、応答を読みながら指示を加える **Interactive** で進めます。
 
-   ![New sessionで確認する対象プロジェクトとNew worktree、main](../../_images/verification-20261004/app-20261004-02-new-session.jpg)
+   ![New sessionで確認する対象プロジェクトとNew worktree、main](../../_images/app-20261004-public/app-20261004-02-new-session.jpg)
 
    Interactive・Plan・Autopilotの違いは[公式のモード説明][agent-sessions]で確認できます。
 
@@ -62,7 +62,7 @@ lastUpdated: 2026-10-04
    ファイル変更、追加インストール、PR作成はしないでください。
    ```
 
-2. ツールの実行結果で、**Node.js 24系の24.19.0以降**が使われていることを確認します。作業ディレクトリとブランチも、今回のworktreeのものか確かめます。コマンドが見つからない場合や要件を満たさない場合は、[前章までのNode.jsの準備](0-prerequisites.md#確認とインストール手順)を見直します。Node.jsを切り替えた後はAppを再起動し、このセッションで再確認してから実装へ進みます。
+2. ツールの実行結果で、**Node.js 24系の24.19.0以降**が使われていることを確認します。作業ディレクトリとブランチも、今回のworktreeのものか確かめます。コマンドが見つからない場合や要件を満たさない場合は、[前章までのNode.jsの準備](1-prerequisites.md#確認とインストール手順)を見直します。Node.jsを切り替えた後はAppを再起動し、このセッションで再確認してから実装へ進みます。
 
 エージェントの説明に書かれたバージョンを、ツールのコマンド出力と照合します。環境の確認ができたら、同じセッションで星評価の実装を依頼します。
 
@@ -96,7 +96,7 @@ lastUpdated: 2026-10-04
 
 1. 会話入力欄の上部にある **Changes**（Open changes）を選択します。変更されたファイルの一覧とコード差分を確認します。
 
-   ![ChangesでGameCardの星評価の表示と既存構造を確認する](../../_images/verification-20261004/app-20261004-02-changes-game-card.jpg)
+   ![ChangesでGameCardの星評価の表示と既存構造を確認する](../../_images/app-20261004-public/app-20261004-02-changes-game-card.jpg)
 
 2. ゲームカードの描画を担う `src/components/GameCard.astro` に、星評価を表示する変更があることを確認します。
 
@@ -134,7 +134,7 @@ AppのRunメニューから開発サーバーを起動し、ブラウザーで�
 > [!NOTE]
 > `.github/github-app.yml` が適用されたセッションのRunメニューを使用します。メニューに実行項目が表示されない場合は、演習用コピーの設定内容と適用状態を講師と一緒に確認してください。
 
-![ブラウザーで表示したゲームカードの星評価と詳細へのリンク](../../_images/verification-20261004/app-20261004-02-star-rating.jpg)
+![ブラウザーで表示したゲームカードの星評価と詳細へのリンク](../../_images/app-20261004-public/app-20261004-02-star-rating.jpg)
 
 通常の21件はすべて数値評価を持つため、通常画面だけでは`null`の表示を確認できません。実際の画面と、テスト用データによる境界値の検査を合わせて判断します。
 
@@ -147,7 +147,7 @@ AppのRunメニューから開発サーバーを起動し、ブラウザーで�
     - ボタンが **Run Run development site** と表示されている場合は、クリックして起動します。
     - すでに **Stop Run development site** と表示されている場合は稼働中ですので、そのまま次の手順へ進んでください。
 
-   ![Run optionsからRun development siteを起動する](../../_images/verification-20261004/app-20261004-02-run-menu.jpg)
+   ![Run optionsからRun development siteを起動する](../../_images/app-20261004-public/app-20261004-02-run-menu.jpg)
 
 2. Runのターミナルに表示されたローカルURLを開きます。Browserパネルが自動で開かない場合は、表示されたURLを別ブラウザーで開いてください。ポート番号は自分の実行結果を使います。
 3. トップページの21件のカードに星評価が表示され、タイトル、説明、詳細へのリンクが保たれていることを確認します。通常画面で出現しない `null` と境界値は、前節のレンダリングテストの結果で確認します。
@@ -169,7 +169,7 @@ PRはセッションから作成し、差分やCIの結果をApp内で確認で�
 5. チャット欄のすぐ上にある **PR** バブルを選択し、レビューペインでpull requestの内容を最終確認します。
 6. **Ready to merge** を選択し、ダイアログのCI結果を確認します。このボタンの表示だけでは、CI全成功とは判断できません。**Checks are running** や実行中のジョブがあれば待ち、すべてのジョブの成功を確認します。表示が更新されない場合は画面を開き直し、必要に応じてGitHub Webの同じPRでも照合してください。
 
-   ![CI全ジョブの成功とAgent merge Offを確認して手動でマージする](../../_images/verification-20261004/app-20261004-02-pr-ci-passed.jpg)
+   ![CI全ジョブの成功とAgent merge Offを確認して手動でマージする](../../_images/app-20261004-public/app-20261004-02-pr-ci-passed.jpg)
 
 7. 差分、テスト結果、未解決のレビュー指摘を確認したうえで、**Merge pull request** を選択してmainへマージします。
 8. AppとGitHub Webで対象PRが **Merged** になったことを確認します。次章では、マージ済みのmainから新しいworktreeを開始します。
@@ -278,8 +278,8 @@ CIは、共有された環境で変更を検査する仕組みです。ボタン
 - [GitHub Copilot appについて][about-copilot-app]
 - [GitHub Copilot appでのIssueとpull requestの管理][managing-issues-prs]
 
-[prior-lesson]: 1-install-copilot-app.md#github-copilot-app-をインストールして構成する
-[next-lesson]: 3-custom-instructions.md
+[prior-lesson]: 2-install-copilot-app.md#github-copilot-app-をインストールして構成する
+[next-lesson]: 4-custom-instructions.md
 [agent-sessions]: https://docs.github.com/en/copilot/how-tos/github-copilot-app/agent-sessions
 [about-copilot-app]: https://docs.github.com/en/copilot/concepts/agents/github-copilot-app
 [managing-issues-prs]: https://docs.github.com/en/copilot/how-tos/github-copilot-app/managing-issues-and-pull-requests

@@ -37,7 +37,7 @@
 | Canvasを再利用する | プロジェクト共有スコープへ保存・マージし、別セッションで開く。本文追加ボタンからIssue本文を1回追加し、Plan承認後に実装する | 表示、更新、共有保存、本文追加を分けて確認する。追加ボタンだけで実装を始めない |
 | Automationを実行する | Automations → New automation → Trigger: Manual。Run in the cloudをオフにし、Select project → Create and run → Recent runsでLocal / Succeededと出力を確認する | 実行成功の表示に加え、要約の内容をGitHubの一覧と照合する |
 
-Agent Mergeを使う前の判断は、[レッスン6の開始前確認](../app/6-agent-merge.md)に従ってください。CI全ジョブの完了を待つ条件が適用されるかを、対象リポジトリと自分の権限で確認します。条件が不明なら通常のCreate PRで作成し、最新コミットのCI全成功を待ってからAgent Mergeを開始してください。
+Agent Mergeを使う前の判断は、[レッスン7の開始前確認](../app/7-agent-merge.md)に従ってください。CI全ジョブの完了を待つ条件が適用されるかを、対象リポジトリと自分の権限で確認します。条件が不明なら通常のCreate PRで作成し、最新コミットのCI全成功を待ってからAgent Mergeを開始してください。
 
 ## 3. 講師が最新版で確認すること
 

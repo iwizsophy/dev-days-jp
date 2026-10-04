@@ -54,7 +54,7 @@ Appは最新版を使用します。すでにインストールしている場�
 3. **Review repository content**が表示されたら、設定や拡張を開いて内容を確認します。テンプレートには、後の演習で使う起動コマンドやMCPの設定が含まれています。
 4. **Repository trust**で対象が自分のコピーであることと、承認する内容を確認し、**Accept for new sessions**を選択します。
 
-   ![Repository trustで設定内容を確認して新しいセッションへの適用を承認する](../../_images/verification-20261004/app-20261004-01-repository-trust.jpg)
+   ![Repository trustで設定内容を確認して新しいセッションへの適用を承認する](../../_images/app-20261004-public/app-20261004-01-repository-trust.jpg)
 
 5. 入力欄へ進めたことを確認します。準備中の表示がある場合は完了を待ちます。実装用の新しいworktreeは次章で開始します。
 
@@ -71,7 +71,7 @@ Projectsでプロジェクトを選ぶことと、Issuesの表示対象を選ぶ
 3. 表示条件を確認します。自動生成された課題は未割り当てなので、**Assigned to me**では表示されません。**Nothing here**と表示される場合は、タブ右の**`+` → New view**を選択します。
 4. **State: Open**、追加の検索条件なしで**Save**します。New viewの入口が見えない場合は、右側のIssue詳細を閉じてから操作してください。
 
-   ![対象リポジトリとState Openを指定してNew viewを保存する](../../_images/verification-20261004/app-20261004-01-issues-new-view.jpg)
+   ![対象リポジトリとState Openを指定してNew viewを保存する](../../_images/app-20261004-public/app-20261004-01-issues-new-view.jpg)
 
 5. 8件の課題が表示されることを確認します。後の演習では、次の課題を使います。
 
@@ -83,7 +83,7 @@ Projectsでプロジェクトを選ぶことと、Issuesの表示対象を選ぶ
 
 6. 任意のIssueを開き、背景と受け入れ条件を読みます。この章では内容を確認し、実装は後の章で始めます。
 
-一覧が空だった場合は、表示条件を変えた前後を比べてください。リポジトリが選べない場合は、[接続手順](#プロジェクト接続とリポジトリ設定の確認)を見直します。GitHub Webにも課題がない場合は、[前章のIssue準備](0-prerequisites.md#演習用issueの準備を確認する)を確認します。
+一覧が空だった場合は、表示条件を変えた前後を比べてください。リポジトリが選べない場合は、[接続手順](#プロジェクト接続とリポジトリ設定の確認)を見直します。GitHub Webにも課題がない場合は、[前章のIssue準備](1-prerequisites.md#演習用issueの準備を確認する)を確認します。
 
 <a id="クイックチャットquick-chatを試す"></a>
 
@@ -166,8 +166,8 @@ Appを導入し、課題を読んだり相談したりする準備ができま�
 - [GitHub Copilot appの開始手順][getting-started]
 - [GitHub Copilot appでのエージェントセッション][agent-sessions]
 
-[ex0]: 0-prerequisites.md
-[next-lesson]: 2-add-star-rating.md
+[ex0]: 1-prerequisites.md
+[next-lesson]: 3-add-star-rating.md
 [about-copilot-app]: https://docs.github.com/en/copilot/concepts/agents/github-copilot-app
 [getting-started]: https://docs.github.com/en/copilot/get-started/quickstart-copilot-app
 [agent-sessions]: https://docs.github.com/en/copilot/how-tos/github-copilot-app/agent-sessions

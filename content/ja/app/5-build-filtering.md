@@ -43,16 +43,16 @@ lastUpdated: 2026-10-04
 
 ### 5.4.1 フィルター機能を計画する
 
-1. サイドバーの**Issues**を開き、一覧のリポジトリ選択で自分の演習用コピーを選び、Openの課題を表示します。Projectsの選択と、Issues一覧の表示条件をそれぞれ確認してください。課題が見つからない場合は、[第2章のバックログ確認](1-install-copilot-app.md#バックログ-issue-の確認)に従って表示条件を見直します。
+1. サイドバーの**Issues**を開き、一覧のリポジトリ選択で自分の演習用コピーを選び、Openの課題を表示します。Projectsの選択と、Issues一覧の表示条件をそれぞれ確認してください。課題が見つからない場合は、[第2章のバックログ確認](2-install-copilot-app.md#バックログ-issue-の確認)に従って表示条件を見直します。
 
 2. 一覧からAllow users to filter games by category and publisherというタイトルのIssueを選択します。前章の指示更新がmainへマージ済みであることも確認してください。
 3. 画面右上の **New session**を選択します。
 
-   ![Issueの詳細画面と右上のNew sessionボタンの操作例](../../_images/verification-20261004/app-20261004-04-issue-details.jpg)
+   ![Issueの詳細画面と右上のNew sessionボタンの操作例](../../_images/app-20261004-public/app-20261004-04-issue-details.jpg)
 
 4. プロンプト入力欄の下部にあるモードメニュー（初期表示: Mode: Interactive）を開き、Plan — Plan first, execute when readyを選択します。
 
-   ![Interactive、Plan、Autopilotを選ぶモードメニュー](../../_images/verification-20261004/app-20261004-04-plan-mode.jpg)
+   ![Interactive、Plan、Autopilotを選ぶモードメニュー](../../_images/app-20261004-public/app-20261004-04-plan-mode.jpg)
 
 5. 入力欄に`/issue-fix`などが入っている場合は、<kbd>Ctrl</kbd>+<kbd>A</kbd>で全選択し、次のプロンプトへ置き換えて送信します。Issueを起点として開始したセッションであるため、フィルター機能の要件はすでにセッションのコンテキストに含まれています。
 
@@ -63,7 +63,7 @@ lastUpdated: 2026-10-04
 
 6. 計画の作成過程で、エージェントから設計上の選択肢や不明点に関する質問が提示される場合があります。本演習の条件に従って回答し、Continueで送信します。複数カテゴリの条件を聞かれた場合はOR、出版社の選択方法を聞かれた場合は単一選択を選んでください。
 
-   ![カテゴリのOR条件を選び、Continueで回答する質問画面](../../_images/verification-20261004/app-20261004-04-plan-question.jpg)
+   ![カテゴリのOR条件を選び、Continueで回答する質問画面](../../_images/app-20261004-public/app-20261004-04-plan-question.jpg)
 
 > [!NOTE]
 > Copilotの出力は確率的に動作するため、提示される質問内容や有無はセッションごとに異なります。質問が一切行われずに直接計画が提示された場合でも問題ありません。
@@ -88,7 +88,7 @@ lastUpdated: 2026-10-04
 
 1. 提示された計画を読んだうえで、**Review plan**のApprove and implement this planを選択します。この選択で承認が送信されます。実装へ進んだこととモード表示を確認してください。
 
-   ![Review planの承認と修正の選択肢](../../_images/verification-20261004/app-20261004-04-plan-review.jpg)
+   ![Review planの承認と修正の選択肢](../../_images/app-20261004-public/app-20261004-04-plan-review.jpg)
 
 Copilotが自律実装を開始します。
 
@@ -107,7 +107,7 @@ AIが生成したコードは、必ず人間が差分を確認し、ローカル
 
 1. 入力欄の上にある **Changes**（Open changes）を選択し、右パネルに差分ビューを開きます。
 
-   ![Changesでフィルターの操作要素を追加した差分を読む例](../../_images/verification-20261004/app-20261004-04-changes-filters.jpg)
+   ![Changesでフィルターの操作要素を追加した差分を読む例](../../_images/app-20261004-public/app-20261004-04-changes-filters-final.jpg)
 
 2. 変更内容をレビューします。TypeScriptファイル、Astroコンポーネント、テストファイルが新設・修正されていることを確認します。
    特に、新設されたデータアクセス等のヘルパー関数において、前章でリポジトリにマージしたドキュメント標準規約が遵守され、指示通りのTSDocドキュメントコメント が付与されているか確認してください。ファイル先頭のヘッダーコメントは、モジュールの役割や制約を明示する必要がある箇所で確認し、全ファイルへの一律付与までは成功条件としません。
@@ -121,7 +121,7 @@ AIが生成したコードは、必ず人間が差分を確認し、ローカル
 
 手動確認の対象は、選択欄の状態と実際に残ったゲームの対応です。件数だけが合っていても、違うゲームが表示されていれば正しい実装とはいえません。前章で追加したTSDocにも目を戻し、フィルターのOR/AND条件や引数の説明が実装と食い違っていないかを確認しましょう。Publisherから<kbd>Tab</kbd>で**Clear filters**へ移動し、<kbd>Enter</kbd>で解除できるかも試します。テストがボタンへ直接フォーカスを移すだけでは、実際のTab移動の順序は分かりません。
 
-![StrategyとPuzzleのOR条件にGitHub Gamesを加えた2件の表示例](../../_images/verification-20261004/app-20261004-04-filter-combined-final.jpg)
+![StrategyとPuzzleのOR条件にGitHub Gamesを加えた2件の表示例](../../_images/app-20261004-public/app-20261004-04-filter-combined-final.jpg)
 
 <a id="quality-checks-スキルで作業を検証する"></a>
 
@@ -143,7 +143,7 @@ AIが生成したコードは、必ず人間が差分を確認し、ローカル
 5. 検索結果から `SKILL.md .github/skills/quality-checks` を選択して開きます。
 6. ファイルの表示を**Raw**へ切り替え、`name`と`description`の定義を確認します。Rich textでは冒頭のメタデータが表示されないことがあります。テスト、lint、品質検査をこのプロジェクトで実行するスキルであることが説明されています。
 
-   ![Raw表示で読むquality-checksスキルのnameとdescription](../../_images/verification-20261004/app-20261004-04-quality-skill.jpg)
+   ![Raw表示で読むquality-checksスキルのnameとdescription](../../_images/app-20261004-public/app-20261004-04-quality-skill.jpg)
 
 7. ファイル全体を確認します。単体テスト、PlaywrightによるE2Eテスト、ESLintの各スイートを実行するコマンド体系、実行順序、および失敗時のトラブルシューティング手順が体系化されています。エージェントは推測に頼らず、チーム規定の手順に沿って検証を実行できます。
 
@@ -189,9 +189,9 @@ AIが生成したコードは、必ず人間が差分を確認し、ローカル
 
 検査のコマンド例も読んでください。親の実行スクリプトがテスト用の環境を用意している場合は、その経路を使います。対象を絞る追加引数がテストへ届き、指定した検査だけを実行したかも結果で確認しましょう。
 
-![Runから選ぶBuild static site](../../_images/verification-20261004/app-20261004-04-run-menu.jpg)
+![Runから選ぶBuild static site](../../_images/app-20261004-public/app-20261004-04-run-menu.jpg)
 
-![静的ページの生成が完了したBuild Completeの表示例](../../_images/verification-20261004/app-20261004-04-build-complete.jpg)
+![静的ページの生成が完了したBuild Completeの表示例](../../_images/app-20261004-public/app-20261004-04-build-complete.jpg)
 
 テスト数を増やすこと自体を目標にせず、実装した受け入れ条件が検査されていることを確認します。単体テスト、E2Eテスト、lint・型検査の結果と、**Build static site**によるページ生成を確認してから次章へ進んでください。
 
@@ -289,10 +289,10 @@ description: Run the project's test suites and linter to verify code changes are
 - [GitHub Copilot appのカスタマイズ][customize-app]
 - [GitHub Copilotのクラウドサンドボックスとローカルサンドボックスについて][sandboxes]
 
-[ex0]: 0-prerequisites.md
-[ex2]: 2-add-star-rating.md
-[ex3]: 3-custom-instructions.md
-[next-lesson]: 5-mcp-playwright.md
+[ex0]: 1-prerequisites.md
+[ex2]: 3-add-star-rating.md
+[ex3]: 4-custom-instructions.md
+[next-lesson]: 6-mcp-playwright.md
 [agent-sessions]: https://docs.github.com/copilot/how-tos/github-copilot-app/agent-sessions
 [about-agent-skills]: https://docs.github.com/copilot/concepts/agents/about-agent-skills
 [customize-app]: https://docs.github.com/copilot/how-tos/github-copilot-app/customize-github-copilot-app

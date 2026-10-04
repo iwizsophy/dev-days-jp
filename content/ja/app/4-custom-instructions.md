@@ -45,13 +45,13 @@ Tailspin Toysでは、コードを読む人が処理の理由を理解できる�
 
 1. 右側のパネルが表示されていない場合は、画面右上のToggle panelを選択して開きます。
 
-   ![右パネルのAdd tabメニュー。Files、Browser、Terminalの入口](../../_images/verification-20261004/app-20261004-03-add-tab-files.jpg)
+   ![右パネルのAdd tabメニュー。Files、Browser、Terminalの入口](../../_images/app-20261004-public/app-20261004-03-add-tab-files.jpg)
 
 2. パネル上部のタブ列にある +（Add tab）を選択します。
 3. 一覧からFilesを選択します。
 4. <kbd>Ctrl</kbd>+<kbd>P</kbd> を押してGo to fileを開き、`copilot-instructions.md` を検索します。
 
-   ![Go to fileに表示されたcopilot-instructions.mdの検索結果](../../_images/verification-20261004/app-20261004-03-file-search.jpg)
+   ![Go to fileに表示されたcopilot-instructions.mdの検索結果](../../_images/app-20261004-public/app-20261004-03-file-search.jpg)
 
 5. 検索結果から `copilot-instructions.md` を選択して開きます。
 6. ファイルの内容を確認します。プロジェクト概要に加えて、Agent notes、Code standards、Scripts、Repository Structureといったセクションが定義されています。Code standards配下にはGitHub Actions Workflowsの指針もネストされており、これらはCopilotとの全対話に共通して適用されます。
@@ -59,14 +59,14 @@ Tailspin Toysでは、コードを読む人が処理の理由を理解できる�
 
    なお、ツリーを展開する代わりに、Go to fileに直接ファイル名を入力して開くことも可能です。
 
-   ![View optionsの隠しファイル表示の選択肢](../../_images/verification-20261004/app-20261004-03-files-options.jpg)
+   ![View optionsの隠しファイル表示の選択肢](../../_images/app-20261004-public/app-20261004-03-files-options.jpg)
 
 8. `.github/instructions` フォルダーを展開し、配置されているファイルを確認します。Astroファイル、Drizzleデータレイヤー、単体テストなどに向けた指示ファイルが並んでいます。
 9. `.github/instructions/unit-tests.instructions.md`を開き、ファイルの表示を**Raw**へ切り替えます。Rich textでは冒頭のメタデータが表示されないことがあります。`applyTo`フィールドに注目してください。ここにはリポジトリルートを基準とするglobパターンが記述されており、指示を適用するファイル（例: `**/*.test.ts` に一致するTypeScriptテストファイル）が限定されています。
 
    `applyTo`は指示の対象を表す指定です。たとえば`src/lib/games.test.ts`は上記のパターンに一致し、`src/components/GameCard.astro`は一致しません。対象が狭すぎると必要なファイルが漏れ、広すぎると関係のない規則まで読ませることになります。書式は[公式のパス固有指示の説明][path-instructions]を参照し、対象ファイルを具体的に挙げて適用範囲を確認しましょう。ファイル名だけで判断せず、本文の指示内容も読んでください。
 
-   ![Raw表示で読むunit-tests.instructions.mdのapplyTo](../../_images/verification-20261004/app-20261004-03-unit-test-applyto.jpg)
+   ![Raw表示で読むunit-tests.instructions.mdのapplyTo](../../_images/app-20261004-public/app-20261004-03-unit-test-applyto.jpg)
 
 10. このプロジェクトで単体テストを実装する際の個別ルールがどのように定義されているかを確認します。
 11. 続けて `.github/instructions/drizzle.instructions.md` を開き、末尾までスクロールします。他の指示ファイル（`unit-tests.instructions.md` 等）やプロジェクト内の既存ファイルへの相対リンクが記載されている点に注目してください。指示セットを小規模かつ再利用可能なファイルへ分割し、コード生成時に参照すべき実例をCopilotに提示する構造になっています（ここに記載された相対パスは、指示ファイル自身の位置が基準です）。
@@ -83,7 +83,7 @@ Tailspin Toysでは、コードを読む人が処理の理由を理解できる�
 > [!NOTE]
 > 指示ファイルは、その後のコード生成でも参照されます。規則の対象と理由が伝わる表現かを確認してください。Copilotに初稿を作らせ、人が差分を読んで要件との一致を確かめる方法が有効です。
 
-1. サイドバーの**Issues**を開き、一覧のリポジトリ選択で自分の演習用コピーを選び、Openの課題を表示します。Projectsで選んだプロジェクトと、Issues一覧の表示条件をそれぞれ確認してください。課題が見つからない場合は、[第2章のバックログ確認](1-install-copilot-app.md#バックログ-issue-の確認)に従って表示条件を見直します。
+1. サイドバーの**Issues**を開き、一覧のリポジトリ選択で自分の演習用コピーを選び、Openの課題を表示します。Projectsで選んだプロジェクトと、Issues一覧の表示条件をそれぞれ確認してください。課題が見つからない場合は、[第2章のバックログ確認](2-install-copilot-app.md#バックログ-issue-の確認)に従って表示条件を見直します。
 
 2. 一覧からUpdate our repository coding standardsというタイトルのIssueを選択して開きます。番号だけで選ばず、タイトルと本文を確認してください。
 3. 画面右上の **New session**を選択し、このIssueに紐づく新しいセッションを開始します。
@@ -91,7 +91,7 @@ Tailspin Toysでは、コードを読む人が処理の理由を理解できる�
 > [!NOTE]
 > 新しいセッションのworktreeに、前章でmainへマージした星評価の変更が含まれていることを確認してください。設定の承認を求められた場合は、Review repository content → Repository trustでセットアップ内容やRunの定義を読み、Accept for new sessionsを選択します。
 
-   ![Issueの詳細画面と右上のNew sessionボタンの操作例](../../_images/verification-20261004/app-20261004-03-issue-details.jpg)
+   ![Issueの詳細画面と右上のNew sessionボタンの操作例](../../_images/app-20261004-public/app-20261004-03-issue-details.jpg)
 
 4. 入力欄に`/issue-fix`などが入っている場合は、<kbd>Ctrl</kbd>+<kbd>A</kbd>で全選択し、次のプロンプトへ置き換えます。内容を確認して送信し、Issueの要件に従って更新するよう依頼します。
 
@@ -115,7 +115,7 @@ Copilotが指示ファイル等の更新作業を実行します。
 
 1. 会話入力欄の上部にある **Changes**（Open changes）を選択して差分ビューを開きます。変更されたファイルの一覧と、追加・削除された行を確認します。
 
-   ![Changesで読む共通指示とパス固有指示の差分](../../_images/verification-20261004/app-20261004-03-changes-instructions.jpg)
+   ![Changesで読む共通指示とパス固有指示の差分](../../_images/app-20261004-public/app-20261004-03-changes-instructions.jpg)
 
 2. 更新された指示ファイル（`copilot-instructions.md`など）の差分をレビューします。コードへのドキュメント付与およびコメント記述に関するガイドラインが適切に追加されていることを確認します。
 
@@ -134,7 +134,7 @@ Copilotが指示ファイル等の更新作業を実行します。
 
 たとえば、テストから渡せる`db`引数があれば、コメントにもその使い方が読み取れるかを確認します。「出版社を返す」とだけ書かれていて、実際の戻り値や引数の意味が不明な場合は、具体的な修正を依頼できます。コード例は指示の伝わり方を観察する小さな試行です。この一例の成功だけで、今後の生成結果がすべて規約に適合すると判断せず、次章の実装でも確認を続けます。
 
-   ![Publishersを返すコード例の目的、db引数、戻り値とTSDoc](../../_images/verification-20261004/app-20261004-03-code-example.jpg)
+   ![Publishersを返すコード例の目的、db引数、戻り値とTSDoc](../../_images/app-20261004-public/app-20261004-03-code-example.jpg)
 
 コード例を提示した後もChangesを確認し、例を見せる依頼で実ファイルが変更されていないことを確かめてください。
 
@@ -142,7 +142,7 @@ Copilotが指示ファイル等の更新作業を実行します。
 
 ### 4.4.4 PRを作成し、CI成功後にマージする
 
-指示ファイルは、チームで共有する開発資産です。ソースコードと同じようにPRで差分をレビューし、確認を終えた変更をmainへ取り込みます。
+指示ファイルは、チームで共有する開発資産です。ソースコードと同じようにPRで差分をレビューし、確認を終えた変更をmainへ取り込みます。本章では手動でマージするため、操作前にAgent mergeがOffであることを確認してください。
 
 1. 画面右上にある **Create PR**を選択します。
 
@@ -153,9 +153,9 @@ Copilotが指示ファイル等の更新作業を実行します。
 4. PR作成後、CopilotはリポジトリのCIワークフローを監視します。Appのチェック一覧を開き、必要なすべてのジョブが成功したか確認します。
 5. **Ready to merge**を選択し、ダイアログ内のチェック状態も確認します。Checks are runningが残る間は待ちます。ボタンの表示だけでCIの成功を判断せず、GitHub側の実行結果とも照合してください。表示が更新されない場合はダイアログを閉じて開き直します。
 
-   ![マージ前に確認するCIジョブのSuccessful表示](../../_images/verification-20261004/app-20261004-03-pr-ci-passed.jpg)
+   ![マージ前に確認するCIジョブのSuccessful表示](../../_images/app-20261004-public/app-20261004-03-pr-ci-passed.jpg)
 
-6. CIの全成功を確認してから、ダイアログのMerge PRを選択し、mainへ通常マージします。AppとGitHubの両方でMergedになったことを確認します。
+6. CIの全成功を確認してから、ダイアログのMerge pull requestを選択し、mainへ通常マージします。AppとGitHubの両方でMergedになったことを確認します。
 
 > [!NOTE]
 > デフォルトブランチへマージした指示は、次章で最新のmainから始めるセッションでも参照できます。新しいworktreeに更新した指示が含まれているかを確認し、生成されたTypeScriptコードのTSDocもレビューします。指示を共有することと、生成結果が指示に従ったことの確認を、それぞれ行ってください。
@@ -233,7 +233,7 @@ Appの設定画面にも、全プロジェクト共通のApp instructionsと、�
 - [カスタム指示を作成するためのベストプラクティス][instructions-best-practices]
 - [Awesome Copilot - 指示ファイルなどのリソース集][awesome-copilot]
 
-[next-lesson]: 4-build-filtering.md
+[next-lesson]: 5-build-filtering.md
 [instruction-files]: https://docs.github.com/en/copilot/concepts/prompting/response-customization
 [path-instructions]: https://docs.github.com/en/copilot/how-tos/copilot-on-github/customize-copilot/add-custom-instructions/add-repository-instructions#creating-path-specific-custom-instructions
 [customize-app]: https://docs.github.com/copilot/how-tos/github-copilot-app/customize-github-copilot-app

@@ -54,7 +54,7 @@ Canvasの表示やボタンは、指示に応じて生成されます。表示�
 
 作成したキャンバスの表示先は右パネルです。作成の入口が分からない場合は、セッション内で`/create-canvas`に続けて必要な操作を伝える方法もあります。[GitHub公式の作成手順][creating-canvas]
 
-![Open Issueを優先3件と残りに分け、理由と本文追加ボタンを表示したCanvasの例](../../_images/verification-20261004/app-20261004-07-canvas-readable.jpg)
+![Open Issueを優先3件と残りに分け、理由と本文追加ボタンを表示したCanvasの例](../../_images/app-20261004-public/app-20261004-07-canvas-readable.jpg)
 
 古いIssue一覧を固定表示すると、完了済みの作業をもう一度選ぶおそれがあります。本演習ではRefreshで最新一覧を取得します。Canvasの一覧が常時自動同期されると考えず、どの操作で最新情報を取得するかを確かめてください。
 
@@ -88,10 +88,10 @@ Canvasの保存と検索機能の実装を別のPRにすると、ボードの動
 2. Changesで、Canvasが`.github/extensions/priority-kanban/extension.mjs`へ保存され、READMEに再利用手順があることを確認します。
 3. 保存前に本文を追加したカードが送信済みのままであることと、Refresh後も通知が増えないことを確認します。未送信のカードを使う場合も、本文1回・受領1回で止まり、実装を始めないことを確かめてください。
 4. 差分がCanvasと再利用手順の範囲に収まっていることをレビューします。関連する検査も依頼し、結果を確認します。
-5. 通常のCreate PRで作成し、最新コミットのCI全ジョブ成功を待ちます。その後、[レッスン7の開始操作](6-agent-merge.md#agent-mergeを開始する)と同じくAgent mergeをOnにします。
+5. 通常のCreate PRで作成し、最新コミットのCI全ジョブ成功を待ちます。その後、[レッスン7の開始操作](7-agent-merge.md#agent-mergeを開始する)と同じくAgent mergeをOnにします。
 6. AppとGitHubの同じPRがMergedになったことを確認します。
 
-![共有するCanvasの保存先と、READMEを含むファイル構成を確認する例](../../_images/verification-20261004/app-20261004-07-changes-canvas-final.jpg)
+![共有するCanvasの保存先と、READMEを含むファイル構成を確認する例](../../_images/app-20261004-public/app-20261004-07-changes-canvas-final.jpg)
 
 公式では`.github/extensions`をチームで共有するプロジェクトスコープ、`~/.copilot/extensions`を個人用スコープとして説明しています。`priority-kanban`は本演習の拡張名です。個人用の場所や一時領域にしかない場合は、共有保存を依頼してください。[GitHub公式の保存先とファイル構成][canvas-structure]
 
@@ -112,7 +112,7 @@ Canvasの保存と検索機能の実装を別のPRにすると、ボードの動
 5. タイトル検索Issueのカードで、本文を現在のセッションへ追加するボタンを1回押します。Add to current sessionなど、ボタン名は生成した実装によって異なります。
 6. Issueの番号・タイトル・URL・本文全体が会話へ1回送られ、受領だけが返ることを確認します。まだ検索の実装は始めません。
 
-![新しいセッションで検索Issueの本文を受け取り、受領だけを返した例](../../_images/verification-20261004/app-20261004-07-search-issue-receipt.jpg)
+![新しいセッションで検索Issueの本文を受け取り、受領だけを返した例](../../_images/app-20261004-public/app-20261004-07-search-issue-receipt.jpg)
 
 前のセッションで作ったものを開けただけでは、再利用の確認は完了しません。最新データの取得と、そのセッションへの本文追加まで試すことで、見た目と操作の両方を再利用できるかが分かります。
 
@@ -133,7 +133,7 @@ Canvasの保存と検索機能の実装を別のPRにすると、ボードの動
 3. Review planで、検索を追加する場所と理由、星評価の維持、AND条件、入力の扱い、テストの期待値を確認します。足りない点は修正を依頼してください。
 4. 計画を確認できたらApprove and implement this planを選択します。この選択で承認が送られます。承認後はAutopilotによる実装を確認します。
 
-![入力の扱いと既存フィルターとの組み合わせを整理した検索計画の例](../../_images/verification-20261004/app-20261004-07-search-plan-review.jpg)
+![入力の扱いと既存フィルターとの組み合わせを整理した検索計画の例](../../_images/app-20261004-public/app-20261004-07-search-plan-review.jpg)
 
 画像は計画を読むための例です。承認の操作は、計画を読んだ後にReview planで行います。ボタンを押す前に、どのタイトルが残るかを実データから予想しておきましょう。
 
@@ -154,16 +154,16 @@ Canvasの保存と検索機能の実装を別のPRにすると、ボードの動
 
 検索結果の星評価と詳細リンクも確認します。件数だけでなくタイトルを比較すると、実装の不具合と、テストの期待値の誤りを切り分けやすくなります。画像のゲームデータが自分のコピーと異なる場合は、自分の実データから期待値を決めてください。
 
-![タイトル検索とカテゴリ・出版社を併用し、星評価を維持した例](../../_images/verification-20261004/app-20261004-07-search-combined.jpg)
+![タイトル検索とカテゴリ・出版社を併用し、星評価を維持した例](../../_images/app-20261004-public/app-20261004-07-search-combined.jpg)
 
-![一致するタイトルがない場合に、0件と説明を表示した例](../../_images/verification-20261004/app-20261004-07-search-zero.jpg)
+![一致するタイトルがない場合に、0件と説明を表示した例](../../_images/app-20261004-public/app-20261004-07-search-zero.jpg)
 
 2. 報告された条件が実際のMCPの履歴にあるか、ツールの入力と結果を確認します。未実施の条件があれば追加の検証を依頼し、結果を確かめてください。
 3. MCP検証の終了後はブラウザーと開発サーバーを停止し、検証用の一時出力を片付けます。Changesでもう一度、差分に関係のないファイルが入っていないかを確認します。
 4. 問題がなければ通常のCreate PRで作成し、最新コミットのCI全ジョブ成功を待ってからAgent mergeをOnにします。AppとGitHubのMerged、検索IssueのClosedを確認してください。
 5. CanvasのRefreshまたは一覧を更新を押します。その時点のGitHubのOpen一覧と照合し、Closedになった検索Issueがボードから除外されることを確かめます。
 
-![検索Issueのマージ後、Refreshで取得し直したOpen一覧の例](../../_images/verification-20261004/app-20261004-07-canvas-after-search-merge.jpg)
+![検索Issueのマージ後、Refreshで取得し直したOpen一覧の例](../../_images/app-20261004-public/app-20261004-07-canvas-after-search-merge.jpg)
 
 マージ通知が届いても、Canvasの一覧が再取得されたとは限りません。更新前後を比較すると、「GitHubで作業が完了したこと」と「表示を最新にしたこと」が別の操作だと分かります。件数だけを正解とせず、完了したIssueが除外されたかを確認してください。
 
@@ -235,7 +235,7 @@ Canvasの生成には数分かかり、最初の結果が求めた操作性を�
 
 [作業を追跡するキャンバスを作成する手順へ戻る](#作業を追跡するキャンバスを作成する)
 
-[next-lesson]: 8-review.md
+[next-lesson]: 9-review.md
 [canvas-docs]: https://docs.github.com/copilot/how-tos/github-copilot-app/working-with-canvas-extensions
 [creating-canvas]: https://docs.github.com/en/copilot/how-tos/github-copilot-app/working-with-canvas-extensions#creating-a-canvas
 [canvas-structure]: https://docs.github.com/en/copilot/how-tos/github-copilot-app/working-with-canvas-extensions#how-canvas-extensions-are-structured
