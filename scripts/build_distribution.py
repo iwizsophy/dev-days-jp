@@ -68,7 +68,22 @@ def keep_explanations_with_examples(soup, path, prefix, figures):
             following = table.find_next_sibling() if table else None
             if table and table.name == 'table' and following and following.name == 'p':
                 group([heading, table, following])
+    elif path.name == '1-prerequisites.md':
+        target = soup.find(id=prefix + '--演習用issueの準備を確認する')
+        heading = target.find_parent(['h2', 'h3', 'h4']) if target else None
+        if heading:
+            nodes = [heading]
+            for node in heading.next_siblings:
+                if getattr(node, 'name', None) in ('h2', 'h3', 'h4'):
+                    break
+                if getattr(node, 'name', None):
+                    nodes.append(node)
+            if [node.name for node in nodes] == ['h3', 'p', 'ol', 'p']:
+                group(nodes)
     elif path.name == '4-custom-instructions.md':
+        review_figure = figures.get('app-20261004-03-pr-ci-passed.jpg')
+        if review_figure:
+            review_figure['class'] = ['review-figure']
         target = soup.find(id=prefix + '--指示に関する-issue-から開始する')
         heading = target.find_parent(['h2', 'h3', 'h4']) if target else None
         prompt = example_after(heading, 'pre')
