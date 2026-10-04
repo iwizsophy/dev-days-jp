@@ -1,5 +1,5 @@
 ---
-title: "レッスン 3 - 最初のエージェントセッションの実行"
+title: "第3章 - 最初のエージェントセッションの実行"
 description: "GitHub Copilot appで最初のエージェントセッションを開始し、ゲームカードに小さな変更を加えて、最初のPull Requestとしてマージします。"
 authors:
   - geektrainer

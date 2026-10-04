@@ -1,5 +1,5 @@
 ---
-title: "レッスン 2 - GitHub Copilot appのインストール"
+title: "第2章 - GitHub Copilot appのインストール"
 description: "GitHub Copilot appをインストールして演習用リポジトリを接続し、課題一覧と相談用チャットを使います。"
 authors:
   - geektrainer

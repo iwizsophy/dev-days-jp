@@ -71,7 +71,7 @@ GitHub Copilot Appは最新版を使用してください。
 | [4. カスタム指示による Copilot のガイド][ex3] | コンテキスト | Issue に基づくドキュメント標準（TSDoc）の追加とマージ |
 | [5. Autopilot による機能の構築][ex4] | コア機能 | Plan / Autopilot モードによるフィルター実装とスキル検証 |
 | [6. Playwright MCP によるテスト][ex5] | 外部ツール | Playwright MCPの接続・実行を確認し、ブラウザー操作で機能を検証 |
-| [7. Agent Merge によるマージ][ex6] | マージ | Agent Mergeの開始条件とmainへの自動マージ |
+| [7. Agent Mergeによるマージ][ex6] | マージ | Agent Mergeの開始条件とmainへの自動マージ |
 | [8. キャンバスを使った計画][ex7] | コラボレーション | 共有キャンバスを作成し、Issue の計画・追跡と実装連携を実行 |
 | [9. 振り返りと次のステップ][ex8] | まとめ | 開発プロセスの振り返り、手動 Automation による要約実行 |
 
@@ -87,7 +87,7 @@ GitHub Copilot Appは最新版を使用してください。
 > 有料プランを利用していない場合でも、認証済みの学生は [GitHub Education][callout-student-plan-education] を通じて GitHub Copilot を無料で利用できます。Copilot Student プランには、本ワークショップで使用するエージェント、MCP、コードレビュー、Copilot CLI の各機能が含まれています（演習の完走に必要な利用枠は別途確認してください）。
 
 > [!NOTE]
-> Copilot app はクラウド上の Codespaces ではなくローカル PC 上で直接実行します。そのため、[レッスン 1][ex0] ではアプリをインストールする前に Node.js をインストールし、プロジェクトの演習用コピーを準備します。
+> Copilot app はクラウド上の Codespaces ではなくローカル PC 上で直接実行します。そのため、[第1章][ex0] ではアプリをインストールする前に Node.js をインストールし、プロジェクトの演習用コピーを準備します。
 
 > [!NOTE]
 > Copilot Business または Copilot Enterprise を利用している組織では、アプリを使用するために組織管理者が GitHub Copilot app ポリシー（CLI のポリシーとは別個）を有効化している必要があります。
@@ -123,7 +123,7 @@ Appでは、次の機能を使って作業を進められます。
 
 ## はじめる
 
-[レッスン 1「前提条件」から始める →][ex0]
+[第1章「前提条件」から始める →][ex0]
 
 [ex0]: 1-prerequisites.md
 [ex1]: 2-install-copilot-app.md

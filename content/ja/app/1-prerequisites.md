@@ -1,5 +1,5 @@
 ---
-title: "レッスン 1 - 前提条件"
+title: "第1章 - 前提条件"
 description: "GitHub Copilot appの演習に向けてNode.jsを準備し、Tailspin Toysのテンプレートから自分用のリポジトリを作成します。"
 authors:
   - geektrainer
