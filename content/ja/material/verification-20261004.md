@@ -2,9 +2,31 @@
 
 今回の環境では、配布資料の受講者向け内容に沿って第0〜8章を完了できました。画面差を読み替え、本文のレビュー工程で追加修正を行った結果として、条件付きで全章完了と判定します。初回プロンプトだけの無修正成功を保証する結果ではありません。
 
-本レポートには、必要だった補足操作、追加修正の結果、画面の差し替え候補を記録しました。受講者向け原稿の直接修正は行っていません。初回インストール、初回サインイン、発生しなかった障害対応など、未確認の範囲も明示しています。
+本レポートには、必要だった補足操作、追加修正の結果、画面の差し替え候補を記録しました。実走後、受講者向け原稿へ手順補正と画像の差し替えを反映しました。初回インストール、初回サインイン、発生しなかった障害対応など、未確認の範囲も明示しています。
 
 ツール履歴や差分の原記録は、作業用フォルダー`tmp/verification-20261004/`に保存しています。本書に記載した原記録のファイル名はその保存先を指し、原記録そのものはコミットに含めていません。確認した結果、判断理由、GitHub上の根拠、取得画像は本書と画像対応表にまとめています。
+
+## 実走時の資料と改稿後の資料
+
+本書の実走結果、固定プロンプト、章節番号、撮影ファイル名は、検証に使った旧第0〜8章の記録です。検証後の改稿では第1〜9章へ変更し、各章を概要、学ぶこと、前提、体験、結果の整理と振り返り、補足の6段階に整理しました。原稿のファイル名も次の対応へ変更しています。
+
+| 実走時の章 | 改稿後の章 | 題材と現在の原稿 |
+| :--- | :--- | :--- |
+| 0 | 1 | [前提条件](../app/1-prerequisites.md) |
+| 1 | 2 | [Appの導入と接続](../app/2-install-copilot-app.md) |
+| 2 | 3 | [星評価](../app/3-add-star-rating.md) |
+| 3 | 4 | [カスタム指示](../app/4-custom-instructions.md) |
+| 4 | 5 | [フィルターの計画と実装](../app/5-build-filtering.md) |
+| 5 | 6 | [Playwright MCP](../app/6-mcp-playwright.md) |
+| 6 | 7 | [Agent Merge](../app/7-agent-merge.md) |
+| 7 | 8 | [Canvasと検索](../app/8-canvases.md) |
+| 8 | 9 | [Automationと振り返り](../app/9-review.md) |
+
+R01〜R07の手順補正と、差し替え・追加する画像を現在の原稿へ反映しました。Canvasの通知と状態管理、フィルターの隔離検証など、レビューで得た確認条件も本文とプロンプトへ補っています。改稿後の新しいプロンプトを使った全章の再実走は、まだ行っていません。本書の実走成功を、改稿後の無修正成功の証明とは扱いません。
+
+撮影原本95枚と当初の画像一覧は、SHA-256を照合して作業用領域へ保全しました。公開するのは、操作と結果に必要な範囲を切り取り、無関係な個人情報やモデル欄などを除いた42枚です。公開画像の容量・寸法・ハッシュ・切り取り範囲・塗りつぶし範囲は[公開画像一覧](../../_images/app-20261004-public/app-20261004-image-inventory.json)で確認できます。本書の画像リンクは公開版を指し、公開しない原本はファイル名のみを記載します。原本の画面全体で確認した事実と、公開版に残した範囲は区別してください。
+
+公開テンプレートの入口は、今回取得した画面からUse this templateのメニューを切り出して採用しました。公開後の再撮影を必要とした当初の判断は撤回し、現在の再撮影予定は0件です。
 
 ## 検証対象
 
@@ -66,7 +88,7 @@
 第2章の作業ディレクトリは次の場所です。
 
 ```text
-C:/Users/silve/.copilot/repos/copilot-worktrees/dev-days-tailspin-participant-check-20261004/iwizsophy-vigilant-engine
+iwizsophy-vigilant-engine
 ```
 
 各章の開始位置、PRのURL、最新コミットのCI結果、マージ先を記録しました。ブランチ名の変更だけでは、ファイル変更や実装完了の根拠として扱いません。
@@ -145,7 +167,7 @@ Rich text表示ではファイル冒頭のapplyToが見えず、Rawに切り替�
 第3章の作業ディレクトリは次の場所です。
 
 ```text
-C:/Users/silve/.copilot/repos/copilot-worktrees/dev-days-tailspin-participant-check-20261004/iwizsophy-issue-8-update-our-repository-coding-standards-801210
+iwizsophy-issue-8-update-our-repository-coding-standards-801210
 ```
 
 初回応答と変更一覧の根拠は`tmp/verification-20261004/chapter3-update-ui.txt`です。この記録は初回更新終了時のもので、追加修正後の最終結果を示すものではありません。
@@ -212,7 +234,7 @@ AppにはCI 3/4の表示が残ったため、本文どおりダイアログを�
 第4〜6章で使用する作業ディレクトリは次の場所です。
 
 ```text
-C:/Users/silve/.copilot/repos/copilot-worktrees/dev-days-tailspin-participant-check-20261004/iwizsophy-issue-7-allow-users-to-filter-games-by-category-51494e
+iwizsophy-issue-7-allow-users-to-filter-games-by-category-51494e
 ```
 
 `tmp/verification-20261004/chapter4-initial-plan-ui.txt`と`tmp/verification-20261004/chapter4-approved-plan-ui.txt`を保存しました。
@@ -395,7 +417,7 @@ Projectsを右クリックしてNew sessionを開き、New worktreeとmainを選
 | 確認対象 | 記録 |
 | :--- | :--- |
 | セッション | `22f9c4a0-34ba-4414-b700-bbd68ae23e3d` |
-| worktree | `C:/Users/silve/.copilot/repos/copilot-worktrees/dev-days-tailspin-participant-check-20261004/iwizsophy-fictional-telegram` |
+| worktree | `iwizsophy-fictional-telegram` |
 | ブランチ | `iwizsophy-issue-triage-kanban` |
 | 開始時のHEAD | `3acdd179f1a1d88b5a5418035d889071951f5e59` |
 | 開始時の作業ツリー | 未変更を確認。 |
@@ -415,7 +437,7 @@ Projectsを右クリックしてNew sessionを開き、New worktreeとmainを選
 
 ### 初回画面と本文追加ボタンの実操作
 
-初回Canvasでは白背景にほぼ白い文字が使われ、見出しと優先理由が読みにくい状態でした。[初回の取得エラー](../../_images/verification-20261004/app-20261004-07-canvas-initial-error.jpg)と[初回レイアウト](../../_images/verification-20261004/app-20261004-07-canvas-initial-layout.jpg)は、生成結果とレビュー前の問題を示す根拠として保存済みです。
+初回Canvasでは白背景にほぼ白い文字が使われ、見出しと優先理由が読みにくい状態でした。`app-20261004-07-canvas-initial-error.jpg`と`app-20261004-07-canvas-initial-layout.jpg`は、生成結果とレビュー前の問題を示す根拠として保存済みです。
 
 主担当がIssue #5の本文追加ボタンを1回押し、通知、受領応答、Refresh後の状態を実際に確認しました。対象は[Issue #5](https://github.com/iwizsophy/dev-days-tailspin-participant-check-20261004/issues/5)です。他のカードを追加した結果まで確認済みとは扱いません。
 
@@ -443,7 +465,7 @@ Projectsを右クリックしてNew sessionを開き、New worktreeとmainを選
 
 修正後は主担当がIssue #6のボタンを1回押して確認しました。事実を伝える通知に続いて番号、タイトル、URL、受入条件を含む本文全体が1回追加され、受領のみの応答も1回です。Refresh後も#5と#6のボタンはAdded to this sessionの無効状態を保ち、通知と応答は増えていません。`tmp/verification-20261004/chapter7-receipt-ui.txt`に修正後の通知、本文、受領応答を保存しています。
 
-主担当の確認でもリポジトリは未変更で、今回のMCP一時出力は0件でした。Issueの実装、コミット、push、PR作成は、このCanvasの修正とボタン確認では行っていません。[修正後のCanvas](../../_images/verification-20261004/app-20261004-07-canvas-readable.jpg)を掲載候補として取得しました。[受領応答の画像](../../_images/verification-20261004/app-20261004-07-canvas-receipt.jpg)はRefresh途中のFetchingを含むため、教材へ掲載する場合は会話部分を切り出すなど、掲載範囲の確認が必要です。
+主担当の確認でもリポジトリは未変更で、今回のMCP一時出力は0件でした。Issueの実装、コミット、push、PR作成は、このCanvasの修正とボタン確認では行っていません。[修正後のCanvas](../../_images/app-20261004-public/app-20261004-07-canvas-readable.jpg)を掲載候補として取得しました。`app-20261004-07-canvas-receipt.jpg`はRefresh途中のFetchingを含むため、教材へ掲載する場合は会話部分を切り出すなど、掲載範囲の確認が必要です。
 
 ### project共有の初回結果と追加レビュー
 
@@ -476,7 +498,7 @@ Projectsを右クリックしてNew sessionを開き、New worktreeとmainを選
 | 共有レビュー終了時の差分 | CanvasとREADMEの2ファイル、555行追加、1行削除。PR作成中の追加修正後は556行追加、1行削除。 |
 | 別セッションの確認 | 共有レビュー終了時点では実表示と追加操作は未確認だった。その後、7.3で再利用と本文追加、状態の分離を確認。 |
 
-共有版のレビューでは、追加の必須修正は残っていません。[Canvasの差分](../../_images/verification-20261004/app-20261004-07-changes-canvas.jpg)を取得済みです。その後の通常のCreate PRで追加修正と検査が行われ、以下の確定したPRとマージ結果につながっています。
+共有版のレビューでは、追加の必須修正は残っていません。`app-20261004-07-changes-canvas.jpg`を取得済みです。その後の通常のCreate PRで追加修正と検査が行われ、以下の確定したPRとマージ結果につながっています。
 
 ### 共有版のPR、CI、Agent Mergeと更新承認
 
@@ -501,7 +523,7 @@ PR作成で補助Issue #16がOpenとなった期間は、元の未完了課題6�
 
 Agent merge actionsのメニューは一瞬表示されましたが、四項目を個別には確認していません。今回もCI全成功を人が確認してから、スイッチをOnにしてマージする経路を検証した範囲です。
 
-更新内容の承認ではReview repository contentを開き、ダイアログの`.github/extensions/database-explorer`、`priority-kanban`、scriptsを実ファイルと照合してから、Accept for new sessionsを完了しました。[承認画面](../../_images/verification-20261004/app-20261004-07-canvas-trust.jpg)を保存しています。
+更新内容の承認ではReview repository contentを開き、ダイアログの`.github/extensions/database-explorer`、`priority-kanban`、scriptsを実ファイルと照合してから、Accept for new sessionsを完了しました。`app-20261004-07-canvas-trust.jpg`を保存しています。
 
 ### 別セッションでの再利用と検索Issueの受領
 
@@ -561,7 +583,7 @@ Planでは、既存の静的な21件のカードとクライアント側フィ�
 | E2E | 29件成功。 |
 | その他の自動検査 | lint、型検査、24ページのbuild、差分検査が成功。 |
 | 一時DB | 残存0件を確認。 |
-| 画面の差分 | [07-changes-search.jpg](../../_images/verification-20261004/app-20261004-07-changes-search.jpg)を取得。 |
+| 画面の差分 | `app-20261004-07-changes-search.jpg`を取得。 |
 
 この段階の完了は、実装の差分と自動検査の結果までです。本文で求めるブラウザーの操作結果は、次のPlaywright MCP検証で確認します。
 
@@ -586,7 +608,7 @@ Planでは、既存の静的な21件のカードとクライアント側フィ�
 
 MCPでは詳細リンクのhrefを確認し、リンクをクリックして詳細画面へ移る操作は行っていません。この点は最終報告でも未実施と明記されています。E2Eの詳細ページ遷移は成功しているため、MCPの手動操作と自動検査で確認した範囲を分けて記録します。
 
-主担当も別のブラウザーで同じ件数とタイトル、星評価、href、Tab移動時のフォーカス、Enterでの解除を独立に確認しました。取得した[初期状態](../../_images/verification-20261004/app-20261004-07-search-default.jpg)、[検索2件](../../_images/verification-20261004/app-20261004-07-search-two.jpg)、[AND条件の1件](../../_images/verification-20261004/app-20261004-07-search-combined.jpg)、[0件表示](../../_images/verification-20261004/app-20261004-07-search-zero.jpg)は、主担当の別ブラウザーでの結果です。CopilotがMCPで取得した画像とは扱いません。
+主担当も別のブラウザーで同じ件数とタイトル、星評価、href、Tab移動時のフォーカス、Enterでの解除を独立に確認しました。取得した`app-20261004-07-search-default.jpg`、`app-20261004-07-search-two.jpg`、[AND条件の1件](../../_images/app-20261004-public/app-20261004-07-search-combined.jpg)、[0件表示](../../_images/app-20261004-public/app-20261004-07-search-zero.jpg)は、主担当の別ブラウザーでの結果です。CopilotがMCPで取得した画像とは扱いません。
 
 後片付けは、エージェントのbrowser_close、サーバー停止、一時DBとMCP出力の削除の報告後に、主担当も独立に確認しました。4321と4322の待受はなく、title-search-manual.dbもありません。`.playwright-mcp`は空のフォルダーだけが残り、出力ファイルは0件です。通常CSVのハッシュは第4章の記録と一致し、差分検査も成功。演習用の変更は検索の5ファイルだけでした。
 
@@ -607,7 +629,7 @@ MCPでは詳細リンクのhrefを確認し、リンクをクリックして詳�
 | Refresh後のOpen Issue | #2〜#6の5件。マージ済みの#1が除外された。 |
 | Refresh後の優先表示 | 上位は#5・#2・#6、残りは#3・#4。 |
 | Canvasのstatus | 5 open、画面の更新時刻13:34:39。 |
-| Refreshの根拠 | `tmp/verification-20261004/chapter7-canvas-after-search-ui.txt`と[マージ後のCanvas](../../_images/verification-20261004/app-20261004-07-canvas-after-search-merge.jpg)。 |
+| Refreshの根拠 | `tmp/verification-20261004/chapter7-canvas-after-search-ui.txt`と[マージ後のCanvas](../../_images/app-20261004-public/app-20261004-07-canvas-after-search-merge.jpg)。 |
 
 第7章は、共有と再利用、検索実装のレビューとMCP結果の照合、最新CI全成功後のマージ、課題一覧の更新まで完了しました。MCPでの詳細リンクのクリック遷移、四項目のAgent merge actionsの個別表示、発生しなかったCIと競合の修復は、検証済みと扱いません。第8章の実行と照合結果は次のとおりです。
 
@@ -664,119 +686,119 @@ Open Issueは5件で、番号、タイトル、URL、状態も主担当のAPI照
 
 | ID | 該当箇所 | 観測した内容 | 修正候補 | 状況 |
 | :--- | :--- | :--- | :--- | :--- |
-| R01 | 1.3 課題一覧 | Projectsでコピーを選んでも、Issues上部には旧コピーの指定が残った。 | Issues上部で対象リポジトリを確認し、演習用コピーだけを選ぶ操作を示す。操作の意図は、別のコピーの課題に指示を出さないためと説明する。 | 原稿への反映は未実施。 |
-| R02 | 1.3 ビューの作成 | 狭い表示でIssue詳細が開いていると、New viewの入口が見えなかった。詳細を閉じると作成できた。 | New viewが見えない場合は、右側のIssue詳細を閉じる案内を補う。 | 原稿への反映は未実施。 |
-| R03 | 3.2 applyTo、4.5.1 Skillの冒頭 | Rich textではapplyToやSkillのname・descriptionが表示されず、Rawで確認できた。 | ファイル冒頭のメタデータを読む前にRawへ切り替える操作を追加する。指示の適用対象やSkillの使用条件を本文と分けて確認する理由も保つ。 | 原稿への反映は未実施。 |
-| R04 | 3.2 隠しファイルの表示 | 実機の項目名はShow all hidden filesとShow tracked hidden filesだった。 | 本文のShow hidden filesを現行の項目名に合わせ、`.github`を表示する手順を示す。 | 原稿への反映は未実施。 |
-| R05 | 3.3・4.2 プロンプトの入力 | Issueから開始した入力欄に、/issue-fixがあらかじめ入っていた。 | 既存の入力を全選択して固定プロンプトへ置き換える操作を補う。初回指示を同じ条件で送るためと説明する。 | 原稿への反映は未実施。 |
-| R06 | 5.2.1 MCPの既存設定 | Project SettingsにMCP serversがなかった。実機の管理経路はCustomize → Installedで、公式説明も同じだった。 | MCPの管理経路を現行画面に合わせる。Globalの接続表示とリポジトリ定義の確認を区別し、実際のツール操作まで確認する説明を保つ。根拠は[GitHub公式](https://docs.github.com/en/copilot/how-tos/github-copilot-app/customize-github-copilot-app)。 | 原稿への反映は未実施。 |
-| R07 | 6.2 PR作成後のAgent Merge | Ready to merge optionsのAgent mergeスイッチをOnにしただけで開始し、3秒以内にマージされた。追加の主ボタン操作はなく、四項目の権限メニューは未確認。 | PR作成後の経路は現行スイッチの操作で説明する。Onで即時に開始するため、CI全成功の確認を先に行う理由を保つ。確認していない権限メニューや修復機能を実走済みと説明しない。 | 原稿への反映は未実施。 |
+| R01 | 1.3 課題一覧 | Projectsでコピーを選んでも、Issues上部には旧コピーの指定が残った。 | Issues上部で対象リポジトリを確認し、演習用コピーだけを選ぶ操作を示す。操作の意図は、別のコピーの課題に指示を出さないためと説明する。 | 改稿後の2.4.3へ反映済み。 |
+| R02 | 1.3 ビューの作成 | 狭い表示でIssue詳細が開いていると、New viewの入口が見えなかった。詳細を閉じると作成できた。 | New viewが見えない場合は、右側のIssue詳細を閉じる案内を補う。 | 改稿後の2.4.3へ反映済み。 |
+| R03 | 3.2 applyTo、4.5.1 Skillの冒頭 | Rich textではapplyToやSkillのname・descriptionが表示されず、Rawで確認できた。 | ファイル冒頭のメタデータを読む前にRawへ切り替える操作を追加する。指示の適用対象やSkillの使用条件を本文と分けて確認する理由も保つ。 | 改稿後の4.4.1と5.4.4.1へ反映済み。 |
+| R04 | 3.2 隠しファイルの表示 | 実機の項目名はShow all hidden filesとShow tracked hidden filesだった。 | 本文のShow hidden filesを現行の項目名に合わせ、`.github`を表示する手順を示す。 | 改稿後の4.4.1へ反映済み。 |
+| R05 | 3.3・4.2 プロンプトの入力 | Issueから開始した入力欄に、/issue-fixがあらかじめ入っていた。 | 既存の入力を全選択して固定プロンプトへ置き換える操作を補う。初回指示を同じ条件で送るためと説明する。 | 改稿後の4.4.2と5.4.1へ反映済み。 |
+| R06 | 5.2.1 MCPの既存設定 | Project SettingsにMCP serversがなかった。実機の管理経路はCustomize → Installedで、公式説明も同じだった。 | MCPの管理経路を現行画面に合わせる。Globalの接続表示とリポジトリ定義の確認を区別し、実際のツール操作まで確認する説明を保つ。根拠は[GitHub公式](https://docs.github.com/en/copilot/how-tos/github-copilot-app/customize-github-copilot-app)。 | 改稿後の6.4.1と6.6.5へ反映済み。 |
+| R07 | 6.2 PR作成後のAgent Merge | Ready to merge optionsのAgent mergeスイッチをOnにしただけで開始し、3秒以内にマージされた。追加の主ボタン操作はなく、四項目の権限メニューは未確認。 | PR作成後の経路は現行スイッチの操作で説明する。Onで即時に開始するため、CI全成功の確認を先に行う理由を保つ。確認していない権限メニューや修復機能を実走済みと説明しない。 | 改稿後の7.4.1と7.4.2へ反映済み。 |
 
-レビューによる追加修正は、本文で求める確認条件に基づく操作です。初回の生成結果、必要だった指示、再試行の結果を分けて記録しました。画面の項目名や入口が変わった箇所は、上記のR01〜R07として原稿の修正候補にしています。
+レビューによる追加修正は、本文で求める確認条件に基づく操作です。初回の生成結果、必要だった指示、再試行の結果を分けて記録しました。画面の項目名や入口が変わった箇所は、上記のR01〜R07として記録し、改稿後の原稿へ反映しました。
 
 ## 画面の取得と掲載判断
 
 掲載箇所ごとの候補は[画像対応表](verification-images-20261004.md)のとおりです。既存画像の差し替え、追加する画面、重複掲載の削除候補を掲載箇所ごとに判断します。
 
-以下は取得した撮影ファイルと用途の記録です。掲載候補と検証記録を分け、対象リポジトリ、課題、作業モード、表示結果が合う画像を選ぶ判断材料として残しました。
+以下は実走時に取得した撮影ファイルと用途、当時の掲載判断の記録です。現在の公開版の採否は画像対応表と公開画像一覧で確認できます。掲載候補と検証記録を分け、対象リポジトリ、課題、作業モード、表示結果が合う画像を選ぶ判断材料として残しました。
 
 | 取得ファイル | 対応する内容 | 掲載判断 |
 | :--- | :--- | :--- |
-| [00-template-menu.jpg](../../_images/verification-20261004/app-20261004-00-template-menu.jpg) | 教材用テンプレートのコピー作成入口。 | 差し替え候補。公開時の表示との整合を確認する。 |
-| [00-template-form-top.jpg](../../_images/verification-20261004/app-20261004-00-template-form-top.jpg) | コピー作成時のテンプレート、名前、設定。 | 差し替え候補。必要な設定が読める範囲を選ぶ。 |
-| [00-repository-created.jpg](../../_images/verification-20261004/app-20261004-00-repository-created.jpg) | 新しいコピーの作成結果。 | 検証の根拠として取得済み。本文への追加要否は未判定。 |
-| [00-bootstrap-issues.jpg](../../_images/verification-20261004/app-20261004-00-bootstrap-issues.jpg) | 初期設定後の課題一覧。 | 追加候補。8件の表示と対象コピーを確認する。 |
-| [01-repository-trust.jpg](../../_images/verification-20261004/app-20261004-01-repository-trust.jpg) | リポジトリ内容の確認と承認。 | 追加候補。本文に必要な画面範囲を確認する。 |
-| [01-issues-assigned-empty.jpg](../../_images/verification-20261004/app-20261004-01-issues-assigned-empty.jpg) | Assigned to meに課題が表示されない状態。 | 追加候補。ビューを作る理由と対応するか確認する。 |
-| [01-issues-new-view.jpg](../../_images/verification-20261004/app-20261004-01-issues-new-view.jpg) | State: Openのビュー作成。 | 追加候補。New view、検索条件、Saveが読めるか確認する。 |
-| [01-quick-chat-complete.jpg](../../_images/verification-20261004/app-20261004-01-quick-chat-complete.jpg) | Quick Chatの説明と完了状態。 | 検証の根拠として取得済み。本文への追加要否は未判定。 |
-| [02-new-session.jpg](../../_images/verification-20261004/app-20261004-02-new-session.jpg) | New worktree、main、Interactiveの開始条件。 | 差し替え候補。開始条件が読めるか確認する。 |
-| [02-environment-output.jpg](../../_images/verification-20261004/app-20261004-02-environment-output.jpg) | セッション内のNode.jsと作業場所の確認。 | 検証の根拠として取得済み。本文への追加要否は未判定。 |
-| [02-changes-game-card.jpg](../../_images/verification-20261004/app-20261004-02-changes-game-card.jpg) | GameCardの星評価の差分。 | 星評価と関係のない既存Changes画像の差し替え候補。 |
-| [02-changes-render-tests.jpg](../../_images/verification-20261004/app-20261004-02-changes-render-tests.jpg) | 実際のGameCardを使うレンダリング検査の差分。 | テストを確認する画面の追加候補。 |
-| [02-run-menu.jpg](../../_images/verification-20261004/app-20261004-02-run-menu.jpg) | Run development siteの起動入口。 | 既存Runメニュー画像の差し替え候補。 |
-| [02-star-rating.jpg](../../_images/verification-20261004/app-20261004-02-star-rating.jpg) | 通常データの星評価付きカード。 | 既存の完成例の差し替え候補。 |
-| [02-game-detail.jpg](../../_images/verification-20261004/app-20261004-02-game-detail.jpg) | カードから移動したゲーム詳細。 | リンク動作の根拠として取得済み。本文への追加要否は未判定。 |
-| [02-run-stopped.jpg](../../_images/verification-20261004/app-20261004-02-run-stopped.jpg) | Stop後のShell session ended。 | サーバーの停止確認を示す画面の追加候補。 |
-| [02-pr-ci-running.jpg](../../_images/verification-20261004/app-20261004-02-pr-ci-running.jpg) | Ready to mergeが表示され、CIが進行中の状態。 | ボタン表示とCIの完了を区別する画面の追加候補。 |
-| [02-pr-ci-passed.jpg](../../_images/verification-20261004/app-20261004-02-pr-ci-passed.jpg) | AppでのCI全成功の表示。 | マージ前に確認する画面の追加候補。 |
-| [02-pr-checks-passed.jpg](../../_images/verification-20261004/app-20261004-02-pr-checks-passed.jpg) | GitHub WebでのCI全成功の表示。 | Appの表示との照合の根拠として取得済み。本文への追加要否は未判定。 |
-| [02-pr-merged-app.jpg](../../_images/verification-20261004/app-20261004-02-pr-merged-app.jpg) | AppのMerged表示。 | マージ完了を示す画面の追加候補。 |
-| [02-pr-merged-github.jpg](../../_images/verification-20261004/app-20261004-02-pr-merged-github.jpg) | GitHub WebのMerged表示。 | Appの表示との照合の根拠として取得済み。本文への追加要否は未判定。 |
-| [03-add-tab-files.jpg](../../_images/verification-20261004/app-20261004-03-add-tab-files.jpg) | Add tabからFilesを開く入口。 | 第3章の既存Add tab画像の差し替え候補。 |
-| [03-file-search.jpg](../../_images/verification-20261004/app-20261004-03-file-search.jpg) | copilot-instructions.mdのファイル検索。 | 既存Go to file画像の差し替え候補。 |
-| [03-files-options.jpg](../../_images/verification-20261004/app-20261004-03-files-options.jpg) | 現行の隠しファイル表示設定。 | 旧Show hidden filesの画像の差し替え候補。 |
-| [03-unit-test-instructions.jpg](../../_images/verification-20261004/app-20261004-03-unit-test-instructions.jpg) | 単体テストのパス固有指示の本文。 | 指示の内容を確認した根拠として取得済み。本文への追加要否は未判定。 |
-| [03-unit-test-applyto.jpg](../../_images/verification-20261004/app-20261004-03-unit-test-applyto.jpg) | Rawで確認したapplyTo。 | 適用対象を読む操作を示す画面の追加候補。 |
-| [03-drizzle-links.jpg](../../_images/verification-20261004/app-20261004-03-drizzle-links.jpg) | Drizzle指示の相対リンク。 | 指示ファイルの関係を確認した根拠として取得済み。本文への追加要否は未判定。 |
-| [03-drizzle-links-final.jpg](../../_images/verification-20261004/app-20261004-03-drizzle-links-final.jpg) | 更新後のDrizzle指示と参照リンク。 | 第3章の指示ファイルの関係を示す追加候補。掲載は更新後の画像を優先する。 |
-| [03-issue-details.jpg](../../_images/verification-20261004/app-20261004-03-issue-details.jpg) | 規約更新のIssue #8の詳細。 | 別課題を示す既存Issue画像の差し替え候補。 |
-| [03-changes-instructions.jpg](../../_images/verification-20261004/app-20261004-03-changes-instructions.jpg) | 指示ファイルの差分。 | 第3章の既存Changes画像の差し替え候補。 |
-| [03-code-example.jpg](../../_images/verification-20261004/app-20261004-03-code-example.jpg) | Publishersを返すコード例の応答。 | 目的、引数、戻り値をレビューする画面の追加候補。 |
-| [03-pr-ci-running.jpg](../../_images/verification-20261004/app-20261004-03-pr-ci-running.jpg) | Appに残ったCI 3/4の表示。 | 表示を開き直して確認する根拠として取得済み。本文への追加要否は未判定。 |
-| [03-pr-ci-passed.jpg](../../_images/verification-20261004/app-20261004-03-pr-ci-passed.jpg) | Successful 4のジョブ一覧。 | 第3章のマージ前確認を示す画面の追加候補。 |
-| [03-pr-checks-passed.jpg](../../_images/verification-20261004/app-20261004-03-pr-checks-passed.jpg) | GitHub WebでのCI全成功。 | Appの表示との照合の根拠として取得済み。本文への追加要否は未判定。 |
-| [03-pr-merged-app.jpg](../../_images/verification-20261004/app-20261004-03-pr-merged-app.jpg) | AppのMerged表示。 | 第3章のマージ完了を示す画面の追加候補。 |
-| [03-pr-merged-github.jpg](../../_images/verification-20261004/app-20261004-03-pr-merged-github.jpg) | GitHub WebのMerged表示。 | Appの表示との照合の根拠として取得済み。本文への追加要否は未判定。 |
-| [04-issue-details.jpg](../../_images/verification-20261004/app-20261004-04-issue-details.jpg) | フィルター機能のIssue #7の詳細。 | 別課題を示す既存Issue画像の差し替え候補。 |
-| [04-plan-mode.jpg](../../_images/verification-20261004/app-20261004-04-plan-mode.jpg) | Planのモード選択。 | 第4章の既存モード選択画像の差し替え候補。 |
-| [04-plan-question.jpg](../../_images/verification-20261004/app-20261004-04-plan-question.jpg) | OR条件を選ぶ質問とContinue。 | 仕様を判断して回答する画面の追加候補。 |
-| [04-plan-review-initial.jpg](../../_images/verification-20261004/app-20261004-04-plan-review-initial.jpg) | 修正前のPlan。 | 計画レビューの根拠として取得済み。本文への追加要否は未判定。 |
-| [04-plan-review.jpg](../../_images/verification-20261004/app-20261004-04-plan-review.jpg) | 修正後のPlanと承認の入口。 | 第4章の既存Plan承認画像の差し替え候補。 |
-| [04-quality-skill.jpg](../../_images/verification-20261004/app-20261004-04-quality-skill.jpg) | Rawで読むquality-checksのnameとdescription。 | Skillのメタデータを確認する画面の追加候補。 |
-| [04-changes-filters.jpg](../../_images/verification-20261004/app-20261004-04-changes-filters.jpg) | 初回フィルター実装のChanges。 | 第4章の既存Changes画像の差し替え候補。修正後の差分も確認してから採用する。 |
-| [04-filter-default.jpg](../../_images/verification-20261004/app-20261004-04-filter-default.jpg) | 初回実装の通常21件の一覧とフィルター。 | 初回確認の根拠として保管。掲載は修正後の画像を優先する。 |
-| [04-filter-combined.jpg](../../_images/verification-20261004/app-20261004-04-filter-combined.jpg) | 初回実装のカテゴリと出版社を組み合わせた表示。 | 初回確認の根拠として保管。掲載は修正後の画像を優先する。 |
-| [04-run-stopped.jpg](../../_images/verification-20261004/app-20261004-04-run-stopped.jpg) | Run停止後のShell session ended。 | 停止確認の根拠として取得済み。本文への追加要否は未判定。 |
-| [04-run-menu.jpg](../../_images/verification-20261004/app-20261004-04-run-menu.jpg) | AppのRunからBuild static siteを選ぶ入口。 | 第4章の既存Run画像の差し替え候補。 |
-| [04-build-complete.jpg](../../_images/verification-20261004/app-20261004-04-build-complete.jpg) | 24ページの出力とBuild Complete。 | Skillの検査とは別にbuildを確認する画面の追加候補。 |
-| [04-filter-default-final.jpg](../../_images/verification-20261004/app-20261004-04-filter-default-final.jpg) | 修正後の通常21件の一覧とフィルター。 | 最終の初期状態を示す画面の追加候補。 |
-| [04-filter-combined-final.jpg](../../_images/verification-20261004/app-20261004-04-filter-combined-final.jpg) | 修正後のカテゴリと出版社を組み合わせた2件。 | 最終のORとANDの操作結果を示す画面の追加候補。 |
-| [05-isolated-three.jpg](../../_images/verification-20261004/app-20261004-05-isolated-three.jpg) | 主担当が別ブラウザーで確認した隔離データ3件。 | 通常21件とは別のテスト環境を示す画面の追加候補。 |
-| [05-isolated-zero.jpg](../../_images/verification-20261004/app-20261004-05-isolated-zero.jpg) | 主担当が確認した隔離データの0件表示。 | 0件の説明と件数通知を示す画面の追加候補。 |
-| [05-mcp-result-combined.jpg](../../_images/verification-20261004/app-20261004-05-mcp-result-combined.jpg) | Copilotの実際のMCP結果で2件とタイトルを確認。 | 操作の根拠を示す画面の追加候補。主担当の別ブラウザー画像と区別する。 |
-| [05-mcp-installed.jpg](../../_images/verification-20261004/app-20261004-05-mcp-installed.jpg) | CustomizeのInstalledにあるGlobalのMCP接続表示。 | 現行の管理入口を示す画面の追加候補。リポジトリ定義3件の接続確認を示す画像とは扱わない。 |
-| [05-playwright-config.jpg](../../_images/verification-20261004/app-20261004-05-playwright-config.jpg) | 既存PlaywrightのLocal設定。 | 接続設定を読む画面の差し替え候補。新規追加の成功を示す画像とは扱わない。 |
-| [06-agent-merge-before.jpg](../../_images/verification-20261004/app-20261004-06-agent-merge-before.jpg) | CI全成功後、Agent mergeがOffの開始前画面。 | PR作成後の現行の開始操作を示す差し替え候補。 |
-| [06-pr-merged-app.jpg](../../_images/verification-20261004/app-20261004-06-pr-merged-app.jpg) | AppのMergedとSuccessful 4。 | 第6章の自動マージ完了を示す画面の追加候補。 |
-| [06-pr-merged-github.jpg](../../_images/verification-20261004/app-20261004-06-pr-merged-github.jpg) | GitHub WebのMergedと全4ジョブ成功。 | Appの表示との照合の根拠として取得済み。本文への追加要否は未判定。 |
-| [07-canvas-initial-error.jpg](../../_images/verification-20261004/app-20261004-07-canvas-initial-error.jpg) | 初回処理の認証なしAPIの404。 | 初回の自動修正を確認する根拠として保管。受講者向けの掲載候補とはまだ扱わない。 |
-| [07-canvas-initial-layout.jpg](../../_images/verification-20261004/app-20261004-07-canvas-initial-layout.jpg) | 初回Canvasの6件と優先順位、読みにくい配色。 | 可読性レビュー前の根拠として保管。掲載は修正後の画像を優先する。 |
-| [07-canvas-readable.jpg](../../_images/verification-20261004/app-20261004-07-canvas-readable.jpg) | 可読性修正後のCanvasと6件の課題。 | 第7章のCanvas生成結果を示す差し替え候補。初回の読みにくい画面よりこちらを優先する。 |
-| [07-canvas-receipt.jpg](../../_images/verification-20261004/app-20261004-07-canvas-receipt.jpg) | 修正後の本文追加と受領応答。 | 本文を1回追加し、受領のみを返す操作を示す追加候補。Refresh途中のFetchingが写るため、掲載範囲を確認する。 |
-| [07-changes-canvas.jpg](../../_images/verification-20261004/app-20261004-07-changes-canvas.jpg) | 共有版Canvasファイルの差分を全幅で表示。 | 7.2で共有するファイルと変更内容を確認する画面の追加候補。 |
-| [07-changes-canvas-final.jpg](../../_images/verification-20261004/app-20261004-07-changes-canvas-final.jpg) | 共有版Canvasの最終差分。 | PR作成時の追加修正を含む最終版のChangesを示す追加候補。 |
-| [07-changes-canvas-readme.jpg](../../_images/verification-20261004/app-20261004-07-changes-canvas-readme.jpg) | 共有Canvasの再利用手順を記載したREADME。 | 別セッションでCanvasを開く説明を確認する画面の追加候補。 |
-| [07-canvas-agent-merge-before.jpg](../../_images/verification-20261004/app-20261004-07-canvas-agent-merge-before.jpg) | 共有版のCI全成功後、Agent mergeをOnにする前。 | 第7章の開始操作を示す差し替え候補。 |
-| [07-canvas-pr-merged-app.jpg](../../_images/verification-20261004/app-20261004-07-canvas-pr-merged-app.jpg) | 共有版PRのAppのMerged表示。 | Canvas共有のマージ完了を示す追加候補。 |
-| [07-canvas-pr-merged-github.jpg](../../_images/verification-20261004/app-20261004-07-canvas-pr-merged-github.jpg) | 共有版PRのGitHub WebのMerged表示。 | Appの表示との照合の根拠として保管。本文への追加要否は未判定。 |
-| [07-canvas-trust.jpg](../../_images/verification-20261004/app-20261004-07-canvas-trust.jpg) | 更新した拡張とscriptsを確認する承認画面。 | 共有Canvasを別セッションで使う前の確認を示す追加候補。 |
-| [07-canvas-reopened.jpg](../../_images/verification-20261004/app-20261004-07-canvas-reopened.jpg) | 最新mainの別セッションで開いた共有Canvas。 | 7.3の再利用を示す画面の追加候補。 |
-| [07-canvas-search-card.jpg](../../_images/verification-20261004/app-20261004-07-canvas-search-card.jpg) | 検索Issue #1の本文と追加ボタン。 | 別セッションの会話へ課題を渡す入口を示す追加候補。 |
-| [07-search-issue-receipt.jpg](../../_images/verification-20261004/app-20261004-07-search-issue-receipt.jpg) | 新しいセッションでのIssue #1の受領応答。 | 実装を始めず、参照情報を受領した結果を示す追加候補。 |
-| [07-search-plan-question.jpg](../../_images/verification-20261004/app-20261004-07-search-plan-question.jpg) | Clear filtersで検索語も解除する仕様の質問。 | Planで仕様を判断し、Continueで回答する操作を示す追加候補。 |
-| [07-search-plan-review.jpg](../../_images/verification-20261004/app-20261004-07-search-plan-review.jpg) | 検索のPlanとApprove and implement。 | 検索と既存フィルターの関係、期待値を確認して承認する画面の追加候補。 |
-| [07-changes-search.jpg](../../_images/verification-20261004/app-20261004-07-changes-search.jpg) | 検索入力、0件の文面などの実装差分。 | 検索実装のChangesをレビューする画面の追加候補。 |
-| [07-search-default.jpg](../../_images/verification-20261004/app-20261004-07-search-default.jpg) | 主担当の別ブラウザーで確認した検索前の21件。 | 検索の初期状態を示す画面の追加候補。 |
-| [07-search-two.jpg](../../_images/verification-20261004/app-20261004-07-search-two.jpg) | 主担当が確認したServer SiegeとVirtual Server Simulatorの2件。 | 大小文字を区別しない部分一致を示す追加候補。 |
-| [07-search-combined.jpg](../../_images/verification-20261004/app-20261004-07-search-combined.jpg) | 主担当が確認した検索・カテゴリ・出版社のANDで1件。 | 既存フィルターと検索の組み合わせを示す追加候補。 |
-| [07-search-zero.jpg](../../_images/verification-20261004/app-20261004-07-search-zero.jpg) | 主担当が確認した0件の説明と結果通知。 | 0件時の表示を示す追加候補。 |
-| [07-search-agent-merge-before.jpg](../../_images/verification-20261004/app-20261004-07-search-agent-merge-before.jpg) | 検索PRのCI全成功後、Agent mergeをOnにする前。 | 検索実装のマージ開始を示す画面の追加候補。 |
-| [07-search-pr-merged-app.jpg](../../_images/verification-20261004/app-20261004-07-search-pr-merged-app.jpg) | 検索PRのAppのMerged表示。 | 検索実装のマージ完了を示す追加候補。 |
-| [07-search-pr-merged-github.jpg](../../_images/verification-20261004/app-20261004-07-search-pr-merged-github.jpg) | 検索PRのGitHub WebのMerged表示。 | Appとの照合の根拠として保管。本文への追加要否は未判定。 |
-| [07-canvas-after-search-merge.jpg](../../_images/verification-20261004/app-20261004-07-canvas-after-search-merge.jpg) | Refresh後のOpen 5件と更新した優先順位。 | 完了した検索Issueが一覧から消える結果を示す追加候補。 |
-| [08-automation-settings.jpg](../../_images/verification-20261004/app-20261004-08-automation-settings.jpg) | Manual、Local、演習用コピーなどの自動化設定。 | 第8章の設定画面の差し替え候補。 |
-| [08-automation-create-and-run.jpg](../../_images/verification-20261004/app-20261004-08-automation-create-and-run.jpg) | 固定プロンプトとCreate and runの入口。 | 読み取りの範囲と開始操作を示す差し替え候補。 |
-| [08-automation-result-prs.jpg](../../_images/verification-20261004/app-20261004-08-automation-result-prs.jpg) | 対象、時刻、期間とマージ済みPR 5件の報告。 | 実行時点と期間を含む結果の読み方を示す追加候補。 |
-| [08-automation-result-issues.jpg](../../_images/verification-20261004/app-20261004-08-automation-result-issues.jpg) | 現在OpenのIssue 5件の報告。 | 件数と一覧、完了課題の除外を確認する追加候補。 |
-| [08-automation-succeeded.jpg](../../_images/verification-20261004/app-20261004-08-automation-succeeded.jpg) | Localと緑の成功アイコン、53秒。状態はAXでもSucceededを確認。 | 第8章の正常終了を示す差し替え候補。Succeededという文字が画像内に表示されているとは扱わない。 |
+| [00-template-menu.jpg](../../_images/app-20261004-public/app-20261004-00-template-menu.jpg) | 教材用テンプレートのコピー作成入口。 | 差し替え候補。公開時の表示との整合を確認する。 |
+| [00-template-form-top.jpg](../../_images/app-20261004-public/app-20261004-00-template-form-top.jpg) | コピー作成時のテンプレート、名前、設定。 | 差し替え候補。必要な設定が読める範囲を選ぶ。 |
+| `app-20261004-00-repository-created.jpg` | 新しいコピーの作成結果。 | 検証の根拠として取得済み。本文への追加要否は未判定。 |
+| `app-20261004-00-bootstrap-issues.jpg` | 初期設定後の課題一覧。 | 追加候補。8件の表示と対象コピーを確認する。 |
+| [01-repository-trust.jpg](../../_images/app-20261004-public/app-20261004-01-repository-trust.jpg) | リポジトリ内容の確認と承認。 | 追加候補。本文に必要な画面範囲を確認する。 |
+| `app-20261004-01-issues-assigned-empty.jpg` | Assigned to meに課題が表示されない状態。 | 追加候補。ビューを作る理由と対応するか確認する。 |
+| [01-issues-new-view.jpg](../../_images/app-20261004-public/app-20261004-01-issues-new-view.jpg) | State: Openのビュー作成。 | 追加候補。New view、検索条件、Saveが読めるか確認する。 |
+| `app-20261004-01-quick-chat-complete.jpg` | Quick Chatの説明と完了状態。 | 検証の根拠として取得済み。本文への追加要否は未判定。 |
+| [02-new-session.jpg](../../_images/app-20261004-public/app-20261004-02-new-session.jpg) | New worktree、main、Interactiveの開始条件。 | 差し替え候補。開始条件が読めるか確認する。 |
+| `app-20261004-02-environment-output.jpg` | セッション内のNode.jsと作業場所の確認。 | 検証の根拠として取得済み。本文への追加要否は未判定。 |
+| [02-changes-game-card.jpg](../../_images/app-20261004-public/app-20261004-02-changes-game-card.jpg) | GameCardの星評価の差分。 | 星評価と関係のない既存Changes画像の差し替え候補。 |
+| `app-20261004-02-changes-render-tests.jpg` | 実際のGameCardを使うレンダリング検査の差分。 | テストを確認する画面の追加候補。 |
+| [02-run-menu.jpg](../../_images/app-20261004-public/app-20261004-02-run-menu.jpg) | Run development siteの起動入口。 | 既存Runメニュー画像の差し替え候補。 |
+| [02-star-rating.jpg](../../_images/app-20261004-public/app-20261004-02-star-rating.jpg) | 通常データの星評価付きカード。 | 既存の完成例の差し替え候補。 |
+| `app-20261004-02-game-detail.jpg` | カードから移動したゲーム詳細。 | リンク動作の根拠として取得済み。本文への追加要否は未判定。 |
+| `app-20261004-02-run-stopped.jpg` | Stop後のShell session ended。 | サーバーの停止確認を示す画面の追加候補。 |
+| `app-20261004-02-pr-ci-running.jpg` | Ready to mergeが表示され、CIが進行中の状態。 | ボタン表示とCIの完了を区別する画面の追加候補。 |
+| [02-pr-ci-passed.jpg](../../_images/app-20261004-public/app-20261004-02-pr-ci-passed.jpg) | AppでのCI全成功の表示。 | マージ前に確認する画面の追加候補。 |
+| `app-20261004-02-pr-checks-passed.jpg` | GitHub WebでのCI全成功の表示。 | Appの表示との照合の根拠として取得済み。本文への追加要否は未判定。 |
+| `app-20261004-02-pr-merged-app.jpg` | AppのMerged表示。 | マージ完了を示す画面の追加候補。 |
+| `app-20261004-02-pr-merged-github.jpg` | GitHub WebのMerged表示。 | Appの表示との照合の根拠として取得済み。本文への追加要否は未判定。 |
+| [03-add-tab-files.jpg](../../_images/app-20261004-public/app-20261004-03-add-tab-files.jpg) | Add tabからFilesを開く入口。 | 第3章の既存Add tab画像の差し替え候補。 |
+| [03-file-search.jpg](../../_images/app-20261004-public/app-20261004-03-file-search.jpg) | copilot-instructions.mdのファイル検索。 | 既存Go to file画像の差し替え候補。 |
+| [03-files-options.jpg](../../_images/app-20261004-public/app-20261004-03-files-options.jpg) | 現行の隠しファイル表示設定。 | 旧Show hidden filesの画像の差し替え候補。 |
+| `app-20261004-03-unit-test-instructions.jpg` | 単体テストのパス固有指示の本文。 | 指示の内容を確認した根拠として取得済み。本文への追加要否は未判定。 |
+| [03-unit-test-applyto.jpg](../../_images/app-20261004-public/app-20261004-03-unit-test-applyto.jpg) | Rawで確認したapplyTo。 | 適用対象を読む操作を示す画面の追加候補。 |
+| `app-20261004-03-drizzle-links.jpg` | Drizzle指示の相対リンク。 | 指示ファイルの関係を確認した根拠として取得済み。本文への追加要否は未判定。 |
+| `app-20261004-03-drizzle-links-final.jpg` | 更新後のDrizzle指示と参照リンク。 | 第3章の指示ファイルの関係を示す追加候補。掲載は更新後の画像を優先する。 |
+| [03-issue-details.jpg](../../_images/app-20261004-public/app-20261004-03-issue-details.jpg) | 規約更新のIssue #8の詳細。 | 別課題を示す既存Issue画像の差し替え候補。 |
+| [03-changes-instructions.jpg](../../_images/app-20261004-public/app-20261004-03-changes-instructions.jpg) | 指示ファイルの差分。 | 第3章の既存Changes画像の差し替え候補。 |
+| [03-code-example.jpg](../../_images/app-20261004-public/app-20261004-03-code-example.jpg) | Publishersを返すコード例の応答。 | 目的、引数、戻り値をレビューする画面の追加候補。 |
+| `app-20261004-03-pr-ci-running.jpg` | Appに残ったCI 3/4の表示。 | 表示を開き直して確認する根拠として取得済み。本文への追加要否は未判定。 |
+| [03-pr-ci-passed.jpg](../../_images/app-20261004-public/app-20261004-03-pr-ci-passed.jpg) | Successful 4のジョブ一覧。 | 第3章のマージ前確認を示す画面の追加候補。 |
+| `app-20261004-03-pr-checks-passed.jpg` | GitHub WebでのCI全成功。 | Appの表示との照合の根拠として取得済み。本文への追加要否は未判定。 |
+| `app-20261004-03-pr-merged-app.jpg` | AppのMerged表示。 | 第3章のマージ完了を示す画面の追加候補。 |
+| `app-20261004-03-pr-merged-github.jpg` | GitHub WebのMerged表示。 | Appの表示との照合の根拠として取得済み。本文への追加要否は未判定。 |
+| [04-issue-details.jpg](../../_images/app-20261004-public/app-20261004-04-issue-details.jpg) | フィルター機能のIssue #7の詳細。 | 別課題を示す既存Issue画像の差し替え候補。 |
+| [04-plan-mode.jpg](../../_images/app-20261004-public/app-20261004-04-plan-mode.jpg) | Planのモード選択。 | 第4章の既存モード選択画像の差し替え候補。 |
+| [04-plan-question.jpg](../../_images/app-20261004-public/app-20261004-04-plan-question.jpg) | OR条件を選ぶ質問とContinue。 | 仕様を判断して回答する画面の追加候補。 |
+| `app-20261004-04-plan-review-initial.jpg` | 修正前のPlan。 | 計画レビューの根拠として取得済み。本文への追加要否は未判定。 |
+| [04-plan-review.jpg](../../_images/app-20261004-public/app-20261004-04-plan-review.jpg) | 修正後のPlanと承認の入口。 | 第4章の既存Plan承認画像の差し替え候補。 |
+| [04-quality-skill.jpg](../../_images/app-20261004-public/app-20261004-04-quality-skill.jpg) | Rawで読むquality-checksのnameとdescription。 | Skillのメタデータを確認する画面の追加候補。 |
+| `app-20261004-04-changes-filters.jpg` | 初回フィルター実装のChanges。 | 第4章の既存Changes画像の差し替え候補。修正後の差分も確認してから採用する。 |
+| `app-20261004-04-filter-default.jpg` | 初回実装の通常21件の一覧とフィルター。 | 初回確認の根拠として保管。掲載は修正後の画像を優先する。 |
+| `app-20261004-04-filter-combined.jpg` | 初回実装のカテゴリと出版社を組み合わせた表示。 | 初回確認の根拠として保管。掲載は修正後の画像を優先する。 |
+| `app-20261004-04-run-stopped.jpg` | Run停止後のShell session ended。 | 停止確認の根拠として取得済み。本文への追加要否は未判定。 |
+| [04-run-menu.jpg](../../_images/app-20261004-public/app-20261004-04-run-menu.jpg) | AppのRunからBuild static siteを選ぶ入口。 | 第4章の既存Run画像の差し替え候補。 |
+| [04-build-complete.jpg](../../_images/app-20261004-public/app-20261004-04-build-complete.jpg) | 24ページの出力とBuild Complete。 | Skillの検査とは別にbuildを確認する画面の追加候補。 |
+| `app-20261004-04-filter-default-final.jpg` | 修正後の通常21件の一覧とフィルター。 | 最終の初期状態を示す画面の追加候補。 |
+| [04-filter-combined-final.jpg](../../_images/app-20261004-public/app-20261004-04-filter-combined-final.jpg) | 修正後のカテゴリと出版社を組み合わせた2件。 | 最終のORとANDの操作結果を示す画面の追加候補。 |
+| `app-20261004-05-isolated-three.jpg` | 主担当が別ブラウザーで確認した隔離データ3件。 | 通常21件とは別のテスト環境を示す画面の追加候補。 |
+| [05-isolated-zero.jpg](../../_images/app-20261004-public/app-20261004-05-isolated-zero.jpg) | 主担当が確認した隔離データの0件表示。 | 0件の説明と件数通知を示す画面の追加候補。 |
+| [05-mcp-result-combined.jpg](../../_images/app-20261004-public/app-20261004-05-mcp-result-combined.jpg) | Copilotの実際のMCP結果で2件とタイトルを確認。 | 操作の根拠を示す画面の追加候補。主担当の別ブラウザー画像と区別する。 |
+| [05-mcp-installed.jpg](../../_images/app-20261004-public/app-20261004-05-mcp-installed.jpg) | CustomizeのInstalledにあるGlobalのMCP接続表示。 | 現行の管理入口を示す画面の追加候補。リポジトリ定義3件の接続確認を示す画像とは扱わない。 |
+| [05-playwright-config.jpg](../../_images/app-20261004-public/app-20261004-05-playwright-config.jpg) | 既存PlaywrightのLocal設定。 | 接続設定を読む画面の差し替え候補。新規追加の成功を示す画像とは扱わない。 |
+| [06-agent-merge-before.jpg](../../_images/app-20261004-public/app-20261004-06-agent-merge-before.jpg) | CI全成功後、Agent mergeがOffの開始前画面。 | PR作成後の現行の開始操作を示す差し替え候補。 |
+| `app-20261004-06-pr-merged-app.jpg` | AppのMergedとSuccessful 4。 | 第6章の自動マージ完了を示す画面の追加候補。 |
+| [06-pr-merged-github.jpg](../../_images/app-20261004-public/app-20261004-06-pr-merged-github.jpg) | GitHub WebのMergedと全4ジョブ成功。 | Appの表示との照合の根拠として取得済み。本文への追加要否は未判定。 |
+| `app-20261004-07-canvas-initial-error.jpg` | 初回処理の認証なしAPIの404。 | 初回の自動修正を確認する根拠として保管。受講者向けの掲載候補とはまだ扱わない。 |
+| `app-20261004-07-canvas-initial-layout.jpg` | 初回Canvasの6件と優先順位、読みにくい配色。 | 可読性レビュー前の根拠として保管。掲載は修正後の画像を優先する。 |
+| [07-canvas-readable.jpg](../../_images/app-20261004-public/app-20261004-07-canvas-readable.jpg) | 可読性修正後のCanvasと6件の課題。 | 第7章のCanvas生成結果を示す差し替え候補。初回の読みにくい画面よりこちらを優先する。 |
+| `app-20261004-07-canvas-receipt.jpg` | 修正後の本文追加と受領応答。 | 本文を1回追加し、受領のみを返す操作を示す追加候補。Refresh途中のFetchingが写るため、掲載範囲を確認する。 |
+| `app-20261004-07-changes-canvas.jpg` | 共有版Canvasファイルの差分を全幅で表示。 | 7.2で共有するファイルと変更内容を確認する画面の追加候補。 |
+| [07-changes-canvas-final.jpg](../../_images/app-20261004-public/app-20261004-07-changes-canvas-final.jpg) | 共有版Canvasの最終差分。 | PR作成時の追加修正を含む最終版のChangesを示す追加候補。 |
+| `app-20261004-07-changes-canvas-readme.jpg` | 共有Canvasの再利用手順を記載したREADME。 | 別セッションでCanvasを開く説明を確認する画面の追加候補。 |
+| `app-20261004-07-canvas-agent-merge-before.jpg` | 共有版のCI全成功後、Agent mergeをOnにする前。 | 第7章の開始操作を示す差し替え候補。 |
+| `app-20261004-07-canvas-pr-merged-app.jpg` | 共有版PRのAppのMerged表示。 | Canvas共有のマージ完了を示す追加候補。 |
+| `app-20261004-07-canvas-pr-merged-github.jpg` | 共有版PRのGitHub WebのMerged表示。 | Appの表示との照合の根拠として保管。本文への追加要否は未判定。 |
+| `app-20261004-07-canvas-trust.jpg` | 更新した拡張とscriptsを確認する承認画面。 | 共有Canvasを別セッションで使う前の確認を示す追加候補。 |
+| `app-20261004-07-canvas-reopened.jpg` | 最新mainの別セッションで開いた共有Canvas。 | 7.3の再利用を示す画面の追加候補。 |
+| `app-20261004-07-canvas-search-card.jpg` | 検索Issue #1の本文と追加ボタン。 | 別セッションの会話へ課題を渡す入口を示す追加候補。 |
+| [07-search-issue-receipt.jpg](../../_images/app-20261004-public/app-20261004-07-search-issue-receipt.jpg) | 新しいセッションでのIssue #1の受領応答。 | 実装を始めず、参照情報を受領した結果を示す追加候補。 |
+| `app-20261004-07-search-plan-question.jpg` | Clear filtersで検索語も解除する仕様の質問。 | Planで仕様を判断し、Continueで回答する操作を示す追加候補。 |
+| [07-search-plan-review.jpg](../../_images/app-20261004-public/app-20261004-07-search-plan-review.jpg) | 検索のPlanとApprove and implement。 | 検索と既存フィルターの関係、期待値を確認して承認する画面の追加候補。 |
+| `app-20261004-07-changes-search.jpg` | 検索入力、0件の文面などの実装差分。 | 検索実装のChangesをレビューする画面の追加候補。 |
+| `app-20261004-07-search-default.jpg` | 主担当の別ブラウザーで確認した検索前の21件。 | 検索の初期状態を示す画面の追加候補。 |
+| `app-20261004-07-search-two.jpg` | 主担当が確認したServer SiegeとVirtual Server Simulatorの2件。 | 大小文字を区別しない部分一致を示す追加候補。 |
+| [07-search-combined.jpg](../../_images/app-20261004-public/app-20261004-07-search-combined.jpg) | 主担当が確認した検索・カテゴリ・出版社のANDで1件。 | 既存フィルターと検索の組み合わせを示す追加候補。 |
+| [07-search-zero.jpg](../../_images/app-20261004-public/app-20261004-07-search-zero.jpg) | 主担当が確認した0件の説明と結果通知。 | 0件時の表示を示す追加候補。 |
+| `app-20261004-07-search-agent-merge-before.jpg` | 検索PRのCI全成功後、Agent mergeをOnにする前。 | 検索実装のマージ開始を示す画面の追加候補。 |
+| `app-20261004-07-search-pr-merged-app.jpg` | 検索PRのAppのMerged表示。 | 検索実装のマージ完了を示す追加候補。 |
+| `app-20261004-07-search-pr-merged-github.jpg` | 検索PRのGitHub WebのMerged表示。 | Appとの照合の根拠として保管。本文への追加要否は未判定。 |
+| [07-canvas-after-search-merge.jpg](../../_images/app-20261004-public/app-20261004-07-canvas-after-search-merge.jpg) | Refresh後のOpen 5件と更新した優先順位。 | 完了した検索Issueが一覧から消える結果を示す追加候補。 |
+| `app-20261004-08-automation-settings.jpg` | Manual、Local、演習用コピーなどの自動化設定。 | 第8章の設定画面の差し替え候補。 |
+| [08-automation-create-and-run.jpg](../../_images/app-20261004-public/app-20261004-08-automation-create-and-run.jpg) | 固定プロンプトとCreate and runの入口。 | 読み取りの範囲と開始操作を示す差し替え候補。 |
+| `app-20261004-08-automation-result-prs.jpg` | 対象、時刻、期間とマージ済みPR 5件の報告。 | 実行時点と期間を含む結果の読み方を示す追加候補。 |
+| [08-automation-result-issues.jpg](../../_images/app-20261004-public/app-20261004-08-automation-result-issues.jpg) | 現在OpenのIssue 5件の報告。 | 件数と一覧、完了課題の除外を確認する追加候補。 |
+| [08-automation-succeeded.jpg](../../_images/app-20261004-public/app-20261004-08-automation-succeeded.jpg) | Localと緑の成功アイコン、53秒。状態はAXでもSucceededを確認。 | 第8章の正常終了を示す差し替え候補。Succeededという文字が画像内に表示されているとは扱わない。 |
 
-Issues一覧の画像は、旧コピーの詳細や複数リポジトリの選択が残っていない画面を採用します。設定画面や操作途中の画像は、確認記録として保管する対象です。受講者向けの掲載候補とは分けて扱います。
+Issues一覧は、旧コピーの詳細や複数リポジトリの選択を除いた公開版を採用しました。設定画面や操作途中の原本は確認記録として保全しています。公開版として採用した画面と、原本だけを保全する画面は、公開画像一覧と画像対応表で区別できます。
 
 ## 最終判定と反映の状況
 
 画面差の読み替えと本文のレビュー工程による追加修正を行い、第0〜8章を完了しました。実装の判定には画面、差分、実際の自動検査、PRの最新CI結果を使い、自動化の報告はGitHub APIで独立に照合しています。初回プロンプトだけで無修正に進められる保証は、この結果に含みません。
 
-今回の受講者向け原稿は直接修正していません。本文の修正候補はR01〜R07、画像の差し替え・追加・重複掲載の削除候補は[画像対応表](verification-images-20261004.md)で確認できます。本レポートと画像対応表は別ファイルで管理しています。
+実走後の改稿では、R01〜R07の手順補正、画像の差し替え・追加、重複掲載の整理を受講者向け原稿へ反映しました。詳しい採否は[画像対応表](verification-images-20261004.md)で確認できます。章番号は第1〜9章、各章の構成は学習の6段階へ変更しています。改稿後のプロンプトでの全章再実走は未実施です。本レポートと画像対応表は別ファイルで管理しています。
 
 初回インストール、初回サインイン、発生しなかった障害対応、Agent merge actionsの四項目の個別表示、MCPによる検索結果からの詳細リンクのクリック遷移は未確認です。詳細遷移はE2Eで成功しています。継続的なスケジュール実行とクラウド実行も今回の検証範囲には含めていません。
