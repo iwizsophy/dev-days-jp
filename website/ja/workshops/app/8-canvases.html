@@ -37,64 +37,74 @@
 <p>キャンバスは、人とエージェントが同じ成果物を見て操作する領域です。チャットで要件を相談するだけでなく、キャンバスに課題の一覧や優先理由を表示すると、同じ情報を参照しながら課題を比較し、作業を計画できます。</p>
 <p>Canvasをリポジトリに保存し、別のセッションで再利用する方法も、この章で学ぶ内容です。課題の情報をセッションへ渡す操作と、エージェントへ計画や実装を依頼する操作を分けて扱うことで、作業を始めるタイミングを自分で判断できます。ボタン名や表示だけで判断せず、会話への入力とエージェントの動作を観察して操作の意味を確かめましょう。</p>
 <h3 id="811-この章で学ぶこと">8.1.1 この章で学ぶこと</h3>
-<table>
+<div class="table-scroll" tabindex="0"><table class="content-table"><colgroup><col style="width:7%"/><col style="width:47.65%"/><col style="width:45.35%"/></colgroup>
 <thead>
 <tr>
-<th style="text-align: left;">この章で行うこと</th>
-<th style="text-align: left;">到達した状態</th>
+<th class="table-number" scope="col" style="text-align: center;">項番</th>
+<th scope="col" style="text-align: left;">この章で行うこと</th>
+<th scope="col" style="text-align: left;">到達した状態</th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td class="table-number" style="text-align: center;">1</td>
 <td style="text-align: left;">チャットでCanvasを作成させ、表示されたIssueと優先理由を自分の予想と比べる</td>
 <td style="text-align: left;">チャットで意図を伝え、Canvasで課題を比較する使い分けを説明できる</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">2</td>
 <td style="text-align: left;">Canvasと再利用手順をリポジトリへ保存し、マージ後に別のセッションで操作する</td>
 <td style="text-align: left;">最新のOpen Issueの取得と本文追加を確かめ、Canvasを再利用できるか判断できる</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">3</td>
 <td style="text-align: left;">Issue本文の受領を確認し、計画を依頼・承認してから実装へ進む</td>
 <td style="text-align: left;">Issue本文の追加、計画の依頼、承認後の実装を区別し、実装の開始時点を決められる</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">4</td>
 <td style="text-align: left;">要件と実データから期待値を決め、差分・テスト・MCPの操作履歴・実画面を照合する</td>
 <td style="text-align: left;">予想と実際の結果の違いを説明し、修正や追加検証の必要を判断できる</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">5</td>
 <td style="text-align: left;">IssueのClosedをGitHubで確認し、CanvasのRefresh前後を最新Open Issue一覧と比べる</td>
 <td style="text-align: left;">GitHubでの対応完了とCanvasの表示更新を区別し、一覧が最新か判断できる</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <h2 id="82-取り組む前に">8.2 取り組む前に</h2>
 <p>本章ではAppでCanvasを共有するセッションと、タイトル検索を実装するセッションを分けます。Canvas作成セッションは、第7章でフィルター機能を統合したmainから始めます。タイトル検索の実装セッションは、8.3.3で共有CanvasのPRをマージした後のmainから始めます。どちらも<strong>New worktree</strong>と自分の演習用リポジトリのmainを選んでください。各セッションを作成したら、開始元のmainにある変更がworktreeに含まれていることも確認します。</p>
 <p>演習用リポジトリのゲームのタイトル検索Issueの本文と、Tailspin Toysのゲームデータにあるタイトル・カテゴリ・出版社を参照できる状態で取り組みます。検索を追加しても星評価と既存のカテゴリ・出版社フィルターを維持することが、今回の要件です。画像の操作例にあるIssue番号や件数は、自分の演習用リポジトリの最新情報と照合しましょう。</p>
 <p>エージェントは、入力した指示に応じてCanvasの表示やボタンを生成します。ボタンの表示名が操作例と違っていても、Open Issue一覧を取得する操作、Issue本文をセッションへ追加する操作、Issueの実装を始める操作を区別できるかで確認します。</p>
 <h2 id="83-ケース">8.3 ケース</h2>
 <p>このケースの対象は、Tailspin Toysの演習用リポジトリに残るIssueです。キャンバスでIssueを比較し、ゲームのタイトル検索Issueを次の実装セッションへ渡します。キャンバスの共有と、選んだIssueの実装を別々のセッションで進めます。</p>
-<table>
+<div class="table-scroll" tabindex="0"><table class="content-table"><colgroup><col style="width:7%"/><col style="width:18%"/><col style="width:75%"/></colgroup>
 <thead>
 <tr>
-<th style="text-align: left;">観点</th>
-<th style="text-align: left;">このケースで扱う内容</th>
+<th class="table-number" scope="col" style="text-align: center;">項番</th>
+<th scope="col" style="text-align: left;">観点</th>
+<th scope="col" style="text-align: left;">このケースで扱う内容</th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td class="table-number" style="text-align: center;">1</td>
 <td style="text-align: left;">状況</td>
 <td style="text-align: left;">星評価、コーディング標準、カテゴリ・出版社フィルターはmainへ統合済みだが、未対応のIssueが残っている。</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">2</td>
 <td style="text-align: left;">課題と理由</td>
 <td style="text-align: left;">チャットだけでは、Issueの一覧や優先理由が会話の中へ埋もれがちになる。次に取り組む課題を比較し、選んだIssueの本文を実装セッションへ渡せる形にしたい。</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">3</td>
 <td style="text-align: left;">解決策</td>
 <td style="text-align: left;">最新Open Issueと優先理由を同じ画面で比較し、選んだIssue本文を実装セッションへ渡せる共有カンバンボードを用意する。受講者はリポジトリへ保存したボードを別のセッションでも使い、本文追加と実装開始を分ける。</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p>Canvasの本文追加ボタンを押した後の会話とエージェントの動作を観察し、本文の受領だけで止まるかを確かめてください。タイトル検索の計画・実装は、本文を受け取った後に別の指示で依頼してください。検索を追加しても、星評価と既存のカテゴリ・出版社フィルターを維持する条件で進めます。</p>
 <p><a id="作業を追跡するキャンバスを作成する"></a></p>
 <h3 id="831-作業を追跡するキャンバスを作成する">8.3.1 作業を追跡するキャンバスを作成する</h3>
@@ -179,47 +189,54 @@
 <ol>
 <li>Tailspin Toysのゲームのタイトル検索機能の実装完了後、Appの検索機能の実装セッションで<strong>Changes</strong>を開き、検索の差分をレビューします。エージェントへ単体・E2Eテストなどの検査とPlaywright MCPによるTailspin Toysのブラウザー検証を依頼してください。次の表から期待するゲームのタイトルと件数を決め、実際の表示と比べます。</li>
 </ol>
-<table>
+<div class="table-scroll" tabindex="0"><table class="content-table"><colgroup><col style="width:7%"/><col style="width:28%"/><col style="width:41%"/><col style="width:24%"/></colgroup>
 <thead>
 <tr>
-<th style="text-align: left;">操作・条件</th>
-<th style="text-align: left;">期待する結果の決め方</th>
-<th style="text-align: left;">確認する理由</th>
+<th class="table-number" scope="col" style="text-align: center;">項番</th>
+<th scope="col" style="text-align: left;">操作・条件</th>
+<th scope="col" style="text-align: left;">期待する結果の決め方</th>
+<th scope="col" style="text-align: left;">確認する理由</th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td class="table-number" style="text-align: center;">1</td>
 <td style="text-align: left;">条件を指定せず一覧を開く</td>
 <td style="text-align: left;">検索前のタイトルと総件数を確認する</td>
 <td style="text-align: left;">比較の基準を決める</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">2</td>
 <td style="text-align: left;"><code>sErVeR</code>を入力する</td>
 <td style="text-align: left;"><code>server</code>を含むタイトルを探す。Server SiegeとVirtual Server Simulatorがあれば両方を対象にする</td>
 <td style="text-align: left;">大文字小文字を区別せず、部分一致できるか</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">3</td>
 <td style="text-align: left;"><code>" sErVeR "</code>を入力する</td>
 <td style="text-align: left;">前後の空白を除いた<code>sErVeR</code>と同じタイトルを期待する</td>
 <td style="text-align: left;">計画どおりに入力を整えているか</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">4</td>
 <td style="text-align: left;">検索にStrategyとGitHub Gamesを併用する</td>
 <td style="text-align: left;">検索結果のうちカテゴリ・出版社の両方に合うタイトルだけを残す</td>
 <td style="text-align: left;">検索と既存フィルターをANDで適用できるか</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">5</td>
 <td style="text-align: left;">どのタイトルにも含まれない検索語を入力する</td>
 <td style="text-align: left;">0件と空状態の説明を表示する</td>
 <td style="text-align: left;">結果が空でも利用者へ状態が伝わるか</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">6</td>
 <td style="text-align: left;"><strong>Publisher</strong>からTabで<strong>Clear filters</strong>へ移動しEnterを押す</td>
 <td style="text-align: left;">検索・カテゴリ・出版社が解除され、検索前の一覧に戻る</td>
 <td style="text-align: left;">キーボードで元の状態へ戻れるか</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p>Tailspin Toysの検索結果に表示される星評価とゲームの詳細リンクも確認します。検索結果の件数だけでなくタイトルを比較すると、実装の不具合と、テストの期待値の誤りを切り分けやすくなります。画像のゲームデータが自分の演習用リポジトリと異なる場合は、自分のゲームデータから期待値を決めてください。</p>
 <p><img alt="タイトル検索とカテゴリ・出版社を併用し、星評価を維持した例" src="../assets/app-20261004-07-search-combined.jpg" /></p>
 <p><img alt="一致するタイトルがない場合に、0件と説明を表示した例" src="../assets/app-20261004-07-search-zero.jpg" /></p>
@@ -235,36 +252,42 @@
 <p><a id="作業の区切りと結果の振り返り"></a></p>
 <h2 id="84-結果の整理と振り返り">8.4 結果の整理と振り返り</h2>
 <p>この章では、自分の演習用Tailspin Toysリポジトリの課題をCanvasで比較し、ボードを共有保存して別セッションで再利用しました。ゲームのタイトル検索の計画・実装・検証と、完了後のOpen Issue一覧の更新も体験しました。次の問いを、自分の操作と結果を使って説明してみてください。</p>
-<table>
+<div class="table-scroll" tabindex="0"><table class="content-table"><colgroup><col style="width:7%"/><col style="width:35.08%"/><col style="width:57.92%"/></colgroup>
 <thead>
 <tr>
-<th style="text-align: left;">振り返る問い</th>
-<th style="text-align: left;">結果から考えること</th>
+<th class="table-number" scope="col" style="text-align: center;">項番</th>
+<th scope="col" style="text-align: left;">振り返る問い</th>
+<th scope="col" style="text-align: left;">結果から考えること</th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td class="table-number" style="text-align: center;">1</td>
 <td style="text-align: left;">自分とCanvasの優先順位は同じだったか</td>
 <td style="text-align: left;">mainにある機能とIssueの内容をどう優先理由へ反映したか</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">2</td>
 <td style="text-align: left;">なぜ本文追加と実装開始を分けたか</td>
 <td style="text-align: left;">要件を読む時間と、計画を承認する判断を確保できたか</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">3</td>
 <td style="text-align: left;">なぜCanvasだけを先に共有したか</td>
 <td style="text-align: left;">元のセッションへ依存せず、別のworktreeで同じ操作ができたか</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">4</td>
 <td style="text-align: left;">検索の予想と実際の結果は一致したか</td>
 <td style="text-align: left;">入力の扱い、AND条件、星評価、キーボード操作を検証できたか</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">5</td>
 <td style="text-align: left;">なぜマージ後にRefreshしたか</td>
 <td style="text-align: left;">GitHubの完了状態とCanvasの取得時点を区別できたか</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p>チームで使うCanvasを考えるときも、「誰がどの操作で何を変えるか」から必要な機能を決められます。次の<a href="9-review.html">第9章「振り返りと次のステップ」</a>では、繰り返す調査をAutomationへ保存し、ワークショップ全体で学んだ機能の使い分けを振り返ります。</p>
 <p><a id="補足"></a></p>
 <h2 id="85-補足">8.5 補足</h2>
@@ -272,28 +295,32 @@
 <h3 id="851-キャンバスとチャットの使い分け">8.5.1 キャンバスとチャットの使い分け</h3>
 <p>実際の開発で共有する成果物は、カンバンボード、設計ドキュメント、リリースチェックリストなどです。チャットは意図や曖昧な要件の相談に使い、Canvasでは構造のある成果物を同じ画面で確認・操作できます。</p>
 <p>Canvasの内容を更新するのは、ボタンやカードを操作する人と、生成された機能を呼び出すエージェントです。Canvasを作った後も、会話でエージェントへ操作やレイアウトの変更を依頼できます。ただし、使える操作は生成した拡張によって異なります。本演習ではGitHubのOpen Issue一覧の更新と、セッションへのIssue本文追加を作りました。カードの移動やGitHubのIssue更新も、必要なら別に仕様を伝えて実装・検証します。<a href="https://docs.github.com/en/copilot/how-tos/github-copilot-app/working-with-canvas-extensions#about-canvas-extensions">GitHub公式のCanvasの説明</a></p>
-<table>
+<div class="table-scroll" tabindex="0"><table class="content-table"><colgroup><col style="width:7%"/><col style="width:31.79%"/><col style="width:61.21%"/></colgroup>
 <thead>
 <tr>
-<th style="text-align: left;">活用例</th>
-<th style="text-align: left;">同じ画面で扱うもの</th>
+<th class="table-number" scope="col" style="text-align: center;">項番</th>
+<th scope="col" style="text-align: left;">活用例</th>
+<th scope="col" style="text-align: left;">同じ画面で扱うもの</th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td class="table-number" style="text-align: center;">1</td>
 <td style="text-align: left;">Markdown canvas</td>
 <td style="text-align: left;">開発計画、IssueやPRの優先順位</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">2</td>
 <td style="text-align: left;">カンバンボード</td>
 <td style="text-align: left;">カードと作業フェーズ</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">3</td>
 <td style="text-align: left;">Issueの分類用ボード</td>
 <td style="text-align: left;">重要なIssue、繰り返し現れる課題、優先理由</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p><a id="キャンバスをチームで共有する価値"></a></p>
 <h3 id="852-キャンバスをチームで共有する価値">8.5.2 キャンバスをチームで共有する価値</h3>
 <p>セッションの会話で「次にどのIssueへ対応するか」を相談した後、Canvasのボードに上位3件と優先理由が残っていれば、選ばれなかったIssueとも比較できます。別のセッションでも同じボードの表示と操作を使えると、チームは同じ手順でIssueの優先順位を判断し直せます。</p>

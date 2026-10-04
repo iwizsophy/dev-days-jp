@@ -39,59 +39,68 @@
 <p>同じ調査を繰り返すとき、毎回チャットへ指示を書き直すと、対象期間やPR・Issueの状態の指定が少しずつ変わることがあります。Automationへ調査条件を保存すれば、同じ方法で調べる作業を繰り返せます。</p>
 <p>自動化の実行が成功したことと、報告内容が正しいことは別です。調べた対象や期間、報告の一覧と件数をGitHubの情報と照合し、任せた範囲で調査できたかを判断する方法を学びます。最後に、ワークショップで使った機能と人が行った判断を振り返り、日々の開発で使う機能やモードを作業に合わせて選びましょう。</p>
 <h3 id="911-この章で学ぶこと">9.1.1 この章で学ぶこと</h3>
-<table>
+<div class="table-scroll" tabindex="0"><table class="content-table"><colgroup><col style="width:7%"/><col style="width:48.61%"/><col style="width:44.39%"/></colgroup>
 <thead>
 <tr>
-<th style="text-align: left;">この章で行うこと</th>
-<th style="text-align: left;">到達した状態</th>
+<th class="table-number" scope="col" style="text-align: center;">項番</th>
+<th scope="col" style="text-align: left;">この章で行うこと</th>
+<th scope="col" style="text-align: left;">到達した状態</th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td class="table-number" style="text-align: center;">1</td>
 <td style="text-align: left;">対象リポジトリ・期間・PRとIssueの状態・報告の根拠を指定した、読み取り専用の指示をAutomationに保存する</td>
 <td style="text-align: left;">何をどの期間・状態で調べ、何を根拠に報告するかが明確で、同じ条件で調査を繰り返せる</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">2</td>
 <td style="text-align: left;">AutomationをManual・Localで実行し、終了状態と報告をGitHubの情報と照合する</td>
 <td style="text-align: left;">実行の成功と報告内容の正しさを区別し、保存した指示の修正が必要か判断できる</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">3</td>
 <td style="text-align: left;">教材で使った各機能とセッションのモードを振り返る</td>
 <td style="text-align: left;">作業に足りない情報や確認手段を基に、使う機能・モードと人が判断する範囲を説明できる</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">4</td>
 <td style="text-align: left;">自分の開発で試す小さな課題を選び、完了条件・検証方法・人が判断する場面を整理する</td>
 <td style="text-align: left;">課題に合う機能と検証方法を選び、その理由と人の役割を説明できる</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <h2 id="92-取り組む前に">9.2 取り組む前に</h2>
 <p>前章で作ったゲームのタイトル検索PRを自分の演習用リポジトリのmainへマージし、GitHubで検索Issueの<strong>Closed</strong>、Canvasで最新のOpen Issue一覧を確認しておきます。Automationの対象にも、自分の演習用リポジトリを指定します。GitHubでそのリポジトリのPRとIssueをブラウザーから確認できる状態にしてください。</p>
 <p>今回作るAutomationには、GitHubのPR・Issueの読み取りと会話内の報告だけを任せます。ファイルやIssueを変更する自動化へ進む前に、Automationが何を調べ、どのような報告を出すかを1回の実行で確かめるためです。Manualは実行タイミング、Localは実行場所を表す別々の設定として読みます。</p>
 <h2 id="93-ケース">9.3 ケース</h2>
 <p>このケースで作成するのは、自分の演習用Tailspin ToysリポジトリのPRとIssueを調べ、会話内に報告するAutomationです。実行の成功表示と、GitHubの情報に照らした報告の正しさを別々に確認します。</p>
-<table>
+<div class="table-scroll" tabindex="0"><table class="content-table"><colgroup><col style="width:7%"/><col style="width:18%"/><col style="width:75%"/></colgroup>
 <thead>
 <tr>
-<th style="text-align: left;">観点</th>
-<th style="text-align: left;">このケースで扱う内容</th>
+<th class="table-number" scope="col" style="text-align: center;">項番</th>
+<th scope="col" style="text-align: left;">観点</th>
+<th scope="col" style="text-align: left;">このケースで扱う内容</th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td class="table-number" style="text-align: center;">1</td>
 <td style="text-align: left;">状況</td>
 <td style="text-align: left;">ゲームのタイトル検索PRをmainへマージし、検索IssueがClosedになっている。演習用リポジトリには、これまでにマージしたPRと現在OpenのIssueがある。</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">2</td>
 <td style="text-align: left;">課題と理由</td>
 <td style="text-align: left;">調査のたびに指示を書き直すと、対象期間やPR・Issueの状態の指定が少しずつ変わることがある。同じ条件で調査し、実行が成功しても報告内容が正しいかを確かめる必要がある。</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">3</td>
 <td style="text-align: left;">解決策</td>
 <td style="text-align: left;">過去1週間にマージしたPRと現在OpenのIssueをGitHubから取得する指示をAutomationに保存する。Manual・Localで1回実行し、対象期間、PRとIssueの一覧、件数をGitHubと照合する。</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p>Automationへ任せるのは、GitHubのPR・Issueの読み取りと会話内の報告だけです。定期実行やファイル・Issueの変更へ進む前に、1回の実行で何を調べ、どのように報告するかを確認します。以下の手順は、調査条件の保存、実行、報告の照合の順です。</p>
 <p><a id="読み取り専用のautomationを設定する"></a></p>
 <h3 id="931-読み取り専用のautomationを設定する">9.3.1 読み取り専用のAutomationを設定する</h3>
@@ -122,36 +131,42 @@ GitHubの最新情報を読み取り、対象リポジトリ、実行時点と�
 <p>画像は今回の実行行を読むための例です。自分が作成したAutomationの名前、対象リポジトリ、実行場所、成功状態を確認してください。</p>
 <h3 id="933-報告をgithubの情報と照合する">9.3.3 報告をGitHubの情報と照合する</h3>
 <p>Automationの報告を読む前に、GitHubで自分の演習用リポジトリの過去1週間のマージ済みPRと現在のOpen Issueを確認し、報告に含まれる項目を予想してみましょう。次の観点でGitHubの情報とAutomationの報告を照合します。</p>
-<table>
+<div class="table-scroll" tabindex="0"><table class="content-table"><colgroup><col style="width:7%"/><col style="width:18%"/><col style="width:75%"/></colgroup>
 <thead>
 <tr>
-<th style="text-align: left;">照合する情報</th>
-<th style="text-align: left;">確認すること</th>
+<th class="table-number" scope="col" style="text-align: center;">項番</th>
+<th scope="col" style="text-align: left;">照合する情報</th>
+<th scope="col" style="text-align: left;">確認すること</th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td class="table-number" style="text-align: center;">1</td>
 <td style="text-align: left;">対象と取得時点</td>
 <td style="text-align: left;">自分の演習用リポジトリで、実行時点とタイムゾーンが示されているか</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">2</td>
 <td style="text-align: left;">PRの対象期間</td>
 <td style="text-align: left;">開始・終了日時が分かり、その期間にマージされたPRを数えているか</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">3</td>
 <td style="text-align: left;">Open Issue</td>
 <td style="text-align: left;">現在OpenのIssueが並び、前章でClosedになった検索Issueが除外されているか</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">4</td>
 <td style="text-align: left;">件数と項目</td>
 <td style="text-align: left;">件数と一覧が対応し、番号・タイトル・URL・日時・状態がGitHubと一致するか</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">5</td>
 <td style="text-align: left;">調査の範囲</td>
 <td style="text-align: left;">取得できなかった情報を未確認とし、不要な変更や投稿をしていないか</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p><img alt="期間内のマージ済みPRと、現在OpenのIssueを報告した例" src="../assets/app-20261004-08-automation-result-issues.jpg" /></p>
 <p>Automationが報告するPRとIssueは、実行時点と演習の進み具合によって変わります。第8章でマージした検索PRが集計期間内ならPRの要約に含まれ、検索IssueがClosedならOpen Issue一覧の対象外です。実行日が変われば「過去1週間」の範囲も変わるため、画像の件数を正解とせず、自分のAutomationの報告に書かれた期間と実行時点を基準に確認してください。</p>
 <p>Automationの報告とGitHubの情報が一致しない項目があれば、対象リポジトリと集計期間を確かめ、Automationに保存した指示を修正してもう一度<strong>Manual</strong>で実行します。Automationの処理が成功し、報告内容もGitHubと一致することを別々に確認できたところで、今回のAutomationの演習は完了です。</p>
@@ -160,84 +175,98 @@ GitHubの最新情報を読み取り、対象リポジトリ、実行時点と�
 <p><a id="ワークショップで実践した開発の流れ"></a></p>
 <h3 id="941-ワークショップで実践した開発の流れ">9.4.1 ワークショップで実践した開発の流れ</h3>
 <p>本ワークショップの全レッスンを通じて、GitHub Copilot appを活用した機能の企画立案から実装・検証・マージに至るエンドツーエンドの開発フローを実践してきました。これまで習得した主な内容は次の通りです。</p>
-<table>
+<div class="table-scroll" tabindex="0"><table class="content-table"><colgroup><col style="width:7%"/><col style="width:18%"/><col style="width:75%"/></colgroup>
 <thead>
 <tr>
-<th style="text-align: left;">作業の段階</th>
-<th style="text-align: left;">実践したこと</th>
+<th class="table-number" scope="col" style="text-align: center;">項番</th>
+<th scope="col" style="text-align: left;">作業の段階</th>
+<th scope="col" style="text-align: left;">実践したこと</th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td class="table-number" style="text-align: center;">1</td>
 <td style="text-align: left;">準備</td>
 <td style="text-align: left;">リポジトリを接続し、worktreeの構造と用意されたIssueを把握した</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">2</td>
 <td style="text-align: left;">計画と実装</td>
 <td style="text-align: left;">プロンプトやIssueからセッションを開始し、PlanとAutopilotで作業の進め方を制御した</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">3</td>
 <td style="text-align: left;">規約と検査手順</td>
 <td style="text-align: left;">カスタム指示と再利用可能なスキルで規約と手順を共有し、生成物と実行結果を確認した</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">4</td>
 <td style="text-align: left;">画面の検証</td>
 <td style="text-align: left;">Playwright MCPの実行を確認し、実ブラウザーでUIの動作を検証した</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">5</td>
 <td style="text-align: left;">課題の比較と共有</td>
 <td style="text-align: left;">Canvasで課題を比較し、別セッションで同じ表示と操作を再利用した</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">6</td>
 <td style="text-align: left;">mainへの統合</td>
 <td style="text-align: left;">手動マージとAgent Mergeを使い、品質を確認して変更を統合した</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p><a id="作業に合わせた機能とモードの使い分け"></a></p>
 <h3 id="942-作業に合わせた機能とモードの使い分け">9.4.2 作業に合わせた機能とモードの使い分け</h3>
 <p>本ワークショップでは、エージェントへ要件を渡す方法、作業の進め方を決める方法、エージェントの作業結果を検証する方法を段階的に学びました。指示ファイル、スキル、MCP、Canvas、Automationは、それぞれ違う課題に使います。エージェントへ依頼する作業に足りない情報や確認手段を考え、必要な機能を組み合わせて選んでください。</p>
-<table>
+<div class="table-scroll" tabindex="0"><table class="content-table"><colgroup><col style="width:7%"/><col style="width:19%"/><col style="width:34%"/><col style="width:40%"/></colgroup>
 <thead>
 <tr>
-<th style="text-align: left;">機能</th>
-<th style="text-align: left;">どのような場面で使うか</th>
-<th style="text-align: left;">人が確認すること</th>
+<th class="table-number" scope="col" style="text-align: center;">項番</th>
+<th scope="col" style="text-align: left;">機能</th>
+<th scope="col" style="text-align: left;">どのような場面で使うか</th>
+<th scope="col" style="text-align: left;">人が確認すること</th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td class="table-number" style="text-align: center;">1</td>
 <td style="text-align: left;">Instructions</td>
 <td style="text-align: left;">リポジトリ共通の規約を伝える</td>
 <td style="text-align: left;">コーディング標準のIssueが求めるコメントと、生成されたコード例が一致するか</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">2</td>
 <td style="text-align: left;">Skills</td>
 <td style="text-align: left;">繰り返す検査手順をまとめて使う</td>
 <td style="text-align: left;">スキルに定義した検査が実際に実行され、各検査が成功したか</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">3</td>
 <td style="text-align: left;">MCP</td>
 <td style="text-align: left;">エージェントから外部ツールを操作する</td>
 <td style="text-align: left;">接続表示に加え、実ブラウザーで目的のUI操作ができたか</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">4</td>
 <td style="text-align: left;">Canvas</td>
 <td style="text-align: left;">課題や成果物を同じ画面で比較・操作する</td>
 <td style="text-align: left;">GitHubの最新Open Issue一覧か、Issue本文追加が実装を勝手に始めないか、別セッションでも使えるか</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">5</td>
 <td style="text-align: left;">Agent Merge</td>
 <td style="text-align: left;">レビュー後のPR監視とマージを任せる</td>
 <td style="text-align: left;">対象PRでエージェントに許可した操作、CI全ジョブの成功、AppとGitHubのMerged</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">6</td>
 <td style="text-align: left;">Automations</td>
 <td style="text-align: left;">保存した調査条件で作業を繰り返す</td>
 <td style="text-align: left;">実行終了に加え、報告の対象期間、PR・Issueの一覧と件数がGitHubと一致するか</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p>リポジトリへ指示ファイルやスキルを保存すると、同じリポジトリで始める次のセッションへチームの規約や検査手順を渡せます。ただし、書いた指示が期待どおりに適用されたかは、エージェントが生成したコードと検査の実行結果で確認します。公式の<a href="https://docs.github.com/en/copilot/how-tos/github-copilot-app/customize-github-copilot-app">カスタマイズの説明</a>も、指示、スキル、MCPを個別に説明した資料です。規約を伝えたいのか、手順を再利用したいのか、外部の情報や操作が必要なのかを先に整理すると選びやすくなります。</p>
 <p>Appのセッションのモードも、作業の段階に合わせて使います。Planで行うのは、エージェントが作成した実装計画の条件や影響範囲を読み、エージェントの質問へ回答して計画を承認する作業です。Interactiveでは、実装の差分を見ながらエージェントへ修正の意図を細かく伝えられます。Autopilotへ進むときは、要件と検証方法に加えて、「ここまで進めたら止める」という範囲も示してください。たとえば第5章の実装を依頼するときは、第6章のMCP検証を終えるまでPRを作らないと指定します。工程の区切りを伝えることで、人が実画面を確認する時間を確保できます。<a href="https://docs.github.com/en/copilot/how-tos/github-copilot-app/agent-sessions#choosing-a-session-mode">公式のモード説明</a></p>
 <p>次に別の機能の実装をエージェントへ依頼するときは、「何を作るか」「なぜ必要か」「既存の何を維持するか」「どの結果なら完了か」を伝えてみてください。Tailspin Toysの検索機能なら、検索対象はゲームのタイトルで、カテゴリ・出版社の条件とANDにし、既存の星評価を残すという要件がそれに当たります。期待するゲームの件数を実データから決め、テストと実画面の両方で確認する方法も再利用できます。</p>

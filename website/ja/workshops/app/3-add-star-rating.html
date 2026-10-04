@@ -46,59 +46,68 @@
 <p>GitHub Copilot appのエージェントに実装を依頼した後は、生成された差分と動作を確認し、変更を取り込むか判断するのが受講者の役割です。この章では、変更の範囲を絞り、依頼に含めた仕様と確認条件を、差分、画面、テストと照合する方法を学びます。</p>
 <p>小さな表示の変更にも、データの値をどう解釈するか、既存のどの動作を保つかという判断が含まれます。作業対象と実行場所を確かめてから、依頼、レビュー、動作確認、PRのマージまでを一通り体験しましょう。エージェントの完了報告だけで判断せず、実際の差分と動作を確かめます。</p>
 <h3 id="311-この章で学ぶこと">3.1.1 この章で学ぶこと</h3>
-<table>
+<div class="table-scroll" tabindex="0"><table class="content-table"><colgroup><col style="width:7%"/><col style="width:48.97%"/><col style="width:44.03%"/></colgroup>
 <thead>
 <tr>
-<th style="text-align: left;">この章で行うこと</th>
-<th style="text-align: left;">到達した状態</th>
+<th class="table-number" scope="col" style="text-align: center;">項番</th>
+<th scope="col" style="text-align: left;">この章で行うこと</th>
+<th scope="col" style="text-align: left;">到達した状態</th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td class="table-number" style="text-align: center;">1</td>
 <td style="text-align: left;">実装セッションの開始元、作業ディレクトリ、ブランチと実行環境を確認する</td>
 <td style="text-align: left;">意図した作業対象と実行場所で変更を始められるか判断できる</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">2</td>
 <td style="text-align: left;">変更後の表示、データの扱い、既存の構造やリンクを保つ条件と確認方法を伝える</td>
 <td style="text-align: left;">変更の範囲と、実装後に満たすべき条件をエージェントと共有できる</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">3</td>
 <td style="text-align: left;">差分、画面、テスト結果を依頼の仕様と照合し、不足があれば修正を依頼する</td>
 <td style="text-align: left;">エージェントの完了報告と検証結果を基に、変更が依頼を満たすか判断できる</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">4</td>
 <td style="text-align: left;">PRをレビューし、CIの全ジョブの成功を確認して、手動でmainへマージする</td>
 <td style="text-align: left;">変更を取り込む可否を判断し、mainに反映されたことを確認できる</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <h2 id="32-取り組む前に">3.2 取り組む前に</h2>
 <p><a href="2-install-copilot-app.html#github-copilot-app-をインストールして構成する">前章</a>でAppに接続したTailspin Toysの演習用リポジトリを使います。教材用テンプレートに含まれる設定をAppで承認し、そのプロジェクトの入力欄へ進めることを確認してください。実装を始めるセッションでは、Node.jsのバージョンも確認します。</p>
 <p>本章の作業場所は、Tailspin Toysの演習用リポジトリのmainを基に作る新しいworktreeです。Appでローカルリポジトリを実行場所に選ぶと、既存の作業フォルダーを使います。編集前にエージェントの作業対象となるプロジェクト、作業ディレクトリ、ブランチを確かめ、同じcheckoutを使う複数セッションでは同時に編集しないようにします。</p>
 <h2 id="33-ケース">3.3 ケース</h2>
 <p>第2章では、GitHub Copilot appのIssuesでTailspin Toysの演習用リポジトリの課題を読み、相談用のChatsでエージェントにworktreeの仕組みを質問しました。このケースでは、前章で接続したTailspin Toysの演習用プロジェクトで実装用のエージェントセッションを開始し、ゲームカードの星評価表示を題材に最初のコード変更を行います。</p>
-<table>
+<div class="table-scroll" tabindex="0"><table class="content-table"><colgroup><col style="width:7%"/><col style="width:18%"/><col style="width:75%"/></colgroup>
 <thead>
 <tr>
-<th style="text-align: left;">観点</th>
-<th style="text-align: left;">このケースで扱う内容</th>
+<th class="table-number" scope="col" style="text-align: center;">項番</th>
+<th scope="col" style="text-align: left;">観点</th>
+<th scope="col" style="text-align: left;">このケースで扱う内容</th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td class="table-number" style="text-align: center;">1</td>
 <td style="text-align: left;">状況</td>
 <td style="text-align: left;">演習用サイトTailspin Toysでは、各ゲームのデータに星評価の値があり、ゲームの詳細ページにも表示されています。一方、トップページの一覧カードには星評価がありません。</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">2</td>
 <td style="text-align: left;">課題と理由</td>
 <td style="text-align: left;">Tailspin Toysの利用者は、一覧カードだけではゲームの星評価を比較できません。ゲームを選ぶときの判断材料を増やすために対応します。</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">3</td>
 <td style="text-align: left;">解決策</td>
 <td style="text-align: left;">既存の評価値をトップページの各一覧カードに表示し、再利用できる表示部品があれば使います。0点と未評価を表示し分け、既存のカード構造とゲーム詳細へのリンクを保ちます。</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p>実装を依頼する前に、Tailspin Toysのゲームカードで0点と未評価をどのように表示し分けるか考えてみましょう。エージェントが生成したコードを読む際も、次の手順でその予想と結果を比べます。</p>
 <p><a id="セッションを開始する"></a></p>
 <h3 id="331-セッションと環境を確認する">3.3.1 セッションと環境を確認する</h3>
@@ -158,32 +167,37 @@ PR作成とマージは、後で指示するまで行わないでください。
 <p><a id="値の意味からレビューする"></a></p>
 <h4 id="3331-値の意味からレビューする">3.3.3.1 値の意味からレビューする</h4>
 <p>ゲームの星評価を<code>if (game.starRating)</code> のように値の真偽だけで分けると、JavaScriptでは <code>0</code> も偽として扱われます。そのため、0点が未評価と表示される実装になっていないか確認します。Tailspin Toysの星評価データでは<code>null</code>が未評価です。数値と未評価の区別を明示してください。</p>
-<table>
+<div class="table-scroll" tabindex="0"><table class="content-table"><colgroup><col style="width:7%"/><col style="width:18%"/><col style="width:75%"/></colgroup>
 <thead>
 <tr>
-<th style="text-align: left;">入力</th>
-<th style="text-align: left;">期待する意味と確認内容</th>
+<th class="table-number" scope="col" style="text-align: center;">項番</th>
+<th scope="col" style="text-align: left;">入力</th>
+<th scope="col" style="text-align: left;">期待する意味と確認内容</th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td class="table-number" style="text-align: center;">1</td>
 <td style="text-align: left;"><code>4.2</code></td>
 <td style="text-align: left;">小数を含む評価を5点満点として表示する</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">2</td>
 <td style="text-align: left;"><code>0</code></td>
 <td style="text-align: left;">0点という評価を表示し、No rating yetにしない</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">3</td>
 <td style="text-align: left;"><code>5</code></td>
 <td style="text-align: left;">上限の評価を表示する</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">4</td>
 <td style="text-align: left;"><code>null</code></td>
 <td style="text-align: left;">No rating yetを表示し、数値の評価を表示しない</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p>ゲームカードへの変更後も、既存のタイトルや説明、ゲーム詳細へのリンクが保たれているか確認します。星の形や色だけに意味を任せず、テキストや読み上げ用の名前からも評価値が分かることを確かめましょう。数値表示と <code>No rating yet</code> が同時に出ないこともレビューの対象です。</p>
 <p>星評価の表示を検査するテストのコードも、実装セッションのChangesで読みます。テスト内に条件式だけをコピーして検査しても、実際のGameCardにその実装が使われたことは確認できません。星評価の境界値を渡してコンポーネントをレンダリングし、その出力に期待した表示とリンクがあるかを検査する必要があります。テストが不足していれば、同じ実装セッションで次のように追加指示をエージェントへ送ります。</p>
 <pre class="highlight"><code class="language-plaintext">テストがGameCard.astroの実際のレンダリング結果を検査しているか確認してください。
@@ -240,36 +254,42 @@ PRはまだ作成しないでください。</code></pre>
 <a id="振り返り"></a></p>
 <h2 id="34-結果の整理と振り返り">3.4 結果の整理と振り返り</h2>
 <p>Tailspin Toysのゲームカードへの星評価表示をエージェントに依頼し、レビューした変更を自分の演習用リポジトリのmainへ取り込みました。確認したことを整理しましょう。</p>
-<table>
+<div class="table-scroll" tabindex="0"><table class="content-table"><colgroup><col style="width:7%"/><col style="width:26.77%"/><col style="width:66.23%"/></colgroup>
 <thead>
 <tr>
-<th style="text-align: left;">確認した根拠</th>
-<th style="text-align: left;">判断したこと</th>
+<th class="table-number" scope="col" style="text-align: center;">項番</th>
+<th scope="col" style="text-align: left;">確認した根拠</th>
+<th scope="col" style="text-align: left;">判断したこと</th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td class="table-number" style="text-align: center;">1</td>
 <td style="text-align: left;">作業ディレクトリとブランチ</td>
 <td style="text-align: left;">今回のworktreeで編集していること</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">2</td>
 <td style="text-align: left;">Changes</td>
 <td style="text-align: left;">既存表示とリンクを保ち、星評価だけを加えていること</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">3</td>
 <td style="text-align: left;">通常データの画面</td>
 <td style="text-align: left;">利用者が一覧で評価を読め、詳細ページへ移動できること</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">4</td>
 <td style="text-align: left;">レンダリングテスト</td>
 <td style="text-align: left;">4.2、0、5、nullを仕様に沿って表示し分けること</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">5</td>
 <td style="text-align: left;">PRのCIとMerged</td>
 <td style="text-align: left;">用意された検査に成功し、変更をmainへ取り込んだこと</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p>「0とnullを分ける理由」「通常の21カードだけでは確認できないこと」「Ready to mergeの表示後に読む情報」を、自分の言葉で説明してみましょう。</p>
 <p>最初に予想したゲームカードの表示と、エージェントが生成した実装は一致しましたか。追加指示をエージェントに送った場合は、何が不足し、修正後にどの根拠を得られたかを振り返ります。次の課題でも、依頼、差分、画面、テストのつながりを追います。</p>
 <p><a id="次のステップ"></a></p>
@@ -286,28 +306,32 @@ PRはまだ作成しないでください。</code></pre>
 <p>GitHub Copilot appの<strong>セッション</strong>とは、特定のプロジェクトを対象としてエージェントと対話を行う作業空間です。Appのサイドバーのプロジェクト一覧から起動できます。</p>
 <p>Appでセッションを開始するときは、<a href="https://docs.github.com/en/copilot/how-tos/github-copilot-app/agent-sessions">GitHub公式のセッション手順</a>に沿って、新しいworktree、ローカルリポジトリ、クラウドの実行環境を選べます。本章で選ぶ実行場所は<strong>New worktree</strong>です。演習用リポジトリのmainを基にした別の作業場所で変更します。worktreeを分けることは作業中のファイルを分けるためであり、変更が自動的にmainへ反映されるという意味ではありません。受講者がレビューし、PRを自分のmainへマージして、変更を次章で利用できる状態にします。</p>
 <p>各セッションでは、会話、操作履歴、差分を合わせて読みます。</p>
-<table>
+<div class="table-scroll" tabindex="0"><table class="content-table"><colgroup><col style="width:7%"/><col style="width:32.92%"/><col style="width:60.08%"/></colgroup>
 <thead>
 <tr>
-<th style="text-align: left;">要素</th>
-<th style="text-align: left;">確認する内容</th>
+<th class="table-number" scope="col" style="text-align: center;">項番</th>
+<th scope="col" style="text-align: left;">要素</th>
+<th scope="col" style="text-align: left;">確認する内容</th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td class="table-number" style="text-align: center;">1</td>
 <td style="text-align: left;">Chat</td>
 <td style="text-align: left;">エージェントへの指示と回答</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">2</td>
 <td style="text-align: left;">Tool Activity</td>
 <td style="text-align: left;">調査や編集、検査で実行された操作</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">3</td>
 <td style="text-align: left;">Changes</td>
 <td style="text-align: left;">変更ファイルとコードの差分</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <blockquote>
 <p><strong>ヒント</strong>
 App内で組み込みターミナルを開く場合は、<strong>Toggle panel</strong> → <strong><code>+</code></strong>（Add tab）→ <strong>Terminal</strong> からアクセスできます。開発サーバーの起動・停止には、実装セッションのRunメニューを使います。</p>

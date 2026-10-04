@@ -46,32 +46,37 @@
 <p><img alt="Playwright MCPでフィルターを検証する流れ" src="../assets/app-mcp-evidence.png" /></p>
 <h3 id="611-この章で学ぶこと">6.1.1 この章で学ぶこと</h3>
 <p>この章を終えると、Copilotへブラウザーでの検証を依頼し、ツールの呼び出しと操作履歴、観察結果を照合して、受け入れ条件を確認できたか判断できます。</p>
-<table>
+<div class="table-scroll" tabindex="0"><table class="content-table"><colgroup><col style="width:7%"/><col style="width:49.48%"/><col style="width:43.52%"/></colgroup>
 <thead>
 <tr>
-<th style="text-align: left;">この章で行うこと</th>
-<th style="text-align: left;">到達した状態</th>
+<th class="table-number" scope="col" style="text-align: center;">項番</th>
+<th scope="col" style="text-align: left;">この章で行うこと</th>
+<th scope="col" style="text-align: left;">到達した状態</th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td class="table-number" style="text-align: center;">1</td>
 <td style="text-align: left;">Playwright MCPの設定と接続表示を読み、ツールの呼び出し結果を確認する</td>
 <td style="text-align: left;">設定の内容、接続状態の表示、実際のツール呼び出しを区別できる</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">2</td>
 <td style="text-align: left;">Copilotに条件を変えたブラウザー操作を依頼し、結果を期待結果と比べる</td>
 <td style="text-align: left;">操作条件と実際の表示を根拠に、受け入れ条件を確認できたか判断できる</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">3</td>
 <td style="text-align: left;">Copilotの報告を、ツールの操作履歴と取得したページの状態と照合する</td>
 <td style="text-align: left;">未実施の操作や期待結果との食い違いを見つけ、追加確認や修正を依頼できる</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">4</td>
 <td style="text-align: left;">検証で使ったブラウザーと今回起動したサーバーを終了し、今回作成した一時DBとMCP出力を削除する</td>
 <td style="text-align: left;">残す成果物と片付ける一時ファイルを区別し、検証環境を終了できたか判断できる</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <h2 id="62-取り組む前に">6.2 取り組む前に</h2>
 <p>Copilot Appで、第5章のフィルター実装セッションを開いたまま使います。フィルター機能の単体テスト、E2E、lint・型検査とbuildを確認し、Tailspin Toysの通常データ21件と、0件表示を試す隔離データ3件を区別できる状態から始めます。このフィルター機能のPR作成とマージは第7章で行います。</p>
 <p>自分の演習用Tailspin Toysリポジトリにある<code>.mcp.json</code>には、テンプレートから引き継いだPlaywrightの定義が含まれています。すでに利用できる設定を確認してから進めましょう。MCP serverは外部のプログラムや接続先へ操作を渡す仕組みです。定義のコマンドと接続先を読み、信頼の承認を求められたら内容を確認します。演習では、フィルター実装セッションのworktreeで起動したTailspin Toysのサイトを検査対象にします。</p>
@@ -79,28 +84,32 @@
 <h2 id="63-ケース">6.3 ケース</h2>
 <p><a id="シナリオ"></a></p>
 <p>このケースの対象は、第5章で実装したTailspin Toysのフィルター機能です。同じ実装セッションからPlaywright MCPで検証します。</p>
-<table>
+<div class="table-scroll" tabindex="0"><table class="content-table"><colgroup><col style="width:7%"/><col style="width:18%"/><col style="width:75%"/></colgroup>
 <thead>
 <tr>
-<th style="text-align: left;">観点</th>
-<th style="text-align: left;">このケースで扱う内容</th>
+<th class="table-number" scope="col" style="text-align: center;">項番</th>
+<th scope="col" style="text-align: left;">観点</th>
+<th scope="col" style="text-align: left;">このケースで扱う内容</th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td class="table-number" style="text-align: center;">1</td>
 <td style="text-align: left;">状況</td>
 <td style="text-align: left;">単体テストやスクリプト化されたエンドツーエンドテストで、フィルター機能を検査した状態です。</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">2</td>
 <td style="text-align: left;">課題と理由</td>
 <td style="text-align: left;">自動テストの結果に加え、利用者がカテゴリ・出版社の選択欄や解除ボタンを操作したときに、フィルター機能が仕様どおりに動くかを確かめます。エージェントの報告を実際の操作履歴で裏付ける必要があります。</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">3</td>
 <td style="text-align: left;">解決策</td>
 <td style="text-align: left;">CopilotにPlaywright MCPでブラウザーを操作させ、通常環境と隔離環境のTailspin Toysで絞り込みと解除を試します。受講者は、会話に残るツールの履歴と取得したページの状態を読み、件数・タイトル・選択状態を期待結果と比べます。未実施の操作や期待結果との食い違いがあれば、追加の確認を依頼します。</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p>通常データ21件と隔離データ3件を分けて検査し、カテゴリ・出版社の選択、解除、0件表示とキーボード操作を確かめます。Copilotの報告に不足があれば追加の確認を依頼し、検証に使ったブラウザーとサーバーを最後に終了させてください。</p>
 <p><a id="playwright-mcp-server-の接続を確認する"></a></p>
 <h3 id="631-playwright-mcpの接続を確かめる">6.3.1 Playwright MCPの接続を確かめる</h3>
@@ -145,52 +154,60 @@ Issueと承認済みの計画を使い、カテゴリの複数選択、出版社
 <h3 id="633-操作結果を受け入れ条件と比べる">6.3.3 操作結果を受け入れ条件と比べる</h3>
 <p>フィルター実装セッションのPlaywright MCPの履歴から、Tailspin Toysのページへの移動、カテゴリ・出版社の選択欄や解除ボタンの操作、キー入力といった流れを読み取ります。確認の対象は、Issueの受け入れ条件に必要な操作と、その観察結果です。ツールの名前や順序を例と同じにする必要はありません。</p>
 <p>Tailspin Toysの通常データ21件を表示するゲーム一覧で確認する操作と期待結果は、次のとおりです。</p>
-<table>
+<div class="table-scroll" tabindex="0"><table class="content-table"><colgroup><col style="width:7%"/><col style="width:43%"/><col style="width:13%"/><col style="width:37%"/></colgroup>
 <thead>
 <tr>
-<th style="text-align: left;">操作</th>
-<th style="text-align: left;">期待結果</th>
-<th style="text-align: left;">確認する意味</th>
+<th class="table-number" scope="col" style="text-align: center;">項番</th>
+<th scope="col" style="text-align: left;">操作</th>
+<th scope="col" style="text-align: left;">期待結果</th>
+<th scope="col" style="text-align: left;">確認する意味</th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td class="table-number" style="text-align: center;">1</td>
 <td style="text-align: left;">初期表示</td>
 <td style="text-align: left;">21件</td>
 <td style="text-align: left;">通常データのゲーム一覧を表示している</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">2</td>
 <td style="text-align: left;">Strategyを選択</td>
 <td style="text-align: left;">4件</td>
 <td style="text-align: left;">一つのカテゴリで絞れる</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">3</td>
 <td style="text-align: left;">Puzzleも追加選択</td>
 <td style="text-align: left;">8件</td>
 <td style="text-align: left;">カテゴリ同士のOR条件で、両カテゴリが含まれる</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">4</td>
 <td style="text-align: left;">GitHub Gamesも選択</td>
 <td style="text-align: left;">2件</td>
 <td style="text-align: left;">カテゴリと出版社のAND条件で絞れる</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">5</td>
 <td style="text-align: left;">Clear filtersで解除</td>
 <td style="text-align: left;">21件</td>
 <td style="text-align: left;">カテゴリ・出版社の選択状態とゲーム一覧が初期状態へ戻る</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">6</td>
 <td style="text-align: left;">カテゴリ未選択でGitHub Gamesを選択</td>
 <td style="text-align: left;">5件</td>
 <td style="text-align: left;">出版社だけでも絞れる</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">7</td>
 <td style="text-align: left;">カテゴリ未選択でCodeForge Studiosを選択</td>
 <td style="text-align: left;">6件</td>
 <td style="text-align: left;">出版社名を変えた結果を区別できる</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p>上の表にある操作と、Playwright MCPが実行した操作の履歴を順に照合し、絞り込み条件ごとに表示されたゲームのタイトルも読みます。カテゴリをSpaceで変更した際には、チェック状態と表示の変化を両方確認してください。</p>
 <p>Tailspin Toysの通常データが同じでも、フィルターで選択した出版社が異なれば期待件数は変わります。「出版社単独6件」のように名前を省かず、選択値と件数を一緒に記録してください。</p>
 <p>Tailspin Toysのフィルターをキーボードで操作するときは、カテゴリをSpaceで変更できるか、現在の選択状態が分かるかも確認します。<strong>Publisher</strong>から<kbd>Tab</kbd>を使って<strong>Clear filters</strong>へ移り、<kbd>Enter</kbd>で解除して21件へ戻る操作も試してください。クリックで解除できることだけでは、キーボードでボタンへ到達して操作できることの確認にはなりません。</p>

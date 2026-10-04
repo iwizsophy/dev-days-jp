@@ -24,70 +24,82 @@
 </details><article><h2 id="この教材セットの進め方">この教材セットの進め方</h2>
 <p>本教材では、GitHub Copilot Appを使い、機能の実装からテスト、レビュー、PRのマージまでの開発の流れを学びます。第1〜9章を順番に進めてください。</p>
 <p>単にコードを完成させることだけが目的ではありません。次のAppの機能を、実際に手を動かして体験・確認します。</p>
-<table>
+<div class="table-scroll" tabindex="0"><table class="content-table"><colgroup><col style="width:7%"/><col style="width:37.67%"/><col style="width:55.33%"/></colgroup>
 <thead>
 <tr>
-<th style="text-align: left;">Appの機能</th>
-<th style="text-align: left;">体験すること</th>
+<th class="table-number" scope="col" style="text-align: center;">項番</th>
+<th scope="col" style="text-align: left;">Appの機能</th>
+<th scope="col" style="text-align: left;">体験すること</th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td class="table-number" style="text-align: center;">1</td>
 <td style="text-align: left;">エージェントセッション</td>
 <td style="text-align: left;">セッションを立ち上げ、作業を管理する</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">2</td>
 <td style="text-align: left;">差分レビュー</td>
 <td style="text-align: left;">生成されたコードと要件を照合する</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">3</td>
 <td style="text-align: left;">MCP（Model Context Protocol）</td>
 <td style="text-align: left;">外部ツールとの連携を確かめる</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">4</td>
 <td style="text-align: left;">Agent Merge</td>
 <td style="text-align: left;">Pull Requestの自動マージを進める</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">5</td>
 <td style="text-align: left;">キャンバス</td>
 <td style="text-align: left;">設計やタスクを整理する</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">6</td>
 <td style="text-align: left;">Automation</td>
 <td style="text-align: left;">定型作業を自動化する</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <h3 id="この演習で身につける判断">この演習で身につける判断</h3>
 <p><img alt="開発の流れと人が判断すること" src="../assets/app-learning-flow.png" /></p>
 <p>本コースでは、最初に要件を伝え、生成された差分を読み、テストと実際の画面を確認してからマージする一連の判断を学びます。続いて、指示ファイルでエージェントと共通の前提を共有し、Planで仕様の曖昧さを解消してから自律的な実装へ進みます。受講者が確認する観点を理解したうえで、Agent MergeやAutomationに任せる範囲を広げます。</p>
 <p>各章では「何ができたか」に加えて、「なぜその方法を選んだか」を説明できることを目指してください。</p>
-<table>
+<div class="table-scroll" tabindex="0"><table class="content-table"><colgroup><col style="width:7%"/><col style="width:23.1%"/><col style="width:69.9%"/></colgroup>
 <thead>
 <tr>
-<th style="text-align: left;">学ぶ判断</th>
-<th style="text-align: left;">演習で確かめること</th>
+<th class="table-number" scope="col" style="text-align: center;">項番</th>
+<th scope="col" style="text-align: left;">学ぶ判断</th>
+<th scope="col" style="text-align: left;">演習で確かめること</th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td class="table-number" style="text-align: center;">1</td>
 <td style="text-align: left;">依頼する範囲を決める</td>
 <td style="text-align: left;">Issueの要件、変更してよい範囲、作業を止める位置を伝える</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">2</td>
 <td style="text-align: left;">必要な前提を共有する</td>
 <td style="text-align: left;">会話だけでなく、指示ファイル・スキル・Issue本文を使い分ける</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">3</td>
 <td style="text-align: left;">結果を根拠で評価する</td>
 <td style="text-align: left;">応答の「完了」と、差分・テスト・実際の画面・CIの結果を照合する</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">4</td>
 <td style="text-align: left;">自動化の範囲を決める</td>
 <td style="text-align: left;">人が承認する仕様と、エージェントに任せる繰り返し作業を区別する</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p>本教材のプロンプトは、変更の範囲、エージェントに渡す前提、実装結果の確認方法を受講者が考えるための出発点です。Copilotが生成するコードや実行するテストの件数は、毎回同じとは限りません。依頼した仕様とエージェントの実装結果が違う場合は、その違いを具体的に伝えて修正を依頼し、差分・テスト・画面を再度確認してください。公式にも、変更をレビューし、フィードバックを返して改善する流れが示されています。出典：<a href="https://docs.github.com/en/copilot/concepts/agents/github-copilot-app#github-copilot-app-workflow">GitHub Copilot Appの開発フロー</a>。</p>
 <h3 id="演習の題材">演習の題材</h3>
 <p>本教材の演習用サイトTailspin Toysは、ゲームを紹介するクラウドファンディングサイトです。受講者は、利用者が支援したいゲームを探せるように、トップページのゲームカードへの星評価の表示、カテゴリーとパブリッシャーによる絞り込み、タイトル検索を順に追加します。各章で実装した機能を残して次の変更を加えるため、前の章までの機能が引き続き動くかも確かめます。</p>
@@ -99,44 +111,50 @@
 <li>リポジトリの分離：演習は教材用テンプレートの Use this template から各自が作成したTailspin Toysのコピーで行います。演習先を間違えないよう、セッション開始時とPR作成時に所有者とリポジトリ名を確認してください。参照元リポジトリへのpush、Pull Request、Issue作成は行いません。</li>
 </ul>
 <h3 id="各章の読み方">各章の読み方</h3>
-<table>
+<div class="table-scroll" tabindex="0"><table class="content-table"><colgroup><col style="width:7%"/><col style="width:22%"/><col style="width:71%"/></colgroup>
 <thead>
 <tr>
-<th style="text-align: left;">読む場所</th>
-<th style="text-align: left;">確かめること</th>
+<th class="table-number" scope="col" style="text-align: center;">項番</th>
+<th scope="col" style="text-align: left;">読む場所</th>
+<th scope="col" style="text-align: left;">確かめること</th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td class="table-number" style="text-align: center;">1</td>
 <td style="text-align: left;">章の概要</td>
 <td style="text-align: left;">学習のテーマ、学ぶ価値と、章を終えたときにできることを確かめる</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">2</td>
 <td style="text-align: left;">取り組む前に</td>
 <td style="text-align: left;">前の章の成果、必要な知識・環境、作業の開始条件をそろえる</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">3</td>
 <td style="text-align: left;">ケース</td>
 <td style="text-align: left;">題材の課題と理由、解決策を読み、手順で予想・観察・比較・修正を行う</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">4</td>
 <td style="text-align: left;">結果の整理と振り返り</td>
 <td style="text-align: left;">結果の理由と、できるようになったことを自分の言葉で説明する</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">5</td>
 <td style="text-align: left;">補足</td>
 <td style="text-align: left;">ほかの場面での使い方、適用条件や限界、発展的な説明を読む</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p>各章のケースでは、Tailspin ToysやCopilot Appがどのように動くかを予想し、操作後に予想と実際の結果を比べます。操作の背景を詳しく知りたい場合は、ケースの手順から補足へのリンクを使って説明を読み、関連する手順へ戻ってください。</p>
 <h2 id="レッスン一覧">レッスン一覧</h2>
-<table>
+<div class="table-scroll" tabindex="0"><table class="content-table"><colgroup><col style="width:34%"/><col style="width:18%"/><col style="width:48%"/></colgroup>
 <thead>
 <tr>
-<th style="text-align: left;">レッスン</th>
-<th style="text-align: left;">トピック</th>
-<th style="text-align: left;">学習内容</th>
+<th scope="col" style="text-align: left;">レッスン</th>
+<th scope="col" style="text-align: left;">トピック</th>
+<th scope="col" style="text-align: left;">学習内容</th>
 </tr>
 </thead>
 <tbody>
@@ -186,7 +204,7 @@
 <td style="text-align: left;">開発プロセスの振り返り、手動 Automation による要約実行</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <h2 id="前提条件">前提条件</h2>
 <p>ワークショップに参加する前に、次の環境を用意してください。</p>
 <ul class="task-list">

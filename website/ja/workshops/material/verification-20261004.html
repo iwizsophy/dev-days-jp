@@ -11,12 +11,12 @@
 <p>ツール履歴や差分の原記録は、作業用フォルダー<code>tmp/verification-20261004/</code>に保存しています。本書に記載した原記録のファイル名はその保存先を指し、原記録そのものはコミットに含めていません。確認した結果、判断理由、GitHub上の根拠、取得画像は本書と画像対応表にまとめています。</p>
 <h2>実走時の資料と改稿後の資料</h2>
 <p>本書の実走結果、固定プロンプト、章節番号、撮影ファイル名は、検証に使った旧第0〜8章の記録です。通し実走直後の改稿では第1〜9章へ変更し、各章を概要、学ぶこと、前提、体験、結果の整理と振り返り、補足の6段階に整理しました。その後、学ぶことを概要へ統合し、課題・理由、解決策、実施手順をケースとしてまとめています。最新の構成と品質確認は<a href="verification.html">検証状況</a>を参照してください。原稿のファイル名は次のとおりです。</p>
-<table>
+<div class="table-scroll" tabindex="0"><table class="content-table"><colgroup><col style="width:31.25%"/><col style="width:31.25%"/><col style="width:37.5%"/></colgroup>
 <thead>
 <tr>
-<th style="text-align: left;">実走時の章</th>
-<th style="text-align: left;">改稿後の章</th>
-<th style="text-align: left;">題材と現在の原稿</th>
+<th scope="col" style="text-align: left;">実走時の章</th>
+<th scope="col" style="text-align: left;">改稿後の章</th>
+<th scope="col" style="text-align: left;">題材と現在の原稿</th>
 </tr>
 </thead>
 <tbody>
@@ -66,16 +66,16 @@
 <td style="text-align: left;"><a href="../app/9-review.html">Automationと振り返り</a></td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p>R01〜R07の手順補正と、差し替え・追加する画像を現在の原稿へ反映しました。Canvasの通知と状態管理、フィルターの隔離検証など、レビューで得た確認条件も本文とプロンプトへ補っています。改稿後の新しいプロンプトを使った全章の再実走は、まだ行っていません。本書の実走成功を、改稿後の無修正成功の証明とは扱いません。</p>
 <p>撮影原本95枚と当初の画像一覧は、SHA-256を照合して作業用領域へ保全しました。公開するのは、操作と結果に必要な範囲を切り取り、無関係な個人情報やモデル欄などを除いた42枚です。公開画像の容量・寸法・ハッシュ・切り取り範囲・塗りつぶし範囲は<a href="../assets/app-20261004-image-inventory.json">公開画像一覧</a>で確認できます。本書の画像リンクは公開版を指し、公開しない原本はファイル名のみを記載します。原本の画面全体で確認した事実と、公開版に残した範囲は区別してください。</p>
 <p>公開テンプレートの入口は、今回取得した画面からUse this templateのメニューを切り出して採用しました。公開後の再撮影を必要とした当初の判断は撤回し、現在の再撮影予定は0件です。</p>
 <h2>検証対象</h2>
-<table>
+<div class="table-scroll" tabindex="0"><table class="content-table"><colgroup><col style="width:27.64%"/><col style="width:72.36%"/></colgroup>
 <thead>
 <tr>
-<th style="text-align: left;">項目</th>
-<th style="text-align: left;">対象</th>
+<th scope="col" style="text-align: left;">項目</th>
+<th scope="col" style="text-align: left;">対象</th>
 </tr>
 </thead>
 <tbody>
@@ -120,18 +120,18 @@
 <td style="text-align: left;"><code>v24.19.0</code></td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p>今回の実走は、前回の演習用コピーを再利用せず、新しいコピーから開始しました。Appの初回インストールと初回サインインは再現していません。既存のインストールとサインイン状態で進めた結果を記録します。</p>
 <h2>章ごとの結果</h2>
 <p>「確認済み」は実際の操作と結果を確認した項目を指します。初回処理とレビュー後の追加修正は分けて記録し、当時の未確認項目にはその時点を明記しました。本文の手順にない操作が必要だった箇所は、補足操作と修正候補として記録しました。</p>
-<table>
+<div class="table-scroll" tabindex="0"><table class="content-table"><colgroup><col style="width:14%"/><col style="width:14%"/><col style="width:34.53%"/><col style="width:23.47%"/><col style="width:14%"/></colgroup>
 <thead>
 <tr>
-<th style="text-align: left;">章・内容</th>
-<th style="text-align: left;">状況</th>
-<th style="text-align: left;">根拠</th>
-<th style="text-align: left;">補足操作</th>
-<th style="text-align: left;">未確認の項目</th>
+<th scope="col" style="text-align: left;">章・内容</th>
+<th scope="col" style="text-align: left;">状況</th>
+<th scope="col" style="text-align: left;">根拠</th>
+<th scope="col" style="text-align: left;">補足操作</th>
+<th scope="col" style="text-align: left;">未確認の項目</th>
 </tr>
 </thead>
 <tbody>
@@ -199,13 +199,13 @@
 <td style="text-align: left;">継続的なスケジュール実行とクラウド実行は今回のManual・Local検証の対象外。</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <h2>コピー作成の根拠</h2>
-<table>
+<div class="table-scroll" tabindex="0"><table class="content-table"><colgroup><col style="width:35.31%"/><col style="width:64.69%"/></colgroup>
 <thead>
 <tr>
-<th style="text-align: left;">確認対象</th>
-<th style="text-align: left;">記録</th>
+<th scope="col" style="text-align: left;">確認対象</th>
+<th scope="col" style="text-align: left;">記録</th>
 </tr>
 </thead>
 <tbody>
@@ -234,17 +234,17 @@
 <td style="text-align: left;"><a href="https://github.com/iwizsophy/dev-days-tailspin-participant-check-20261004/actions/runs/37166872793">成功したワークフロー</a></td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p>初期コミットのtreeが一致しているため、テンプレートと同じファイル構成から演習を開始したと確認できます。第2章の開始位置は、初期設定後のmainです。</p>
 <h2>セッションとPRの記録</h2>
-<table>
+<div class="table-scroll" tabindex="0"><table class="content-table"><colgroup><col style="width:14%"/><col style="width:21.33%"/><col style="width:29.26%"/><col style="width:14%"/><col style="width:21.41%"/></colgroup>
 <thead>
 <tr>
-<th style="text-align: left;">章</th>
-<th style="text-align: left;">開始時のmain・HEAD</th>
-<th style="text-align: left;">worktree・ブランチ</th>
-<th style="text-align: left;">PR</th>
-<th style="text-align: left;">CI・マージ</th>
+<th scope="col" style="text-align: left;">章</th>
+<th scope="col" style="text-align: left;">開始時のmain・HEAD</th>
+<th scope="col" style="text-align: left;">worktree・ブランチ</th>
+<th scope="col" style="text-align: left;">PR</th>
+<th scope="col" style="text-align: left;">CI・マージ</th>
 </tr>
 </thead>
 <tbody>
@@ -291,18 +291,18 @@
 <td style="text-align: left;">Manual・Localの実行がSucceeded。実行後もmainと作業ツリーは未変更。</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p>第2章の作業ディレクトリは次の場所です。</p>
 <pre class="highlight"><code class="language-text">iwizsophy-vigilant-engine</code></pre>
 <p>各章の開始位置、PRのURL、最新コミットのCI結果、マージ先を記録しました。ブランチ名の変更だけでは、ファイル変更や実装完了の根拠として扱いません。</p>
 <h2>第2章の実装と確認結果</h2>
 <p>配布資料の初回プロンプトで星評価を実装できました。追加レビュー用プロンプトは使用していません。生成中のE2E用fixtureのbuildや文字化けは、エージェントが追加指示なしで修正しました。PR作成と手動マージは、実装確認後にAppの操作で進めています。</p>
 <h3>表示とテスト</h3>
-<table>
+<div class="table-scroll" tabindex="0"><table class="content-table"><colgroup><col style="width:18%"/><col style="width:82%"/></colgroup>
 <thead>
 <tr>
-<th style="text-align: left;">確認対象</th>
-<th style="text-align: left;">結果</th>
+<th scope="col" style="text-align: left;">確認対象</th>
+<th scope="col" style="text-align: left;">結果</th>
 </tr>
 </thead>
 <tbody>
@@ -347,18 +347,18 @@
 <td style="text-align: left;">別担当による差分確認で不具合の指摘はなかった。</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <h3>開発サーバーの起動と停止</h3>
 <p>Run optionsからRun development siteを起動し、Runに表示された次のURLを別ブラウザーで開きました。AppのBrowserパネルは自動で開かなかったため、本文にある代替操作を使用しています。</p>
 <pre class="highlight"><code class="language-text">http://127.0.0.1:4321/</code></pre>
 <p>画面確認後にStopを選び、Shell session endedの表示を確認しました。停止後の接続状態の確認でも、ポート4321の待ち受けはありませんでした。</p>
 <p>既存のPlaywright設定にはreuseExistingServerが残っています。別のworktreeへ進む際は、テストが使うサーバーと対象の作業場所が一致することを引き続き確認します。</p>
 <h3>PRとmainへの反映</h3>
-<table>
+<div class="table-scroll" tabindex="0"><table class="content-table"><colgroup><col style="width:19.73%"/><col style="width:80.27%"/></colgroup>
 <thead>
 <tr>
-<th style="text-align: left;">項目</th>
-<th style="text-align: left;">記録</th>
+<th scope="col" style="text-align: left;">項目</th>
+<th scope="col" style="text-align: left;">記録</th>
 </tr>
 </thead>
 <tbody>
@@ -403,7 +403,7 @@
 <td style="text-align: left;"><code>2026-10-04T01:42:16Z</code></td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p>Ready to mergeは、CIが3/4件の段階でも表示されました。本文どおり全ジョブの成功を待ち、ダイアログを開き直してからマージしています。ボタンの表示だけでCIの成功を判断しない説明は、今回の実走でも必要でした。</p>
 <p>Appが作成した補助Issue #12は、演習用課題#1〜#8と別枠の記録です。</p>
 <h2>第3章の指示更新と確認結果</h2>
@@ -411,11 +411,11 @@
 <p>Filesを開き、Ctrl+Pでcopilot-instructions.mdを検索しました。<code>.github/instructions</code>内のパス固有指示も読み、unit-tests.instructions.mdのapplyToと、Drizzleの指示にある相対リンクを確認しています。</p>
 <p>Rich text表示ではファイル冒頭のapplyToが見えず、Rawに切り替える必要がありました。View optionsの隠しファイル表示は、本文のShow hidden filesに対し、実機ではShow all hidden filesとShow tracked hidden filesの選択肢でした。</p>
 <h3>Issueからの開始と初回更新</h3>
-<table>
+<div class="table-scroll" tabindex="0"><table class="content-table"><colgroup><col style="width:18%"/><col style="width:82%"/></colgroup>
 <thead>
 <tr>
-<th style="text-align: left;">項目</th>
-<th style="text-align: left;">記録</th>
+<th scope="col" style="text-align: left;">項目</th>
+<th scope="col" style="text-align: left;">記録</th>
 </tr>
 </thead>
 <tbody>
@@ -452,7 +452,7 @@
 <td style="text-align: left;">初回更新時は未作成。その後、PR #14を作成した。</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p>第3章の作業ディレクトリは次の場所です。</p>
 <pre class="highlight"><code class="language-text">iwizsophy-issue-8-update-our-repository-coding-standards-801210</code></pre>
 <p>初回応答と変更一覧の根拠は<code>tmp/verification-20261004/chapter3-update-ui.txt</code>です。この記録は初回更新終了時のもので、追加修正後の最終結果を示すものではありません。</p>
@@ -464,11 +464,11 @@
 <h3>コード例とファイル変更の有無</h3>
 <p>3.4の固定プロンプトをそのまま送り、ファイルを変更せずにPublishersを返すコード例を提示できました。関数の目的、注入可能なdb引数の@param、戻り値の@returns、名前順の並び方を確認しています。Publisher型は既存のidとnameに一致しました。</p>
 <p>コード例の提示前後で保存した差分のSHA-256が一致しました。このプロンプトによってファイルが変更されていないことを、応答内容と差分の両方で確認しています。</p>
-<table>
+<div class="table-scroll" tabindex="0"><table class="content-table"><colgroup><col style="width:19.9%"/><col style="width:80.1%"/></colgroup>
 <thead>
 <tr>
-<th style="text-align: left;">根拠</th>
-<th style="text-align: left;">記録</th>
+<th scope="col" style="text-align: left;">根拠</th>
+<th scope="col" style="text-align: left;">記録</th>
 </tr>
 </thead>
 <tbody>
@@ -489,13 +489,13 @@
 <td style="text-align: left;"><code>tmp/verification-20261004/chapter3-code-example-ui.txt</code></td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <h3>PR、CI、マージ</h3>
-<table>
+<div class="table-scroll" tabindex="0"><table class="content-table"><colgroup><col style="width:19.48%"/><col style="width:80.52%"/></colgroup>
 <thead>
 <tr>
-<th style="text-align: left;">項目</th>
-<th style="text-align: left;">記録</th>
+<th scope="col" style="text-align: left;">項目</th>
+<th scope="col" style="text-align: left;">記録</th>
 </tr>
 </thead>
 <tbody>
@@ -544,16 +544,16 @@
 <td style="text-align: left;">Issue #8が<code>2026-10-04T02:18:17Z</code>にClosedになった。</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p>AppにはCI 3/4の表示が残ったため、本文どおりダイアログを閉じて開き直しました。Successful 4を展開して各ジョブを確認し、手動マージしています。</p>
 <p>本章ではローカルの単体テスト、E2E、buildを実行していません。単体テストとE2EはPRのCIで成功しました。初回更新後にローカルで行ったlintと型検査、追加修正後の差分検査は、実施時点を分けた記録です。</p>
 <h2>第4章の計画、実装、品質検査</h2>
 <h3>Planの開始と承認</h3>
-<table>
+<div class="table-scroll" tabindex="0"><table class="content-table"><colgroup><col style="width:18%"/><col style="width:82%"/></colgroup>
 <thead>
 <tr>
-<th style="text-align: left;">項目</th>
-<th style="text-align: left;">記録</th>
+<th scope="col" style="text-align: left;">項目</th>
+<th scope="col" style="text-align: left;">記録</th>
 </tr>
 </thead>
 <tbody>
@@ -594,19 +594,19 @@
 <td style="text-align: left;">まだ作成していない。</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p>第4〜6章で使用する作業ディレクトリは次の場所です。</p>
 <pre class="highlight"><code class="language-text">iwizsophy-issue-7-allow-users-to-filter-games-by-category-51494e</code></pre>
 <p><code>tmp/verification-20261004/chapter4-initial-plan-ui.txt</code>と<code>tmp/verification-20261004/chapter4-approved-plan-ui.txt</code>を保存しました。</p>
 <h3>初期Planで補った内容</h3>
 <p>初期Planに含まれた項目は、出版社の単一選択、カテゴリのOR、出版社とのAND、条件解除、0件表示、静的データ、ヘルパー、アクセシビリティ、テストです。既存の星評価と詳細リンクの維持、具体的な期待値、隔離したE2Eの条件が不足していました。</p>
 <p>本文のレビュー条件に従って修正を求めた結果、改訂Planには不足した条件も明記されました。件数だけでなく、残るゲームのタイトルを確認する方針も含まれています。以下は計画の期待値と、その後の確認状況です。自動検査の件数と、個別の手動操作の結果を分けて記録します。</p>
-<table>
+<div class="table-scroll" tabindex="0"><table class="content-table"><colgroup><col style="width:27.32%"/><col style="width:43.76%"/><col style="width:28.92%"/></colgroup>
 <thead>
 <tr>
-<th style="text-align: left;">検証対象</th>
-<th style="text-align: left;">Planの期待値</th>
-<th style="text-align: left;">実施状況</th>
+<th scope="col" style="text-align: left;">検証対象</th>
+<th scope="col" style="text-align: left;">Planの期待値</th>
+<th scope="col" style="text-align: left;">実施状況</th>
 </tr>
 </thead>
 <tbody>
@@ -646,7 +646,7 @@
 <td style="text-align: left;">隔離準備の修正後に根拠を再確認する。</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p>期待値の確認に使用した通常のdb/games.csvのSHA-256は次の値です。初回実装後にもこの値と一致しました。修正後の再検査でも通常データを維持するために記録しています。</p>
 <pre class="highlight"><code class="language-text">9877F4BF116D993453FB4B1C5626E087F154B7D7CD523A0AB77CABF533CDB6D1</code></pre>
 <h3>Skillの読取りと未確認事項</h3>
@@ -654,11 +654,11 @@
 <p>初回実装中の自動検査と4.4の手動操作は、次の表に記録しました。4.5.3の/quality-checksも本文どおり明示的に呼び出し、検査終了とIdleを確認しました。Skillファイルを読んだ段階と、Skillを呼び出して検査した段階を分けて記録しています。</p>
 <h3>初回実装と手動確認</h3>
 <p>初回実装後にIdleを確認しました。Changesは14ファイル、626行追加、33行削除です。自動検査は成功しましたが、手動確認と差分レビューで修正が必要な点が見つかりました。</p>
-<table>
+<div class="table-scroll" tabindex="0"><table class="content-table"><colgroup><col style="width:18%"/><col style="width:82%"/></colgroup>
 <thead>
 <tr>
-<th style="text-align: left;">確認対象</th>
-<th style="text-align: left;">初回結果</th>
+<th scope="col" style="text-align: left;">確認対象</th>
+<th scope="col" style="text-align: left;">初回結果</th>
 </tr>
 </thead>
 <tbody>
@@ -699,16 +699,16 @@
 <td style="text-align: left;">Appで停止し、Shell session endedを確認。停止時にポート4321と4322の待ち受けはなかった。</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <h3>修正を依頼した問題</h3>
-<table>
+<div class="table-scroll" tabindex="0"><table class="content-table"><colgroup><col style="width:14%"/><col style="width:14%"/><col style="width:25.12%"/><col style="width:19.29%"/><col style="width:27.59%"/></colgroup>
 <thead>
 <tr>
-<th style="text-align: left;">ID</th>
-<th style="text-align: left;">見つかった問題</th>
-<th style="text-align: left;">初回の観測・根拠</th>
-<th style="text-align: left;">依頼した修正</th>
-<th style="text-align: left;">状況</th>
+<th scope="col" style="text-align: left;">ID</th>
+<th scope="col" style="text-align: left;">見つかった問題</th>
+<th scope="col" style="text-align: left;">初回の観測・根拠</th>
+<th scope="col" style="text-align: left;">依頼した修正</th>
+<th scope="col" style="text-align: left;">状況</th>
 </tr>
 </thead>
 <tbody>
@@ -748,18 +748,18 @@
 <td style="text-align: left;">修正2回目でSkillの例を親のnpm経由に変更し、検査と後片付けを確認。</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p>F01〜F03をまとめて修正を1回依頼し、修正後のIdleと検査結果を確認しました。その後、本文どおり/quality-checksを送信して再検査しています。残ったF04・F05も2回目の修正で対応し、対象指定の検査と後片付けを確認しました。コミット、push、PR作成、マージは行わない指示を維持しています。</p>
 <p>F01〜F05は生成された実装と検証手順の問題です。教材の説明や画面操作で必要な補足とは分けて記録します。第4章では品質検査とAppからのbuildを完了し、ブラウザー操作の検証は同じセッションの第5章へ継続しました。</p>
 <h3>修正1回目とquality-checksの結果</h3>
 <p>修正1回目では、Publisher直後の解除ボタン、DB接続前のガード、親プロセスによる後片付けを実装したと報告されました。単体38件、E2E 26件、lint、型検査、build、diff checkが成功し、buildは24ページを生成しています。</p>
 <p>主担当も修正1回目の終了時にポート4321・4322と一時フォルダーを確認し、待ち受けと一時DBが残っていないことを確認しました。初回に残った一時DB4件は個別に削除されています。</p>
 <p>続けて/quality-checksを明示的に送信し、Idleまで確認しました。根拠は<code>tmp/verification-20261004/chapter4-quality-ui.txt</code>です。この記録には修正1回目の完了報告も含まれています。</p>
-<table>
+<div class="table-scroll" tabindex="0"><table class="content-table"><colgroup><col style="width:34.54%"/><col style="width:65.46%"/></colgroup>
 <thead>
 <tr>
-<th style="text-align: left;">明示的なquality-checks</th>
-<th style="text-align: left;">結果</th>
+<th scope="col" style="text-align: left;">明示的なquality-checks</th>
+<th scope="col" style="text-align: left;">結果</th>
 </tr>
 </thead>
 <tbody>
@@ -788,7 +788,7 @@
 <td style="text-align: left;">一時DBの残存なし。終了時にポート4321・4322が停止していた。</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p>検査結果の成功後にも、run-e2e.mjsの追加引数とSkillの直接実行例に問題が残りました。親のnpm経由で対象を指定し、検査と後片付けを確認する2回目の修正を依頼して対応しました。</p>
 <h3>修正2回目とAppからのbuild</h3>
 <p>run-e2e.mjsは追加のargvを転送する形に修正し、Skillの実行例も親のnpm経由にそろえています。次のコマンドではgames.spec.tsの10件だけが実行され、すべて成功しています。</p>
@@ -799,11 +799,11 @@
 <h2>第5章の管理画面とMCP検証</h2>
 <p>プロジェクトを右クリックしてSettingsへ進んでも、本文5.2.1にあるMCP serversは見つかりませんでした。SettingsのCustomizeからGo to Customizeを選び、Installedで管理画面へ進みました。</p>
 <p><a href="https://docs.github.com/en/copilot/how-tos/github-copilot-app/customize-github-copilot-app">GitHub公式のAppカスタマイズ説明</a>も、リポジトリやCopilot CLIで設定したMCP serverがAppで自動的に利用可能になることと、登録済みのサーバーをCustomizeのInstalledで管理することを説明しています。2026年10月4日にこのページを読み、実機の管理画面との対応を確認しました。</p>
-<table>
+<div class="table-scroll" tabindex="0"><table class="content-table"><colgroup><col style="width:18%"/><col style="width:82%"/></colgroup>
 <thead>
 <tr>
-<th style="text-align: left;">確認対象</th>
-<th style="text-align: left;">結果</th>
+<th scope="col" style="text-align: left;">確認対象</th>
+<th scope="col" style="text-align: left;">結果</th>
 </tr>
 </thead>
 <tbody>
@@ -832,17 +832,17 @@
 <td style="text-align: left;">通常データの組み合わせ、出版社単独、キーボードの選択・解除、隔離3→0→解除3をMCPで確認済み。</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p>Globalで確認した既存接続を、リポジトリ定義3件それぞれの接続確認とは扱いません。リポジトリのPlaywright定義には-yがなく、既存Global設定とは引数が異なることも記録しました。設定は変更していません。</p>
 <p>第4章と同じセッションとHEADで、5.3の固定プロンプトを全文送信しました。初回はIdleまで進みましたが、履歴のレビューで未確認の操作が見つかったため、補足を依頼しました。補足3条件と後片付けを確認して、第5章のブラウザー検証を完了しています。</p>
 <h3>主担当の独立した確認とMCPの初回結果</h3>
-<table>
+<div class="table-scroll" tabindex="0"><table class="content-table"><colgroup><col style="width:14%"/><col style="width:29.71%"/><col style="width:36.18%"/><col style="width:20.11%"/></colgroup>
 <thead>
 <tr>
-<th style="text-align: left;">確認主体</th>
-<th style="text-align: left;">接続先・操作</th>
-<th style="text-align: left;">確認した結果</th>
-<th style="text-align: left;">未確認の範囲</th>
+<th scope="col" style="text-align: left;">確認主体</th>
+<th scope="col" style="text-align: left;">接続先・操作</th>
+<th scope="col" style="text-align: left;">確認した結果</th>
+<th scope="col" style="text-align: left;">未確認の範囲</th>
 </tr>
 </thead>
 <tbody>
@@ -865,7 +865,7 @@
 <td style="text-align: left;">出版社単独5件・6件とカテゴリSpaceは初回履歴になく、次の補足で確認した。</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p>主担当が別ブラウザーで確認できた項目を、CopilotがMCPで実施した項目へ置き換えて報告しません。最終結果では、ツールの履歴、各操作の結果、後片付けをそろえて確認します。</p>
 <h3>初回終了時の片付けと追加レビュー</h3>
 <p>初回の根拠は<code>tmp/verification-20261004/chapter5-mcp-ui.txt</code>です。browser_closeでブラウザーを閉じ、2つのサーバーを停止しました。今回のMCP snapshot 14件と隔離fixtureの一時DBを個別に削除しています。主担当も終了時にポート4321・4322と一時フォルダーを確認し、接続待ちと一時ファイルがないことを確認しました。</p>
@@ -873,11 +873,11 @@
 <p>補足は実装を変更せずに行い、実施後のブラウザー、サーバー、一時DBとMCP出力の片付けも依頼しました。初回の全完了という報告だけでは、資料の確認項目をすべて満たしたと判定しません。補足のIdleと各結果を次の表に記録します。</p>
 <h3>補足3条件の実際のMCP結果</h3>
 <p>最終全文は<code>tmp/verification-20261004/chapter5-mcp-final-ui.txt</code>に保存しました。初回に未実施だった3条件を、MCPの実際の選択とキー入力で確認しています。</p>
-<table>
+<div class="table-scroll" tabindex="0"><table class="content-table"><colgroup><col style="width:26.39%"/><col style="width:73.61%"/></colgroup>
 <thead>
 <tr>
-<th style="text-align: left;">追加した操作</th>
-<th style="text-align: left;">実際の結果</th>
+<th scope="col" style="text-align: left;">追加した操作</th>
+<th scope="col" style="text-align: left;">実際の結果</th>
 </tr>
 </thead>
 <tbody>
@@ -898,17 +898,17 @@
 <td style="text-align: left;">uncheckedとなり21件。Publisherも未選択。</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p>補足後もbrowser_closeを実行し、今回のサーバーを停止してMCP出力を片付けました。主担当の確認でもポート4321・4322の待ち受けはなく、Gitの変更一覧は演習に必要な18ファイルだけで、MCP出力は含まれていませんでした。最後の差分レビューで追加必須の修正はありません。</p>
 <p>Appで完了していたbuildのシェルもStopで終了させました。第5章の検証を終え、同じセッションのまま第6章へ進んでいます。</p>
 <h2>第6章のCI確認とAgent Mergeの結果</h2>
 <p>開始前のmainは59d8ea1af5d0922a2f892c8a9deb365f79f932bfで、APIからprotectedがfalseであることを確認しました。本文6.1の条件が未設定、または分からない場合の経路に従い、Agent mergeをOffにして通常のCreate PRをAppで選択しています。</p>
 <p>PR作成後に、最新コミットのCI全4ジョブが成功したことをWebとAPIで確認しました。この確認を終えてから、Ready to merge optionsのAgent mergeスイッチをOffからOnへ切り替えています。</p>
-<table>
+<div class="table-scroll" tabindex="0"><table class="content-table"><colgroup><col style="width:19.22%"/><col style="width:80.78%"/></colgroup>
 <thead>
 <tr>
-<th style="text-align: left;">項目</th>
-<th style="text-align: left;">記録</th>
+<th scope="col" style="text-align: left;">項目</th>
+<th scope="col" style="text-align: left;">記録</th>
 </tr>
 </thead>
 <tbody>
@@ -965,17 +965,17 @@
 <td style="text-align: left;"><code>tmp/verification-20261004/chapter6-final-ui.txt</code></td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p>今回のPR作成後の経路では、スイッチをOnにした時点でAgent Mergeが始まり、すぐにマージされました。本文のように選択後に主ボタンをもう一度押す操作はありません。CI全成功を確認する前にスイッチをOnにしないためにも、開始操作の説明を現行画面へ合わせる必要があります。</p>
 <p>Address reviews、Fix CI failures、Resolve conflicts、Merge pull requestの四項目メニューの表示は、この実走では確認していません。レビュー対応、CI失敗修復、競合修復も発生していないため、これらの成功を検証済みとは扱いません。通常のPR作成とCI確認を人が行った後、Agent Mergeにマージを任せた範囲までを確認しました。</p>
 <p>第7章の新しいworktreeで、第6章のマージコミットから開始したことを確認しました。</p>
 <h2>第7章のCanvas共有、再利用と検索の結果</h2>
 <p>Projectsを右クリックしてNew sessionを開き、New worktreeとmainを選択しています。開始時のHEADは第6章のマージコミットと一致し、作業ツリーは未変更です。配布資料7.1の固定プロンプトを全文送り、Open Issueを取得するCanvasの初回生成とIdleまでを確認しました。</p>
-<table>
+<div class="table-scroll" tabindex="0"><table class="content-table"><colgroup><col style="width:18%"/><col style="width:82%"/></colgroup>
 <thead>
 <tr>
-<th style="text-align: left;">確認対象</th>
-<th style="text-align: left;">記録</th>
+<th scope="col" style="text-align: left;">確認対象</th>
+<th scope="col" style="text-align: left;">記録</th>
 </tr>
 </thead>
 <tbody>
@@ -1044,16 +1044,16 @@
 <td style="text-align: left;">この時点ではIdleで、コミットとPRは未作成。その後の共有PRとマージは後述。</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p>セッションへの保存は、後からprojectへ共有する操作を検証するための今回の選択です。認証方法の変更は初回処理の中で行われており、レビュー後の追加依頼による修正とは分けて記録します。</p>
 <h3>初回画面と本文追加ボタンの実操作</h3>
 <p>初回Canvasでは白背景にほぼ白い文字が使われ、見出しと優先理由が読みにくい状態でした。<code>app-20261004-07-canvas-initial-error.jpg</code>と<code>app-20261004-07-canvas-initial-layout.jpg</code>は、生成結果とレビュー前の問題を示す根拠として保存済みです。</p>
 <p>主担当がIssue #5の本文追加ボタンを1回押し、通知、受領応答、Refresh後の状態を実際に確認しました。対象は<a href="https://github.com/iwizsophy/dev-days-tailspin-participant-check-20261004/issues/5">Issue #5</a>です。他のカードを追加した結果まで確認済みとは扱いません。</p>
-<table>
+<div class="table-scroll" tabindex="0"><table class="content-table"><colgroup><col style="width:18%"/><col style="width:82%"/></colgroup>
 <thead>
 <tr>
-<th style="text-align: left;">確認対象</th>
-<th style="text-align: left;">実際の結果</th>
+<th scope="col" style="text-align: left;">確認対象</th>
+<th scope="col" style="text-align: left;">実際の結果</th>
 </tr>
 </thead>
 <tbody>
@@ -1082,16 +1082,16 @@
 <td style="text-align: left;"><code>tmp/verification-20261004/chapter7-ack-ui.txt</code>に本文、受入条件、受領応答、送信済みボタンの状態を保存。</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <h3>レビュー後の追加修正と確認結果</h3>
 <p>配色と通知の表現を見直し、今回作成したMCP出力の片付けも追加依頼しました。<code>tmp/verification-20261004/chapter7-review-followup.txt</code>には、明暗両テーマのコントラストとフォーカス表示、全文の追加と重複防止の維持、Issueの実装やPR作成を始めずに停止する条件を記録しています。</p>
 <p>通知の先頭は、追加の命令から、Issueが現在の会話に参照情報として追加された事実を伝える文へ修正されました。Appの実際のPlaywright MCP履歴で、明暗両テーマのcomputedStyleによるコントラストとTab移動時のoutlineの検査を確認しています。<code>tmp/verification-20261004/chapter7-review-ui.txt</code>には修正完了の応答とIdleを保存しました。</p>
-<table>
+<div class="table-scroll" tabindex="0"><table class="content-table"><colgroup><col style="width:39.76%"/><col style="width:30.12%"/><col style="width:30.12%"/></colgroup>
 <thead>
 <tr>
-<th style="text-align: left;">検査対象</th>
-<th style="text-align: right;">Light</th>
-<th style="text-align: right;">Dark</th>
+<th scope="col" style="text-align: left;">検査対象</th>
+<th scope="col" style="text-align: right;">Light</th>
+<th scope="col" style="text-align: right;">Dark</th>
 </tr>
 </thead>
 <tbody>
@@ -1116,16 +1116,16 @@
 <td style="text-align: right;">3px</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p>修正後は主担当がIssue #6のボタンを1回押して確認しました。事実を伝える通知に続いて番号、タイトル、URL、受入条件を含む本文全体が1回追加され、受領のみの応答も1回です。Refresh後も#5と#6のボタンはAdded to this sessionの無効状態を保ち、通知と応答は増えていません。<code>tmp/verification-20261004/chapter7-receipt-ui.txt</code>に修正後の通知、本文、受領応答を保存しています。</p>
 <p>主担当の確認でもリポジトリは未変更で、今回のMCP一時出力は0件でした。Issueの実装、コミット、push、PR作成は、このCanvasの修正とボタン確認では行っていません。<a href="../assets/app-20261004-07-canvas-readable.jpg">修正後のCanvas</a>を掲載候補として取得しました。<code>app-20261004-07-canvas-receipt.jpg</code>はRefresh途中のFetchingを含むため、教材へ掲載する場合は会話部分を切り出すなど、掲載範囲の確認が必要です。</p>
 <h3>project共有の初回結果と追加レビュー</h3>
 <p>7.2の固定プロンプトで、Canvasと再利用手順をリポジトリへ保存しました。初回の共有結果は<code>tmp/verification-20261004/chapter7-shared-initial-ui.txt</code>に記録しています。</p>
-<table>
+<div class="table-scroll" tabindex="0"><table class="content-table"><colgroup><col style="width:18%"/><col style="width:82%"/></colgroup>
 <thead>
 <tr>
-<th style="text-align: left;">確認対象</th>
-<th style="text-align: left;">初回の共有結果</th>
+<th scope="col" style="text-align: left;">確認対象</th>
+<th scope="col" style="text-align: left;">初回の共有結果</th>
 </tr>
 </thead>
 <tbody>
@@ -1162,15 +1162,15 @@
 <td style="text-align: left;">初回の共有時点では未作成。</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p>共有化のレビューでは、同じセッションの送信済み状態を引き継がない問題が見つかりました。初回の共有版を実ファイルで確認したところ、旧セッション版のissue-priority-kanbanに#5と#6、共有版のpriority-kanbanに#1が保存され、共有版は旧状態を読み込んでいませんでした。このため、同じ会話にすでに追加した#5と#6の再送を防げない構造でした。実際に#5と#6を再送して確認する操作は行っていません。</p>
 <p><code>tmp/verification-20261004/chapter7-shared-review-followup.txt</code>で、同じセッションの送信済み番号[1,5,6]を安全に統合し、別セッションではそのセッション自身の状態を使うよう追加依頼しました。確認には状態の読み取りとボタンの無効表示を使い、#1、#5、#6を再通知しない条件も指定しています。</p>
 <p>追加修正は完了し、<code>tmp/verification-20261004/chapter7-shared-review-ui.txt</code>に結果を保存しました。確認した範囲は次のとおりです。</p>
-<table>
+<div class="table-scroll" tabindex="0"><table class="content-table"><colgroup><col style="width:20.47%"/><col style="width:79.53%"/></colgroup>
 <thead>
 <tr>
-<th style="text-align: left;">確認対象</th>
-<th style="text-align: left;">修正後の結果</th>
+<th scope="col" style="text-align: left;">確認対象</th>
+<th scope="col" style="text-align: left;">修正後の結果</th>
 </tr>
 </thead>
 <tbody>
@@ -1203,15 +1203,15 @@
 <td style="text-align: left;">共有レビュー終了時点では実表示と追加操作は未確認だった。その後、7.3で再利用と本文追加、状態の分離を確認。</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p>共有版のレビューでは、追加の必須修正は残っていません。<code>app-20261004-07-changes-canvas.jpg</code>を取得済みです。その後の通常のCreate PRで追加修正と検査が行われ、以下の確定したPRとマージ結果につながっています。</p>
 <h3>共有版のPR、CI、Agent Mergeと更新承認</h3>
 <p>Appの通常のCreate PRを使用しました。作成処理で補助Issue #16が自動作成され、lintに基づくCanvasの追加修正と再検査も行われています。共有レビュー時点の555行追加から、PRの確定差分は556行追加に変わりました。</p>
-<table>
+<div class="table-scroll" tabindex="0"><table class="content-table"><colgroup><col style="width:18.19%"/><col style="width:81.81%"/></colgroup>
 <thead>
 <tr>
-<th style="text-align: left;">項目</th>
-<th style="text-align: left;">記録</th>
+<th scope="col" style="text-align: left;">項目</th>
+<th scope="col" style="text-align: left;">記録</th>
 </tr>
 </thead>
 <tbody>
@@ -1264,17 +1264,17 @@
 <td style="text-align: left;">AppとGitHub Webの両方でMergedを確認。</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p>PR作成で補助Issue #16がOpenとなった期間は、元の未完了課題6件に補助Issue 1件が加わります。マージ後に#16はClosedとなりました。Canvasの一覧では、演習用Issueとこの一時的な補助Issueを取り違えず、実際のOpen一覧との一致で判断します。</p>
 <p>Agent merge actionsのメニューは一瞬表示されましたが、四項目を個別には確認していません。今回もCI全成功を人が確認してから、スイッチをOnにしてマージする経路を検証した範囲です。</p>
 <p>更新内容の承認ではReview repository contentを開き、ダイアログの<code>.github/extensions/database-explorer</code>、<code>priority-kanban</code>、scriptsを実ファイルと照合してから、Accept for new sessionsを完了しました。<code>app-20261004-07-canvas-trust.jpg</code>を保存しています。</p>
 <h3>別セッションでの再利用と検索Issueの受領</h3>
 <p>共有版のマージ後、別の新しいセッションを最新mainから開始しました。7.3の固定プロンプトで共有Canvasを開き、Open Issue 6件と6件の有効な追加ボタンを確認しています。主担当がIssue #1のボタンを1回押して、本文追加と受領を実際に確認しました。</p>
-<table>
+<div class="table-scroll" tabindex="0"><table class="content-table"><colgroup><col style="width:23.69%"/><col style="width:76.31%"/></colgroup>
 <thead>
 <tr>
-<th style="text-align: left;">確認対象</th>
-<th style="text-align: left;">結果</th>
+<th scope="col" style="text-align: left;">確認対象</th>
+<th scope="col" style="text-align: left;">結果</th>
 </tr>
 </thead>
 <tbody>
@@ -1319,16 +1319,16 @@
 <td style="text-align: left;"><code>tmp/verification-20261004/chapter7-reopened-ack-ui.txt</code>に再利用と受領の結果を保存。</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p>これにより、同じセッションの重複防止と、別セッションで同じIssueを改めて受け取る操作の両方を確認できました。検索Issueの受領は参照情報の追加までで、検索機能の実装成功とは扱いません。</p>
 <h3>検索機能のPlanと承認</h3>
 <p>7.4の固定プロンプトをPlanモードで送り、作成したPlanを全文レビューしました。Clear filtersで検索語も解除するかという質問には、既定のA: はいを選び、Continueで回答しています。<code>tmp/verification-20261004/chapter7-search-plan-ui.txt</code>に計画と質問の結果を保存しました。</p>
 <p>Planでは、既存の静的な21件のカードとクライアント側フィルターの同じ層に検索を加える理由を示しています。DBのgetAllGamesと星評価を維持し、カテゴリ内のOR条件も保ったうえで、検索、カテゴリ、出版社をAND条件で組み合わせる構成です。</p>
-<table>
+<div class="table-scroll" tabindex="0"><table class="content-table"><colgroup><col style="width:18%"/><col style="width:82%"/></colgroup>
 <thead>
 <tr>
-<th style="text-align: left;">Planの確認対象</th>
-<th style="text-align: left;">記載内容</th>
+<th scope="col" style="text-align: left;">Planの確認対象</th>
+<th scope="col" style="text-align: left;">記載内容</th>
 </tr>
 </thead>
 <tbody>
@@ -1357,14 +1357,14 @@
 <td style="text-align: left;">Approve and implementを1回クリックすると即座にAutopilotへ移行し、Workingで実装を開始。追加の開始指示は送っていない。</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p>次の件数とタイトルはPlanの期待値で、実装後の確認結果ではありません。タイトルは実際のデータに合わせ、単語間の空白も含めて記録しています。</p>
-<table>
+<div class="table-scroll" tabindex="0"><table class="content-table"><colgroup><col style="width:46.43%"/><col style="width:24.59%"/><col style="width:28.98%"/></colgroup>
 <thead>
 <tr>
-<th style="text-align: left;">Planで検査する条件</th>
-<th style="text-align: right;">期待件数</th>
-<th style="text-align: left;">期待タイトル</th>
+<th scope="col" style="text-align: left;">Planで検査する条件</th>
+<th scope="col" style="text-align: right;">期待件数</th>
+<th scope="col" style="text-align: left;">期待タイトル</th>
 </tr>
 </thead>
 <tbody>
@@ -1394,14 +1394,14 @@
 <td style="text-align: left;">Repo Rampart</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <h3>検索実装と自動検査の結果</h3>
 <p>検索実装の初回処理はIdleで完了しました。<code>tmp/verification-20261004/chapter7-search-implementation-ui.txt</code>に結果を保存し、主担当がChangesで検索入力のlabel、input、0件の文面を確認しています。差分レビューでは追加の必須修正は残っていません。</p>
-<table>
+<div class="table-scroll" tabindex="0"><table class="content-table"><colgroup><col style="width:23.03%"/><col style="width:76.97%"/></colgroup>
 <thead>
 <tr>
-<th style="text-align: left;">確認対象</th>
-<th style="text-align: left;">実装完了時の結果</th>
+<th scope="col" style="text-align: left;">確認対象</th>
+<th scope="col" style="text-align: left;">実装完了時の結果</th>
 </tr>
 </thead>
 <tbody>
@@ -1442,16 +1442,16 @@
 <td style="text-align: left;"><code>app-20261004-07-changes-search.jpg</code>を取得。</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p>この段階の完了は、実装の差分と自動検査の結果までです。本文で求めるブラウザーの操作結果は、次のPlaywright MCP検証で確認します。</p>
 <h3>検索のPlaywright MCP検証の結果</h3>
 <p>7.5には固定プロンプトがないため、本文の確認条件を<code>tmp/verification-20261004/chapter7-search-mcp-followup.txt</code>で追加依頼しました。実行済みの単体テスト、E2E、lint、型検査は結果と件数を照合し、未実施の必須検査がある場合だけquality-checksで補う条件です。最終結果は<code>tmp/verification-20261004/chapter7-search-mcp-ui.txt</code>に保存しています。</p>
 <p>開発サーバーのURLは<code>http://127.0.0.1:4321/</code>です。MCPの最終結果メッセージでは、次の操作結果が報告されました。主担当の独立した画面確認と区別して記録します。</p>
-<table>
+<div class="table-scroll" tabindex="0"><table class="content-table"><colgroup><col style="width:49.68%"/><col style="width:50.32%"/></colgroup>
 <thead>
 <tr>
-<th style="text-align: left;">MCPで報告された条件</th>
-<th style="text-align: left;">報告された結果</th>
+<th scope="col" style="text-align: left;">MCPで報告された条件</th>
+<th scope="col" style="text-align: left;">報告された結果</th>
 </tr>
 </thead>
 <tbody>
@@ -1488,17 +1488,17 @@
 <td style="text-align: left;">星評価3.7と詳細リンクのhref<code>/game/9</code>を維持。</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p>最終結果メッセージが挙げたMCPツールは、<code>playwright-browser_navigate</code>、<code>playwright-browser_snapshot</code>、<code>playwright-browser_find</code>、<code>playwright-browser_click</code>、<code>playwright-browser_type</code>、<code>playwright-browser_evaluate</code>、<code>playwright-browser_press_key</code>、<code>playwright-browser_fill_form</code>、<code>playwright-browser_select_option</code>、<code>playwright-browser_close</code>です。主担当が直接確認した実際のNavigate履歴と、結果メッセージに記載された一覧を区別します。ほかの列挙したツールすべてを個別の履歴で照合したとは扱いません。</p>
 <p>MCPでは詳細リンクのhrefを確認し、リンクをクリックして詳細画面へ移る操作は行っていません。この点は最終報告でも未実施と明記されています。E2Eの詳細ページ遷移は成功しているため、MCPの手動操作と自動検査で確認した範囲を分けて記録します。</p>
 <p>主担当も別のブラウザーで同じ件数とタイトル、星評価、href、Tab移動時のフォーカス、Enterでの解除を独立に確認しました。取得した<code>app-20261004-07-search-default.jpg</code>、<code>app-20261004-07-search-two.jpg</code>、<a href="../assets/app-20261004-07-search-combined.jpg">AND条件の1件</a>、<a href="../assets/app-20261004-07-search-zero.jpg">0件表示</a>は、主担当の別ブラウザーでの結果です。CopilotがMCPで取得した画像とは扱いません。</p>
 <p>後片付けは、エージェントのbrowser_close、サーバー停止、一時DBとMCP出力の削除の報告後に、主担当も独立に確認しました。4321と4322の待受はなく、title-search-manual.dbもありません。<code>.playwright-mcp</code>は空のフォルダーだけが残り、出力ファイルは0件です。通常CSVのハッシュは第4章の記録と一致し、差分検査も成功。演習用の変更は検索の5ファイルだけでした。</p>
 <h3>検索PRのCI、Agent MergeとCanvasのRefresh</h3>
-<table>
+<div class="table-scroll" tabindex="0"><table class="content-table"><colgroup><col style="width:21.93%"/><col style="width:78.07%"/></colgroup>
 <thead>
 <tr>
-<th style="text-align: left;">項目</th>
-<th style="text-align: left;">確認結果</th>
+<th scope="col" style="text-align: left;">項目</th>
+<th scope="col" style="text-align: left;">確認結果</th>
 </tr>
 </thead>
 <tbody>
@@ -1559,15 +1559,15 @@
 <td style="text-align: left;"><code>tmp/verification-20261004/chapter7-canvas-after-search-ui.txt</code>と<a href="../assets/app-20261004-07-canvas-after-search-merge.jpg">マージ後のCanvas</a>。</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p>第7章は、共有と再利用、検索実装のレビューとMCP結果の照合、最新CI全成功後のマージ、課題一覧の更新まで完了しました。MCPでの詳細リンクのクリック遷移、四項目のAgent merge actionsの個別表示、発生しなかったCIと競合の修復は、検証済みと扱いません。第8章の実行と照合結果は次のとおりです。</p>
 <h2>第8章のManual・Local自動化と結果の照合</h2>
 <p>New Automationで「Recap my recent work 20261004」を作成しました。配布資料8.1の固定プロンプトは一字も変更せず、読み取りと会話内の報告だけを依頼しています。Manual、Run in the cloudをOff、今回の演習用コピー、新しいworktreeを選び、Create and runを実行しました。</p>
-<table>
+<div class="table-scroll" tabindex="0"><table class="content-table"><colgroup><col style="width:21.46%"/><col style="width:78.54%"/></colgroup>
 <thead>
 <tr>
-<th style="text-align: left;">項目</th>
-<th style="text-align: left;">実行記録</th>
+<th scope="col" style="text-align: left;">項目</th>
+<th scope="col" style="text-align: left;">実行記録</th>
 </tr>
 </thead>
 <tbody>
@@ -1620,15 +1620,15 @@
 <td style="text-align: left;"><code>tmp/verification-20261004/chapter8-automation-tools-ui.txt</code></td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <h3>報告されたPRとIssue</h3>
 <p>期間内にマージされたPRは5件で、報告件数と一覧が一致しました。主担当がGitHub APIから独立に取得した番号、タイトル、URL、マージ日時も全5件で一致しています。検索PR #18を含む結果です。</p>
-<table>
+<div class="table-scroll" tabindex="0"><table class="content-table"><colgroup><col style="width:19.32%"/><col style="width:55.44%"/><col style="width:25.24%"/></colgroup>
 <thead>
 <tr>
-<th style="text-align: left;">番号</th>
-<th style="text-align: left;">PRのタイトルとURL</th>
-<th style="text-align: left;">マージ日時、JST</th>
+<th scope="col" style="text-align: left;">番号</th>
+<th scope="col" style="text-align: left;">PRのタイトルとURL</th>
+<th scope="col" style="text-align: left;">マージ日時、JST</th>
 </tr>
 </thead>
 <tbody>
@@ -1658,14 +1658,14 @@
 <td style="text-align: left;">2026-10-04 10:42:16</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p>Open Issueは5件で、番号、タイトル、URL、状態も主担当のAPI照合と全5件で一致しています。マージ済みの検索Issue #1は含まれていません。</p>
-<table>
+<div class="table-scroll" tabindex="0"><table class="content-table"><colgroup><col style="width:18.1%"/><col style="width:63.8%"/><col style="width:18.1%"/></colgroup>
 <thead>
 <tr>
-<th style="text-align: left;">番号</th>
-<th style="text-align: left;">IssueのタイトルとURL</th>
-<th style="text-align: left;">状態</th>
+<th scope="col" style="text-align: left;">番号</th>
+<th scope="col" style="text-align: left;">IssueのタイトルとURL</th>
+<th scope="col" style="text-align: left;">状態</th>
 </tr>
 </thead>
 <tbody>
@@ -1695,20 +1695,20 @@
 <td style="text-align: left;">Open</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <h3>読み取りだけで完了したことの確認</h3>
 <p>実際のツール履歴は4件です。<code>gh repo view</code>、期間とマージ時刻を指定する<code>gh pr list</code>、現在Openを取得する<code>gh issue list</code>、JustRightの校正だけで完了しました。PRの取得はlimit 100、Issueの取得はlimit 1000で、対象期間と状態はツール引数にも明示されています。</p>
 <p>主担当の独立確認でもmainは変わらず、今回の全10件のIssueのコメント数は0件、更新時刻は自動化前の演習終了時と同じでした。自動化のworktreeはtrackedとuntrackedの変更がなく、セットアップの自動生成物と演習内容の変更を区別して確認しています。</p>
 <p>自動化の報告は対象リポジトリ、取得時点、タイムゾーン、期間、件数と一覧を含み、その対象データの未確認情報はないと記載しました。主担当の照合により、このPR 5件とOpen Issue 5件の報告内容を確認できたため、第8章は完了と判定します。継続的なスケジュール実行やクラウド実行は、今回のManual・Localの検証範囲には含めていません。</p>
 <h2>補足操作と教材の修正候補</h2>
-<table>
+<div class="table-scroll" tabindex="0"><table class="content-table"><colgroup><col style="width:14%"/><col style="width:14%"/><col style="width:26.19%"/><col style="width:31.81%"/><col style="width:14%"/></colgroup>
 <thead>
 <tr>
-<th style="text-align: left;">ID</th>
-<th style="text-align: left;">該当箇所</th>
-<th style="text-align: left;">観測した内容</th>
-<th style="text-align: left;">修正候補</th>
-<th style="text-align: left;">状況</th>
+<th scope="col" style="text-align: left;">ID</th>
+<th scope="col" style="text-align: left;">該当箇所</th>
+<th scope="col" style="text-align: left;">観測した内容</th>
+<th scope="col" style="text-align: left;">修正候補</th>
+<th scope="col" style="text-align: left;">状況</th>
 </tr>
 </thead>
 <tbody>
@@ -1762,17 +1762,17 @@
 <td style="text-align: left;">改稿後の7.3.1と7.3.2へ反映済み。</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p>レビューによる追加修正は、本文で求める確認条件に基づく操作です。初回の生成結果、必要だった指示、再試行の結果を分けて記録しました。画面の項目名や入口が変わった箇所は、上記のR01〜R07として記録し、改稿後の原稿へ反映しました。</p>
 <h2>画面の取得と掲載判断</h2>
 <p>掲載箇所ごとの候補は<a href="verification-images-20261004.html">画像対応表</a>のとおりです。既存画像の差し替え、追加する画面、重複掲載の削除候補を掲載箇所ごとに判断します。</p>
 <p>以下は実走時に取得した撮影ファイルと用途、当時の掲載判断の記録です。現在の公開版の採否は画像対応表と公開画像一覧で確認できます。掲載候補と検証記録を分け、対象リポジトリ、課題、作業モード、表示結果が合う画像を選ぶ判断材料として残しました。</p>
-<table>
+<div class="table-scroll" tabindex="0"><table class="content-table"><colgroup><col style="width:25.47%"/><col style="width:29.35%"/><col style="width:45.18%"/></colgroup>
 <thead>
 <tr>
-<th style="text-align: left;">取得ファイル</th>
-<th style="text-align: left;">対応する内容</th>
-<th style="text-align: left;">掲載判断</th>
+<th scope="col" style="text-align: left;">取得ファイル</th>
+<th scope="col" style="text-align: left;">対応する内容</th>
+<th scope="col" style="text-align: left;">掲載判断</th>
 </tr>
 </thead>
 <tbody>
@@ -2217,7 +2217,7 @@
 <td style="text-align: left;">第8章の正常終了を示す差し替え候補。Succeededという文字が画像内に表示されているとは扱わない。</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p>Issues一覧は、旧コピーの詳細や複数リポジトリの選択を除いた公開版を採用しました。設定画面や操作途中の原本は確認記録として保全しています。公開版として採用した画面と、原本だけを保全する画面は、公開画像一覧と画像対応表で区別できます。</p>
 <h2>最終判定と反映の状況</h2>
 <p>画面差の読み替えと本文のレビュー工程による追加修正を行い、第0〜8章を完了しました。実装の判定には画面、差分、実際の自動検査、PRの最新CI結果を使い、自動化の報告はGitHub APIで独立に照合しています。初回プロンプトだけで無修正に進められる保証は、この結果に含みません。</p>

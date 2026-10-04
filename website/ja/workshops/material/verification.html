@@ -13,6 +13,11 @@
 <strong>今回の実走は、GitHub連携経路で追加指示を行いながら確認した結果です。</strong> 改訂後の初回プロンプトだけによる再現や、未実施の経路まで確認済みとは扱いません。以下の「未作成」「未マージ」は各段階での状態を表します。現在の未確認範囲は本書の第2節、画面ごとの確認項目は<a href="ui-check.html">UI確認表</a>を参照してください。</p>
 </blockquote>
 <h2>1. 実走結果と教材改訂の記録</h2>
+<h3>2026年10月4日：表の項番と読みやすさに応じた列幅</h3>
+<p>受講者向けの38表に項番の列を追加し、表ごとに1から始まる連番を付けました。章一覧は既存の章番号を保持しています。元のセルの文章と順序、見出し、操作手順、入力用プロンプト、リンク、画像は変更していません。手順の途中にある表も対象に含めました。</p>
+<p>WebとPDFの列幅は、各列の役割と文章量に合わせています。項番の列は細くし、ケースの説明やCanvasの期待結果などは広い列にしました。件数を示す列は、操作や確認理由の列と幅を分けています。狭い画面では表の中を横にスクロールでき、番号のために説明の文字を縮める構成にはしていません。</p>
+<p>38表は登録済みのJustRight MCPの既定設定で検査し、指摘0件でした。文書修正後にAntigravityへ読み取り専用の確認を依頼し、JustRight MCPとyomiyasuスキルの使用を要望に含めました。Antigravityはスキルを読み、MCPを8回呼び出しました。長い入力への1件の指摘は、原稿と分割した入力で再確認し、文章の修正は不要と判断しています。分割した検査結果は指摘0件で、項番や学習内容に修正が必要な指摘はありませんでした。</p>
+<p>文書修正後に、受講者向け12原稿と関連資料7原稿の最終稿をyomiyasuリンターで評価しました。表のセルも本文として別途抽出しています。元の説明や用語に対する指摘は、文脈を確認して保持しました。WebとPDFの項番・列幅の一致、セル内のリンクや強調の保持を含む自動検査12件が成功しました。この変更は表の表示を整えるもので、演習の再実走ではありません。</p>
 <h3>2026年10月4日：章内の活動と期待される到達状態</h3>
 <p>第1〜9章の「この章で学ぶこと」の表を、「この章で行うこと」と「到達した状態」の順に統一しました。左列には章内で行う活動、右列にはその結果として整う環境や習得する判断・能力を示しています。第1章は後の演習へ進む準備として記述し、実装やPR操作を習得済みとは扱っていません。第8章では、実装の検証とIssue一覧の更新を別の行に分けました。</p>
 <p>各章の表以外は変更していません。概要の説明、ケースの課題と受け入れ条件、操作手順、入力用プロンプト、見出し、リンク、画面画像が変更前と同じであることを確認しました。修正した9表は登録済みのJustRight MCPの既定設定で検査し、指摘0件でした。文書修正後にAntigravityへ読み取り専用の確認を依頼し、JustRight MCPとyomiyasuスキルの使用を要望に含めました。Antigravityはスキルを読み、MCPを2回呼び出して、いずれも指摘0件でした。表の活動と結果の対応、章ごとの作業範囲に修正が必要な指摘はありませんでした。</p>
@@ -42,11 +47,11 @@
 <p>学習目的とケースの分離後の最終稿は、別の担当者が章を分担して読み直しました。星評価の表示部品を再利用する条件、コメント規約の対象、Agent Mergeで受講者が担う判断、Canvasによる解決策を明確にしています。登録済みのJustRight MCPの既定設定で、参加者向け12原稿と講師ガイド・UI確認表の本文を検査しました。抽出時に生じた改行や識別子の欠落、技術用語への指摘は、元の原稿と照合して判断しました。</p>
 <p>文書修正後にAntigravityへ読み取り専用の確認を依頼し、JustRight MCPとyomiyasuスキルの使用を要望へ含めました。再認証後に受講者向け12原稿を確認し、9章の概要・到達点・ケースの本文について、AntigravityからJustRight MCPを呼び出した結果は指摘0件でした。Antigravityはyomiyasuスキルを読み、学習目的とケースの分離、主語と対象、判断条件を確認しました。リンターの評価はCodexで実行した最終稿の結果を参照し、Antigravity自身が再実行したものではありません。修正が必要な指摘はありませんでした。</p>
 <p>文書の修正を終えてから、参加者向け12原稿をyomiyasuリンターで再評価しました。以下はMarkdown原稿の機械評価です。残る指摘は、順序のある操作手順の比率、操作名の強調、文末の連続などです。説明の意味と操作の読み取りやすさを確認し、点数だけを理由に手順や用語を変更していません。</p>
-<table>
+<div class="table-scroll" tabindex="0"><table class="content-table"><colgroup><col style="width:50%"/><col style="width:50%"/></colgroup>
 <thead>
 <tr>
-<th style="text-align: left;">原稿</th>
-<th style="text-align: right;">点数</th>
+<th scope="col" style="text-align: left;">原稿</th>
+<th scope="col" style="text-align: right;">点数</th>
 </tr>
 </thead>
 <tbody>
@@ -99,7 +104,7 @@
 <td style="text-align: right;">95 / 100</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p>原稿の保持監査と配布用の自動検査10件が成功しました。Webの見出しと目次・リンクを検査し、受講者用と講師用PDFは全ページの一覧画像と必要な拡大画像で点検しました。第6章の後片付けの説明は、見出しと2段落が同じページに収まるよう配置を調整し、再点検しています。章と大節の切り替わりで改ページする構造、掲載画像、入力文のコピーは維持しました。</p>
 <p>以下は、6段階の構成で実施した品質確認の記録です。現在の5節構成に対する確認とは分けて参照してください。</p>
 <h3>2026年10月4日：通し実走後の改稿と品質確認</h3>
@@ -109,11 +114,11 @@
 <p>主語と参照先の見直しでは、参加者向け12原稿を対象に、Tailspin Toysのどの画面・データを扱うか、どのリポジトリ・セッションで操作するか、誰が何を確認するかを明示しました。前章の知識だけに頼らず、節や表から読み始めても対象と条件を追えるようにしています。別の担当者が補足と振り返りから逆順に読み、残っていた6か所を修正しました。9章の学習構成、操作番号、画像、既存の出典、入力用プロンプトとコードは保持しています。パス固有指示の適用条件にはGitHub公式の出典を追加しました。</p>
 <p>変更後の参加者向け12原稿と、講師ガイド・UI確認表の本文は、登録済みのJustRight MCPの既定設定で校正しました。本文の抽出によって起きた改行や識別子の欠落への指摘と、技術用語の指摘を原稿と照合し、変更が不要なものは残しています。この見直し後のAntigravityの確認は、CLIの認証切れにより未実施です。前段の構成変更に対するAntigravityの確認とは区別します。</p>
 <p>最終原稿の読みやすさは、主語と参照先の修正後に、yomiyasuリンターで参加者向け12原稿を再評価しました。以下はMarkdown原稿の機械評価です。順序のある手順、操作名の強調、文末の連続に対する指摘は、説明の意味と操作の読み取りやすさを確認して残しています。点数は理解しやすさや再現性を保証するものではありません。コードやプロンプト、URLとパスは、指摘だけを理由に変更していません。</p>
-<table>
+<div class="table-scroll" tabindex="0"><table class="content-table"><colgroup><col style="width:50%"/><col style="width:50%"/></colgroup>
 <thead>
 <tr>
-<th style="text-align: left;">原稿</th>
-<th style="text-align: right;">点数</th>
+<th scope="col" style="text-align: left;">原稿</th>
+<th scope="col" style="text-align: right;">点数</th>
 </tr>
 </thead>
 <tbody>
@@ -166,7 +171,7 @@
 <td style="text-align: right;">95 / 100</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p>構造監査では、各章の6節、ローカルリンク90件、操作画像42枚と概念図4点が整合しています。講師向け判定、非公開アクセス情報、旧版の説明、モデル指定は参加者本文に含めていません。PDFの改ページと入力文のコピー、Webのリンクは生成検査で確認します。この検査と、Copilotでの再実走は区別します。</p>
 <p>以下は、今回の改稿より前の記録です。</p>
 <h3>2026年10月4日：教材の構成と操作画像の整理</h3>
@@ -184,11 +189,11 @@
 <p>掲載画像は、今回の実走画面に差し替えていません。演習0のGitHub Web画像2点には変更前のテンプレート取得先が写っていますが、実際に使う取得先は<code>iwizsophy/dev-days-tailspin-template</code>です。画像ごとの撮影条件は<code>content/ja/sources.json</code>の<code>ui_captures</code>に保持しています。</p>
 <p>受講者向けの全体点検で、本文から講師専用の緊急対応・完了実績の判定・テンプレートの修正履歴を外しました。入口と事前準備の運営向け案内、Webの参照確認日・コミット表示、参加者用PDFの管理用識別子も整理しています。演習の目的、仕様を判断する理由、受講者自身のテストと結果確認は維持しています。</p>
 <p>画像には次の残課題があり、本文の整理だけでは解消していません。実際の操作対象と開始状態を揃えて撮り直す必要があります。</p>
-<table>
+<div class="table-scroll" tabindex="0"><table class="content-table"><colgroup><col style="width:28.36%"/><col style="width:71.64%"/></colgroup>
 <thead>
 <tr>
-<th style="text-align: left;">対象画像の操作</th>
-<th style="text-align: left;">受講者向けに整理する内容</th>
+<th scope="col" style="text-align: left;">対象画像の操作</th>
+<th scope="col" style="text-align: left;">受講者向けに整理する内容</th>
 </tr>
 </thead>
 <tbody>
@@ -209,7 +214,7 @@
 <td style="text-align: left;">検証者のログと利用枠の警告を掲載範囲から外し、対象PRと許可する操作を示す</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p>元の画像ファイルは変更していません。画面の記録と本文の操作案内を照合し、撮り直す際の優先順位は<a href="ui-check.html">UI確認表</a>で確認します。</p>
 <p>この改訂は、以下の「追加指示付きの実走」を根拠にしたものです。改訂後の初回プロンプトだけを使った通し実走、他のOS、未発生のCI修復・競合解消、Automationの定期・Cloud実行は未検証です。Web・PDFの生成検査は、Appでの操作検証とは分けて扱います。</p>
 <h3>2026年10月3日：配布PDFからの再実走（全章確認・補足が必要）</h3>
@@ -221,12 +226,12 @@
 <li>テンプレート取得時の main は <code>ae18804e616f895ef30a15732037b9125f68ac74</code>。PDF記載の版タグだけで複製コミットは固定されず、コピー後の bootstrap 完了時の main は <code>80eed00695f6c141acde2f6e45dce80bf032afd7</code>。今回の結果はこのコピーに対する検証である。</li>
 <li>PDFの機械検査：章テキスト・ブックマーク・133リンク・14コードブロックの検査成功。全ページのコンタクトシートも確認した。これは App 操作の成功を保証する検査ではない。</li>
 </ul>
-<table>
+<div class="table-scroll" tabindex="0"><table class="content-table"><colgroup><col style="width:18%"/><col style="width:64%"/><col style="width:18%"/></colgroup>
 <thead>
 <tr>
-<th style="text-align: left;">章</th>
-<th style="text-align: left;">今回の実測</th>
-<th style="text-align: left;">状況</th>
+<th scope="col" style="text-align: left;">章</th>
+<th scope="col" style="text-align: left;">今回の実測</th>
+<th scope="col" style="text-align: left;">状況</th>
 </tr>
 </thead>
 <tbody>
@@ -276,7 +281,7 @@
 <td style="text-align: left;">確認済み。検索PRのマージ前に実行。定期・Cloud実行は未検証</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p>サイドバーのPull requestsとIssuesを確認した。設定承認はReview repository content → Repository trust → Accept for new sessions。クイックチャットはChatの対象選択とInteractiveのモード表示を持つ。Runは開発サイトを起動したがBrowserパネルは自動表示されず、Runターミナルに出た<code>http://127.0.0.1:4321/</code>を別ブラウザーで開いた。Stop後はターミナルにShell session endedと表示された。</p>
 <p>Issuesの初期表示はAssigned to meで、自動生成した課題は未割り当てのためNothing hereとなった。リポジトリを演習コピーに絞り、タブ右の<code>+</code> → New view（State: Open、追加検索条件なし）→ Saveで課題8件を表示できた。</p>
 <p>今回の初回生成には、受け入れ条件を満たすためのレビュー補足が必要だった。通常データ21件はすべて数値評価を持ち、通常の画面確認だけでは<code>null</code>の表示を確認できない。境界値・未評価の確認方法を受講者が再現できるかも検証対象とする。</p>
@@ -320,11 +325,11 @@
 <h3>CLI 独立コースの実績を再利用できる範囲</h3>
 <p>2026年9月8日の Tailspin Toys <strong>CLI 独立シナリオ</strong>（Copilot CLI 1.0.83）の実走結果（<a href="https://github.com/iwizsophy/dev-days-tailspin-cli-verification-20260908/pull/11">フィルター PR #11</a>、<a href="https://github.com/iwizsophy/dev-days-tailspin-cli-verification-20260908/pull/13">高コントラスト PR #13</a>）は、環境構築やトラブルシューティングの参考にはなります。しかし、<strong>星評価の実装、App の章間マージ、Agent Merge、Canvas、Automation の証拠ではありません</strong>。</p>
 <h3>1回の実走で記録すべき必須項目</h3>
-<table>
+<div class="table-scroll" tabindex="0"><table class="content-table"><colgroup><col style="width:22.67%"/><col style="width:77.33%"/></colgroup>
 <thead>
 <tr>
-<th style="text-align: left;">項目</th>
-<th style="text-align: left;">記入内容</th>
+<th scope="col" style="text-align: left;">項目</th>
+<th scope="col" style="text-align: left;">記入内容</th>
 </tr>
 </thead>
 <tbody>
@@ -361,5 +366,5 @@
 <td style="text-align: left;">未実施の App 固有機能、残存する制約、サーバー・Codespace の停止確認</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p><a href="instructor.html">講師ガイド</a> · <a href="../app/index.html">演習目次</a></p></article></main></body></html>

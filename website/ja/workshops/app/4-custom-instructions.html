@@ -37,32 +37,37 @@
 <p>人が読む説明と、ツールが検査する規則を分けて考えると、コードを読んで判断すべき内容と、機械検査で確かめる内容を整理できます。指示ファイルを更新した後も、受講者がコード例と差分を読み、規約が生成結果へどう反映されたかを確認することが本章の狙いです。</p>
 <h3 id="411-この章で学ぶこと">4.1.1 この章で学ぶこと</h3>
 <p>この章を終えると、プロジェクトの規約をCopilotに共有し、指示の適用範囲と生成コードを根拠に、規約への適合をレビューできます。</p>
-<table>
+<div class="table-scroll" tabindex="0"><table class="content-table"><colgroup><col style="width:7%"/><col style="width:45.04%"/><col style="width:47.96%"/></colgroup>
 <thead>
 <tr>
-<th style="text-align: left;">この章で行うこと</th>
-<th style="text-align: left;">到達した状態</th>
+<th class="table-number" scope="col" style="text-align: center;">項番</th>
+<th scope="col" style="text-align: left;">この章で行うこと</th>
+<th scope="col" style="text-align: left;">到達した状態</th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td class="table-number" style="text-align: center;">1</td>
 <td style="text-align: left;">共通指示とパス固有指示を読み、対象ファイルを比べる</td>
 <td style="text-align: left;">それぞれの指示が適用されるファイルを、具体例で説明できる</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">2</td>
 <td style="text-align: left;">Issueの要件を既存の指示・実装・検査設定と照合し、指示ファイルを更新する</td>
 <td style="text-align: left;">規則の対象と追加の理由を説明し、既存の実装や検査設定との矛盾を判断できる</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">3</td>
 <td style="text-align: left;">Copilotの生成例とlintの結果を読み、規約の反映を確かめる</td>
 <td style="text-align: left;">コメントを読んで判断する項目と、lintで検査できる項目を区別できる</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">4</td>
 <td style="text-align: left;">指示ファイルの変更をPRでレビューし、CIの結果を確認して共有する</td>
 <td style="text-align: left;">差分とCIの結果を根拠に、指示ファイルの変更をマージしてよいか判断できる</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <h2 id="42-取り組む前に">4.2 取り組む前に</h2>
 <p>第3章で実装したゲームの星評価が、自分の演習用Tailspin Toysリポジトリのmainへマージされ、Copilot Appでそのプロジェクトを開ける状態から始めます。対象のIssueは「Update our repository coding standards」です。</p>
 <p>本章では、<code>.github/copilot-instructions.md</code>と<code>.github/instructions/</code>の既存ファイルを読みます。Markdownの内容と、変更前後の差分を確認できれば取り組めます。TSDocの詳しい書式を暗記する必要はありません。コード例を読むときに、関数の目的、引数、戻り値が説明されているかを確かめましょう。</p>
@@ -70,28 +75,32 @@
 <h2 id="43-ケース">4.3 ケース</h2>
 <p><a id="シナリオ"></a></p>
 <p>このケースでは、自分の演習用Tailspin Toysリポジトリのコーディング規約を更新します。対象は「Update our repository coding standards」のIssueです。</p>
-<table>
+<div class="table-scroll" tabindex="0"><table class="content-table"><colgroup><col style="width:7%"/><col style="width:18%"/><col style="width:75%"/></colgroup>
 <thead>
 <tr>
-<th style="text-align: left;">観点</th>
-<th style="text-align: left;">このケースで扱う内容</th>
+<th class="table-number" scope="col" style="text-align: center;">項番</th>
+<th scope="col" style="text-align: left;">観点</th>
+<th scope="col" style="text-align: left;">このケースで扱う内容</th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td class="table-number" style="text-align: center;">1</td>
 <td style="text-align: left;">状況</td>
 <td style="text-align: left;">演習用リポジトリには既存の指示ファイルがあり、Issueで規約の更新が求められています。</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">2</td>
 <td style="text-align: left;">課題と理由</td>
 <td style="text-align: left;">規約更新のIssueでは、処理の意図を説明するコメント、データ層のTSDoc/JSDoc、AstroコンポーネントのPropsの説明、コードの書式の文書化が求められています。人が読む説明と、ツールが検査する規則をCopilotへ共有する必要があります。</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">3</td>
 <td style="text-align: left;">解決策</td>
 <td style="text-align: left;">Issueに沿って既存の指示ファイルを更新し、Copilotへ規約を共有します。受講者は、コメントを生成例のレビューで確かめ、コードの書式をESLintなどの静的検査でも確認します。</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p>受講者は、Copilotに指示ファイルの更新を依頼し、生成例を読んで規約の反映を確かめます。差分と生成例の確認を終えたら、レビュー済みの変更を演習用リポジトリのmainへ取り込んで共有してください。</p>
 <p><a id="このプロジェクトのカスタム指示ファイルを確認する"></a></p>
 <h3 id="431-指示ファイルを読み適用範囲を確かめる">4.3.1 指示ファイルを読み、適用範囲を確かめる</h3>
