@@ -133,6 +133,12 @@ def keep_explanations_with_examples(soup, path, prefix, figures):
             if following and following.name == 'p':
                 nodes.append(following)
             group(nodes)
+    elif path.name == 'verification.md':
+        for table in list(soup.select('table')):
+            if [cell.get_text(strip=True) for cell in table.select('thead th')] == ['原稿', '点数']:
+                intro = table.find_previous_sibling()
+                if intro and intro.name == 'p':
+                    group([intro, table])
 
 
 def book_html(paths, label, config, ref, digest, web_base=None):
