@@ -23,7 +23,7 @@ lastUpdated: 2026-10-04
 
 ## 9.2 取り組む前に
 
-前章で作ったゲームのタイトル検索PRを自分の演習用リポジトリのmainへマージし、GitHubで検索IssueのClosed、Canvasで最新のOpen Issue一覧を確認しておきます。Automationの対象にも、自分の演習用リポジトリを指定します。GitHubでそのリポジトリのPRとIssueをブラウザーから確認できる状態にしてください。
+前章で作ったゲームのタイトル検索PRを自分の演習用リポジトリのmainへマージし、GitHubで検索Issueの**Closed**、Canvasで最新のOpen Issue一覧を確認しておきます。Automationの対象にも、自分の演習用リポジトリを指定します。GitHubでそのリポジトリのPRとIssueをブラウザーから確認できる状態にしてください。
 
 今回作るAutomationには、GitHubのPR・Issueの読み取りと会話内の報告だけを任せます。ファイルやIssueを変更する自動化へ進む前に、Automationが何を調べ、どのような報告を出すかを1回の実行で確かめるためです。Manualは実行タイミング、Localは実行場所を表す別々の設定として読みます。
 
@@ -49,7 +49,7 @@ Automationの定期実行へ進む前に、1回の実行で取得するPR・Issu
 
 1. Appのサイドバーで **Automations** を選択し、画面内の **New automation** をクリックします。
 2. 名前欄に `Recap my recent work` などの分かりやすい名称を入力します。
-3. **Trigger**で **Manual** を選択し、**Run in the cloud**はオフにします。Dailyなど別の値が選ばれている場合はManualに変更してください。公式には時刻やIssue・PRのイベントを使うトリガーもありますが、本演習では手動実行の結果を確認します。[公式の設定手順](https://docs.github.com/en/copilot/how-tos/github-copilot-app/using-automations#creating-an-automation)
+3. **Trigger**で **Manual** を選択し、**Run in the cloud**はオフにします。**Daily**など別の値が選ばれている場合は**Manual**に変更してください。公式には時刻やIssue・PRのイベントを使うトリガーもありますが、本演習では手動実行の結果を確認します。[公式の設定手順](https://docs.github.com/en/copilot/how-tos/github-copilot-app/using-automations#creating-an-automation)
 4. 演習用リポジトリに変更を加えないよう、新しいAutomationの指示欄に次のような読み取り専用のプロンプトを入力します。
 
    ```plaintext
@@ -67,8 +67,8 @@ Automationの定期実行へ進む前に、1回の実行で取得するPR・Issu
 
 ### 9.3.2 Automationを実行して結果を確認する
 
-1. AppのAutomation作成画面で **Create** ボタン横のメニューを展開し、**Create and run** を選択して保存と同時に即時実行します。保存のみを行う場合はCreateを選び、後からAutomations一覧の実行ボタンでも開始できます。
-2. 作成したAutomationの **Recent runs**で今回の実行を開き、実行場所がLocal、ステータスが **Succeeded** になったことを確認します。Automationが会話へ出力した報告の照合は、次の小節で行います。
+1. AppのAutomation作成画面で **Create** ボタン横のメニューを展開し、**Create and run** を選択して保存と同時に即時実行します。保存のみを行う場合は**Create**を選び、後から**Automations**一覧の実行ボタンでも開始できます。
+2. 作成したAutomationの **Recent runs**で今回の実行を開き、実行場所が**Local**、ステータスが **Succeeded** になったことを確認します。Automationが会話へ出力した報告の照合は、次の小節で行います。
 
 SucceededはAutomationの処理の終了状態です。調査対象のリポジトリを取り違えたり、PRのマージ日時の範囲を誤ったりしても、報告を出力する処理自体は完了する場合があります。報告では「過去1週間にマージされたPR」を数え、「現在OpenのIssue」を取得しているかをそれぞれ確認してください。報告にあるURLからGitHubの個別のPRやIssueを開くと、件数が同じでも対象が違う場合に気づけます。
 
@@ -92,7 +92,7 @@ Automationの報告を読む前に、GitHubで自分の演習用リポジトリ�
 
 Automationが報告するPRとIssueは、実行時点と演習の進み具合によって変わります。第8章でマージした検索PRが集計期間内ならPRの要約に含まれ、検索IssueがClosedならOpen Issue一覧の対象外です。実行日が変われば「過去1週間」の範囲も変わるため、画像の件数を正解とせず、自分のAutomationの報告に書かれた期間と実行時点を基準に確認してください。
 
-Automationの報告とGitHubの情報が一致しない項目があれば、対象リポジトリと集計期間を確かめ、Automationに保存した指示を修正してもう一度Manualで実行します。Automationの処理が成功し、報告内容もGitHubと一致することを別々に確認できたところで、今回のAutomationの演習は完了です。
+Automationの報告とGitHubの情報が一致しない項目があれば、対象リポジトリと集計期間を確かめ、Automationに保存した指示を修正してもう一度**Manual**で実行します。Automationの処理が成功し、報告内容もGitHubと一致することを別々に確認できたところで、今回のAutomationの演習は完了です。
 
 
 ## 9.4 結果の整理と振り返り
@@ -165,7 +165,7 @@ GitHub Copilotエコシステムの全容をさらに深く学ぶには、以下
 
 ### 9.5.2 件数や項目が一致しないとき
 
-Automationの報告とGitHubのPR・Issueの件数が一致しない場合は、対象リポジトリ名、集計開始・終了日時、PRのマージ済みとClosedの区別、一覧取得の漏れを確認してください。GitHubの権限不足や取得失敗がある場合は、AutomationがPR・Issueを0件と断定せず、未確認として報告しているかも読みます。Automationに保存したプロンプトを修正したら再びManualで実行し、報告とGitHubを同じ観点で照合してください。
+Automationの報告とGitHubのPR・Issueの件数が一致しない場合は、対象リポジトリ名、集計開始・終了日時、PRのマージ済みとClosedの区別、一覧取得の漏れを確認してください。GitHubの権限不足や取得失敗がある場合は、AutomationがPR・Issueを0件と断定せず、未確認として報告しているかも読みます。Automationに保存したプロンプトを修正したら再び**Manual**で実行し、報告とGitHubを同じ観点で照合してください。
 
 報告の照合中に、対象リポジトリの別のPRがGitHubでマージされたり、Issueの状態が変わったりした場合は、その変更時刻も見ます。Automationの報告に日時、番号、URLを含めるのは、件数の違いを調査条件の誤りと判断する前に、どのPR・Issueをいつ取得したかを追えるようにするためです。
 
@@ -174,7 +174,7 @@ Automationの報告とGitHubのPR・Issueの件数が一致しない場合は、
 ### 9.5.3 定期実行とCloud実行への発展
 
 > [!TIP]
-> GitHub公式ではAutomationのCloud実行も案内されており、端末の電源が入っていない間にも実行できます。利用にはリポジトリや組織の設定などの前提があり、Toolsで作業に必要な操作を選びます。定期実行とCloud実行は発展課題です。試す場合は、[公式の前提条件と設定方法](https://docs.github.com/en/copilot/how-tos/github-copilot-app/using-automations#prerequisites-for-using-cloud-automations)を確認し、Manualで検証した調査範囲と結果の確認方法を引き継いでください。
+> GitHub公式ではAutomationのCloud実行も案内されており、端末の電源が入っていない間にも実行できます。利用にはリポジトリや組織の設定などの前提があり、**Tools**で作業に必要な操作を選びます。定期実行とCloud実行は発展課題です。試す場合は、[公式の前提条件と設定方法](https://docs.github.com/en/copilot/how-tos/github-copilot-app/using-automations#prerequisites-for-using-cloud-automations)を確認し、Manualで検証した調査範囲と結果の確認方法を引き継いでください。
 
 <a id="さらに確認する価値のある機能"></a>
 

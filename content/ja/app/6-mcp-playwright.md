@@ -55,8 +55,8 @@ Copilot Appで、第5章のフィルター実装セッションを開いたま�
 
 <a id="テンプレートの既存設定を確認する"></a>
 
-1. Copilot Appのフィルター実装セッションのFilesで`.mcp.json`を開き、`mcpServers`にある`playwright`の定義を読みます。`npx`でローカルプロセスを起動するコマンドと引数を確認してください。ほかの定義は、今回必要なPlaywrightと区別して読みます。
-2. サイドバーの**Customize**を開き、**Installed**の**MCP Servers**で登録済みのPlaywrightを確認します。表示される設定の適用先も読み、既存の接続があれば重複して追加しません。設定画面が見つからなければ、講師に相談してください。
+1. Copilot Appのフィルター実装セッションの**Files**で`.mcp.json`を開き、`mcpServers`にある`playwright`の定義を読みます。`npx`でローカルプロセスを起動するコマンドと引数を確認してください。ほかの定義は、今回必要なPlaywrightと区別して読みます。
+2. サイドバーの**Customize**を開き、**Installed**の**MCP Servers**で登録済みの**Playwright**を確認します。表示される設定の適用先も読み、既存の接続があれば重複して追加しません。設定画面が見つからなければ、講師に相談してください。
 
    ![CustomizeのInstalledで確認する既存のPlaywright接続](../../_images/app-20261004-public/app-20261004-05-mcp-installed.jpg)
 
@@ -119,14 +119,14 @@ Tailspin Toysの通常データ21件を表示するゲーム一覧で確認す�
 
 Tailspin Toysの通常データが同じでも、フィルターで選択した出版社が異なれば期待件数は変わります。「出版社単独6件」のように名前を省かず、選択値と件数を一緒に記録してください。
 
-Tailspin Toysのフィルターをキーボードで操作するときは、カテゴリをSpaceで変更できるか、現在の選択状態が分かるかも確認します。Publisherから<kbd>Tab</kbd>を使って**Clear filters**へ移り、<kbd>Enter</kbd>で解除して21件へ戻る操作も試してください。クリックで解除できることだけでは、キーボードでボタンへ到達して操作できることの確認にはなりません。
+Tailspin Toysのフィルターをキーボードで操作するときは、カテゴリをSpaceで変更できるか、現在の選択状態が分かるかも確認します。**Publisher**から<kbd>Tab</kbd>を使って**Clear filters**へ移り、<kbd>Enter</kbd>で解除して21件へ戻る操作も試してください。クリックで解除できることだけでは、キーボードでボタンへ到達して操作できることの確認にはなりません。
 
 <a id="該当-0-件表示の検証について"></a>
 
 #### 6.3.3.1 該当 0 件表示の検証について
 Tailspin Toysの通常データセットには、全カテゴリーと全パブリッシャーの組み合わせに必ず該当ゲームが存在するため、通常の絞り込み操作のみでは「該当件数 0 件」の画面を再現できません。
 
-第5章で用意したゲーム3件の専用CSVと隔離SQLiteを使い、Tailspin Toysの通常環境とは別ポートのサーバーで0件表示を検証します。まずテスト用の3件を表示し、PuzzleとNova Interactiveを組み合わせると0件となることを確認します。0件の説明と結果通知を読んだら、Clear filtersでテスト用の3件へ戻ることまで確かめてください。通常環境へ戻ったときの21件と、隔離環境で解除した後の3件を混同しないでください。
+第5章で用意したゲーム3件の専用CSVと隔離SQLiteを使い、Tailspin Toysの通常環境とは別ポートのサーバーで0件表示を検証します。まずテスト用の3件を表示し、PuzzleとNova Interactiveを組み合わせると0件となることを確認します。0件の説明と結果通知を読んだら、**Clear filters**でテスト用の3件へ戻ることまで確かめてください。通常環境へ戻ったときの21件と、隔離環境で解除した後の3件を混同しないでください。
 
 ![隔離した3件のテスト環境で、PuzzleとNova Interactiveを選んだ0件の表示例](../../_images/app-20261004-public/app-20261004-05-isolated-zero.jpg)
 
@@ -138,7 +138,7 @@ Tailspin Toysの0件表示を検証するために、通常の`db/games.csv`や�
 
 Playwright MCPのブラウザーを閉じても、検証用の開発サーバーや一時DBが残っている場合があります。次のフィルター検査が古いサーバーへ接続しないよう、今回の検証で起動したサーバーを終了させてください。`browser_close`、サーバー停止、一時DBとMCP出力の削除を確認し、今回使ったポートに待受が残っていないことも照合してください。テストを再実行するためのCSVやテストコードは成果物なので、片付ける一時ファイルと区別します。
 
-最後にCopilot Appのフィルター実装セッションでChangesを開き、検証のためだけのDBやMCP出力が、フィルター機能のPRで共有する変更に混ざっていないかを確認してください。
+最後にCopilot Appのフィルター実装セッションで**Changes**を開き、検証のためだけのDBやMCP出力が、フィルター機能のPRで共有する変更に混ざっていないかを確認してください。
 
 <a id="まとめと次のステップ"></a>
 
@@ -193,9 +193,9 @@ GitHubは、コミュニティによる発見と貢献を促進するため [MCP
 
 ### 6.5.4 接続できない場合に確認すること
 
-Copilot AppでNo MCP servers loadedと表示される場合は、自分の演習用リポジトリの信頼状態と`.mcp.json`の形式を確認してください。[公式のリポジトリ別設定形式](https://docs.github.com/en/copilot/how-tos/copilot-cli/customize-copilot/add-mcp-servers#adding-per-repository-mcp-servers)では、定義を`mcpServers`フィールドに記述します。`servers`など別のキーになっている場合は修正が必要ですが、教材テンプレートはこの形式になっているため、通常は編集不要です。
+Copilot Appで**No MCP servers loaded**と表示される場合は、自分の演習用リポジトリの信頼状態と`.mcp.json`の形式を確認してください。[公式のリポジトリ別設定形式](https://docs.github.com/en/copilot/how-tos/copilot-cli/customize-copilot/add-mcp-servers#adding-per-repository-mcp-servers)では、定義を`mcpServers`フィールドに記述します。`servers`など別のキーになっている場合は修正が必要ですが、教材テンプレートはこの形式になっているため、通常は編集不要です。
 
-Playwrightの設定を修正した場合は、Copilot AppのCustomizeのInstalledへ戻り、接続状態を確認します。上記の公式リンクは設定ファイル形式の参照先です。CLI用の設定コマンドと、Appの画面上の操作を混同しないようにしてください。
+Playwrightの設定を修正した場合は、Copilot Appの**Customize**の**Installed**へ戻り、接続状態を確認します。上記の公式リンクは設定ファイル形式の参照先です。CLI用の設定コマンドと、Appの画面上の操作を混同しないようにしてください。
 
 <a id="セッション再起動restart-sessionの活用"></a>
 
@@ -211,14 +211,14 @@ Copilot Appで既存のPlaywrightを利用できない場合に、Customizeの�
 
 1. Copilot Appのサイドバーの **Customize**を開きます。
 2. **Installed**タブの **MCP Servers**で既存の登録一覧を確認します。すでに登録済みの場合は重複して追加しないよう注意してください。
-3. 未登録の場合はMCPタブを開き、Playwrightを探します。Featuredセクションに見つからなければ、Search MCP serversから検索してください。
-4. Playwrightカードを選択して登録フォームを開きます。ローカルで起動する設定例は、Server nameが `playwright`、Typeが `Local`、Commandが `npx`、Argumentsが `-y @playwright/mcp@latest` です。
-5. 入力内容を確認し、Add serverをクリックして保存します。**Installed**の一覧に追加されたことを確認してください。
+3. 未登録の場合は**MCP**タブを開き、**Playwright**を探します。**Featured**セクションに見つからなければ、**Search MCP servers**から検索してください。
+4. **Playwright**カードを選択して登録フォームを開きます。ローカルで起動する設定例は、**Server name**が `playwright`、**Type**が `Local`、**Command**が `npx`、**Arguments**が `-y @playwright/mcp@latest` です。
+5. 入力内容を確認し、**Add server**をクリックして保存します。**Installed**の一覧に追加されたことを確認してください。
 6. Copilot Appのフィルター実装セッションへ戻り、Playwrightの実際のツール呼び出しを確かめます。たとえばPlaywrightの`browser_tabs`でタブ一覧を取得するよう依頼し、結果が返るかを確認します。応答に`about:blank`が含まれていても、それは開いているタブの状態です。接続できたら、[ブラウザー検証の手順](#playwright-で機能を確認するよう-copilot-に依頼する)へ戻ります。
 
 ![既存のPlaywright設定で確認するLocal、npxと引数の例](../../_images/app-20261004-public/app-20261004-05-playwright-config.jpg)
 
-上の画像は、Copilot Appに登録された既存のPlaywright設定の内容を読む例です。新規追加の手順では、保存後のMCP Serversの一覧と実際のツール呼び出し結果まで確認してください。
+上の画像は、Copilot Appに登録された既存のPlaywright設定の内容を読む例です。新規追加の手順では、保存後の**MCP Servers**の一覧と実際のツール呼び出し結果まで確認してください。
 
 > [!NOTE]
 > サイドバーは左上のトグルボタンまたは<kbd>Ctrl</kbd>+<kbd>B</kbd>で開閉できます。CustomizeやMCPのメニュー項目が見当たらない場合は、Appのバージョン、組織ポリシーによる制限、および現在の画面状態を記録し、講師と一緒に確認してください。
