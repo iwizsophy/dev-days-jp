@@ -144,6 +144,12 @@ def course_index(course, destination):
     return ''.join(parts)
 
 
+def reference_url(course, source):
+    meta = META['courses'][course]
+    original_names = dict(zip(meta['files'], meta.get('source_files', meta['files'])))
+    return f"https://github.com/{meta['repository']}/blob/{meta['commit']}/{meta['source']}/{original_names[source.name]}"
+
+
 def build():
     OUTPUT.mkdir(parents=True, exist_ok=True)
     (OUTPUT / 'licenses').mkdir(exist_ok=True)
@@ -164,7 +170,7 @@ def build():
                 if 0 <= n < len(files):
                     prevnext.append(f'<a href="{relative(TARGETS[files[n].resolve()], destination)}">{label}：{escape(title_body(files[n])[0])}</a>')
             nav = '<nav class="chapter-nav" aria-label="章の移動">' + ''.join(prevnext) + '</nav>'
-            upstream = f"https://github.com/{meta['repository']}/blob/{meta['commit']}/{meta['source']}/{source.name}"
+            upstream = reference_url(course, source)
             source_link = f'<a href="{upstream}">参照原文</a>'
             license_link = relative(OUTPUT / 'licenses' / meta['license'], destination)
             notice = f'<p class="source">非公式の日本語版 · {source_link} · <a href="{license_link}">MIT ライセンス</a></p>'

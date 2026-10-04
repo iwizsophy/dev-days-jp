@@ -1,5 +1,6 @@
 """Regression checks for distribution links and Japanese prompt copy fidelity."""
 import json
+from pathlib import Path
 import re
 import unittest
 from unittest.mock import patch
@@ -26,6 +27,11 @@ class DistributionTests(unittest.TestCase):
         result = pdf.normalize_cmap(b'2 beginbfchar\n<01> <FB01>\n<02> <00660069>\nendbfchar')
         self.assertIn(b'<01> <00660069>', result)
         self.assertIn(b'<02> <00660069>', result)
+
+    def test_renamed_chapters_link_to_original_upstream_filenames(self):
+        self.assertTrue(pdf.web.reference_url('app', Path('1-prerequisites.md')).endswith('/0-prerequisites.md'))
+        self.assertTrue(pdf.web.reference_url('app', Path('9-review.md')).endswith('/8-review.md'))
+        self.assertTrue(pdf.web.reference_url('app', Path('README.md')).endswith('/README.md'))
 
     def test_books_have_embedded_images_and_resolved_links(self):
         config = json.loads(pdf.CONFIG.read_text(encoding='utf-8'))
