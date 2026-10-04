@@ -9,6 +9,48 @@ from bs4 import BeautifulSoup
 
 
 class DistributionTests(unittest.TestCase):
+    def test_numbered_table_keeps_cell_markup_and_allocates_space_to_explanations(self):
+        body = ('<p>Before</p><table><thead><tr><th>項番</th><th>Key</th>'
+                '<th>Explanation</th></tr></thead><tbody><tr><td>1</td>'
+                '<td><code>Node.js</code></td><td><strong>Read</strong> '
+                '<a href="https://example.com">the official explanation</a> '
+                'and compare the environment requirements before continuing.</td>'
+                '</tr></tbody></table><p>After</p>')
+        source = BeautifulSoup(body, 'html.parser')
+        rendered = BeautifulSoup(pdf.web.format_tables(body), 'html.parser')
+        self.assertEqual([c.decode_contents() for c in source.select('th,td')],
+                         [c.decode_contents() for c in rendered.select('th,td')])
+        self.assertEqual([p.get_text() for p in rendered.select('p')], ['Before', 'After'])
+        widths = [float(c['style'][6:-1]) for c in rendered.select('col')]
+        self.assertAlmostEqual(sum(widths), 100)
+        self.assertLess(widths[0], widths[1])
+        self.assertLess(widths[1], widths[2])
+        self.assertTrue(rendered.select_one('.table-scroll[tabindex="0"]'))
+        self.assertEqual(len(rendered.select('.table-number')), 2)
+        pdf.web.layout_table(rendered.table, rendered)
+        self.assertEqual(len(rendered.select('colgroup')), 1)
+
+    def test_web_and_pdf_use_the_same_numbering_and_widths(self):
+        config = json.loads(pdf.CONFIG.read_text(encoding='utf-8'))
+        paths = [pdf.web.SOURCE / 'app/6-mcp-playwright.md',
+                 pdf.web.SOURCE / 'app/8-canvases.md']
+        markup, _, _ = pdf.book_html(paths, 'test', config, 'test-ref', 'a' * 64)
+        printed = BeautifulSoup(markup, 'html.parser').select('.chapter table')
+        web_tables = []
+        for path in paths:
+            _, body = pdf.web.title_body(path)
+            html = pdf.web.format_tables(pdf.web.markdown_renderer().convert(body))
+            web_tables.extend(BeautifulSoup(html, 'html.parser').select('table'))
+        self.assertEqual(len(web_tables), len(printed))
+        for web_table, pdf_table in zip(web_tables, printed):
+            self.assertEqual([c.get_text() for c in web_table.select('th,td')],
+                             [c.get_text() for c in pdf_table.select('th,td')])
+            self.assertEqual([c['style'] for c in web_table.select('col')],
+                             [c['style'] for c in pdf_table.select('col')])
+            numbers = [row.find_all('td', recursive=False)[0].get_text()
+                       for row in pdf_table.select('tbody tr')]
+            self.assertEqual(numbers, [str(i + 1) for i in range(len(numbers))])
+
     def test_shared_glyph_mapping_does_not_change_ascii_or_fullwidth(self):
         cmap = b'3 beginbfchar\n<01> <2F8F>\n<02> <2027>\n<03> <FF1A>\nendbfchar\n1 beginbfrange\n<04> <06> <0041>\nendbfrange'
         result = pdf.normalize_cmap(cmap)
