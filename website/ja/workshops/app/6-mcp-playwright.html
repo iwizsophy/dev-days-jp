@@ -40,7 +40,9 @@
 </div>
 </details><article><h2 id="61-章の概要">6.1 章の概要</h2>
 <p>自動テストで確認した条件に加え、利用者の操作に沿って画面を検証する方法を学びます。本章では、CopilotにMCPを通じてブラウザー操作を依頼し、操作履歴と観察結果を根拠に検証の十分さを判断します。</p>
-<p>MCPでブラウザーを動かすときに区別するのは、設定の内容、接続表示、実際のツール呼び出しです。Playwright MCPの<strong>Connected</strong>は、MCP serverとの接続状態を示す表示です。Tailspin Toysのフィルターが正しく動くかは、ブラウザーで絞り込みと解除を操作し、期待した結果と実際の表示を比べて確かめます。受講者はエージェントの報告と操作履歴を照合し、未実施の操作や期待結果との食い違いがあれば、追加の確認を依頼します。</p>
+<p>MCP（Model Context Protocol）は、AIエージェントと外部のツールやデータをつなぐ共通の通信方式です。Copilotでの役割は、<a href="https://docs.github.com/en/copilot/concepts/context/mcp">GitHub公式のMCP説明</a>を参照してください。</p>
+<p>Playwright MCPは、Copilotにブラウザーの操作と状態取得のツールを提供するプログラムです。Copilotはページを開き、ボタンのクリックやキー入力を行い、ページの文字や選択状態を読み取れます。<a href="https://github.com/microsoft/playwright-mcp">Microsoftの公式README</a>に、この仕組みとツールが説明されています。</p>
+<p>受講者が操作条件と期待結果を伝えると、CopilotはPlaywright MCPのツールを呼び出し、操作後のページの状態を読み取って結果を報告します。受講者は会話に残るツールの履歴と報告を照合し、期待結果と比べます。Playwright MCPの<strong>Connected</strong>は接続状態の表示です。検証では、実際の操作と結果まで確かめます。</p>
 <p><img alt="Playwright MCPでフィルターを検証する流れ" src="../assets/app-mcp-evidence.png" /></p>
 <h3 id="611-この章で学ぶこと">6.1.1 この章で学ぶこと</h3>
 <p>この章を終えると、Copilotへブラウザーでの検証を依頼し、ツールの呼び出しと操作履歴、観察結果を照合して、受け入れ条件を確認できたか判断できます。</p>
@@ -54,7 +56,7 @@
 <tbody>
 <tr>
 <td style="text-align: left;">MCPの接続確認</td>
-<td style="text-align: left;">設定の登録、接続表示、実際のツール呼び出しを区別できる</td>
+<td style="text-align: left;">設定の内容、接続表示、実際のツール呼び出しを区別できる</td>
 </tr>
 <tr>
 <td style="text-align: left;">探索的なブラウザー検証</td>
@@ -95,7 +97,7 @@
 </tr>
 <tr>
 <td style="text-align: left;">解決策</td>
-<td style="text-align: left;">CopilotにPlaywright MCPを通じたブラウザー操作を依頼し、通常環境と隔離環境でそれぞれ検査します。受講者は件数・タイトル・選択状態を操作履歴と照合し、未実施の確認を補います。</td>
+<td style="text-align: left;">CopilotにPlaywright MCPでブラウザーを操作させ、通常環境と隔離環境のTailspin Toysで絞り込みと解除を試します。受講者は、会話に残るツールの履歴と取得したページの状態を読み、件数・タイトル・選択状態を期待結果と比べます。未実施の操作や期待結果との食い違いがあれば、追加の確認を依頼します。</td>
 </tr>
 </tbody>
 </table>
@@ -259,6 +261,7 @@ Issueと承認済みの計画を使い、カテゴリの複数選択、出版社
 <p><a id="リソース"></a></p>
 <h3 id="656-公式資料と参考情報">6.5.6 公式資料と参考情報</h3>
 <ul>
+<li><a href="https://docs.github.com/en/copilot/concepts/context/mcp">GitHub CopilotでのMCPの役割</a></li>
 <li><a href="https://github.blog/ai-and-ml/llms/what-the-heck-is-mcp-and-why-is-everyone-talking-about-it/">MCPとは何か、なぜ注目されているのか</a></li>
 <li><a href="https://github.com/microsoft/playwright-mcp">Microsoft Playwright MCP Server</a></li>
 <li><a href="https://docs.github.com/copilot/how-tos/github-copilot-app/customize-github-copilot-app">GitHub Copilot appでのMCP serverの構成</a></li>
