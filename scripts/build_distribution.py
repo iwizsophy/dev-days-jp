@@ -49,12 +49,15 @@ def book_html(paths, label, config, ref, digest, web_base=None):
         # Keep legacy link destinations without inserting boxes between headings.
         # A separate empty anchor can defeat Chromium's heading keep-with-next.
         for legacy in list(soup.select('a[id]:not([href])')):
-            heading = legacy.find_next_sibling()
+            heading = legacy.find_next_sibling(['h2', 'h3', 'h4', 'p', 'ul', 'ol', 'div'])
             if not heading and legacy.parent.name == 'p':
                 heading = legacy.parent.find_next_sibling()
-            if not legacy.get_text(strip=True) and heading and heading.name in ('h2', 'h3', 'h4'):
+            if not legacy.get_text(strip=True) and heading:
                 legacy.name = 'span'
                 heading.insert(0, legacy.extract())
+        for para in list(soup.select('p')):
+            if not para.get_text(strip=True) and not para.find(True):
+                para.decompose()
         if '\u2027' in soup.get_text() or re.search('[\u2f00-\u2fdf]', soup.get_text()):
             raise ValueError('Source uses characters reserved by the Japanese PDF copy correction')
         # The overview's final Web navigation duplicates the PDF contents page.
@@ -129,15 +132,22 @@ def book_html(paths, label, config, ref, digest, web_base=None):
             if para.find('figure'):
                 para.name = 'div'
         # Chromium can ignore keep-with-next across consecutive headings.
-        for heading in list(soup.select('h2')):
+        for heading in list(soup.select('h2, h3')):
+            if 'section-lead' in heading.parent.get('class', []):
+                continue
             subsection = heading.find_next_sibling()
-            if subsection and subsection.name == 'h3':
+            if subsection and subsection.name in ('h3', 'h4') and int(subsection.name[1]) == int(heading.name[1]) + 1:
+                nodes = [heading, subsection]
                 first_text = subsection.find_next_sibling()
+                if first_text and first_text.name == 'h4' and subsection.name == 'h3':
+                    nodes.append(first_text)
+                    first_text = first_text.find_next_sibling()
                 if first_text and first_text.name == 'p' and len(first_text.get_text()) < 800:
-                    lead = soup.new_tag('div', attrs={'class': 'section-lead'})
-                    heading.insert_before(lead)
-                    for node in (heading, subsection, first_text):
-                        lead.append(node.extract())
+                    nodes.append(first_text)
+                lead = soup.new_tag('div', attrs={'class': 'section-lead'})
+                heading.insert_before(lead)
+                for node in nodes:
+                    lead.append(node.extract())
         section_links = ''.join(
             f'<li><a href="#{html.escape(heading["id"], quote=True)}">{html.escape(heading.get_text(" ", strip=True))}</a></li>'
             for heading in soup.select('h2[id]'))
@@ -174,10 +184,10 @@ def book_html(paths, label, config, ref, digest, web_base=None):
 
 
 def normalize_cmap(data):
-    """Chromium can map shared Japanese glyphs to Kangxi radicals when copying text."""
+    """Restore Japanese shared glyphs and Latin ligatures in copied PDF text."""
     def unicode_value(value):
         text = bytes.fromhex(value).decode('utf-16-be')
-        return ''.join(unicodedata.normalize('NFKC', c) if '\u2f00' <= c <= '\u2fdf' else '\u30fb' if c == '\u2027' else c for c in text).encode('utf-16-be').hex().upper()
+        return ''.join(unicodedata.normalize('NFKC', c) if '\u2f00' <= c <= '\u2fdf' or '\ufb00' <= c <= '\ufb06' else '\u30fb' if c == '\u2027' else c for c in text).encode('utf-16-be').hex().upper()
 
     def chars(match):
         return re.sub(r'(<[0-9A-Fa-f]+>\s*)<([0-9A-Fa-f]+)>',
@@ -268,14 +278,14 @@ def main():
     web.build()
     config = json.loads(CONFIG.read_text(encoding='utf-8'))
     # Detect a stale cover version instead of silently publishing conflicting versions.
-    prerequisite = (web.SOURCE / 'app/0-prerequisites.md').read_text(encoding='utf-8')
+    prerequisite = (web.SOURCE / 'app/1-prerequisites.md').read_text(encoding='utf-8')
     if config['template_ref'] not in prerequisite:
         raise ValueError('distribution.json template_ref does not match prerequisites')
     template = web.META['material']['exercise_template']
     if any(config[f'template_{key}'] != template[key] for key in ('ref', 'commit')):
         raise ValueError('distribution.json template reference does not match sources.json')
     ref = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip()
-    inputs = sorted(list(web.SOURCE.rglob('*.md')) + list((ROOT / 'content/_images').glob('*')) + [CONFIG, web.SOURCE / 'sources.json', web.SOURCE / 'licenses/copilot-workshops.txt', ROOT / 'scripts/pdf/print.css', ROOT / 'scripts/pdf/print.cjs', ROOT / 'scripts/build_workshops.py', Path(__file__)])
+    inputs = sorted(list(web.SOURCE.rglob('*.md')) + list((ROOT / 'content/_images').rglob('*')) + [CONFIG, web.SOURCE / 'sources.json', web.SOURCE / 'licenses/copilot-workshops.txt', ROOT / 'scripts/pdf/print.css', ROOT / 'scripts/pdf/print.cjs', ROOT / 'scripts/build_workshops.py', Path(__file__)])
     digest = hashlib.sha256()
     for p in inputs:
         if p.is_file():

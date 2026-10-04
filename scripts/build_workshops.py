@@ -188,12 +188,12 @@ def build():
         destination.write_text(shell(title, '<article>' + body + '</article>', destination, notice), encoding='utf-8')
     index = OUTPUT / 'index.html'
     body = '<p>App 版の順序・課題・到達目標に沿って Tailspin Toys を改修します。画面が教材と異なる場合は、本文の操作対象と項目名を確認し、講師に相談してください。</p>'
-    body += '<p><a href="app/0-prerequisites.html">演習0から始める</a> · <a href="../handson-guide.html">受講準備を確認する</a></p>'
+    body += '<p><a href="app/1-prerequisites.html">演習1から始める</a> · <a href="../handson-guide.html">受講準備を確認する</a></p>'
     body += course_index('app', index)
     body += '<p><a href="references.html">参考資料：独立した CLI コース・Mona Mayhem</a></p>'
     index.write_text(shell('App シナリオの演習目次', body, index), encoding='utf-8')
     reference = OUTPUT / 'references.html'
-    body = '<p>以下は本編とは独立した発展課題です。Appの演習0〜8を終えてから、目的に合わせて参照してください。</p>'
+    body = '<p>以下は本編とは独立した発展課題です。Appの演習1〜9を終えてから、目的に合わせて参照してください。</p>'
     for course in ['cli', 'mona-mayhem']:
         body += f'<section><h2>{LABELS[course]}（参考）</h2><ul>'
         for source in FILES[course]:

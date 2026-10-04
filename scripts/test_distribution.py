@@ -22,6 +22,11 @@ class DistributionTests(unittest.TestCase):
         self.assertIn(b'<01> <4E00>', result)
         self.assertIn(b'<02> <65E5>', result)
 
+    def test_latin_ligatures_preserve_copyable_prompt_identifiers(self):
+        result = pdf.normalize_cmap(b'2 beginbfchar\n<01> <FB01>\n<02> <00660069>\nendbfchar')
+        self.assertIn(b'<01> <00660069>', result)
+        self.assertIn(b'<02> <00660069>', result)
+
     def test_books_have_embedded_images_and_resolved_links(self):
         config = json.loads(pdf.CONFIG.read_text(encoding='utf-8'))
         for book in config['books'].values():
@@ -32,6 +37,10 @@ class DistributionTests(unittest.TestCase):
             self.assertEqual(len(soup.select('img')), images)
             self.assertFalse(soup.select('.chapter > a[id]:not([href])'))
             self.assertFalse(soup.select('.chapter p > a[id]:not([href])'))
+            for heading in soup.select('.chapter h2, .chapter h3'):
+                following = heading.find_next_sibling()
+                if following and following.name in ('h3', 'h4'):
+                    self.assertIn('section-lead', heading.parent.get('class', []))
             self.assertTrue(all(i['src'].startswith('data:image/') for i in soup.select('img')))
             self.assertTrue(all(a['href'].startswith(('#', 'https:', 'http:', 'mailto:')) for a in soup.select('a[href]')))
             self.assertNotIn('file://', markup)
@@ -97,7 +106,7 @@ class DistributionTests(unittest.TestCase):
                     expected = f'{chapter}.{section}.{subsection}'
                 with self.subTest(chapter=path.name, heading=heading.get_text()):
                     self.assertRegex(heading.get_text(), '^' + re.escape(expected) + r'\s+')
-            self.assertGreater(section, 0)
+            self.assertEqual(section, 6, f'{path.name}: expected six learning stages')
 
     def test_numbered_navigation_and_resource_headings_keep_pdf_cleanup(self):
         config = json.loads(pdf.CONFIG.read_text(encoding='utf-8'))
@@ -121,9 +130,9 @@ class DistributionTests(unittest.TestCase):
 
     def test_web_links_use_explicit_host_only_when_supplied(self):
         config = json.loads(pdf.CONFIG.read_text(encoding='utf-8'))
-        path = pdf.web.SOURCE / 'app/0-prerequisites.md'
+        path = pdf.web.SOURCE / 'app/1-prerequisites.md'
         markup, _, _ = pdf.book_html([path], 'test', config, 'test-ref', 'a' * 64, 'https://example.com/workshops/')
-        self.assertIn('https://example.com/workshops/app/1-install-copilot-app.html', markup)
+        self.assertIn('https://example.com/workshops/app/2-install-copilot-app.html', markup)
 
     def test_participant_book_keeps_attribution_without_instructor_material(self):
         config = json.loads(pdf.CONFIG.read_text(encoding='utf-8'))
