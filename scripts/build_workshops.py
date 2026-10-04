@@ -120,6 +120,8 @@ def layout_table(table, soup):
     content_headers = headers[1:] if numbered else headers
     # These tables have distinct roles that text length alone cannot express.
     profiles = {
+        ('読む場所', '確かめること'): [22, 71],
+        ('Issueのタイトル', '取り組む内容'): [60, 33],
         ('観点', 'このケースで扱う内容'): [18, 75],
         ('入力', '期待する意味と確認内容'): [18, 75],
         ('項目', '設定する内容'): [23, 70],
