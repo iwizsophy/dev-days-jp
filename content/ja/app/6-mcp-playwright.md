@@ -10,7 +10,11 @@ lastUpdated: 2026-10-04
 
 自動テストで確認した条件に加え、利用者の操作に沿って画面を検証する方法を学びます。本章では、CopilotにMCPを通じてブラウザー操作を依頼し、操作履歴と観察結果を根拠に検証の十分さを判断します。
 
-MCPでブラウザーを動かすときに区別するのは、設定の内容、接続表示、実際のツール呼び出しです。Playwright MCPの**Connected**は、MCP serverとの接続状態を示す表示です。Tailspin Toysのフィルターが正しく動くかは、ブラウザーで絞り込みと解除を操作し、期待した結果と実際の表示を比べて確かめます。受講者はエージェントの報告と操作履歴を照合し、未実施の操作や期待結果との食い違いがあれば、追加の確認を依頼します。
+MCP（Model Context Protocol）は、AIエージェントと外部のツールやデータをつなぐ共通の通信方式です。Copilotでの役割は、[GitHub公式のMCP説明][mcp-overview]を参照してください。
+
+Playwright MCPは、Copilotにブラウザーの操作と状態取得のツールを提供するプログラムです。Copilotはページを開き、ボタンのクリックやキー入力を行い、ページの文字や選択状態を読み取れます。[Microsoftの公式README][playwright-mcp-server]に、この仕組みとツールが説明されています。
+
+受講者が操作条件と期待結果を伝えると、CopilotはPlaywright MCPのツールを呼び出し、操作後のページの状態を読み取って結果を報告します。受講者は会話に残るツールの履歴と報告を照合し、期待結果と比べます。Playwright MCPの**Connected**は接続状態の表示です。検証では、実際の操作と結果まで確かめます。
 
 ![Playwright MCPでフィルターを検証する流れ](../../_images/app-mcp-evidence.png)
 
@@ -20,7 +24,7 @@ MCPでブラウザーを動かすときに区別するのは、設定の内容�
 
 | 学ぶこと | 到達した状態 |
 | :--- | :--- |
-| MCPの接続確認 | 設定の登録、接続表示、実際のツール呼び出しを区別できる |
+| MCPの接続確認 | 設定の内容、接続表示、実際のツール呼び出しを区別できる |
 | 探索的なブラウザー検証 | 条件を変えて操作し、期待結果と実際の表示を比べられる |
 | 結果報告のレビュー | 観察結果を操作履歴と照合し、未実施の確認を補える |
 | 検証環境の終了 | 残す成果物と片付ける一時ファイル・サーバーを区別し、検証環境を終了できる |
@@ -43,7 +47,7 @@ Copilot Appで、第5章のフィルター実装セッションを開いたま�
 | :--- | :--- |
 | 状況 | 単体テストやスクリプト化されたエンドツーエンドテストで、フィルター機能を検査した状態です。 |
 | 課題と理由 | 自動テストの結果に加え、利用者がカテゴリ・出版社の選択欄や解除ボタンを操作したときに、フィルター機能が仕様どおりに動くかを確かめます。エージェントの報告を実際の操作履歴で裏付ける必要があります。 |
-| 解決策 | CopilotにPlaywright MCPを通じたブラウザー操作を依頼し、通常環境と隔離環境でそれぞれ検査します。受講者は件数・タイトル・選択状態を操作履歴と照合し、未実施の確認を補います。 |
+| 解決策 | CopilotにPlaywright MCPでブラウザーを操作させ、通常環境と隔離環境のTailspin Toysで絞り込みと解除を試します。受講者は、会話に残るツールの履歴と取得したページの状態を読み、件数・タイトル・選択状態を期待結果と比べます。未実施の操作や期待結果との食い違いがあれば、追加の確認を依頼します。 |
 
 通常データ21件と隔離データ3件を分けて検査し、カテゴリ・出版社の選択、解除、0件表示とキーボード操作を確かめます。Copilotの報告に不足があれば追加の確認を依頼し、検証に使ったブラウザーとサーバーを最後に終了させてください。
 
@@ -227,11 +231,13 @@ Copilot Appで既存のPlaywrightを利用できない場合に、Customizeの�
 
 ### 6.5.6 公式資料と参考情報
 
+- [GitHub CopilotでのMCPの役割][mcp-overview]
 - [MCPとは何か、なぜ注目されているのか][mcp-blog-post]
 - [Microsoft Playwright MCP Server][playwright-mcp-server]
 - [GitHub Copilot appでのMCP serverの構成][customize-app]
 
 [next-lesson]: 7-agent-merge.md
+[mcp-overview]: https://docs.github.com/en/copilot/concepts/context/mcp
 [mcp-blog-post]: https://github.blog/ai-and-ml/llms/what-the-heck-is-mcp-and-why-is-everyone-talking-about-it/
 [playwright-mcp-server]: https://github.com/microsoft/playwright-mcp
 [customize-app]: https://docs.github.com/copilot/how-tos/github-copilot-app/customize-github-copilot-app
