@@ -6,7 +6,7 @@
 <a href="../../index.html">教材セットの入口</a><a href="../index.html">App シナリオの目次</a>
 <a href="../../handson-guide.html#switch">事前準備・UI の確認</a></nav>
 <button class="theme-toggle" type="button" onclick="toggleTheme()">☀️ ライト</button></header>
-<main id="lesson"><h1>GitHub Copilot app</h1><p class="source">非公式の日本語版 · <a href="https://github.com/github-samples/copilot-workshops/blob/7ddcf241c1cd10b8e90c0df96f6bef81e710392a/docs/ja-jp/app/README.md">参照原文</a> · <a href="../licenses/copilot-workshops.txt">MIT ライセンス</a></p><aside>利用条件は <a href="../../handson-guide.html#plans">受講準備</a>を参照してください。</aside><nav class="chapter-nav" aria-label="章の移動"><a href="0-prerequisites.html">次の章 →：レッスン 0 - 前提条件</a></nav><details><summary>この章の目次</summary><div class="toc">
+<main id="lesson"><h1>GitHub Copilot app</h1><p class="source">非公式の日本語版 · <a href="https://github.com/github-samples/copilot-workshops/blob/7ddcf241c1cd10b8e90c0df96f6bef81e710392a/docs/ja-jp/app/README.md">参照原文</a> · <a href="../licenses/copilot-workshops.txt">MIT ライセンス</a></p><aside>利用条件は <a href="../../handson-guide.html#plans">受講準備</a>を参照してください。</aside><nav class="chapter-nav" aria-label="章の移動"><a href="1-prerequisites.html">次の章 →：第1章 - 前提条件</a></nav><details><summary>この章の目次</summary><div class="toc">
 <ul>
 <li><a href="#この教材セットの進め方">この教材セットの進め方</a><ul>
 <li><a href="#この演習で身につける判断">この演習で身につける判断</a></li>
@@ -21,16 +21,42 @@
 </ul>
 </div>
 </details><article><h2 id="この教材セットの進め方">この教材セットの進め方</h2>
-<p>本教材は、<strong>GitHub Copilot App を使った開発フローと操作体験を一連の流れで学ぶ本編コース</strong> です。演習 0〜8 を順番に進めます。</p>
-<p>単にコードを完成させることだけが目的ではありません。次のような App の機能を、実際に手を動かして体験・確認します。</p>
-<ul>
-<li>エージェントセッションの立ち上げと管理</li>
-<li>生成されたコードの差分レビュー</li>
-<li>MCP（Model Context Protocol）による外部ツール連携</li>
-<li><strong>Agent Merge</strong> による Pull Request の自動マージ</li>
-<li>キャンバスを使った設計・タスク整理</li>
-<li><strong>Automation</strong> による定型作業の自動化</li>
-</ul>
+<p>本教材は、GitHub Copilot App を使った開発フローと操作体験を一連の流れで学ぶ本編コース です。演習 1〜9 を順番に進めます。</p>
+<p>単にコードを完成させることだけが目的ではありません。次のAppの機能を、実際に手を動かして体験・確認します。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Appの機能</th>
+<th style="text-align: left;">体験すること</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">エージェントセッション</td>
+<td style="text-align: left;">セッションを立ち上げ、作業を管理する</td>
+</tr>
+<tr>
+<td style="text-align: left;">差分レビュー</td>
+<td style="text-align: left;">生成されたコードと要件を照合する</td>
+</tr>
+<tr>
+<td style="text-align: left;">MCP（Model Context Protocol）</td>
+<td style="text-align: left;">外部ツールとの連携を確かめる</td>
+</tr>
+<tr>
+<td style="text-align: left;">Agent Merge</td>
+<td style="text-align: left;">Pull Requestの自動マージを進める</td>
+</tr>
+<tr>
+<td style="text-align: left;">キャンバス</td>
+<td style="text-align: left;">設計やタスクを整理する</td>
+</tr>
+<tr>
+<td style="text-align: left;">Automation</td>
+<td style="text-align: left;">定型作業を自動化する</td>
+</tr>
+</tbody>
+</table>
 <h3 id="この演習で身につける判断">この演習で身につける判断</h3>
 <p><img alt="開発の流れと人が判断すること" src="../assets/app-learning-flow.png" /></p>
 <p>題材となるTailspin Toysは、ゲームを紹介するクラウドファンディングサイトです。利用者が支援したいゲームを探せるように、カードの星評価、カテゴリーとパブリッシャーによる絞り込み、タイトル検索を順に追加します。前の章で作った機能を残したまま次の変更を加えるため、既存の振る舞いを確かめることも各章の課題になります。</p>
@@ -66,9 +92,9 @@
 <h3 id="画面画像と操作手順の注意点">画面画像と操作手順の注意点</h3>
 <p>GitHub Copilot Appは最新版を使用してください。</p>
 <ul>
-<li><strong>掲載画像について</strong>：画像は操作位置の参考です。画面が異なる場合は、本文の操作対象と項目名を確認してください。検索機能や並べ替えIssueを使った画像は、各章の実装結果そのものではありません。</li>
-<li><strong>UI が異なる場合</strong>：操作ボタンが見当たらない場合は、本文の操作対象と項目名を確認し、講師に相談してください。</li>
-<li><strong>リポジトリの分離</strong>：演習は教材用テンプレートの <strong>Use this template</strong> から各自が作成したTailspin Toysのコピーで行います。演習先を間違えないよう、セッション開始時とPR作成時に所有者とリポジトリ名を確認してください。参照元リポジトリへのpush、Pull Request、Issue作成は行いません。</li>
+<li>掲載画像について：画像は操作位置の参考です。画面が異なる場合は、本文の操作対象と項目名を確認してください。画像内の所有者名、リポジトリ名、Issue番号は入力例です。自分の演習コピーと本文の課題名を照合してください。</li>
+<li>UI が異なる場合：操作ボタンが見当たらない場合は、本文の操作対象と項目名を確認し、講師に相談してください。</li>
+<li>リポジトリの分離：演習は教材用テンプレートの Use this template から各自が作成したTailspin Toysのコピーで行います。演習先を間違えないよう、セッション開始時とPR作成時に所有者とリポジトリ名を確認してください。参照元リポジトリへのpush、Pull Request、Issue作成は行いません。</li>
 </ul>
 <h3 id="各章の読み方">各章の読み方</h3>
 <table>
@@ -80,24 +106,32 @@
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;">冒頭の到達目標</td>
-<td style="text-align: left;">この章で何を作り、どんな判断を練習するか</td>
+<td style="text-align: left;">章の概要</td>
+<td style="text-align: left;">全体像と具体的な問題を知り、何に注意するかを考える</td>
 </tr>
 <tr>
-<td style="text-align: left;">番号付きの主手順</td>
-<td style="text-align: left;">操作対象、依頼する範囲、次へ進める期待結果</td>
+<td style="text-align: left;">この章で学ぶこと</td>
+<td style="text-align: left;">学ぶ価値と、章を終えたときにできることを確かめる</td>
 </tr>
 <tr>
-<td style="text-align: left;">章末の補足</td>
-<td style="text-align: left;">操作の理由、仕組み、設計上の選択と具体例</td>
+<td style="text-align: left;">取り組む前に</td>
+<td style="text-align: left;">前の章の成果、必要な知識・環境、作業の開始条件をそろえる</td>
 </tr>
 <tr>
-<td style="text-align: left;">振り返り</td>
-<td style="text-align: left;">判断の根拠を自分の言葉で説明できるか</td>
+<td style="text-align: left;">体験すること</td>
+<td style="text-align: left;">動作を予想し、操作の結果を観察・比較して、必要な修正を行う</td>
+</tr>
+<tr>
+<td style="text-align: left;">結果の整理と振り返り</td>
+<td style="text-align: left;">結果の理由と、できるようになったことを自分の言葉で説明する</td>
+</tr>
+<tr>
+<td style="text-align: left;">補足</td>
+<td style="text-align: left;">ほかの場面での使い方、適用条件や限界、発展的な説明を読む</td>
 </tr>
 </tbody>
 </table>
-<p>節番号は「章.節」、小節番号は「章.節.小節」です。操作の番号は、独立した手順ごとに1から始まります。背景を先に知りたい場合は、主手順から補足へのリンクを使い、読んだ後に関連手順へ戻れます。</p>
+<p>節番号は「章.節」、小節番号は「章.節.小節」です。操作の番号は、独立した手順ごとに1から始まります。体験の前に予想を立て、作業後に予想と結果を比べます。詳しい背景を知りたい場合は、主手順から補足へのリンクを使い、関連手順へ戻ってください。</p>
 <h2 id="レッスン一覧">レッスン一覧</h2>
 <table>
 <thead>
@@ -109,47 +143,47 @@
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;"><a href="0-prerequisites.html">0. 前提条件</a></td>
+<td style="text-align: left;"><a href="1-prerequisites.html">1. 前提条件</a></td>
 <td style="text-align: left;">セットアップ</td>
 <td style="text-align: left;">Node.js の準備と Tailspin Toys 演習用コピーの作成</td>
 </tr>
 <tr>
-<td style="text-align: left;"><a href="1-install-copilot-app.html">1. Copilot app のインストール</a></td>
+<td style="text-align: left;"><a href="2-install-copilot-app.html">2. Copilot app のインストール</a></td>
 <td style="text-align: left;">セットアップ</td>
 <td style="text-align: left;">アプリの導入、リポジトリの接続、ワークスペースの確認</td>
 </tr>
 <tr>
-<td style="text-align: left;"><a href="2-add-star-rating.html">2. 最初のエージェントセッションの実行</a></td>
+<td style="text-align: left;"><a href="3-add-star-rating.html">3. 最初のエージェントセッションの実行</a></td>
 <td style="text-align: left;">最初の変更</td>
 <td style="text-align: left;">セッション開始、星評価の実装、最初の PR 作成と通常マージ</td>
 </tr>
 <tr>
-<td style="text-align: left;"><a href="3-custom-instructions.html">3. カスタム指示による Copilot のガイド</a></td>
+<td style="text-align: left;"><a href="4-custom-instructions.html">4. カスタム指示による Copilot のガイド</a></td>
 <td style="text-align: left;">コンテキスト</td>
 <td style="text-align: left;">Issue に基づくドキュメント標準（TSDoc）の追加とマージ</td>
 </tr>
 <tr>
-<td style="text-align: left;"><a href="4-build-filtering.html">4. Autopilot による機能の構築</a></td>
+<td style="text-align: left;"><a href="5-build-filtering.html">5. Autopilot による機能の構築</a></td>
 <td style="text-align: left;">コア機能</td>
 <td style="text-align: left;">Plan / Autopilot モードによるフィルター実装とスキル検証</td>
 </tr>
 <tr>
-<td style="text-align: left;"><a href="5-mcp-playwright.html">5. Playwright MCP によるテスト</a></td>
+<td style="text-align: left;"><a href="6-mcp-playwright.html">6. Playwright MCP によるテスト</a></td>
 <td style="text-align: left;">外部ツール</td>
 <td style="text-align: left;">Playwright MCPの接続・実行を確認し、ブラウザー操作で機能を検証</td>
 </tr>
 <tr>
-<td style="text-align: left;"><a href="6-agent-merge.html">6. Agent Merge によるマージ</a></td>
+<td style="text-align: left;"><a href="7-agent-merge.html">7. Agent Mergeによるマージ</a></td>
 <td style="text-align: left;">マージ</td>
-<td style="text-align: left;">Agent Merge による PR 修正と CI 連携自動マージ</td>
+<td style="text-align: left;">Agent Mergeの開始条件とmainへの自動マージ</td>
 </tr>
 <tr>
-<td style="text-align: left;"><a href="7-canvases.html">7. キャンバスを使った計画</a></td>
+<td style="text-align: left;"><a href="8-canvases.html">8. キャンバスを使った計画</a></td>
 <td style="text-align: left;">コラボレーション</td>
 <td style="text-align: left;">共有キャンバスを作成し、Issue の計画・追跡と実装連携を実行</td>
 </tr>
 <tr>
-<td style="text-align: left;"><a href="8-review.html">8. 振り返りと次のステップ</a></td>
+<td style="text-align: left;"><a href="9-review.html">9. 振り返りと次のステップ</a></td>
 <td style="text-align: left;">まとめ</td>
 <td style="text-align: left;">開発プロセスの振り返り、手動 Automation による要約実行</td>
 </tr>
@@ -158,40 +192,40 @@
 <h2 id="前提条件">前提条件</h2>
 <p>ワークショップに参加する前に、次の環境を用意してください。</p>
 <ul class="task-list">
-<li class="task-list-item"><input type="checkbox" disabled/> <strong>GitHub アカウント</strong>：有効な Copilot プラン（Free を含む）が設定されていること。全演習を完走するのに十分な利用枠があるか事前に確認してください。</li>
-<li class="task-list-item"><input type="checkbox" disabled/> <strong>PC 環境</strong>：macOS、Linux、Windows のいずれかが動作すること。</li>
-<li class="task-list-item"><input type="checkbox" disabled/> <strong>Git</strong>：PC に<a href="https://github.com/git-guides/install-git">インストール済み</a>であること。</li>
+<li class="task-list-item"><input type="checkbox" disabled/> GitHub アカウント：有効な Copilot プラン（Free を含む）が設定されていること。全演習を完走するのに十分な利用枠があるか事前に確認してください。</li>
+<li class="task-list-item"><input type="checkbox" disabled/> PC 環境：macOS、Linux、Windows のいずれかが動作すること。</li>
+<li class="task-list-item"><input type="checkbox" disabled/> Git：PC に<a href="https://github.com/git-guides/install-git">インストール済み</a>であること。</li>
 </ul>
 <blockquote>
 <p><strong>ヒント</strong>
-有料プランを利用していない場合でも、認証済みの学生は <a href="https://github.com/education/students">GitHub Education</a> を通じて GitHub Copilot を無料で利用できます。<strong>Copilot Student</strong> プランには、本ワークショップで使用するエージェント、MCP、コードレビュー、Copilot CLI の各機能が含まれています（演習の完走に必要な利用枠は別途確認してください）。</p>
+有料プランを利用していない場合でも、認証済みの学生は <a href="https://github.com/education/students">GitHub Education</a> を通じて GitHub Copilot を無料で利用できます。Copilot Student プランには、本ワークショップで使用するエージェント、MCP、コードレビュー、Copilot CLI の各機能が含まれています（演習の完走に必要な利用枠は別途確認してください）。</p>
 <p><strong>補足</strong>
-Copilot app はクラウド上の Codespaces ではなくローカル PC 上で直接実行します。そのため、<a href="0-prerequisites.html">レッスン 0</a> ではアプリをインストールする前に Node.js をインストールし、プロジェクトの演習用コピーを準備します。</p>
+Copilot app はクラウド上の Codespaces ではなくローカル PC 上で直接実行します。そのため、<a href="1-prerequisites.html">第1章</a> ではアプリをインストールする前に Node.js をインストールし、プロジェクトの演習用コピーを準備します。</p>
 <p><strong>補足</strong>
-Copilot Business または Copilot Enterprise を利用している組織では、アプリを使用するために組織管理者が <strong>GitHub Copilot app</strong> ポリシー（CLI のポリシーとは別個）を有効化している必要があります。</p>
+Copilot Business または Copilot Enterprise を利用している組織では、アプリを使用するために組織管理者が GitHub Copilot app ポリシー（CLI のポリシーとは別個）を有効化している必要があります。</p>
 </blockquote>
 <p>利用条件は<a href="https://docs.github.com/en/copilot/concepts/agents/github-copilot-app#availability">Appの利用可能範囲</a>と<a href="https://docs.github.com/en/copilot/get-started/plans">Copilotプランの公式案内</a>を参照してください。参加前に、使用するアカウントで接続できることと、利用枠や組織のポリシーを確認します。</p>
 <p><a id="github-copilot-app-の概要"></a></p>
 <h2 id="補足github-copilot-appの概要">補足：GitHub Copilot Appの概要</h2>
-<p><a href="https://docs.github.com/copilot/concepts/agents/github-copilot-app"><strong>GitHub Copilot app</strong></a> は、Copilot CLI を基盤とするデスクトップアプリケーションです。エージェント主導の開発環境をひとつのワークスペースに統合します。</p>
-<p>主な特徴と機能：</p>
+<p><a href="https://docs.github.com/copilot/concepts/agents/github-copilot-app">GitHub Copilot app</a> は、Copilot CLI を基盤とするデスクトップアプリケーションです。エージェント主導の開発環境をひとつのワークスペースに統合します。</p>
+<p>Appでは、次の機能を使って作業を進められます。</p>
 <ul>
-<li><strong>並列エージェントセッション</strong>：独立した複数の作業を同時に進行</li>
-<li><strong>セッションモードの切り替え</strong>：計画立案（Plan）や自律実装（Autopilot）を用途に応じて選択</li>
-<li><strong>GitHub ネイティブ管理</strong>：Issue や Pull Request をアプリ内で直接操作</li>
-<li><strong>Agent Merge</strong>：許可した範囲でレビュー指摘やCI失敗への対応、競合の解消、マージを進める</li>
-<li><strong>共有キャンバス</strong>：アイデアやタスクを視覚的に整理</li>
+<li>並列エージェントセッション：独立した複数の作業を同時に進行</li>
+<li>セッションモードの切り替え：計画立案（Plan）や自律実装（Autopilot）を用途に応じて選択</li>
+<li>GitHub ネイティブ管理：Issue や Pull Request をアプリ内で直接操作</li>
+<li>Agent Merge：許可した範囲でレビュー指摘やCI失敗への対応、競合の解消、マージを進める</li>
+<li>共有キャンバス：アイデアやタスクを視覚的に整理</li>
 </ul>
-<p>本コースでは、アプリの導入と演習用リポジトリの接続から始め、バックログに用意された Issue に沿って開発を進めます。</p>
+<p>本コースでは、アプリの導入と演習用リポジトリの接続から始め、バックログに用意されたIssueに沿って開発を進めます。</p>
 <ul>
-<li><strong>星評価の追加</strong>：小さな機能改修を通じて、セッション開始から PR 作成・マージまでの基本サイクルを体験</li>
-<li><strong>カスタム指示の標準化</strong>：コーディング規約やドキュメント標準を指示ファイルに定義し、プロジェクトへ反映</li>
-<li><strong>フィルター機能の自律実装</strong>：Plan モードと Autopilot モードを使い分け、スキルを活用して品質を検証</li>
-<li><strong>外部ツール連携（MCP）</strong>：Playwright MCPの接続とツール実行を確認し、エージェントが実際のブラウザーを操作して動作を検証</li>
-<li><strong>段階的マージの自動化</strong>：レビューと許可範囲を確認し、<strong>Agent Merge</strong> にPRの修正やマージを任せる</li>
-<li><strong>協調作業と自動化</strong>：共有キャンバスでタスクを整理し、繰り返し発生する作業を Automation で自動化</li>
+<li>星評価の追加：小さな機能改修を通じて、セッション開始から PR 作成・マージまでの基本サイクルを体験</li>
+<li>カスタム指示の標準化：コーディング規約やドキュメント標準を指示ファイルに定義し、プロジェクトへ反映</li>
+<li>フィルター機能の自律実装：Plan モードと Autopilot モードを使い分け、スキルを活用して品質を検証</li>
+<li>外部ツール連携（MCP）：Playwright MCPの接続とツール実行を確認し、エージェントが実際のブラウザーを操作して動作を検証</li>
+<li>段階的マージの自動化：差分とCIをレビューし、条件がそろったPRのマージをAgent Mergeに任せる</li>
+<li>協調作業と自動化：共有キャンバスでタスクを整理し、繰り返し発生する作業をAutomationで自動化</li>
 </ul>
 <p>アイデアの具体化から機能のマージに至る、AI 支援開発の包括的なライフサイクルを体験できます。</p>
 <p>機能の概要は<a href="https://docs.github.com/en/copilot/concepts/agents/github-copilot-app#what-can-i-do-with-the-github-copilot-app">GitHub公式のApp紹介</a>、モードごとの役割は<a href="https://docs.github.com/en/copilot/how-tos/github-copilot-app/agent-sessions#choosing-a-session-mode">セッションモードの説明</a>を参照してください。本文では、その機能をTailspin Toysのどの課題に使い、どこで人が判断するかを具体的に扱います。</p>
 <h2 id="はじめる">はじめる</h2>
-<p><a href="0-prerequisites.html"><strong>レッスン 0「前提条件」から始める →</strong></a></p></article><nav class="chapter-nav" aria-label="章の移動"><a href="0-prerequisites.html">次の章 →：レッスン 0 - 前提条件</a></nav></main></body></html>
+<p><a href="1-prerequisites.html">第1章「前提条件」から始める →</a></p></article><nav class="chapter-nav" aria-label="章の移動"><a href="1-prerequisites.html">次の章 →：第1章 - 前提条件</a></nav></main></body></html>

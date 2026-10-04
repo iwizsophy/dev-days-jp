@@ -6,13 +6,78 @@
 <a href="../../index.html">教材セットの入口</a><a href="../index.html">App シナリオの目次</a>
 <a href="../../handson-guide.html#switch">事前準備・UI の確認</a></nav>
 <button class="theme-toggle" type="button" onclick="toggleTheme()">☀️ ライト</button></header>
-<main id="lesson"><h1>App シナリオの検証状況</h1><aside>講師・運営向けの補助資料です。</aside><article><p>2026年10月4日の改訂PDFによる通し実走では、演習0〜8を完了しました。画面差とレビューで必要になった修正、確認できていない範囲は<a href="verification-20261004.html">今回の検証結果</a>、画像の差し替え・追加・掲載削除候補は<a href="verification-images-20261004.html">画像の対応表</a>を参照してください。以下は過去の検証記録です。</p>
+<main id="lesson"><h1>App シナリオの検証状況</h1><aside>講師・運営向けの補助資料です。</aside><article><p>2026年10月4日の通し実走では、改稿前の演習0〜8を完了しました。その結果を受けて、現在の受講者原稿は第1〜9章へ改稿しています。実走結果と未確認範囲は<a href="verification-20261004.html">今回の検証結果</a>、画像の採否は<a href="verification-images-20261004.html">画像の対応表</a>を参照してください。改稿後の全章再実走は未実施です。</p>
 <p>本ドキュメントは、2026年10月3日にWindowsのGitHub Copilot App 1.1.26で実施した検証記録です。接続、星評価、指示更新、フィルター実装と次章への継承、Playwright MCP、Agent Merge、共有Canvas、Automationの手動実行を確認しました。受講時はAppの最新版を使用してください。1.1.26は検証時の版であり、使用する版を限定する指定ではありません。</p>
 <blockquote>
 <p><strong>重要</strong>
 <strong>今回の実走は、GitHub連携経路で追加指示を行いながら確認した結果です。</strong> 改訂後の初回プロンプトだけによる再現や、未実施の経路まで確認済みとは扱いません。以下の「未作成」「未マージ」は各段階での状態を表します。現在の未確認範囲は本書の第2節、画面ごとの確認項目は<a href="ui-check.html">UI確認表</a>を参照してください。</p>
 </blockquote>
 <h2>1. 実走結果と教材改訂の記録</h2>
+<h3>2026年10月4日：通し実走後の改稿と品質確認</h3>
+<p>各章を概要、学ぶこと、前提、体験、振り返り、補足の6段階に整理し、章番号、ファイル名、目次、参照先を第1〜9章にそろえました。補足は一連の手順の後に置き、操作の意図や、予想・観察・比較・修正の説明を維持しています。</p>
+<p>掲載する操作画像42枚は、ローカルパス、個人情報、演習外の表示などを通常の画像処理で除去しました。全画像を別の担当者が目視とOCRで確認し、画像の付加情報も検査しました。未加工の95枚と撮影台帳は公開対象から外して保全しています。テンプレート入口は今回の撮影画像を採用し、公開後の再撮影は保留事項に含めていません。</p>
+<p>原稿修正後にAntigravityへ確認を依頼し、JustRight MCPとyomiyasuスキルの実行を確認しました。章の呼称、講師資料の旧番号、MCPとAgent Mergeの操作経路を修正しています。一時DBの再準備と、検索PRからIssueを閉じる関連付けも補いました。</p>
+<p>最終原稿の読みやすさは、yomiyasuリンターで参加者向け12原稿を再評価しました。以下はMarkdown原稿の機械評価です。順序のある手順、操作名の強調、文末の連続に対する指摘は、説明の意味と操作の読み取りやすさを確認して残しています。点数は理解しやすさや再現性を保証するものではありません。コードやプロンプト、URLとパスは、指摘だけを理由に変更していません。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">原稿</th>
+<th style="text-align: right;">点数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">コース概要</td>
+<td style="text-align: right;">85 / 100</td>
+</tr>
+<tr>
+<td style="text-align: left;">第1章</td>
+<td style="text-align: right;">95 / 100</td>
+</tr>
+<tr>
+<td style="text-align: left;">第2章</td>
+<td style="text-align: right;">90 / 100</td>
+</tr>
+<tr>
+<td style="text-align: left;">第3章</td>
+<td style="text-align: right;">90 / 100</td>
+</tr>
+<tr>
+<td style="text-align: left;">第4章</td>
+<td style="text-align: right;">75 / 100</td>
+</tr>
+<tr>
+<td style="text-align: left;">第5章</td>
+<td style="text-align: right;">80 / 100</td>
+</tr>
+<tr>
+<td style="text-align: left;">第6章</td>
+<td style="text-align: right;">75 / 100</td>
+</tr>
+<tr>
+<td style="text-align: left;">第7章</td>
+<td style="text-align: right;">95 / 100</td>
+</tr>
+<tr>
+<td style="text-align: left;">第8章</td>
+<td style="text-align: right;">90 / 100</td>
+</tr>
+<tr>
+<td style="text-align: left;">第9章</td>
+<td style="text-align: right;">90 / 100</td>
+</tr>
+<tr>
+<td style="text-align: left;">受講の入口</td>
+<td style="text-align: right;">100 / 100</td>
+</tr>
+<tr>
+<td style="text-align: left;">受講準備</td>
+<td style="text-align: right;">95 / 100</td>
+</tr>
+</tbody>
+</table>
+<p>構造監査では、各章の6節、ローカルリンク90件、操作画像42枚と概念図4点が整合しています。講師向け判定、非公開アクセス情報、旧版の説明、モデル指定は参加者本文に含めていません。PDFの改ページと入力文のコピー、Webのリンクは生成検査で確認します。この検査と、Copilotでの再実走は区別します。</p>
+<p>以下は、今回の改稿より前の記録です。</p>
 <h3>2026年10月4日：教材の構成と操作画像の整理</h3>
 <p>受講者向けの演習0〜8は、章・節・小節の番号を統一し、主手順の後に背景説明と判断理由をまとめました。プロンプト、コード例、公式出典は維持しています。操作前に必要な環境・許可範囲・受け入れ条件と、操作後の期待結果は、対応する手順の近くに残しています。WebとPDFの目次は見出しから生成し、節へのリンクを追加しました。</p>
 <p>Antigravityには、提示した構成案だけのレビューを依頼しました。補足の具体的な小見出し、手順と補足を行き来できるリンク、操作の前提と期待結果を前後に置く提案を反映しています。yomiyasuで表現と構成を見直し、JustRight MCPで校正しました。</p>

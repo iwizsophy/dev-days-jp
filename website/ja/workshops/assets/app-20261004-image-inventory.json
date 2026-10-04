@@ -1,1255 +1,1049 @@
 {
-  "checked_date": "2026-10-04",
-  "scope": "hands_on_complete_final_capture",
-  "total_images": 95,
-  "primary_candidates": 30,
-  "supplementary_candidates": 22,
-  "publication_ready_conditionally": 52,
-  "requires_retake": 1,
-  "verification_only": 42,
-  "existing_image_references_checked": 29,
-  "duplicate_publication_removal_candidates": [
-    "E17",
-    "E25",
-    "E26"
-  ],
-  "proposed_total_screenshots_after_public_template_capture": 31,
+  "schema_version": 1,
+  "captured_date": "2026-10-04",
+  "scope": "public_participant_document_images",
+  "total_images": 42,
+  "requires_retake": 0,
+  "original_capture_count": 95,
+  "original_storage": "private_working_area",
+  "original_inventory_sha256": "c08d1177104f7d45977c1f6f4b8406de1748817e45c6931f2fb6e762d88655bb",
   "concept_figures_retained": 4,
   "screenshots": [
     {
-      "filename": "app-20261004-00-bootstrap-issues.jpg",
-      "bytes": 63449,
-      "sha256": "5d74e121e63269adc0f66baf6a5f5795cd3542b7e34c2a4111db880683e9b4d1",
-      "format": "JPEG",
-      "magic": "ffd8ff",
-      "width": 807,
-      "height": 813,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "verification_only",
-      "publication_state": "evidence_only"
-    },
-    {
-      "filename": "app-20261004-00-repository-created.jpg",
-      "bytes": 70995,
-      "sha256": "48b4f2143a3e61a04ad6f57fd89b1f587884dd025adcc36c667e0160d45cc013",
-      "format": "JPEG",
-      "magic": "ffd8ff",
-      "width": 807,
-      "height": 813,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "verification_only",
-      "publication_state": "evidence_only"
-    },
-    {
       "filename": "app-20261004-00-template-form-top.jpg",
-      "bytes": 65809,
-      "sha256": "c3d3dbf61d765a80539a619b011256fd657c57cc55a7c1218dcebbf8b6dd5bee",
       "format": "JPEG",
-      "magic": "ffd8ff",
-      "width": 807,
-      "height": 813,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "primary_candidate",
-      "publication_state": "usable_after_crop"
-    },
-    {
-      "filename": "app-20261004-00-template-form.jpg",
-      "bytes": 51509,
-      "sha256": "b2ac7a3aa085236c41b1622e03fb3a9395cd2217195d8096feb50449ac7d50eb",
-      "format": "JPEG",
-      "magic": "ffd8ff",
-      "width": 807,
-      "height": 813,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "supplementary_candidate",
-      "publication_state": "usable_after_crop"
+      "bytes": 56950,
+      "sha256": "174e237f4e5ad38bd3545537acf6b7ef6aa93866ff578771c0c98e3b9f916252",
+      "width": 707,
+      "height": 392,
+      "crop": {
+        "x": 44,
+        "y": 176,
+        "width": 707,
+        "height": 392
+      },
+      "masks": [
+        {
+          "x": 430,
+          "y": 193,
+          "width": 30,
+          "height": 32,
+          "fill": [
+            33,
+            38,
+            45
+          ]
+        },
+        {
+          "x": 86,
+          "y": 394,
+          "width": 33,
+          "height": 32,
+          "fill": [
+            33,
+            38,
+            45
+          ]
+        }
+      ],
+      "coordinates": "source_image_pixels",
+      "exif_removed": true,
+      "visual_reviewed": true,
+      "original": {
+        "sha256": "c3d3dbf61d765a80539a619b011256fd657c57cc55a7c1218dcebbf8b6dd5bee",
+        "width": 807,
+        "height": 813
+      }
     },
     {
       "filename": "app-20261004-00-template-menu.jpg",
-      "bytes": 81666,
-      "sha256": "854bbc3f140a5c4a4020df4a5f1cc5ce97565be426da36874d951e05c2471e9f",
       "format": "JPEG",
-      "magic": "ffd8ff",
-      "width": 807,
-      "height": 813,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "requires_retake",
-      "publication_state": "requires_retake"
-    },
-    {
-      "filename": "app-20261004-01-add-repository-menu.jpg",
-      "bytes": 125747,
-      "sha256": "351c33af86b908be4fd18afa5b4dcb4216526c24d990889d99c51fd4ddc514b8",
-      "format": "JPEG",
-      "magic": "ffd8ff",
-      "width": 1282,
-      "height": 892,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "verification_only",
-      "publication_state": "evidence_only"
-    },
-    {
-      "filename": "app-20261004-01-app-version.jpg",
-      "bytes": 121638,
-      "sha256": "5111e009bb7b3c3d549fb592a43e4f134daf699c14956898fcb6b468984bc162",
-      "format": "JPEG",
-      "magic": "ffd8ff",
-      "width": 1282,
-      "height": 892,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "verification_only",
-      "publication_state": "evidence_only"
-    },
-    {
-      "filename": "app-20261004-01-issues-assigned-empty.jpg",
-      "bytes": 152131,
-      "sha256": "e386a7a8f610e6ff6d959d8cd55146337905658d408cdbf99d9b747d50b54e9d",
-      "format": "JPEG",
-      "magic": "ffd8ff",
-      "width": 1282,
-      "height": 892,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "verification_only",
-      "publication_state": "evidence_only"
+      "bytes": 8894,
+      "sha256": "d92bb2235d1597c3ffb9bcb4bc8da81d16c7c5b5ddc5e8e19fea6a0a89d0d462",
+      "width": 224,
+      "height": 98,
+      "crop": {
+        "x": 280,
+        "y": 145,
+        "width": 224,
+        "height": 98
+      },
+      "masks": [],
+      "coordinates": "source_image_pixels",
+      "exif_removed": true,
+      "visual_reviewed": true,
+      "original": {
+        "sha256": "854bbc3f140a5c4a4020df4a5f1cc5ce97565be426da36874d951e05c2471e9f",
+        "width": 807,
+        "height": 813
+      }
     },
     {
       "filename": "app-20261004-01-issues-new-view.jpg",
-      "bytes": 136328,
-      "sha256": "fea206ea221663f097efa4e54dd970fbb01e505ebaecea6ae6d2fbc7db7f814a",
       "format": "JPEG",
-      "magic": "ffd8ff",
-      "width": 1282,
-      "height": 892,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "primary_candidate",
-      "publication_state": "usable_after_crop"
-    },
-    {
-      "filename": "app-20261004-01-issues-open-saved.jpg",
-      "bytes": 125736,
-      "sha256": "e5b631ec49d279671796c6d9126b0ea1236d64627b9a8d4dca2f9c619709d031",
-      "format": "JPEG",
-      "magic": "ffd8ff",
-      "width": 1282,
-      "height": 892,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "verification_only",
-      "publication_state": "evidence_only"
-    },
-    {
-      "filename": "app-20261004-01-issues-open.jpg",
-      "bytes": 193906,
-      "sha256": "e2430aea890a1ef98c52a72ebd51e8db8e278816059941d2ab683e0a9a9ab11e",
-      "format": "JPEG",
-      "magic": "ffd8ff",
-      "width": 1282,
-      "height": 892,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "verification_only",
-      "publication_state": "evidence_only"
-    },
-    {
-      "filename": "app-20261004-01-quick-chat-complete.jpg",
-      "bytes": 114724,
-      "sha256": "1e5f08a8cd3adf5da35782838a6ae7354545c50b2f40de7b1d9d064bc8112bc1",
-      "format": "JPEG",
-      "magic": "ffd8ff",
-      "width": 1282,
-      "height": 892,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "verification_only",
-      "publication_state": "evidence_only"
+      "bytes": 173355,
+      "sha256": "8ff8ac61b12eb20c18947a1a316b70c5cc48bbe2896f6b11dc9a3bac463d08d3",
+      "width": 873,
+      "height": 765,
+      "crop": {
+        "x": 399,
+        "y": 36,
+        "width": 873,
+        "height": 765
+      },
+      "masks": [],
+      "coordinates": "source_image_pixels",
+      "exif_removed": true,
+      "visual_reviewed": true,
+      "original": {
+        "sha256": "fea206ea221663f097efa4e54dd970fbb01e505ebaecea6ae6d2fbc7db7f814a",
+        "width": 1282,
+        "height": 892
+      }
     },
     {
       "filename": "app-20261004-01-repository-trust.jpg",
-      "bytes": 95819,
-      "sha256": "17fa05c19fccde830a2028bc819ee81b8213222b7ef55437d14dbcb925fdf015",
       "format": "JPEG",
-      "magic": "ffd8ff",
-      "width": 1282,
-      "height": 892,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "primary_candidate",
-      "publication_state": "usable_after_crop"
+      "bytes": 73638,
+      "sha256": "45257012801346788eec55e17a93c5314505a461c7b64237f8c21604307f00f7",
+      "width": 644,
+      "height": 692,
+      "crop": {
+        "x": 320,
+        "y": 116,
+        "width": 644,
+        "height": 692
+      },
+      "masks": [],
+      "coordinates": "source_image_pixels",
+      "exif_removed": true,
+      "visual_reviewed": true,
+      "original": {
+        "sha256": "17fa05c19fccde830a2028bc819ee81b8213222b7ef55437d14dbcb925fdf015",
+        "width": 1282,
+        "height": 892
+      }
     },
     {
       "filename": "app-20261004-02-changes-game-card.jpg",
-      "bytes": 113165,
-      "sha256": "2003610a54f75b3a75bd74843615a23d165810021d5e5a13bf53bc2e3f744da7",
       "format": "JPEG",
-      "magic": "ffd8ff",
-      "width": 1282,
-      "height": 892,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "supplementary_candidate",
-      "publication_state": "usable_as_is"
-    },
-    {
-      "filename": "app-20261004-02-changes-render-tests.jpg",
-      "bytes": 113885,
-      "sha256": "af70b15b69fdaee69585b91c2716dd09ce511a1ab2da0794823d5579c8174664",
-      "format": "JPEG",
-      "magic": "ffd8ff",
-      "width": 1282,
-      "height": 892,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "supplementary_candidate",
-      "publication_state": "usable_as_is"
-    },
-    {
-      "filename": "app-20261004-02-environment-output.jpg",
-      "bytes": 124888,
-      "sha256": "980703df54b9b1e5b8e9f82989c82cdeebc5acae8ae36e4927395919ffb14644",
-      "format": "JPEG",
-      "magic": "ffd8ff",
-      "width": 1282,
-      "height": 892,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "verification_only",
-      "publication_state": "evidence_only"
-    },
-    {
-      "filename": "app-20261004-02-game-detail.jpg",
-      "bytes": 45684,
-      "sha256": "ccc72647b6ca530b9d765cad595651f8f38fd6b792905bbe70363a9158689074",
-      "format": "JPEG",
-      "magic": "ffd8ff",
+      "bytes": 121762,
+      "sha256": "47661bb062059fbf6cbae48b80a1f1a7ece36f0fbdc449d365cc355765addbc4",
       "width": 1280,
-      "height": 720,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "verification_only",
-      "publication_state": "evidence_only"
+      "height": 438,
+      "crop": {
+        "x": 0,
+        "y": 109,
+        "width": 1280,
+        "height": 438
+      },
+      "masks": [],
+      "coordinates": "source_image_pixels",
+      "exif_removed": true,
+      "visual_reviewed": true,
+      "original": {
+        "sha256": "2003610a54f75b3a75bd74843615a23d165810021d5e5a13bf53bc2e3f744da7",
+        "width": 1282,
+        "height": 892
+      }
     },
     {
       "filename": "app-20261004-02-new-session.jpg",
-      "bytes": 86950,
-      "sha256": "fcc4a97963f282eabda579c546473eb6b1d841697671a83a1a8c4fe50e8128d3",
       "format": "JPEG",
-      "magic": "ffd8ff",
-      "width": 1282,
-      "height": 892,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "primary_candidate",
-      "publication_state": "usable_after_crop"
-    },
-    {
-      "filename": "app-20261004-02-pr-checks-passed.jpg",
-      "bytes": 44968,
-      "sha256": "1470fa32d3cf4ad6247ff921be3e0c94582d3d5bdcba7ec14f0a9c959958b117",
-      "format": "JPEG",
-      "magic": "ffd8ff",
-      "width": 807,
-      "height": 813,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "verification_only",
-      "publication_state": "evidence_only"
+      "bytes": 8859,
+      "sha256": "40f25c2845a9fd6fbbd07d330df46955cb5358bf0da5cbbf9755d23480ff800d",
+      "width": 770,
+      "height": 38,
+      "crop": {
+        "x": 450,
+        "y": 493,
+        "width": 770,
+        "height": 38
+      },
+      "masks": [],
+      "coordinates": "source_image_pixels",
+      "exif_removed": true,
+      "visual_reviewed": true,
+      "original": {
+        "sha256": "fcc4a97963f282eabda579c546473eb6b1d841697671a83a1a8c4fe50e8128d3",
+        "width": 1282,
+        "height": 892
+      }
     },
     {
       "filename": "app-20261004-02-pr-ci-passed.jpg",
-      "bytes": 117886,
-      "sha256": "aa7f9464c012dcd3e4e3f545e8814bea152e0342b8478ce5a215f316b97d91f3",
       "format": "JPEG",
-      "magic": "ffd8ff",
-      "width": 1282,
-      "height": 892,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "primary_candidate",
-      "publication_state": "usable_after_crop"
-    },
-    {
-      "filename": "app-20261004-02-pr-ci-running.jpg",
-      "bytes": 111416,
-      "sha256": "35dc45251086048e1f20650a10573796e7f94d87e6eb28c5ef58a727b1099b47",
-      "format": "JPEG",
-      "magic": "ffd8ff",
-      "width": 1282,
-      "height": 892,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "verification_only",
-      "publication_state": "evidence_only"
-    },
-    {
-      "filename": "app-20261004-02-pr-merged-app.jpg",
-      "bytes": 177912,
-      "sha256": "bd62da7f8fb60a9f8ba8b11d80e1352bf777a45f194b5bbe21670bd5a20dd352",
-      "format": "JPEG",
-      "magic": "ffd8ff",
-      "width": 1282,
-      "height": 892,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "verification_only",
-      "publication_state": "evidence_only"
-    },
-    {
-      "filename": "app-20261004-02-pr-merged-github.jpg",
-      "bytes": 52276,
-      "sha256": "191418c906ea45479f50c1221de0a98de4350f881d76355761e7aeb6b1f19dc1",
-      "format": "JPEG",
-      "magic": "ffd8ff",
-      "width": 807,
-      "height": 813,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "verification_only",
-      "publication_state": "evidence_only"
+      "bytes": 62002,
+      "sha256": "20ac6aa0d4f13141c582ec1b4b00001410aed649f4d6e408b17661e5882060dc",
+      "width": 638,
+      "height": 859,
+      "crop": {
+        "x": 642,
+        "y": 32,
+        "width": 638,
+        "height": 859
+      },
+      "masks": [],
+      "coordinates": "source_image_pixels",
+      "exif_removed": true,
+      "visual_reviewed": true,
+      "original": {
+        "sha256": "aa7f9464c012dcd3e4e3f545e8814bea152e0342b8478ce5a215f316b97d91f3",
+        "width": 1282,
+        "height": 892
+      }
     },
     {
       "filename": "app-20261004-02-run-menu.jpg",
-      "bytes": 137683,
-      "sha256": "7d054fbc44208ff4f1032eb7355ae15e11589dbd81d4a8283316c019dd77514d",
       "format": "JPEG",
-      "magic": "ffd8ff",
-      "width": 1282,
-      "height": 892,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "verification_only",
-      "publication_state": "evidence_only"
-    },
-    {
-      "filename": "app-20261004-02-run-stopped.jpg",
-      "bytes": 165409,
-      "sha256": "f32fb3b1bc2c669a5e26dc976d4f27caf3ceff827cd72d9008355367a05f23c5",
-      "format": "JPEG",
-      "magic": "ffd8ff",
-      "width": 1282,
-      "height": 892,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "verification_only",
-      "publication_state": "evidence_only"
+      "bytes": 15922,
+      "sha256": "2500738d3a60d291880a4ee01264d660b6d40999154988432b9723f9f8d3b304",
+      "width": 183,
+      "height": 192,
+      "crop": {
+        "x": 465,
+        "y": 37,
+        "width": 183,
+        "height": 192
+      },
+      "masks": [],
+      "coordinates": "source_image_pixels",
+      "exif_removed": true,
+      "visual_reviewed": true,
+      "original": {
+        "sha256": "7d054fbc44208ff4f1032eb7355ae15e11589dbd81d4a8283316c019dd77514d",
+        "width": 1282,
+        "height": 892
+      }
     },
     {
       "filename": "app-20261004-02-star-rating.jpg",
-      "bytes": 79443,
-      "sha256": "3bad14cb037a1180a15fe1c77b2856e394eff849f730b6e2237526fda6138e1a",
       "format": "JPEG",
-      "magic": "ffd8ff",
-      "width": 1265,
-      "height": 712,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "primary_candidate",
-      "publication_state": "usable_as_is"
+      "bytes": 72662,
+      "sha256": "a01f1643cc5f7fc5fa737886f88d9e59f4d9786d19ce5a81adc171e9547527e8",
+      "width": 1201,
+      "height": 296,
+      "crop": {
+        "x": 25,
+        "y": 238,
+        "width": 1201,
+        "height": 296
+      },
+      "masks": [],
+      "coordinates": "source_image_pixels",
+      "exif_removed": true,
+      "visual_reviewed": true,
+      "original": {
+        "sha256": "3bad14cb037a1180a15fe1c77b2856e394eff849f730b6e2237526fda6138e1a",
+        "width": 1265,
+        "height": 712
+      }
     },
     {
       "filename": "app-20261004-03-add-tab-files.jpg",
-      "bytes": 180757,
-      "sha256": "5c6e4869214014a17b5ffe9a9638bd81757898c9190f79ad818eff264fb91796",
       "format": "JPEG",
-      "magic": "ffd8ff",
-      "width": 1282,
-      "height": 892,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "supplementary_candidate",
-      "publication_state": "usable_after_crop"
+      "bytes": 13287,
+      "sha256": "c7d2c7073cb2b706c57054e4c06345d916ed52a564cbc8cf76f7605cb0434d77",
+      "width": 179,
+      "height": 241,
+      "crop": {
+        "x": 1083,
+        "y": 36,
+        "width": 179,
+        "height": 241
+      },
+      "masks": [],
+      "coordinates": "source_image_pixels",
+      "exif_removed": true,
+      "visual_reviewed": true,
+      "original": {
+        "sha256": "5c6e4869214014a17b5ffe9a9638bd81757898c9190f79ad818eff264fb91796",
+        "width": 1282,
+        "height": 892
+      }
     },
     {
       "filename": "app-20261004-03-changes-instructions.jpg",
-      "bytes": 158684,
-      "sha256": "494d04d979b9e6dc1e17ed11935e8b1a27389dace837b980d590df8d9c417ee6",
       "format": "JPEG",
-      "magic": "ffd8ff",
+      "bytes": 259588,
+      "sha256": "c2d30fb88cb5b5d50c039b378ec29fbaaa807b049486773942ec9a0b64388446",
       "width": 1282,
-      "height": 892,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "primary_candidate",
-      "publication_state": "usable_as_is"
+      "height": 787,
+      "crop": {
+        "x": 0,
+        "y": 31,
+        "width": 1282,
+        "height": 787
+      },
+      "masks": [],
+      "coordinates": "source_image_pixels",
+      "exif_removed": true,
+      "visual_reviewed": true,
+      "original": {
+        "sha256": "494d04d979b9e6dc1e17ed11935e8b1a27389dace837b980d590df8d9c417ee6",
+        "width": 1282,
+        "height": 892
+      }
     },
     {
       "filename": "app-20261004-03-code-example.jpg",
-      "bytes": 115572,
-      "sha256": "0bac5a0ef745178da0d20c85f15bcb7468b2257f5585ff8840adf0c7e7a3ab8d",
       "format": "JPEG",
-      "magic": "ffd8ff",
-      "width": 1282,
-      "height": 892,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "supplementary_candidate",
-      "publication_state": "usable_after_crop"
-    },
-    {
-      "filename": "app-20261004-03-drizzle-links-final.jpg",
-      "bytes": 152356,
-      "sha256": "2c423e0935d13226acf5170a4627f057cb1031969893e0c999d24277187d6983",
-      "format": "JPEG",
-      "magic": "ffd8ff",
-      "width": 1282,
-      "height": 892,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "supplementary_candidate",
-      "publication_state": "usable_after_crop"
-    },
-    {
-      "filename": "app-20261004-03-drizzle-links.jpg",
-      "bytes": 157859,
-      "sha256": "b42dc2f991929703c8396f0afd10dd2ed0c08743523dd1ad1c0caea06e440ef4",
-      "format": "JPEG",
-      "magic": "ffd8ff",
-      "width": 1282,
-      "height": 892,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "verification_only",
-      "publication_state": "evidence_only"
+      "bytes": 82515,
+      "sha256": "828b605dacc78f58b7aee073ddbc33874f110191d6e7fcdf3b9978084ee627cc",
+      "width": 726,
+      "height": 508,
+      "crop": {
+        "x": 470,
+        "y": 133,
+        "width": 726,
+        "height": 508
+      },
+      "masks": [],
+      "coordinates": "source_image_pixels",
+      "exif_removed": true,
+      "visual_reviewed": true,
+      "original": {
+        "sha256": "0bac5a0ef745178da0d20c85f15bcb7468b2257f5585ff8840adf0c7e7a3ab8d",
+        "width": 1282,
+        "height": 892
+      }
     },
     {
       "filename": "app-20261004-03-file-search.jpg",
-      "bytes": 108463,
-      "sha256": "5c6e75f71e8d814a41762d1a8cf429ff450e24eef9286a525de8fb654a5b99ad",
       "format": "JPEG",
-      "magic": "ffd8ff",
-      "width": 1282,
-      "height": 892,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "supplementary_candidate",
-      "publication_state": "usable_after_crop"
+      "bytes": 12603,
+      "sha256": "233ca682a008186372cd06a95cb9357030f33ce5ad34592ba6d47e78e2eb6cbb",
+      "width": 644,
+      "height": 127,
+      "crop": {
+        "x": 319,
+        "y": 260,
+        "width": 644,
+        "height": 127
+      },
+      "masks": [],
+      "coordinates": "source_image_pixels",
+      "exif_removed": true,
+      "visual_reviewed": true,
+      "original": {
+        "sha256": "5c6e75f71e8d814a41762d1a8cf429ff450e24eef9286a525de8fb654a5b99ad",
+        "width": 1282,
+        "height": 892
+      }
     },
     {
       "filename": "app-20261004-03-files-options.jpg",
-      "bytes": 179068,
-      "sha256": "cdd38fbc8bde80431fc6c995920263da61d5fb80b9ca46e5f114afaafbd9f26e",
       "format": "JPEG",
-      "magic": "ffd8ff",
-      "width": 1282,
-      "height": 892,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "primary_candidate",
-      "publication_state": "usable_after_crop"
+      "bytes": 37047,
+      "sha256": "98a83b70f17942dbf2f2e24a6b083c7d50cbb7e5409d23e48e0a69465a621a6b",
+      "width": 338,
+      "height": 376,
+      "crop": {
+        "x": 940,
+        "y": 70,
+        "width": 338,
+        "height": 376
+      },
+      "masks": [],
+      "coordinates": "source_image_pixels",
+      "exif_removed": true,
+      "visual_reviewed": true,
+      "original": {
+        "sha256": "cdd38fbc8bde80431fc6c995920263da61d5fb80b9ca46e5f114afaafbd9f26e",
+        "width": 1282,
+        "height": 892
+      }
     },
     {
       "filename": "app-20261004-03-issue-details.jpg",
-      "bytes": 194392,
-      "sha256": "85d99d63d20a494540fdadc1b214a41d5484e996acf9974340220f13955dc76a",
       "format": "JPEG",
-      "magic": "ffd8ff",
-      "width": 1282,
-      "height": 892,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "primary_candidate",
-      "publication_state": "usable_after_crop"
-    },
-    {
-      "filename": "app-20261004-03-pr-checks-passed.jpg",
-      "bytes": 46791,
-      "sha256": "e6abde30fbc923bee23fc83ee7ea4055e1fa2468e98d3bd219a72bdb51cfc686",
-      "format": "JPEG",
-      "magic": "ffd8ff",
-      "width": 807,
-      "height": 813,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "verification_only",
-      "publication_state": "evidence_only"
+      "bytes": 158164,
+      "sha256": "84959444b5aea3c37d7dfda9ce887cabfd01bcfa9f9655daa3d750d496e341d7",
+      "width": 368,
+      "height": 859,
+      "crop": {
+        "x": 912,
+        "y": 31,
+        "width": 368,
+        "height": 859
+      },
+      "masks": [],
+      "coordinates": "source_image_pixels",
+      "exif_removed": true,
+      "visual_reviewed": true,
+      "original": {
+        "sha256": "85d99d63d20a494540fdadc1b214a41d5484e996acf9974340220f13955dc76a",
+        "width": 1282,
+        "height": 892
+      }
     },
     {
       "filename": "app-20261004-03-pr-ci-passed.jpg",
-      "bytes": 105425,
-      "sha256": "5ba177c5e49f1d33215a9ee1093c4d710e0786ea00bcee2ddebf7638333695d5",
       "format": "JPEG",
-      "magic": "ffd8ff",
-      "width": 1282,
-      "height": 892,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "verification_only",
-      "publication_state": "evidence_only"
-    },
-    {
-      "filename": "app-20261004-03-pr-ci-running.jpg",
-      "bytes": 98880,
-      "sha256": "a1bb11365b94588d1f99a4b0a38951ae4d65c40fbf092bfabf0b2577ab629b26",
-      "format": "JPEG",
-      "magic": "ffd8ff",
-      "width": 1282,
-      "height": 892,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "verification_only",
-      "publication_state": "evidence_only"
-    },
-    {
-      "filename": "app-20261004-03-pr-merged-app.jpg",
-      "bytes": 140101,
-      "sha256": "6db81b6673e7b943fc5ebe930df41035bf2a391274baae45e4ac8ec182583303",
-      "format": "JPEG",
-      "magic": "ffd8ff",
-      "width": 1282,
-      "height": 892,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "verification_only",
-      "publication_state": "evidence_only"
-    },
-    {
-      "filename": "app-20261004-03-pr-merged-github.jpg",
-      "bytes": 53278,
-      "sha256": "c71cc116ef386dc667d75a9ad25757ca3e79e892d72536e877190ec06599ce1e",
-      "format": "JPEG",
-      "magic": "ffd8ff",
-      "width": 807,
-      "height": 813,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "verification_only",
-      "publication_state": "evidence_only"
+      "bytes": 70444,
+      "sha256": "2f033631a89cdd5af3bee02c718cf529b1137c03129434a0ea2dfaa979f1c2ea",
+      "width": 641,
+      "height": 861,
+      "crop": {
+        "x": 641,
+        "y": 31,
+        "width": 641,
+        "height": 861
+      },
+      "masks": [],
+      "coordinates": "source_image_pixels",
+      "exif_removed": true,
+      "visual_reviewed": true,
+      "original": {
+        "sha256": "5ba177c5e49f1d33215a9ee1093c4d710e0786ea00bcee2ddebf7638333695d5",
+        "width": 1282,
+        "height": 892
+      }
     },
     {
       "filename": "app-20261004-03-unit-test-applyto.jpg",
-      "bytes": 171133,
-      "sha256": "79550ff85b6c2e1079e14b84382dbc95ff737af2c9fdad38f7da487a2aaece4a",
       "format": "JPEG",
-      "magic": "ffd8ff",
-      "width": 1282,
-      "height": 892,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "primary_candidate",
-      "publication_state": "usable_after_crop"
-    },
-    {
-      "filename": "app-20261004-03-unit-test-instructions.jpg",
-      "bytes": 163726,
-      "sha256": "1570f45842df9d4e650b811aa5997dc0514a519ede83610d2ad4f08bda1c6ad2",
-      "format": "JPEG",
-      "magic": "ffd8ff",
-      "width": 1282,
-      "height": 892,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "verification_only",
-      "publication_state": "evidence_only"
+      "bytes": 51493,
+      "sha256": "d8f6bca26693f509eaf5d647ae16497358ec43d526e54b67c554e82d23562501",
+      "width": 934,
+      "height": 190,
+      "crop": {
+        "x": 0,
+        "y": 109,
+        "width": 934,
+        "height": 190
+      },
+      "masks": [],
+      "coordinates": "source_image_pixels",
+      "exif_removed": true,
+      "visual_reviewed": true,
+      "original": {
+        "sha256": "79550ff85b6c2e1079e14b84382dbc95ff737af2c9fdad38f7da487a2aaece4a",
+        "width": 1282,
+        "height": 892
+      }
     },
     {
       "filename": "app-20261004-04-build-complete.jpg",
-      "bytes": 218744,
-      "sha256": "93dae3290824309ea7b8313ae521227381c5de72309bbf6bbf7c7d6bb4e9b9e3",
       "format": "JPEG",
-      "magic": "ffd8ff",
-      "width": 1282,
-      "height": 892,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "supplementary_candidate",
-      "publication_state": "usable_after_crop"
+      "bytes": 120175,
+      "sha256": "20a17a6294aefc1611879150b08fe50867c0d158292a4a8e3324eebaf642566f",
+      "width": 435,
+      "height": 621,
+      "crop": {
+        "x": 845,
+        "y": 197,
+        "width": 435,
+        "height": 621
+      },
+      "masks": [],
+      "coordinates": "source_image_pixels",
+      "exif_removed": true,
+      "visual_reviewed": true,
+      "original": {
+        "sha256": "93dae3290824309ea7b8313ae521227381c5de72309bbf6bbf7c7d6bb4e9b9e3",
+        "width": 1282,
+        "height": 892
+      }
     },
     {
       "filename": "app-20261004-04-changes-filters-final.jpg",
-      "bytes": 109191,
-      "sha256": "7e5110a269a0e8de1c1c0ec0d3fc3cac38c17bf1b0d11c7f58af67a22a05cf7e",
       "format": "JPEG",
-      "magic": "ffd8ff",
+      "bytes": 173891,
+      "sha256": "c3a8e49a519a0876ab363d41faea16f0064c24a6bf64b8976d8f71438117346c",
       "width": 1282,
-      "height": 892,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "primary_candidate",
-      "publication_state": "usable_after_crop"
-    },
-    {
-      "filename": "app-20261004-04-changes-filters.jpg",
-      "bytes": 108918,
-      "sha256": "ea18c591bacfca66e8ca166181d0148c9dba158e981df2cbaeaa5334d36b527d",
-      "format": "JPEG",
-      "magic": "ffd8ff",
-      "width": 1282,
-      "height": 892,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "verification_only",
-      "publication_state": "evidence_only"
+      "height": 687,
+      "crop": {
+        "x": 0,
+        "y": 109,
+        "width": 1282,
+        "height": 687
+      },
+      "masks": [],
+      "coordinates": "source_image_pixels",
+      "exif_removed": true,
+      "visual_reviewed": true,
+      "original": {
+        "sha256": "7e5110a269a0e8de1c1c0ec0d3fc3cac38c17bf1b0d11c7f58af67a22a05cf7e",
+        "width": 1282,
+        "height": 892
+      }
     },
     {
       "filename": "app-20261004-04-filter-combined-final.jpg",
-      "bytes": 56080,
-      "sha256": "b29bfe3723717e645622d3c5384ea7a20879f95413ab941275378f33c6fa7c65",
       "format": "JPEG",
-      "magic": "ffd8ff",
-      "width": 1265,
-      "height": 712,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "primary_candidate",
-      "publication_state": "usable_as_is"
-    },
-    {
-      "filename": "app-20261004-04-filter-combined.jpg",
-      "bytes": 55991,
-      "sha256": "e5533931b9676c6eb8c745c5f7752cd5e52e3fdd2fa73bec0c47a86f25049700",
-      "format": "JPEG",
-      "magic": "ffd8ff",
-      "width": 1265,
-      "height": 712,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "verification_only",
-      "publication_state": "evidence_only"
-    },
-    {
-      "filename": "app-20261004-04-filter-default-final.jpg",
-      "bytes": 58988,
-      "sha256": "0e123993e8913bbc75159783ac7f0661250e5ebdbdf1ea6cf215c69d946ebf16",
-      "format": "JPEG",
-      "magic": "ffd8ff",
-      "width": 1265,
-      "height": 712,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "supplementary_candidate",
-      "publication_state": "usable_as_is"
-    },
-    {
-      "filename": "app-20261004-04-filter-default.jpg",
-      "bytes": 64942,
-      "sha256": "b6646e211bf434a37100f5a8323cce0fcdc281cd9aea998452f6003283b2d2f1",
-      "format": "JPEG",
-      "magic": "ffd8ff",
-      "width": 1265,
-      "height": 712,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "verification_only",
-      "publication_state": "evidence_only"
+      "bytes": 72321,
+      "sha256": "3e2824c8b0f7b8682e12bb85a87cd434e0a52fd61b582182d7b9cbb726ddd061",
+      "width": 1189,
+      "height": 447,
+      "crop": {
+        "x": 31,
+        "y": 237,
+        "width": 1189,
+        "height": 447
+      },
+      "masks": [],
+      "coordinates": "source_image_pixels",
+      "exif_removed": true,
+      "visual_reviewed": true,
+      "original": {
+        "sha256": "b29bfe3723717e645622d3c5384ea7a20879f95413ab941275378f33c6fa7c65",
+        "width": 1265,
+        "height": 712
+      }
     },
     {
       "filename": "app-20261004-04-issue-details.jpg",
-      "bytes": 179855,
-      "sha256": "380da0b3487903f017a05f6cf6ec4325b7fc8e3199758cff6819768a1bebea5c",
       "format": "JPEG",
-      "magic": "ffd8ff",
-      "width": 1282,
-      "height": 892,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "supplementary_candidate",
-      "publication_state": "usable_after_crop"
+      "bytes": 139335,
+      "sha256": "ba019c58c56506fdfdc5fb23cf65e6f619d719fdd9cbfffa01990452b75246b3",
+      "width": 368,
+      "height": 859,
+      "crop": {
+        "x": 912,
+        "y": 31,
+        "width": 368,
+        "height": 859
+      },
+      "masks": [],
+      "coordinates": "source_image_pixels",
+      "exif_removed": true,
+      "visual_reviewed": true,
+      "original": {
+        "sha256": "380da0b3487903f017a05f6cf6ec4325b7fc8e3199758cff6819768a1bebea5c",
+        "width": 1282,
+        "height": 892
+      }
     },
     {
       "filename": "app-20261004-04-plan-mode.jpg",
-      "bytes": 156848,
-      "sha256": "5dca4d80bbde8cd8a7997d2ffec83f2f20bc21cf42ce851eeef95be749315142",
       "format": "JPEG",
-      "magic": "ffd8ff",
-      "width": 1282,
-      "height": 892,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "primary_candidate",
-      "publication_state": "usable_after_crop"
+      "bytes": 18314,
+      "sha256": "d1ec83a7e44d873c1efce9bff1de8a18fa9925212e9d6b2c0ec20ed58e3184c6",
+      "width": 326,
+      "height": 220,
+      "crop": {
+        "x": 444,
+        "y": 620,
+        "width": 326,
+        "height": 220
+      },
+      "masks": [],
+      "coordinates": "source_image_pixels",
+      "exif_removed": true,
+      "visual_reviewed": true,
+      "original": {
+        "sha256": "5dca4d80bbde8cd8a7997d2ffec83f2f20bc21cf42ce851eeef95be749315142",
+        "width": 1282,
+        "height": 892
+      }
     },
     {
       "filename": "app-20261004-04-plan-question.jpg",
-      "bytes": 190172,
-      "sha256": "bb0180cbabbcbf41455a8dc4711b3be57703f70a140683b3769bc27cce4a4424",
       "format": "JPEG",
-      "magic": "ffd8ff",
-      "width": 1282,
-      "height": 892,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "supplementary_candidate",
-      "publication_state": "usable_after_crop"
-    },
-    {
-      "filename": "app-20261004-04-plan-review-initial.jpg",
-      "bytes": 182184,
-      "sha256": "2090f173a564e3527f05544ac71fea0a9f49c3e185758c95888a87c188784453",
-      "format": "JPEG",
-      "magic": "ffd8ff",
-      "width": 1282,
-      "height": 892,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "verification_only",
-      "publication_state": "evidence_only"
+      "bytes": 45769,
+      "sha256": "a3aeae41f0342cf23a344315f95465e6308aa86747f27cbcb1205de7fefc47b1",
+      "width": 404,
+      "height": 308,
+      "crop": {
+        "x": 409,
+        "y": 566,
+        "width": 404,
+        "height": 308
+      },
+      "masks": [],
+      "coordinates": "source_image_pixels",
+      "exif_removed": true,
+      "visual_reviewed": true,
+      "original": {
+        "sha256": "bb0180cbabbcbf41455a8dc4711b3be57703f70a140683b3769bc27cce4a4424",
+        "width": 1282,
+        "height": 892
+      }
     },
     {
       "filename": "app-20261004-04-plan-review.jpg",
-      "bytes": 192244,
-      "sha256": "8d707d33c8b9457534986ee97b4ee9994209b9719a7717ac71744bda087d2507",
       "format": "JPEG",
-      "magic": "ffd8ff",
-      "width": 1282,
-      "height": 892,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "primary_candidate",
-      "publication_state": "usable_after_crop"
+      "bytes": 21394,
+      "sha256": "1eb35eacd3d14bb0578f5c8a39c2261e3bcae56093b9440b01dc45596d9b9be4",
+      "width": 404,
+      "height": 192,
+      "crop": {
+        "x": 409,
+        "y": 682,
+        "width": 404,
+        "height": 192
+      },
+      "masks": [],
+      "coordinates": "source_image_pixels",
+      "exif_removed": true,
+      "visual_reviewed": true,
+      "original": {
+        "sha256": "8d707d33c8b9457534986ee97b4ee9994209b9719a7717ac71744bda087d2507",
+        "width": 1282,
+        "height": 892
+      }
     },
     {
       "filename": "app-20261004-04-quality-skill.jpg",
-      "bytes": 120888,
-      "sha256": "c4324aaa3afaf59b048486de717cc03e43f8ca7db4489e902dc95f2c408c7609",
       "format": "JPEG",
-      "magic": "ffd8ff",
+      "bytes": 165338,
+      "sha256": "8ea5733dc2f31e0a75436bc056d414650c37f6ab6cbbeb17489f39046ae84d32",
       "width": 1282,
-      "height": 892,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "supplementary_candidate",
-      "publication_state": "usable_after_crop"
+      "height": 469,
+      "crop": {
+        "x": 0,
+        "y": 109,
+        "width": 1282,
+        "height": 469
+      },
+      "masks": [],
+      "coordinates": "source_image_pixels",
+      "exif_removed": true,
+      "visual_reviewed": true,
+      "original": {
+        "sha256": "c4324aaa3afaf59b048486de717cc03e43f8ca7db4489e902dc95f2c408c7609",
+        "width": 1282,
+        "height": 892
+      }
     },
     {
       "filename": "app-20261004-04-run-menu.jpg",
-      "bytes": 155978,
-      "sha256": "49c024d14e53003b9ba43f3799f23f825d3ba749bf76488a765eb614169dd464",
       "format": "JPEG",
-      "magic": "ffd8ff",
-      "width": 1282,
-      "height": 892,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "verification_only",
-      "publication_state": "evidence_only"
-    },
-    {
-      "filename": "app-20261004-04-run-stopped.jpg",
-      "bytes": 197878,
-      "sha256": "bf985bd439526a0a98ab98da2d6b4f9c8f67706870ee41418fa7bc88da2c93ed",
-      "format": "JPEG",
-      "magic": "ffd8ff",
-      "width": 1282,
-      "height": 892,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "verification_only",
-      "publication_state": "evidence_only"
-    },
-    {
-      "filename": "app-20261004-05-isolated-three.jpg",
-      "bytes": 52295,
-      "sha256": "1f7e2d25973f57f6e35edfc855cc2b1556193c7f323465292248f220f6aa52fe",
-      "format": "JPEG",
-      "magic": "ffd8ff",
-      "width": 807,
-      "height": 813,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "primary_candidate",
-      "publication_state": "usable_as_is"
+      "bytes": 22027,
+      "sha256": "b32a9463446fcb40715c534c2c16eba6b4b0a9d268f9f7df79f72978511098b3",
+      "width": 201,
+      "height": 261,
+      "crop": {
+        "x": 450,
+        "y": 35,
+        "width": 201,
+        "height": 261
+      },
+      "masks": [],
+      "coordinates": "source_image_pixels",
+      "exif_removed": true,
+      "visual_reviewed": true,
+      "original": {
+        "sha256": "49c024d14e53003b9ba43f3799f23f825d3ba749bf76488a765eb614169dd464",
+        "width": 1282,
+        "height": 892
+      }
     },
     {
       "filename": "app-20261004-05-isolated-zero.jpg",
-      "bytes": 40861,
-      "sha256": "33ad3661a61d9307d9ddb9924d089d3e68e0affdae58d9387f37a521b8575fca",
       "format": "JPEG",
-      "magic": "ffd8ff",
-      "width": 822,
-      "height": 828,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "primary_candidate",
-      "publication_state": "usable_as_is"
+      "bytes": 39663,
+      "sha256": "fbf9a24d630cbb9b19abd4acc202dc39e1336b68623482dccbd03d12b42e2ea7",
+      "width": 777,
+      "height": 375,
+      "crop": {
+        "x": 23,
+        "y": 298,
+        "width": 777,
+        "height": 375
+      },
+      "masks": [],
+      "coordinates": "source_image_pixels",
+      "exif_removed": true,
+      "visual_reviewed": true,
+      "original": {
+        "sha256": "33ad3661a61d9307d9ddb9924d089d3e68e0affdae58d9387f37a521b8575fca",
+        "width": 822,
+        "height": 828
+      }
     },
     {
       "filename": "app-20261004-05-mcp-installed.jpg",
-      "bytes": 114084,
-      "sha256": "243b3cb6f93859d0e9ff3f4ea6b0c40a98339440323f08942529e79a3537cfcd",
       "format": "JPEG",
-      "magic": "ffd8ff",
-      "width": 1282,
-      "height": 892,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "primary_candidate",
-      "publication_state": "usable_after_crop"
+      "bytes": 38887,
+      "sha256": "a51d9a68e7bea6326be9ee95967a72e7831f1b0f5a5e849418cc897cdd95e3a1",
+      "width": 861,
+      "height": 246,
+      "crop": {
+        "x": 397,
+        "y": 33,
+        "width": 861,
+        "height": 246
+      },
+      "masks": [
+        {
+          "x": 417,
+          "y": 161,
+          "width": 829,
+          "height": 57,
+          "fill": [
+            13,
+            17,
+            23
+          ]
+        }
+      ],
+      "coordinates": "source_image_pixels",
+      "exif_removed": true,
+      "visual_reviewed": true,
+      "original": {
+        "sha256": "243b3cb6f93859d0e9ff3f4ea6b0c40a98339440323f08942529e79a3537cfcd",
+        "width": 1282,
+        "height": 892
+      }
     },
     {
       "filename": "app-20261004-05-mcp-result-combined.jpg",
-      "bytes": 212640,
-      "sha256": "cb7b2ba461be7325fa338390947b13968f19da44b21c136c7092eee7368cfd66",
       "format": "JPEG",
-      "magic": "ffd8ff",
-      "width": 1282,
-      "height": 892,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "verification_only",
-      "publication_state": "evidence_only"
+      "bytes": 69750,
+      "sha256": "2c3410b8e36b3357e22cf6df7244eb25d6b15e38b9c10d67b8ced92b985869e8",
+      "width": 402,
+      "height": 396,
+      "crop": {
+        "x": 410,
+        "y": 341,
+        "width": 402,
+        "height": 396
+      },
+      "masks": [],
+      "coordinates": "source_image_pixels",
+      "exif_removed": true,
+      "visual_reviewed": true,
+      "original": {
+        "sha256": "cb7b2ba461be7325fa338390947b13968f19da44b21c136c7092eee7368cfd66",
+        "width": 1282,
+        "height": 892
+      }
     },
     {
       "filename": "app-20261004-05-playwright-config.jpg",
-      "bytes": 104906,
-      "sha256": "c562709deb7ca9ddf8ca97c72d7536391806b2bb7a6f308d65fbf594b1439764",
       "format": "JPEG",
-      "magic": "ffd8ff",
-      "width": 1282,
-      "height": 892,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "primary_candidate",
-      "publication_state": "usable_after_crop"
+      "bytes": 61199,
+      "sha256": "e34c1f4f52a8edae519765464693930354b1d3a7a11cb215f3967cd37a1bc73a",
+      "width": 643,
+      "height": 561,
+      "crop": {
+        "x": 320,
+        "y": 181,
+        "width": 643,
+        "height": 561
+      },
+      "masks": [],
+      "coordinates": "source_image_pixels",
+      "exif_removed": true,
+      "visual_reviewed": true,
+      "original": {
+        "sha256": "c562709deb7ca9ddf8ca97c72d7536391806b2bb7a6f308d65fbf594b1439764",
+        "width": 1282,
+        "height": 892
+      }
     },
     {
       "filename": "app-20261004-06-agent-merge-before.jpg",
-      "bytes": 177533,
-      "sha256": "d4d2620e4961699ca14f4be3c114b9ade9a257fca437502c9375a83fcb8a548c",
       "format": "JPEG",
-      "magic": "ffd8ff",
-      "width": 1282,
-      "height": 892,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "primary_candidate",
-      "publication_state": "usable_after_crop"
-    },
-    {
-      "filename": "app-20261004-06-pr-merged-app.jpg",
-      "bytes": 190750,
-      "sha256": "8e140388ff3ee97421815d405e78472c35ec23b5e9c72e57c43dd82d9d016647",
-      "format": "JPEG",
-      "magic": "ffd8ff",
-      "width": 1282,
-      "height": 892,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "supplementary_candidate",
-      "publication_state": "usable_after_crop"
+      "bytes": 19090,
+      "sha256": "ac79bb48b09af1832d78f9209815db24f0763c7f855971edbc67dba5f15573c5",
+      "width": 517,
+      "height": 101,
+      "crop": {
+        "x": 302,
+        "y": 32,
+        "width": 517,
+        "height": 101
+      },
+      "masks": [],
+      "coordinates": "source_image_pixels",
+      "exif_removed": true,
+      "visual_reviewed": true,
+      "original": {
+        "sha256": "d4d2620e4961699ca14f4be3c114b9ade9a257fca437502c9375a83fcb8a548c",
+        "width": 1282,
+        "height": 892
+      }
     },
     {
       "filename": "app-20261004-06-pr-merged-github.jpg",
-      "bytes": 55122,
-      "sha256": "d338eb666265fd2cf7868545fce26eb27a8882a0de20ceee123364c0a1a7ff70",
       "format": "JPEG",
-      "magic": "ffd8ff",
-      "width": 807,
-      "height": 813,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "primary_candidate",
-      "publication_state": "usable_after_crop"
+      "bytes": 81763,
+      "sha256": "e209299e2e49d107dbaf7a8aca258441a5a719f9538b23ee063181626452f38f",
+      "width": 750,
+      "height": 485,
+      "crop": {
+        "x": 20,
+        "y": 167,
+        "width": 750,
+        "height": 485
+      },
+      "masks": [],
+      "coordinates": "source_image_pixels",
+      "exif_removed": true,
+      "visual_reviewed": true,
+      "original": {
+        "sha256": "d338eb666265fd2cf7868545fce26eb27a8882a0de20ceee123364c0a1a7ff70",
+        "width": 807,
+        "height": 813
+      }
     },
     {
       "filename": "app-20261004-07-canvas-after-search-merge.jpg",
-      "bytes": 215728,
-      "sha256": "56a59c0df86c4b2e2b304b1492efb3154485414008f791e69559dd6d0bbbe2c7",
       "format": "JPEG",
-      "magic": "ffd8ff",
-      "width": 1282,
-      "height": 892,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "primary_candidate",
-      "publication_state": "usable_after_crop"
-    },
-    {
-      "filename": "app-20261004-07-canvas-agent-merge-before.jpg",
-      "bytes": 162989,
-      "sha256": "e91d94a92ec5fa28fcaeca5a2c9189f56e981a46c7f85c12436aaa9898502181",
-      "format": "JPEG",
-      "magic": "ffd8ff",
-      "width": 1282,
-      "height": 892,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "verification_only",
-      "publication_state": "evidence_only"
-    },
-    {
-      "filename": "app-20261004-07-canvas-initial-error.jpg",
-      "bytes": 133087,
-      "sha256": "018259c744ffbd1fa92a1b1f5e2a0455590a62de7d1579cb93bcfca4bb944334",
-      "format": "JPEG",
-      "magic": "ffd8ff",
-      "width": 1282,
-      "height": 892,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "verification_only",
-      "publication_state": "evidence_only"
-    },
-    {
-      "filename": "app-20261004-07-canvas-initial-layout.jpg",
-      "bytes": 188278,
-      "sha256": "57caccd4f7ddd162cb8899729ecc5aedb1be9cdb40981baa1731fda4f3ff1ecc",
-      "format": "JPEG",
-      "magic": "ffd8ff",
-      "width": 1282,
-      "height": 892,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "verification_only",
-      "publication_state": "evidence_only"
-    },
-    {
-      "filename": "app-20261004-07-canvas-pr-merged-app.jpg",
-      "bytes": 168437,
-      "sha256": "bb49bb08012e851b2117c77a5c2d59d9a43040868ca2971715e3d94994ddaabb",
-      "format": "JPEG",
-      "magic": "ffd8ff",
-      "width": 1282,
-      "height": 892,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "verification_only",
-      "publication_state": "evidence_only"
-    },
-    {
-      "filename": "app-20261004-07-canvas-pr-merged-github.jpg",
-      "bytes": 54400,
-      "sha256": "86c716c768e6664768cabc13861981b68c2e35d0fbc118b469391dc87555b3fb",
-      "format": "JPEG",
-      "magic": "ffd8ff",
-      "width": 807,
-      "height": 813,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "verification_only",
-      "publication_state": "evidence_only"
+      "bytes": 218725,
+      "sha256": "7e29fac47d0bdf8ef4bb525dfb2196b81fd5140a6917893037dbaf451fd65a82",
+      "width": 600,
+      "height": 798,
+      "crop": {
+        "x": 655,
+        "y": 92,
+        "width": 600,
+        "height": 798
+      },
+      "masks": [],
+      "coordinates": "source_image_pixels",
+      "exif_removed": true,
+      "visual_reviewed": true,
+      "original": {
+        "sha256": "56a59c0df86c4b2e2b304b1492efb3154485414008f791e69559dd6d0bbbe2c7",
+        "width": 1282,
+        "height": 892
+      }
     },
     {
       "filename": "app-20261004-07-canvas-readable.jpg",
-      "bytes": 194250,
-      "sha256": "587fd632c510f6c380e998a9a7b30893ea911ad4c17e2fa4c6a3089ccf86c3c5",
       "format": "JPEG",
-      "magic": "ffd8ff",
-      "width": 1282,
-      "height": 892,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "primary_candidate",
-      "publication_state": "usable_as_is"
-    },
-    {
-      "filename": "app-20261004-07-canvas-receipt.jpg",
-      "bytes": 203835,
-      "sha256": "309930ba80a15f092ab55cf75c00b749388fa0d0cf19abb22a073035cceca580",
-      "format": "JPEG",
-      "magic": "ffd8ff",
-      "width": 1282,
-      "height": 892,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "verification_only",
-      "publication_state": "evidence_only"
-    },
-    {
-      "filename": "app-20261004-07-canvas-reopened.jpg",
-      "bytes": 195105,
-      "sha256": "ddb91027d3ce475f111275a3a9beb42477728b67fddc59df8155059148af0a68",
-      "format": "JPEG",
-      "magic": "ffd8ff",
-      "width": 1282,
-      "height": 892,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "supplementary_candidate",
-      "publication_state": "usable_as_is"
-    },
-    {
-      "filename": "app-20261004-07-canvas-search-card.jpg",
-      "bytes": 202977,
-      "sha256": "5f6de71044b43fd11c3360b3bfed2e5cf02c7338d7c760ce6e9bb1deae1aaf61",
-      "format": "JPEG",
-      "magic": "ffd8ff",
-      "width": 1282,
-      "height": 892,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "supplementary_candidate",
-      "publication_state": "usable_after_crop"
-    },
-    {
-      "filename": "app-20261004-07-canvas-trust.jpg",
-      "bytes": 126449,
-      "sha256": "a781dc26c39997e35c859e0e50ca3542eaea0007f4a5ca4a793e0d6762aa9f3f",
-      "format": "JPEG",
-      "magic": "ffd8ff",
-      "width": 1282,
-      "height": 892,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "supplementary_candidate",
-      "publication_state": "usable_after_crop"
+      "bytes": 373050,
+      "sha256": "9d4aad6651fb604771ca17a709e431e6e2f0191f2b37f6136c18c573eef44ac4",
+      "width": 1234,
+      "height": 748,
+      "crop": {
+        "x": 20,
+        "y": 98,
+        "width": 1234,
+        "height": 748
+      },
+      "masks": [],
+      "coordinates": "source_image_pixels",
+      "exif_removed": true,
+      "visual_reviewed": true,
+      "original": {
+        "sha256": "587fd632c510f6c380e998a9a7b30893ea911ad4c17e2fa4c6a3089ccf86c3c5",
+        "width": 1282,
+        "height": 892
+      }
     },
     {
       "filename": "app-20261004-07-changes-canvas-final.jpg",
-      "bytes": 119206,
-      "sha256": "3931a05936f006f1a810cb5547e9ccad8913be96596545ceb04a8e00e5ea86e0",
       "format": "JPEG",
-      "magic": "ffd8ff",
-      "width": 1282,
-      "height": 892,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "primary_candidate",
-      "publication_state": "usable_after_crop"
-    },
-    {
-      "filename": "app-20261004-07-changes-canvas-readme.jpg",
-      "bytes": 151635,
-      "sha256": "0f01b2c567cc2b91b90e858d4cd6453a0ff6b4cbe56aaa70d56064c97ccc5849",
-      "format": "JPEG",
-      "magic": "ffd8ff",
-      "width": 1282,
-      "height": 892,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "supplementary_candidate",
-      "publication_state": "usable_as_is"
-    },
-    {
-      "filename": "app-20261004-07-changes-canvas.jpg",
-      "bytes": 113052,
-      "sha256": "e9944e5dd04c27a4c34dbe147dd29e409c170a916e8429d2028031e5ba5e6588",
-      "format": "JPEG",
-      "magic": "ffd8ff",
-      "width": 1282,
-      "height": 892,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "verification_only",
-      "publication_state": "evidence_only"
-    },
-    {
-      "filename": "app-20261004-07-changes-search.jpg",
-      "bytes": 110497,
-      "sha256": "a2d9a71a47ab0996b430da02359c1941cf9a72559b032b11acfaa0f1e37d88ae",
-      "format": "JPEG",
-      "magic": "ffd8ff",
-      "width": 1282,
-      "height": 892,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "supplementary_candidate",
-      "publication_state": "usable_as_is"
-    },
-    {
-      "filename": "app-20261004-07-search-agent-merge-before.jpg",
-      "bytes": 183029,
-      "sha256": "4d0795efd83ed674bab416b37b49fc6f205ea44b91fbcd432e594f02005fa6bf",
-      "format": "JPEG",
-      "magic": "ffd8ff",
-      "width": 1282,
-      "height": 892,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "verification_only",
-      "publication_state": "evidence_only"
+      "bytes": 76575,
+      "sha256": "1f9a69d9e6b6c5ccfa352c10cac6bc14c541cfddb81596b84ec71acb3f13f513",
+      "width": 1277,
+      "height": 222,
+      "crop": {
+        "x": 1,
+        "y": 74,
+        "width": 1277,
+        "height": 222
+      },
+      "masks": [],
+      "coordinates": "source_image_pixels",
+      "exif_removed": true,
+      "visual_reviewed": true,
+      "original": {
+        "sha256": "3931a05936f006f1a810cb5547e9ccad8913be96596545ceb04a8e00e5ea86e0",
+        "width": 1282,
+        "height": 892
+      }
     },
     {
       "filename": "app-20261004-07-search-combined.jpg",
-      "bytes": 45634,
-      "sha256": "557f18e3e20536edb9fb9beb4eacd46ecebb48561b4105ea32434d8f6dd0b334",
       "format": "JPEG",
-      "magic": "ffd8ff",
-      "width": 1265,
-      "height": 712,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "primary_candidate",
-      "publication_state": "usable_after_crop"
-    },
-    {
-      "filename": "app-20261004-07-search-default.jpg",
-      "bytes": 63025,
-      "sha256": "91e67011f47428ede08340b5150944113a6c25fc19406880b64a69d79bdf1e81",
-      "format": "JPEG",
-      "magic": "ffd8ff",
-      "width": 1265,
-      "height": 712,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "supplementary_candidate",
-      "publication_state": "usable_after_crop"
+      "bytes": 72997,
+      "sha256": "21237aa25c292342574dd7e222341d773cc509906c4c7a9ec71f71ad560ddc2a",
+      "width": 1188,
+      "height": 580,
+      "crop": {
+        "x": 30,
+        "y": 132,
+        "width": 1188,
+        "height": 580
+      },
+      "masks": [
+        {
+          "x": 532,
+          "y": 684,
+          "width": 184,
+          "height": 28,
+          "fill": [
+            15,
+            23,
+            42
+          ]
+        }
+      ],
+      "coordinates": "source_image_pixels",
+      "exif_removed": true,
+      "visual_reviewed": true,
+      "original": {
+        "sha256": "557f18e3e20536edb9fb9beb4eacd46ecebb48561b4105ea32434d8f6dd0b334",
+        "width": 1265,
+        "height": 712
+      }
     },
     {
       "filename": "app-20261004-07-search-issue-receipt.jpg",
-      "bytes": 208962,
-      "sha256": "2154a6a60d07c6ed6b92d401d8ce7b0b0bd8f63cd1b605326e81d1d236b5871e",
       "format": "JPEG",
-      "magic": "ffd8ff",
-      "width": 1282,
-      "height": 892,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "primary_candidate",
-      "publication_state": "usable_after_crop"
-    },
-    {
-      "filename": "app-20261004-07-search-mcp-result.jpg",
-      "bytes": 173255,
-      "sha256": "d6ce96e85f3082cff58cf62f63928d0f3941fb76974b005d515568aed315464a",
-      "format": "JPEG",
-      "magic": "ffd8ff",
-      "width": 1282,
-      "height": 892,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "verification_only",
-      "publication_state": "evidence_only"
-    },
-    {
-      "filename": "app-20261004-07-search-plan-question.jpg",
-      "bytes": 198117,
-      "sha256": "715203c86965e9eb81b4dedf8ec42438a69f3e815b74c1cef2041aae17e0d802",
-      "format": "JPEG",
-      "magic": "ffd8ff",
-      "width": 1282,
-      "height": 892,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "supplementary_candidate",
-      "publication_state": "usable_after_crop"
+      "bytes": 147952,
+      "sha256": "41e0cdf62e0cffa4f959637e8b64d63b5fb44cdd38b5c44627efa9280c8996b9",
+      "width": 603,
+      "height": 610,
+      "crop": {
+        "x": 18,
+        "y": 90,
+        "width": 603,
+        "height": 610
+      },
+      "masks": [],
+      "coordinates": "source_image_pixels",
+      "exif_removed": true,
+      "visual_reviewed": true,
+      "original": {
+        "sha256": "2154a6a60d07c6ed6b92d401d8ce7b0b0bd8f63cd1b605326e81d1d236b5871e",
+        "width": 1282,
+        "height": 892
+      }
     },
     {
       "filename": "app-20261004-07-search-plan-review.jpg",
-      "bytes": 146724,
-      "sha256": "0626476ea01d39b441cbf805bf5f345981dfbfefe6b045f313f9d6f3564bd433",
       "format": "JPEG",
-      "magic": "ffd8ff",
-      "width": 1282,
-      "height": 892,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "primary_candidate",
-      "publication_state": "usable_as_is"
-    },
-    {
-      "filename": "app-20261004-07-search-pr-merged-app.jpg",
-      "bytes": 185915,
-      "sha256": "e34c528494591879112537e85fc8692cda3f60c3d6ad644347a72810acade97a",
-      "format": "JPEG",
-      "magic": "ffd8ff",
-      "width": 1282,
-      "height": 892,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "verification_only",
-      "publication_state": "evidence_only"
-    },
-    {
-      "filename": "app-20261004-07-search-pr-merged-github.jpg",
-      "bytes": 53314,
-      "sha256": "a9829da057881d4ba0faa049d79e73c8ab9a60ecd89d61d8eb6dcec3610582b9",
-      "format": "JPEG",
-      "magic": "ffd8ff",
-      "width": 807,
-      "height": 813,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "verification_only",
-      "publication_state": "evidence_only"
-    },
-    {
-      "filename": "app-20261004-07-search-two.jpg",
-      "bytes": 51416,
-      "sha256": "20df1fdd85f1899363663c58141e498d016d5585eb111461f19721d9947c08da",
-      "format": "JPEG",
-      "magic": "ffd8ff",
-      "width": 1265,
-      "height": 712,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "supplementary_candidate",
-      "publication_state": "usable_after_crop"
+      "bytes": 178483,
+      "sha256": "a92b95c79e3493f27cde1d3ea70b486165ef0989e287a9376445443dc2fa0502",
+      "width": 793,
+      "height": 561,
+      "crop": {
+        "x": 248,
+        "y": 121,
+        "width": 793,
+        "height": 561
+      },
+      "masks": [],
+      "coordinates": "source_image_pixels",
+      "exif_removed": true,
+      "visual_reviewed": true,
+      "original": {
+        "sha256": "0626476ea01d39b441cbf805bf5f345981dfbfefe6b045f313f9d6f3564bd433",
+        "width": 1282,
+        "height": 892
+      }
     },
     {
       "filename": "app-20261004-07-search-zero.jpg",
-      "bytes": 49444,
-      "sha256": "0fbaa49fd09d3ef0ed1ce246abf5d673c6ef10fff51b9564fbed3dd294b2cd72",
       "format": "JPEG",
-      "magic": "ffd8ff",
-      "width": 1265,
-      "height": 712,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "primary_candidate",
-      "publication_state": "usable_after_crop"
+      "bytes": 74564,
+      "sha256": "62735912f473b708c90142133299c84bd31a190b4230a21629f1875b509cd93d",
+      "width": 1188,
+      "height": 475,
+      "crop": {
+        "x": 30,
+        "y": 219,
+        "width": 1188,
+        "height": 475
+      },
+      "masks": [],
+      "coordinates": "source_image_pixels",
+      "exif_removed": true,
+      "visual_reviewed": true,
+      "original": {
+        "sha256": "0fbaa49fd09d3ef0ed1ce246abf5d673c6ef10fff51b9564fbed3dd294b2cd72",
+        "width": 1265,
+        "height": 712
+      }
     },
     {
       "filename": "app-20261004-08-automation-create-and-run.jpg",
-      "bytes": 127469,
-      "sha256": "a28e1c8f06de8ec22a73715871de60393d691e48a839753b24a895a60b07ba40",
       "format": "JPEG",
-      "magic": "ffd8ff",
-      "width": 1282,
-      "height": 892,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "primary_candidate",
-      "publication_state": "usable_after_crop"
+      "bytes": 121395,
+      "sha256": "b9ef1bdf9ce9d9cced56d3f9075a7b6d455df7d02ecc9e92f558bdf5ac676a25",
+      "width": 643,
+      "height": 715,
+      "crop": {
+        "x": 322,
+        "y": 138,
+        "width": 643,
+        "height": 715
+      },
+      "masks": [
+        {
+          "x": 448,
+          "y": 625,
+          "width": 132,
+          "height": 33,
+          "fill": [
+            21,
+            26,
+            31
+          ]
+        },
+        {
+          "x": 322,
+          "y": 788,
+          "width": 360,
+          "height": 65,
+          "fill": [
+            13,
+            17,
+            23
+          ]
+        }
+      ],
+      "coordinates": "source_image_pixels",
+      "exif_removed": true,
+      "visual_reviewed": true,
+      "original": {
+        "sha256": "a28e1c8f06de8ec22a73715871de60393d691e48a839753b24a895a60b07ba40",
+        "width": 1282,
+        "height": 892
+      }
     },
     {
       "filename": "app-20261004-08-automation-result-issues.jpg",
-      "bytes": 147190,
-      "sha256": "785fa5979ef8f2fb3cf53e293102fecaebaf60e7aebf4f9ae97a4d40b674090b",
       "format": "JPEG",
-      "magic": "ffd8ff",
-      "width": 1282,
-      "height": 892,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "primary_candidate",
-      "publication_state": "usable_after_crop"
-    },
-    {
-      "filename": "app-20261004-08-automation-result-prs.jpg",
-      "bytes": 154456,
-      "sha256": "470b6a6f335441e353da8309c97ae9a55daa475c4a7fdc5a9d48f2638f221063",
-      "format": "JPEG",
-      "magic": "ffd8ff",
-      "width": 1282,
-      "height": 892,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "supplementary_candidate",
-      "publication_state": "usable_after_crop"
-    },
-    {
-      "filename": "app-20261004-08-automation-settings.jpg",
-      "bytes": 124227,
-      "sha256": "d46d3c2e54f4bb57f97d6a21dc8e4fce263a302a1133555b51ffe1d9a36b937c",
-      "format": "JPEG",
-      "magic": "ffd8ff",
-      "width": 1282,
-      "height": 892,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "verification_only",
-      "publication_state": "evidence_only"
+      "bytes": 211329,
+      "sha256": "834a769f04f83fa0b0faa91bfac160ad7c49ff0c2bb6ee75dd453259bc1baf3d",
+      "width": 738,
+      "height": 758,
+      "crop": {
+        "x": 270,
+        "y": 80,
+        "width": 738,
+        "height": 758
+      },
+      "masks": [],
+      "coordinates": "source_image_pixels",
+      "exif_removed": true,
+      "visual_reviewed": true,
+      "original": {
+        "sha256": "785fa5979ef8f2fb3cf53e293102fecaebaf60e7aebf4f9ae97a4d40b674090b",
+        "width": 1282,
+        "height": 892
+      }
     },
     {
       "filename": "app-20261004-08-automation-succeeded.jpg",
-      "bytes": 84033,
-      "sha256": "cced97478557c07da69aaebadd6c8145b214c048f75d646b82f4af38d89ce922",
       "format": "JPEG",
-      "magic": "ffd8ff",
-      "width": 1282,
-      "height": 892,
-      "decode_verified": true,
-      "extension_matches": true,
-      "publication_decision": "primary_candidate",
-      "publication_state": "usable_after_crop"
+      "bytes": 16507,
+      "sha256": "5a5e136381c39cdf2805c6eb363139693f1213e2c5e6aebe213418c9b7b130bf",
+      "width": 854,
+      "height": 130,
+      "crop": {
+        "x": 214,
+        "y": 321,
+        "width": 854,
+        "height": 130
+      },
+      "masks": [],
+      "coordinates": "source_image_pixels",
+      "exif_removed": true,
+      "visual_reviewed": true,
+      "original": {
+        "sha256": "cced97478557c07da69aaebadd6c8145b214c048f75d646b82f4af38d89ce922",
+        "width": 1282,
+        "height": 892
+      }
     }
   ]
 }

@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow"><title>第9章 - 振り返りと次のステップ | Dev Days 日本語版</title>
+<link rel="stylesheet" href="../workshops.css"><script src="../../../theme-toggle.js"></script></head><body>
+<a class="skip" href="#lesson">本文へ移動</a><header><nav aria-label="資料のナビゲーション">
+<a href="../../index.html">教材セットの入口</a><a href="../index.html">App シナリオの目次</a>
+<a href="../../handson-guide.html#switch">事前準備・UI の確認</a></nav>
+<button class="theme-toggle" type="button" onclick="toggleTheme()">☀️ ライト</button></header>
+<main id="lesson"><h1>第9章 - 振り返りと次のステップ</h1><p class="source">非公式の日本語版 · <a href="https://github.com/github-samples/copilot-workshops/blob/7ddcf241c1cd10b8e90c0df96f6bef81e710392a/docs/ja-jp/app/8-review.md">参照原文</a> · <a href="../licenses/copilot-workshops.txt">MIT ライセンス</a></p><aside>利用条件は <a href="../../handson-guide.html#plans">受講準備</a>を参照してください。</aside><nav class="chapter-nav" aria-label="章の移動"><a href="8-canvases.html">← 前の章：第8章 - キャンバスを使った計画</a></nav><details><summary>この章の目次</summary><div class="toc">
+<ul>
+<li><a href="#91-章の概要">9.1 章の概要</a></li>
+<li><a href="#92-この章で学ぶこと">9.2 この章で学ぶこと</a></li>
+<li><a href="#93-取り組む前に">9.3 取り組む前に</a></li>
+<li><a href="#94-体験すること">9.4 体験すること</a><ul>
+<li><a href="#941-読み取り専用のautomationを設定する">9.4.1 読み取り専用のAutomationを設定する</a></li>
+<li><a href="#942-automationを実行して結果を確認する">9.4.2 Automationを実行して結果を確認する</a></li>
+<li><a href="#943-報告をgithubの情報と照合する">9.4.3 報告をGitHubの情報と照合する</a></li>
+</ul>
+</li>
+<li><a href="#95-結果の整理と振り返り">9.5 結果の整理と振り返り</a><ul>
+<li><a href="#951-ワークショップで実践した開発の流れ">9.5.1 ワークショップで実践した開発の流れ</a></li>
+<li><a href="#952-作業に合わせた機能とモードの使い分け">9.5.2 作業に合わせた機能とモードの使い分け</a></li>
+<li><a href="#953-日々の開発への取り入れ方">9.5.3 日々の開発への取り入れ方</a></li>
+</ul>
+</li>
+<li><a href="#96-補足">9.6 補足</a><ul>
+<li><a href="#961-同じ調査条件で作業を繰り返す理由">9.6.1 同じ調査条件で作業を繰り返す理由</a></li>
+<li><a href="#962-件数や項目が一致しないとき">9.6.2 件数や項目が一致しないとき</a></li>
+<li><a href="#963-定期実行とcloud実行への発展">9.6.3 定期実行とCloud実行への発展</a></li>
+<li><a href="#964-さらに確認する価値のある機能">9.6.4 さらに確認する価値のある機能</a></li>
+<li><a href="#965-リソース">9.6.5 リソース</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</details><article><h2 id="91-章の概要">9.1 章の概要</h2>
+<p>最後に、同じ調査を繰り返すAutomationを体験し、ワークショップ全体で使った機能を振り返ります。毎回チャットへ指示を書き直すと、対象期間や数える状態が少しずつ変わることがあります。条件を保存し、同じ方法で調べられるようにしましょう。</p>
+<p>この章では、最近マージしたPRと現在OpenのIssueを読み取り、会話内に報告するAutomationを作成します。Manual・Localで1回実行し、GitHubの実データと照合します。成功の表示だけで報告を正しいと判断せず、期間・一覧・件数を読むことに注目してください。</p>
+<h2 id="92-この章で学ぶこと">9.2 この章で学ぶこと</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">学ぶこと</th>
+<th style="text-align: left;">できるようになること</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">調査条件の保存</td>
+<td style="text-align: left;">対象リポジトリ、期間、状態、報告の根拠をそろえて繰り返せる</td>
+</tr>
+<tr>
+<td style="text-align: left;">Automationの実行と照合</td>
+<td style="text-align: left;">手動でLocal実行し、終了状態と報告内容を別々に確かめられる</td>
+</tr>
+<tr>
+<td style="text-align: left;">機能の使い分け</td>
+<td style="text-align: left;">Instructions、Skills、MCP、Canvas、Agent Merge、Automationを作業に合わせて選べる</td>
+</tr>
+<tr>
+<td style="text-align: left;">日々の開発への応用</td>
+<td style="text-align: left;">小さな課題の完了条件と、人が行う判断を決めて試せる</td>
+</tr>
+</tbody>
+</table>
+<h2 id="93-取り組む前に">9.3 取り組む前に</h2>
+<p>前章の検索機能をマージし、検索IssueのClosedとCanvasの最新Open一覧を確認しておきます。Automationの対象には、同じ演習用リポジトリを指定します。GitHubのPRとIssueをブラウザーでも確認できる状態にしてください。</p>
+<p>今回は読み取りと会話内の報告だけを行います。ファイルやIssueを変更する自動化へ進む前に、何を調べ、どの結果を得るかを1回の実行で確かめるためです。Manualは実行タイミング、Localは実行場所を表す別々の設定として読みます。</p>
+<h2 id="94-体験すること">9.4 体験すること</h2>
+<p><a id="読み取り専用のautomationを設定する"></a></p>
+<h3 id="941-読み取り専用のautomationを設定する">9.4.1 読み取り専用のAutomationを設定する</h3>
+<p>GitHub Copilot appのAutomationsでは、繰り返す作業の指示を保存し、手動または設定したトリガーで実行できます。新しいIssueの調査や、PRのレビュー状況確認などが公式の用途例です。本演習では、過去1週間の開発状況を調べる作業を保存します。<a href="https://docs.github.com/en/copilot/how-tos/github-copilot-app/using-automations#about-automations">GitHub公式のAutomationsの説明</a></p>
+<p>定期実行へ進む前に、1回の調査で何を読み、どのような報告が得られるかを確かめます。結果を自分で読めるタイミングで実行するため、Manualを選択します。</p>
+<ol>
+<li>サイドバーで <strong>Automations</strong> を選択し、画面内の <strong>New automation</strong> をクリックします。</li>
+<li>名前欄に <code>Recap my recent work</code> などの分かりやすい名称を入力します。</li>
+<li><strong>Trigger</strong>で <strong>Manual</strong> を選択し、<strong>Run in the cloud</strong>はオフにします。Dailyなど別の値が選ばれている場合はManualに変更してください。公式には時刻やIssue・PRのイベントを使うトリガーもありますが、本演習では手動実行の結果を確認します。<a href="https://docs.github.com/en/copilot/how-tos/github-copilot-app/using-automations#creating-an-automation">公式の設定手順</a></li>
+<li>リポジトリに変更を加えないよう、次のような読み取り専用のプロンプトを入力します。</li>
+</ol>
+<pre class="highlight"><code class="language-plaintext">このリポジトリで過去1週間にマージされたPRを要約し、現在OpenのIssueを一覧にしてください。
+GitHubの最新情報を読み取り、対象リポジトリ、実行時点とタイムゾーン、集計した期間を最初に示してください。PRとIssueには番号・タイトル・URLを添え、PRはマージ日時、Issueは現在の状態が分かるようにしてください。
+件数と一覧を対応させ、取得できなかった情報は未確認と書いてください。
+読み取りと会話内の報告だけを行ってください。ファイル変更、Issue・PRの作成や更新、コメント投稿、コミット、push、マージは行わないでください。</code></pre>
+<ol start="5">
+<li><strong>Select project</strong> で自身の演習用Tailspin Toysリポジトリを選択します。GitHub連携とローカルフォルダーの両方が登録されている場合は、<code>owner/repository</code>表記で対象を確認してください。</li>
+</ol>
+<p><img alt="Manualとクラウド実行オフ、読み取り専用の指示、Create and runの入口" src="../assets/app-20261004-08-automation-create-and-run.jpg" /></p>
+<p><a id="automationを実行して結果を確認する"></a></p>
+<h3 id="942-automationを実行して結果を確認する">9.4.2 Automationを実行して結果を確認する</h3>
+<ol>
+<li><strong>Create</strong> ボタン横のメニューを展開し、<strong>Create and run</strong> を選択して保存と同時に即時実行します。保存のみを行う場合はCreateを選び、後から一覧の実行ボタンでも開始できます。</li>
+<li><strong>Recent runs</strong>で今回の実行を開き、実行場所がLocal、ステータスが <strong>Succeeded</strong> になったことを確認します。報告内容の照合は、次の小節で行います。</li>
+</ol>
+<p>Succeededは処理の終了状態です。調査対象を取り違えたり、マージ日時の範囲を誤ったりしても、文章を出力する処理自体は完了する場合があります。PRは「その期間にマージされたもの」を数えているか、Issueは「現在Openのもの」を取得しているかをそれぞれ確認してください。URLから個別の項目を開くと、件数が同じでも対象が違う場合に気づけます。</p>
+<p><img alt="Recent runsで今回のLocal実行と緑の成功アイコンを確認する例" src="../assets/app-20261004-08-automation-succeeded.jpg" /></p>
+<p>画像は今回の実行行を読むための例です。自分が作成したAutomationの名前、対象リポジトリ、実行場所、成功状態を確認してください。</p>
+<h3 id="943-報告をgithubの情報と照合する">9.4.3 報告をGitHubの情報と照合する</h3>
+<p>レポートを読む前に、GitHubで期間内のマージ済みPRと現在のOpen Issueを確認し、何が含まれるかを予想してみましょう。次の観点で出力と照合します。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">照合する情報</th>
+<th style="text-align: left;">確認すること</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">対象と取得時点</td>
+<td style="text-align: left;">自分の演習用リポジトリで、実行時点とタイムゾーンが示されているか</td>
+</tr>
+<tr>
+<td style="text-align: left;">PRの対象期間</td>
+<td style="text-align: left;">開始・終了日時が分かり、その期間にマージされたPRを数えているか</td>
+</tr>
+<tr>
+<td style="text-align: left;">Open Issue</td>
+<td style="text-align: left;">現在OpenのIssueが並び、前章でClosedになった検索Issueが除外されているか</td>
+</tr>
+<tr>
+<td style="text-align: left;">件数と項目</td>
+<td style="text-align: left;">件数と一覧が対応し、番号・タイトル・URL・日時・状態がGitHubと一致するか</td>
+</tr>
+<tr>
+<td style="text-align: left;">調査の範囲</td>
+<td style="text-align: left;">取得できなかった情報を未確認とし、不要な変更や投稿をしていないか</td>
+</tr>
+</tbody>
+</table>
+<p><img alt="期間内のマージ済みPRと、現在OpenのIssueを報告した例" src="../assets/app-20261004-08-automation-result-issues.jpg" /></p>
+<p>集計結果は、実行時点と演習の進み具合によって変わります。第8章でマージした検索PRが期間内なら要約に含まれ、そのIssueがClosedならOpen一覧の対象外です。実行日が変われば「過去1週間」の範囲も変わるため、画像の件数を正解とせず、自分の結果に書かれた期間と実行時点を基準に確認してください。</p>
+<p>一致しない項目があれば、対象と期間を確かめて指示を修正し、もう一度Manualで実行します。処理の成功と報告の正しさを別々に確認できたところで、今回のAutomationは完了です。</p>
+<h2 id="95-結果の整理と振り返り">9.5 結果の整理と振り返り</h2>
+<p>保存した条件どおりに情報を取得でき、GitHubとの照合で一致を説明できたでしょうか。実行の成功と、調査の正しさを分けて確認した経験を、これまでのCIやMCPの検証とも比べてみてください。</p>
+<p><a id="ワークショップで実践した開発の流れ"></a></p>
+<h3 id="951-ワークショップで実践した開発の流れ">9.5.1 ワークショップで実践した開発の流れ</h3>
+<p>本ワークショップの全レッスンを通じて、GitHub Copilot appを活用した機能の企画立案から実装・検証・マージに至るエンドツーエンドの開発フローを実践してきました。これまで習得した主な内容は次の通りです。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">作業の段階</th>
+<th style="text-align: left;">実践したこと</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">準備</td>
+<td style="text-align: left;">リポジトリを接続し、worktreeの構造と用意されたIssueを把握した</td>
+</tr>
+<tr>
+<td style="text-align: left;">計画と実装</td>
+<td style="text-align: left;">プロンプトやIssueからセッションを開始し、PlanとAutopilotで作業の進め方を制御した</td>
+</tr>
+<tr>
+<td style="text-align: left;">規約と検査手順</td>
+<td style="text-align: left;">カスタム指示と再利用可能なスキルで規約と手順を共有し、生成物と実行結果を確認した</td>
+</tr>
+<tr>
+<td style="text-align: left;">画面の検証</td>
+<td style="text-align: left;">Playwright MCPの実行を確認し、実ブラウザーでUIの動作を検証した</td>
+</tr>
+<tr>
+<td style="text-align: left;">課題の比較と共有</td>
+<td style="text-align: left;">Canvasで課題を比較し、別セッションで同じ表示と操作を再利用した</td>
+</tr>
+<tr>
+<td style="text-align: left;">mainへの統合</td>
+<td style="text-align: left;">手動マージとAgent Mergeを使い、品質を確認して変更を統合した</td>
+</tr>
+</tbody>
+</table>
+<p><a id="作業に合わせた機能とモードの使い分け"></a></p>
+<h3 id="952-作業に合わせた機能とモードの使い分け">9.5.2 作業に合わせた機能とモードの使い分け</h3>
+<p>本ワークショップでは、エージェントへ要件を渡す方法、進め方を決める方法、結果を検証する方法を段階的に学びました。指示ファイル、スキル、MCP、Canvas、Automationは、それぞれ違う課題に使います。今回の作業で足りない情報や確認手段を考え、必要な機能を組み合わせて選んでください。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">機能</th>
+<th style="text-align: left;">どのような場面で使うか</th>
+<th style="text-align: left;">人が確認すること</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Instructions</td>
+<td style="text-align: left;">リポジトリ共通の規約を伝える</td>
+<td style="text-align: left;">Issueが求めるコメントと、生成されたコード例が一致するか</td>
+</tr>
+<tr>
+<td style="text-align: left;">Skills</td>
+<td style="text-align: left;">繰り返す検査手順をまとめて使う</td>
+<td style="text-align: left;">必要な検査が実際に実行され、結果が成功したか</td>
+</tr>
+<tr>
+<td style="text-align: left;">MCP</td>
+<td style="text-align: left;">エージェントから外部ツールを操作する</td>
+<td style="text-align: left;">接続表示に加え、実ブラウザーで目的の操作ができたか</td>
+</tr>
+<tr>
+<td style="text-align: left;">Canvas</td>
+<td style="text-align: left;">課題や成果物を同じ画面で比較・操作する</td>
+<td style="text-align: left;">最新一覧か、本文追加が実装を勝手に始めないか、別セッションでも使えるか</td>
+</tr>
+<tr>
+<td style="text-align: left;">Agent Merge</td>
+<td style="text-align: left;">レビュー後のPR監視とマージを任せる</td>
+<td style="text-align: left;">許可した操作、CI全ジョブの成功、AppとGitHubのMerged</td>
+</tr>
+<tr>
+<td style="text-align: left;">Automations</td>
+<td style="text-align: left;">保存した調査条件で作業を繰り返す</td>
+<td style="text-align: left;">実行終了に加え、期間・一覧・件数がGitHubと一致するか</td>
+</tr>
+</tbody>
+</table>
+<p>指示ファイルやスキルを保存すると、次のセッションへチームの進め方を渡せます。ただし、書いた指示が期待どおりに適用されたかは、生成物と実行結果で確認します。公式の<a href="https://docs.github.com/en/copilot/how-tos/github-copilot-app/customize-github-copilot-app">カスタマイズの説明</a>も、指示、スキル、MCPを個別に説明した資料です。規約を伝えたいのか、手順を再利用したいのか、外部の情報や操作が必要なのかを先に整理すると選びやすくなります。</p>
+<p>セッションのモードも、作業の段階に合わせて使います。Planでは、実装前に条件や影響範囲を読み、質問へ回答して計画を承認します。Interactiveでは、差分を見ながら修正の意図を細かく伝えられます。Autopilotへ進むときは、要件と検証方法に加えて、「ここまで進めたら止める」という範囲も示してください。たとえば第5章の実装を依頼するときは、第6章のMCP検証を終えるまでPRを作らないと指定します。工程の区切りを伝えることで、人が実画面を確認する時間を確保できます。<a href="https://docs.github.com/en/copilot/how-tos/github-copilot-app/agent-sessions#choosing-a-session-mode">公式のモード説明</a></p>
+<p>次に別の機能を作るときは、「何を作るか」「なぜ必要か」「既存の何を維持するか」「どの結果なら完了か」を伝えてみてください。検索機能なら、検索対象はタイトルで、カテゴリ・出版社の条件とANDにし、既存の星評価を残すという要件がそれに当たります。期待する件数を実データから決め、テストと実画面の両方で確認する方法も再利用できます。</p>
+<p><a id="日々の開発への取り入れ方"></a></p>
+<h3 id="953-日々の開発への取り入れ方">9.5.3 日々の開発への取り入れ方</h3>
+<p>日々の開発業務や個人プロジェクトで使い続けると、AIエージェントへ伝える要件や、確認が必要な場面を学べます。保守、趣味のプログラミング、新しいアイデアのプロトタイプなどに活用し、知見をチームの指示ファイルやスキルへ反映してください。</p>
+<p>最初の実践では、小さな課題を1つ選び、完了条件と検証方法を言葉にしてから着手してください。作業後には、最初の指示で伝わったこと、レビューで補ったこと、次回も使える指示や確認手順を振り返ります。自動化できた操作だけでなく、どの判断を人が行ったかも残すと、次に任せる範囲を決めやすくなります。</p>
+<p>同じ調査を繰り返すならAutomation、チームで課題を比較するならCanvas、実ブラウザーで再現する必要があるならMCPが候補です。今回もっとも手戻りした場面を1つ選び、その原因に合う機能と確認方法を説明できれば、自分の作業にも応用できます。</p>
+<p>GitHub Copilotエコシステムの全容をさらに深く学ぶには、以下の関連教材も合わせて参照してください。</p>
+<ul>
+<li><a href="https://github-samples.github.io/copilot-workshops/vscode/">VS Codeハーネス</a></li>
+<li><a href="../cli/index.html">Copilot CLIハーネス</a>（本教材の参考コース）</li>
+<li><a href="https://github-samples.github.io/copilot-workshops/cloud/">Cloud agentハーネス</a></li>
+</ul>
+<p><a href="#automationを実行して結果を確認する">Automationを実行して結果を確認する手順へ戻る</a></p>
+<p><a id="補足"></a></p>
+<h2 id="96-補足">9.6 補足</h2>
+<p><a id="同じ調査条件で作業を繰り返す理由"></a></p>
+<h3 id="961-同じ調査条件で作業を繰り返す理由">9.6.1 同じ調査条件で作業を繰り返す理由</h3>
+<p>毎回チャットへ指示を書き直すと、ある日はマージ済みPR、別の日は作成したPRを数えるなど、調査の条件が変わりがちです。Automationに対象リポジトリ、期間、対象の状態、報告する証拠を保存すれば、同じ範囲を繰り返し調べられます。結果を比較するときにも、作業が進んだから件数が変わったのか、集計条件を変えたのかを見分けやすくなります。</p>
+<h3 id="962-件数や項目が一致しないとき">9.6.2 件数や項目が一致しないとき</h3>
+<p>件数が一致しない場合は、リポジトリ名、集計開始・終了日時、マージ済みとClosedの区別、一覧取得の漏れを確認してください。権限不足や取得失敗がある場合は、0件と断定せず未確認として報告されているかも読みます。プロンプトを修正したら再びManualで実行し、同じ確認をしてください。</p>
+<p>照合中に別のPRがマージされたり、Issueの状態が変わったりした場合は、その変更時刻も見ます。日時、番号、URLを出力に含めるのは、件数の違いを調査条件の誤りと判断する前に、どの情報をいつ取得したかを追えるようにするためです。</p>
+<p><a id="定期実行とcloud実行への発展"></a></p>
+<h3 id="963-定期実行とcloud実行への発展">9.6.3 定期実行とCloud実行への発展</h3>
+<blockquote>
+<p><strong>ヒント</strong>
+公式ではCloud実行も案内されており、端末の電源が入っていない間にも実行できます。利用にはリポジトリや組織の設定などの前提があり、Toolsで作業に必要な操作を選びます。定期実行とCloud実行は発展課題です。試す場合は、<a href="https://docs.github.com/en/copilot/how-tos/github-copilot-app/using-automations#prerequisites-for-using-cloud-automations">公式の前提条件と設定方法</a>を確認し、Manualで検証した調査範囲と結果の確認方法を引き継いでください。</p>
+</blockquote>
+<p><a id="さらに確認する価値のある機能"></a></p>
+<h3 id="964-さらに確認する価値のある機能">9.6.4 さらに確認する価値のある機能</h3>
+<p>本教材で扱った流れを自分の仕事に適用するときは、次の機能も検討できます。以下は公式情報に基づく紹介で、本演習の完了条件には含めません。</p>
+<ul>
+<li><a href="https://docs.github.com/en/copilot/how-tos/github-copilot-app/agent-sessions#using-chats"><strong>Chats</strong></a>：専用ブランチやworktreeを作る前に、疑問や要件を整理する会話。実装セッションに渡す前提を明確にするときに使えます。</li>
+<li><a href="https://docs.github.com/en/copilot/how-tos/github-copilot-app/agent-sessions#using-the-rubber-duck-agent"><strong>Rubber duck</strong></a>：現在の計画、実装、テストへ具体的な批評を求める機能。指摘を受けた後は、要件と実データに照らして修正するかを判断します。</li>
+<li><a href="https://docs.github.com/copilot/concepts/agents/cloud-agent/about-custom-agents"><strong>Custom agents</strong></a>：特定の専門役割、専用ツール、個別指示をパッケージ化し、繰り返し呼び出せるカスタムエージェント</li>
+<li><a href="https://docs.github.com/en/copilot/how-tos/github-copilot-app/agent-sessions#using-chronicle-with-app-sessions"><code>/chronicle</code></a>：セッション履歴から最近の作業を振り返るためのコマンド。本章のAutomationはGitHubのPRとIssueを調べましたが、こちらはセッションでの作業履歴を調べる入口です。</li>
+<li><a href="https://docs.github.com/en/copilot/concepts/security-governance-and-network-settings/about-cloud-and-local-sandboxes"><strong>Cloud sandboxes</strong></a>：GitHubがホストする分離されたLinux環境でセッションを実行する機能。ローカルの開発環境から実行場所を変えたい場合に、利用条件と必要なツールを確認して検討します。</li>
+<li><a href="https://docs.github.com/copilot/how-tos/github-copilot-app/open-with-deep-links"><strong>Deep links</strong></a>：特定のリポジトリ、セッション、初期プロンプトを指定したURLリンクからアプリを直接起動する機能</li>
+</ul>
+<p><a id="リソース"></a></p>
+<h3 id="965-リソース">9.6.5 リソース</h3>
+<ul>
+<li><a href="https://docs.github.com/copilot/concepts/agents/github-copilot-app">GitHub Copilot appについて</a></li>
+<li><a href="https://docs.github.com/copilot/how-tos/github-copilot-app/getting-started">GitHub Copilot appの概要</a></li>
+<li><a href="https://docs.github.com/copilot/how-tos/github-copilot-app/customize-github-copilot-app">GitHub Copilot appのカスタマイズ</a></li>
+<li><a href="https://docs.github.com/copilot/how-tos/github-copilot-app/using-automations">Automationsの使用</a></li>
+<li><a href="https://docs.github.com/copilot/how-tos/github-copilot-app/working-with-canvas-extensions">Canvas extensionsの操作</a></li>
+<li><a href="https://docs.github.com/en/copilot/concepts/security-governance-and-network-settings/about-cloud-and-local-sandboxes">クラウドサンドボックスとローカルサンドボックスについて</a></li>
+</ul></article><nav class="chapter-nav" aria-label="章の移動"><a href="8-canvases.html">← 前の章：第8章 - キャンバスを使った計画</a></nav></main></body></html>
