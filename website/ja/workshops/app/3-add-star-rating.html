@@ -213,7 +213,7 @@ PRはまだ作成しないでください。</code></pre>
 </ol>
 <p><img alt="Run optionsからRun development siteを起動する" src="../assets/app-20261004-02-run-menu.jpg" /></p>
 <ol start="2">
-<li>Runのターミナルに表示されたローカルURLを開きます。Browserパネルが自動で開かない場合は、表示されたURLを別ブラウザーで開いてください。ポート番号は自分の実行結果を使います。</li>
+<li><strong>Run</strong>のターミナルに表示されたローカルURLを開きます。<strong>Browser</strong>パネルが自動で開かない場合は、表示されたURLを別ブラウザーで開いてください。ポート番号は自分の実行結果を使います。</li>
 <li>Tailspin Toysのトップページの21件のカードに星評価が表示され、タイトル、説明、詳細へのリンクが保たれていることを確認します。通常画面で出現しない <code>null</code> と境界値は、前節のレンダリングテストの結果で確認します。</li>
 <li>任意のカードから詳細ページへ移動し、評価値が一覧と一致することを確認します。一覧へ戻れることも確かめてください。</li>
 <li>確認後、セッション上部の <strong>Stop Run development site</strong> を選択します。Runのターミナルで <strong>Shell session ended</strong> などの終了表示を確認してください。停止後もブラウザーには直前の画面が残る場合があるため、その画面だけで稼働中と判断しないようにします。</li>
@@ -226,7 +226,7 @@ PRはまだ作成しないでください。</code></pre>
 <li>星評価を実装したセッションの画面右上にある <strong>Create PR</strong> を選択します。</li>
 <li>ブラウザー認証を求められた場合は、<strong>Sign in with your browser</strong> を選択し、画面の指示に従って認証します。</li>
 <li>Copilotがpull requestの作成処理を開始します。</li>
-<li>作成されたPRのリポジトリが自分の演習コピーで、取り込み先が <strong>main</strong> であることを確認します。本章では <strong>Agent mergeをOff</strong> にして、手動でマージするところまで進めます。</li>
+<li>作成されたPRのリポジトリが自分の演習コピーで、取り込み先が <strong>main</strong> であることを確認します。本章では <strong>Agent merge</strong>を<strong>Off</strong> にして、手動でマージするところまで進めます。</li>
 <li>同じ実装セッションのチャット欄のすぐ上にある <strong>PR</strong> バブルを選択し、レビューペインで作成されたpull requestの内容を最終確認します。</li>
 <li><strong>Ready to merge</strong> を選択し、ダイアログのCI結果を確認します。このボタンの表示だけでは、CI全成功とは判断できません。<strong>Checks are running</strong> や実行中のジョブがあれば待ち、すべてのジョブの成功を確認します。表示が更新されない場合は画面を開き直し、必要に応じてGitHub Webの同じPRでも照合してください。</li>
 </ol>

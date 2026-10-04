@@ -64,7 +64,7 @@
 </tbody>
 </table>
 <h2 id="82-取り組む前に">8.2 取り組む前に</h2>
-<p>自分の演習用リポジトリのmainに、前章のフィルター機能がマージされていることを確認します。本章ではAppでCanvasを共有するセッションと、検索を実装するセッションを分けます。どちらもNew worktreeと演習用リポジトリのmainを選び、それぞれの開始時点のmainを引き継いでください。</p>
+<p>自分の演習用リポジトリのmainに、前章のフィルター機能がマージされていることを確認します。本章ではAppでCanvasを共有するセッションと、検索を実装するセッションを分けます。どちらも<strong>New worktree</strong>と演習用リポジトリのmainを選び、それぞれの開始時点のmainを引き継いでください。</p>
 <p>演習用リポジトリのゲームのタイトル検索Issueの本文と、Tailspin Toysのゲームデータにあるタイトル・カテゴリ・出版社を参照できる状態で取り組みます。検索を追加しても星評価と既存のカテゴリ・出版社フィルターを維持することが、今回の要件です。画像の操作例にあるIssue番号や件数は、自分の演習用リポジトリの最新情報と照合しましょう。</p>
 <p>エージェントは、入力した指示に応じてCanvasの表示やボタンを生成します。ボタンの表示名が操作例と違っていても、Open Issue一覧を取得する操作、Issue本文をセッションへ追加する操作、Issueの実装を始める操作を区別できるかで確認します。</p>
 <h2 id="83-ケース">8.3 ケース</h2>
@@ -96,8 +96,8 @@
 <h3 id="831-作業を追跡するキャンバスを作成する">8.3.1 作業を追跡するキャンバスを作成する</h3>
 <p>最初に、GitHubで自分の演習用リポジトリのOpen Issueを読み、自分ならどの3件を優先するか考えてみましょう。Canvasに表示される優先理由と比較するための予想になります。ここで作るセッションではCanvasを完成させ、検索機能の実装は別のセッションで始めます。</p>
 <ol>
-<li>AppのサイドバーにあるProjectsで演習用プロジェクトを右クリックし、New sessionを選択します。</li>
-<li>入力欄下部で演習用リポジトリ、New worktree、mainが選ばれていることを確認します。作成されたworktreeに、前章のマージ結果が反映されていることも確認してください。</li>
+<li>Appのサイドバーにある<strong>Projects</strong>で演習用プロジェクトを右クリックし、<strong>New session</strong>を選択します。</li>
+<li>入力欄下部で演習用リポジトリ、<strong>New worktree</strong>、<strong>main</strong>が選ばれていることを確認します。作成されたworktreeに、前章のマージ結果が反映されていることも確認してください。</li>
 <li>次のプロンプトを入力し、カンバンボードの作成を指示します。</li>
 </ol>
 <pre class="highlight"><code class="language-plaintext">作業の優先順位を整理するカンバンボードのcanvasを作ってください。
@@ -108,16 +108,16 @@
 今回はCanvasの作成と確認までです。カードのIssueの実装やPR作成はまだ行わないでください。</code></pre>
 <p>作成したキャンバスの表示先は、AppのCanvas作成セッションの右パネルです。作成の入口が分からない場合は、そのセッション内で<code>/create-canvas</code>に続けて必要な操作を伝える方法もあります。<a href="https://docs.github.com/en/copilot/how-tos/github-copilot-app/working-with-canvas-extensions#creating-a-canvas">GitHub公式の作成手順</a></p>
 <p><img alt="Open Issueを優先3件と残りに分け、理由と本文追加ボタンを表示したCanvasの例" src="../assets/app-20261004-07-canvas-readable.jpg" /></p>
-<p>Canvasに古いIssue一覧を固定表示すると、完了済みの作業をもう一度選ぶおそれがあります。本演習ではCanvasのRefreshボタンで、演習用リポジトリの最新Open Issue一覧を取得します。Canvasの一覧がGitHubと常時自動同期されると考えず、どの操作で最新情報を取得するかを確かめてください。</p>
+<p>Canvasに古いIssue一覧を固定表示すると、完了済みの作業をもう一度選ぶおそれがあります。本演習ではCanvasの<strong>Refresh</strong>ボタンで、演習用リポジトリの最新Open Issue一覧を取得します。Canvasの一覧がGitHubと常時自動同期されると考えず、どの操作で最新情報を取得するかを確かめてください。</p>
 <p><a id="作成したボードをレビューする"></a></p>
 <h3 id="832-作成したボードをレビューする">8.3.2 作成したボードをレビューする</h3>
 <ol>
-<li>GitHubで演習用リポジトリのOpen Issueを開き、Canvasの番号・タイトル・本文を照合します。CanvasのRefreshが固定配列を再描画するだけになっていないか、GitHubから一覧を取得する処理も確認してください。</li>
+<li>GitHubで演習用リポジトリのOpen Issueを開き、Canvasの番号・タイトル・本文を照合します。Canvasの<strong>Refresh</strong>が固定配列を再描画するだけになっていないか、GitHubから一覧を取得する処理も確認してください。</li>
 <li>Canvasの上位3件と優先理由を、自分の予想と比べます。星評価とフィルター機能をこれから作る前提にしている場合は、エージェントに演習用リポジトリのmainを確認させ、Canvasの優先理由を修正するよう依頼します。</li>
 <li>文字が背景に埋もれず、操作するボタンを見分けられるかを確認します。Tabで移動したときに、どこを選んでいるかも見てください。</li>
-<li>本文追加ボタンを1回押し、Issue本文全体が会話へ1回追加され、エージェントが受領だけを1回返すことを確認します。同じカードの再クリックやRefreshで、通知が増えないことも確かめます。</li>
+<li>本文追加ボタンを1回押し、Issue本文全体が会話へ1回追加され、エージェントが受領だけを1回返すことを確認します。同じカードの再クリックや<strong>Refresh</strong>で、通知が増えないことも確かめます。</li>
 </ol>
-<p>Canvasの本文追加ボタンは、Issueの実装計画を立てる前に要件をセッションへ渡すためのものです。ボタンを押してエージェントが実装を始めた場合は、AppのStopでセッションの処理を止めます。途中の変更を保全してから、エージェントへボタンの送信内容の修正を依頼してください。1回目の生成で不足があっても、会話やボタンの動作で観察した問題を具体的に伝え、修正後に同じ条件で確かめます。</p>
+<p>Canvasの本文追加ボタンは、Issueの実装計画を立てる前に要件をセッションへ渡すためのものです。ボタンを押してエージェントが実装を始めた場合は、Appの<strong>Stop</strong>でセッションの処理を止めます。途中の変更を保全してから、エージェントへボタンの送信内容の修正を依頼してください。1回目の生成で不足があっても、会話やボタンの動作で観察した問題を具体的に伝え、修正後に同じ条件で確かめます。</p>
 <p><a id="キャンバスを保存してリポジトリにマージする"></a></p>
 <h3 id="833-キャンバスを共有保存してマージする">8.3.3 キャンバスを共有保存してマージする</h3>
 <p>共有Canvasの保存とタイトル検索機能の実装を別のPRにすると、ボードの動作を先にレビューできます。共有CanvasのPRを演習用リポジトリのmainへマージし、新しいworktreeで同じボードを開けることを確認してから、カードにある検索Issueの実装へ進みましょう。Canvas作成セッションにしかない一時ファイルへ依存していないかも確かめられます。</p>
@@ -130,26 +130,26 @@
 保存前にこのセッションで追加済みのIssueも、保存後に重複送信しないようにしてください。別のセッションの追加済み状態とは分けて管理してください。
 差分はCanvasと再利用手順の範囲にしてください。PRはレビュー後に作成します。</code></pre>
 <ol start="2">
-<li>Canvas作成セッションのChangesで、Canvasが<code>.github/extensions/priority-kanban/extension.mjs</code>へ保存され、演習用リポジトリのREADMEに再利用手順があることを確認します。</li>
-<li>保存前に本文を追加したカードが送信済みのままであることと、Refresh後も通知が増えないことを確認します。未送信のカードを使う場合も、本文1回・受領1回で止まり、実装を始めないことを確かめてください。</li>
+<li>Canvas作成セッションの<strong>Changes</strong>で、Canvasが<code>.github/extensions/priority-kanban/extension.mjs</code>へ保存され、演習用リポジトリのREADMEに再利用手順があることを確認します。</li>
+<li>保存前に本文を追加したカードが送信済みのままであることと、<strong>Refresh</strong>後も通知が増えないことを確認します。未送信のカードを使う場合も、本文1回・受領1回で止まり、実装を始めないことを確かめてください。</li>
 <li>Canvas作成セッションの差分がCanvasと再利用手順の範囲に収まっていることをレビューします。Canvasの変更に関連する検査もエージェントへ依頼し、その検査結果を確認します。</li>
-<li>Canvas作成セッションで通常のCreate PRから共有CanvasのPRを作成し、最新コミットのCI全ジョブ成功を待ちます。その後、<a href="7-agent-merge.html#agent-mergeを開始する">第7章の開始操作</a>と同じくAgent mergeをOnにします。</li>
-<li>AppとGitHubで共有Canvasの同じPRを開き、演習用リポジトリのmainへMergedになったことを確認します。</li>
+<li>Canvas作成セッションで通常の<strong>Create PR</strong>から共有CanvasのPRを作成し、最新コミットのCI全ジョブ成功を待ちます。その後、<a href="7-agent-merge.html#agent-mergeを開始する">第7章の開始操作</a>と同じく<strong>Agent merge</strong>を<strong>On</strong>にします。</li>
+<li>AppとGitHubで共有Canvasの同じPRを開き、演習用リポジトリのmainへ<strong>Merged</strong>になったことを確認します。</li>
 </ol>
 <p><img alt="共有するCanvasの保存先と、READMEを含むファイル構成を確認する例" src="../assets/app-20261004-07-changes-canvas-final.jpg" /></p>
 <p>公式では<code>.github/extensions</code>をチームで共有するプロジェクトスコープ、<code>~/.copilot/extensions</code>を個人用スコープとして説明しています。<code>priority-kanban</code>は本演習の拡張名です。個人用の場所や一時領域にしかない場合は、共有保存を依頼してください。<a href="https://docs.github.com/en/copilot/how-tos/github-copilot-app/working-with-canvas-extensions#how-canvas-extensions-are-structured">GitHub公式の保存先とファイル構成</a></p>
 <p><a id="別のセッションでキャンバスを開く"></a></p>
 <h3 id="834-別のセッションでキャンバスを開く">8.3.4 別のセッションでキャンバスを開く</h3>
 <ol>
-<li>AppのProjectsで演習用プロジェクトからNew sessionを作り、New worktreeと演習用リポジトリのmainを指定します。新しいworktreeが共有Canvasのマージを含むmainを継承していることを確認してください。</li>
-<li>Appで新しい拡張の承認画面が出た場合は、Repository trustのReview repository contentから拡張の内容を確認します。前節でレビューした共有Canvasの保存先とファイルであることを確かめてから、Accept for new sessionsで承認します。</li>
+<li>Appの<strong>Projects</strong>で演習用プロジェクトから<strong>New session</strong>を作り、<strong>New worktree</strong>と演習用リポジトリの<strong>main</strong>を指定します。新しいworktreeが共有Canvasのマージを含むmainを継承していることを確認してください。</li>
+<li>Appで新しい拡張の承認画面が出た場合は、<strong>Repository trust</strong>の<strong>Review repository content</strong>から拡張の内容を確認します。前節でレビューした共有Canvasの保存先とファイルであることを確かめてから、<strong>Accept for new sessions</strong>で承認します。</li>
 <li>次のプロンプトで保存したCanvasを開きます。</li>
 </ol>
 <pre class="highlight"><code class="language-plaintext">リポジトリに保存したIssueの優先順位を整理するcanvasを開いてください。
 まだIssueの実装は始めず、最新のOpen Issueを表示してください。</code></pre>
 <ol start="4">
 <li>新しいセッションの右パネルに共有Canvasが表示され、演習用リポジトリの最新Open Issueを取得していることを確認します。Canvas作成セッションで本文を追加したカードでも、新しいセッションには本文を追加できることを確かめます。</li>
-<li>ゲームのタイトル検索Issueのカードで、本文を現在のセッションへ追加するボタンを1回押します。Add to current sessionなど、ボタン名は生成した実装によって異なります。</li>
+<li>ゲームのタイトル検索Issueのカードで、本文を現在のセッションへ追加するボタンを1回押します。<strong>Add to current session</strong>など、ボタン名は生成した実装によって異なります。</li>
 <li>タイトル検索Issueの番号・タイトル・URL・本文全体が新しいセッションの会話へ1回送られ、エージェントが受領だけを返すことを確認します。まだ検索の実装は依頼しません。</li>
 </ol>
 <p><img alt="新しいセッションで検索Issueの本文を受け取り、受領だけを返した例" src="../assets/app-20261004-07-search-issue-receipt.jpg" /></p>
@@ -157,7 +157,7 @@
 <p><a id="検索の計画を確認して実装する"></a></p>
 <h3 id="835-検索の計画を確認して実装する">8.3.5 検索の計画を確認して実装する</h3>
 <ol>
-<li>共有Canvasを開いた新しいセッションで、ゲームのタイトル検索Issueの本文の受領を確認したら、入力欄下部のモードをPlanに切り替え、次のプロンプトを送信します。このセッションで検索機能の計画と実装を進めます。モードの選択と計画承認の操作は、第5章で使ったものと同じです。</li>
+<li>共有Canvasを開いた新しいセッションで、ゲームのタイトル検索Issueの本文の受領を確認したら、入力欄下部のモードを<strong>Plan</strong>に切り替え、次のプロンプトを送信します。このセッションで検索機能の計画と実装を進めます。モードの選択と計画承認の操作は、第5章で使ったものと同じです。</li>
 </ol>
 <pre class="highlight"><code class="language-plaintext">Canvasから追加したタイトル検索Issueの実装計画を作成してください。
 既存のデータ取得とフィルター処理を確認し、検索をどの層に追加するかとその理由を説明してください。星評価を維持し、検索条件と既存のカテゴリ・出版社フィルターをANDで組み合わせてください。
@@ -165,15 +165,15 @@
 計画の承認前には実装を始めず、承認後も差分レビューとMCP検証を終えるまではPRを作成・マージしないでください。</code></pre>
 <ol start="2">
 <li>質問が出た場合は、既存フィルターとの関係を考えて回答します。Clear filtersで検索語も解除するかという質問なら、検索・カテゴリ・出版社を一緒に解除する方針を選びます。</li>
-<li>検索機能の実装セッションでReview planを開き、エージェントの計画を読みます。検索を追加する場所と理由、星評価の維持、AND条件、入力の扱い、テストの期待値を確認し、足りない点は修正を依頼してください。</li>
-<li>検索機能の計画を確認できたらApprove and implement this planを選択し、エージェントへ承認を送ります。承認後はAutopilotによる検索機能の実装を確認します。</li>
+<li>検索機能の実装セッションで<strong>Review plan</strong>を開き、エージェントの計画を読みます。検索を追加する場所と理由、星評価の維持、AND条件、入力の扱い、テストの期待値を確認し、足りない点は修正を依頼してください。</li>
+<li>検索機能の計画を確認できたら<strong>Approve and implement this plan</strong>を選択し、エージェントへ承認を送ります。承認後はAutopilotによる検索機能の実装を確認します。</li>
 </ol>
 <p><img alt="入力の扱いと既存フィルターとの組み合わせを整理した検索計画の例" src="../assets/app-20261004-07-search-plan-review.jpg" /></p>
-<p>画像はタイトル検索の実装計画を読むための例です。計画を読んだ後に、検索機能の実装セッションのReview planで承認します。承認ボタンを押す前に、検索とフィルターを併用したときにどのゲームのタイトルが残るかを実データから予想しておきましょう。</p>
+<p>画像はタイトル検索の実装計画を読むための例です。計画を読んだ後に、検索機能の実装セッションの<strong>Review plan</strong>で承認します。承認ボタンを押す前に、検索とフィルターを併用したときにどのゲームのタイトルが残るかを実データから予想しておきましょう。</p>
 <p><a id="検索を検証してマージする"></a></p>
 <h3 id="836-検索を検証しボードの結果を更新する">8.3.6 検索を検証し、ボードの結果を更新する</h3>
 <ol>
-<li>Tailspin Toysのゲームのタイトル検索機能の実装完了後、Appの検索機能の実装セッションでChangesを開き、検索の差分をレビューします。エージェントへ単体・E2Eテストなどの検査とPlaywright MCPによるTailspin Toysのブラウザー検証を依頼してください。次の表から期待するゲームのタイトルと件数を決め、実際の表示と比べます。</li>
+<li>Tailspin Toysのゲームのタイトル検索機能の実装完了後、Appの検索機能の実装セッションで<strong>Changes</strong>を開き、検索の差分をレビューします。エージェントへ単体・E2Eテストなどの検査とPlaywright MCPによるTailspin Toysのブラウザー検証を依頼してください。次の表から期待するゲームのタイトルと件数を決め、実際の表示と比べます。</li>
 </ol>
 <table>
 <thead>
@@ -210,7 +210,7 @@
 <td style="text-align: left;">結果が空でも利用者へ状態が伝わるか</td>
 </tr>
 <tr>
-<td style="text-align: left;">PublisherからTabでClear filtersへ移動しEnterを押す</td>
+<td style="text-align: left;"><strong>Publisher</strong>からTabで<strong>Clear filters</strong>へ移動しEnterを押す</td>
 <td style="text-align: left;">検索・カテゴリ・出版社が解除され、検索前の一覧に戻る</td>
 <td style="text-align: left;">キーボードで元の状態へ戻れるか</td>
 </tr>
@@ -221,9 +221,9 @@
 <p><img alt="一致するタイトルがない場合に、0件と説明を表示した例" src="../assets/app-20261004-07-search-zero.jpg" /></p>
 <ol start="2">
 <li>エージェントが報告した検索の検証条件について、検索機能の実装セッションのMCP履歴でツールの入力と結果を確認します。未実施の条件があれば追加の検証を依頼し、その検証結果を確かめてください。</li>
-<li>検索のMCP検証の終了後は、検証で使ったブラウザーと開発サーバーを停止し、検証用の一時出力を片付けます。検索機能の実装セッションのChangesでもう一度、差分に関係のないファイルが入っていないかを確認します。</li>
-<li>検索の差分と検証結果に問題がなければ、検索機能の実装セッションで通常のCreate PRからPRを作成します。PRの本文に<code>Closes #&lt;検索Issueの番号&gt;</code>を記載し、マージ先が自分の演習用リポジトリの<code>main</code>であることを確認してください。最新コミットのCI全ジョブ成功を待ってからAgent mergeをOnにします。AppとGitHubで検索PRのMergedと、GitHubで検索IssueのClosedを確認してください。</li>
-<li>検索機能の実装セッションのCanvasで、Refreshまたは一覧を更新を押します。その時点のGitHubの演習用リポジトリのOpen Issue一覧と照合し、Closedになった検索Issueがボードから除外されることを確かめます。</li>
+<li>検索のMCP検証の終了後は、検証で使ったブラウザーと開発サーバーを停止し、検証用の一時出力を片付けます。検索機能の実装セッションの<strong>Changes</strong>でもう一度、差分に関係のないファイルが入っていないかを確認します。</li>
+<li>検索の差分と検証結果に問題がなければ、検索機能の実装セッションで通常の<strong>Create PR</strong>からPRを作成します。PRの本文に<code>Closes #&lt;検索Issueの番号&gt;</code>を記載し、マージ先が自分の演習用リポジトリの<code>main</code>であることを確認してください。最新コミットのCI全ジョブ成功を待ってから<strong>Agent merge</strong>を<strong>On</strong>にします。AppとGitHubで検索PRの<strong>Merged</strong>と、GitHubで検索Issueの<strong>Closed</strong>を確認してください。</li>
+<li>検索機能の実装セッションのCanvasで、<strong>Refresh</strong>または<strong>一覧を更新</strong>を押します。その時点のGitHubの演習用リポジトリのOpen Issue一覧と照合し、<strong>Closed</strong>になった検索Issueがボードから除外されることを確かめます。</li>
 </ol>
 <p><img alt="検索Issueのマージ後、Refreshで取得し直したOpen一覧の例" src="../assets/app-20261004-07-canvas-after-search-merge.jpg" /></p>
 <p>PRの本文に終了キーワードを記載すると、既定のブランチへのマージ後にIssueが自動でClosedになります。詳しくは<a href="https://docs.github.com/en/issues/tracking-your-work-with-issues/using-issues/linking-a-pull-request-to-an-issue">GitHub公式のPRとIssueの関連付け</a>を参照してください。</p>
@@ -300,7 +300,7 @@
 <p>SQL検索を使う場合は、<code>%</code>や<code>_</code>を通常の文字として扱うか、ワイルドカードとして扱うかも仕様に含めます。ブラウザー内の文字列比較なら、その処理に対応する観点を選びます。実装方法を読まずにテストだけを追加せず、入力をどこで整え、何を一致と判断するかを計画と照合してください。</p>
 <h3 id="854-生成結果を修正するときの観点">8.5.4 生成結果を修正するときの観点</h3>
 <p>エージェントによるCanvasの生成には数分かかり、最初に生成されたボードが求めた操作性を満たさないこともあります。Canvasが見づらい場合は、読めない文字や選択箇所を示して修正を依頼します。Open Issue一覧が古い場合は、GitHubからの一覧取得とRefreshの処理を確認してください。</p>
-<p>Canvasから同じIssueの通知がセッションへ繰り返し送られる場合は、AppのStopでセッションの処理を止め、途中の変更を保全します。本文追加ボタンが「このIssueを追加してください」という命令を繰り返し送っていないかを確認してください。エージェントへ送信内容の修正を依頼し、Issue本文を追加済みであるという事実と、受領だけを求める指示にします。送信中・送信済みの状態を同一セッションで管理し、Canvasの保存後やRefresh後も重複を防げるかを検査してください。</p>
+<p>Canvasから同じIssueの通知がセッションへ繰り返し送られる場合は、Appの<strong>Stop</strong>でセッションの処理を止め、途中の変更を保全します。本文追加ボタンが「このIssueを追加してください」という命令を繰り返し送っていないかを確認してください。エージェントへ送信内容の修正を依頼し、Issue本文を追加済みであるという事実と、受領だけを求める指示にします。送信中・送信済みの状態を同一セッションで管理し、Canvasの保存後やRefresh後も重複を防げるかを検査してください。</p>
 <p>Canvasの修正後は、本文追加ボタンの1クリックでIssue本文が1回送られ、エージェントが受領だけを1回返すことを確認します。再クリックやRefreshで通知が増えないことと、別セッションでは独立して本文を追加できることも試してください。問題を報告したときと同じ操作で確かめ、Canvasの修正が意図を満たしたかを判断します。</p>
 <p><a id="リソース"></a></p>
 <h3 id="855-参考資料">8.5.5 参考資料</h3>

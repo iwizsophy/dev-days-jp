@@ -97,21 +97,21 @@
 <h3 id="431-指示ファイルを読み適用範囲を確かめる">4.3.1 指示ファイルを読み、適用範囲を確かめる</h3>
 <p>自分の演習用Tailspin Toysリポジトリに配置されている指示ファイルを確認しましょう。共通指示の <code>copilot-instructions.md</code> と、個別タスクに対応する複数の <code>*.instructions.md</code> ファイルで構成されています。Copilot App内のファイルビューアーを使って確認します。</p>
 <ol>
-<li>右側のパネルが表示されていない場合は、画面右上のToggle panelを選択して開きます。</li>
+<li>右側のパネルが表示されていない場合は、画面右上の<strong>Toggle panel</strong>を選択して開きます。</li>
 </ol>
 <p><img alt="右パネルのAdd tabメニュー。Files、Browser、Terminalの入口" src="../assets/app-20261004-03-add-tab-files.jpg" /></p>
 <ol start="2">
-<li>パネル上部のタブ列にある +（Add tab）を選択します。</li>
-<li>一覧からFilesを選択します。</li>
-<li><kbd>Ctrl</kbd>+<kbd>P</kbd> を押してGo to fileを開き、<code>copilot-instructions.md</code> を検索します。</li>
+<li>パネル上部のタブ列にある <strong>+</strong>（<strong>Add tab</strong>）を選択します。</li>
+<li>一覧から<strong>Files</strong>を選択します。</li>
+<li><kbd>Ctrl</kbd>+<kbd>P</kbd> を押して<strong>Go to file</strong>を開き、<code>copilot-instructions.md</code> を検索します。</li>
 </ol>
 <p><img alt="Go to fileに表示されたcopilot-instructions.mdの検索結果" src="../assets/app-20261004-03-file-search.jpg" /></p>
 <ol start="5">
 <li>検索結果から <code>copilot-instructions.md</code> を選択して開きます。</li>
 <li>ファイルの内容を確認します。プロジェクト概要に加えて、Agent notes、Code standards、Scripts、Repository Structureといったセクションが定義されています。Code standards配下にはGitHub Actions Workflowsの指針もネストされており、これらはCopilotとの全対話に共通して適用されます。</li>
-<li>右側のファイルツリーを確認します。ツリー上に <code>.github</code> フォルダーが表示されていない場合は、ファイルパネル上部の歯車アイコンView optionsをクリックし、Show tracked hidden filesまたはShow all hidden filesを選択してください。前者はGitで管理している隠しファイル、後者はすべての隠しファイルを表示する選択肢です。</li>
+<li>右側のファイルツリーを確認します。ツリー上に <code>.github</code> フォルダーが表示されていない場合は、ファイルパネル上部の歯車アイコン<strong>View options</strong>をクリックし、<strong>Show tracked hidden files</strong>または<strong>Show all hidden files</strong>を選択してください。前者はGitで管理している隠しファイル、後者はすべての隠しファイルを表示する選択肢です。</li>
 </ol>
-<p>なお、ツリーを展開する代わりに、Go to fileに直接ファイル名を入力して開くことも可能です。</p>
+<p>なお、ツリーを展開する代わりに、<strong>Go to file</strong>に直接ファイル名を入力して開くことも可能です。</p>
 <p><img alt="View optionsの隠しファイル表示の選択肢" src="../assets/app-20261004-03-files-options.jpg" /></p>
 <ol start="8">
 <li><code>.github/instructions</code> フォルダーを展開し、配置されているファイルを確認します。Astroファイル、Drizzleデータレイヤー、単体テストなどに向けた指示ファイルが並んでいます。</li>
@@ -136,7 +136,7 @@
 </blockquote>
 <ol>
 <li>
-<p>Copilot Appのサイドバーの<strong>Issues</strong>を開き、一覧のリポジトリ選択で自分の演習用Tailspin Toysリポジトリを選び、Openの課題を表示します。Projectsで選んだプロジェクトと、Issues一覧の表示条件をそれぞれ確認してください。課題が見つからない場合は、<a href="2-install-copilot-app.html#バックログ-issue-の確認">第2章のバックログ確認</a>に従って表示条件を見直します。</p>
+<p>Copilot Appのサイドバーの<strong>Issues</strong>を開き、一覧のリポジトリ選択で自分の演習用Tailspin Toysリポジトリを選び、<strong>Open</strong>の課題を表示します。<strong>Projects</strong>で選んだプロジェクトと、Issues一覧の表示条件をそれぞれ確認してください。課題が見つからない場合は、<a href="2-install-copilot-app.html#バックログ-issue-の確認">第2章のバックログ確認</a>に従って表示条件を見直します。</p>
 </li>
 <li>
 <p>一覧からUpdate our repository coding standardsというタイトルのIssueを選択して開きます。番号だけで選ばず、タイトルと本文を確認してください。</p>
@@ -145,7 +145,7 @@
 </ol>
 <blockquote>
 <p><strong>補足</strong>
-規約更新セッションのworktreeに、第3章でmainへマージした星評価の変更が含まれていることを確認してください。リポジトリ設定の承認を求められた場合は、Review repository content → Repository trustでセットアップ内容やRunの定義を読み、Accept for new sessionsを選択します。</p>
+規約更新セッションのworktreeに、第3章でmainへマージした星評価の変更が含まれていることを確認してください。リポジトリ設定の承認を求められた場合は、<strong>Review repository content</strong> → <strong>Repository trust</strong>でセットアップ内容やRunの定義を読み、<strong>Accept for new sessions</strong>を選択します。</p>
 </blockquote>
 <p><img alt="Issueの詳細画面と右上のNew sessionボタンの操作例" src="../assets/app-20261004-03-issue-details.jpg" /></p>
 <ol start="4">
@@ -180,23 +180,23 @@ AIの出力は確率的に変動するため、生成される文言の細部は
 </ol>
 <p>提示された出版社取得のコード例に、たとえばテストから渡せる<code>db</code>引数があれば、コメントにもその使い方が読み取れるかを確認します。「出版社を返す」とだけ書かれていて、実際の戻り値や引数の意味が不明な場合は、具体的な修正を依頼できます。コード例は指示の伝わり方を観察する小さな試行です。この一例の成功だけで、今後の生成結果がすべて規約に適合すると判断せず、次章の実装でも確認を続けます。</p>
 <p><img alt="Publishersを返すコード例の目的、db引数、戻り値とTSDoc" src="../assets/app-20261004-03-code-example.jpg" /></p>
-<p>Copilotがコード例を提示した後も、規約更新セッションのChangesを確認し、例を見せる依頼で演習用リポジトリの実ファイルが変更されていないことを確かめてください。</p>
+<p>Copilotがコード例を提示した後も、規約更新セッションの<strong>Changes</strong>を確認し、例を見せる依頼で演習用リポジトリの実ファイルが変更されていないことを確かめてください。</p>
 <p><a id="pull-request-を作成してマージする"></a></p>
 <h3 id="434-prを作成しci成功後にマージする">4.3.4 PRを作成し、CI成功後にマージする</h3>
-<p>Tailspin Toysの指示ファイルは、チームで共有する開発資産です。ソースコードと同じようにPRで差分をレビューし、確認を終えた規約更新の変更を演習用リポジトリのmainへ取り込みます。本章では手動でマージするため、規約更新セッションのAgent mergeがOffであることを操作前に確認してください。</p>
+<p>Tailspin Toysの指示ファイルは、チームで共有する開発資産です。ソースコードと同じようにPRで差分をレビューし、確認を終えた規約更新の変更を演習用リポジトリのmainへ取り込みます。本章では手動でマージするため、規約更新セッションの<strong>Agent merge</strong>が<strong>Off</strong>であることを操作前に確認してください。</p>
 <ol>
 <li>Copilot Appの規約更新セッションの画面右上にある <strong>Create PR</strong>を選択します。</li>
 </ol>
 <p>この操作でコミット作成、リモートへのpush、PR作成へ進みます。対象の差分をレビューしてから実行してください。</p>
 <ol start="2">
-<li>ブラウザー認証を求められた場合は、Sign in with your browserを選択して画面の指示に従い認証します。</li>
+<li>ブラウザー認証を求められた場合は、<strong>Sign in with your browser</strong>を選択して画面の指示に従い認証します。</li>
 <li>CopilotがPRの作成を開始します。</li>
 <li>規約更新のPRを作成すると、CopilotはそのPRのCIワークフローを監視します。Copilot Appのチェック一覧を開き、必要なすべてのジョブが成功したか確認します。</li>
-<li><strong>Ready to merge</strong>を選択し、ダイアログ内のチェック状態も確認します。Checks are runningが残る間は待ちます。ボタンの表示だけでCIの成功を判断せず、GitHubの規約更新PRでCIの実行結果とも照合してください。表示が更新されない場合はダイアログを閉じて開き直します。</li>
+<li><strong>Ready to merge</strong>を選択し、ダイアログ内のチェック状態も確認します。<strong>Checks are running</strong>が残る間は待ちます。ボタンの表示だけでCIの成功を判断せず、GitHubの規約更新PRでCIの実行結果とも照合してください。表示が更新されない場合はダイアログを閉じて開き直します。</li>
 </ol>
 <p><img alt="マージ前に確認するCIジョブのSuccessful表示" src="../assets/app-20261004-03-pr-ci-passed.jpg" /></p>
 <ol start="6">
-<li>規約更新PRのCIがすべて成功したことを確認してから、ダイアログのMerge pull requestを選択し、演習用リポジトリのmainへ通常マージします。Copilot AppとGitHubの両方で、そのPRがMergedになったことを確認します。</li>
+<li>規約更新PRのCIがすべて成功したことを確認してから、ダイアログの<strong>Merge pull request</strong>を選択し、演習用リポジトリのmainへ通常マージします。Copilot AppとGitHubの両方で、そのPRが<strong>Merged</strong>になったことを確認します。</li>
 </ol>
 <blockquote>
 <p><strong>補足</strong>
@@ -223,9 +223,9 @@ AIの出力は確率的に変動するため、生成される文言の細部は
 <p>カスタム指示を定義すると、Copilotにプロジェクト固有の前提知識や設定を提供できます。毎回のプロンプトに同じ背景を繰り返し書く手間を減らし、規約に沿った提案を得やすくする仕組みです。推奨するコーディング規約、採用ライブラリ、コード中に記述すべきコメントの粒度まで指定できます。<a href="https://docs.github.com/en/copilot/concepts/prompting/response-customization">GitHub公式の概要</a>も、継続的に使う背景情報を指示として共有する方法を説明しています。</p>
 <p>本演習では、リポジトリ全体の指示と、パス固有の指示を使い分けます。</p>
 <ol>
-<li>リポジトリ全体の指示（<code>.github/copilot-instructions.md</code>）<br>
+<li><strong>リポジトリ全体の指示</strong>（<code>.github/copilot-instructions.md</code>）<br>
    リポジトリに対するすべてのリクエストでCopilotに送信される単一の指示ファイルです。Copilotに投げるチャットやCLIリクエスト全般に関係するプロジェクトレベルの情報（採用技術スタック、アーキテクチャの概要、全体的なベストプラクティスなど）を記載します。</li>
-<li><strong>パス固有の指示ファイル（<code>.github/instructions/*.instructions.md</code>）</strong><br>
+<li><strong>パス固有の指示ファイル</strong>（<code>.github/instructions/*.instructions.md</code>）<br>
    特定のファイル向けに作成する個別指示ファイルです。Copilotは<code>applyTo</code>のglobパターンに一致するファイルを扱うときに、この指示を参照します。TypeScriptやAstroなどのコーディング規約、UIコンポーネントや単体テストの作成に関するガイドラインを記述します。適用条件は、<a href="https://docs.github.com/en/copilot/how-tos/copilot-on-github/customize-copilot/add-custom-instructions/add-repository-instructions#creating-path-specific-custom-instructions">GitHub公式のパス固有指示の説明</a>を参照してください。</li>
 </ol>
 <blockquote>

@@ -86,27 +86,27 @@
 <p><a id="開始前にマージ条件を確認する"></a></p>
 <h3 id="731-prを作成し最新のci結果を確認する">7.3.1 PRを作成し、最新のCI結果を確認する</h3>
 <ol>
-<li>Appで前章まで作業していたフィルター機能の実装セッションを開き、Changesで未対応の差分や不要な一時ファイルがないことを確認します。</li>
-<li>フィルター機能の実装セッションで、通常のCreate PRからPRを作成します。この時点ではAgent mergeを有効にしません。</li>
+<li>Appで前章まで作業していたフィルター機能の実装セッションを開き、<strong>Changes</strong>で未対応の差分や不要な一時ファイルがないことを確認します。</li>
+<li>フィルター機能の実装セッションで、通常の<strong>Create PR</strong>からPRを作成します。この時点では<strong>Agent merge</strong>を有効にしません。</li>
 <li>作成されたPRを開き、フィルター機能とその検証に必要な差分が含まれ、自分の演習用リポジトリのmainをマージ先にしていることを確認します。</li>
 <li>GitHubのPR画面で、最新コミットに対するCIの全ジョブが成功するまで待ちます。テスト、lint、型検査などに実行中や失敗が残っていないかを見てください。</li>
 </ol>
 <p>CIの完了を待つ前に、GitHubのフィルター機能のPRで実行されるジョブの一覧を見ておきましょう。完了後に同じ一覧を読むと、成功したジョブだけを見て判断していないかを確かめられます。PRに新しいコミットが追加された場合は、古い成功結果を使わず、そのコミットのCIを確認し直してください。</p>
-<p>Appでフィルター機能のPRのCI表示が更新されない場合は、App内のPR画面を開き直して確認します。同じPRをGitHubでも開き、最新コミットのCI結果と照合してください。AppのReady to mergeだけで、CIの全ジョブ成功とは判断しません。</p>
+<p>Appでフィルター機能のPRのCI表示が更新されない場合は、App内のPR画面を開き直して確認します。同じPRをGitHubでも開き、最新コミットのCI結果と照合してください。Appの<strong>Ready to merge</strong>だけで、CIの全ジョブ成功とは判断しません。</p>
 <p><a id="agent-mergeを開始する"></a></p>
 <h3 id="732-agent-mergeを開始する">7.3.2 Agent Mergeを開始する</h3>
 <ol>
-<li>フィルター機能のPRの差分レビューと最新コミットのCI全成功を確認したら、Appでフィルター機能の実装セッションを開きます。セッション上部のReady to merge横にあるメニューを開いてください。</li>
+<li>フィルター機能のPRの差分レビューと最新コミットのCI全成功を確認したら、Appでフィルター機能の実装セッションを開きます。セッション上部の<strong>Ready to merge</strong>横にあるメニューを開いてください。</li>
 <li>対象が今回のフィルター機能のPRであることを確認します。</li>
-<li>Agent mergeのスイッチをOffからOnへ切り替えます。Onへの切り替えで、エージェントが対象PRの処理を始めるため、追加の開始ボタンを押す必要はありません。</li>
+<li><strong>Agent merge</strong>のスイッチを<strong>Off</strong>から<strong>On</strong>へ切り替えます。Onへの切り替えで、エージェントが対象PRの処理を始めるため、追加の開始ボタンを押す必要はありません。</li>
 </ol>
 <p><img alt="Ready to mergeのメニューと、開始前のAgent mergeスイッチ" src="../assets/app-20261004-06-agent-merge-before.jpg" /></p>
 <p>GitHub公式では、Agent MergeがPRを確認し、マージを妨げる問題へ対応して、GitHubが許可した時点でマージすると説明しています。<a href="https://docs.github.com/en/copilot/how-tos/github-copilot-app/managing-issues-and-pull-requests#merging-a-pull-request">公式説明「Merging a pull request」</a></p>
 <p><a id="ciとマージ結果を確認する"></a></p>
 <h3 id="733-ciとマージ結果を確認する">7.3.3 CIとマージ結果を確認する</h3>
 <ol>
-<li>Appでフィルター機能の実装セッションまたはPR画面を開き、対象PRがMergedになったことを確認します。</li>
-<li>GitHubでもフィルター機能の同じPRを開き、演習用リポジトリのmainへMergedになったことと、最新コミットのCI全ジョブが成功したことを照合します。</li>
+<li>Appでフィルター機能の実装セッションまたはPR画面を開き、対象PRが<strong>Merged</strong>になったことを確認します。</li>
+<li>GitHubでもフィルター機能の同じPRを開き、演習用リポジトリのmainへ<strong>Merged</strong>になったことと、最新コミットのCI全ジョブが成功したことを照合します。</li>
 <li>エージェントがレビュー対応やCI修復のためにコードを変更した場合は、PRの追加差分と変更後の検査結果も確認します。</li>
 <li>次章で新しいworktreeを作るときにフィルター機能を引き継げるよう、演習用リポジトリのmainへフィルター機能が統合されたことを確かめます。</li>
 </ol>
@@ -176,7 +176,7 @@
 </tr>
 </tbody>
 </table>
-<p>CIの待機も含めてAgent Mergeへ任せたい場合は、対象PRの必須チェックを待つ条件が、自分の権限でのマージにも適用されるかを先に確認します。条件が分からなければ、本章と同じく対象PRのCI全ジョブの成功を待ってからAgent mergeをOnにしてください。ブランチ保護や必須チェックの設定を理解すると、チームでどこまで任せるかを判断しやすくなります。<a href="https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches#require-status-checks-before-merging">GitHub公式のブランチ保護の説明</a></p>
+<p>CIの待機も含めてAgent Mergeへ任せたい場合は、対象PRの必須チェックを待つ条件が、自分の権限でのマージにも適用されるかを先に確認します。条件が分からなければ、本章と同じく対象PRのCI全ジョブの成功を待ってから<strong>Agent merge</strong>を<strong>On</strong>にしてください。ブランチ保護や必須チェックの設定を理解すると、チームでどこまで任せるかを判断しやすくなります。<a href="https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches#require-status-checks-before-merging">GitHub公式のブランチ保護の説明</a></p>
 <p><a id="判断と結果の振り返り"></a>
 <a id="リソース"></a></p>
 <h3 id="753-参考資料">7.5.3 参考資料</h3>

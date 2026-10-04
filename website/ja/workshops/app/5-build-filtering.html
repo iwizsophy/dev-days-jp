@@ -101,7 +101,7 @@
 <h3 id="531-フィルター機能を計画する">5.3.1 フィルター機能を計画する</h3>
 <ol>
 <li>
-<p>Copilot Appのサイドバーの<strong>Issues</strong>を開き、一覧のリポジトリ選択で自分の演習用Tailspin Toysリポジトリを選び、Openの課題を表示します。Projectsの選択と、Issues一覧の表示条件をそれぞれ確認してください。課題が見つからない場合は、<a href="2-install-copilot-app.html#バックログ-issue-の確認">第2章のバックログ確認</a>に従って表示条件を見直します。</p>
+<p>Copilot Appのサイドバーの<strong>Issues</strong>を開き、一覧のリポジトリ選択で自分の演習用Tailspin Toysリポジトリを選び、<strong>Open</strong>の課題を表示します。<strong>Projects</strong>の選択と、Issues一覧の表示条件をそれぞれ確認してください。課題が見つからない場合は、<a href="2-install-copilot-app.html#バックログ-issue-の確認">第2章のバックログ確認</a>に従って表示条件を見直します。</p>
 </li>
 <li>
 <p>一覧からAllow users to filter games by category and publisherというタイトルのIssueを選択します。第4章の指示更新が演習用リポジトリのmainへマージ済みであることも確認してください。</p>
@@ -110,7 +110,7 @@
 </ol>
 <p><img alt="Issueの詳細画面と右上のNew sessionボタンの操作例" src="../assets/app-20261004-04-issue-details.jpg" /></p>
 <ol start="4">
-<li>プロンプト入力欄の下部にあるモードメニュー（初期表示: Mode: Interactive）を開き、Plan — Plan first, execute when readyを選択します。</li>
+<li>プロンプト入力欄の下部にあるモードメニュー（初期表示: <strong>Mode: Interactive</strong>）を開き、<strong>Plan</strong> — Plan first, execute when readyを選択します。</li>
 </ol>
 <p><img alt="Interactive、Plan、Autopilotを選ぶモードメニュー" src="../assets/app-20261004-04-plan-mode.jpg" /></p>
 <ol start="5">
@@ -119,7 +119,7 @@
 <pre class="highlight"><code class="language-plaintext">Issue に記載された要件に基づいて作業を計画してください。計画中に不明点があれば質問してください。カテゴリ同士の条件、出版社との組み合わせ、選択解除、0件表示をどう実装・検証するかを計画に含めてください。
 実装後は差分と検証結果を報告して停止してください。Playwright MCPでのブラウザー検証を次章で行ってからPRを作るため、この段階ではコミット・push・PR作成・マージへ進まないでください。</code></pre>
 <ol start="6">
-<li>計画の作成過程で、エージェントから設計上の選択肢や不明点に関する質問が提示される場合があります。本演習の条件に従って回答し、Continueで送信します。複数カテゴリの条件を聞かれた場合はOR、出版社の選択方法を聞かれた場合は単一選択を選んでください。</li>
+<li>計画の作成過程で、エージェントから設計上の選択肢や不明点に関する質問が提示される場合があります。本演習の条件に従って回答し、<strong>Continue</strong>で送信します。複数カテゴリの条件を聞かれた場合はOR、出版社の選択方法を聞かれた場合は単一選択を選んでください。</li>
 </ol>
 <p><img alt="カテゴリのOR条件を選び、Continueで回答する質問画面" src="../assets/app-20261004-04-plan-question.jpg" /></p>
 <blockquote>
@@ -138,7 +138,7 @@ Copilotの出力は確率的に動作するため、提示される質問内容�
 <h3 id="532-計画を承認しautopilotで実装する">5.3.2 計画を承認し、Autopilotで実装する</h3>
 <p>フィルター実装セッションで作成した計画に問題がなければ、Copilotにその計画に沿って自律的にコードを実装させます。</p>
 <ol>
-<li>提示された計画を読んだうえで、<strong>Review plan</strong>のApprove and implement this planを選択します。この選択で承認が送信されます。実装へ進んだこととモード表示を確認してください。</li>
+<li>提示された計画を読んだうえで、<strong>Review plan</strong>の<strong>Approve and implement this plan</strong>を選択します。この選択で承認が送信されます。実装へ進んだこととモード表示を確認してください。</li>
 </ol>
 <p><img alt="Review planの承認と修正の選択肢" src="../assets/app-20261004-04-plan-review.jpg" /></p>
 <p>Copilotがゲームのフィルター機能の自律実装を開始します。</p>
@@ -147,7 +147,7 @@ Copilotの出力は確率的に動作するため、提示される質問内容�
 もしCopilotがコードの作成を自動的に開始しない場合は、「確認した計画に沿って実装を開始してください」とチャットで指示してください。</p>
 <p>実装の完了までには通常数分を要します。エージェントはファイルの編集や新規作成、テストコードの追加と実行、エラー時のリトライを自律的に繰り返します。進行中は、計画に沿ったファイルを変更しているか、どの検査を実行したかを観察します。</p>
 </blockquote>
-<p>フィルター実装セッションでCopilotが指示した範囲を超えてPR作成やpushへ進み始めた場合は、Stopで停止してください。現在の差分と演習用リポジトリのリモートの状態を確認してから、第6章のブラウザー検証まで待つよう伝えます。</p>
+<p>フィルター実装セッションでCopilotが指示した範囲を超えてPR作成やpushへ進み始めた場合は、<strong>Stop</strong>で停止してください。現在の差分と演習用リポジトリのリモートの状態を確認してから、第6章のブラウザー検証まで待つよう伝えます。</p>
 <p><a id="変更をレビューする"></a></p>
 <h3 id="533-差分と画面の動きをレビューする">5.3.3 差分と画面の動きをレビューする</h3>
 <p>Copilotが生成したフィルター機能のコードは、必ず人間が差分を確認し、そのセッションのworktreeで起動したTailspin Toysの開発サーバーで動作確認を行う必要があります。</p>
@@ -162,30 +162,30 @@ Copilotの出力は確率的に動作するため、提示される質問内容�
 <p>画面上部の <strong>Run options</strong>から <strong>Run development site</strong>を選択します。</p>
 </li>
 <li>
-<p>ボタンがRun Run development siteと表示されている場合はクリックして起動します。すでに <strong>Stop Run development site</strong>と表示されている場合は稼働中ですので、そのまま次へ進みます。</p>
+<p>ボタンが<strong>Run Run development site</strong>と表示されている場合はクリックして起動します。すでに <strong>Stop Run development site</strong>と表示されている場合は稼働中ですので、そのまま次へ進みます。</p>
 </li>
-<li>Copilot AppのBrowserパネルで、フィルター実装セッションから起動したTailspin Toysのサイトを開きます。パネルが自動表示されない場合は、Runターミナルに表示されたURLを外部ブラウザーで開いてください。ポート番号を決め打ちせず、今回起動したサーバーの表示を使います。別のセッションのサイトを見ていないか、起動元のworktreeも確認してください。</li>
+<li>Copilot Appの<strong>Browser</strong>パネルで、フィルター実装セッションから起動したTailspin Toysのサイトを開きます。パネルが自動表示されない場合は、<strong>Run</strong>ターミナルに表示されたURLを外部ブラウザーで開いてください。ポート番号を決め打ちせず、今回起動したサーバーの表示を使います。別のセッションのサイトを見ていないか、起動元のworktreeも確認してください。</li>
 <li>Tailspin Toysのトップページ上で、複数カテゴリーの選択、特定パブリッシャーとの組み合わせ、絞り込み解除が意図通りに動作することを確認します。</li>
 <li>挙動に不備がある場合は、チャット欄からエージェントに修正を依頼し、再確認します。</li>
 <li>確認が完了したら、セッション上部の <strong>Stop Run development site</strong>を選択して開発サーバーを停止します。</li>
 </ol>
-<p>Tailspin Toysのフィルターを手動確認するときの対象は、カテゴリ・出版社の選択状態と、一覧に残ったゲームの対応です。件数だけが合っていても、違うゲームが表示されていれば正しい実装とはいえません。フィルター機能のTSDocも、第4章で共有した規約と照合してください。OR/AND条件や引数の説明が実装と食い違っていないかを確認しましょう。Publisherから<kbd>Tab</kbd>で<strong>Clear filters</strong>へ移動し、<kbd>Enter</kbd>で解除できるかも試します。テストがボタンへ直接フォーカスを移すだけでは、実際のTab移動の順序は分かりません。</p>
+<p>Tailspin Toysのフィルターを手動確認するときの対象は、カテゴリ・出版社の選択状態と、一覧に残ったゲームの対応です。件数だけが合っていても、違うゲームが表示されていれば正しい実装とはいえません。フィルター機能のTSDocも、第4章で共有した規約と照合してください。OR/AND条件や引数の説明が実装と食い違っていないかを確認しましょう。<strong>Publisher</strong>から<kbd>Tab</kbd>で<strong>Clear filters</strong>へ移動し、<kbd>Enter</kbd>で解除できるかも試します。テストがボタンへ直接フォーカスを移すだけでは、実際のTab移動の順序は分かりません。</p>
 <p><img alt="StrategyとPuzzleのOR条件にGitHub Gamesを加えた2件の表示例" src="../assets/app-20261004-04-filter-combined-final.jpg" /></p>
 <p><a id="quality-checks-スキルで作業を検証する"></a></p>
 <h3 id="534-quality-checksスキルで検査する">5.3.4 quality-checksスキルで検査する</h3>
 <p>フィルター機能の差分の目視確認と、ブラウザーでのTailspin Toysの手動操作に加えて、演習用リポジトリに定義された自動テスト群を実行して品質を検証します。</p>
 <p><a id="quality-checks-スキルを確認する"></a></p>
 <h4 id="5341-quality-checksスキルを確認する">5.3.4.1 quality-checksスキルを確認する</h4>
-<p>Copilot Appのフィルター実装セッションのFilesで、自分の演習用Tailspin Toysリポジトリにある<code>quality-checks</code>スキルの中身を確認してみましょう。</p>
+<p>Copilot Appのフィルター実装セッションの<strong>Files</strong>で、自分の演習用Tailspin Toysリポジトリにある<code>quality-checks</code>スキルの中身を確認してみましょう。</p>
 <ol>
 <li>
-<p>右側のパネルが表示されていない場合は、画面右上のToggle panelを選択して開きます。</p>
+<p>右側のパネルが表示されていない場合は、画面右上の<strong>Toggle panel</strong>を選択して開きます。</p>
 </li>
 <li>
-<p>パネル上部のタブ列にある <code>+</code>（Add tab）を選択します。</p>
+<p>パネル上部のタブ列にある <strong><code>+</code></strong>（<strong>Add tab</strong>）を選択します。</p>
 </li>
-<li>Filesを選択します。</li>
-<li><kbd>Ctrl</kbd>+<kbd>P</kbd> を押してGo to fileを開き、<code>SKILL.md</code> を検索します。</li>
+<li><strong>Files</strong>を選択します。</li>
+<li><kbd>Ctrl</kbd>+<kbd>P</kbd> を押して<strong>Go to file</strong>を開き、<code>SKILL.md</code> を検索します。</li>
 <li>検索結果から <code>SKILL.md .github/skills/quality-checks</code> を選択して開きます。</li>
 <li>ファイルの表示を<strong>Raw</strong>へ切り替え、<code>name</code>と<code>description</code>の定義を確認します。Rich textでは冒頭のメタデータが表示されないことがあります。Tailspin Toysのテスト、lint、品質検査を実行するスキルであることが説明されています。</li>
 </ol>
@@ -220,7 +220,7 @@ Copilotの出力は確率的に動作するため、提示される質問内容�
 </tr>
 </tbody>
 </table>
-<p>スキルを呼び出したという表示だけでは、全検査の成功を判断できません。実行したコマンド、成功・失敗した結果、追加したテストの内容を報告から確認します。<code>quality-checks</code>の定義に含まれる型検査も確認し、静的サイトの生成はAppのRun → Build static siteでも確かめてください。</p>
+<p>スキルを呼び出したという表示だけでは、全検査の成功を判断できません。実行したコマンド、成功・失敗した結果、追加したテストの内容を報告から確認します。<code>quality-checks</code>の定義に含まれる型検査も確認し、静的サイトの生成はAppの<strong>Run</strong> → <strong>Build static site</strong>でも確かめてください。</p>
 <p><a id="通常データでは確認できない0件表示"></a></p>
 <h4 id="5342-通常データでは確認できない0件表示">5.3.4.2 通常データでは確認できない0件表示</h4>
 <p>Tailspin Toysの通常データ21件には、すべてのカテゴリと出版社の組み合わせに該当するゲームがあります。そのため、通常画面で条件を変えるだけでは0件表示に到達できません。0件の状態を試すには、組み合わせが欠けたテストデータを別に用意します。通常の<code>db/games.csv</code>を書き換えると、他のテストの期待結果まで変わってしまいます。CSVだけを分けても、準備処理の接続先が通常DBなら通常環境の一覧も変わってしまいます。準備と検査の両方が、同じ隔離DBを使っていることを確認してください。</p>
@@ -280,7 +280,7 @@ quality-checksスキルで検証し、実行結果と未確認の項目を報告
 <h3 id="552-セッションモードの種類">5.5.2 セッションモードの種類</h3>
 <p>Copilot Appのセッションモードは、エージェントに与える自律性の度合いを制御する仕組みです。プロンプト入力欄の下部にあるドロップダウンから選択でき、セッションの進行中いつでも切り替えられます。</p>
 <ul>
-<li>Interactive：対話型モード。ユーザーとエージェントが協調して作業を進めます。エージェントは変更案を提示し、ユーザーの入力を受けながら進めます。</li>
+<li><strong>Interactive</strong>：対話型モード。ユーザーとエージェントが協調して作業を進めます。エージェントは変更案を提示し、ユーザーの入力を受けながら進めます。</li>
 <li><strong>Plan</strong>：計画作成モード。エージェントはコードを直接編集せず、まず調査と実装計画の作成に専念します。作成された計画を人間がレビュー・承認した後に実装フェーズへ進みます。</li>
 <li><strong>Autopilot</strong>：自律実行モード。エージェントが完全に自律して作業を進めます。追加の確認を待つことなく、ファイルの編集、新規作成、テスト実行、エラー発生時の自己修正などを反復して実行します。</li>
 </ul>
