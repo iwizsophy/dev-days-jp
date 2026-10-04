@@ -19,7 +19,9 @@
 
 ## 出典と更新方針
 
-本教材の開催資料は `github/dev-days`、演習の主軸は `github-samples/copilot-workshops` の App 版に基づいています。参照コミット、対象ファイル、および独自追加の範囲は [sources.json](sources.json) に記録し、[Copilot Workshops のライセンス](licenses/copilot-workshops.txt) および [Mona Mayhem のライセンス](licenses/mona-mayhem.txt) を保持しています。
+本教材の開催資料は[github/dev-days](https://github.com/github/dev-days)、演習の主軸は[github-samples/copilot-workshops](https://github.com/github-samples/copilot-workshops)のApp版に基づいています。演習用テンプレートは[iwizsophy/dev-days-tailspin-template](https://github.com/iwizsophy/dev-days-tailspin-template)で配布し、[github-samples/tailspin-toys](https://github.com/github-samples/tailspin-toys)を基に作成・改訂しています。App教材とテンプレートの出典、各リポジトリのライセンスと著作権表示は[出典とライセンス](credits.md)にまとめました。
+
+参照コミット、対象ファイル、および独自追加の範囲は[sources.json](sources.json)に記録しています。[Dev Days](licenses/dev-days.txt)、[Copilot Workshops](licenses/copilot-workshops.txt)、[Tailspin Toys](licenses/tailspin-toys.txt)のライセンス原文を保持しています。独立した参考コースの[Mona Mayhem](licenses/mona-mayhem.txt)のライセンス原文も保持しています。
 
 画像の撮影条件や検証履歴は `sources.json` の `ui_captures` に保持します。受講者向けに表示する補足は `ui_captions` に記載し、操作に必要な画面差や対象の違いだけを簡潔に説明します。
 
