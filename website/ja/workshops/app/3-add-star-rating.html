@@ -298,9 +298,44 @@ PRはまだ作成しないでください。</code></pre>
 <h2 id="35-補足">3.5 補足</h2>
 <p><a id="小さな変更から始める理由"></a></p>
 <h3 id="351-小さな変更から始める理由">3.5.1 小さな変更から始める理由</h3>
-<p>この章で変更する前のTailspin Toysでは、各ゲームに星評価のデータが保持されており、ゲーム詳細ページにも表示されています。一方、ホームページの一覧カードにはタイトル、カテゴリー、パブリッシャー、説明文のみが表示されており、星評価は含まれていません。</p>
-<p>Tailspin Toysの一覧カードにも既存の星評価を表示する課題は、対象を絞って取り組めます。データを増やす変更と表示の変更を分けられるため、初めての共同作業でも差分を追いやすくなります。</p>
-<p>この章の星評価の課題で行うのは、すでにある評価値をゲーム一覧にも表示する変更です。データを新しく集めたり、保存方法を変えたりする必要はありません。画面上の変更が小さいほど、依頼した範囲と生成された差分を比べやすくなります。同時に、「値が0」と「まだ評価がない」の違いのように、小さな表示にも仕様の判断が含まれることを学びます。</p>
+<p>本章で小さな変更から始めるのは、エージェントへの依頼、差分のレビュー、動作確認、PRのマージまでを一通り経験し、各段階で自分が何を判断するかをつかむためです。最初から複数の機能をまとめて任せると、要件の伝え方、実装、環境のどこに問題があったのかを追いにくくなります。目的と確認対象を絞れば、予想と結果の違いを見つけて修正し、同じ確認を繰り返しやすくなります。</p>
+<p>Tailspin Toysの星評価表示では、各ゲームの評価値がすでにデータにあり、ゲーム詳細ページにも表示されています。本章で追加するのは、ホームページの一覧カードにもその値を表示する機能です。データの収集や保存方法は変えず、既存の表示部品を再利用できるか調べます。カードの構造と詳細ページへのリンクを保つ条件も定めているため、評価の表示とその確認に集中できます。ただし、0点という評価値と、未評価を表す<code>null</code>の表示を分ける判断やテストは、この小さな変更にも必要です。</p>
+<p>ここでいう変更の小ささは、修正行数やファイル数だけで決まりません。変更の目的が一つで、その目的に必要な実装と検証をまとめてレビューできることが判断の基準です。星評価の表示コードと、その表示を確かめるテストは同じ目的に含まれます。無関係なレイアウトの変更やデータ保存方式の変更まで一緒に進めると、目的も確認範囲も広がります。GitHub公式も、<a href="https://docs.github.com/en/pull-requests/concepts/helping-others-review-your-changes">一つの目的に絞った小さなPR</a>を勧めています。</p>
+<p>実務のIssue駆動開発では、Issueに「なぜ変えるのか」「何を変えるのか」「何を満たせば完了か」を記し、その合意を基に実装とレビューを進めます。Issueを作っただけで、適切な作業単位になるわけではありません。担当者とレビューする人が、目的と完了条件を同じように理解し、結果を確かめられる範囲に整理します。大きな課題を分割するときも、元の目的との関係と、他の課題への依存を残します。<a href="https://docs.github.com/en/issues/planning-and-tracking-with-projects/learning-about-projects/best-practices-for-projects">GitHub公式のIssueの分割に関する説明</a>では、課題の分割と依存関係の明確化を案内しています。</p>
+<div class="table-scroll" tabindex="0"><table class="content-table"><colgroup><col style="width:7%"/><col style="width:18%"/><col style="width:75%"/></colgroup>
+<thead>
+<tr>
+<th class="table-number" scope="col" style="text-align: center;">項番</th>
+<th scope="col" style="text-align: left;">判断すること</th>
+<th scope="col" style="text-align: left;">実務で確認すること</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="table-number" style="text-align: center;">1</td>
+<td style="text-align: left;">目的</td>
+<td style="text-align: left;">利用者のどの問題を解決するかを説明できるか。別の目的の改修が混ざっていないか</td>
+</tr>
+<tr>
+<td class="table-number" style="text-align: center;">2</td>
+<td style="text-align: left;">完了条件</td>
+<td style="text-align: left;">期待する動作、例外となる入力、保つべき既存動作を示し、結果を確かめられるか</td>
+</tr>
+<tr>
+<td class="table-number" style="text-align: center;">3</td>
+<td style="text-align: left;">変更と検証の範囲</td>
+<td style="text-align: left;">目的に必要な実装とテストをそろえ、レビューする人が差分と結果を追えるか</td>
+</tr>
+<tr>
+<td class="table-number" style="text-align: center;">4</td>
+<td style="text-align: left;">依存関係</td>
+<td style="text-align: left;">他の変更が先に必要か。分割する場合に、実装・レビュー・取り込みの順を説明できるか</td>
+</tr>
+</tbody>
+</table></div>
+<p>たとえば実務で「ゲームを比較しやすくする」という大きな課題に取り組む場合、一覧カードへの星評価表示を一つのIssueとして切り出せます。目的は利用者が評価を比較できること、完了条件は評価値・0点・未評価の表示と既存リンクの維持です。検索やレイアウトの改修は、それぞれの目的と完了条件を決めて別の課題として検討します。一方、評価表示にAPIやデータ保存の変更が不可欠なら、その依存も含めて実装・検証の範囲を決めます。分割する場合は、取り込みの順と途中の状態で利用者に影響が出ないかも確かめましょう。</p>
+<p>IssueとPRを必ず一対一にする必要はありません。一つのIssueを複数のPRで進める場合は、それぞれが担う目的と取り込み順を示します。同じPRの中で意味のある単位にコミットを分けることも、レビューを助けます。ただし、コミットを細かくするだけでは、Issueの目的や完了条件が明確になるわけではありません。</p>
+<p>Copilotへ渡す課題についても、解決する問題、受け入れ条件、変更箇所を明確にする考え方は、<a href="https://docs.github.com/en/copilot/tutorials/cloud-agent/get-the-best-results">Copilot cloud agent向けの公式ガイド</a>を参考にできます。本章では受講者が要件を直接伝え、最初の開発の流れを学びます。第4章からはIssueを起点に進めますが、目的と完了条件を共有し、必要な差分と検証結果を基に取り込みを判断する考え方は共通です。</p>
 <p><a id="セッションとworktreeの役割"></a></p>
 <h3 id="352-セッションとworktreeの役割">3.5.2 セッションとworktreeの役割</h3>
 <p>GitHub Copilot appの<strong>セッション</strong>とは、特定のプロジェクトを対象としてエージェントと対話を行う作業空間です。Appのサイドバーのプロジェクト一覧から起動できます。</p>
@@ -368,5 +403,12 @@ App内で組み込みターミナルを開く場合は、<strong>Toggle panel</s
 <ul>
 <li><a href="https://docs.github.com/en/copilot/how-tos/github-copilot-app/agent-sessions">GitHub Copilot appでのエージェントセッションの操作</a></li>
 <li><a href="https://docs.github.com/en/copilot/concepts/agents/github-copilot-app">GitHub Copilot appについて</a></li>
-<li><a href="https://docs.github.com/en/copilot/how-tos/github-copilot-app/managing-issues-and-pull-requests">GitHub Copilot appでのIssueとpull requestの管理</a></li>
+<li>
+<p><a href="https://docs.github.com/en/copilot/how-tos/github-copilot-app/managing-issues-and-pull-requests">GitHub Copilot appでのIssueとpull requestの管理</a></p>
+</li>
+<li>
+<p><a href="https://docs.github.com/en/pull-requests/concepts/helping-others-review-your-changes">PRの目的と差分をレビューしやすくする方法</a></p>
+</li>
+<li><a href="https://docs.github.com/en/issues/planning-and-tracking-with-projects/learning-about-projects/best-practices-for-projects">Issueの分割と依存関係を整理する方法</a></li>
+<li><a href="https://docs.github.com/en/copilot/tutorials/cloud-agent/get-the-best-results">Copilot cloud agentへ渡す課題のまとめ方</a></li>
 </ul></article><nav class="chapter-nav" aria-label="章の移動"><a href="2-install-copilot-app.html">← 前の章：第2章 - GitHub Copilot appのインストール</a><a href="4-custom-instructions.html">次の章 →：第4章 - カスタム指示によるCopilotのガイド</a></nav></main></body></html>
