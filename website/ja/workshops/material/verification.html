@@ -13,6 +13,61 @@
 <strong>今回の実走は、GitHub連携経路で追加指示を行いながら確認した結果です。</strong> 改訂後の初回プロンプトだけによる再現や、未実施の経路まで確認済みとは扱いません。以下の「未作成」「未マージ」は各段階での状態を表します。現在の未確認範囲は本書の第2節、画面ごとの確認項目は<a href="ui-check.html">UI確認表</a>を参照してください。</p>
 </blockquote>
 <h2>1. 実走結果と教材改訂の記録</h2>
+<h3>2026年10月5日：未対応Issueの確認とテンプレート参照版の更新</h3>
+<p>教材リポジトリの未対応Issue #6〜#13を、追加コメント、現在の受講者原稿、10月4日の実走記録と照合しました。教材の操作説明7件は修正ブランチへ反映済みで、mainへの取り込みを待つ状態です。</p>
+<div class="table-scroll" tabindex="0"><table class="content-table"><colgroup><col style="width:7%"/><col style="width:21.71%"/><col style="width:71.29%"/></colgroup>
+<thead>
+<tr>
+<th class="table-number" scope="col" style="text-align: center;">項番</th>
+<th scope="col" style="text-align: left;">Issue</th>
+<th scope="col" style="text-align: left;">確認した対応</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="table-number" style="text-align: center;">1</td>
+<td style="text-align: left;"><a href="https://github.com/iwizsophy/dev-days-jp/issues/6">#6：Node.jsの実行環境</a></td>
+<td style="text-align: left;">実装セッションで実行したバージョンを、ツールの出力で確認する</td>
+</tr>
+<tr>
+<td class="table-number" style="text-align: center;">2</td>
+<td style="text-align: left;"><a href="https://github.com/iwizsophy/dev-days-jp/issues/7">#7：My workの表示</a></td>
+<td style="text-align: left;">受講者向けApp教材全章にMy workの操作が残っていないことを確認した</td>
+</tr>
+<tr>
+<td class="table-number" style="text-align: center;">3</td>
+<td style="text-align: left;"><a href="https://github.com/iwizsophy/dev-days-jp/issues/8">#8：Issueの表示対象</a></td>
+<td style="text-align: left;">プロジェクトの選択とIssuesの表示対象を分け、自分の演習用コピーだけを表示する</td>
+</tr>
+<tr>
+<td class="table-number" style="text-align: center;">4</td>
+<td style="text-align: left;"><a href="https://github.com/iwizsophy/dev-days-jp/issues/9">#9：Chatsの入口</a></td>
+<td style="text-align: left;">追加コメントを反映し、Chats横の <code>+</code> と右クリックの両方を案内する</td>
+</tr>
+<tr>
+<td class="table-number" style="text-align: center;">5</td>
+<td style="text-align: left;"><a href="https://github.com/iwizsophy/dev-days-jp/issues/10">#10：New sessionの入口</a></td>
+<td style="text-align: left;">自分の演習用プロジェクトの <code>+</code> と右クリックの両方を案内する</td>
+</tr>
+<tr>
+<td class="table-number" style="text-align: center;">6</td>
+<td style="text-align: left;"><a href="https://github.com/iwizsophy/dev-days-jp/issues/11">#11：内部npmミラー</a></td>
+<td style="text-align: left;">テンプレート側で修正済み。教材の参照版をv2026.10.05へ更新した</td>
+</tr>
+<tr>
+<td class="table-number" style="text-align: center;">7</td>
+<td style="text-align: left;"><a href="https://github.com/iwizsophy/dev-days-jp/issues/12">#12：PR作成時のIssue</a></td>
+<td style="text-align: left;">Issueが必要な理由、既存Issueの再利用、必要な場合の作成、PRとの関連付けを補った</td>
+</tr>
+<tr>
+<td class="table-number" style="text-align: center;">8</td>
+<td style="text-align: left;"><a href="https://github.com/iwizsophy/dev-days-jp/issues/13">#13：計画前に実装が始まる</a></td>
+<td style="text-align: left;">Canvasの本文受領、Planへの切り替え、計画の承認、実装を分けた現在の流れを確認した</td>
+</tr>
+</tbody>
+</table></div>
+<p>Issue #11のコード修正は、<a href="https://github.com/iwizsophy/dev-days-tailspin-template/pull/11">テンプレート側のPR #11</a>でマージされました。配布タグ<a href="https://github.com/iwizsophy/dev-days-tailspin-template/tree/v2026.10.05">v2026.10.05</a>とmainは同じコミット <code>02d5215b9f81503c871227475b7ecf6dacd797f0</code>です。旧版との差分は内部ミラーのURL6件の置き換えで、パッケージのバージョンとintegrityは変わっていません。<a href="https://github.com/iwizsophy/dev-days-tailspin-template/actions/runs/37218485021">mainのCI</a>、<a href="https://github.com/iwizsophy/dev-days-tailspin-template/actions/runs/37218569124">開発依存関係のDependabot更新</a>、<a href="https://github.com/iwizsophy/dev-days-tailspin-template/actions/runs/37218568925">本番依存関係のDependabot更新</a>が成功したことを確認しました。</p>
+<p>現在使うテンプレートの参照版と固定コミットを更新しました。10月3日・4日のApp実走記録と10月2日の監査記録は当時の版のまま保持し、新しい版での実績とは区別しています。改訂後の教材全章の再実走、今回追加したIssue作成プロンプトのAppでの再実行、New chatとNew sessionの入口メニューの再撮影、新しく作成した演習コピーでのDependabot更新は、今回の確認では実施していません。</p>
 <h3>2026年10月5日：補足の役割と実務への応用</h3>
 <p>第1〜9章の補足を、章で学んだ考え方を実務で使うための判断基準、適用条件、限界から説明する構成へ見直しました。ケース固有の操作や対象を前提にしていた見出し13件も、実務で行う判断や作業の目的を示す表現へ改題しています。ケースは考え方の適用例として残し、既に実務の観点を示していた見出しは維持しました。受講者用ガイドにも、補足の役割を明記しています。</p>
 <p>作業場所と開始元の選択、検証方法ごとの役割、指示を適用する範囲、反復作業の共有、MCPを使う際の確認、マージを任せる条件、Canvasの設計と修正、調査の範囲と根拠の照合を、実務での判断と結び付けました。ケースの手順、入力用プロンプト、コード、表、画像は変更前と一致しています。第3章の3.5.3と3.5.4は、前の改訂で補った説明をそのまま保持しました。既存の出典URLと節へのリンク先も保持し、改題した見出しは目次へ反映しています。</p>
