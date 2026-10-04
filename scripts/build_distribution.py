@@ -134,6 +134,11 @@ def keep_explanations_with_examples(soup, path, prefix, figures):
                 nodes.append(following)
             group(nodes)
     elif path.name == 'verification.md':
+        # Keep short record conclusions intact before the next forced section break.
+        for paragraph in list(soup.select('p')):
+            following = paragraph.find_next_sibling()
+            if following and following.name == 'h2' and len(paragraph.get_text()) < 800:
+                group([paragraph])
         for table in list(soup.select('table')):
             if [cell.get_text(strip=True) for cell in table.select('thead th')] == ['原稿', '点数']:
                 intro = table.find_previous_sibling()
