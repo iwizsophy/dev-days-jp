@@ -164,7 +164,7 @@ Automationの報告とGitHubのPR・Issueの件数が一致しない場合は、
 ### 9.6.3 定期実行とCloud実行への発展
 
 > [!TIP]
-> 公式ではCloud実行も案内されており、端末の電源が入っていない間にも実行できます。利用にはリポジトリや組織の設定などの前提があり、Toolsで作業に必要な操作を選びます。定期実行とCloud実行は発展課題です。試す場合は、[公式の前提条件と設定方法](https://docs.github.com/en/copilot/how-tos/github-copilot-app/using-automations#prerequisites-for-using-cloud-automations)を確認し、Manualで検証した調査範囲と結果の確認方法を引き継いでください。
+> GitHub公式ではAutomationのCloud実行も案内されており、端末の電源が入っていない間にも実行できます。利用にはリポジトリや組織の設定などの前提があり、Toolsで作業に必要な操作を選びます。定期実行とCloud実行は発展課題です。試す場合は、[公式の前提条件と設定方法](https://docs.github.com/en/copilot/how-tos/github-copilot-app/using-automations#prerequisites-for-using-cloud-automations)を確認し、Manualで検証した調査範囲と結果の確認方法を引き継いでください。
 
 <a id="さらに確認する価値のある機能"></a>
 

@@ -133,7 +133,7 @@ Tailspin Toysのフィルターを手動確認するときの対象は、カテ�
 
 #### 5.4.4.1 quality-checksスキルを確認する
 
-自分の演習用Tailspin Toysリポジトリに用意されている `quality-checks` スキルの中身を、Copilot AppのFilesで確認してみましょう。
+Copilot Appのフィルター実装セッションのFilesで、自分の演習用Tailspin Toysリポジトリにある`quality-checks`スキルの中身を確認してみましょう。
 
 1. 右側のパネルが表示されていない場合は、画面右上のToggle panelを選択して開きます。
 
