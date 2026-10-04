@@ -20,24 +20,24 @@
 
 | 操作 | 操作の入口・進め方 | 学習上の確認点 |
 | :--- | :--- | :--- |
-| 演習コピーを作る | GitHub WebのUse this template → Create a new repository。コピー後に課題8件の自動生成を確認する | 取得先と作成先を確かめ、自分の演習コピーを操作する |
-| リポジトリを接続する | Add GitHub repositoryで演習コピーを追加 | 教材のリポジトリと、コードを変更する演習コピーを区別する |
-| 初回の構成を承認する | Review repository content → Repository trust → Accept for new sessions | セットアップや拡張の内容を読んで承認する。MCPの信頼確認とは別の操作 |
-| Issueを探す | Projectsで演習用プロジェクトを選び、Issuesフィルターを選択。必要に応じてOpen・割り当てなどの表示条件を見直す | Assigned to meが空でもIssueがないとは限らない。表示条件とGitHubの一覧を照合する |
-| PRを探す | サイドバーのPull requests | 変更したリポジトリとPRの向き先が一致するかを確認する |
-| 会話を始める | サイドバーのChatsを右クリック → New chat。Chatの対象選択とInteractiveのモード表示を確認 | ブランチやworktreeを作る実装セッションとの違いを理解する |
-| プロジェクトからセッションを始める | Projectsで演習用プロジェクトを右クリック → + New session。New worktreeとmainを選ぶ | 対象プロジェクト、作業場所、開始元のブランチをそれぞれ確認する |
-| 実行するNode.jsを確認する | 実装セッションでエージェントにnode --versionの実行を依頼し、ツールの出力を確認 | ローカルの確認結果と区別し、テストやビルドを行う環境が要件を満たすか判断する |
-| 変更をレビューする | 実装セッションのChangesで差分を確認。Create PRからPRを作成 | 完了報告と実際の差分・テスト結果を照合してからPR作成へ進む |
-| 計画を承認する | Review plan → Approve and implement this planで承認を送信し、実装へ進む | 仕様、対象外の変更、検査方法、作業を止める位置を承認前に判断する |
-| 開発画面を見る | Run development siteで起動。Browserが自動表示されない場合は、RunターミナルのURLを別ブラウザーで開く。終了時はStopを選択する | 起動、ブラウザー表示、停止を別々に確認する。URLと実行中のworktreeも照合する |
-| MCPを使う | Customize → Installed → MCP Serversで定義を確認し、Trust repositoryを求められた場合は内容を読んで承認する。Connectedを確認してからセッションでツールを呼ぶ | 設定の表示、接続、実際のツール呼び出しを順に確認する。呼び出せない場合は信頼状態と接続設定を調べる |
-| 通常マージを判断する | Ready to mergeからチェック状態を開き、CI全ジョブの成功後にMerge pull requestで統合する | Ready to mergeだけでCI全成功と判断しない。必要なCIと未解決レビューを確認する |
-| Agent Mergeを使う | 通常のCreate PRで作成し、最新のCI全ジョブ成功を確認する。Ready to merge横メニューでAgent mergeをOnにする | 任せる操作を確認して開始し、AppとGitHubのMerged、最新コミットのCI結果を照合する |
-| Canvasを再利用する | プロジェクト共有スコープへ保存・マージし、別セッションで開く。本文追加ボタンからIssue本文を1回追加し、Plan承認後に実装する | 表示、更新、共有保存、本文追加を分けて確認する。追加ボタンだけで実装を始めない |
-| Automationを実行する | Automations → New automation → Trigger: Manual。Run in the cloudをオフにし、Select project → Create and run → Recent runsでLocal / Succeededと出力を確認する | 実行成功の表示に加え、要約の内容をGitHubの一覧と照合する |
+| 演習コピーを作る | GitHub Webの**Use this template** → **Create a new repository**。コピー後に課題8件の自動生成を確認する | 取得先と作成先を確かめ、自分の演習コピーを操作する |
+| リポジトリを接続する | **Add GitHub repository**で演習コピーを追加 | 教材のリポジトリと、コードを変更する演習コピーを区別する |
+| 初回の構成を承認する | **Review repository content** → **Repository trust** → **Accept for new sessions** | セットアップや拡張の内容を読んで承認する。MCPの信頼確認とは別の操作 |
+| Issueを探す | **Projects**で演習用プロジェクトを選び、**Issues**フィルターを選択。必要に応じて**Open**・割り当てなどの表示条件を見直す | **Assigned to me**が空でもIssueがないとは限らない。表示条件とGitHubの一覧を照合する |
+| PRを探す | サイドバーの**Pull requests** | 変更したリポジトリとPRの向き先が一致するかを確認する |
+| 会話を始める | サイドバーの**Chats**を右クリック → **New chat**。**Chat**の対象選択と**Interactive**のモード表示を確認 | ブランチやworktreeを作る実装セッションとの違いを理解する |
+| プロジェクトからセッションを始める | **Projects**で演習用プロジェクトを右クリック → **+ New session**。**New worktree**と**main**を選ぶ | 対象プロジェクト、作業場所、開始元のブランチをそれぞれ確認する |
+| 実行するNode.jsを確認する | 実装セッションでエージェントに`node --version`の実行を依頼し、ツールの出力を確認 | ローカルの確認結果と区別し、テストやビルドを行う環境が要件を満たすか判断する |
+| 変更をレビューする | 実装セッションの**Changes**で差分を確認。**Create PR**からPRを作成 | 完了報告と実際の差分・テスト結果を照合してからPR作成へ進む |
+| 計画を承認する | **Review plan** → **Approve and implement this plan**で承認を送信し、実装へ進む | 仕様、対象外の変更、検査方法、作業を止める位置を承認前に判断する |
+| 開発画面を見る | **Run development site**で起動。**Browser**が自動表示されない場合は、**Run**ターミナルのURLを別ブラウザーで開く。終了時は**Stop**を選択する | 起動、ブラウザー表示、停止を別々に確認する。URLと実行中のworktreeも照合する |
+| MCPを使う | **Customize** → **Installed** → **MCP Servers**で定義を確認し、**Trust repository**を求められた場合は内容を読んで承認する。**Connected**を確認してからセッションでツールを呼ぶ | 設定の表示、接続、実際のツール呼び出しを順に確認する。呼び出せない場合は信頼状態と接続設定を調べる |
+| 通常マージを判断する | **Ready to merge**からチェック状態を開き、CI全ジョブの成功後に**Merge pull request**で統合する | **Ready to merge**だけでCI全成功と判断しない。必要なCIと未解決レビューを確認する |
+| Agent Mergeを使う | 通常の**Create PR**で作成し、最新のCI全ジョブ成功を確認する。**Ready to merge**横メニューで**Agent merge**を**On**にする | 任せる操作を確認して開始し、AppとGitHubの**Merged**、最新コミットのCI結果を照合する |
+| Canvasを再利用する | プロジェクト共有スコープへ保存・マージし、別セッションで開く。本文追加ボタンからIssue本文を1回追加し、**Plan**承認後に実装する | 表示、更新、共有保存、本文追加を分けて確認する。追加ボタンだけで実装を始めない |
+| Automationを実行する | **Automations** → **New automation** → **Trigger**: **Manual**。**Run in the cloud**をオフにし、**Select project** → **Create and run** → **Recent runs**で**Local** / **Succeeded**と出力を確認する | 実行成功の表示に加え、要約の内容をGitHubの一覧と照合する |
 
-Agent Mergeを使う前の判断は、[第7章の開始前確認](../app/7-agent-merge.md)に従ってください。CI全ジョブの完了を待つ条件が適用されるかを、対象リポジトリと自分の権限で確認します。条件が不明なら通常のCreate PRで作成し、最新コミットのCI全成功を待ってからAgent Mergeを開始してください。
+Agent Mergeを使う前の判断は、[第7章の開始前確認](../app/7-agent-merge.md)に従ってください。CI全ジョブの完了を待つ条件が適用されるかを、対象リポジトリと自分の権限で確認します。条件が不明なら通常の**Create PR**で作成し、最新コミットのCI全成功を待ってからAgent Mergeを開始してください。
 
 ## 3. 講師が最新版で確認すること
 
