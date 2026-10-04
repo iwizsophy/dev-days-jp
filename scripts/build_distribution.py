@@ -275,14 +275,13 @@ def book_html(paths, label, config, ref, digest, web_base=None):
 <div class="meta">教材版：{cfg['edition']}<br>演習用テンプレート：{cfg['template_ref']}{provenance}</div>
 <p>{web_link}</p><p><a href="{cfg['template_url']}">演習用テンプレート</a></p>
 <p class="source">画像は操作位置の参考です。操作は本文の項目名と手順を確認してください。プロンプトは選択・コピーできる文字で収録しています。</p></section>'''
-    license_text = html.escape((web.SOURCE / 'licenses/copilot-workshops.txt').read_text(encoding='utf-8'))
-    if participant:
-        attribution = '<a href="https://github.com/iwizsophy/dev-days-jp">日本語教材：iwizsophy/dev-days-jp</a>。<a href="https://github.com/github-samples/copilot-workshops">演習本文の参照元：github-samples/copilot-workshops</a>。'
-    else:
-        attribution = f'日本語原稿：iwizsophy/dev-days-jp / content/ja。演習本文の参照元：{html.escape(web.META["courses"]["app"]["repository"])}、固定コミット {web.META["courses"]["app"]["commit"]}。画像の撮影条件は content/ja/sources.json の ui_captures に記録しています。'
-    credits = f'<section class="credits"><h1 id="credits">出典とライセンス</h1><p>{attribution}</p><pre>{license_text}</pre></section>'
+    credits_title, credits_body = web.title_body(web.SOURCE / 'credits.md')
+    credits_soup = BeautifulSoup(web.markdown_renderer().convert(credits_body), 'html.parser')
+    for table in credits_soup.select('table'):
+        web.layout_table(table, credits_soup)
+    credits = f'<section class="credits"><h1 id="credits">{html.escape(credits_title)}</h1>{credits_soup}</section>'
     css = (ROOT / 'scripts/pdf/print.css').read_text(encoding='utf-8')
-    result = f'<!doctype html><html lang="ja"><head><meta charset="utf-8"><title>{label} | Dev Days</title><style>{css}</style></head><body>{cover}<section class="contents"><h1 id="contents">目次</h1><p>章名や節名を選択すると本文へ移動します。PDFのしおりからは小節も開けます。</p><ul class="contents-chapters">{toc}<li><a class="contents-chapter" href="#credits">出典とライセンス</a></li></ul></section>{"".join(sections)}{credits}</body></html>'
+    result = f'<!doctype html><html lang="ja"><head><meta charset="utf-8"><title>{label} | Dev Days</title><style>{css}</style></head><body>{cover}<section class="contents"><h1 id="contents">目次</h1><p>章名や節名を選択すると本文へ移動します。PDFのしおりからは小節も開けます。</p><ul class="contents-chapters">{toc}<li><a class="contents-chapter" href="#credits">{html.escape(credits_title)}</a></li></ul></section>{"".join(sections)}{credits}</body></html>'
     parsed = BeautifulSoup(result, 'html.parser')
     ids = [n['id'] for n in parsed.select('[id]')]
     if len(ids) != len(set(ids)):
@@ -395,7 +394,7 @@ def main():
     if any(config[f'template_{key}'] != template[key] for key in ('ref', 'commit')):
         raise ValueError('distribution.json template reference does not match sources.json')
     ref = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip()
-    inputs = sorted(list(web.SOURCE.rglob('*.md')) + list((ROOT / 'content/_images').rglob('*')) + [CONFIG, web.SOURCE / 'sources.json', web.SOURCE / 'licenses/copilot-workshops.txt', ROOT / 'scripts/pdf/print.css', ROOT / 'scripts/pdf/print.cjs', ROOT / 'scripts/build_workshops.py', Path(__file__)])
+    inputs = sorted(list(web.SOURCE.rglob('*.md')) + list((ROOT / 'content/_images').rglob('*')) + list((web.SOURCE / 'licenses').rglob('*.txt')) + [CONFIG, web.SOURCE / 'sources.json', ROOT / 'scripts/pdf/print.css', ROOT / 'scripts/pdf/print.cjs', ROOT / 'scripts/build_workshops.py', Path(__file__)])
     digest = hashlib.sha256()
     for p in inputs:
         if p.is_file():
