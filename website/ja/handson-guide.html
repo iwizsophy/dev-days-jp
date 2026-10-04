@@ -6,22 +6,22 @@
 <a href="index.html">教材セットの入口</a><a href="workshops/index.html">App シナリオの目次</a>
 <a href="handson-guide.html#switch">事前準備・UI の確認</a></nav>
 <button class="theme-toggle" type="button" onclick="toggleTheme()">☀️ ライト</button></header>
-<main id="lesson"><h1>Appの事前準備とUI確認</h1><article><p>この教材では、GitHub Copilot Appを使った開発の進め方を学びます。画面の操作に加えて、その操作を行う目的と、結果を判断する根拠を説明できることを目指してください。画像と実際の配置が違うときは、現在の作業対象と目的を確認し、講師と操作経路を照合します。</p>
+<main id="lesson"><h1>Appの事前準備とUI確認</h1><article><p>この教材では、受講者がGitHub Copilot Appのエージェントと一緒に演習用サイトTailspin Toysの機能を変更し、実装からレビュー、マージまでの開発の進め方を学びます。画面を操作する目的と、コード差分・テスト・動作確認から結果を判断した根拠を説明できることを目指してください。教材の画像と自分の画面の配置が違うときは、本文が示す作業対象と目的を確認し、講師と操作経路を照合します。</p>
 <p><a id="prepare"></a></p>
 <h2>事前準備の要件</h2>
-<p>Git、Node.js 24.19.0または <code>&gt;=24.19.0 &lt;25</code>、最新版のGitHub Copilot Appと、自分の演習用リポジトリを用意します。演習コピーは、教材用テンプレートの <strong>Use this template</strong> から作成してください。バージョン管理ツールを使う場合は、インストールした版に加えて、実際に動いているNode.jsの版を確認します。</p>
-<p><a href="workshops/app/1-prerequisites.html">演習1</a>と<a href="workshops/app/2-install-copilot-app.html">演習2</a>に沿って、課題8件、Appの起動、リポジトリ接続、Copilotの応答を確認します。教材リポジトリ <code>dev-days-jp</code> と、機能を実装する演習コピーの役割を区別してください。共通の初期状態を準備すると、生成されたコードの問題と環境の問題を切り分けやすくなります。</p>
+<p>Git、Node.js 24.19.0または <code>&gt;=24.19.0 &lt;25</code>、最新版のGitHub Copilot Appと、自分の演習用リポジトリを用意します。演習コピーは、Tailspin Toysの教材用テンプレートの <strong>Use this template</strong> から作成してください。Node.jsのバージョン管理ツールを使う場合は、インストールしたNode.jsの版に加えて、ターミナルやAppのセッションが実際に使う版を確認します。</p>
+<p><a href="workshops/app/1-prerequisites.html">第1章</a>と<a href="workshops/app/2-install-copilot-app.html">第2章</a>に沿って、自分の演習用リポジトリの課題8件、Appの起動とリポジトリ接続、Copilotの応答を確認します。教材を読むリポジトリ <code>dev-days-jp</code> と、Tailspin Toysの機能を実装する自分の演習用リポジトリの役割を区別してください。受講者が同じ初期状態から演習を始めると、エージェントが生成したコードの問題と、開発環境の問題を切り分けやすくなります。</p>
 <p><a id="plans"></a></p>
 <h2>対象プラン・組織権限・利用枠の確認</h2>
 <p><a href="https://docs.github.com/en/copilot/concepts/agents/github-copilot-app#availability">GitHub公式のApp利用条件</a>では、AppはすべてのCopilotプランを対象としています。受講前に、実際に使うアカウントでAppへ接続できること、利用枠、組織のAppポリシーを確認してください。</p>
 <p>プランで利用できることと、演習を最後まで進める利用枠があることは別です。<a href="https://docs.github.com/en/copilot/get-started/plans">プランの公式案内</a>を参照し、利用するプランの枠を確認してください。</p>
 <p><a id="switch"></a></p>
 <h2>画面やメニュー配置が異なる場合</h2>
-<p>画面やメニューが教材の画像と異なる場合は、本文の操作対象、開始状態、項目名を照合してください。Issueは <strong>Issues</strong>、PRは <strong>Pull requests</strong> から開きます。目的の項目が見つからない場合は、現在の画面と、進めたい操作を講師に伝えてください。</p>
+<p>GitHub Copilot Appの画面やメニューが教材の画像と異なる場合は、本文が示す操作対象、作業を始める状態、項目名を自分の画面と照合してください。Appでは、演習用リポジトリのIssueを <strong>Issues</strong>、PRを <strong>Pull requests</strong> から開きます。目的の項目が見つからない場合は、現在の画面と、進めたい操作を講師に伝えてください。</p>
 <p><a id="mapping"></a></p>
 <h2>学習の完了条件と成果の区別</h2>
 <p>コードが動くことに加えて、Appの機能を使って何を判断したかを確認します。Agent Mergeでは許可した操作とマージ結果、Canvasでは共有した情報と次の作業への使い方、Automationでは実行結果と要約の正確さを説明できることを目指してください。</p>
-<p>受講者は、成果物を見せるだけでなく「何を期待し、どの結果を見て、その判断をしたか」を説明します。たとえばフィルターでは、選んだ条件と該当件数、0件の状態、解除後の一覧を比べることで、要件と動作を結び付けられます。</p>
+<p>受講者は、変更したTailspin Toysの画面やコードを見せるだけでなく「何を期待し、どの結果を見て、その判断をしたか」を説明します。たとえばゲーム一覧の絞り込みでは、選んだカテゴリー・パブリッシャーの条件と該当件数、該当するゲームが0件の状態、条件を解除した後の一覧を比べることで、要件と実際の動作を結び付けられます。</p>
 <p><a id="finish"></a></p>
 <h2>演習終了後の確認と記録</h2>
-<p>コミット履歴、差分、テスト結果を確認し、最初の指示で伝わったことと、追加の説明が必要だったことを振り返ります。まだ確認できていないことや、次に試したいことも残してください。開発サーバーや不要な定期実行を停止し、成果物を保存します。</p></article></main></body></html>
+<p>自分の演習用リポジトリのコミット履歴、コード差分、テスト結果を確認し、エージェントへ最初の指示で伝わったことと、追加の説明が必要だったことを振り返ります。実装した機能について、まだ確認できていないことや、次に試したいことも残してください。Tailspin Toysの開発サーバーや、演習で作成して不要になった定期実行を停止し、成果物を保存します。</p></article></main></body></html>
