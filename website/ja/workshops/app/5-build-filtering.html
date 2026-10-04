@@ -41,32 +41,37 @@
 <p>Copilot Appで選べるInteractive、Plan、Autopilotの役割は<a href="https://docs.github.com/copilot/how-tos/github-copilot-app/agent-sessions">GitHub公式のセッション説明</a>に記載されています。実装を任せる前に、受講者は作業を止める位置と必要な報告をプロンプトに含めてください。工程ごとに結果を読み、次へ進めるかを判断する経験は、ほかの機能を開発するときにも使えます。</p>
 <h3 id="511-この章で学ぶこと">5.1.1 この章で学ぶこと</h3>
 <p>この章を終えると、要件を実装前の受け入れ条件へ整理し、承認した計画と実装結果を比べて追加修正を依頼できます。</p>
-<table>
+<div class="table-scroll" tabindex="0"><table class="content-table"><colgroup><col style="width:7%"/><col style="width:44.86%"/><col style="width:48.14%"/></colgroup>
 <thead>
 <tr>
-<th style="text-align: left;">この章で行うこと</th>
-<th style="text-align: left;">到達した状態</th>
+<th class="table-number" scope="col" style="text-align: center;">項番</th>
+<th scope="col" style="text-align: left;">この章で行うこと</th>
+<th scope="col" style="text-align: left;">到達した状態</th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td class="table-number" style="text-align: center;">1</td>
 <td style="text-align: left;">PlanでIssueの要件を整理し、操作条件と期待結果を含む計画をレビューする</td>
 <td style="text-align: left;">曖昧な要件や計画の不足を見つけ、実装前に必要な条件を補える</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">2</td>
 <td style="text-align: left;">作業範囲と停止位置を伝え、承認した計画をAutopilotで実装させる</td>
 <td style="text-align: left;">計画と差分を照合し、エージェントの作業が指示した範囲に収まるか判断できる</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">3</td>
 <td style="text-align: left;">生成されたコードと、共有したカスタム指示を照合する</td>
 <td style="text-align: left;">規約の反映を判断し、不足や食い違いがあれば修正を依頼できる</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">4</td>
 <td style="text-align: left;">quality-checksスキルで検査を依頼し、実行結果とbuildの結果を確認する</td>
 <td style="text-align: left;">単体テスト、E2E、lint・型検査、buildの役割を区別し、再検査の必要を判断できる</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <h2 id="52-取り組む前に">5.2 取り組む前に</h2>
 <p>第4章の規約更新をmainへマージ済みの演習用Tailspin Toysリポジトリを使います。Copilot Appで始めるフィルター実装セッションは、そのmainから始めます。対象のIssueは「Allow users to filter games by category and publisher」です。</p>
 <p>Tailspin Toysは静的サイトです。ページの生成時にゲームデータを読み込み、ブラウザー上で表示するゲームを絞ります。通常の教材データは21件あり、フィルターを追加した後も星評価とゲーム詳細へのリンクを維持します。0件表示の検査には、専用CSV、隔離DB、別ポートのサーバーが必要です。</p>
@@ -74,28 +79,32 @@
 <h2 id="53-ケース">5.3 ケース</h2>
 <p><a id="シナリオ"></a></p>
 <p>このケースの目的は、Tailspin Toysのホームページに、カテゴリと出版社でゲーム一覧を絞り込む機能を追加することです。Copilot Appの新しいフィルター実装セッションで、Planによる仕様の確認からAutopilotによる実装と自動テストまで進めます。</p>
-<table>
+<div class="table-scroll" tabindex="0"><table class="content-table"><colgroup><col style="width:7%"/><col style="width:18%"/><col style="width:75%"/></colgroup>
 <thead>
 <tr>
-<th style="text-align: left;">観点</th>
-<th style="text-align: left;">このケースで扱う内容</th>
+<th class="table-number" scope="col" style="text-align: center;">項番</th>
+<th scope="col" style="text-align: left;">観点</th>
+<th scope="col" style="text-align: left;">このケースで扱う内容</th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td class="table-number" style="text-align: center;">1</td>
 <td style="text-align: left;">状況</td>
 <td style="text-align: left;">ホームページに全ゲームが並び、訪問者がカテゴリや出版社を選んで絞り込む機能はありません。</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">2</td>
 <td style="text-align: left;">課題と理由</td>
 <td style="text-align: left;">フィルター機能のIssueでは、訪問者がカテゴリと出版社を選んでゲームを探せるようにすることが求められています。</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">3</td>
 <td style="text-align: left;">解決策</td>
 <td style="text-align: left;">カテゴリ同士をOR、カテゴリと出版社をANDで組み合わせ、出版社を単一選択にする、クライアント側のフィルターを実装します。</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p>本章の範囲は、フィルター機能の計画、実装、自動テストまでです。第6章ではPlaywright MCPによるブラウザー検証、第7章ではフィルター機能のPR作成とマージへ進みます。工程を分けるのは、実装ができた時点で操作性やCIまで確認済みだと思い込まないためです。受講者は、第4章で共有した規約と生成コードを比べ、quality-checksスキルでCopilotに自動検査を実行させます。差分、Tailspin Toysの画面操作、自動検査の結果を読んでから、第6章のブラウザー検証へ進んでください。</p>
 <p><a id="フィルター機能を計画する"></a></p>
 <h3 id="531-フィルター機能を計画する">5.3.1 フィルター機能を計画する</h3>
@@ -194,32 +203,37 @@ Copilotの出力は確率的に動作するため、提示される質問内容�
 <li>ファイル全体を確認します。単体テスト、PlaywrightによるE2Eテスト、ESLintの各スイートを実行するコマンド体系、実行順序、および失敗時のトラブルシューティング手順が体系化されています。エージェントは推測に頼らず、チーム規定の手順に沿って検証を実行できます。</li>
 </ol>
 <p>Tailspin Toysの各検査で分かることは異なります。フィルター機能の検査結果を読むときは、次の役割を区別してください。</p>
-<table>
+<div class="table-scroll" tabindex="0"><table class="content-table"><colgroup><col style="width:7%"/><col style="width:18%"/><col style="width:75%"/></colgroup>
 <thead>
 <tr>
-<th style="text-align: left;">検査</th>
-<th style="text-align: left;">この機能で確認すること</th>
+<th class="table-number" scope="col" style="text-align: center;">項番</th>
+<th scope="col" style="text-align: left;">検査</th>
+<th scope="col" style="text-align: left;">この機能で確認すること</th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td class="table-number" style="text-align: center;">1</td>
 <td style="text-align: left;">単体テスト</td>
 <td style="text-align: left;">フィルター条件の判定やデータ処理を、小さな入力と期待結果で確認する</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">2</td>
 <td style="text-align: left;">E2Eテスト</td>
 <td style="text-align: left;">ブラウザーで選択・表示・解除がつながることを、繰り返せる操作として確認する</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">3</td>
 <td style="text-align: left;">lint・型検査</td>
 <td style="text-align: left;">設定されたコード規約、型やコンポーネントの整合性を確認する</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">4</td>
 <td style="text-align: left;">build</td>
 <td style="text-align: left;">静的ページを生成できることを確認する。画面操作の正しさは別途確認する</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p>スキルを呼び出したという表示だけでは、全検査の成功を判断できません。実行したコマンド、成功・失敗した結果、追加したテストの内容を報告から確認します。<code>quality-checks</code>の定義に含まれる型検査も確認し、静的サイトの生成はAppの<strong>Run</strong> → <strong>Build static site</strong>でも確かめてください。</p>
 <p><a id="通常データでは確認できない0件表示"></a></p>
 <h4 id="5342-通常データでは確認できない0件表示">5.3.4.2 通常データでは確認できない0件表示</h4>

@@ -32,56 +32,64 @@
 <p>変更をmainへ統合するときは、マージの操作と、変更の品質を判断する作業を分けて考えます。Agent Mergeでは対象PRの確認とマージの操作をエージェントへ任せられますが、何を満たしたらマージしてよいかは人の判断が必要です。</p>
 <p>GitHubの「マージできる」という表示と、「必要な検証を終えた」という人の判断も別です。対象PRの差分、マージ先、最新コミットのCIを確認し、エージェントへ任せる範囲を決める方法を学びます。自動化するときも、統合を認めた条件とマージの完了を自分で説明できることが、この章の到達点です。</p>
 <h3 id="711-この章で学ぶこと">7.1.1 この章で学ぶこと</h3>
-<table>
+<div class="table-scroll" tabindex="0"><table class="content-table"><colgroup><col style="width:7%"/><col style="width:50.83%"/><col style="width:42.17%"/></colgroup>
 <thead>
 <tr>
-<th style="text-align: left;">この章で行うこと</th>
-<th style="text-align: left;">到達した状態</th>
+<th class="table-number" scope="col" style="text-align: center;">項番</th>
+<th scope="col" style="text-align: left;">この章で行うこと</th>
+<th scope="col" style="text-align: left;">到達した状態</th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td class="table-number" style="text-align: center;">1</td>
 <td style="text-align: left;">手動マージとAgent Mergeを比べ、人が判断する作業と任せる操作を整理する</td>
 <td style="text-align: left;">マージ操作の自動化と、品質判断・統合結果確認の責任を区別して説明できる</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">2</td>
 <td style="text-align: left;">対象PRの差分・マージ先・最新コミットのCI全ジョブの成功を確認し、Agent Mergeを有効にする</td>
 <td style="text-align: left;">差分・マージ先・CIを根拠に、Agent Mergeを開始してよいか判断できる</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">3</td>
 <td style="text-align: left;">AppとGitHubで同じPRのMergedとマージ先を照合し、mainへの統合を確認する</td>
 <td style="text-align: left;">Agent Mergeの開始、CI成功、mainへのマージ完了を区別できる</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <h2 id="72-取り組む前に">7.2 取り組む前に</h2>
 <p>GitHub Copilot appで、前章まで使っていたフィルター機能の実装セッションを引き続き使います。フィルター機能の差分レビュー、単体・E2Eテスト、Playwright MCPによる画面検証と後片付けを終えておいてください。未対応の指摘が残っている場合は、エージェントへ修正を依頼し、修正後の検証結果を確認してから進みます。</p>
 <p>GitHubで「マージ可能」であることと、この演習で求める「CIの全ジョブ成功」は同じとは限りません。必須チェックに指定されていないジョブが実行中でも、GitHubはマージを許可する場合があります。保護設定の考え方は<a href="https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches#require-status-checks-before-merging">GitHub公式の必須ステータスチェックの説明</a>で確認できます。</p>
 <p>AppのAgent mergeは、有効にした直後にエージェントが対象PRの処理を始める機能です。マージ可能なPRでは、すぐにMergedへ変わることもあります。Agent mergeを有効にした後に操作許可を見直すことを前提にせず、対象PRの差分とCIを先に確認してください。</p>
 <h2 id="73-ケース">7.3 ケース</h2>
 <p>このケースでは、Tailspin Toysのゲーム一覧をカテゴリと出版社で絞り込むフィルター機能のPRを、自分の演習用リポジトリのmainへ統合します。手動でマージしていた工程のうち、今回エージェントへ任せる範囲を確かめましょう。</p>
-<table>
+<div class="table-scroll" tabindex="0"><table class="content-table"><colgroup><col style="width:7%"/><col style="width:18%"/><col style="width:75%"/></colgroup>
 <thead>
 <tr>
-<th style="text-align: left;">観点</th>
-<th style="text-align: left;">このケースで扱う内容</th>
+<th class="table-number" scope="col" style="text-align: center;">項番</th>
+<th scope="col" style="text-align: left;">観点</th>
+<th scope="col" style="text-align: left;">このケースで扱う内容</th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td class="table-number" style="text-align: center;">1</td>
 <td style="text-align: left;">状況</td>
 <td style="text-align: left;">前章までにフィルター機能の実装と、単体・E2Eテスト、Playwright MCPによるブラウザー操作の検証を終えている。フィルター機能のPRはmainへ統合する前の段階にある。</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">2</td>
 <td style="text-align: left;">課題と理由</td>
 <td style="text-align: left;">後続の作業でもフィルター機能を使えるよう、PRをmainへ統合する必要がある。マージ可能の表示だけでは、必要な検証を終えたとは判断できない。</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">3</td>
 <td style="text-align: left;">解決策</td>
 <td style="text-align: left;">フィルター機能のPRは、受講者が差分・マージ先・最新コミットのCI全ジョブ成功を確認してから、Agent Mergeで演習用リポジトリのmainへ統合する。マージの操作を任せても、品質条件の判断と統合結果の確認は受講者が担当する。</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p>これまでの手動マージでは、対象PRのCI完了を待ち、マージを自分で実行しました。このケースでもCIの全ジョブ成功までは自分で確認し、以後のPR確認とマージの操作をエージェントへ任せます。本章ではmainへの統合までを扱い、本番環境への公開は含みません。</p>
 <p><a id="開始前にマージ条件を確認する"></a></p>
 <h3 id="731-prを作成し最新のci結果を確認する">7.3.1 PRを作成し、最新のCI結果を確認する</h3>
@@ -116,28 +124,32 @@
 <p><img alt="フィルターの実装から第8章への引き継ぎ" src="../assets/app-worktree-handoff.png" /></p>
 <h2 id="74-結果の整理と振り返り">7.4 結果の整理と振り返り</h2>
 <p>フィルター機能のPRのマージが完了したら、次の3点を自分の言葉で説明してみてください。対象PRのAgent mergeをOnにしたこと、CIが成功したこと、mainへのマージが完了したことを区別できれば、途中で問題が起きた場合にも確認箇所を絞れます。</p>
-<table>
+<div class="table-scroll" tabindex="0"><table class="content-table"><colgroup><col style="width:7%"/><col style="width:25.19%"/><col style="width:67.81%"/></colgroup>
 <thead>
 <tr>
-<th style="text-align: left;">振り返る問い</th>
-<th style="text-align: left;">今回の結果で確かめること</th>
+<th class="table-number" scope="col" style="text-align: center;">項番</th>
+<th scope="col" style="text-align: left;">振り返る問い</th>
+<th scope="col" style="text-align: left;">今回の結果で確かめること</th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td class="table-number" style="text-align: center;">1</td>
 <td style="text-align: left;">人は何を判断したか</td>
 <td style="text-align: left;">要件を満たす差分、レビュー結果、マージ先、最新CIの全成功</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">2</td>
 <td style="text-align: left;">エージェントへ何を任せたか</td>
 <td style="text-align: left;">CI確認後のPR確認とマージの操作。追加修正があれば、その内容も区別する</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">3</td>
 <td style="text-align: left;">完了を何で説明できるか</td>
 <td style="text-align: left;">AppとGitHubのMerged、マージ先のmain、成功したCIの一覧</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p>今回は、フィルター機能のPRのCI完了を待つ工程を自分で担当しました。エージェントによる追加修正が起きなかった場合は、CI失敗や競合の修復を体験したとは扱わず、実際に任せたPRの確認とマージの操作を振り返ります。Agent Mergeという機能名だけでなく、任せた範囲と確認したマージ結果を説明できることが到達点です。</p>
 <p>次は、演習用リポジトリのIssueを同じ画面で比較し、エージェントと作業を計画するキャンバスを使います。<a href="8-canvases.html">第8章「キャンバスを使った計画」</a>へ進んでください。</p>
 <p><a id="補足"></a></p>
@@ -151,32 +163,37 @@
 <p>Agent Mergeはバックグラウンドで動作し、Appの再起動後も継続して、マージ後に終了します。待機やマージの操作を任せても、テストに含まれていない要件まではCIの成功だけで判断できません。<a href="https://docs.github.com/en/copilot/how-tos/github-copilot-app/managing-issues-and-pull-requests#merging-a-pull-request">GitHub公式のAgent Mergeの説明</a></p>
 <p>たとえば、Tailspin Toysでカテゴリを2つ選んだときに、一方のカテゴリに該当するゲームしか表示されない実装でも、件数を十分に検査していなければテストを通ることがあります。第5章と第6章で確認したフィルターの条件を、Agent Mergeを使うときも品質の基準として使ってください。</p>
 <p>Agent Mergeの詳細な操作許可を選べる場合は、次の観点でエージェントへ任せる範囲を確認します。許可した操作と、対象PRでエージェントが実際に行った処理は区別してください。</p>
-<table>
+<div class="table-scroll" tabindex="0"><table class="content-table"><colgroup><col style="width:7%"/><col style="width:27.86%"/><col style="width:65.14%"/></colgroup>
 <thead>
 <tr>
-<th style="text-align: left;">任せる操作</th>
-<th style="text-align: left;">人が確認すること</th>
+<th class="table-number" scope="col" style="text-align: center;">項番</th>
+<th scope="col" style="text-align: left;">任せる操作</th>
+<th scope="col" style="text-align: left;">人が確認すること</th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td class="table-number" style="text-align: center;">1</td>
 <td style="text-align: left;">レビュー指摘への対応</td>
 <td style="text-align: left;">指摘の意図を満たし、不要な仕様変更を加えていないか</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">2</td>
 <td style="text-align: left;">CI失敗の調査と修正</td>
 <td style="text-align: left;">検査を弱めて通していないか。修正後に必要な検査を実行したか</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">3</td>
 <td style="text-align: left;">他の変更との競合解消</td>
 <td style="text-align: left;">両方の変更意図を保っているか</td>
 </tr>
 <tr>
+<td class="table-number" style="text-align: center;">4</td>
 <td style="text-align: left;">条件を満たしたPRのマージ</td>
 <td style="text-align: left;">対象PRとマージ先が正しく、レビューと検証を終えているか</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p>CIの待機も含めてAgent Mergeへ任せたい場合は、対象PRの必須チェックを待つ条件が、自分の権限でのマージにも適用されるかを先に確認します。条件が分からなければ、本章と同じく対象PRのCI全ジョブの成功を待ってから<strong>Agent merge</strong>を<strong>On</strong>にしてください。ブランチ保護や必須チェックの設定を理解すると、チームでどこまで任せるかを判断しやすくなります。<a href="https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches#require-status-checks-before-merging">GitHub公式のブランチ保護の説明</a></p>
 <p><a id="判断と結果の振り返り"></a>
 <a id="リソース"></a></p>
