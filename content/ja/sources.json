@@ -165,8 +165,8 @@
     "cli_policy": "講師専用の緊急対応。本編の App 操作完了には数えない。",
     "exercise_template": {
       "repository": "iwizsophy/dev-days-tailspin-template",
-      "ref": "v2026.10.03",
-      "commit": "ae18804e616f895ef30a15732037b9125f68ac74",
+      "ref": "v2026.10.05",
+      "commit": "02d5215b9f81503c871227475b7ecf6dacd797f0",
       "previous_distribution": {
         "tag": "v2026.09.13.1",
         "commit": "aea4c027a073dd757017829bd988857877c1a545",
@@ -183,10 +183,11 @@
         "Node version requirements and CI pin",
         "Astro and development dependency security updates",
         "Vitest 4.1.11 and compatible transitive updates",
-        "Foreground dev/preview API launcher and matching Playwright CI image"
+        "Foreground dev/preview API launcher and matching Playwright CI image",
+        "Public npm registry URLs for all lockfile resolved packages"
       ],
       "exercise_solutions_included": false,
-      "distribution_status": "2026-10-02のWORKSHOP.md記録：依存更新後の機能検査成功、監査0件。2026-10-03のApp実走ではこのコミットから演習コピーを作成。現在の版への再監査結果ではない"
+      "distribution_status": "2026-10-02のWORKSHOP.md記録では、依存更新後の機能検査が成功し、監査は0件。2026-10-03・04のApp実走はv2026.10.03（ae18804）から作成した演習コピーで実施。2026-10-05公開のv2026.10.05では、内部ミラーのURL6件を公式npmレジストリへ変更し、mainのCIと開発・本番依存関係のDependabot更新が成功。新しい版でのApp全章再実走と再監査は未実施"
     },
     "official_documentation_checks": {
       "checked": "2026-10-03",

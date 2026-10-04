@@ -1,7 +1,7 @@
 {
   "edition": "2026.10.04",
-  "template_ref": "v2026.10.03",
-  "template_commit": "ae18804e616f895ef30a15732037b9125f68ac74",
+  "template_ref": "v2026.10.05",
+  "template_commit": "02d5215b9f81503c871227475b7ecf6dacd797f0",
   "template_url": "https://github.com/iwizsophy/dev-days-tailspin-template",
   "books": {
     "participant": {

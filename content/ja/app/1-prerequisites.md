@@ -26,7 +26,7 @@ GitHub Copilot appのエージェントと開発を進めるには、コード�
 
 本教材ではNode.js 24系のLTS版、24.19.0以降を使用します。すでにこの条件を満たしていれば、再インストールは不要です。nvmなどでバージョンを管理している場合は、その管理方法に合わせて切り替えます。
 
-演習に使うのは、[教材用のTailspin Toysテンプレート](https://github.com/iwizsophy/dev-days-tailspin-template)です。使用する教材のバージョンは[v2026.10.03](https://github.com/iwizsophy/dev-days-tailspin-template/tree/v2026.10.03)で、星評価やフィルター機能の解答コードは含まれていません。教材リポジトリの`dev-days-jp`と、これからコードを変更するTailspin Toysのコピーを区別して進めます。
+演習に使うのは、[教材用のTailspin Toysテンプレート](https://github.com/iwizsophy/dev-days-tailspin-template)です。使用する教材のバージョンは[v2026.10.05](https://github.com/iwizsophy/dev-days-tailspin-template/tree/v2026.10.05)で、星評価やフィルター機能の解答コードは含まれていません。教材リポジトリの`dev-days-jp`と、これからコードを変更するTailspin Toysのコピーを区別して進めます。
 
 ## 1.3 ケース
 
