@@ -32,7 +32,7 @@
 </div>
 </details><article><h2 id="11-章の概要">1.1 章の概要</h2>
 <p>この教材では、ゲームを紹介するクラウドファンディングサイト「Tailspin Toys」を題材に、GitHub Copilot appのエージェントと開発を進めます。体験するのは、変更の目的を伝え、生成されたコードとテストを確認し、レビューした変更を自分のリポジトリへ取り込む流れです。</p>
-<p>最初に、アプリのビルドとテストを動かすNode.jsと、自分で変更できる演習用リポジトリを準備します。環境の準備ができていれば、後の章でエラーが起きたときも、環境と実装を分けて調べやすくなります。</p>
+<p>最初に、Tailspin Toysのビルドとテストを動かすNode.jsと、自分で変更できる演習用リポジトリを準備します。環境の準備ができていれば、後の章でエラーが起きたときも、環境と実装を分けて調べやすくなります。</p>
 <h2 id="12-この章で学ぶこと">1.2 この章で学ぶこと</h2>
 <table>
 <thead>
@@ -44,10 +44,10 @@
 <tbody>
 <tr>
 <td style="text-align: left;">実行されるNode.jsのバージョンを確認できる</td>
-<td style="text-align: left;">ビルドやテストに必要な環境がそろっているか判断する</td>
+<td style="text-align: left;">Tailspin Toysのビルドやテストに必要な環境がそろっているか判断する</td>
 </tr>
 <tr>
-<td style="text-align: left;">テンプレートから自分のコピーを作成できる</td>
+<td style="text-align: left;">Tailspin Toysのテンプレートから自分用のリポジトリを作成できる</td>
 <td style="text-align: left;">Issue、ブランチ、Pull Requestを使って変更を管理する</td>
 </tr>
 <tr>
@@ -64,7 +64,7 @@
 <p><a id="nodejs-のインストールとバージョン確認"></a>
 <a id="確認とインストール手順"></a></p>
 <h3 id="141-nodejsのバージョンを確認する">1.4.1 Node.jsのバージョンを確認する</h3>
-<p>インストール済みのバージョンと、今のターミナルが実行するバージョンは一致するでしょうか。まずコマンドの出力を調べます。</p>
+<p>PCにインストールしたNode.jsのバージョンと、今のターミナルが実行するNode.jsのバージョンは一致するでしょうか。まずバージョンを確認するコマンドの出力を調べます。</p>
 <ol>
 <li>Windows Terminal、macOS Terminalなど、普段使うターミナルを開きます。</li>
 <li>次のコマンドを実行します。</li>
@@ -82,12 +82,12 @@
 <li>インストール後、新しいターミナルを開き直します。</li>
 <li>もう一度<code>node --version</code>を実行し、条件を満たすバージョンが表示されることを確認します。</li>
 </ol>
-<p>すでにCopilot Appを起動している場合は、完全に終了して再起動します。新しい環境変数を反映したうえで、実装セッションでもNode.jsを確認してください。確認方法は、<a href="3-add-star-rating.html#実装前の環境確認">第3章の実装前の環境確認</a>で扱います。</p>
+<p>Node.jsのインストール後、すでにGitHub Copilot appを起動している場合は、完全に終了して再起動します。新しい環境変数をAppに反映したうえで、エージェントに実装を依頼するセッションでもNode.jsのバージョンを確認してください。確認方法は、<a href="3-add-star-rating.html#実装前の環境確認">第3章の実装前の環境確認</a>で扱います。</p>
 <p><a id="演習用リポジトリの作成"></a>
 <a id="使用するテンプレート"></a>
 <a id="github-web-での作成手順"></a></p>
 <h3 id="142-テンプレートから演習用リポジトリを作る">1.4.2 テンプレートから演習用リポジトリを作る</h3>
-<p>後の章では、自分のコピーでIssueやPull Requestを扱います。コピーを作る前に、元のテンプレートとコピー先の所有者を確認しましょう。操作の詳細は<a href="https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template">GitHub公式のテンプレートからの作成手順</a>も参照できます。</p>
+<p>後の章では、各自が作成したTailspin Toysの演習用リポジトリでIssueやPull Requestを扱います。作成前に、コピー元のテンプレートと作成先の所有者を確認しましょう。操作の詳細は<a href="https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template">GitHub公式のテンプレートからの作成手順</a>も参照できます。</p>
 <ol>
 <li>ブラウザーで<code>https://github.com/iwizsophy/dev-days-tailspin-template</code>を開きます。</li>
 <li><strong>Use this template → Create a new repository</strong>を選択します。</li>
@@ -130,21 +130,21 @@
 <ol start="4">
 <li>フォーム下部の任意項目<strong>Jumpstart your project with Copilot</strong>では、Prompt欄を空欄のままにします。</li>
 <li>入力内容を確認し、<strong>Create repository</strong>を選択します。</li>
-<li>作成したリポジトリの<code>owner/repo</code>を控えます。次章ではこのコピーをAppに接続します。</li>
+<li>作成したリポジトリの<code>owner/repo</code>を控えます。次章では、作成した演習用リポジトリをAppに接続します。</li>
 </ol>
 <p><a id="演習用issueの準備を確認する"></a></p>
 <h3 id="143-演習用issueを確認する">1.4.3 演習用Issueを確認する</h3>
-<p>コピーの作成後に自動実行されるのが、GitHub Actionsの<strong>Bootstrap template issues</strong>ワークフローです。実行が終わると、演習で使う8件のIssueが作成されます。</p>
+<p>Tailspin Toysの演習用リポジトリの作成後に、GitHub Actionsで自動実行されるのが<strong>Bootstrap template issues</strong>ワークフローです。実行が終わると、そのリポジトリに演習で使う8件のIssueが作成されます。</p>
 <ol>
-<li>作成したコピーの<strong>Issues</strong>タブを開き、8件の課題が表示されることを確認します。</li>
-<li>課題が表示されない場合は、同じコピーの<strong>Actions</strong>タブで実行状況を確認します。</li>
+<li>作成した演習用リポジトリの<strong>Issues</strong>タブを開き、8件の課題が表示されることを確認します。</li>
+<li>課題が表示されない場合は、同じ演習用リポジトリの<strong>Actions</strong>タブでワークフローの実行状況を確認します。</li>
 <li>必要に応じて<strong>Bootstrap template issues → Run workflow</strong>を実行し、終了後にIssuesを開き直します。</li>
 </ol>
-<p>Issueのタイトルには、フィルター機能やコーディング規約など、これから取り組む変更が表れています。コードのコピーと課題の準備がそろったことを確認して、次へ進んでください。</p>
+<p>作成された演習用Issueのタイトルには、フィルター機能やコーディング規約など、これから取り組む変更が表れています。演習用リポジトリのコードとIssueがそろったことを確認して、次へ進んでください。</p>
 <p><a id="完了の確認"></a>
 <a id="振り返り"></a></p>
 <h2 id="15-結果の整理と振り返り">1.5 結果の整理と振り返り</h2>
-<p>Node.jsと、自分で変更できる演習用リポジトリを用意しました。次の項目を確認してください。</p>
+<p>Tailspin Toysを実行するNode.jsと、自分で変更できる演習用リポジトリを用意しました。次の項目を確認してください。</p>
 <ul>
 <li><code>node --version</code>で、Node.js 24系の24.19.0以降を確認できた。</li>
 <li>テンプレートから自分のコピーを作成し、<code>owner/repo</code>を控えた。</li>
@@ -152,7 +152,7 @@
 </ul>
 <p>「各自のコピーが必要な理由」と「インストール後にバージョンを確認する理由」を、自分の言葉で説明してみましょう。予想したバージョンと実際の出力が違った場合は、何を切り替えて解決したかも振り返ります。</p>
 <p><a id="次のステップ"></a></p>
-<p>次はAppをインストールし、コピーを接続します。<a href="2-install-copilot-app.html">第2章「GitHub Copilot appのインストール」</a>へ進んでください。</p>
+<p>次章ではGitHub Copilot appをインストールし、今回作成した演習用リポジトリを接続します。<a href="2-install-copilot-app.html">第2章「GitHub Copilot appのインストール」</a>へ進んでください。</p>
 <p><a id="補足"></a></p>
 <h2 id="16-補足">1.6 補足</h2>
 <p><a id="この教材で体験する開発の流れ"></a></p>
@@ -161,12 +161,12 @@
 <p>この教材で変更の目的と確認条件を伝えるのは受講者です。エージェントの完了報告を受けた後も、実際のコードや画面を確認し、必要なら修正を依頼します。環境を準備する段階から、説明と実際の結果を照合する習慣をつけましょう。</p>
 <p><a id="nodejsと実行環境"></a></p>
 <h3 id="162-nodejsと実行環境">1.6.2 Node.jsと実行環境</h3>
-<p>Tailspin ToysはAstroで構築されています。ローカルPCの<a href="https://nodejs.org/">Node.js</a>でアプリをビルドし、Vitestの単体テストとPlaywrightのE2Eテストを実行します。</p>
-<p>ターミナルで確認できるのは、そのターミナルが使うNode.jsです。Appの実装セッションで使うバージョンも確認すると、要件との違いを見つけられます。バージョン管理ツールを使っている場合も、コマンドの出力を確かめてください。インストールの完了と、実行されるバージョンの確認は別の作業です。</p>
-<p>テンプレートには<a href="https://code.visualstudio.com/docs/devcontainers/containers">dev container</a>の設定もあります。<a href="https://www.docker.com/products/docker-desktop/">Docker Desktop</a>などで別の環境を使う場合は、講師の案内に従ってください。</p>
+<p>演習用サイトTailspin ToysはAstroで構築されています。ローカルPCの<a href="https://nodejs.org/">Node.js</a>でTailspin Toysをビルドし、Vitestの単体テストとPlaywrightのE2Eテストを実行します。</p>
+<p>ターミナルで確認できるのは、そのターミナルが使うNode.jsです。GitHub Copilot appの実装セッションで使うNode.jsのバージョンも確認すると、演習の要件との違いを見つけられます。バージョン管理ツールを使っている場合も、コマンドの出力を確かめてください。インストールの完了と、実行されるバージョンの確認は別の作業です。</p>
+<p>Tailspin Toysの教材用テンプレートには<a href="https://code.visualstudio.com/docs/devcontainers/containers">dev container</a>の設定もあります。<a href="https://www.docker.com/products/docker-desktop/">Docker Desktop</a>などで別の環境を使う場合は、講師の案内に従ってください。</p>
 <p><a id="各自の演習用コピーを使う理由"></a></p>
 <h3 id="163-各自の演習用コピーを使う理由">1.6.3 各自の演習用コピーを使う理由</h3>
-<p>Issueを起点に実装し、レビューした変更を自分のmainへ取り込むため、各自の演習用コピーを作ります。他の受講者の作業と分けて進められ、試した変更の履歴も自分で確認できます。</p>
+<p>演習用Issueを起点に実装し、レビューした変更を自分の演習用リポジトリのmainへ取り込むため、各自のTailspin Toysのコピーを作ります。他の受講者の作業と分けて進められ、試した変更の履歴も自分で確認できます。</p>
 <p>テンプレートからの作成は、用意されたファイルを基に新しいプロジェクトを始める操作です。詳細は<a href="https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template">GitHub公式のテンプレート説明</a>を参照してください。</p>
 <p><a id="リソース"></a></p>
 <h3 id="164-参考資料">1.6.4 参考資料</h3>

@@ -21,7 +21,7 @@
 </ul>
 </div>
 </details><article><h2 id="この教材セットの進め方">この教材セットの進め方</h2>
-<p>本教材は、GitHub Copilot App を使った開発フローと操作体験を一連の流れで学ぶ本編コース です。演習 1〜9 を順番に進めます。</p>
+<p>本教材では、GitHub Copilot Appを使い、機能の実装からテスト、レビュー、PRのマージまでの開発の流れを学びます。第1〜9章を順番に進めてください。</p>
 <p>単にコードを完成させることだけが目的ではありません。次のAppの機能を、実際に手を動かして体験・確認します。</p>
 <table>
 <thead>
@@ -59,8 +59,8 @@
 </table>
 <h3 id="この演習で身につける判断">この演習で身につける判断</h3>
 <p><img alt="開発の流れと人が判断すること" src="../assets/app-learning-flow.png" /></p>
-<p>題材となるTailspin Toysは、ゲームを紹介するクラウドファンディングサイトです。利用者が支援したいゲームを探せるように、カードの星評価、カテゴリーとパブリッシャーによる絞り込み、タイトル検索を順に追加します。前の章で作った機能を残したまま次の変更を加えるため、既存の振る舞いを確かめることも各章の課題になります。</p>
-<p>この順番には学習上の理由があります。最初は小さな星評価の変更を通じて、要件を伝え、差分を読み、テストと画面を確認してからマージする一連の判断を経験します。その後、指示ファイルで共通の前提を共有し、Planで仕様の曖昧さを解消してから、自律的な実装へ進みます。人が確認する観点を理解したうえで、Agent MergeやAutomationに任せる範囲を広げます。</p>
+<p>本教材の演習用サイトTailspin Toysは、ゲームを紹介するクラウドファンディングサイトです。受講者は、利用者が支援したいゲームを探せるように、トップページのゲームカードへの星評価の表示、カテゴリーとパブリッシャーによる絞り込み、タイトル検索を順に追加します。各章で実装した機能を残して次の変更を加えるため、前の章までの機能が引き続き動くかも確かめます。</p>
+<p>本コースで学ぶ順番には、学習上の理由があります。最初の星評価の追加では、受講者がエージェントへ要件を伝え、生成された差分を読み、テストとTailspin Toysの画面を確認してからマージする一連の判断を経験します。その後、指示ファイルでエージェントと共通の前提を共有し、Planで絞り込み機能の仕様の曖昧さを解消してから、自律的な実装へ進みます。受講者が確認する観点を理解したうえで、Agent MergeやAutomationに任せる範囲を広げます。</p>
 <p>各章では「何ができたか」に加えて、「なぜその方法を選んだか」を説明できることを目指してください。</p>
 <table>
 <thead>
@@ -88,7 +88,7 @@
 </tr>
 </tbody>
 </table>
-<p>本文のプロンプトは、これらの判断を練習するための出発点です。出力されるコードやテスト件数は毎回同じとは限りません。期待した結果と違う場合は、違いを具体的に伝えて修正を依頼し、再度確認してください。公式にも、変更をレビューし、フィードバックを返して改善する流れが示されています。出典：<a href="https://docs.github.com/en/copilot/concepts/agents/github-copilot-app#github-copilot-app-workflow">GitHub Copilot Appの開発フロー</a>。</p>
+<p>本教材のプロンプトは、変更の範囲、エージェントに渡す前提、実装結果の確認方法を受講者が考えるための出発点です。Copilotが生成するコードや実行するテストの件数は、毎回同じとは限りません。依頼した仕様とエージェントの実装結果が違う場合は、その違いを具体的に伝えて修正を依頼し、差分・テスト・画面を再度確認してください。公式にも、変更をレビューし、フィードバックを返して改善する流れが示されています。出典：<a href="https://docs.github.com/en/copilot/concepts/agents/github-copilot-app#github-copilot-app-workflow">GitHub Copilot Appの開発フロー</a>。</p>
 <h3 id="画面画像と操作手順の注意点">画面画像と操作手順の注意点</h3>
 <p>GitHub Copilot Appは最新版を使用してください。</p>
 <ul>
@@ -131,7 +131,7 @@
 </tr>
 </tbody>
 </table>
-<p>体験の前に予想を立て、作業後に予想と結果を比べます。詳しい背景を知りたい場合は、主手順から補足へのリンクを使い、関連手順へ戻ってください。</p>
+<p>各章の操作を始める前に、Tailspin ToysやCopilot Appがどのように動くかを予想し、操作後に予想と実際の結果を比べます。操作の背景を詳しく知りたい場合は、体験する手順から補足へのリンクを使って説明を読み、関連する手順へ戻ってください。</p>
 <h2 id="レッスン一覧">レッスン一覧</h2>
 <table>
 <thead>
@@ -204,7 +204,7 @@ Copilot app はクラウド上の Codespaces ではなくローカル PC 上で�
 <p><strong>補足</strong>
 Copilot Business または Copilot Enterprise を利用している組織では、アプリを使用するために組織管理者が GitHub Copilot app ポリシー（CLI のポリシーとは別個）を有効化している必要があります。</p>
 </blockquote>
-<p>利用条件は<a href="https://docs.github.com/en/copilot/concepts/agents/github-copilot-app#availability">Appの利用可能範囲</a>と<a href="https://docs.github.com/en/copilot/get-started/plans">Copilotプランの公式案内</a>を参照してください。参加前に、使用するアカウントで接続できることと、利用枠や組織のポリシーを確認します。</p>
+<p>GitHub Copilot Appの利用条件は、<a href="https://docs.github.com/en/copilot/concepts/agents/github-copilot-app#availability">Appの利用可能範囲</a>と<a href="https://docs.github.com/en/copilot/get-started/plans">Copilotプランの公式案内</a>を参照してください。受講者は参加前に、使用するGitHubアカウントでAppへ接続できることと、Copilotの利用枠や所属組織のAppポリシーを確認します。</p>
 <p><a id="github-copilot-app-の概要"></a></p>
 <h2 id="補足github-copilot-appの概要">補足：GitHub Copilot Appの概要</h2>
 <p><a href="https://docs.github.com/copilot/concepts/agents/github-copilot-app">GitHub Copilot app</a> は、Copilot CLI を基盤とするデスクトップアプリケーションです。エージェント主導の開発環境をひとつのワークスペースに統合します。</p>
@@ -216,7 +216,7 @@ Copilot Business または Copilot Enterprise を利用している組織では�
 <li>Agent Merge：許可した範囲でレビュー指摘やCI失敗への対応、競合の解消、マージを進める</li>
 <li>共有キャンバス：アイデアやタスクを視覚的に整理</li>
 </ul>
-<p>本コースでは、アプリの導入と演習用リポジトリの接続から始め、バックログに用意されたIssueに沿って開発を進めます。</p>
+<p>本コースでは、GitHub Copilot Appの導入と演習用リポジトリの接続から始めます。受講者は、自分のTailspin Toysの演習用リポジトリに用意されたIssueに沿って、機能の変更を進めます。</p>
 <ul>
 <li>星評価の追加：小さな機能改修を通じて、セッション開始から PR 作成・マージまでの基本サイクルを体験</li>
 <li>カスタム指示の標準化：コーディング規約やドキュメント標準を指示ファイルに定義し、プロジェクトへ反映</li>

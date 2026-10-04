@@ -7,17 +7,17 @@
 <a href="handson-guide.html#switch">事前準備・UI の確認</a></nav>
 <button class="theme-toggle" type="button" onclick="toggleTheme()">☀️ ライト</button></header>
 <main id="lesson"><h1>Copilot Appで開発の流れを体験する</h1><article><p>Dev Days · 非公式の日本語教材セット</p>
-<p>ゲームを紹介するクラウドファンディングサイト「Tailspin Toys」を題材に、星評価、フィルター、タイトル検索を追加します。カスタム指示、自動テスト、コードレビューを使い、Appの演習1〜9を一つのストーリーに沿って進めます。</p>
+<p>この教材では、ゲームを紹介するクラウドファンディングサイト「Tailspin Toys」に、受講者が星評価の表示、カテゴリーとパブリッシャーによる絞り込み、タイトル検索を追加します。GitHub Copilot Appのカスタム指示、自動テスト、コードレビューを使い、第1〜9章を一連の開発の流れに沿って進めます。</p>
 <p><a href="workshops/app/1-prerequisites.html">演習1：事前準備から始める</a> · <a href="workshops/app/index.html">全体の目次と到達目標を見る</a></p>
-<p>この研修で学ぶのは、エージェントに作業を依頼し、その結果を判断する開発の進め方です。仕様の曖昧さをどこで解消するか、どの情報を共有すると意図が伝わるか、どんな証拠がそろえばマージできるかを、各章の具体例で考えます。元の機能を維持しながら変更を重ねるため、前章の結果を次章でも確かめます。</p>
+<p>この研修では、GitHub Copilot AppのエージェントにTailspin Toysの機能変更を依頼し、コード差分・テスト・画面を確認して実装結果を判断する開発の進め方を学びます。受講者は、機能の仕様の曖昧さをどこで解消するか、エージェントとどの情報を共有すると意図が伝わるか、どの確認結果がそろえばPRをマージできるかを、各章の具体例で考えます。前の章までに実装した機能を維持しながら変更を重ねるため、次の章でもその機能が動くことを確かめます。</p>
 <h2>今回の流れ</h2>
 <p>準備・接続 → 星評価の実装 → カスタム指示の適用 → フィルターの計画と実装 → MCPによるブラウザー検証 → Agent Merge → 共有Canvasと検索実装 → Automationと振り返り</p>
-<p>最初は小さな変更を自分でレビューしてマージし、確認すべきことを理解したうえで自動化の範囲を広げます。GitHub公式が示す「変更をレビューし、フィードバックを返して改善する」開発フローを、Tailspin Toysで具体的に経験します。出典：<a href="https://docs.github.com/en/copilot/concepts/agents/github-copilot-app#github-copilot-app-workflow">GitHub Copilot Appの開発フロー</a>。</p>
+<p>最初の星評価の追加では、受講者がエージェントの変更をレビューしてPRをマージします。差分やテスト、画面で確認すべきことを理解したうえで、後の章でマージや作業の要約を自動化します。GitHub公式が示す「変更をレビューし、フィードバックを返して改善する」開発フローを、Tailspin Toysで具体的に経験します。出典：<a href="https://docs.github.com/en/copilot/concepts/agents/github-copilot-app#github-copilot-app-workflow">GitHub Copilot Appの開発フロー</a>。</p>
 <h2>参加前の準備</h2>
-<p>Git、Node.js 24.19.0または <code>&gt;=24.19.0 &lt;25</code>、最新版のGitHub Copilot Appを用意します。教材用テンプレートから自分のTailspin Toysのコピーを作り、Appへ接続して応答を確認してください。</p>
+<p>Git、Node.js 24.19.0または <code>&gt;=24.19.0 &lt;25</code>、最新版のGitHub Copilot Appを用意します。教材用テンプレートから自分のGitHubアカウントにTailspin Toysの演習用リポジトリを作り、GitHub Copilot Appへ接続して、Copilotが応答することを確認してください。</p>
 <p><a href="handson-guide.html#prepare">受講準備と利用条件の確認</a></p>
 <h2>途中でつまずいたら</h2>
-<p>本文の操作対象と項目名を確認し、見つからない場合は講師に相談してください。期待した動作と実際の結果を言葉にしてから、追加の指示や確認方法を考えます。</p>
+<p>操作するボタンやメニューが見つからない場合は、本文が示す画面と項目名を確認し、講師に相談してください。Tailspin ToysやCopilot Appが期待したとおりに動かない場合は、期待した動作と実際の結果を言葉にしてから、エージェントへの追加指示や確認方法を考えます。</p>
 <h2>Appの機能と成果の確認</h2>
 <p>Agent Merge、Canvas、Automationを実際に使い、操作前後の変化を確かめます。振り返りでは、何を任せ、どの結果を根拠に判断したかを説明してください。</p>
 <h2>参考資料・補足コース</h2>
