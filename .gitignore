@@ -2,5 +2,5 @@
 .workshop-tools/
 __pycache__/
 output/pdf/
-tmp/pdfs/
+tmp/
 scripts/pdf/node_modules/
