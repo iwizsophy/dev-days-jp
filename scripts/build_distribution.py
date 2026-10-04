@@ -195,12 +195,7 @@ def book_html(paths, label, config, ref, digest, web_base=None):
                     block.append(heading)
                     block.append(resources)
         for table in soup.select('table'):
-            headers = [th.get_text() for th in table.select('thead th')]
-            if len(headers) == 4 and 'App 実走' in headers:
-                group = soup.new_tag('colgroup')
-                for width in [14, 24, 48, 14]:
-                    col = soup.new_tag('col'); col['style'] = f'width:{width}%'; group.append(col)
-                table.insert(0, group)
+            web.layout_table(table, soup)
         for summary in soup.select('ul'):
             if len(summary.find_all('li', recursive=False)) <= 5 and len(summary.get_text()) < 500 and not summary.select('ul, ol, img, pre, table'):
                 summary['class'] = summary.get('class', []) + ['compact-list']

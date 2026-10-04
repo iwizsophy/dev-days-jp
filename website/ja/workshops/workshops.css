@@ -23,6 +23,10 @@ blockquote p:last-child { margin-bottom: 0; }
 .chapter-nav { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; padding: 1rem 0; border-block: 1px solid var(--border-color); margin: 1.5rem 0; }
 table { border-collapse: collapse; width: 100%; }
 td, th { padding: .7rem; border: 1px solid var(--border-color); text-align: left; vertical-align: top; }
+.table-scroll { max-width: 100%; overflow-x: auto; margin-bottom: 1rem; }
+.table-scroll:focus-visible { outline: 3px solid var(--neon-cyan); outline-offset: 4px; }
+.content-table { table-layout: fixed; margin-bottom: 0; }
+.content-table .table-number { text-align: center; white-space: nowrap; padding-inline: .4rem; }
 summary { cursor: pointer; }
 .skip { position: absolute; left: -9999px; }
 .skip:focus { position: static; }
@@ -33,4 +37,6 @@ summary { cursor: pointer; }
     header nav a { display: block; margin-bottom: .5rem; }
     table { display: block; overflow-x: auto; }
     td, th { min-width: 8rem; }
+    .table-scroll .content-table { display: table; min-width: 40rem; }
+    .table-scroll .content-table td, .table-scroll .content-table th { min-width: 0; }
 }

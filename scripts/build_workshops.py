@@ -8,10 +8,12 @@ import os
 import re
 import shutil
 import sys
+import unicodedata
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / '.workshop-tools'))
 import markdown
+from bs4 import BeautifulSoup
 from markdown.extensions.toc import slugify_unicode
 
 SOURCE = ROOT / 'content/ja'
@@ -107,6 +109,83 @@ def markdown_renderer():
             'pymdownx.superfences': {'disable_indented_code_blocks': False}})
 
 
+def layout_table(table, soup):
+    """Share content-aware column widths between Web and PDF without changing cells."""
+    rows = [[cell for cell in row.find_all(['th', 'td'], recursive=False)]
+            for row in table.select('tr')]
+    if not rows or len(rows[0]) < 2 or any(len(row) != len(rows[0]) for row in rows):
+        return
+    headers = tuple(re.sub(r'\s+', '', cell.get_text()) for cell in rows[0])
+    numbered = headers[0] == '項番'
+    content_headers = headers[1:] if numbered else headers
+    # These tables have distinct roles that text length alone cannot express.
+    profiles = {
+        ('観点', 'このケースで扱う内容'): [18, 75],
+        ('入力', '期待する意味と確認内容'): [18, 75],
+        ('項目', '設定する内容'): [23, 70],
+        ('用語', 'この教材での役割'): [24, 69],
+        ('操作', '期待結果', '確認する意味'): [43, 13, 37],
+        ('操作・条件', '期待する結果の決め方', '確認する理由'): [28, 41, 24],
+        ('機能', 'どのような場面で使うか', '人が確認すること'): [19, 34, 40],
+    }
+    if numbered and content_headers in profiles:
+        widths = [7, *profiles[content_headers]]
+    elif headers == ('レッスン', 'トピック', '学習内容'):
+        widths = [34, 18, 48]
+    elif len(headers) == 4 and 'App実走' in headers:
+        widths = [14, 24, 48, 14]
+    else:
+        def text_length(cell):
+            return sum(1 if unicodedata.east_asian_width(c) in ('W', 'F') else .55
+                       for c in cell.get_text(' ', strip=True))
+
+        weights = {}
+        start = 1 if numbered else 0
+        for column in range(start, len(headers)):
+            lengths = [text_length(row[column]) for row in rows[1:]] or [0]
+            weights[column] = max(8, text_length(rows[0][column]) * 1.2,
+                                  sum(lengths) / len(lengths) * .7 + max(lengths) * .3)
+        chosen = {0: 7} if numbered else {}
+        remaining = 100 - sum(chosen.values())
+        minimum = 14 if len(headers) >= 4 else 18
+        while weights:
+            total = sum(weights.values())
+            too_small = [column for column, weight in weights.items()
+                         if remaining * weight / total < minimum]
+            if not too_small:
+                chosen.update({column: remaining * weight / total
+                               for column, weight in weights.items()})
+                break
+            for column in too_small:
+                chosen[column] = minimum
+                remaining -= minimum
+                del weights[column]
+        widths = [round(chosen[column], 2) for column in range(len(headers))]
+        widths[-1] = round(100 - sum(widths[:-1]), 2)
+    for old in table.find_all('colgroup', recursive=False):
+        old.decompose()
+    group = soup.new_tag('colgroup')
+    for width in widths:
+        col = soup.new_tag('col', attrs={'style': f'width:{width:g}%'})
+        group.append(col)
+    table.insert(0, group)
+    table['class'] = list(dict.fromkeys(table.get('class', []) + ['content-table']))
+    for header in rows[0]:
+        header['scope'] = 'col'
+    if numbered:
+        for row in rows:
+            row[0]['class'] = list(dict.fromkeys(row[0].get('class', []) + ['table-number']))
+
+
+def format_tables(body):
+    """Touch only table fragments so surrounding Markdown output stays unchanged."""
+    def replace(match):
+        soup = BeautifulSoup(match[0], 'html.parser')
+        layout_table(soup.table, soup)
+        return '<div class="table-scroll" tabindex="0">' + str(soup.table) + '</div>'
+    return re.sub(r'<table\b[^>]*>.*?</table>', replace, body, flags=re.S)
+
+
 def section_headings(renderer):
     """Read H2 labels and generated anchors from the same renderer as the lesson."""
     def walk(tokens):
@@ -164,6 +243,7 @@ def build():
             renderer = markdown_renderer()
             body = transform_links(renderer.convert(text), source, destination)
             if course == 'app':
+                body = format_tables(body)
                 body = re.sub(r'<img\b[^>]+>', image_notice, body)
             prevnext = []
             for n, label in [(i - 1, '← 前の章'), (i + 1, '次の章 →')]:
@@ -190,6 +270,7 @@ def build():
         title, text = title_body(source)
         body = markdown.markdown(text, extensions=['tables', 'sane_lists', 'pymdownx.superfences'])
         body = transform_links(body, source, destination)
+        body = format_tables(body)
         notice = '<aside>講師・運営向けの補助資料です。</aside>' if source in SUPPORT else ''
         destination.write_text(shell(title, '<article>' + body + '</article>', destination, notice), encoding='utf-8')
     index = OUTPUT / 'index.html'
