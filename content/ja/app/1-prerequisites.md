@@ -134,6 +134,32 @@ Tailspin Toysを実行するNode.jsと、自分で変更できる演習用リポ
 
 GitHub Copilot appは、エージェントの作業とGitHubのリポジトリ管理をまとめて扱うデスクトップアプリケーションです。Issueから実装を始め、差分やテスト結果を読み、Pull Requestを通じて変更を取り込めます。機能の全体像は[GitHub公式の説明][about-copilot-app]で確認できます。
 
+この教材では、Issueを起点に変更を進める「Issue駆動開発」の考え方を体験します。変更の目的、解決したい課題、完了を判断する条件をIssueにまとめ、作業の共通の前提として使う進め方です。実装中の相談やPRとの関連付けもIssueに残すと、後から参加した人も「なぜこの変更をしたか」を追えます。受講者は課題を読んでから実装を依頼し、結果が課題を解決したかを判断します。
+
+Issueで作業を計画・相談・追跡する使い方は、[GitHub公式のIssueの説明][about-issues]も参照してください。
+
+| 用語 | この教材での役割 |
+| :--- | :--- |
+| main | 演習用リポジトリの既定ブランチ。確認を終えた変更をマージして集める先 |
+| Issue | 変更の目的・課題・完了条件を共有する記録 |
+| ブランチ | mainと分けて変更を記録する作業の履歴 |
+| Pull Request（PR） | 変更をmainへ取り込むための提案。PR作成後、マージによって変更を取り込む |
+| CI | GitHub Actionsなどによる自動検査。PRの最新コミットに対する結果を確認する |
+
+ブランチで変更し、PRのレビューを経てマージする基本の流れは、[GitHub公式のGitHub flowの説明][github-flow]でも確認できます。下の図は、その流れにこの教材での役割と確認を加えたものです。
+
+![Issue共有、計画と実装、結果確認、PR作成、レビューとCI、mainへのマージの順序と、受講者・エージェントの役割。結果確認とPRレビューから実装へ戻る矢印を示す。](../../_images/app-issue-driven-development.png)
+
+図の戻る矢印は、修正して確認を繰り返す箇所を示しています。受講者が期待結果との違いやレビューの指摘を見つけた場合は、エージェントへ修正を依頼し、変更後の差分・テスト・画面を再確認します。マージを判断する前には、PRの最新コミットに対するCIの成功も確かめてください。
+
+PR作成後の修正も、同じブランチで進めます。追加のコミットをpushすると、修正内容は既存のPRへ反映されます。受講者は、更新後のPRで差分と最新コミットのCI結果を確認します。
+
+たとえば、Tailspin Toysのゲーム一覧にフィルターを追加する課題では、利用者がカテゴリや出版社でゲームを探せるようにする理由と、条件の組み合わせをIssueで共有します。受講者はエージェントの計画を確認し、カテゴリ同士をOR、カテゴリと出版社をANDで組み合わせることなどを、実装後の判断基準にします。
+
+PRとIssueを関連付けると、課題と解決のための変更を行き来できます。PR本文に`Closes #番号`などのキーワードを記載した場合は、そのPRをリポジトリの既定ブランチへマージすると、対応するIssueが自動で閉じられます。マージ後は、mainへ取り込まれた変更と関連するIssueの状態を照合します。関連付けの方法と自動で閉じる条件は、[GitHub公式のPRとIssueの関連付けの説明][linking-pr-issue]を参照してください。
+
+第3章では、受講者が星評価の要件を直接伝え、実装から通常マージまでの基本を体験します。第4章からは用意されたIssueを起点に進め、第5〜7章では一つのフィルター課題を計画・実装、ブラウザー検証、マージに分けて扱います。図は課題一件の流れを示しており、章が変わるたびに新しいIssueやPRを作るという意味ではありません。
+
 この教材で変更の目的と確認条件を伝えるのは受講者です。エージェントの完了報告を受けた後も、実際のコードや画面を確認し、必要なら修正を依頼します。環境を準備する段階から、説明と実際の結果を照合する習慣をつけましょう。
 
 <a id="nodejsと実行環境"></a>
@@ -161,6 +187,9 @@ Tailspin Toysの教材用テンプレートには[dev container][dev-containers]
 - [Node.jsのダウンロード][node-download]
 - [テンプレートからのリポジトリの作成][template-repository]
 - [GitHub Copilot appについて][about-copilot-app]
+- [GitHubのIssueで作業を計画・追跡する][about-issues]
+- [ブランチ・PR・マージの基本][github-flow]
+- [PRとIssueの関連付け][linking-pr-issue]
 
 [next-lesson]: 2-install-copilot-app.md
 [nodejs]: https://nodejs.org/
@@ -169,3 +198,6 @@ Tailspin Toysの教材用テンプレートには[dev container][dev-containers]
 [dev-containers]: https://code.visualstudio.com/docs/devcontainers/containers
 [template-repository]: https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template
 [about-copilot-app]: https://docs.github.com/en/copilot/concepts/agents/github-copilot-app
+[about-issues]: https://docs.github.com/en/issues/tracking-your-work-with-issues/learning-about-issues/about-issues
+[github-flow]: https://docs.github.com/en/get-started/using-github/github-flow
+[linking-pr-issue]: https://docs.github.com/en/issues/tracking-your-work-with-issues/using-issues/linking-a-pull-request-to-an-issue
