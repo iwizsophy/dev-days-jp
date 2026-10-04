@@ -8,7 +8,7 @@ lastUpdated: 2026-10-04
 
 <a id="シナリオ"></a>
 
-## 4.1 この章の概要
+## 4.1 章の概要
 
 Tailspin Toysでは、コードを読む人が処理の理由を理解できるよう、TSDoc形式のドキュメントコメントを付けます。また、コードの書式を文書化し、ESLintなどの静的検査でも規則への違反を確認します。
 
@@ -55,7 +55,7 @@ Tailspin Toysでは、コードを読む人が処理の理由を理解できる�
 
 5. 検索結果から `copilot-instructions.md` を選択して開きます。
 6. ファイルの内容を確認します。プロジェクト概要に加えて、Agent notes、Code standards、Scripts、Repository Structureといったセクションが定義されています。Code standards配下にはGitHub Actions Workflowsの指針もネストされており、これらはCopilotとの全対話に共通して適用されます。
-7. 右側のファイルツリーを確認します。もしツリー上に `.github` フォルダーが表示されていない場合は、ファイルパネル上部の歯車アイコンView optionsをクリックし、Show tracked hidden filesまたはShow all hidden filesを選択してください。前者はGitで管理している隠しファイル、後者はすべての隠しファイルを表示する選択肢です。
+7. 右側のファイルツリーを確認します。ツリー上に `.github` フォルダーが表示されていない場合は、ファイルパネル上部の歯車アイコンView optionsをクリックし、Show tracked hidden filesまたはShow all hidden filesを選択してください。前者はGitで管理している隠しファイル、後者はすべての隠しファイルを表示する選択肢です。
 
    なお、ツリーを展開する代わりに、Go to fileに直接ファイル名を入力して開くことも可能です。
 
