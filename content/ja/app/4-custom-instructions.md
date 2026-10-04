@@ -196,7 +196,7 @@ Tailspin Toysの指示ファイルの適用範囲、更新した規則、Copilot
 1. リポジトリ全体の指示（`.github/copilot-instructions.md`）<br>
    リポジトリに対するすべてのリクエストでCopilotに送信される単一の指示ファイルです。Copilotに投げるチャットやCLIリクエスト全般に関係するプロジェクトレベルの情報（採用技術スタック、アーキテクチャの概要、全体的なベストプラクティスなど）を記載します。
 2. **パス固有の指示ファイル（`.github/instructions/*.instructions.md`）**<br>
-   特定のタスクやファイル種類向けに作成する個別指示ファイルです。特定のプログラミング言語（TypeScriptやAstroなど）のコーディング規約や、UIコンポーネント作成、単体テスト一式の構築といった具体的タスクに応じたガイドラインを定義します。
+   特定のファイル向けに作成する個別指示ファイルです。Copilotは`applyTo`のglobパターンに一致するファイルを扱うときに、この指示を参照します。TypeScriptやAstroなどのコーディング規約、UIコンポーネントや単体テストの作成に関するガイドラインを記述します。適用条件は、[GitHub公式のパス固有指示の説明](https://docs.github.com/en/copilot/how-tos/copilot-on-github/customize-copilot/add-custom-instructions/add-repository-instructions#creating-path-specific-custom-instructions)を参照してください。
 
 > [!NOTE]
 > `AGENTS.md`、`CLAUDE.md`、`GEMINI.md`などの指示ファイルもありますが、対応する種類はCopilotの利用環境によって異なります。[対応表][custom-instructions-support]を参照し、本演習ではテンプレートにある`.github/copilot-instructions.md`と`.github/instructions/`を確認します。

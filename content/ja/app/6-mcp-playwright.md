@@ -204,7 +204,7 @@ Copilot Appで既存のPlaywrightを利用できない場合に、Customizeの�
 3. 未登録の場合はMCPタブを開き、Playwrightを探します。Featuredセクションに見つからなければ、Search MCP serversから検索してください。
 4. Playwrightカードを選択して登録フォームを開きます。ローカルで起動する設定例は、Server nameが `playwright`、Typeが `Local`、Commandが `npx`、Argumentsが `-y @playwright/mcp@latest` です。
 5. 入力内容を確認し、Add serverをクリックして保存します。**Installed**の一覧に追加されたことを確認してください。
-6. Copilot Appのチャットやセッションから、Playwrightの実際のツール呼び出しを確かめます。たとえばPlaywrightの`browser_tabs`でタブ一覧を取得するよう依頼し、結果が返るかを確認します。応答に`about:blank`が含まれていても、それは開いているタブの状態です。接続できたら、[ブラウザー検証の手順](#playwright-で機能を確認するよう-copilot-に依頼する)へ戻ります。
+6. Copilot Appのフィルター実装セッションへ戻り、Playwrightの実際のツール呼び出しを確かめます。たとえばPlaywrightの`browser_tabs`でタブ一覧を取得するよう依頼し、結果が返るかを確認します。応答に`about:blank`が含まれていても、それは開いているタブの状態です。接続できたら、[ブラウザー検証の手順](#playwright-で機能を確認するよう-copilot-に依頼する)へ戻ります。
 
 ![既存のPlaywright設定で確認するLocal、npxと引数の例](../../_images/app-20261004-public/app-20261004-05-playwright-config.jpg)
 
