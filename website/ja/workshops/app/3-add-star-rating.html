@@ -115,7 +115,7 @@
 <ol>
 <li>GitHub Copilot appを開きます（起動済みの場合はそのまま進めます）。</li>
 <li>
-<p>サイドバーの <strong>Projects</strong> で、演習用プロジェクトを右クリックし、メニューの <strong><code>+</code> New session</strong> を選択します。</p>
+<p>サイドバーの<strong>Projects</strong>で自分の演習用プロジェクトを選び、横にある<strong><code>+</code></strong>から新しいセッションを開きます。演習用プロジェクトを右クリックし、<strong><code>+</code> New session</strong>を選ぶ方法もあります。</p>
 </li>
 <li>
 <p><strong>New</strong> 画面の入力欄下部に、自分の演習用プロジェクト名が表示されていることを確認します。実行場所は <strong>New worktree</strong>、開始元は <strong>main</strong> を選びます。モードは、応答を読みながら指示を加える <strong>Interactive</strong> で進めます。</p>
@@ -236,14 +236,18 @@ PRはまだ作成しないでください。</code></pre>
 <h3 id="335-最初のpull-requestを作成してマージする">3.3.5 最初のPull Requestを作成してマージする</h3>
 <p>星評価の動作確認を終えた変更を、PRで自分の演習用リポジトリのmainへ取り込みます。この章で使うのは手動マージです。後の章では、同じ確認を経てエージェントにマージを任せる方法も体験します。</p>
 <p>星評価のPRは実装に使ったセッションから作成し、差分やCIの結果をApp内で確認できます。作成済みのPRをAppのサイドバーから開く入口は<strong>Pull requests</strong>です。機能の説明は<a href="https://docs.github.com/en/copilot/how-tos/github-copilot-app/managing-issues-and-pull-requests">GitHub公式のPR管理手順</a>も参照してください。</p>
+<p>このテンプレートの<a href="https://github.com/iwizsophy/dev-days-tailspin-template/blob/v2026.10.05/CONTRIBUTING.md#issues">開発ルール</a>では、変更に対応するIssueを作ることを求めています。本章では要件を直接伝えて実装しましたが、PRを作るときに、その目的と受け入れ条件をIssueにも記録します。IssueとPRを関連付けると、変更の理由と実装結果を一緒に追えます。関連付けの方法は<a href="https://docs.github.com/en/issues/tracking-your-work-with-issues/using-issues/linking-a-pull-request-to-an-issue">GitHub公式の説明</a>を参照してください。</p>
 <ol>
 <li>星評価を実装したセッションの画面右上にある <strong>Create PR</strong> を選択します。</li>
 <li>ブラウザー認証を求められた場合は、<strong>Sign in with your browser</strong> を選択し、画面の指示に従って認証します。</li>
-<li>Copilotがpull requestの作成処理を開始します。</li>
-<li>作成されたPRのリポジトリが自分の演習コピーで、取り込み先が <strong>main</strong> であることを確認します。本章では <strong>Agent merge</strong>を<strong>Off</strong> にして、手動でマージするところまで進めます。</li>
-<li>同じ実装セッションのチャット欄のすぐ上にある <strong>PR</strong> バブルを選択し、レビューペインで作成されたpull requestの内容を最終確認します。</li>
-<li><strong>Ready to merge</strong> を選択し、ダイアログのCI結果を確認します。このボタンの表示だけでは、CI全成功とは判断できません。<strong>Checks are running</strong> や実行中のジョブがあれば待ち、すべてのジョブの成功を確認します。表示が更新されない場合は画面を開き直し、必要に応じてGitHub Webの同じPRでも照合してください。</li>
+<li>CopilotによるPRの作成処理と、関連するIssueの作成・選択を確認します。Issueを求められた場合は、次のプロンプトを送信します。既に星評価のIssueが作成されていれば、そのIssueを使います。</li>
 </ol>
+<p><pre class="highlight"><code class="language-plaintext">自分の演習用リポジトリで、今回のゲームカードへの星評価表示に対応するIssueを確認してください。
+同じ変更を扱うIssueがあれば再利用し、なければCONTRIBUTING.mdに従って作成してください。目的と受け入れ条件には、このセッションで合意した星評価の仕様を記録してください。
+そのIssueを今回のPRに関連付けてください。PRの取り込み先は自分の演習用リポジトリのmainとし、マージはまだ行わないでください。</code></pre>
+4. 作成されたPRのリポジトリが自分の演習コピーで、取り込み先が <strong>main</strong> であることを確認します。本章では <strong>Agent merge</strong>を<strong>Off</strong> にして、手動でマージするところまで進めます。
+5. 同じ実装セッションのチャット欄のすぐ上にある<strong>PR</strong>バブルを選択し、レビューペインで作成されたPRの内容を最終確認します。関連Issueのタイトルと本文が今回の星評価の変更を表し、同じ演習用リポジトリのIssueであることも確認してください。
+6. <strong>Ready to merge</strong> を選択し、ダイアログのCI結果を確認します。このボタンの表示だけでは、CI全成功とは判断できません。<strong>Checks are running</strong> や実行中のジョブがあれば待ち、すべてのジョブの成功を確認します。表示が更新されない場合は画面を開き直し、必要に応じてGitHub Webの同じPRでも照合してください。</p>
 <p><img alt="CI全ジョブの成功とAgent merge Offを確認して手動でマージする" src="../assets/app-20261004-02-pr-ci-passed.jpg" /></p>
 <ol start="7">
 <li>差分、テスト結果、未解決のレビュー指摘を確認したうえで、<strong>Merge pull request</strong> を選択してmainへマージします。</li>
@@ -448,6 +452,8 @@ App内で組み込みターミナルを開く場合は、<strong>Toggle panel</s
 <li><a href="https://docs.github.com/en/copilot/how-tos/github-copilot-app/agent-sessions">GitHub Copilot appでのエージェントセッションの操作</a></li>
 <li><a href="https://docs.github.com/en/copilot/concepts/agents/github-copilot-app">GitHub Copilot appについて</a></li>
 <li><a href="https://docs.github.com/en/copilot/how-tos/github-copilot-app/managing-issues-and-pull-requests">GitHub Copilot appでのIssueとpull requestの管理</a></li>
+<li><a href="https://github.com/iwizsophy/dev-days-tailspin-template/blob/v2026.10.05/CONTRIBUTING.md#issues">演習用テンプレートで変更に対応するIssueを作るルール</a></li>
+<li><a href="https://docs.github.com/en/issues/tracking-your-work-with-issues/using-issues/linking-a-pull-request-to-an-issue">IssueとPRを関連付ける方法</a></li>
 <li><a href="https://docs.github.com/en/pull-requests/concepts/helping-others-review-your-changes">PRの目的と差分をレビューしやすくする方法</a></li>
 <li><a href="https://docs.github.com/en/issues/planning-and-tracking-with-projects/learning-about-projects/best-practices-for-projects">Issueの分割と依存関係を整理する方法</a></li>
 <li><a href="https://docs.github.com/en/copilot/tutorials/cloud-agent/get-the-best-results">Copilot cloud agentへ渡す課題のまとめ方</a></li>
