@@ -1,0 +1,92 @@
+<mxfile host="app.diagrams.net" version="29.0.0">
+  <diagram name="Issueを起点に進める開発の流れ">
+    <mxGraphModel dx="1080" dy="990" grid="1" gridSize="10" page="0" background="#FFFFFF">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" value="Issueを起点に進める開発の流れ" style="text;html=1;align=left;verticalAlign=middle;fontFamily=Meiryo;fontColor=#172C40;fontSize=31;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="25" y="12" width="1030" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="subtitle" value="課題の目的と完了条件を共有し、変更の結果を確かめる" style="text;html=1;align=left;verticalAlign=middle;fontFamily=Meiryo;fontColor=#172C40;fontSize=21;" vertex="1" parent="1">
+          <mxGeometry x="25" y="63" width="1030" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="order-header" value="作業の順序" style="text;html=1;align=left;verticalAlign=middle;fontFamily=Meiryo;fontColor=#172C40;fontSize=22;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="120" y="106" width="500" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="role-header" value="この教材での役割" style="text;html=1;align=left;verticalAlign=middle;fontFamily=Meiryo;fontColor=#172C40;fontSize=22;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="660" y="106" width="400" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="step-1" value="&lt;div style=&quot;font-size:23px;font-weight:bold&quot;&gt;1  Issueで課題を共有&lt;/div&gt;&lt;div style=&quot;font-size:20px;margin-top:8px&quot;&gt;何を、なぜ変えるかを記録&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;align=left;verticalAlign=middle;spacingLeft=18;spacingRight=12;strokeWidth=2;fontFamily=Meiryo;fontColor=#172C40;fillColor=#EAF5F5;strokeColor=#087F8C;" vertex="1" parent="1">
+          <mxGeometry x="120" y="153" width="500" height="96" as="geometry" />
+        </mxCell>
+        <mxCell id="role-1" value="&lt;div style=&quot;font-size:22px;font-weight:bold&quot;&gt;受講者&lt;/div&gt;&lt;div style=&quot;font-size:19px;margin-top:7px&quot;&gt;目的・変更範囲・完了条件を決める&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;align=left;verticalAlign=middle;spacingLeft=18;spacingRight=12;strokeWidth=2;fontFamily=Meiryo;fontColor=#172C40;fillColor=#F5F8FA;strokeColor=#A9BBC8;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="660" y="153" width="400" height="96" as="geometry" />
+        </mxCell>
+        <mxCell id="forward-1" edge="1" parent="1" source="step-1" target="step-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#087F8C;strokeWidth=3;endArrow=block;endFill=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="step-2" value="&lt;div style=&quot;font-size:23px;font-weight:bold&quot;&gt;2  計画してブランチで実装&lt;/div&gt;&lt;div style=&quot;font-size:20px;margin-top:8px&quot;&gt;mainと分けて変更を記録&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;align=left;verticalAlign=middle;spacingLeft=18;spacingRight=12;strokeWidth=2;fontFamily=Meiryo;fontColor=#172C40;fillColor=#EAF5F5;strokeColor=#087F8C;" vertex="1" parent="1">
+          <mxGeometry x="120" y="280" width="500" height="96" as="geometry" />
+        </mxCell>
+        <mxCell id="role-2" value="&lt;div style=&quot;font-size:22px;font-weight:bold&quot;&gt;受講者とエージェント&lt;/div&gt;&lt;div style=&quot;font-size:19px;margin-top:7px&quot;&gt;受講者が計画を判断し、&lt;br&gt;エージェントが実装&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;align=left;verticalAlign=middle;spacingLeft=18;spacingRight=12;strokeWidth=2;fontFamily=Meiryo;fontColor=#172C40;fillColor=#F5F8FA;strokeColor=#A9BBC8;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="660" y="280" width="400" height="96" as="geometry" />
+        </mxCell>
+        <mxCell id="forward-2" edge="1" parent="1" source="step-2" target="step-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#087F8C;strokeWidth=3;endArrow=block;endFill=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="step-3" value="&lt;div style=&quot;font-size:23px;font-weight:bold&quot;&gt;3  実装結果を確認&lt;/div&gt;&lt;div style=&quot;font-size:20px;margin-top:8px&quot;&gt;期待と違えば2へ戻る&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;align=left;verticalAlign=middle;spacingLeft=18;spacingRight=12;strokeWidth=2;fontFamily=Meiryo;fontColor=#172C40;fillColor=#EAF5F5;strokeColor=#087F8C;" vertex="1" parent="1">
+          <mxGeometry x="120" y="407" width="500" height="96" as="geometry" />
+        </mxCell>
+        <mxCell id="role-3" value="&lt;div style=&quot;font-size:22px;font-weight:bold&quot;&gt;受講者&lt;/div&gt;&lt;div style=&quot;font-size:19px;margin-top:7px&quot;&gt;差分・テスト・画面を完了条件と比べる&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;align=left;verticalAlign=middle;spacingLeft=18;spacingRight=12;strokeWidth=2;fontFamily=Meiryo;fontColor=#172C40;fillColor=#F5F8FA;strokeColor=#A9BBC8;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="660" y="407" width="400" height="96" as="geometry" />
+        </mxCell>
+        <mxCell id="forward-3" edge="1" parent="1" source="step-3" target="step-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#087F8C;strokeWidth=3;endArrow=block;endFill=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="step-4" value="&lt;div style=&quot;font-size:23px;font-weight:bold&quot;&gt;4  Pull Requestを作成・更新&lt;/div&gt;&lt;div style=&quot;font-size:20px;margin-top:8px&quot;&gt;変更を提案し、Issueと関連付ける&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;align=left;verticalAlign=middle;spacingLeft=18;spacingRight=12;strokeWidth=2;fontFamily=Meiryo;fontColor=#172C40;fillColor=#EAF5F5;strokeColor=#087F8C;" vertex="1" parent="1">
+          <mxGeometry x="120" y="534" width="500" height="96" as="geometry" />
+        </mxCell>
+        <mxCell id="role-4" value="&lt;div style=&quot;font-size:22px;font-weight:bold&quot;&gt;受講者とエージェント&lt;/div&gt;&lt;div style=&quot;font-size:19px;margin-top:7px&quot;&gt;実装と検査の結果をPRへまとめる&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;align=left;verticalAlign=middle;spacingLeft=18;spacingRight=12;strokeWidth=2;fontFamily=Meiryo;fontColor=#172C40;fillColor=#F5F8FA;strokeColor=#A9BBC8;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="660" y="534" width="400" height="96" as="geometry" />
+        </mxCell>
+        <mxCell id="forward-4" edge="1" parent="1" source="step-4" target="step-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#087F8C;strokeWidth=3;endArrow=block;endFill=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="step-5" value="&lt;div style=&quot;font-size:23px;font-weight:bold&quot;&gt;5  PRをレビューしCIを確認&lt;/div&gt;&lt;div style=&quot;font-size:20px;margin-top:8px&quot;&gt;指摘・CI失敗は2へ戻る&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;align=left;verticalAlign=middle;spacingLeft=18;spacingRight=12;strokeWidth=2;fontFamily=Meiryo;fontColor=#172C40;fillColor=#EAF5F5;strokeColor=#087F8C;" vertex="1" parent="1">
+          <mxGeometry x="120" y="661" width="500" height="96" as="geometry" />
+        </mxCell>
+        <mxCell id="role-5" value="&lt;div style=&quot;font-size:22px;font-weight:bold&quot;&gt;受講者&lt;/div&gt;&lt;div style=&quot;font-size:19px;margin-top:7px&quot;&gt;差分と最新コミットのCI結果を判断&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;align=left;verticalAlign=middle;spacingLeft=18;spacingRight=12;strokeWidth=2;fontFamily=Meiryo;fontColor=#172C40;fillColor=#F5F8FA;strokeColor=#A9BBC8;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="660" y="661" width="400" height="96" as="geometry" />
+        </mxCell>
+        <mxCell id="forward-5" edge="1" parent="1" source="step-5" target="step-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#087F8C;strokeWidth=3;endArrow=block;endFill=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="step-6" value="&lt;div style=&quot;font-size:23px;font-weight:bold&quot;&gt;6  mainへマージし結果を照合&lt;/div&gt;&lt;div style=&quot;font-size:20px;margin-top:8px&quot;&gt;統合した変更とIssueの状態を確認&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;align=left;verticalAlign=middle;spacingLeft=18;spacingRight=12;strokeWidth=2;fontFamily=Meiryo;fontColor=#172C40;fillColor=#EAF5F5;strokeColor=#087F8C;" vertex="1" parent="1">
+          <mxGeometry x="120" y="788" width="500" height="96" as="geometry" />
+        </mxCell>
+        <mxCell id="role-6" value="&lt;div style=&quot;font-size:22px;font-weight:bold&quot;&gt;受講者&lt;/div&gt;&lt;div style=&quot;font-size:19px;margin-top:7px&quot;&gt;手動またはAgent Mergeで統合し、&lt;br&gt;結果を確認&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;align=left;verticalAlign=middle;spacingLeft=18;spacingRight=12;strokeWidth=2;fontFamily=Meiryo;fontColor=#172C40;fillColor=#F5F8FA;strokeColor=#A9BBC8;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="660" y="788" width="400" height="96" as="geometry" />
+        </mxCell>
+        <mxCell id="return-1" edge="1" parent="1" source="step-3" target="step-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#A35A00;strokeWidth=3;dashed=1;dashPattern=7 4;endArrow=block;endFill=1;exitX=0;exitY=0.5;entryX=0;entryY=0.35;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="75" y="455" />
+              <mxPoint x="75" y="313.6" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="return-2" edge="1" parent="1" source="step-5" target="step-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#A35A00;strokeWidth=3;dashed=1;dashPattern=7 4;endArrow=block;endFill=1;exitX=0;exitY=0.5;entryX=0;entryY=0.75;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="25" y="709" />
+              <mxPoint x="25" y="352.0" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="footer" value="PRで変更を提案し、マージでmainへ取り込む" style="text;html=1;align=left;verticalAlign=middle;fontFamily=Meiryo;fontColor=#172C40;fontSize=21;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="120" y="902" width="940" height="47" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
