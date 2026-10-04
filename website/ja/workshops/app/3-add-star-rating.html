@@ -373,11 +373,48 @@ App内で組み込みターミナルを開く場合は、<strong>Toggle panel</s
 </blockquote>
 <p><a id="依頼に含める仕様と確認方法"></a></p>
 <h3 id="353-依頼に含める仕様と確認方法">3.5.3 依頼に含める仕様と確認方法</h3>
-<blockquote>
-<p><strong>補足</strong>
-星評価の実装を依頼するプロンプトでは、更新対象ファイルと期待する表示を指定しています。ファイル指定は必須ではありませんが、変更範囲を共有すると、レビュー時にも目的に沿った変更か確かめやすくなります。既存実装の調査を依頼しているのは、同じ評価表示を別々に作り、ゲーム一覧と詳細ページで表示が食い違うことを避けるためです。</p>
-</blockquote>
-<p>今回の星評価の実装依頼に含めるのは、「何を表示するか」「既存の何を保つか」「どう確かめるか」の三つです。たとえば、ゲームカードに星が見えるだけでは <code>null</code> の扱いやリンクの維持までは分かりません。実装前に受け入れ条件を具体化しておくと、完了報告を読んだ後に確認する対象も明確になります。</p>
+<p>実務でエージェントに実装を依頼するときは、利用者のどの問題を解決し、変更後に何ができる状態にするかを共有します。そのうえで、実装が満たすべき動作と、その動作を確かめる方法を記します。期待する結果を明示しておけば、依頼した人とエージェントが同じ基準で実装や修正を判断できます。</p>
+<p>受け入れ条件は、実装後の結果を見て、依頼を満たしたか判断できる条件です。通常の入力だけでなく、値がない場合や上限・下限など、仕様によって動作が変わる条件も示しましょう。既存の動作やデータを保つ必要がある場合は、その対象も記します。入力例と期待する結果を対にすると、エージェントに仕様を伝えやすく、レビューする人も確認する対象を選べます。</p>
+<p>本章では、ケースの説明で、利用者がゲーム一覧で評価を比較できるようにする目的を共有しています。依頼文には、その目的に沿って、ホームページのカードに何を表示し、どの既存動作を保ち、どう確かめるかを具体化しました。実務で共有する内容と、本章での適用は次のとおりです。</p>
+<div class="table-scroll" tabindex="0"><table class="content-table"><colgroup><col style="width:7%"/><col style="width:38.66%"/><col style="width:54.34%"/></colgroup>
+<thead>
+<tr>
+<th class="table-number" scope="col" style="text-align: center;">項番</th>
+<th scope="col" style="text-align: left;">実務で依頼に含めること</th>
+<th scope="col" style="text-align: left;">星評価のケースでの適用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="table-number" style="text-align: center;">1</td>
+<td style="text-align: left;">目的と期待する動作。対象の利用者・画面・変更後の結果を示す</td>
+<td style="text-align: left;">ゲーム一覧で評価を比較できるよう、ホームページの各ゲームカードに星評価を表示する</td>
+</tr>
+<tr>
+<td class="table-number" style="text-align: center;">2</td>
+<td style="text-align: left;">入力と期待する結果。通常の値、境界値、未入力などの扱いを示す</td>
+<td style="text-align: left;">5点満点の数値と、未評価を表す<code>null</code>を区別する。<code>0</code>は評価値として表示し、<code>null</code>ではNo rating yetを表示する</td>
+</tr>
+<tr>
+<td class="table-number" style="text-align: center;">3</td>
+<td style="text-align: left;">変更と操作の範囲。変更する対象、維持する動作・データ、PR作成などの操作範囲を示す</td>
+<td style="text-align: left;">GameCardに表示を追加し、カード構造・詳細ページへのリンク・通常データを保つ。PR作成とマージは後の指示まで待つ</td>
+</tr>
+<tr>
+<td class="table-number" style="text-align: center;">4</td>
+<td style="text-align: left;">調査に必要な情報。関連する画面・コード・仕様を示し、既存実装を確認させる</td>
+<td style="text-align: left;">詳細ページの評価表示と関連コンポーネントを調べ、再利用できる表示部品を使う</td>
+</tr>
+<tr>
+<td class="table-number" style="text-align: center;">5</td>
+<td style="text-align: left;">確認方法と報告。受け入れ条件を確かめる検査と、結果・未確認の項目の報告を指定する</td>
+<td style="text-align: left;">GameCardの描画結果を<code>4.2</code>、<code>0</code>、<code>5</code>、<code>null</code>でテストし、表示とリンク構造を確かめる。実行したテストと結果を報告する</td>
+</tr>
+</tbody>
+</table></div>
+<p>実務では、依頼する時点で実装先のファイルやデータの意味が分からない場合もあります。分かっている事実と未確認の点を分け、まず関連コードや仕様の調査を依頼しましょう。調査で不明点や選択肢が見つかったら、人が判断する点を確認し、合意した条件を依頼文やIssueへ反映してから実装へ進みます。ファイルパスは、対象が分かる場合に調査の手がかりとして示すもので、依頼の必須条件ではありません。</p>
+<p>本章では実装先が分かっているため、<code>src/components/GameCard.astro</code>を指定しました。一方、表示部品を再利用できるかは既存実装を調べるよう依頼しています。これは、一覧と詳細ページに同じ評価の表示を別々に作り、表示が食い違うことを避けるためです。通常画面で星が見えるだけでは、<code>null</code>の扱いやリンクの維持まで確認できないため、実際のGameCardの描画結果を検査する条件も含めました。PR作成とマージを後の指示まで待つ条件は、受講者が実装を確認し、次の操作へ進む時点を判断するためです。実務でも、変更の性質に合わせてテストや画面確認を選び、実装の差分と検査結果を受け入れ条件に照らして判断します。</p>
+<p>目標から具体的な要件へ進み、入力と出力の例で曖昧さを減らす考え方は、<a href="https://docs.github.com/en/copilot/concepts/prompting/prompt-engineering">GitHub公式のCopilot Chatのプロンプト設計</a>で説明されています。問題と受け入れ条件、関連するファイルを明確にする考え方は、<a href="https://docs.github.com/en/copilot/tutorials/cloud-agent/get-the-best-results">Copilot cloud agent向けの課題整理のガイド</a>も参考にできます。いずれも依頼内容の整理に関する参考資料です。</p>
 <p><a id="0とnullを区別するコードの読み方"></a></p>
 <h3 id="354-0とnullを区別するコードの読み方">3.5.4 0とnullを区別するコードの読み方</h3>
 <p>次のコードは、ゲームの星評価データを数値と <code>null</code> に分ける条件の説明例です。既存の <code>StarRating</code> コンポーネントを再利用した実装では、数値側がコンポーネントの呼び出しになることもあります。</p>
@@ -410,5 +447,10 @@ App内で組み込みターミナルを開く場合は、<strong>Toggle panel</s
 <p><a href="https://docs.github.com/en/pull-requests/concepts/helping-others-review-your-changes">PRの目的と差分をレビューしやすくする方法</a></p>
 </li>
 <li><a href="https://docs.github.com/en/issues/planning-and-tracking-with-projects/learning-about-projects/best-practices-for-projects">Issueの分割と依存関係を整理する方法</a></li>
-<li><a href="https://docs.github.com/en/copilot/tutorials/cloud-agent/get-the-best-results">Copilot cloud agentへ渡す課題のまとめ方</a></li>
+<li>
+<p><a href="https://docs.github.com/en/copilot/tutorials/cloud-agent/get-the-best-results">Copilot cloud agentへ渡す課題のまとめ方</a></p>
+</li>
+<li>
+<p><a href="https://docs.github.com/en/copilot/concepts/prompting/prompt-engineering">Copilot Chatへの依頼で目標・具体的な要件・入出力の例を示す方法</a></p>
+</li>
 </ul></article><nav class="chapter-nav" aria-label="章の移動"><a href="2-install-copilot-app.html">← 前の章：第2章 - GitHub Copilot appのインストール</a><a href="4-custom-instructions.html">次の章 →：第4章 - カスタム指示によるCopilotのガイド</a></nav></main></body></html>
