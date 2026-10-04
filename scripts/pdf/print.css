@@ -10,6 +10,7 @@ p { orphans: 3; widows: 3; }
 a { color: #006b86; text-decoration: underline; overflow-wrap: anywhere; }
 li { margin-bottom: 2mm; }
 .compact-list { break-inside: avoid; }
+.chapter h3[id$="-参考資料"] + ul { break-inside: avoid; }
 .section-lead { break-inside: avoid; break-after: avoid; }
 .reading-group { break-inside: avoid; }
 .chapter h2,.chapter .section-lead:has(> h2) { break-before: page; }
