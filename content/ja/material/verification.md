@@ -9,6 +9,25 @@
 
 ## 1. 実走結果と教材改訂の記録
 
+### 2026年10月5日：未対応Issueの確認とテンプレート参照版の更新
+
+教材リポジトリの未対応Issue #6〜#13を、追加コメント、現在の受講者原稿、10月4日の実走記録と照合しました。教材の操作説明7件は修正ブランチへ反映済みで、mainへの取り込みを待つ状態です。
+
+| 項番 | Issue | 確認した対応 |
+| :---: | :--- | :--- |
+| 1 | [#6：Node.jsの実行環境](https://github.com/iwizsophy/dev-days-jp/issues/6) | 実装セッションで実行したバージョンを、ツールの出力で確認する |
+| 2 | [#7：My workの表示](https://github.com/iwizsophy/dev-days-jp/issues/7) | 受講者向けApp教材全章にMy workの操作が残っていないことを確認した |
+| 3 | [#8：Issueの表示対象](https://github.com/iwizsophy/dev-days-jp/issues/8) | プロジェクトの選択とIssuesの表示対象を分け、自分の演習用コピーだけを表示する |
+| 4 | [#9：Chatsの入口](https://github.com/iwizsophy/dev-days-jp/issues/9) | 追加コメントを反映し、Chats横の `+` と右クリックの両方を案内する |
+| 5 | [#10：New sessionの入口](https://github.com/iwizsophy/dev-days-jp/issues/10) | 自分の演習用プロジェクトの `+` と右クリックの両方を案内する |
+| 6 | [#11：内部npmミラー](https://github.com/iwizsophy/dev-days-jp/issues/11) | テンプレート側で修正済み。教材の参照版をv2026.10.05へ更新した |
+| 7 | [#12：PR作成時のIssue](https://github.com/iwizsophy/dev-days-jp/issues/12) | Issueが必要な理由、既存Issueの再利用、必要な場合の作成、PRとの関連付けを補った |
+| 8 | [#13：計画前に実装が始まる](https://github.com/iwizsophy/dev-days-jp/issues/13) | Canvasの本文受領、Planへの切り替え、計画の承認、実装を分けた現在の流れを確認した |
+
+#11のコード修正は、[テンプレート側のPR #11](https://github.com/iwizsophy/dev-days-tailspin-template/pull/11)でマージされました。配布タグ[v2026.10.05](https://github.com/iwizsophy/dev-days-tailspin-template/tree/v2026.10.05)とmainは同じコミット `02d5215b9f81503c871227475b7ecf6dacd797f0`です。旧版との差分は内部ミラーのURL6件の置き換えで、パッケージのバージョンとintegrityは変わっていません。[mainのCI](https://github.com/iwizsophy/dev-days-tailspin-template/actions/runs/37218485021)、[開発依存関係のDependabot更新](https://github.com/iwizsophy/dev-days-tailspin-template/actions/runs/37218569124)、[本番依存関係のDependabot更新](https://github.com/iwizsophy/dev-days-tailspin-template/actions/runs/37218568925)が成功したことを確認しました。
+
+現在使うテンプレートの参照版と固定コミットを更新しました。10月3日・4日のApp実走記録と10月2日の監査記録は当時の版のまま保持し、新しい版での実績とは区別しています。改訂後の教材全章の再実走、今回追加したIssue作成プロンプトのAppでの再実行、New chatとNew sessionの入口メニューの再撮影、新しく作成した演習コピーでのDependabot更新は、今回の確認では実施していません。
+
 ### 2026年10月5日：補足の役割と実務への応用
 
 第1〜9章の補足を、章で学んだ考え方を実務で使うための判断基準、適用条件、限界から説明する構成へ見直しました。ケース固有の操作や対象を前提にしていた見出し13件も、実務で行う判断や作業の目的を示す表現へ改題しています。ケースは考え方の適用例として残し、既に実務の観点を示していた見出しは維持しました。受講者用ガイドにも、補足の役割を明記しています。
