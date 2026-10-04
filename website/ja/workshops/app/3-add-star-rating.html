@@ -240,14 +240,18 @@ PRはまだ作成しないでください。</code></pre>
 <ol>
 <li>星評価を実装したセッションの画面右上にある <strong>Create PR</strong> を選択します。</li>
 <li>ブラウザー認証を求められた場合は、<strong>Sign in with your browser</strong> を選択し、画面の指示に従って認証します。</li>
-<li>CopilotによるPRの作成処理と、関連するIssueの作成・選択を確認します。Issueを求められた場合は、次のプロンプトを送信します。既に星評価のIssueが作成されていれば、そのIssueを使います。</li>
-</ol>
-<p><pre class="highlight"><code class="language-plaintext">自分の演習用リポジトリで、今回のゲームカードへの星評価表示に対応するIssueを確認してください。
+<li>
+<p>CopilotによるPRの作成処理と、関連するIssueの作成・選択を確認します。Issueを求められた場合は、次のプロンプトを送信します。既に星評価のIssueが作成されていれば、そのIssueを使います。</p>
+<pre class="highlight"><code class="language-plaintext">自分の演習用リポジトリで、今回のゲームカードへの星評価表示に対応するIssueを確認してください。
 同じ変更を扱うIssueがあれば再利用し、なければCONTRIBUTING.mdに従って作成してください。目的と受け入れ条件には、このセッションで合意した星評価の仕様を記録してください。
 そのIssueを今回のPRに関連付けてください。PRの取り込み先は自分の演習用リポジトリのmainとし、マージはまだ行わないでください。</code></pre>
-4. 作成されたPRのリポジトリが自分の演習コピーで、取り込み先が <strong>main</strong> であることを確認します。本章では <strong>Agent merge</strong>を<strong>Off</strong> にして、手動でマージするところまで進めます。
-5. 同じ実装セッションのチャット欄のすぐ上にある<strong>PR</strong>バブルを選択し、レビューペインで作成されたPRの内容を最終確認します。関連Issueのタイトルと本文が今回の星評価の変更を表し、同じ演習用リポジトリのIssueであることも確認してください。
-6. <strong>Ready to merge</strong> を選択し、ダイアログのCI結果を確認します。このボタンの表示だけでは、CI全成功とは判断できません。<strong>Checks are running</strong> や実行中のジョブがあれば待ち、すべてのジョブの成功を確認します。表示が更新されない場合は画面を開き直し、必要に応じてGitHub Webの同じPRでも照合してください。</p>
+</li>
+<li>
+<p>作成されたPRのリポジトリが自分の演習コピーで、取り込み先が <strong>main</strong> であることを確認します。本章では <strong>Agent merge</strong>を<strong>Off</strong> にして、手動でマージするところまで進めます。</p>
+</li>
+<li>同じ実装セッションのチャット欄のすぐ上にある<strong>PR</strong>バブルを選択し、レビューペインで作成されたPRの内容を最終確認します。関連Issueのタイトルと本文が今回の星評価の変更を表し、同じ演習用リポジトリのIssueであることも確認してください。</li>
+<li><strong>Ready to merge</strong> を選択し、ダイアログのCI結果を確認します。このボタンの表示だけでは、CI全成功とは判断できません。<strong>Checks are running</strong> や実行中のジョブがあれば待ち、すべてのジョブの成功を確認します。表示が更新されない場合は画面を開き直し、必要に応じてGitHub Webの同じPRでも照合してください。</li>
+</ol>
 <p><img alt="CI全ジョブの成功とAgent merge Offを確認して手動でマージする" src="../assets/app-20261004-02-pr-ci-passed.jpg" /></p>
 <ol start="7">
 <li>差分、テスト結果、未解決のレビュー指摘を確認したうえで、<strong>Merge pull request</strong> を選択してmainへマージします。</li>
