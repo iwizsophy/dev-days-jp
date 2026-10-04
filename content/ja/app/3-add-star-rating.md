@@ -168,11 +168,19 @@ Tailspin Toysの通常データに含まれる21件のゲームはすべて数�
 
 星評価のPRは実装に使ったセッションから作成し、差分やCIの結果をApp内で確認できます。作成済みのPRをAppのサイドバーから開く入口は**Pull requests**です。機能の説明は[GitHub公式のPR管理手順][managing-issues-prs]も参照してください。
 
+このテンプレートの[開発ルール][template-issue-rule]では、変更に対応するIssueを作ることを求めています。本章では要件を直接伝えて実装しましたが、PRを作るときに、その目的と受け入れ条件をIssueにも記録します。IssueとPRを関連付けると、変更の理由と実装結果を一緒に追えます。関連付けの方法は[GitHub公式の説明][linking-issue-pr]を参照してください。
+
 1. 星評価を実装したセッションの画面右上にある **Create PR** を選択します。
 2. ブラウザー認証を求められた場合は、**Sign in with your browser** を選択し、画面の指示に従って認証します。
-3. Copilotがpull requestの作成処理を開始します。
+3. CopilotによるPRの作成処理と、関連するIssueの作成・選択を確認します。Issueを求められた場合は、次のプロンプトを送信します。既に星評価のIssueが作成されていれば、そのIssueを使います。
+
+   ```plaintext
+   自分の演習用リポジトリで、今回のゲームカードへの星評価表示に対応するIssueを確認してください。
+   同じ変更を扱うIssueがあれば再利用し、なければCONTRIBUTING.mdに従って作成してください。目的と受け入れ条件には、このセッションで合意した星評価の仕様を記録してください。
+   そのIssueを今回のPRに関連付けてください。PRの取り込み先は自分の演習用リポジトリのmainとし、マージはまだ行わないでください。
+   ```
 4. 作成されたPRのリポジトリが自分の演習コピーで、取り込み先が **main** であることを確認します。本章では **Agent merge**を**Off** にして、手動でマージするところまで進めます。
-5. 同じ実装セッションのチャット欄のすぐ上にある **PR** バブルを選択し、レビューペインで作成されたpull requestの内容を最終確認します。
+5. 同じ実装セッションのチャット欄のすぐ上にある**PR**バブルを選択し、レビューペインで作成されたPRの内容を最終確認します。関連Issueのタイトルと本文が今回の星評価の変更を表し、同じ演習用リポジトリのIssueであることも確認してください。
 6. **Ready to merge** を選択し、ダイアログのCI結果を確認します。このボタンの表示だけでは、CI全成功とは判断できません。**Checks are running** や実行中のジョブがあれば待ち、すべてのジョブの成功を確認します。表示が更新されない場合は画面を開き直し、必要に応じてGitHub Webの同じPRでも照合してください。
 
    ![CI全ジョブの成功とAgent merge Offを確認して手動でマージする](../../_images/app-20261004-public/app-20261004-02-pr-ci-passed.jpg)
@@ -332,6 +340,8 @@ Copilotが生成したコードを読む目的は、依頼した仕様が実装�
 - [GitHub Copilot appでのエージェントセッションの操作][agent-sessions]
 - [GitHub Copilot appについて][about-copilot-app]
 - [GitHub Copilot appでのIssueとpull requestの管理][managing-issues-prs]
+- [演習用テンプレートで変更に対応するIssueを作るルール][template-issue-rule]
+- [IssueとPRを関連付ける方法][linking-issue-pr]
 - [PRの目的と差分をレビューしやすくする方法][focused-pull-requests]
 - [Issueの分割と依存関係を整理する方法][issue-scoping]
 - [Copilot cloud agentへ渡す課題のまとめ方][copilot-task-scoping]
@@ -350,3 +360,5 @@ Copilotが生成したコードを読む目的は、依頼した仕様が実装�
 [prompt-engineering]: https://docs.github.com/en/copilot/concepts/prompting/prompt-engineering
 [review-generated-code]: https://docs.github.com/en/copilot/tutorials/review-ai-generated-code
 [js-falsy]: https://developer.mozilla.org/en-US/docs/Glossary/Falsy
+[template-issue-rule]: https://github.com/iwizsophy/dev-days-tailspin-template/blob/v2026.10.03/CONTRIBUTING.md#issues
+[linking-issue-pr]: https://docs.github.com/en/issues/tracking-your-work-with-issues/using-issues/linking-a-pull-request-to-an-issue

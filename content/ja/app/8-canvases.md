@@ -97,7 +97,7 @@ Canvasの本文追加ボタンは、Issueの実装計画を立てる前に要件
 2. Canvas作成セッションの**Changes**で、Canvasが`.github/extensions/priority-kanban/extension.mjs`へ保存され、演習用リポジトリのREADMEに再利用手順があることを確認します。
 3. 保存前に本文を追加したカードが送信済みのままであることと、**Refresh**後も通知が増えないことを確認します。未送信のカードを使う場合も、本文1回・受領1回で止まり、実装を始めないことを確かめてください。
 4. Canvas作成セッションの差分がCanvasと再利用手順の範囲に収まっていることをレビューします。Canvasの変更に関連する検査もエージェントへ依頼し、その検査結果を確認します。
-5. Canvas作成セッションで通常の**Create PR**から共有CanvasのPRを作成し、最新コミットのCI全ジョブ成功を待ちます。その後、[第7章の開始操作](7-agent-merge.md#agent-mergeを開始する)と同じく**Agent merge**を**On**にします。
+5. Canvas作成セッションで通常の**Create PR**から共有CanvasのPRを作成し、[第3章のIssue確認](3-add-star-rating.md#最初の-pull-request-を作成してマージする)と同じく、この変更に対応するIssueとPRの関連付けを確認します。最新コミットのCI全ジョブ成功を待ちます。その後、[第7章の開始操作](7-agent-merge.md#agent-mergeを開始する)と同じく**Agent merge**を**On**にします。
 6. AppとGitHubで共有Canvasの同じPRを開き、演習用リポジトリのmainへ**Merged**になったことを確認します。
 
 ![共有するCanvasの保存先と、READMEを含むファイル構成を確認する例](../../_images/app-20261004-public/app-20261004-07-changes-canvas-final.jpg)
