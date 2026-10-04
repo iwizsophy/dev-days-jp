@@ -75,7 +75,7 @@ Node.jsのインストール後、すでにGitHub Copilot appを起動してい�
 後の章では、各自が作成したTailspin Toysの演習用リポジトリでIssueやPull Requestを扱います。作成前に、コピー元のテンプレートと作成先の所有者を確認しましょう。操作の詳細は[GitHub公式のテンプレートからの作成手順][template-repository]も参照できます。
 
 1. ブラウザーで`https://github.com/iwizsophy/dev-days-tailspin-template`を開きます。
-2. **Use this template → Create a new repository**を選択します。
+2. **Use this template** → **Create a new repository**を選択します。
 
    ![Tailspin ToysテンプレートのUse this templateメニュー](../../_images/app-20261004-public/app-20261004-00-template-menu.jpg)
 
@@ -91,7 +91,7 @@ Node.jsのインストール後、すでにGitHub Copilot appを起動してい�
 
    ![テンプレートとコピー先のOwner、Repository nameを指定するフォーム](../../_images/app-20261004-public/app-20261004-00-template-form-top.jpg)
 
-4. フォーム下部の任意項目**Jumpstart your project with Copilot**では、Prompt欄を空欄のままにします。
+4. フォーム下部の任意項目**Jumpstart your project with Copilot**では、**Prompt**欄を空欄のままにします。
 5. 入力内容を確認し、**Create repository**を選択します。
 6. 作成したリポジトリの`owner/repo`を控えます。次章では、作成した演習用リポジトリをAppに接続します。
 
@@ -103,7 +103,7 @@ Tailspin Toysの演習用リポジトリの作成後に、GitHub Actionsで自�
 
 1. 作成した演習用リポジトリの**Issues**タブを開き、8件の課題が表示されることを確認します。
 2. 課題が表示されない場合は、同じ演習用リポジトリの**Actions**タブでワークフローの実行状況を確認します。
-3. 必要に応じて**Bootstrap template issues → Run workflow**を実行し、終了後にIssuesを開き直します。
+3. 必要に応じて**Bootstrap template issues** → **Run workflow**を実行し、終了後に**Issues**を開き直します。
 
 作成された演習用Issueのタイトルには、フィルター機能やコーディング規約など、これから取り組む変更が表れています。演習用リポジトリのコードとIssueがそろったことを確認して、次へ進んでください。
 
