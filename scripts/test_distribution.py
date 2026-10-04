@@ -94,7 +94,8 @@ class DistributionTests(unittest.TestCase):
             self.assertNotIn('file://', markup)
             contents = soup.select_one('.contents')
             self.assertFalse(contents.select('ol'))
-            expected_contents = [
+            notice_heading = soup.select_one('.usage-notice h1')
+            expected_contents = [('#' + notice_heading['id'], notice_heading.get_text(' ', strip=True))] + [
                 ('#' + heading['id'], heading.get_text(' ', strip=True))
                 for chapter in soup.select('.chapter')
                 for heading in chapter.select('h1[id], h2[id]')]
@@ -110,6 +111,80 @@ class DistributionTests(unittest.TestCase):
                 _, body = pdf.web.title_body(path)
                 source = BeautifulSoup(pdf.web.markdown.markdown(body, extensions=['tables', 'sane_lists', 'pymdownx.superfences']), 'html.parser')
                 self.assertTrue(all(a['href'] in cited for a in source.select('a[href]') if a['href'].startswith(('https:', 'http:'))))
+
+    def test_shared_usage_notice_is_first_and_preserves_source(self):
+        source = pdf.web.SOURCE / 'disclaimer.md'
+        destination = pdf.web.OUTPUT / 'disclaimer.html'
+        self.assertEqual(pdf.web.SITE_PAGES[source], destination)
+        self.assertEqual(pdf.web.TARGETS[source.resolve()], destination)
+        title, body = pdf.web.title_body(source)
+        original = BeautifulSoup(pdf.web.markdown_renderer().convert(body), 'html.parser')
+        standalone = BeautifulSoup(pdf.web.render_page(source, destination), 'html.parser')
+        self.assertEqual(standalone.select_one('main > h1')['id'], 'usage-notice')
+        rendered = {'web': standalone.select_one('main')}
+        config = json.loads(pdf.CONFIG.read_text(encoding='utf-8'))
+        for audience, book in config['books'].items():
+            paths = [pdf.web.SOURCE / p for p in book['chapters']]
+            markup, titles, images = pdf.book_html(paths, book['title'], config, 'test-ref', 'a' * 64)
+            soup = BeautifulSoup(markup, 'html.parser')
+            notice = soup.select_one('.usage-notice')
+            contents = soup.select_one('.contents')
+            self.assertIs(contents.find_next_sibling(), notice)
+            self.assertIs(notice.find_next_sibling(), soup.select_one('.chapter'))
+            self.assertNotIn('chapter', notice.get('class', []))
+            self.assertEqual(notice.h1['id'], 'usage-notice')
+            self.assertEqual(contents.select_one('a')['href'], '#usage-notice')
+            self.assertEqual(len(contents.select('a[href="#usage-notice"]')), 1)
+            self.assertEqual(titles, [pdf.web.title_body(path)[0] for path in paths])
+            self.assertEqual(len(soup.select('.chapter')), len(paths))
+            self.assertFalse(notice.select('img'))
+            self.assertEqual(len(soup.select('.chapter img')), images)
+            self.assertRegex(soup.style.get_text(), r'\.usage-notice\s*\{[^}]*break-before:\s*page')
+            self.assertNotRegex(soup.style.get_text(), r'\.usage-notice\s+h[2-6][^{]*\{[^}]*break-before:\s*page')
+            rendered[audience] = notice
+        expected_text = ' '.join((title + ' ' + original.get_text(' ', strip=True)).split())
+        expected_links = [a['href'] for a in original.select('a[href]') if a['href'].startswith(('https:', 'http:'))]
+        expected_labels = [a.get_text(' ', strip=True) for a in original.select('a[href]')]
+        for audience, notice in rendered.items():
+            with self.subTest(audience=audience):
+                self.assertEqual(' '.join(notice.get_text(' ', strip=True).split()), expected_text)
+                self.assertEqual([a['href'] for a in notice.select('a[href]') if a['href'].startswith(('https:', 'http:'))], expected_links)
+                self.assertEqual([a.get_text(' ', strip=True) for a in notice.select('a[href]')], expected_labels)
+                self.assertTrue(all(h['id'].startswith('usage-notice--') for h in notice.select('h2, h3, h4, h5, h6')))
+
+    def test_usage_notice_links_stay_inside_the_book(self):
+        config = json.loads(pdf.CONFIG.read_text(encoding='utf-8'))
+        notice_path = pdf.web.SOURCE / 'disclaimer.md'
+        lesson_paths = [pdf.web.SOURCE / 'app/README.md', pdf.web.SOURCE / 'material/instructor.md']
+        title_body = pdf.web.title_body
+        notice_body = ('## Shared\n\nNotice text. [Self](#shared) '
+                       '[Relative self](disclaimer.md#shared) [Credits](credits.md).\n\n'
+                       '## Usage notice\n\n[Local collision](#usage-notice).\n')
+        lesson_body = ('## Shared\n\n[Notice](../disclaimer.md) '
+                       '[Notice section](../disclaimer.md#shared) [Credits](../credits.md).\n')
+        def fixture(source):
+            if source == notice_path:
+                return 'Usage notice', notice_body
+            if source in lesson_paths:
+                return 'Lesson', lesson_body
+            return title_body(source)
+        with patch.object(pdf.web, 'title_body', side_effect=fixture):
+            web_page = BeautifulSoup(pdf.web.render_page(notice_path, pdf.web.OUTPUT / 'disclaimer.html'), 'html.parser')
+            web_links = [a['href'] for a in web_page.select('article a[href]')]
+            self.assertEqual(web_links[:3], ['#usage-notice--shared', 'disclaimer.html#usage-notice--shared', 'credits.html'])
+            self.assertEqual(web_links[-1], '#usage-notice--usage-notice')
+            for path in lesson_paths:
+                for web_base in [None, 'https://example.com/workshops/']:
+                    with self.subTest(source=path.name, web_base=web_base):
+                        markup, _, _ = pdf.book_html([path], 'test', config, 'test-ref', 'a' * 64, web_base)
+                        soup = BeautifulSoup(markup, 'html.parser')
+                        self.assertEqual([a['href'] for a in soup.select('.chapter a[href]')],
+                                         ['#usage-notice', '#usage-notice--shared', '#credits'])
+                        self.assertEqual([a['href'] for a in soup.select('.usage-notice a[href]')][:3],
+                                         ['#usage-notice--shared', '#usage-notice--shared', '#credits'])
+                        self.assertEqual(soup.select('.usage-notice a[href]')[-1]['href'], '#usage-notice--usage-notice')
+                        self.assertEqual(soup.select_one('.credits h1')['id'], 'credits')
+                        self.assertEqual(soup.select_one('.chapter h2')['id'], pdf.anchor(path) + '--shared')
 
     def test_web_index_has_separate_overview_and_matching_h2_links(self):
         destination = pdf.web.OUTPUT / 'index.html'

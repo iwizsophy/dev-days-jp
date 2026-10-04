@@ -146,6 +146,36 @@ def keep_explanations_with_examples(soup, path, prefix, figures):
                     group([intro, table])
 
 
+def resolve_book_links(soup, path, selected, ref, web_base):
+    shared = {
+        (web.SOURCE / 'disclaimer.md').resolve(): 'usage-notice',
+        (web.SOURCE / 'credits.md').resolve(): 'credits',
+    }
+    for link in soup.select('a[href]'):
+        url = urlsplit(link['href'])
+        if url.scheme or url.netloc:
+            continue
+        target = (path.parent / unquote(url.path)).resolve() if url.path else path.resolve()
+        if target in shared:
+            fragment = unquote(url.fragment)
+            if shared[target] == 'usage-notice' and fragment:
+                fragment = web.usage_notice_fragment(fragment)
+            link['href'] = '#' + (fragment or shared[target])
+        elif target in selected:
+            link['href'] = '#' + anchor(target) + ('--' + unquote(url.fragment) if url.fragment else '')
+        elif target in web.TARGETS:
+            if web_base:
+                link['href'] = web_base.rstrip('/') + '/' + web.TARGETS[target].relative_to(web.OUTPUT).as_posix()
+            else:
+                link['href'] = source_url(target, ref)
+            if url.fragment:
+                link['href'] += '#' + quote(unquote(url.fragment))
+        elif target.is_file() and target.is_relative_to(ROOT):
+            link['href'] = source_url(target, ref)
+        else:
+            raise ValueError(f'Unresolved PDF link: {path}: {link["href"]}')
+
+
 def book_html(paths, label, config, ref, digest, web_base=None):
     sections, titles, contents, expected_images = [], [], [], 0
     selected = {p.resolve() for p in paths}
@@ -202,24 +232,7 @@ def book_html(paths, label, config, ref, digest, web_base=None):
         prefix = anchor(path)
         for node in soup.select('[id]'):
             node['id'] = prefix + '--' + node['id']
-        for link in soup.select('a[href]'):
-            url = urlsplit(link['href'])
-            if url.scheme or url.netloc:
-                continue
-            target = (path.parent / unquote(url.path)).resolve() if url.path else path.resolve()
-            if target in selected:
-                link['href'] = '#' + anchor(target) + ('--' + unquote(url.fragment) if url.fragment else '')
-            elif target in web.TARGETS:
-                if web_base:
-                    link['href'] = web_base.rstrip('/') + '/' + web.TARGETS[target].relative_to(web.OUTPUT).as_posix()
-                else:
-                    link['href'] = source_url(target, ref)
-                if url.fragment:
-                    link['href'] += '#' + quote(unquote(url.fragment))
-            elif target.is_file() and target.is_relative_to(ROOT):
-                link['href'] = source_url(target, ref)
-            else:
-                raise ValueError(f'Unresolved PDF link: {path}: {link["href"]}')
+        resolve_book_links(soup, path, selected, ref, web_base)
         figures = {}
         for img in list(soup.select('img')):
             image = (path.parent / unquote(img['src'])).resolve()
@@ -264,7 +277,14 @@ def book_html(paths, label, config, ref, digest, web_base=None):
         contents.append(f'<li><a class="contents-chapter" href="#{prefix}">{html.escape(title)}</a>'
             + (f'<ul class="contents-sections">{section_links}</ul>' if section_links else '') + '</li>')
         sections.append(f'<section class="chapter"><h1 id="{prefix}">{html.escape(title)}</h1>{soup}</section>')
-    toc = ''.join(contents)
+    notice_title, notice_body = web.usage_notice()
+    notice_soup = BeautifulSoup(notice_body, 'html.parser')
+    resolve_book_links(notice_soup, web.SOURCE / 'disclaimer.md', selected, ref, web_base)
+    for table in notice_soup.select('table'):
+        web.layout_table(table, notice_soup)
+    usage_notice = f'<section class="usage-notice"><h1 id="usage-notice">{html.escape(notice_title)}</h1>{notice_soup}</section>'
+    toc = (f'<li><a class="contents-chapter" href="#usage-notice">{html.escape(notice_title)}</a></li>'
+           + ''.join(contents))
     cfg = {k: html.escape(str(v)) for k, v in config.items()}
     web_link = (f'<a href="{html.escape(web_base.rstrip("/") + "/app/index.html", quote=True)}">Web 版を開く</a>' if web_base
         else f'<a href="{source_url(web.SOURCE / "app/README.md", ref)}">オンライン原稿</a>')
@@ -281,7 +301,7 @@ def book_html(paths, label, config, ref, digest, web_base=None):
         web.layout_table(table, credits_soup)
     credits = f'<section class="credits"><h1 id="credits">{html.escape(credits_title)}</h1>{credits_soup}</section>'
     css = (ROOT / 'scripts/pdf/print.css').read_text(encoding='utf-8')
-    result = f'<!doctype html><html lang="ja"><head><meta charset="utf-8"><title>{label} | Dev Days</title><style>{css}</style></head><body>{cover}<section class="contents"><h1 id="contents">目次</h1><p>章名や節名を選択すると本文へ移動します。PDFのしおりからは小節も開けます。</p><ul class="contents-chapters">{toc}<li><a class="contents-chapter" href="#credits">{html.escape(credits_title)}</a></li></ul></section>{"".join(sections)}{credits}</body></html>'
+    result = f'<!doctype html><html lang="ja"><head><meta charset="utf-8"><title>{label} | Dev Days</title><style>{css}</style></head><body>{cover}<section class="contents"><h1 id="contents">目次</h1><p>章名や節名を選択すると本文へ移動します。PDFのしおりからは小節も開けます。</p><ul class="contents-chapters">{toc}<li><a class="contents-chapter" href="#credits">{html.escape(credits_title)}</a></li></ul></section>{usage_notice}{"".join(sections)}{credits}</body></html>'
     parsed = BeautifulSoup(result, 'html.parser')
     ids = [n['id'] for n in parsed.select('[id]')]
     if len(ids) != len(set(ids)):
