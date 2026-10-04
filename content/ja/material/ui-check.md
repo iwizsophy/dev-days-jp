@@ -31,13 +31,13 @@
 | 変更をレビューする | 実装セッションのChangesで差分を確認。Create PRからPRを作成 | 完了報告と実際の差分・テスト結果を照合してからPR作成へ進む |
 | 計画を承認する | Review plan → Approve and implement this planで承認を送信し、実装へ進む | 仕様、対象外の変更、検査方法、作業を止める位置を承認前に判断する |
 | 開発画面を見る | Run development siteで起動。Browserが自動表示されない場合は、RunターミナルのURLを別ブラウザーで開く。終了時はStopを選択する | 起動、ブラウザー表示、停止を別々に確認する。URLと実行中のworktreeも照合する |
-| MCPを使う | Settings → MCP serversで定義を確認し、Trust repositoryを求められた場合は内容を読んで承認する。Connectedを確認してからセッションでツールを呼ぶ | 設定の表示、接続、実際のツール呼び出しを順に確認する。呼び出せない場合は信頼状態と接続設定を調べる |
+| MCPを使う | Customize → Installed → MCP Serversで定義を確認し、Trust repositoryを求められた場合は内容を読んで承認する。Connectedを確認してからセッションでツールを呼ぶ | 設定の表示、接続、実際のツール呼び出しを順に確認する。呼び出せない場合は信頼状態と接続設定を調べる |
 | 通常マージを判断する | Ready to mergeからチェック状態を開き、CI全ジョブの成功後にMerge pull requestで統合する | Ready to mergeだけでCI全成功と判断しない。必要なCIと未解決レビューを確認する |
-| Agent Mergeを使う | Create PR options → Agent merge。開始前に下記のマージ条件を確認し、Merge pull requestのチェック状態も確かめる | 任せる操作とCI全成功を待つ経路を選ぶ。すでに有効な項目は、許可するなら切り替えずに保持する |
+| Agent Mergeを使う | 通常のCreate PRで作成し、最新のCI全ジョブ成功を確認する。Ready to merge横メニューでAgent mergeをOnにする | 任せる操作を確認して開始し、AppとGitHubのMerged、最新コミットのCI結果を照合する |
 | Canvasを再利用する | プロジェクト共有スコープへ保存・マージし、別セッションで開く。本文追加ボタンからIssue本文を1回追加し、Plan承認後に実装する | 表示、更新、共有保存、本文追加を分けて確認する。追加ボタンだけで実装を始めない |
 | Automationを実行する | Automations → New automation → Trigger: Manual。Run in the cloudをオフにし、Select project → Create and run → Recent runsでLocal / Succeededと出力を確認する | 実行成功の表示に加え、要約の内容をGitHubの一覧と照合する |
 
-Agent Mergeを使う前の判断は、[レッスン7の開始前確認](../app/7-agent-merge.md)に従ってください。CI全ジョブの完了を待つ条件が適用されるかを、対象リポジトリと自分の権限で確認します。条件が不明なら通常のCreate PRで作成し、最新コミットのCI全成功を待ってからAgent Mergeを開始してください。
+Agent Mergeを使う前の判断は、[第7章の開始前確認](../app/7-agent-merge.md)に従ってください。CI全ジョブの完了を待つ条件が適用されるかを、対象リポジトリと自分の権限で確認します。条件が不明なら通常のCreate PRで作成し、最新コミットのCI全成功を待ってからAgent Mergeを開始してください。
 
 ## 3. 講師が最新版で確認すること
 
