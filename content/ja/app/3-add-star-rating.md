@@ -279,9 +279,15 @@ Appでセッションを開始するときは、[GitHub公式のセッション�
 
 <a id="0とnullを区別するコードの読み方"></a>
 
-### 3.5.4 0とnullを区別するコードの読み方
+<a id="354-0とnullを区別するコードの読み方"></a>
 
-次のコードは、ゲームの星評価データを数値と `null` に分ける条件の説明例です。既存の `StarRating` コンポーネントを再利用した実装では、数値側がコンポーネントの呼び出しになることもあります。
+### 3.5.4 生成されたコードを仕様から読む
+
+Copilotが生成したコードを読む目的は、依頼した仕様が実装されているかを判断することです。同じ動作を実現するコードにも、条件の書き方や部品の使い方が異なる実装があります。教材の説明例と形が違う場合も、入力に対する結果と、既存の構造・動作を保つ条件を基に確認します。
+
+星評価のケースでは、`Game.starRating`に5点満点の数値か、未評価を示す`null`が入ります。[JavaScriptでは、`0`と`null`はいずれも真偽値として判定すると偽になります][js-falsy]。そのため、`if (game.starRating)`のように値の真偽だけで分けると、0点も未評価として扱うことになります。コードを読むときは、値の意味と、実装が判定している条件を照合します。
+
+次の説明例は、`game.starRating !== null`で、未評価かどうかを判定しています。このケースのデータの条件では、`4.2`、`0`、`5`は数値を表示する側へ進み、`null`はNo rating yetを表示する側へ進みます。数値の大きさで分けているのではなく、未評価を表す値かどうかで分けるため、0点と未評価を区別できます。
 
    ```astro
    {game.starRating !== null ? (
@@ -295,8 +301,11 @@ Appでセッションを開始するときは、[GitHub公式のセッション�
    )}
    ```
 
-> [!NOTE]
-> 星評価を表示するためにCopilotが生成するコードは、毎回同じとは限りません。この説明例のコードと違っていても、要求を満たしていれば採用できます。ただし、同等の動作になっているかは差分とテストで確認してください。見た目の類似やエージェントの説明だけでは判断できません。
+このコードは、評価を表示し分ける条件の説明例です。実装で既存の`StarRating`を再利用すれば、数値側がコンポーネントの呼び出しになることもあります。条件の判定を部品の中で行う実装も考えられます。同じ条件式がGameCardに直接書かれていなくても、呼び出し先を含めて、各入力に対する表示が仕様を満たすかを読みます。
+
+説明例には、カード全体の構造やゲーム詳細へのリンクは示していません。星評価の表示が正しくても、既存部品の再利用、カードとリンクの維持、通常データを変更しない条件まで満たしたとは判断できません。実務でも、生成された実装の差分と関連する部品を読み、実際のテスト結果を受け入れ条件に照らして、採用や修正を判断します。本章では[差分とテストをレビューする手順](#差分とテストをレビューする)で確かめます。
+
+生成コードを人がレビューし、意図やプロジェクトの条件に合うかを検査する考え方は、[GitHub公式のAI生成コードのレビューガイド][review-generated-code]も参考にできます。
 
 <a id="差分画面テストciで確かめること"></a>
 
@@ -320,6 +329,9 @@ CIは、共有された環境で変更を検査する仕組みです。AppのRea
 
 - [Copilot Chatへの依頼で目標・具体的な要件・入出力の例を示す方法][prompt-engineering]
 
+- [AI生成コードをレビューし、意図と検査結果を照合する方法][review-generated-code]
+- [JavaScriptで真偽値として判定すると偽になる値][js-falsy]
+
 [prior-lesson]: 2-install-copilot-app.md#github-copilot-app-をインストールして構成する
 [next-lesson]: 4-custom-instructions.md
 [agent-sessions]: https://docs.github.com/en/copilot/how-tos/github-copilot-app/agent-sessions
@@ -329,3 +341,5 @@ CIは、共有された環境で変更を検査する仕組みです。AppのRea
 [issue-scoping]: https://docs.github.com/en/issues/planning-and-tracking-with-projects/learning-about-projects/best-practices-for-projects
 [copilot-task-scoping]: https://docs.github.com/en/copilot/tutorials/cloud-agent/get-the-best-results
 [prompt-engineering]: https://docs.github.com/en/copilot/concepts/prompting/prompt-engineering
+[review-generated-code]: https://docs.github.com/en/copilot/tutorials/review-ai-generated-code
+[js-falsy]: https://developer.mozilla.org/en-US/docs/Glossary/Falsy
