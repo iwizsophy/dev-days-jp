@@ -3,6 +3,8 @@
 
 配布用の参加者 PDF と講師用別冊は、Markdown から `python scripts/build_distribution.py` で生成できます。初回の準備・配布方法は [PDF 教材の作成ガイド](docs/pdf-distribution.md) を参照してください。
 
+教材と演習用テンプレートを使う前に、[利用上の注意と免責事項](content/ja/disclaimer.md)を確認してください。
+
 🌐 [English](README.md) | 日本語
 
 このリポジトリは [github/dev-days](https://github.com/github/dev-days) の履歴を引き継いだ、独立した教材セットです。App シナリオを主軸に据え、CLI は講師向けの緊急対応として分離しています。GitHub 公式の日本語版ではありません。原本のライセンスと著作権表示は [LICENSE](LICENSE) に保持しています。
@@ -41,7 +43,7 @@ Dev Days の開催を希望するコミュニティリーダー向けに、こ�
 | [運営ガイド（英語）](organization) | 企画から当日の運営までの実践的な案内 | イベントチェックリスト、登録ページのひな形 |
 | [主催者向けコンテンツ（英語）](content) | セッションとワークショップの技術資料 | スライド、ハンズオン教材 |
 | [参加者向けページ（日本語）](website/ja/index.html) | ワークショップの案内 | 演習本文は日本語、スライドは原本の言語 |
-| [演習本文（日本語）](website/ja/workshops/index.html) | App シナリオの演習0〜8 | App の操作・到達目標 |
+| [演習本文（日本語）](website/ja/workshops/index.html) | Appシナリオの第1〜9章 | Appの操作・到達目標 |
 | [講師ガイド](website/ja/workshops/material/instructor.html) | 開催前・当日の進行 | 時間配分・対処手順・検証表 |
 | [参考資料](website/ja/workshops/references.html) | 独立した CLI コース・Mona Mayhem | 本編の必須経路には含めない |
 | [App の事前準備と UI 確認（日本語）](website/ja/handson-guide.html) | このコピー独自の補助資料 | App の準備、UI が異なる場合の講師確認、到達目標 |
