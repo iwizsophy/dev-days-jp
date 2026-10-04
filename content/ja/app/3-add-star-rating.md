@@ -360,5 +360,5 @@ Copilotが生成したコードを読む目的は、依頼した仕様が実装�
 [prompt-engineering]: https://docs.github.com/en/copilot/concepts/prompting/prompt-engineering
 [review-generated-code]: https://docs.github.com/en/copilot/tutorials/review-ai-generated-code
 [js-falsy]: https://developer.mozilla.org/en-US/docs/Glossary/Falsy
-[template-issue-rule]: https://github.com/iwizsophy/dev-days-tailspin-template/blob/v2026.10.03/CONTRIBUTING.md#issues
+[template-issue-rule]: https://github.com/iwizsophy/dev-days-tailspin-template/blob/v2026.10.05/CONTRIBUTING.md#issues
 [linking-issue-pr]: https://docs.github.com/en/issues/tracking-your-work-with-issues/using-issues/linking-a-pull-request-to-an-issue

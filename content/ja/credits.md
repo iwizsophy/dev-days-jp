@@ -7,7 +7,7 @@ Appシナリオの日本語教材と演習用テンプレート、および作�
 | 1 | 日本語教材 | [iwizsophy/dev-days-jp](https://github.com/iwizsophy/dev-days-jp) | [MIT](https://github.com/iwizsophy/dev-days-jp/blob/main/LICENSE) |
 | 2 | 開催資料・講師向け案内 | [github/dev-days](https://github.com/github/dev-days) | [MIT](https://github.com/github/dev-days/blob/84b1e89aefcc23368b2ab44fd5c133ecd9572dfc/LICENSE) |
 | 3 | App演習の日本語原稿 | [github-samples/copilot-workshops](https://github.com/github-samples/copilot-workshops) | [MIT](https://github.com/github-samples/copilot-workshops/blob/7ddcf241c1cd10b8e90c0df96f6bef81e710392a/LICENSE) |
-| 4 | 演習用テンプレート | [iwizsophy/dev-days-tailspin-template](https://github.com/iwizsophy/dev-days-tailspin-template) | [MIT](https://github.com/iwizsophy/dev-days-tailspin-template/blob/v2026.10.03/LICENSE) |
+| 4 | 演習用テンプレート | [iwizsophy/dev-days-tailspin-template](https://github.com/iwizsophy/dev-days-tailspin-template) | [MIT](https://github.com/iwizsophy/dev-days-tailspin-template/blob/v2026.10.05/LICENSE) |
 | 5 | テンプレートの元のアプリ | [github-samples/tailspin-toys](https://github.com/github-samples/tailspin-toys) | [MIT](https://github.com/github-samples/tailspin-toys/blob/bae003609c8cff0c51d92658b8d3bd89450464f1/LICENSE) |
 
 ## ライセンスの表示
