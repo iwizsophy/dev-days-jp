@@ -27,6 +27,7 @@ TARGETS.update({p.resolve(): OUTPUT / 'material' / (p.stem + '.html') for p in S
 SITE_PAGES = {
     SOURCE / 'entry.md': ROOT / 'website/ja/index.html',
     SOURCE / 'preparation.md': ROOT / 'website/ja/handson-guide.html',
+    SOURCE / 'disclaimer.md': OUTPUT / 'disclaimer.html',
     SOURCE / 'credits.md': OUTPUT / 'credits.html',
 }
 TARGETS.update({p.resolve(): dest for p, dest in SITE_PAGES.items()})
@@ -67,17 +68,21 @@ def transform_links(body, source, destination):
             shutil.copyfile(candidate, target)
         else:
             raise ValueError(f'Unresolved source link: {source}: {value}')
-        suffix = ('?' + url.query if url.query else '') + ('#' + url.fragment if url.fragment else '')
+        fragment = url.fragment
+        if candidate == (SOURCE / 'disclaimer.md').resolve() and fragment:
+            fragment = usage_notice_fragment(unquote(fragment))
+        suffix = ('?' + url.query if url.query else '') + ('#' + fragment if fragment else '')
         return f'{attr}="{escape(relative(target, destination) + suffix, quote=True)}"'
     return re.sub(r'(href|src)="([^"]+)"', replace, body)
 
 
-def shell(title, body, destination, extra=''):
+def shell(title, body, destination, extra='', heading_id=None):
     css = relative(OUTPUT / 'workshops.css', destination)
     theme = relative(ROOT / 'website/theme-toggle.js', destination)
     site = relative(ROOT / 'website/ja/index.html', destination)
     guide = relative(ROOT / 'website/ja/handson-guide.html', destination)
     index = relative(OUTPUT / 'index.html', destination)
+    heading_attr = f' id="{escape(heading_id, quote=True)}"' if heading_id else ''
     return f'''<!DOCTYPE html>
 <html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow"><title>{escape(title)} | Dev Days 日本語版</title>
@@ -86,7 +91,7 @@ def shell(title, body, destination, extra=''):
 <a href="{site}">教材セットの入口</a><a href="{index}">App シナリオの目次</a>
 <a href="{guide}#switch">事前準備・UI の確認</a></nav>
 <button class="theme-toggle" type="button" onclick="toggleTheme()">☀️ ライト</button></header>
-<main id="lesson"><h1>{escape(title)}</h1>{extra}{body}</main></body></html>\n'''
+<main id="lesson"><h1{heading_attr}>{escape(title)}</h1>{extra}{body}</main></body></html>\n'''
 
 
 def image_caption(filename):
@@ -108,6 +113,41 @@ def markdown_renderer():
         extensions=['tables', 'toc', 'sane_lists', 'pymdownx.superfences', 'pymdownx.tasklist'],
         extension_configs={'toc': {'slugify': slugify_unicode},
             'pymdownx.superfences': {'disable_indented_code_blocks': False}})
+
+
+def usage_notice_fragment(fragment):
+    if fragment == 'usage-notice' or fragment.startswith('usage-notice--'):
+        return fragment
+    return 'usage-notice--' + fragment
+
+
+def usage_notice():
+    """Render the shared notice with stable IDs in Web and distribution books."""
+    title, text = title_body(SOURCE / 'disclaimer.md')
+    soup = BeautifulSoup(markdown_renderer().convert(text), 'html.parser')
+    ids = {node['id']: (node['id'] if node['id'].startswith('usage-notice--')
+                       else 'usage-notice--' + node['id']) for node in soup.select('[id]')}
+    for node in soup.select('[id]'):
+        node['id'] = ids[node['id']]
+    for link in soup.select('a[href^="#"]'):
+        if len(link['href']) > 1:
+            fragment = unquote(link['href'][1:])
+            link['href'] = '#' + ids.get(fragment, usage_notice_fragment(fragment))
+    return title, str(soup)
+
+
+def render_page(source, destination):
+    """Render a shared site or support page without writing build outputs."""
+    is_notice = source == SOURCE / 'disclaimer.md'
+    if is_notice:
+        title, body = usage_notice()
+    else:
+        title, text = title_body(source)
+        body = markdown.markdown(text, extensions=['tables', 'sane_lists', 'pymdownx.superfences'])
+    body = format_tables(transform_links(body, source, destination))
+    notice = '<aside>講師・運営向けの補助資料です。</aside>' if source in SUPPORT else ''
+    return shell(title, '<article>' + body + '</article>', destination, notice,
+                 heading_id='usage-notice' if is_notice else None)
 
 
 def layout_table(table, soup):
@@ -270,12 +310,7 @@ def build():
     for source in [*SUPPORT, *SITE_PAGES]:
         destination = TARGETS[source.resolve()]
         destination.parent.mkdir(exist_ok=True)
-        title, text = title_body(source)
-        body = markdown.markdown(text, extensions=['tables', 'sane_lists', 'pymdownx.superfences'])
-        body = transform_links(body, source, destination)
-        body = format_tables(body)
-        notice = '<aside>講師・運営向けの補助資料です。</aside>' if source in SUPPORT else ''
-        destination.write_text(shell(title, '<article>' + body + '</article>', destination, notice), encoding='utf-8')
+        destination.write_text(render_page(source, destination), encoding='utf-8')
     index = OUTPUT / 'index.html'
     body = '<p>App 版の順序・課題・到達目標に沿って Tailspin Toys を改修します。画面が教材と異なる場合は、本文の操作対象と項目名を確認し、講師に相談してください。</p>'
     body += '<p><a href="app/1-prerequisites.html">演習1から始める</a> · <a href="../handson-guide.html">受講準備を確認する</a></p>'

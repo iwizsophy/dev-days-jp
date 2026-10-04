@@ -39,6 +39,8 @@ th { background: #e7f1f4; }
 thead { display: table-header-group; }
 tr { break-inside: avoid; }
 .chapter,.contents,.credits { break-before: page; }
+.usage-notice { break-before: page; }
+.usage-notice h2 { font-size: 12pt; margin-top: 6mm; }
 .chapter > h1 { text-wrap: balance; }
 .cover { min-height: 235mm; padding-top: 24mm; }
 .cover .eyebrow { color: #087f8c; letter-spacing: .15em; font-weight: bold; }
