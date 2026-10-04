@@ -112,6 +112,15 @@ def keep_explanations_with_examples(soup, path, prefix, figures):
             following = start.find_next_sibling()
             if following and following.name == 'p':
                 group([start, following])
+    elif path.name == '9-review.md':
+        intro = next((p for p in soup.select('p') if p.get_text(strip=True).startswith('GitHub Copilotエコシステムの全容をさらに深く学ぶには')), None)
+        links = intro.find_next_sibling() if intro else None
+        if links and links.name == 'ul':
+            nodes = [intro, links]
+            following = links.find_next_sibling()
+            if following and following.name == 'p':
+                nodes.append(following)
+            group(nodes)
 
 
 def book_html(paths, label, config, ref, digest, web_base=None):
