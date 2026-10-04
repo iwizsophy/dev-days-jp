@@ -35,7 +35,7 @@
 <li><a href="#351-小さな変更から始める理由">3.5.1 小さな変更から始める理由</a></li>
 <li><a href="#352-セッションとworktreeの役割">3.5.2 セッションとworktreeの役割</a></li>
 <li><a href="#353-依頼に含める仕様と確認方法">3.5.3 依頼に含める仕様と確認方法</a></li>
-<li><a href="#354-0とnullを区別するコードの読み方">3.5.4 0とnullを区別するコードの読み方</a></li>
+<li><a href="#354-生成されたコードを仕様から読む">3.5.4 生成されたコードを仕様から読む</a></li>
 <li><a href="#355-差分画面テストciで確かめること">3.5.5 差分、画面、テスト、CIで確かめること</a></li>
 <li><a href="#356-参考資料">3.5.6 参考資料</a></li>
 </ul>
@@ -416,8 +416,11 @@ App内で組み込みターミナルを開く場合は、<strong>Toggle panel</s
 <p>本章では実装先が分かっているため、<code>src/components/GameCard.astro</code>を指定しました。一方、表示部品を再利用できるかは既存実装を調べるよう依頼しています。これは、一覧と詳細ページに同じ評価の表示を別々に作り、表示が食い違うことを避けるためです。通常画面で星が見えるだけでは、<code>null</code>の扱いやリンクの維持まで確認できないため、実際のGameCardの描画結果を検査する条件も含めました。PR作成とマージを後の指示まで待つ条件は、受講者が実装を確認し、次の操作へ進む時点を判断するためです。実務でも、変更の性質に合わせてテストや画面確認を選び、実装の差分と検査結果を受け入れ条件に照らして判断します。</p>
 <p>目標から具体的な要件へ進み、入力と出力の例で曖昧さを減らす考え方は、<a href="https://docs.github.com/en/copilot/concepts/prompting/prompt-engineering">GitHub公式のCopilot Chatのプロンプト設計</a>で説明されています。問題と受け入れ条件、関連するファイルを明確にする考え方は、<a href="https://docs.github.com/en/copilot/tutorials/cloud-agent/get-the-best-results">Copilot cloud agent向けの課題整理のガイド</a>も参考にできます。いずれも依頼内容の整理に関する参考資料です。</p>
 <p><a id="0とnullを区別するコードの読み方"></a></p>
-<h3 id="354-0とnullを区別するコードの読み方">3.5.4 0とnullを区別するコードの読み方</h3>
-<p>次のコードは、ゲームの星評価データを数値と <code>null</code> に分ける条件の説明例です。既存の <code>StarRating</code> コンポーネントを再利用した実装では、数値側がコンポーネントの呼び出しになることもあります。</p>
+<p><a id="354-0とnullを区別するコードの読み方"></a></p>
+<h3 id="354-生成されたコードを仕様から読む">3.5.4 生成されたコードを仕様から読む</h3>
+<p>Copilotが生成したコードを読む目的は、依頼した仕様が実装されているかを判断することです。同じ動作を実現するコードにも、条件の書き方や部品の使い方が異なる実装があります。教材の説明例と形が違う場合も、入力に対する結果と、既存の構造・動作を保つ条件を基に確認します。</p>
+<p>星評価のケースでは、<code>Game.starRating</code>に5点満点の数値か、未評価を示す<code>null</code>が入ります。<a href="https://developer.mozilla.org/en-US/docs/Glossary/Falsy">JavaScriptでは、<code>0</code>と<code>null</code>はいずれも真偽値として判定すると偽になります</a>。そのため、<code>if (game.starRating)</code>のように値の真偽だけで分けると、0点も未評価として扱うことになります。コードを読むときは、値の意味と、実装が判定している条件を照合します。</p>
+<p>次の説明例は、<code>game.starRating !== null</code>で、未評価かどうかを判定しています。このケースのデータの条件では、<code>4.2</code>、<code>0</code>、<code>5</code>は数値を表示する側へ進み、<code>null</code>はNo rating yetを表示する側へ進みます。数値の大きさで分けているのではなく、未評価を表す値かどうかで分けるため、0点と未評価を区別できます。</p>
 <pre class="highlight"><code class="language-astro">{game.starRating !== null ? (
     &lt;span class="text-xs font-medium px-2.5 py-0.5 rounded bg-amber-900/60 text-amber-300" data-testid="game-rating"&gt;
         ★ {game.starRating} / 5
@@ -427,10 +430,9 @@ App内で組み込みターミナルを開く場合は、<strong>Toggle panel</s
         No rating yet
     &lt;/span&gt;
 )}</code></pre>
-<blockquote>
-<p><strong>補足</strong>
-星評価を表示するためにCopilotが生成するコードは、毎回同じとは限りません。この説明例のコードと違っていても、要求を満たしていれば採用できます。ただし、同等の動作になっているかは差分とテストで確認してください。見た目の類似やエージェントの説明だけでは判断できません。</p>
-</blockquote>
+<p>このコードは、評価を表示し分ける条件の説明例です。実装で既存の<code>StarRating</code>を再利用すれば、数値側がコンポーネントの呼び出しになることもあります。条件の判定を部品の中で行う実装も考えられます。同じ条件式がGameCardに直接書かれていなくても、呼び出し先を含めて、各入力に対する表示が仕様を満たすかを読みます。</p>
+<p>説明例には、カード全体の構造やゲーム詳細へのリンクは示していません。星評価の表示が正しくても、既存部品の再利用、カードとリンクの維持、通常データを変更しない条件まで満たしたとは判断できません。実務でも、生成された実装の差分と関連する部品を読み、実際のテスト結果を受け入れ条件に照らして、採用や修正を判断します。本章では<a href="#差分とテストをレビューする">差分とテストをレビューする手順</a>で確かめます。</p>
+<p>生成コードを人がレビューし、意図やプロジェクトの条件に合うかを検査する考え方は、<a href="https://docs.github.com/en/copilot/tutorials/review-ai-generated-code">GitHub公式のAI生成コードのレビューガイド</a>も参考にできます。</p>
 <p><a id="差分画面テストciで確かめること"></a></p>
 <h3 id="355-差分画面テストciで確かめること">3.5.5 差分、画面、テスト、CIで確かめること</h3>
 <p>この章の星評価の実装では、コードの差分で変更の範囲、ローカルのTailspin Toysの画面で利用者に見える結果、テストで通常画面に現れない条件を確認しました。それぞれ確認できる対象が違うため、どれか1つの成功で他を省略せず、結果を合わせて判断します。</p>
@@ -440,17 +442,11 @@ App内で組み込みターミナルを開く場合は、<strong>Toggle panel</s
 <ul>
 <li><a href="https://docs.github.com/en/copilot/how-tos/github-copilot-app/agent-sessions">GitHub Copilot appでのエージェントセッションの操作</a></li>
 <li><a href="https://docs.github.com/en/copilot/concepts/agents/github-copilot-app">GitHub Copilot appについて</a></li>
-<li>
-<p><a href="https://docs.github.com/en/copilot/how-tos/github-copilot-app/managing-issues-and-pull-requests">GitHub Copilot appでのIssueとpull requestの管理</a></p>
-</li>
-<li>
-<p><a href="https://docs.github.com/en/pull-requests/concepts/helping-others-review-your-changes">PRの目的と差分をレビューしやすくする方法</a></p>
-</li>
+<li><a href="https://docs.github.com/en/copilot/how-tos/github-copilot-app/managing-issues-and-pull-requests">GitHub Copilot appでのIssueとpull requestの管理</a></li>
+<li><a href="https://docs.github.com/en/pull-requests/concepts/helping-others-review-your-changes">PRの目的と差分をレビューしやすくする方法</a></li>
 <li><a href="https://docs.github.com/en/issues/planning-and-tracking-with-projects/learning-about-projects/best-practices-for-projects">Issueの分割と依存関係を整理する方法</a></li>
-<li>
-<p><a href="https://docs.github.com/en/copilot/tutorials/cloud-agent/get-the-best-results">Copilot cloud agentへ渡す課題のまとめ方</a></p>
-</li>
-<li>
-<p><a href="https://docs.github.com/en/copilot/concepts/prompting/prompt-engineering">Copilot Chatへの依頼で目標・具体的な要件・入出力の例を示す方法</a></p>
-</li>
+<li><a href="https://docs.github.com/en/copilot/tutorials/cloud-agent/get-the-best-results">Copilot cloud agentへ渡す課題のまとめ方</a></li>
+<li><a href="https://docs.github.com/en/copilot/concepts/prompting/prompt-engineering">Copilot Chatへの依頼で目標・具体的な要件・入出力の例を示す方法</a></li>
+<li><a href="https://docs.github.com/en/copilot/tutorials/review-ai-generated-code">AI生成コードをレビューし、意図と検査結果を照合する方法</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Glossary/Falsy">JavaScriptで真偽値として判定すると偽になる値</a></li>
 </ul></article><nav class="chapter-nav" aria-label="章の移動"><a href="2-install-copilot-app.html">← 前の章：第2章 - GitHub Copilot appのインストール</a><a href="4-custom-instructions.html">次の章 →：第4章 - カスタム指示によるCopilotのガイド</a></nav></main></body></html>
