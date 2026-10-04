@@ -51,18 +51,18 @@ GitHub Copilot appのAutomationsでは、繰り返す作業の指示を保存し
 
 5. **Select project** で自身の演習用Tailspin Toysリポジトリを選択します。GitHub連携とローカルフォルダーの両方が登録されている場合は、`owner/repository`表記で対象を確認してください。
 
-![Manualとクラウド実行オフ、読み取り専用の指示、Create and runの入口](../../_images/verification-20261004/app-20261004-08-automation-create-and-run.jpg)
+![Manualとクラウド実行オフ、読み取り専用の指示、Create and runの入口](../../_images/app-20261004-public/app-20261004-08-automation-create-and-run.jpg)
 
 <a id="automationを実行して結果を確認する"></a>
 
 ### 9.4.2 Automationを実行して結果を確認する
 
 1. **Create** ボタン横のメニューを展開し、**Create and run** を選択して保存と同時に即時実行します。保存のみを行う場合はCreateを選び、後から一覧の実行ボタンでも開始できます。
-2. **Recent runs**で実行結果を開き、実行場所がLocal、ステータスが **Succeeded** になったことを確認します。続いてレポートを読み、同じリポジトリ・期間・状態でGitHubの一覧と照合します。
+2. **Recent runs**で今回の実行を開き、実行場所がLocal、ステータスが **Succeeded** になったことを確認します。報告内容の照合は、次の小節で行います。
 
 Succeededは処理の終了状態です。調査対象を取り違えたり、マージ日時の範囲を誤ったりしても、文章を出力する処理自体は完了する場合があります。PRは「その期間にマージされたもの」を数えているか、Issueは「現在Openのもの」を取得しているかをそれぞれ確認してください。URLから個別の項目を開くと、件数が同じでも対象が違う場合に気づけます。
 
-![Recent runsで今回のLocal実行と緑の成功アイコンを確認する例](../../_images/verification-20261004/app-20261004-08-automation-succeeded.jpg)
+![Recent runsで今回のLocal実行と緑の成功アイコンを確認する例](../../_images/app-20261004-public/app-20261004-08-automation-succeeded.jpg)
 
 画像は今回の実行行を読むための例です。自分が作成したAutomationの名前、対象リポジトリ、実行場所、成功状態を確認してください。
 
@@ -78,7 +78,7 @@ Succeededは処理の終了状態です。調査対象を取り違えたり、�
 | 件数と項目 | 件数と一覧が対応し、番号・タイトル・URL・日時・状態がGitHubと一致するか |
 | 調査の範囲 | 取得できなかった情報を未確認とし、不要な変更や投稿をしていないか |
 
-![期間内のマージ済みPRと、現在OpenのIssueを報告した例](../../_images/verification-20261004/app-20261004-08-automation-result-issues.jpg)
+![期間内のマージ済みPRと、現在OpenのIssueを報告した例](../../_images/app-20261004-public/app-20261004-08-automation-result-issues.jpg)
 
 集計結果は、実行時点と演習の進み具合によって変わります。レッスン8でマージした検索PRが期間内なら要約に含まれ、そのIssueがClosedならOpen一覧の対象外です。実行日が変われば「過去1週間」の範囲も変わるため、画像の件数を正解とせず、自分の結果に書かれた期間と実行時点を基準に確認してください。
 

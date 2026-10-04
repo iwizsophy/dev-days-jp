@@ -8,7 +8,7 @@ lastUpdated: 2026-10-04
 
 ## 1.1 章の概要
 
-この教材では、ECアプリ「Tailspin Toys」を題材に、GitHub Copilot appのエージェントと開発を進めます。体験するのは、変更の目的を伝え、生成されたコードとテストを確認し、レビューした変更を自分のリポジトリへ取り込む流れです。
+この教材では、ゲームを紹介するクラウドファンディングサイト「Tailspin Toys」を題材に、GitHub Copilot appのエージェントと開発を進めます。体験するのは、変更の目的を伝え、生成されたコードとテストを確認し、レビューした変更を自分のリポジトリへ取り込む流れです。
 
 最初に、アプリのビルドとテストを動かすNode.jsと、自分で変更できる演習用リポジトリを準備します。環境の準備ができていれば、後の章でエラーが起きたときも、環境と実装を分けて調べやすくなります。
 
@@ -56,7 +56,7 @@ lastUpdated: 2026-10-04
 4. インストール後、新しいターミナルを開き直します。
 5. もう一度`node --version`を実行し、条件を満たすバージョンが表示されることを確認します。
 
-すでにCopilot Appを起動している場合は、完全に終了して再起動します。新しい環境変数を反映したうえで、実装セッションでもNode.jsを確認してください。確認方法は、[第3章の実装前の環境確認](2-add-star-rating.md#実装前の環境確認)で扱います。
+すでにCopilot Appを起動している場合は、完全に終了して再起動します。新しい環境変数を反映したうえで、実装セッションでもNode.jsを確認してください。確認方法は、[第3章の実装前の環境確認](3-add-star-rating.md#実装前の環境確認)で扱います。
 
 <a id="演習用リポジトリの作成"></a>
 <a id="使用するテンプレート"></a>
@@ -69,7 +69,7 @@ lastUpdated: 2026-10-04
 1. ブラウザーで`https://github.com/iwizsophy/dev-days-tailspin-template`を開きます。
 2. **Use this template → Create a new repository**を選択します。
 
-   ![Tailspin ToysテンプレートのUse this templateメニュー](../../_images/verification-20261004/app-20261004-00-template-menu.jpg)
+   ![Tailspin ToysテンプレートのUse this templateメニュー](../../_images/app-20261004-public/app-20261004-00-template-menu.jpg)
 
 3. 作成フォームで次の項目を設定します。
 
@@ -81,7 +81,7 @@ lastUpdated: 2026-10-04
    | Repository name | 自分の演習用の名前を入力する。例は`dev-days-tailspin-toys` |
    | Choose visibility | 演習用リポジトリの公開範囲を選ぶ |
 
-   ![テンプレートとコピー先のOwner、Repository nameを指定するフォーム](../../_images/verification-20261004/app-20261004-00-template-form-top.jpg)
+   ![テンプレートとコピー先のOwner、Repository nameを指定するフォーム](../../_images/app-20261004-public/app-20261004-00-template-form-top.jpg)
 
 4. フォーム下部の任意項目**Jumpstart your project with Copilot**では、Prompt欄を空欄のままにします。
 5. 入力内容を確認し、**Create repository**を選択します。
@@ -154,7 +154,7 @@ Issueを起点に実装し、レビューした変更を自分のmainへ取り�
 - [テンプレートからのリポジトリの作成][template-repository]
 - [GitHub Copilot appについて][about-copilot-app]
 
-[next-lesson]: 1-install-copilot-app.md
+[next-lesson]: 2-install-copilot-app.md
 [nodejs]: https://nodejs.org/
 [node-download]: https://nodejs.org/en/download
 [docker]: https://www.docker.com/products/docker-desktop/

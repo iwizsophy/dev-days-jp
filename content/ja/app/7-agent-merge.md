@@ -53,7 +53,7 @@ AppのCI表示が更新されない場合は、PRの画面を開き直して確�
 2. 対象が今回のフィルター機能のPRであることを確認します。
 3. Agent mergeのスイッチをOffからOnへ切り替えます。この操作で処理が始まるため、追加の開始ボタンを押す必要はありません。
 
-![Ready to mergeのメニューと、開始前のAgent mergeスイッチ](../../_images/verification-20261004/app-20261004-06-agent-merge-before.jpg)
+![Ready to mergeのメニューと、開始前のAgent mergeスイッチ](../../_images/app-20261004-public/app-20261004-06-agent-merge-before.jpg)
 
 GitHub公式では、Agent MergeがPRを確認し、マージを妨げる問題へ対応して、GitHubが許可した時点でマージすると説明しています。[公式説明「Merging a pull request」][agent-merge-docs]
 
@@ -66,7 +66,7 @@ GitHub公式では、Agent MergeがPRを確認し、マージを妨げる問題�
 3. エージェントがレビュー対応やCI修復のためにコードを変更した場合は、その差分と変更後の検査結果も確認します。
 4. 次章で新しいworktreeを作るときに、このフィルター機能のマージ結果を継承できるよう、mainへ統合されたことを確かめます。
 
-![GitHubの同じPRでMergedとCIの成功を確認する例](../../_images/verification-20261004/app-20261004-06-pr-merged-github.jpg)
+![GitHubの同じPRでMergedとCIの成功を確認する例](../../_images/app-20261004-public/app-20261004-06-pr-merged-github.jpg)
 
 画像はマージ後の表示例です。受講者ごとのPR番号を確認し、自分のPRの結果と照合してください。
 
@@ -127,7 +127,7 @@ CIの待機も含めて任せたい場合は、必要なチェックを待つ条
 
 [開始前にマージ条件を確認する手順へ戻る](#開始前にマージ条件を確認する)
 
-[next-lesson]: 7-canvases.md
+[next-lesson]: 8-canvases.md
 [managing-issues-prs]: https://docs.github.com/copilot/how-tos/github-copilot-app/managing-issues-and-pull-requests
 [agent-merge-docs]: https://docs.github.com/en/copilot/how-tos/github-copilot-app/managing-issues-and-pull-requests#merging-a-pull-request
 [about-copilot-app]: https://docs.github.com/copilot/concepts/agents/github-copilot-app

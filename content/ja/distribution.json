@@ -6,7 +6,7 @@
   "books": {
     "participant": {
       "title": "参加者用ハンドブック",
-      "chapters": ["app/README.md", "app/0-prerequisites.md", "app/1-install-copilot-app.md", "app/2-add-star-rating.md", "app/3-custom-instructions.md", "app/4-build-filtering.md", "app/5-mcp-playwright.md", "app/6-agent-merge.md", "app/7-canvases.md", "app/8-review.md"]
+      "chapters": ["app/README.md", "app/1-prerequisites.md", "app/2-install-copilot-app.md", "app/3-add-star-rating.md", "app/4-custom-instructions.md", "app/5-build-filtering.md", "app/6-mcp-playwright.md", "app/7-agent-merge.md", "app/8-canvases.md", "app/9-review.md"]
     },
     "instructor": {
       "title": "講師用ガイド・検証記録",
