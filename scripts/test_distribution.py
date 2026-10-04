@@ -281,6 +281,7 @@ class DistributionTests(unittest.TestCase):
         self.assertIn('a' * 12, rendered['instructor'].select_one('.cover').get_text())
 
     def test_shared_credits_preserve_all_sources_and_complete_mit_terms(self):
+        config = json.loads(pdf.CONFIG.read_text(encoding='utf-8'))
         repositories = [
             ('https://github.com/iwizsophy/dev-days-jp',
              'https://github.com/iwizsophy/dev-days-jp/blob/main/LICENSE'),
@@ -288,8 +289,8 @@ class DistributionTests(unittest.TestCase):
              'https://github.com/github/dev-days/blob/84b1e89aefcc23368b2ab44fd5c133ecd9572dfc/LICENSE'),
             ('https://github.com/github-samples/copilot-workshops',
              'https://github.com/github-samples/copilot-workshops/blob/7ddcf241c1cd10b8e90c0df96f6bef81e710392a/LICENSE'),
-            ('https://github.com/iwizsophy/dev-days-tailspin-template',
-             'https://github.com/iwizsophy/dev-days-tailspin-template/blob/v2026.10.03/LICENSE'),
+            (config['template_url'],
+             f"{config['template_url']}/blob/{config['template_ref']}/LICENSE"),
             ('https://github.com/github-samples/tailspin-toys',
              'https://github.com/github-samples/tailspin-toys/blob/bae003609c8cff0c51d92658b8d3bd89450464f1/LICENSE'),
         ]
@@ -321,7 +322,6 @@ SOFTWARE.'''
         web_body = pdf.web.format_tables(pdf.web.transform_links(web_body, source, destination))
         standalone = BeautifulSoup(pdf.web.shell(title, '<article>' + web_body + '</article>', destination), 'html.parser')
         rendered = {'web': standalone.select_one('main')}
-        config = json.loads(pdf.CONFIG.read_text(encoding='utf-8'))
         for audience, book in config['books'].items():
             paths = [pdf.web.SOURCE / p for p in book['chapters']]
             markup, _, _ = pdf.book_html(paths, book['title'], config, 'test-ref', 'a' * 64)

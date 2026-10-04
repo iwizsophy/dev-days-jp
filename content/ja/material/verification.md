@@ -24,7 +24,7 @@
 | 7 | [#12：PR作成時のIssue](https://github.com/iwizsophy/dev-days-jp/issues/12) | Issueが必要な理由、既存Issueの再利用、必要な場合の作成、PRとの関連付けを補った |
 | 8 | [#13：計画前に実装が始まる](https://github.com/iwizsophy/dev-days-jp/issues/13) | Canvasの本文受領、Planへの切り替え、計画の承認、実装を分けた現在の流れを確認した |
 
-#11のコード修正は、[テンプレート側のPR #11](https://github.com/iwizsophy/dev-days-tailspin-template/pull/11)でマージされました。配布タグ[v2026.10.05](https://github.com/iwizsophy/dev-days-tailspin-template/tree/v2026.10.05)とmainは同じコミット `02d5215b9f81503c871227475b7ecf6dacd797f0`です。旧版との差分は内部ミラーのURL6件の置き換えで、パッケージのバージョンとintegrityは変わっていません。[mainのCI](https://github.com/iwizsophy/dev-days-tailspin-template/actions/runs/37218485021)、[開発依存関係のDependabot更新](https://github.com/iwizsophy/dev-days-tailspin-template/actions/runs/37218569124)、[本番依存関係のDependabot更新](https://github.com/iwizsophy/dev-days-tailspin-template/actions/runs/37218568925)が成功したことを確認しました。
+Issue #11のコード修正は、[テンプレート側のPR #11](https://github.com/iwizsophy/dev-days-tailspin-template/pull/11)でマージされました。配布タグ[v2026.10.05](https://github.com/iwizsophy/dev-days-tailspin-template/tree/v2026.10.05)とmainは同じコミット `02d5215b9f81503c871227475b7ecf6dacd797f0`です。旧版との差分は内部ミラーのURL6件の置き換えで、パッケージのバージョンとintegrityは変わっていません。[mainのCI](https://github.com/iwizsophy/dev-days-tailspin-template/actions/runs/37218485021)、[開発依存関係のDependabot更新](https://github.com/iwizsophy/dev-days-tailspin-template/actions/runs/37218569124)、[本番依存関係のDependabot更新](https://github.com/iwizsophy/dev-days-tailspin-template/actions/runs/37218568925)が成功したことを確認しました。
 
 現在使うテンプレートの参照版と固定コミットを更新しました。10月3日・4日のApp実走記録と10月2日の監査記録は当時の版のまま保持し、新しい版での実績とは区別しています。改訂後の教材全章の再実走、今回追加したIssue作成プロンプトのAppでの再実行、New chatとNew sessionの入口メニューの再撮影、新しく作成した演習コピーでのDependabot更新は、今回の確認では実施していません。
 
