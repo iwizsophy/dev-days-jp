@@ -22,9 +22,9 @@
 </li>
 <li><a href="#24-結果の整理と振り返り">2.4 結果の整理と振り返り</a></li>
 <li><a href="#25-補足">2.5 補足</a><ul>
-<li><a href="#251-appとworktreeの役割">2.5.1 Appとworktreeの役割</a></li>
+<li><a href="#251-実装する作業場所と開始元を選ぶ">2.5.1 実装する作業場所と開始元を選ぶ</a></li>
 <li><a href="#252-作業領域を使い分ける">2.5.2 作業領域を使い分ける</a></li>
-<li><a href="#253-会話を整理するメニュー">2.5.3 会話を整理するメニュー</a></li>
+<li><a href="#253-会話の履歴を整理して参照しやすくする">2.5.3 会話の履歴を整理して参照しやすくする</a></li>
 <li><a href="#254-参考資料">2.5.4 参考資料</a></li>
 </ul>
 </li>
@@ -195,11 +195,14 @@
 <p><a id="補足"></a></p>
 <h2 id="25-補足">2.5 補足</h2>
 <p><a id="appとworktreeの役割"></a></p>
-<h3 id="251-appとworktreeの役割">2.5.1 Appとworktreeの役割</h3>
+<p><a id="251-appとworktreeの役割"></a></p>
+<h3 id="251-実装する作業場所と開始元を選ぶ">2.5.1 実装する作業場所と開始元を選ぶ</h3>
+<p>Appで実装セッションを始めるときは、変更するリポジトリ、実行場所、開始元を確かめます。worktreeは、同じリポジトリの別ブランチを別の作業フォルダーで扱う仕組みです。完了した変更を次の作業で使うときは、その変更が次のセッションの開始元に含まれているか確認してください。実行場所の選択肢は<a href="https://docs.github.com/en/copilot/how-tos/github-copilot-app/agent-sessions">公式のセッション開始手順</a>を参照してください。</p>
 <p><a href="https://docs.github.com/en/copilot/concepts/agents/github-copilot-app">GitHub Copilot app</a>は、エージェントによる開発を進めるデスクトップアプリケーションです。GitHub Copilot CLIを基盤とし、リポジトリ、ブランチ、CIと連携します。Issueの選定から実装依頼、差分のレビュー、PRの作成とマージまでをまとめて扱えます。</p>
-<p>Appで実装セッションを始めるときは、新しいworktreeなどの実行場所を選んでください。worktreeは、同じリポジトリの別ブランチを別の作業フォルダーで扱う仕組みです。Tailspin Toysの星評価とフィルターを別々に試す場合も、作業中のファイルを分けられます。ただし、完了した変更を次の作業で使うには、PRをマージした状態を次のセッションに引き継ぐ必要があります。各章で結果を確かめてから、次の機能へ進んでください。実行場所の選択肢は<a href="https://docs.github.com/en/copilot/how-tos/github-copilot-app/agent-sessions">公式のセッション開始手順</a>を参照してください。</p>
+<p>この教材では、Tailspin Toysの星評価とフィルターを別々の課題として進めます。作業中のファイルをworktreeで分け、レビューしたPRをmainへマージしてから、取り込んだ変更を次のセッションに引き継ぎます。各章の手順に沿って結果を確かめてから、次の機能へ進んでください。</p>
 <p><a id="ワークスペースと課題一覧の見方"></a></p>
 <h3 id="252-作業領域を使い分ける">2.5.2 作業領域を使い分ける</h3>
+<p>Appで相談するときはChats、コードを変更するときはProjectsのセッション、変更をリポジトリへ取り込む前の確認にはPull requestsを使います。GitHubと連携する一覧の役割は<a href="https://docs.github.com/en/copilot/how-tos/github-copilot-app/managing-issues-and-pull-requests">公式のIssue・PR管理手順</a>も参照できます。</p>
 <div class="table-scroll" tabindex="0"><table class="content-table"><colgroup><col style="width:7%"/><col style="width:22.02%"/><col style="width:70.98%"/></colgroup>
 <thead>
 <tr>
@@ -241,10 +244,11 @@
 </tr>
 </tbody>
 </table></div>
-<p>Appで相談するときはChats、コードを変更するときはProjectsのセッション、変更をリポジトリへ取り込む前の確認にはPull requestsを使います。GitHubと連携する一覧の役割は<a href="https://docs.github.com/en/copilot/how-tos/github-copilot-app/managing-issues-and-pull-requests">公式のIssue・PR管理手順</a>も参照できます。</p>
-<p>演習用リポジトリの接続時に設定画面を通過したことと、Tailspin Toysのビルドやテストが成功したことは別です。エージェントによる実装後は、コードの差分、画面、検査結果をそれぞれ確認します。</p>
+<p>リポジトリを接続し、設定を承認したことと、そのコードのビルドやテストが成功したことは別です。エージェントによる実装後は、変更の性質に合わせて、差分、画面、検査結果を確認します。</p>
 <p><a id="チャット一覧のコンテキストメニュー確認"></a></p>
-<h3 id="253-会話を整理するメニュー">2.5.3 会話を整理するメニュー</h3>
+<p><a id="253-会話を整理するメニュー"></a></p>
+<h3 id="253-会話の履歴を整理して参照しやすくする">2.5.3 会話の履歴を整理して参照しやすくする</h3>
+<p>相談の履歴を後から読み返すときは、会話の名前や一覧を整理しておくと、必要な履歴を探しやすくなります。会話の名前から、どの課題について相談したかが分かるようにしておきましょう。</p>
 <p>Appの<strong>Chats</strong>一覧で完了したチャットを右クリックすると、名前の変更やアーカイブなどの操作を確認できます。メニューの項目を読み、会話を整理する方法を確かめてみましょう。この演習ではメニューの確認までとし、共有や削除は行いません。</p>
 <p><a id="リソース"></a></p>
 <h3 id="254-参考資料">2.5.4 参考資料</h3>

@@ -156,12 +156,13 @@
 <h2 id="75-補足">7.5 補足</h2>
 <p><a id="手動マージからagent-mergeへ進む理由"></a></p>
 <h3 id="751-手動マージの経験を自動化に生かす">7.5.1 手動マージの経験を自動化に生かす</h3>
+<p>自動化する範囲を決めるには、手動で行っている作業を、品質を判断する作業と、結果を待って操作する作業に分けて考えます。差分、CI、マージ先を自分で確認した経験は、自動化後に何を確かめるかを決める基準です。どの条件を人が判断し、どの操作を任せたかを説明できれば、次のPRでも同じ基準で判断できます。</p>
 <p>本ワークショップでは、コード生成、自動テスト、MCPによる実ブラウザー操作と、段階的に任せる操作を広げてきました。星評価やコーディング標準を手動でマージしたのは、差分、CI、マージ先を自分で確認するためです。その経験があれば、自動化するときも何を任せたかを説明できます。</p>
 <p>今回は第5章でフィルター機能の計画と実装をレビューし、第6章でTailspin Toysの実画面を検証したうえで、演習用リポジトリのmainへのマージをエージェントへ任せました。任せる範囲を広げても、フィルター機能の要件を満たす変更かどうかを判断する責任は人に残ります。</p>
 <p><a id="agent-mergeの動作と品質確認"></a></p>
 <h3 id="752-任せる範囲と品質確認">7.5.2 任せる範囲と品質確認</h3>
-<p>Agent Mergeはバックグラウンドで動作し、Appの再起動後も継続して、マージ後に終了します。待機やマージの操作を任せても、テストに含まれていない要件まではCIの成功だけで判断できません。<a href="https://docs.github.com/en/copilot/how-tos/github-copilot-app/managing-issues-and-pull-requests#merging-a-pull-request">GitHub公式のAgent Mergeの説明</a></p>
-<p>たとえば、Tailspin Toysでカテゴリを2つ選んだときに、一方のカテゴリに該当するゲームしか表示されない実装でも、件数を十分に検査していなければテストを通ることがあります。第5章と第6章で確認したフィルターの条件を、Agent Mergeを使うときも品質の基準として使ってください。</p>
+<p>Agent Mergeへ任せる範囲を決める基準は、対象PRに必要なレビューと検証です。品質を判断する根拠を先にそろえれば、エージェントが操作した後も、当初の要件と追加の差分を比べて確認できます。</p>
+<p>Agent Mergeはバックグラウンドで動作し、Appの再起動後も継続して、マージ後に終了します。待機やマージの操作を任せても、テストに含まれていない要件まではCIの成功だけで判断できません。機能の動作と仕様は<a href="https://docs.github.com/en/copilot/how-tos/github-copilot-app/managing-issues-and-pull-requests#merging-a-pull-request">GitHub公式のAgent Mergeの説明</a>を参照してください。</p>
 <p>Agent Mergeの詳細な操作許可を選べる場合は、次の観点でエージェントへ任せる範囲を確認します。許可した操作と、対象PRでエージェントが実際に行った処理は区別してください。</p>
 <div class="table-scroll" tabindex="0"><table class="content-table"><colgroup><col style="width:7%"/><col style="width:27.86%"/><col style="width:65.14%"/></colgroup>
 <thead>
@@ -194,7 +195,8 @@
 </tr>
 </tbody>
 </table></div>
-<p>CIの待機も含めてAgent Mergeへ任せたい場合は、対象PRの必須チェックを待つ条件が、自分の権限でのマージにも適用されるかを先に確認します。条件が分からなければ、本章と同じく対象PRのCI全ジョブの成功を待ってから<strong>Agent merge</strong>を<strong>On</strong>にしてください。ブランチ保護や必須チェックの設定を理解すると、チームでどこまで任せるかを判断しやすくなります。<a href="https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches#require-status-checks-before-merging">GitHub公式のブランチ保護の説明</a></p>
+<p>CIの待機も含めてAgent Mergeへ任せたい場合は、対象PRの必須チェックを待つ条件が、自分の権限でのマージにも適用されるかを先に確認します。条件が分からなければ、本章と同じく対象PRのCI全ジョブの成功を待ってから<strong>Agent merge</strong>を<strong>On</strong>にしてください。ブランチ保護や必須チェックの設定を理解すると、チームでどこまで任せるかを判断しやすくなります。設定の詳細は<a href="https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches#require-status-checks-before-merging">GitHub公式のブランチ保護の説明</a>を参照してください。</p>
+<p>たとえば、Tailspin Toysでカテゴリを2つ選んだときに、一方のカテゴリに該当するゲームしか表示されない実装でも、件数を十分に検査していなければテストを通ることがあります。第5章と第6章で確認したフィルターの条件を、Agent Mergeを使うときも品質の基準として使ってください。</p>
 <p><a id="判断と結果の振り返り"></a>
 <a id="リソース"></a></p>
 <h3 id="753-参考資料">7.5.3 参考資料</h3>
