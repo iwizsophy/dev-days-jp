@@ -230,7 +230,7 @@ AIの出力は確率的に変動するため、生成される文言の細部は
 <p><a id="指示ファイルの構造と役割"></a></p>
 <h3 id="452-指示ファイルの構造と役割">4.5.2 指示ファイルの構造と役割</h3>
 <p>カスタム指示を定義すると、Copilotにプロジェクト固有の前提知識や設定を提供できます。毎回のプロンプトに同じ背景を繰り返し書く手間を減らし、規約に沿った提案を得やすくする仕組みです。推奨するコーディング規約、採用ライブラリ、コード中に記述すべきコメントの粒度まで指定できます。<a href="https://docs.github.com/en/copilot/concepts/prompting/response-customization">GitHub公式の概要</a>も、継続的に使う背景情報を指示として共有する方法を説明しています。</p>
-<p>本演習では、リポジトリ全体の指示と、パス固有の指示を使い分けます。</p>
+<p>指示を置く場所は、その指示が必要な範囲に合わせて選びます。リポジトリ全体に関わる前提と、特定のファイルに関わる規則を使い分けてください。</p>
 <ol>
 <li><strong>リポジトリ全体の指示</strong>（<code>.github/copilot-instructions.md</code>）<br>
    リポジトリに対するすべてのリクエストでCopilotに送信される単一の指示ファイルです。Copilotに投げるチャットやCLIリクエスト全般に関係するプロジェクトレベルの情報（採用技術スタック、アーキテクチャの概要、全体的なベストプラクティスなど）を記載します。</li>
@@ -239,12 +239,12 @@ AIの出力は確率的に変動するため、生成される文言の細部は
 </ol>
 <blockquote>
 <p><strong>補足</strong>
-<code>AGENTS.md</code>、<code>CLAUDE.md</code>、<code>GEMINI.md</code>などの指示ファイルもありますが、対応する種類はCopilotの利用環境によって異なります。<a href="https://docs.github.com/copilot/reference/custom-instructions-support">対応表</a>を参照し、本演習ではテンプレートにある<code>.github/copilot-instructions.md</code>と<code>.github/instructions/</code>を確認します。</p>
+<code>AGENTS.md</code>、<code>CLAUDE.md</code>、<code>GEMINI.md</code>などの指示ファイルもありますが、対応する種類はCopilotの利用環境によって異なります。業務で使う環境がどの種類に対応するかを<a href="https://docs.github.com/copilot/reference/custom-instructions-support">対応表</a>で確認してください。本演習ではテンプレートにある<code>.github/copilot-instructions.md</code>と<code>.github/instructions/</code>を確認します。</p>
 </blockquote>
-<p>Appの設定画面にも、全プロジェクト共通のApp instructionsと、プロジェクトごとのInstructionsがあります。これらの設定場所は<a href="https://docs.github.com/copilot/how-tos/github-copilot-app/customize-github-copilot-app">Appのカスタマイズ手順</a>で説明されています。本章でリポジトリ内のファイルを編集するのは、チームが同じ指示を読み、ソースコードと同じように差分レビューできる形で共有するためです。</p>
+<p>Appの設定画面にも、全プロジェクト共通のApp instructionsと、プロジェクトごとのInstructionsがあります。これらの設定場所は<a href="https://docs.github.com/copilot/how-tos/github-copilot-app/customize-github-copilot-app">Appのカスタマイズ手順</a>で説明されています。チームが同じ指示を読み、ソースコードと同じように差分レビューできる形で共有するには、リポジトリ内のファイルで管理します。本章でも、この共有方法を使って規約を更新しました。</p>
 <p><a id="指示ファイルを管理するためのベストプラクティス"></a></p>
 <h4 id="4521-指示ファイルを管理するためのベストプラクティス">4.5.2.1 指示ファイルを管理するためのベストプラクティス</h4>
-<p>指示ファイルの詳細な設計論はこのワークショップの範囲を超えますが、本サンプルプロジェクトに含まれる構成は代表的なアプローチを示しています。基本方針は次のとおりです。</p>
+<p>指示ファイルは、プロジェクト共通の前提と、ファイル種別やタスクごとの規則を読み分けられる形で管理します。構成を決めるときの基本方針は次のとおりです。</p>
 <ul>
 <li><code>copilot-instructions.md</code> には、開発対象の概要、プロジェクト構造、全体的なコーディング規約など、プロジェクト共通のハイレベルなガイダンスを集約する</li>
 <li><code>*.instructions.md</code> ファイルは、ファイル種別（単体テスト、Astroコンポーネント、データアクセス層など）や個別タスクに特化した具体的な指示を記述する</li>

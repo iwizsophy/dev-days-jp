@@ -26,8 +26,8 @@
 <li><a href="#64-結果の整理と振り返り">6.4 結果の整理と振り返り</a></li>
 <li><a href="#65-補足">6.5 補足</a><ul>
 <li><a href="#651-探索的な検証とe2eテスト">6.5.1 探索的な検証とE2Eテスト</a></li>
-<li><a href="#652-model-context-protocol-mcp-とは">6.5.2 Model Context Protocol (MCP) とは</a></li>
-<li><a href="#653-playwrightが画面を読み取る仕組み">6.5.3 Playwrightが画面を読み取る仕組み</a></li>
+<li><a href="#652-外部の情報や操作をmcpで利用する">6.5.2 外部の情報や操作をMCPで利用する</a></li>
+<li><a href="#653-画面の検証でplaywright-mcpと目視を使い分ける">6.5.3 画面の検証でPlaywright MCPと目視を使い分ける</a></li>
 <li><a href="#654-接続できない場合に確認すること">6.5.4 接続できない場合に確認すること</a><ul>
 <li><a href="#6541-セッション再起動restart-sessionの活用">6.5.4.1 セッション再起動（/restart-session）の活用</a></li>
 </ul>
@@ -235,10 +235,13 @@ Issueと承認済みの計画を使い、カテゴリの複数選択、出版社
 <h2 id="65-補足">6.5 補足</h2>
 <p><a id="探索的な検証とe2eテスト"></a></p>
 <h3 id="651-探索的な検証とe2eテスト">6.5.1 探索的な検証とE2Eテスト</h3>
-<p>第5章では、Tailspin Toysのリポジトリに組み込まれた自動テストスイート（単体テストやE2Eテスト）を用いてフィルター機能を実装・検証しました。自動テストに加えて、エージェントが実際のブラウザーを対話的に操作し、その結果を読み取れるようにすると、テストにまだ書いていない操作順序や表示状態も調べられます。操作できない要素や期待と違う結果があれば、その場で原因を調べ、修正と再確認へ進めます。</p>
-<p>本章のPlaywright MCPによるフィルター検証は、エージェントの観察結果から次の操作を決める探索的な検証です。一方、第5章で実行したフィルター機能のE2Eテストには、決めた操作と期待結果を保存して繰り返し検査する役割があります。MCPで一度成功した操作が、そのままテストコードとして残るわけではありません。新しい不具合を見つけて修正したら、今後も確認すべき条件をE2Eテストへ追加するか検討します。</p>
+<p>自動テストに加えて、エージェントが実際のブラウザーを対話的に操作し、その結果を読み取れるようにすると、テストにまだ書いていない操作順序や表示状態も調べられます。操作できない要素や期待と違う結果があれば、その場で原因を調べ、修正と再確認へ進めます。</p>
+<p>探索的な検証では、観察した結果から次の操作を決めます。E2Eテストには、決めた操作と期待結果を保存して繰り返し検査する役割があります。MCPで一度成功した操作が、そのままテストコードとして残るわけではありません。新しい不具合を見つけて修正したら、今後も確認すべき条件をE2Eテストへ追加するか検討します。</p>
+<p>本教材では、第5章でTailspin Toysの自動テストスイート（単体テストやE2Eテスト）を用いてフィルター機能を実装・検証しました。本章のPlaywright MCPによるフィルター検証では、エージェントの観察結果から次の操作を決める探索的な検証を行いました。</p>
 <p><a id="model-context-protocol-mcp-とは"></a></p>
-<h3 id="652-model-context-protocol-mcp-とは">6.5.2 Model Context Protocol (MCP) とは</h3>
+<p><a id="652-model-context-protocol-mcp-とは"></a></p>
+<h3 id="652-外部の情報や操作をmcpで利用する">6.5.2 外部の情報や操作をMCPで利用する</h3>
+<p>MCPを使う前に、エージェントに任せたい情報の取得や操作と、接続先で利用できる機能・権限を確認します。<a href="https://docs.github.com/en/copilot/concepts/context/mcp">GitHub公式のMCPの説明</a>も、外部のツールやサービスとの連携について説明しています。</p>
 <p><a href="https://github.blog/ai-and-ml/llms/what-the-heck-is-mcp-and-why-is-everyone-talking-about-it/">Model Context Protocol (MCP)</a>は、AIエージェントが外部のツールやサービスと情報をやり取りするためのオープンなプロトコルです。MCPを導入すると、エージェントは外部システムと対話し、リソース（resources）を通じて情報を取得したり、ツール（tools）を通じてユーザーに代わる操作を実行したりできます。実際に利用できる情報や操作は、接続先と付与された権限によって決まります。</p>
 <p>エージェントは、MCP serverを経由してツールやリソースへアクセスします。MCP serverは、ローカルのプログラムやリモートAPIとの通信を仲介するプログラムです。各サーバーで利用できる操作や情報は異なります。</p>
 <p>代表的なMCP serverには次のようなものがあります。</p>
@@ -248,19 +251,22 @@ Issueと承認済みの計画を使い、カテゴリの複数選択、出版社
 </ul>
 <p>GitHubは、コミュニティによる発見と貢献を促進するため <a href="https://github.com/mcp">MCP registry</a> をホストしており、多種多様なMCP serverが公開されています。</p>
 <p><a id="playwrightが画面を読み取る仕組み"></a></p>
-<h3 id="653-playwrightが画面を読み取る仕組み">6.5.3 Playwrightが画面を読み取る仕組み</h3>
-<p>本演習で接続するPlaywright MCPは、主に構造化されたアクセシビリティスナップショットを使ってTailspin Toysのページを読み取ります。ボタンの名前や役割、選択状態などを調べ、クリックやキー入力のツールを呼び出します。<a href="https://github.com/microsoft/playwright-mcp">Microsoftの公式README</a>にこの動作が説明されています。画面のピクセルを見てすべての見た目を判定する仕組みではないため、色や配置などの見た目は、必要に応じてスクリーンショットや人間の画面確認でも確かめます。</p>
+<p><a id="653-playwrightが画面を読み取る仕組み"></a></p>
+<h3 id="653-画面の検証でplaywright-mcpと目視を使い分ける">6.5.3 画面の検証でPlaywright MCPと目視を使い分ける</h3>
+<p>Playwright MCPでブラウザーを検証するときは、取得できる情報に合わせて確認方法を選びます。Playwright MCPは、主に構造化されたアクセシビリティスナップショットを使ってページの情報を提供します。Copilotはボタンの名前や役割、選択状態などを読み取り、クリックやキー入力のツールを呼び出します。<a href="https://github.com/microsoft/playwright-mcp">Microsoftの公式README</a>にこの動作が説明されています。</p>
+<p>Playwright MCPは画面のピクセルを見てすべての見た目を判定する仕組みではないため、色や配置などの見た目は、必要に応じてスクリーンショットや人間の画面確認でも確かめます。本演習のTailspin Toysでは、絞り込みや解除の操作結果を期待結果と比べます。</p>
 <p><a href="#playwright-mcp-server-の接続を確認する">接続の確認手順へ戻る</a></p>
 <p><a id="既存設定が正しく読み込まれない場合の対処"></a></p>
 <h3 id="654-接続できない場合に確認すること">6.5.4 接続できない場合に確認すること</h3>
-<p>Copilot Appで<strong>No MCP servers loaded</strong>と表示される場合は、自分の演習用リポジトリの信頼状態と<code>.mcp.json</code>の形式を確認してください。<a href="https://docs.github.com/en/copilot/how-tos/copilot-cli/customize-copilot/add-mcp-servers#adding-per-repository-mcp-servers">公式のリポジトリ別設定形式</a>では、定義を<code>mcpServers</code>フィールドに記述します。<code>servers</code>など別のキーになっている場合は修正が必要ですが、教材テンプレートはこの形式になっているため、通常は編集不要です。</p>
+<p>MCP serverを利用できない場合は、リポジトリの信頼状態、設定ファイルの形式、セッションからのツール呼び出しを分けて確認します。Copilot Appで<strong>No MCP servers loaded</strong>と表示される場合は、作業対象のリポジトリの信頼状態と<code>.mcp.json</code>の形式を確認してください。<a href="https://docs.github.com/en/copilot/how-tos/copilot-cli/customize-copilot/add-mcp-servers#adding-per-repository-mcp-servers">公式のリポジトリ別設定形式</a>では、定義を<code>mcpServers</code>フィールドに記述します。<code>servers</code>など別のキーになっている場合は修正が必要ですが、教材テンプレートはこの形式になっているため、通常は編集不要です。</p>
 <p>Playwrightの設定を修正した場合は、Copilot Appの<strong>Customize</strong>の<strong>Installed</strong>へ戻り、接続状態を確認します。上記の公式リンクは設定ファイル形式の参照先です。CLI用の設定コマンドと、Appの画面上の操作を混同しないようにしてください。</p>
 <p><a id="セッション再起動restart-sessionの活用"></a></p>
 <h4 id="6541-セッション再起動restart-sessionの活用">6.5.4.1 セッション再起動（<code>/restart-session</code>）の活用</h4>
-<p>Copilot Appでリポジトリの信頼状態とPlaywrightの接続設定を確認しても、開いているフィルター実装セッションからツールを呼び出せない場合は、会話入力欄から<code>/restart-session</code>を送信して再接続を試せます。<a href="https://docs.github.com/en/copilot/reference/github-copilot-app-reference/slash-commands">App公式のスラッシュコマンド一覧</a>では、履歴を保持して現在のセッションを再起動するコマンドと説明されています。ツールを呼び出せている場合、この操作は不要です。</p>
+<p>Copilot Appでリポジトリの信頼状態とPlaywrightの接続設定を確認しても、作業中のセッションからツールを呼び出せない場合は、会話入力欄から<code>/restart-session</code>を送信して再接続を試せます。<a href="https://docs.github.com/en/copilot/reference/github-copilot-app-reference/slash-commands">App公式のスラッシュコマンド一覧</a>では、履歴を保持して現在のセッションを再起動するコマンドと説明されています。ツールを呼び出せている場合、この操作は不要です。</p>
 <p><a id="gui-からの新規登録手順"></a></p>
 <h3 id="655-playwrightが未登録の場合に追加する">6.5.5 Playwrightが未登録の場合に追加する</h3>
-<p>Copilot Appで既存のPlaywrightを利用できない場合に、Customizeの画面から追加する手順です。接続とツール呼び出しを確認済みなら追加は不要です。<a href="https://docs.github.com/copilot/how-tos/github-copilot-app/customize-github-copilot-app">App公式の手順</a>も、CustomizeからMCPを探し、Installedで登録済みの設定を管理する流れを説明しています。</p>
+<p>業務でPlaywright MCPを使う際、Copilot AppにPlaywrightが登録されていない場合は、Customizeの画面から追加します。既存の登録がある場合は、先に接続設定とツール呼び出しを確認してください。接続とツール呼び出しを確認済みなら追加は不要です。<a href="https://docs.github.com/copilot/how-tos/github-copilot-app/customize-github-copilot-app">App公式の手順</a>も、CustomizeからMCPを探し、Installedで登録済みの設定を管理する流れを説明しています。</p>
+<p>以下は、Playwrightの新規登録後に、本章のフィルター検証へ戻る手順です。</p>
 <ol>
 <li>Copilot Appのサイドバーの <strong>Customize</strong>を開きます。</li>
 <li><strong>Installed</strong>タブの <strong>MCP Servers</strong>で既存の登録一覧を確認します。すでに登録済みの場合は重複して追加しないよう注意してください。</li>
