@@ -322,13 +322,10 @@ CIは、共有された環境で変更を検査する仕組みです。AppのRea
 - [GitHub Copilot appでのエージェントセッションの操作][agent-sessions]
 - [GitHub Copilot appについて][about-copilot-app]
 - [GitHub Copilot appでのIssueとpull requestの管理][managing-issues-prs]
-
 - [PRの目的と差分をレビューしやすくする方法][focused-pull-requests]
 - [Issueの分割と依存関係を整理する方法][issue-scoping]
 - [Copilot cloud agentへ渡す課題のまとめ方][copilot-task-scoping]
-
 - [Copilot Chatへの依頼で目標・具体的な要件・入出力の例を示す方法][prompt-engineering]
-
 - [AI生成コードをレビューし、意図と検査結果を照合する方法][review-generated-code]
 - [JavaScriptで真偽値として判定すると偽になる値][js-falsy]
 
