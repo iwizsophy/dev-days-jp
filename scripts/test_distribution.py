@@ -159,13 +159,15 @@ class DistributionTests(unittest.TestCase):
     def test_numbered_navigation_and_resource_headings_keep_pdf_cleanup(self):
         config = json.loads(pdf.CONFIG.read_text(encoding='utf-8'))
         path = pdf.web.SOURCE / 'app/README.md'
+        title_body = pdf.web.title_body
         for cited_in_prose in [False, True]:
             with self.subTest(cited_in_prose=cited_in_prose):
                 citation = '[Reference](https://example.com/reference)' if cited_in_prose else 'Main text.'
                 body = ('## 0.1 はじめる\n\n[Start](https://example.com/start)\n\n'
                     '## 0.2 Main\n\n' + citation + '\n\n'
                     '## 0.3 リソース\n\n- [Reference](https://example.com/reference)\n')
-                with patch.object(pdf.web, 'title_body', return_value=('Overview', body)):
+                with patch.object(pdf.web, 'title_body', side_effect=lambda source:
+                        ('Overview', body) if source == path else title_body(source)):
                     markup, _, _ = pdf.book_html([path], 'test', config, 'test-ref', 'a' * 64)
                 soup = BeautifulSoup(markup, 'html.parser')
                 chapter = soup.select_one('.chapter')
@@ -202,6 +204,83 @@ class DistributionTests(unittest.TestCase):
         self.assertIn('Copyright', credits.get_text())
         self.assertIn('test-ref', rendered['instructor'].select_one('.cover').get_text())
         self.assertIn('a' * 12, rendered['instructor'].select_one('.cover').get_text())
+
+    def test_shared_credits_preserve_all_sources_and_complete_mit_terms(self):
+        repositories = [
+            ('https://github.com/iwizsophy/dev-days-jp',
+             'https://github.com/iwizsophy/dev-days-jp/blob/main/LICENSE'),
+            ('https://github.com/github/dev-days',
+             'https://github.com/github/dev-days/blob/84b1e89aefcc23368b2ab44fd5c133ecd9572dfc/LICENSE'),
+            ('https://github.com/github-samples/copilot-workshops',
+             'https://github.com/github-samples/copilot-workshops/blob/7ddcf241c1cd10b8e90c0df96f6bef81e710392a/LICENSE'),
+            ('https://github.com/iwizsophy/dev-days-tailspin-template',
+             'https://github.com/iwizsophy/dev-days-tailspin-template/blob/v2026.10.03/LICENSE'),
+            ('https://github.com/github-samples/tailspin-toys',
+             'https://github.com/github-samples/tailspin-toys/blob/bae003609c8cff0c51d92658b8d3bd89450464f1/LICENSE'),
+        ]
+        expected_license = '''MIT License
+Copyright GitHub, Inc.
+Copyright (c) 2023 GitHub
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.'''
+        source = pdf.web.SOURCE / 'credits.md'
+        destination = pdf.web.OUTPUT / 'credits.html'
+        self.assertEqual(pdf.web.SITE_PAGES[source], destination)
+        self.assertEqual(pdf.web.TARGETS[source.resolve()], destination)
+        title, body = pdf.web.title_body(source)
+        web_body = pdf.web.markdown.markdown(body,
+            extensions=['tables', 'sane_lists', 'pymdownx.superfences'])
+        web_body = pdf.web.format_tables(pdf.web.transform_links(web_body, source, destination))
+        standalone = BeautifulSoup(pdf.web.shell(title, '<article>' + web_body + '</article>', destination), 'html.parser')
+        rendered = {'web': standalone.select_one('main')}
+        config = json.loads(pdf.CONFIG.read_text(encoding='utf-8'))
+        for audience, book in config['books'].items():
+            paths = [pdf.web.SOURCE / p for p in book['chapters']]
+            markup, _, _ = pdf.book_html(paths, book['title'], config, 'test-ref', 'a' * 64)
+            soup = BeautifulSoup(markup, 'html.parser')
+            credits = soup.select_one('.credits')
+            self.assertNotIn('chapter', credits.get('class', []))
+            self.assertEqual(credits.h1['id'], 'credits')
+            self.assertEqual(soup.select_one('.contents a[href="#credits"]').get_text(), title)
+            rendered[audience] = credits
+        for audience, credits in rendered.items():
+            with self.subTest(audience=audience):
+                self.assertEqual(credits.h1.get_text(), title)
+                rows = credits.select('table tbody tr')
+                self.assertEqual(len(rows), len(repositories))
+                for number, (row, expected_links) in enumerate(zip(rows, repositories), 1):
+                    cells = row.find_all('td', recursive=False)
+                    self.assertEqual(len(cells), 4)
+                    self.assertEqual(cells[0].get_text(), str(number))
+                    self.assertEqual([a['href'] for a in row.select('a[href]')], list(expected_links))
+                    self.assertEqual(cells[3].get_text(), 'MIT')
+                widths = [float(c['style'][6:-1]) for c in credits.select('table col')]
+                self.assertAlmostEqual(sum(widths), 100)
+                self.assertLess(widths[0], min(widths[1:]))
+                self.assertTrue(all(a['href'].startswith('https://') for a in credits.select('a[href]')))
+                licenses = credits.select('pre')
+                self.assertEqual(len(licenses), 1)
+                self.assertEqual(' '.join(licenses[0].get_text().split()),
+                                 ' '.join(expected_license.split()))
+        self.assertEqual(
+            [c['style'] for c in rendered['web'].select('table col')],
+            [c['style'] for c in rendered['participant'].select('table col')])
+        self.assertEqual(
+            [c['style'] for c in rendered['participant'].select('table col')],
+            [c['style'] for c in rendered['instructor'].select('table col')])
 
 
 if __name__ == '__main__':

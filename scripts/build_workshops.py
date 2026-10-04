@@ -27,6 +27,7 @@ TARGETS.update({p.resolve(): OUTPUT / 'material' / (p.stem + '.html') for p in S
 SITE_PAGES = {
     SOURCE / 'entry.md': ROOT / 'website/ja/index.html',
     SOURCE / 'preparation.md': ROOT / 'website/ja/handson-guide.html',
+    SOURCE / 'credits.md': OUTPUT / 'credits.html',
 }
 TARGETS.update({p.resolve(): dest for p, dest in SITE_PAGES.items()})
 for page in [ROOT / 'website/ja/archive.html', OUTPUT / 'references.html']:
