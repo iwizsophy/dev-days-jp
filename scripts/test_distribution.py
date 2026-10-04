@@ -112,7 +112,7 @@ class DistributionTests(unittest.TestCase):
                     expected = f'{chapter}.{section}.{subsection}'
                 with self.subTest(chapter=path.name, heading=heading.get_text()):
                     self.assertRegex(heading.get_text(), '^' + re.escape(expected) + r'\s+')
-            self.assertEqual(section, 6, f'{path.name}: expected six learning stages')
+            self.assertEqual(section, 5, f'{path.name}: expected five sections with objectives in the overview')
 
     def test_numbered_navigation_and_resource_headings_keep_pdf_cleanup(self):
         config = json.loads(pdf.CONFIG.read_text(encoding='utf-8'))
