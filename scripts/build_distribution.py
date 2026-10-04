@@ -105,6 +105,18 @@ def keep_explanations_with_examples(soup, path, prefix, figures):
             following = start.find_next_sibling()
             if following and following.name == 'p':
                 group([start, following])
+    elif path.name == '6-mcp-playwright.md':
+        target = soup.find(id=prefix + '--検証を終えたときの確認')
+        heading = target.find_parent(['h2', 'h3', 'h4']) if target else None
+        if heading:
+            nodes = [heading]
+            for node in heading.next_siblings:
+                if getattr(node, 'name', None) in ('h2', 'h3', 'h4'):
+                    break
+                if getattr(node, 'name', None):
+                    nodes.append(node)
+            if [node.name for node in nodes] == ['h3', 'p', 'p']:
+                group(nodes)
     elif path.name == '8-canvases.md':
         figure = figures.get('app-20261004-07-search-plan-review.jpg')
         if figure:
