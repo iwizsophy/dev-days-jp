@@ -35,7 +35,7 @@ def heading_label(text):
 
 
 def keep_explanations_with_examples(soup, path, prefix, figures):
-    """Keep three reviewed examples with their short interpretation in the PDF."""
+    """Keep reviewed tables and examples with their short explanation in the PDF."""
     def example_after(heading, name):
         if heading:
             for node in heading.next_siblings:
@@ -61,7 +61,14 @@ def keep_explanations_with_examples(soup, path, prefix, figures):
         for node in nodes:
             container.append(node.extract())
 
-    if path.name == '4-custom-instructions.md':
+    if path == web.SOURCE / 'app/README.md':
+        heading = next((h for h in soup.select('h3') if h.get_text(strip=True) == '各章の読み方'), None)
+        if heading:
+            table = heading.find_next_sibling()
+            following = table.find_next_sibling() if table else None
+            if table and table.name == 'table' and following and following.name == 'p':
+                group([heading, table, following])
+    elif path.name == '4-custom-instructions.md':
         target = soup.find(id=prefix + '--指示に関する-issue-から開始する')
         heading = target.find_parent(['h2', 'h3', 'h4']) if target else None
         prompt = example_after(heading, 'pre')
