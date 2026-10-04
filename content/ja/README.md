@@ -1,6 +1,6 @@
 # App シナリオを主軸とする日本語教材セット
 
-受講者は、[参加者の入口](../../website/ja/index.html) → [App の演習目次](../../website/ja/workshops/index.html) → 演習0〜8 の順序で進めます。操作中に UI の表示が教材と異なるなどして進行が止まった場合は、自己判断で進めず、講師とともに現行 App の操作経路を確認してください。
+受講者は、[参加者の入口](../../website/ja/index.html) → [Appの演習目次](../../website/ja/workshops/index.html) → 第1〜9章の順序で進めます。操作中に UI の表示が教材と異なるなどして進行が止まった場合は、自己判断で進めず、講師とともに現行 App の操作経路を確認してください。
 
 ## ディレクトリ構成と各原稿の役割
 
@@ -9,6 +9,7 @@
 | 原稿パス | 役割と位置づけ | 留意点 |
 | :--- | :--- | :--- |
 | `entry.md`<br>`preparation.md` | 参加者の入口と事前準備 | `website/ja/index.html` と `handson-guide.html` の生成元 |
+| [`disclaimer.md`](disclaimer.md) | 利用上の注意と免責事項 | Web版と両PDFの演習前に共通原稿を掲載 |
 | `app/` | **本編**（上流の日本語 App シナリオ） | 画像と現行 UI の突き合わせ確認が必要 |
 | `material/instructor.md` | 講師ガイド | 講師の事前準備、180分の時間配分、当日の対処手順 |
 | `material/ui-check.md` | UI 確認表 | メニューや右クリック等の現行操作経路と確認対象画像 |
