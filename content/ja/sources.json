@@ -146,6 +146,7 @@
     "event_source": {
       "repository": "github/dev-days",
       "commit": "84b1e89aefcc23368b2ab44fd5c133ecd9572dfc",
+      "license": "dev-days.txt",
       "files": [
         "README.md",
         "content/README.md",
@@ -173,6 +174,8 @@
       },
       "upstream": "github-samples/tailspin-toys",
       "upstream_commit": "bae003609c8cff0c51d92658b8d3bd89450464f1",
+      "license": "tailspin-toys.txt",
+      "upstream_license": "tailspin-toys.txt",
       "node": "24.19.0",
       "patches": [
         "PR Readiness YAML escape",
