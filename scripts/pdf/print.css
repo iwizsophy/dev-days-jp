@@ -11,7 +11,8 @@ a { color: #006b86; text-decoration: underline; overflow-wrap: anywhere; }
 li { margin-bottom: 2mm; }
 .compact-list { break-inside: avoid; }
 .section-lead { break-inside: avoid; break-after: avoid; }
-.chapter h2,.chapter h3,.chapter h4,.chapter .section-lead { break-before: page; }
+.reading-group { break-inside: avoid; }
+.chapter h2,.chapter .section-lead:has(> h2) { break-before: page; }
 .chapter > h1 + h2,.chapter > h1 + .section-lead { break-before: auto; }
 .section-lead h2,.section-lead h3,.section-lead h4 { break-before: auto; }
 .resource-links h2 { break-before: auto; }

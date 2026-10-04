@@ -34,6 +34,64 @@ def heading_label(text):
     return re.sub(r'^\d+(?:\.\d+)+\.?\s+', '', text.strip())
 
 
+def keep_explanations_with_examples(soup, path, prefix, figures):
+    """Keep three reviewed examples with their short interpretation in the PDF."""
+    def example_after(heading, name):
+        if heading:
+            for node in heading.next_siblings:
+                if getattr(node, 'name', None) in ('h2', 'h3', 'h4'):
+                    break
+                if getattr(node, 'name', None) == name:
+                    return node
+                if getattr(node, 'name', None):
+                    example = node.find(name)
+                    if example:
+                        return example
+
+    def block(node):
+        while node.parent is not soup:
+            node = node.parent
+        return node
+
+    def group(nodes):
+        if not nodes or any(node.parent is not nodes[0].parent for node in nodes):
+            return
+        container = soup.new_tag('div', attrs={'class': 'reading-group'})
+        nodes[0].insert_before(container)
+        for node in nodes:
+            container.append(node.extract())
+
+    if path.name == '4-custom-instructions.md':
+        target = soup.find(id=prefix + '--指示に関する-issue-から開始する')
+        heading = target.find_parent(['h2', 'h3', 'h4']) if target else None
+        prompt = example_after(heading, 'pre')
+        if prompt:
+            start = block(prompt)
+            nodes = [start]
+            following = start.find_next_sibling()
+            while following and following.name == 'p' and len(nodes) < 3:
+                nodes.append(following)
+                following = following.find_next_sibling()
+            if len(nodes) == 3:
+                group(nodes)
+    elif path.name == '5-build-filtering.md':
+        target = soup.find(id=prefix + '--quality-checks-スキルを確認する')
+        heading = target.find_parent(['h2', 'h3', 'h4']) if target else None
+        table = example_after(heading, 'table')
+        if table:
+            start = block(table)
+            following = start.find_next_sibling()
+            if following and following.name == 'p':
+                group([start, following])
+    elif path.name == '8-canvases.md':
+        figure = figures.get('app-20261004-07-search-plan-review.jpg')
+        if figure:
+            start = block(figure)
+            following = start.find_next_sibling()
+            if following and following.name == 'p':
+                group([start, following])
+
+
 def book_html(paths, label, config, ref, digest, web_base=None):
     sections, titles, contents, expected_images = [], [], [], 0
     selected = {p.resolve() for p in paths}
@@ -113,6 +171,7 @@ def book_html(paths, label, config, ref, digest, web_base=None):
                 link['href'] = source_url(target, ref)
             else:
                 raise ValueError(f'Unresolved PDF link: {path}: {link["href"]}')
+        figures = {}
         for img in list(soup.select('img')):
             image = (path.parent / unquote(img['src'])).resolve()
             if not image.is_file() or not image.is_relative_to(ROOT / 'content/_images'):
@@ -126,11 +185,13 @@ def book_html(paths, label, config, ref, digest, web_base=None):
             notice = web.image_caption(image.name)
             caption.string = img.get('alt', '') + (' / ' + notice if notice else '')
             figure.append(caption)
+            figures[image.name] = figure
             expected_images += 1
         # Figures must not stay inside paragraphs; HTML parsing would otherwise relocate them.
         for para in list(soup.select('p')):
             if para.find('figure'):
                 para.name = 'div'
+        keep_explanations_with_examples(soup, path, prefix, figures)
         # Chromium can ignore keep-with-next across consecutive headings.
         for heading in list(soup.select('h2, h3')):
             if 'section-lead' in heading.parent.get('class', []):
