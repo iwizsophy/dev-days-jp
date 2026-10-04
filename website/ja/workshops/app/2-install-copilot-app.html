@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow"><title>第2章 - GitHub Copilot appのインストール | Dev Days 日本語版</title>
+<link rel="stylesheet" href="../workshops.css"><script src="../../../theme-toggle.js"></script></head><body>
+<a class="skip" href="#lesson">本文へ移動</a><header><nav aria-label="資料のナビゲーション">
+<a href="../../index.html">教材セットの入口</a><a href="../index.html">App シナリオの目次</a>
+<a href="../../handson-guide.html#switch">事前準備・UI の確認</a></nav>
+<button class="theme-toggle" type="button" onclick="toggleTheme()">☀️ ライト</button></header>
+<main id="lesson"><h1>第2章 - GitHub Copilot appのインストール</h1><p class="source">非公式の日本語版 · <a href="https://github.com/github-samples/copilot-workshops/blob/7ddcf241c1cd10b8e90c0df96f6bef81e710392a/docs/ja-jp/app/1-install-copilot-app.md">参照原文</a> · <a href="../licenses/copilot-workshops.txt">MIT ライセンス</a></p><aside>利用条件は <a href="../../handson-guide.html#plans">受講準備</a>を参照してください。</aside><nav class="chapter-nav" aria-label="章の移動"><a href="1-prerequisites.html">← 前の章：第1章 - 前提条件</a><a href="3-add-star-rating.html">次の章 →：第3章 - 最初のエージェントセッションの実行</a></nav><details><summary>この章の目次</summary><div class="toc">
+<ul>
+<li><a href="#21-章の概要">2.1 章の概要</a></li>
+<li><a href="#22-この章で学ぶこと">2.2 この章で学ぶこと</a></li>
+<li><a href="#23-取り組む前に">2.3 取り組む前に</a></li>
+<li><a href="#24-体験すること">2.4 体験すること</a><ul>
+<li><a href="#241-appをインストールしてサインインする">2.4.1 Appをインストールしてサインインする</a></li>
+<li><a href="#242-演習用リポジトリを接続する">2.4.2 演習用リポジトリを接続する</a></li>
+<li><a href="#243-対象と表示条件を確かめてissueを読む">2.4.3 対象と表示条件を確かめてIssueを読む</a></li>
+<li><a href="#244-chatsで質問する">2.4.4 Chatsで質問する</a></li>
+</ul>
+</li>
+<li><a href="#25-結果の整理と振り返り">2.5 結果の整理と振り返り</a></li>
+<li><a href="#26-補足">2.6 補足</a><ul>
+<li><a href="#261-appとworktreeの役割">2.6.1 Appとworktreeの役割</a></li>
+<li><a href="#262-作業領域を使い分ける">2.6.2 作業領域を使い分ける</a></li>
+<li><a href="#263-会話を整理するメニュー">2.6.3 会話を整理するメニュー</a></li>
+<li><a href="#264-参考資料">2.6.4 参考資料</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</details><article><h2 id="21-章の概要">2.1 章の概要</h2>
+<p>前章では、Node.jsと演習用リポジトリを準備しました。この章ではGitHub Copilot appを導入し、コピーを接続します。課題を読む場所、相談する場所、実装を進める場所を確かめてから、コードの変更へ進みます。</p>
+<p>画面に課題が表示されないとき、課題自体がないのでしょうか。それとも表示条件が違うのでしょうか。対象リポジトリと表示条件を確かめることで、次の章から自分の課題を選び、作業を始められるようにします。</p>
+<h2 id="22-この章で学ぶこと">2.2 この章で学ぶこと</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">到達した状態</th>
+<th style="text-align: left;">自分でできること</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">AppにGitHubアカウントでサインインできる</td>
+<td style="text-align: left;">演習用リポジトリをAppに追加する</td>
+</tr>
+<tr>
+<td style="text-align: left;">接続時の設定を読んで承認できる</td>
+<td style="text-align: left;">エージェントが利用する起動コマンドや設定を確認する</td>
+</tr>
+<tr>
+<td style="text-align: left;">対象と表示条件を確かめてIssueを表示できる</td>
+<td style="text-align: left;">課題の背景と受け入れ条件を読む</td>
+</tr>
+<tr>
+<td style="text-align: left;">Chatsで相談できる</td>
+<td style="text-align: left;">コードを変更する前に、疑問や考えを整理する</td>
+</tr>
+</tbody>
+</table>
+<h2 id="23-取り組む前に">2.3 取り組む前に</h2>
+<p><a href="1-prerequisites.html">前章</a>で作成したコピーの<code>owner/repo</code>を用意してください。Appには、そのリポジトリを利用できるGitHubアカウントでサインインします。</p>
+<p>有効なCopilotプランと、演習に必要な利用枠を確認してください。公式ドキュメントでは全Copilotプランが対象です。Copilot BusinessまたはCopilot Enterpriseの組織では、CLI用とは別の<strong>GitHub Copilot app</strong>ポリシーが有効である必要があります。利用条件は<a href="https://docs.github.com/en/copilot/concepts/agents/github-copilot-app">公式の概要</a>、Gitのインストールなどの前提は<a href="https://docs.github.com/en/copilot/get-started/quickstart-copilot-app">公式の開始手順</a>を参照してください。</p>
+<p>Appは最新版を使用します。すでにインストールしている場合は更新してから始めます。</p>
+<h2 id="24-体験すること">2.4 体験すること</h2>
+<p><a id="github-copilot-app-をインストールして構成する"></a></p>
+<h3 id="241-appをインストールしてサインインする">2.4.1 Appをインストールしてサインインする</h3>
+<p>インストーラーの対象OSは、Windows、macOS、Linuxです。自分のOSに合わせて進めてください。</p>
+<ol>
+<li><a href="https://gh.io/app">GitHub Copilot appのダウンロードページ</a>を開きます。</li>
+<li>使用するOS向けの最新版をダウンロードし、画面の案内に従ってインストールします。</li>
+<li>Appを起動し、<strong>Sign in to GitHub</strong>を選択します。ブラウザーが開いたら認証を完了させます。</li>
+<li><strong>Connect your repositories</strong>が表示されたら、ここでは選択せずに進みます。この教材では、初期設定後に演習用リポジトリを追加します。</li>
+<li><strong>Continue</strong>を選択します。テーマの選択画面が表示されたら、好みのテーマを選び、<strong>Finish</strong>で初期設定を終えます。</li>
+</ol>
+<p><a id="プロジェクト接続とリポジトリ設定の確認"></a></p>
+<h3 id="242-演習用リポジトリを接続する">2.4.2 演習用リポジトリを接続する</h3>
+<p>接続する前に、Appの利用アカウントとコピーの所有者を確認します。Repository trustの承認では、リポジトリ内の設定や拡張を新しいセッションで利用するか判断します。どの設定を使うか、内容を読んでから承認しましょう。</p>
+<ol>
+<li>サイドバーの<strong>Projects</strong>横の<strong><code>+</code> → Add GitHub repository</strong>を選びます。</li>
+<li>前章で控えた自分の<code>owner/repo</code>を検索して追加します。</li>
+<li><strong>Review repository content</strong>が表示されたら、設定や拡張を開いて内容を確認します。テンプレートには、後の演習で使う起動コマンドやMCPの設定が含まれています。</li>
+<li><strong>Repository trust</strong>で対象が自分のコピーであることと、承認する内容を確認し、<strong>Accept for new sessions</strong>を選択します。</li>
+</ol>
+<p><img alt="Repository trustで設定内容を確認して新しいセッションへの適用を承認する" src="../assets/app-20261004-01-repository-trust.jpg" /></p>
+<ol start="5">
+<li>入力欄へ進めたことを確認します。準備中の表示がある場合は完了を待ちます。実装用の新しいworktreeは次章で開始します。</li>
+</ol>
+<p>入力欄が表示されない場合や、GitHubとの連携でエラーが出る場合は、対象リポジトリ、承認状態、サインインしたアカウントを確認してください。必要に応じて講師と確認します。</p>
+<p><a id="バックログ-issue-の確認"></a></p>
+<h3 id="243-対象と表示条件を確かめてissueを読む">2.4.3 対象と表示条件を確かめてIssueを読む</h3>
+<p>Projectsでプロジェクトを選ぶことと、Issuesの表示対象を選ぶことは別の操作です。Issues上部の対象を確認して、自分のコピーの課題を表示します。</p>
+<ol>
+<li>サイドバーの<strong>Issues</strong>を開きます。</li>
+<li>画面上部のリポジトリ選択欄で、自分の演習用コピーだけを選択します。他のリポジトリが選ばれている場合は解除します。</li>
+<li>表示条件を確認します。自動生成された課題は未割り当てなので、<strong>Assigned to me</strong>では表示されません。<strong>Nothing here</strong>と表示される場合は、タブ右の<strong><code>+</code> → New view</strong>を選択します。</li>
+<li><strong>State: Open</strong>、追加の検索条件なしで<strong>Save</strong>します。New viewの入口が見えない場合は、右側のIssue詳細を閉じてから操作してください。</li>
+</ol>
+<p><img alt="対象リポジトリとState Openを指定してNew viewを保存する" src="../assets/app-20261004-01-issues-new-view.jpg" /></p>
+<ol start="5">
+<li>8件の課題が表示されることを確認します。後の演習では、次の課題を使います。</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Issueのタイトル</th>
+<th style="text-align: left;">取り組む内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Update our repository coding standards</td>
+<td style="text-align: left;">コーディング規約とドキュメント標準</td>
+</tr>
+<tr>
+<td style="text-align: left;">Allow users to filter games by category and publisher</td>
+<td style="text-align: left;">フィルター機能</td>
+</tr>
+<tr>
+<td style="text-align: left;">Add a search box to find games by title</td>
+<td style="text-align: left;">タイトル検索</td>
+</tr>
+</tbody>
+</table>
+<ol start="6">
+<li>任意のIssueを開き、背景と受け入れ条件を読みます。この章では内容を確認し、実装は後の章で始めます。</li>
+</ol>
+<p>一覧が空だった場合は、表示条件を変えた前後を比べてください。リポジトリが選べない場合は、<a href="#プロジェクト接続とリポジトリ設定の確認">接続手順</a>を見直します。GitHub Webにも課題がない場合は、<a href="1-prerequisites.html#演習用issueの準備を確認する">前章のIssue準備</a>を確認します。</p>
+<p><a id="クイックチャットquick-chatを試す"></a></p>
+<h3 id="244-chatsで質問する">2.4.4 Chatsで質問する</h3>
+<p>Chatsは、ブランチやworktreeを作らずに質問やアイデア出しをする場所です。履歴を保存して、後から読み返せます。ここではAppの仕組みについて相談します。</p>
+<ol>
+<li>サイドバーの<strong>Chats</strong>を右クリックし、<strong>New chat</strong>を選択します。</li>
+<li>入力欄の下で対象が<strong>Chat</strong>、モードが<strong>Interactive</strong>であることを確認します。</li>
+<li>次のプロンプトを入力して送信します。</li>
+</ol>
+<pre class="highlight"><code class="language-plaintext">GitHub Copilot app は worktree をどのように使いますか？
+日本語で簡潔に説明してください。説明だけを行い、ファイル変更、
+リポジトリ操作、コマンド実行はしないでください。</code></pre>
+<ol start="4">
+<li>日本語の回答を読み、処理終了後にステータスが<strong>Idle</strong>へ戻ることを確認します。</li>
+<li>回答の中で「別の作業フォルダー」「ブランチ」「マージ」がどのようにつながるか、読み取ってみましょう。分からない点は同じチャットで質問します。</li>
+</ol>
+<p>回答はエージェントによる説明です。次章では実装セッションの作業場所を確認し、説明と実際の動作を比べます。Chatsとセッションの違いは<a href="https://docs.github.com/en/copilot/how-tos/github-copilot-app/agent-sessions">GitHub公式のセッション説明</a>も参照してください。</p>
+<p><a id="完了の確認"></a>
+<a id="振り返り"></a></p>
+<h2 id="25-結果の整理と振り返り">2.5 結果の整理と振り返り</h2>
+<p>Appを導入し、課題を読んだり相談したりする準備ができました。次の状態を確認してください。</p>
+<ul>
+<li>自分のGitHubアカウントでサインインし、演習用コピーを接続できた。</li>
+<li>設定を読んで承認し、Issuesにコピーの8件の課題を表示できた。</li>
+<li>Chatsで質問し、回答を読み返せる状態になった。</li>
+</ul>
+<p>「Assigned to meが空でも課題がないとは限らない理由」と「Chatsでの相談と実装セッションの違い」を説明してみましょう。設定の承認では何を確認したかも振り返ると、次章で作業対象を確かめてから編集を始められます。</p>
+<p><a id="次のステップ"></a></p>
+<p>次は、ゲームカードに星評価を表示する変更を依頼します。<a href="3-add-star-rating.html">第3章「最初のエージェントセッションの実行」</a>へ進んでください。</p>
+<p><a id="補足"></a></p>
+<h2 id="26-補足">2.6 補足</h2>
+<p><a id="appとworktreeの役割"></a></p>
+<h3 id="261-appとworktreeの役割">2.6.1 Appとworktreeの役割</h3>
+<p><a href="https://docs.github.com/en/copilot/concepts/agents/github-copilot-app">GitHub Copilot app</a>は、エージェントによる開発を進めるデスクトップアプリケーションです。GitHub Copilot CLIを基盤とし、リポジトリ、ブランチ、CIと連携します。Issueの選定から実装依頼、差分のレビュー、PRの作成とマージまでをまとめて扱えます。</p>
+<p>実装セッションを始めるときは、新しいworktreeなどの実行場所を選んでください。worktreeは、同じリポジトリの別ブランチを別の作業フォルダーで扱う仕組みです。星評価とフィルターを別々に試す場合も、作業中のファイルを分けられます。ただし、完了した変更を次の作業で使うには、マージ後の状態の引き継ぎが必要です。各章で結果を確かめてから、次の機能へ進みます。実行場所の選択肢は<a href="https://docs.github.com/en/copilot/how-tos/github-copilot-app/agent-sessions">公式のセッション開始手順</a>を参照してください。</p>
+<p><a id="ワークスペースと課題一覧の見方"></a></p>
+<h3 id="262-作業領域を使い分ける">2.6.2 作業領域を使い分ける</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">領域</th>
+<th style="text-align: left;">主な役割</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Projects</td>
+<td style="text-align: left;">プロジェクトと実装セッションを管理する</td>
+</tr>
+<tr>
+<td style="text-align: left;">Chats</td>
+<td style="text-align: left;">作業ツリーやブランチを作らずに相談する</td>
+</tr>
+<tr>
+<td style="text-align: left;">Issues</td>
+<td style="text-align: left;">対象リポジトリの課題を検索し、実装を始める</td>
+</tr>
+<tr>
+<td style="text-align: left;">Pull requests</td>
+<td style="text-align: left;">差分やCI結果を確認し、変更を取り込む</td>
+</tr>
+<tr>
+<td style="text-align: left;">Automations</td>
+<td style="text-align: left;">手動やスケジュールで実行する自動化タスクを管理する。第9章で使う</td>
+</tr>
+<tr>
+<td style="text-align: left;">Customize</td>
+<td style="text-align: left;">MCP、Plugins、Skills、Extensionsなどの設定やInstalledを開く</td>
+</tr>
+</tbody>
+</table>
+<p>相談にはChats、コードの変更にはProjectsのセッション、取り込み前の確認にはPull requestsを使います。GitHubと連携する一覧の役割は<a href="https://docs.github.com/en/copilot/how-tos/github-copilot-app/managing-issues-and-pull-requests">公式のIssue・PR管理手順</a>も参照できます。</p>
+<p>接続時に設定画面を通過したことと、ビルドやテストが成功したことは別です。実装後はコードの差分、画面、検査結果をそれぞれ確認します。</p>
+<p><a id="チャット一覧のコンテキストメニュー確認"></a></p>
+<h3 id="263-会話を整理するメニュー">2.6.3 会話を整理するメニュー</h3>
+<p>完了したチャットをChats一覧で右クリックすると、名前の変更やアーカイブなどの操作を確認できます。メニューの項目を読み、会話を整理する方法を確かめてみましょう。この演習ではメニューの確認までとし、共有や削除は行いません。</p>
+<p><a id="リソース"></a></p>
+<h3 id="264-参考資料">2.6.4 参考資料</h3>
+<ul>
+<li><a href="https://docs.github.com/en/copilot/concepts/agents/github-copilot-app">GitHub Copilot appについて</a></li>
+<li><a href="https://docs.github.com/en/copilot/get-started/quickstart-copilot-app">GitHub Copilot appの開始手順</a></li>
+<li><a href="https://docs.github.com/en/copilot/how-tos/github-copilot-app/agent-sessions">GitHub Copilot appでのエージェントセッション</a></li>
+</ul></article><nav class="chapter-nav" aria-label="章の移動"><a href="1-prerequisites.html">← 前の章：第1章 - 前提条件</a><a href="3-add-star-rating.html">次の章 →：第3章 - 最初のエージェントセッションの実行</a></nav></main></body></html>

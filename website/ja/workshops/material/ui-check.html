@@ -85,7 +85,7 @@
 </tr>
 <tr>
 <td style="text-align: left;">MCPを使う</td>
-<td style="text-align: left;">Settings → MCP serversで定義を確認し、Trust repositoryを求められた場合は内容を読んで承認する。Connectedを確認してからセッションでツールを呼ぶ</td>
+<td style="text-align: left;">Customize → Installed → MCP Serversで定義を確認し、Trust repositoryを求められた場合は内容を読んで承認する。Connectedを確認してからセッションでツールを呼ぶ</td>
 <td style="text-align: left;">設定の表示、接続、実際のツール呼び出しを順に確認する。呼び出せない場合は信頼状態と接続設定を調べる</td>
 </tr>
 <tr>
@@ -95,8 +95,8 @@
 </tr>
 <tr>
 <td style="text-align: left;">Agent Mergeを使う</td>
-<td style="text-align: left;">Create PR options → Agent merge。開始前に下記のマージ条件を確認し、Merge pull requestのチェック状態も確かめる</td>
-<td style="text-align: left;">任せる操作とCI全成功を待つ経路を選ぶ。すでに有効な項目は、許可するなら切り替えずに保持する</td>
+<td style="text-align: left;">通常のCreate PRで作成し、最新のCI全ジョブ成功を確認する。Ready to merge横メニューでAgent mergeをOnにする</td>
+<td style="text-align: left;">任せる操作を確認して開始し、AppとGitHubのMerged、最新コミットのCI結果を照合する</td>
 </tr>
 <tr>
 <td style="text-align: left;">Canvasを再利用する</td>
@@ -110,7 +110,7 @@
 </tr>
 </tbody>
 </table>
-<p>Agent Mergeを使う前の判断は、<a href="../app/6-agent-merge.html">レッスン6の開始前確認</a>に従ってください。CI全ジョブの完了を待つ条件が適用されるかを、対象リポジトリと自分の権限で確認します。条件が不明なら通常のCreate PRで作成し、最新コミットのCI全成功を待ってからAgent Mergeを開始してください。</p>
+<p>Agent Mergeを使う前の判断は、<a href="../app/7-agent-merge.html">第7章の開始前確認</a>に従ってください。CI全ジョブの完了を待つ条件が適用されるかを、対象リポジトリと自分の権限で確認します。条件が不明なら通常のCreate PRで作成し、最新コミットのCI全成功を待ってからAgent Mergeを開始してください。</p>
 <h2>3. 講師が最新版で確認すること</h2>
 <p>開催前に、使用するOS、Appの版、確認日を<a href="verification.html">検証状況</a>へ記録します。自分の演習コピーを接続し、上の表に沿って各章の開始状態から入口を確認してください。選択したリポジトリ、セッション種別、権限、実行状態によって表示が違う場合は、その条件と実際の項目名を記録します。</p>
 <p>確認では「ボタンが見えた」「操作できた」「期待結果を得た」を分けます。たとえばMCPのConnected表示だけでは、セッションからツールを使えるかは分かりません。ツールを呼び出した後も、フィルターの結果や解除操作まで確かめて初めて、その機能を検証したと判断できます。</p>

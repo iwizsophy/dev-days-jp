@@ -1,17 +1,75 @@
 <!DOCTYPE html>
 <html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex, nofollow"><title>配布資料に使う画像の選定案 | Dev Days 日本語版</title>
+<meta name="robots" content="noindex, nofollow"><title>配布資料に使う画像の選定と反映状況 | Dev Days 日本語版</title>
 <link rel="stylesheet" href="../workshops.css"><script src="../../../theme-toggle.js"></script></head><body>
 <a class="skip" href="#lesson">本文へ移動</a><header><nav aria-label="資料のナビゲーション">
 <a href="../../index.html">教材セットの入口</a><a href="../index.html">App シナリオの目次</a>
 <a href="../../handson-guide.html#switch">事前準備・UI の確認</a></nav>
 <button class="theme-toggle" type="button" onclick="toggleTheme()">☀️ ライト</button></header>
-<main id="lesson"><h1>配布資料に使う画像の選定案</h1><aside>講師・運営向けの補助資料です。</aside><article><p>2026年10月4日、全章の実走と不足画像の再取得を終えた段階の取得画像95枚を対象にしています。本文に使う主候補は30枚、必要に応じて使う補足候補は22枚です。主候補と補足候補を合わせた掲載可は52枚、要再撮影は1枚、記録のみは42枚です。元画像はすべて保存します。</p>
-<p>30枚のうち23枚は切り取りが必要です。元画像のまま使える候補は7枚です。ここでの判定は画像の内容とファイルの状態を対象とし、PDFへ配置した後の文字サイズは別に確認します。切り取り、画像の改変、受講者原稿への挿入は実施していません。</p>
+<main id="lesson"><h1>配布資料に使う画像の選定と反映状況</h1><aside>講師・運営向けの補助資料です。</aside><article><p>2026年10月4日の実走で取得した原本95枚から、現在の受講者向け原稿に使う公開画像42枚を作成しました。操作と結果を読む範囲を切り取り、不要な会話、ローカルパス、個人のプロジェクトやモデル欄などを除いています。EXIF情報も除去しました。原本95枚と当初の画像一覧は、SHA-256を照合して作業用領域へ保全し、公開対象から外しています。</p>
+<p>公開テンプレートの入口は、現在の画面からUse this templateのメニューを切り出して使用しました。当初の「公開後に再撮影する」という判断は撤回し、現在の再撮影予定は0件です。PDFでの文字サイズと改ページ後の配置は、生成物の確認で別に点検します。</p>
+<p>本書に残す選定表や監査表の章節番号は、実走時の旧第0〜8章を指します。改稿後は第1〜9章へ変更し、各章を学習の6段階に整理しました。対応する原稿は次のとおりです。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">実走時の章</th>
+<th style="text-align: left;">改稿後の章</th>
+<th style="text-align: left;">題材と現在の原稿</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;"><a href="../app/1-prerequisites.html">前提条件</a></td>
+</tr>
+<tr>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;"><a href="../app/2-install-copilot-app.html">Appの導入と接続</a></td>
+</tr>
+<tr>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;"><a href="../app/3-add-star-rating.html">星評価</a></td>
+</tr>
+<tr>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;"><a href="../app/4-custom-instructions.html">カスタム指示</a></td>
+</tr>
+<tr>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;"><a href="../app/5-build-filtering.html">フィルターの計画と実装</a></td>
+</tr>
+<tr>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">6</td>
+<td style="text-align: left;"><a href="../app/6-mcp-playwright.html">Playwright MCP</a></td>
+</tr>
+<tr>
+<td style="text-align: left;">6</td>
+<td style="text-align: left;">7</td>
+<td style="text-align: left;"><a href="../app/7-agent-merge.html">Agent Merge</a></td>
+</tr>
+<tr>
+<td style="text-align: left;">7</td>
+<td style="text-align: left;">8</td>
+<td style="text-align: left;"><a href="../app/8-canvases.html">Canvasと検索</a></td>
+</tr>
+<tr>
+<td style="text-align: left;">8</td>
+<td style="text-align: left;">9</td>
+<td style="text-align: left;"><a href="../app/9-review.html">Automationと振り返り</a></td>
+</tr>
+</tbody>
+</table>
+<p>本文には手順補正と画像の差し替え・追加を反映済みです。改稿後の新しいプロンプトを使う全章の再実走は未実施で、実走時の確認結果と改稿後の内容を区別します。以下の旧29掲載箇所、主候補30枚、補足候補22枚などの表は、採否を判断した過程の記録です。現在公開する42枚の一覧と加工範囲は<a href="../assets/app-20261004-image-inventory.json">公開画像一覧</a>を参照してください。</p>
 <h2>ファイルの確認</h2>
-<p>95枚すべてをJPEGとして正常に読み込めました。拡張子の不一致、読み込みエラー、候補ファイルの欠落はありません。寸法は幅807〜1282ピクセル、高さ712〜892ピクセルです。ファイルごとの容量・寸法・SHA256・掲載判定は<a href="../assets/app-20261004-image-inventory.json">image-inventory.json</a>に保存しました。</p>
+<p>95枚すべてをJPEGとして正常に読み込めました。拡張子の不一致、読み込みエラー、候補ファイルの欠落はありません。寸法は幅807〜1282ピクセル、高さ712〜892ピクセルです。原本ごとの容量・寸法・SHA256・当初の掲載判定は、非公開で保全した当初の画像一覧に保存しています。現在の公開版42枚の情報は<a href="../assets/app-20261004-image-inventory.json">公開画像一覧</a>に記録しました。</p>
 <p>この確認だけでは掲載の可否を決めません。対象の課題が正しく、受講者が読む操作や結果を画像内で確認できることも条件にしました。旧コピーや検証者の会話が大きく映る画像は、切り取りを条件にしています。</p>
-<h2>掲載判定</h2>
+<h2>実走直後の掲載判定</h2>
 <table>
 <thead>
 <tr>
@@ -27,9 +85,9 @@
 <td style="text-align: left;">主候補30枚と補足候補22枚。切り取りや説明の条件を満たして使う。</td>
 </tr>
 <tr>
-<td style="text-align: left;">要再撮影</td>
+<td style="text-align: left;">要再撮影としたもの</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">公開テンプレートの入口。公開後に再撮影する。</td>
+<td style="text-align: left;">当初は公開テンプレートの入口を再撮影する案だった。現在は切り取り版を採用し、この判断を撤回。</td>
 </tr>
 <tr>
 <td style="text-align: left;">記録のみ</td>
@@ -39,12 +97,12 @@
 <tr>
 <td style="text-align: left;">合計</td>
 <td style="text-align: right;">95</td>
-<td style="text-align: left;">全ファイルの判定はimage-inventory.jsonに記載。</td>
+<td style="text-align: left;">全ファイルの当初の判定は、非公開で保全した画像一覧に記載。</td>
 </tr>
 </tbody>
 </table>
-<p>要再撮影は<code>00-template-menu.jpg</code>の1枚です。Drizzleのリンク表示とCanvasの最終保存差分は再取得しました。以前の部分画像<code>03-drizzle-links.jpg</code>と<code>07-changes-canvas.jpg</code>は記録のみへ変更しています。</p>
-<h2>章ごとの枚数</h2>
+<p>当初は<code>00-template-menu.jpg</code>の1枚を要再撮影としました。現在はメニュー部分を採用し、再撮影を不要と判断しています。Drizzleのリンク表示とCanvasの最終保存差分は再取得しました。以前の部分画像<code>03-drizzle-links.jpg</code>と<code>07-changes-canvas.jpg</code>は記録のみへ変更しています。</p>
+<h2>実走直後の章ごとの主候補枚数</h2>
 <table>
 <thead>
 <tr>
@@ -106,7 +164,7 @@
 </tr>
 </tbody>
 </table>
-<h2>主候補30枚</h2>
+<h2>実走直後の主候補30枚</h2>
 <p>表は教材内の順序で使うための案です。番号は選定用で、原稿の項番ではありません。</p>
 <table>
 <thead>
@@ -234,7 +292,7 @@
 <tr>
 <td style="text-align: left;">P17</td>
 <td style="text-align: left;">5.4</td>
-<td style="text-align: left;"><a href="../assets/app-20261004-05-isolated-three.jpg">05-isolated-three.jpg</a></td>
+<td style="text-align: left;"><code>app-20261004-05-isolated-three.jpg</code></td>
 <td style="text-align: left;">通常データと分けたテスト用3件</td>
 <td style="text-align: left;">Showing 3 gamesとテスト用カードを残す。URL・接続元は検証記録で照合する。</td>
 </tr>
@@ -420,11 +478,11 @@
 </tbody>
 </table>
 <p>初回404、薄い文字のCanvas、修正前のフィルター、CI実行中、停止ログ、環境出力、重複するCI・Mergedの画像は検証記録へ残します。失敗例を最終画面の操作例と混同させないための構成案です。</p>
-<p><code>00-template-menu.jpg</code>はPrivate templateと保護警告が大きく、公開テンプレートの入口としては再撮影が必要です。<code>00-template-form-top.jpg</code>と<code>00-template-form.jpg</code>もPrivateを選んだ例なので、公開範囲の必須値として見せないようにします。</p>
+<p>原本の<code>00-template-menu.jpg</code>にはPrivate templateと保護警告が大きく映っていました。公開版では作成メニューだけを残し、現在の第1章へ掲載しています。<code>00-template-form-top.jpg</code>の公開版も、Privateの選択部分を含めず、テンプレートとコピー先の入力欄を示します。公開範囲は本文で選ぶ手順を説明し、画像の選択値を必須条件にしません。</p>
 <p>共有CanvasのPR #17はマージ済みで、別セッションでの再表示と本文受領を撮影しました。新しい受領画像を主候補にしたため、<code>07-canvas-receipt.jpg</code>は記録のみへ変更しています。共有PRと検索PRのAgent merge・Mergedの6枚は第6章と重複するため、検証記録に残します。Automationの設定画像08-automation-settings.jpgも、主候補の設定・実行入口と重複するため記録のみです。</p>
 <p><code>07-search-mcp-result.jpg</code>は呼び出し一覧とAIの結果表を示す画像で、個別ツールのResultは展開されていません。手動画像の0件検索語no-such-titleと、MCPの報告にあるnothing-matches-this-titleは別の入力です。前後の空白処理、キーボード解除、詳細リンク、終了確認は実走記録で照合し、静止画像だけで独立して確認できたとは扱いません。</p>
 <h2>全コースの公開枚数</h2>
-<p>現時点ではスクリーンショット31枚と、既存の概念図4点を残す案です。現在の主候補30枚に、公開テンプレートの入口1枚を加えます。第8章は実走完了の報告を受け、成功状態とレポートを確認しました。Succeededという状態名の確認とAPI照合は実走記録を根拠とし、画像だけで独立して確認できたとは扱いません。</p>
+<p>現在は、切り取りと必要な塗りつぶしを行った公開画像42枚と、既存の概念図4点を採用しています。入口メニューも今回の画面から採用済みです。第8章は実走完了の報告を受け、成功状態とレポートを確認しました。Succeededという状態名の確認とAPI照合は実走記録を根拠とし、画像だけで独立して確認できたとは扱いません。</p>
 <table>
 <thead>
 <tr>
@@ -437,24 +495,29 @@
 <tr>
 <td style="text-align: left;">公開テンプレートのUse this templateの入口</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">公開後に再撮影</td>
+<td style="text-align: left;">現在の画面のメニュー部分を切り出して採用済み</td>
 </tr>
 <tr>
-<td style="text-align: left;">追加の合計</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: left;">30枚と合わせて31枚の案</td>
+<td style="text-align: left;">公開画像の合計</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: left;">必要な補足画面を含め、現在の原稿へ反映済み</td>
+</tr>
+<tr>
+<td style="text-align: left;">現在の再撮影予定</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">入口の再撮影を残す当初の判断を撤回</td>
 </tr>
 </tbody>
 </table>
 <p>第7章のPlan選択メニューとReview planの承認選択肢は未撮影です。検索の計画本文を読む画像と、第4章の操作説明への参照で追えることを採用条件にしました。固有の承認画面が必要なら追加撮影し、公開枚数を見直します。</p>
-<p>既存の29掲載箇所は、原稿の行、画像ファイル、意味を再確認しました。重複掲載の削除候補はE17・E25・E26の3件です。E17は第3章で説明済みのFiles入口を繰り返すため、スキルの内容に置き換える候補です。E25・E26は第6章と同じAgent mergeの操作なので、第6章への参照と共有保存先の確認で追える場合に省略します。</p>
+<p>既存の29掲載箇所は、原稿の行、画像ファイル、意味を再確認しました。当初の重複掲載の削除候補はE17・E25・E26の3件です。改稿では、E17の繰り返しのFiles入口をスキル内容の表示へ置き換え、E25・E26のAgent mergeの重複画面を省きました。この判断の理由は、E17が旧第3章で説明済みのFiles入口を繰り返し、E25・E26が旧第6章と同じAgent mergeの操作を示していたためです。改稿後は、該当する操作の参照先と共有保存先の説明で追える構成にしています。</p>
 <p>既存の概念図は、学習の流れ、計画承認、MCPの検証段階、worktreeの引き継ぎの4点です。これらは操作画面と役割が異なるため維持します。</p>
 <p>画像を省く箇所でも、受講者が行う操作と意図を本文に残す方針です。画像数を減らすために説明を薄める変更は提案していません。</p>
 <h2>掲載箇所ごとの対応</h2>
-<p>作成日：2026年10月4日。演習0〜8の3つの事前監査表を統合し、最新原稿の画像掲載箇所で章節とファイル名を補いました。全章の取得画像を確認し、撮影状況とファイル列へ進捗を反映しています。未取得・未確認の項目は未撮影または未確認のまま残しています。本表は画像の内容と掲載候補を整理するもので、ハンズオンの成功は別の実走記録で確認します。</p>
-<p>参照した監査表は<code>audit-0-2.md</code>、<code>audit-3-5.md</code>、<code>audit-6-8.md</code>です。本表の「削除候補」は原稿内の重複掲載に対する提案であり、画像ファイルそのものの削除を指しません。受講者原稿と掲載画像の参照は変更していません。</p>
+<p>作成日：2026年10月4日。演習0〜8の3つの事前監査表を統合し、実走時の原稿の画像掲載箇所で章節とファイル名を補いました。全章の取得画像を確認し、撮影状況とファイル列へ当時の進捗を反映しています。未取得・未確認の項目は、その時点の状態を残しました。本表は画像の内容と掲載候補を整理した記録です。実走の成否と根拠を示す資料は、別の実走記録です。</p>
+<p><code>audit-0-2.md</code>、<code>audit-3-5.md</code>、<code>audit-6-8.md</code>の3つの監査表を参照しました。本表の「削除候補」は原稿内の重複掲載に対する提案であり、画像ファイルそのものの削除を指しません。本表の作成時には、受講者原稿と掲載画像の参照を変更していません。以後の改稿での反映状況は、本書の冒頭と「現在の反映状況」に記載しています。</p>
 <h2>既存画像</h2>
-<p>掲載箇所ごとに29件あります。共用されている画像も、課題に合う画面を撮るため個別に記載しました。第1章と第8章には現在、画像の掲載がありません。</p>
+<p>実走時の原稿では、掲載箇所ごとに29件ありました。共用されている画像も、課題に合う画面を撮るため個別に記載しました。その時点では、旧第1章と旧第8章に画像の掲載はありませんでした。</p>
 <table>
 <thead>
 <tr>
@@ -810,14 +873,14 @@
 <tr>
 <td style="text-align: left;">E01</td>
 <td style="text-align: left;">教材用テンプレートのUse this template → Create a new repository。</td>
-<td style="text-align: left;">撮影済み・検証用。作成入口は読めるが、Private templateとブランチ保護警告が大きく、公開配布向けには再撮影を推奨。</td>
+<td style="text-align: left;">撮影済み・採用済み。原本のPrivate templateと保護警告を範囲外にし、作成メニューだけを公開版へ切り出した。再撮影を推奨した当初の判断は撤回。</td>
 <td style="text-align: left;"><a href="../assets/app-20261004-00-template-menu.jpg">00-template-menu.jpg</a></td>
 </tr>
 <tr>
 <td style="text-align: left;">E02</td>
 <td style="text-align: left;">Owner、名前、公開範囲、Include all branchesオフ、Jumpstartの空欄。</td>
-<td style="text-align: left;">撮影済み・切り取りを条件とする掲載候補。対象テンプレート・コピー名・Include all branchesと、Jumpstartの空欄が読める。公開範囲はPrivateが選択された例なので、本文で選択を説明し、掲載の中心はテンプレートと上部入力欄にする。具体的な公開範囲を画像で案内する場合は再撮影する。</td>
-<td style="text-align: left;">主候補：<a href="../assets/app-20261004-00-template-form-top.jpg">00-template-form-top.jpg</a>。Jumpstartを示す補足候補：<a href="../assets/app-20261004-00-template-form.jpg">00-template-form.jpg</a></td>
+<td style="text-align: left;">撮影済み・切り取りを条件とする掲載候補。対象テンプレート・コピー名・Include all branchesと、Jumpstartの空欄が読める。公開範囲はPrivateが選択された例なので、本文で選択を説明し、掲載の中心はテンプレートと上部入力欄にする。公開版は入力欄を中心に切り取り、公開範囲は本文の選択手順で説明する。</td>
+<td style="text-align: left;">主候補：<a href="../assets/app-20261004-00-template-form-top.jpg">00-template-form-top.jpg</a>。Jumpstartを示す補足候補：<code>app-20261004-00-template-form.jpg</code></td>
 </tr>
 <tr>
 <td style="text-align: left;">E03</td>
@@ -829,13 +892,13 @@
 <td style="text-align: left;">E04</td>
 <td style="text-align: left;">星評価セッションのChangesとGameCardの星評価・レンダリングテストの差分。</td>
 <td style="text-align: left;">撮影済み・掲載候補。最大化したChangesの2枚で、GameCardの再利用・未評価表示と、4.2・0・5・nullの実レンダリング検査およびリンク検査が読める。過去のProjectsや利用枠警告は映らない。</td>
-<td style="text-align: left;"><a href="../assets/app-20261004-02-changes-game-card.jpg">02-changes-game-card.jpg</a>、<a href="../assets/app-20261004-02-changes-render-tests.jpg">02-changes-render-tests.jpg</a></td>
+<td style="text-align: left;"><a href="../assets/app-20261004-02-changes-game-card.jpg">02-changes-game-card.jpg</a>、<code>app-20261004-02-changes-render-tests.jpg</code></td>
 </tr>
 <tr>
 <td style="text-align: left;">E05</td>
 <td style="text-align: left;">Browserのゲームカード。星評価、数値、タイトル、説明、詳細リンク。</td>
 <td style="text-align: left;">撮影済み・掲載候補。ゲームカードの1段目3枚で、星評価・数値・タイトル・説明・View detailsが読める。詳細画面はリンク先を確認した補助証拠。</td>
-<td style="text-align: left;"><a href="../assets/app-20261004-02-star-rating.jpg">02-star-rating.jpg</a>。補助証拠：<a href="../assets/app-20261004-02-game-detail.jpg">02-game-detail.jpg</a></td>
+<td style="text-align: left;"><a href="../assets/app-20261004-02-star-rating.jpg">02-star-rating.jpg</a>。補助証拠：<code>app-20261004-02-game-detail.jpg</code></td>
 </tr>
 <tr>
 <td style="text-align: left;">E06</td>
@@ -889,13 +952,13 @@
 <td style="text-align: left;">E14</td>
 <td style="text-align: left;">フィルター計画とReview planのApprove and implement this plan。</td>
 <td style="text-align: left;">撮影済み・掲載候補。更新後の計画でカテゴリOR・出版社AND、星評価と詳細リンクの維持、承認項目が読める。掲載は計画とReview planを中心にする。画面にはContinueもあるが、実走では承認項目を選ぶだけで実装へ移行した。</td>
-<td style="text-align: left;">主候補：<a href="../assets/app-20261004-04-plan-review.jpg">04-plan-review.jpg</a>。計画更新前の補助証拠：<a href="../assets/app-20261004-04-plan-review-initial.jpg">04-plan-review-initial.jpg</a></td>
+<td style="text-align: left;">主候補：<a href="../assets/app-20261004-04-plan-review.jpg">04-plan-review.jpg</a>。計画更新前の補助証拠：<code>app-20261004-04-plan-review-initial.jpg</code></td>
 </tr>
 <tr>
 <td style="text-align: left;">E15</td>
 <td style="text-align: left;">フィルターのTSDoc、カテゴリOR・出版社AND処理が読めるChanges。</td>
 <td style="text-align: left;">最終差分を撮影済み・掲載候補。games.tsのTSDoc、db・filtersの引数、戻り値、カテゴリOR・出版社AND処理の全文が読める。PR #15作成直後の撮影で、ChangesはCommits 1を表示している。第4章のPR作成前のレビュー時点とは撮影タイミングが異なるため、掲載時の説明で混同しない。</td>
-<td style="text-align: left;">主候補：<a href="../assets/app-20261004-04-changes-filters-final.jpg">04-changes-filters-final.jpg</a>。修正前の証拠：<a href="../assets/app-20261004-04-changes-filters.jpg">04-changes-filters.jpg</a></td>
+<td style="text-align: left;">主候補：<a href="../assets/app-20261004-04-changes-filters-final.jpg">04-changes-filters-final.jpg</a>。修正前の証拠：<code>app-20261004-04-changes-filters.jpg</code></td>
 </tr>
 <tr>
 <td style="text-align: left;">E16</td>
@@ -912,13 +975,13 @@
 <tr>
 <td style="text-align: left;">E18</td>
 <td style="text-align: left;">再撮影不要。概念図を維持。</td>
-<td style="text-align: left;">未判定</td>
+<td style="text-align: left;">改稿後も維持。</td>
 <td style="text-align: left;">—</td>
 </tr>
 <tr>
 <td style="text-align: left;">E19</td>
 <td style="text-align: left;">再撮影不要。概念図を維持。</td>
-<td style="text-align: left;">未判定</td>
+<td style="text-align: left;">改稿後も維持。</td>
 <td style="text-align: left;">—</td>
 </tr>
 <tr>
@@ -948,14 +1011,14 @@
 <tr>
 <td style="text-align: left;">E24</td>
 <td style="text-align: left;">再撮影不要。概念図を維持。</td>
-<td style="text-align: left;">未判定</td>
+<td style="text-align: left;">改稿後も維持。</td>
 <td style="text-align: left;">—</td>
 </tr>
 <tr>
 <td style="text-align: left;">E25</td>
 <td style="text-align: left;">再撮影は不要。A19の共有保存先・差分を優先。</td>
 <td style="text-align: left;">入口の追加掲載は不要。共有PR #17のAgent merge OffとMergedを撮影済みだが、第6章と同じ操作なので検証記録へ残す。共有保存先の差分はA19で別に確認する。</td>
-<td style="text-align: left;">検証証拠：<a href="../assets/app-20261004-07-canvas-agent-merge-before.jpg">07-canvas-agent-merge-before.jpg</a>、<a href="../assets/app-20261004-07-canvas-pr-merged-app.jpg">07-canvas-pr-merged-app.jpg</a>、<a href="../assets/app-20261004-07-canvas-pr-merged-github.jpg">07-canvas-pr-merged-github.jpg</a></td>
+<td style="text-align: left;">検証証拠：<code>app-20261004-07-canvas-agent-merge-before.jpg</code>、<code>app-20261004-07-canvas-pr-merged-app.jpg</code>、<code>app-20261004-07-canvas-pr-merged-github.jpg</code></td>
 </tr>
 <tr>
 <td style="text-align: left;">E26</td>
@@ -967,7 +1030,7 @@
 <td style="text-align: left;">E27</td>
 <td style="text-align: left;">最新の共有Canvas、Issue本文の受領1回、モード選択。</td>
 <td style="text-align: left;">部分撮影・掲載候補。Issue #1の本文全文と受領応答、右側のカードを読める。Planの設計質問と計画本文も取得したが、モード選択の画面は未取得。受領は実装開始や計画承認とは分けて扱い、本文の操作説明と第4章のPlan選択を参照する。</td>
-<td style="text-align: left;">本文受領：<a href="../assets/app-20261004-07-search-issue-receipt.jpg">07-search-issue-receipt.jpg</a>。設計質問：<a href="../assets/app-20261004-07-search-plan-question.jpg">07-search-plan-question.jpg</a>。計画本文：<a href="../assets/app-20261004-07-search-plan-review.jpg">07-search-plan-review.jpg</a></td>
+<td style="text-align: left;">本文受領：<a href="../assets/app-20261004-07-search-issue-receipt.jpg">07-search-issue-receipt.jpg</a>。設計質問：<code>app-20261004-07-search-plan-question.jpg</code>。計画本文：<a href="../assets/app-20261004-07-search-plan-review.jpg">07-search-plan-review.jpg</a></td>
 </tr>
 <tr>
 <td style="text-align: left;">E28</td>
@@ -978,7 +1041,7 @@
 <tr>
 <td style="text-align: left;">E29</td>
 <td style="text-align: left;">再撮影不要。主担当が掲載の妥当性を最終確認。</td>
-<td style="text-align: left;">未判定</td>
+<td style="text-align: left;">改稿後も維持。</td>
 <td style="text-align: left;">—</td>
 </tr>
 </tbody>
@@ -1427,17 +1490,17 @@
 <tr>
 <td style="text-align: left;">A01</td>
 <td style="text-align: left;">一覧を撮影済み・検証用。GitHubのOpen 8件と、Appの新コピー・8件・対象3タイトルが読める。掲載候補は保存後の一覧を中心にする。Bootstrapの実行画面は未取得。</td>
-<td style="text-align: left;"><a href="../assets/app-20261004-00-bootstrap-issues.jpg">00-bootstrap-issues.jpg</a>、<a href="../assets/app-20261004-01-issues-open-saved.jpg">01-issues-open-saved.jpg</a>。Issue本文の補助：<a href="../assets/app-20261004-01-issues-open.jpg">01-issues-open.jpg</a>。作成直後の補助証拠：<a href="../assets/app-20261004-00-repository-created.jpg">00-repository-created.jpg</a></td>
+<td style="text-align: left;"><code>app-20261004-00-bootstrap-issues.jpg</code>、<code>app-20261004-01-issues-open-saved.jpg</code>。Issue本文の補助：<code>app-20261004-01-issues-open.jpg</code>。作成直後の補助証拠：<code>app-20261004-00-repository-created.jpg</code></td>
 </tr>
 <tr>
 <td style="text-align: left;">A02</td>
 <td style="text-align: left;">初回設定は未撮影。一般設定のバージョン画像は別用途の検証証拠であり、Continueや初回テーマ選択の代わりにはしない。</td>
-<td style="text-align: left;">別用途：<a href="../assets/app-20261004-01-app-version.jpg">01-app-version.jpg</a></td>
+<td style="text-align: left;">別用途：<code>app-20261004-01-app-version.jpg</code></td>
 </tr>
 <tr>
 <td style="text-align: left;">A03</td>
 <td style="text-align: left;">部分撮影・検証用。Add GitHub repositoryは読めるが、新コピーの検索結果は未取得。旧PRの読込失敗と過去のProjectsが大きく、全画面の掲載は不採用。</td>
-<td style="text-align: left;"><a href="../assets/app-20261004-01-add-repository-menu.jpg">01-add-repository-menu.jpg</a></td>
+<td style="text-align: left;"><code>app-20261004-01-add-repository-menu.jpg</code></td>
 </tr>
 <tr>
 <td style="text-align: left;">A04</td>
@@ -1447,32 +1510,32 @@
 <tr>
 <td style="text-align: left;">A05</td>
 <td style="text-align: left;">撮影済み・検証用／掲載候補。Assigned to meの空一覧、State Open・検索空・Save、保存後8件が読める。詳細ペインを閉じた後の画面には＋が見える。掲載は操作部と一覧を中心にし、過去のProjectsを避ける。</td>
-<td style="text-align: left;"><a href="../assets/app-20261004-01-issues-assigned-empty.jpg">01-issues-assigned-empty.jpg</a>、<a href="../assets/app-20261004-01-issues-new-view.jpg">01-issues-new-view.jpg</a>、<a href="../assets/app-20261004-01-issues-open-saved.jpg">01-issues-open-saved.jpg</a></td>
+<td style="text-align: left;"><code>app-20261004-01-issues-assigned-empty.jpg</code>、<a href="../assets/app-20261004-01-issues-new-view.jpg">01-issues-new-view.jpg</a>、<code>app-20261004-01-issues-open-saved.jpg</code></td>
 </tr>
 <tr>
 <td style="text-align: left;">A06</td>
 <td style="text-align: left;">部分撮影・検証用。ChatsとInteractiveは読めるが、New chatとChatの開始条件画面は未取得。回答画面には過去のProjectsと本演習外のJustRight履歴があり、そのままの掲載は非推奨。</td>
-<td style="text-align: left;"><a href="../assets/app-20261004-01-quick-chat-complete.jpg">01-quick-chat-complete.jpg</a></td>
+<td style="text-align: left;"><code>app-20261004-01-quick-chat-complete.jpg</code></td>
 </tr>
 <tr>
 <td style="text-align: left;">A07</td>
 <td style="text-align: left;">部分撮影・検証用。日本語応答、Node.js・作業場所・ブランチ、GameCardの4条件とリンク検査、E2E22件などの終了報告が読める。星評価依頼の全文、各コマンドの展開出力、ChatのIdleの文字表示は未取得。環境出力の本文掲載は非推奨。</td>
-<td style="text-align: left;"><a href="../assets/app-20261004-01-quick-chat-complete.jpg">01-quick-chat-complete.jpg</a>、<a href="../assets/app-20261004-02-environment-output.jpg">02-environment-output.jpg</a>、<a href="../assets/app-20261004-02-changes-game-card.jpg">02-changes-game-card.jpg</a>、<a href="../assets/app-20261004-02-changes-render-tests.jpg">02-changes-render-tests.jpg</a>、<a href="../assets/app-20261004-02-run-menu.jpg">02-run-menu.jpg</a></td>
+<td style="text-align: left;"><code>app-20261004-01-quick-chat-complete.jpg</code>、<code>app-20261004-02-environment-output.jpg</code>、<a href="../assets/app-20261004-02-changes-game-card.jpg">02-changes-game-card.jpg</a>、<code>app-20261004-02-changes-render-tests.jpg</code>、<a href="../assets/app-20261004-02-run-menu.jpg">02-run-menu.jpg</a></td>
 </tr>
 <tr>
 <td style="text-align: left;">A08</td>
 <td style="text-align: left;">撮影済み・検証用。今回のRunターミナルに開発URLとShell session endedが読める。サーバーの終了証拠として保存し、本文への追加掲載は不要。</td>
-<td style="text-align: left;"><a href="../assets/app-20261004-02-run-stopped.jpg">02-run-stopped.jpg</a></td>
+<td style="text-align: left;"><code>app-20261004-02-run-stopped.jpg</code></td>
 </tr>
 <tr>
 <td style="text-align: left;">A09</td>
 <td style="text-align: left;">撮影済み・掲載候補。Agent merge Off、CI4件成功、手動のMerge pull request、マージ先mainを複数画像で確認できる。成功後のダイアログを優先し、CI実行中の画像はReady to mergeだけでは完了しないことの補助証拠とする。過去のProjectsを避けた構図を推奨。</td>
-<td style="text-align: left;">主候補：<a href="../assets/app-20261004-02-pr-ci-passed.jpg">02-pr-ci-passed.jpg</a>。操作・待機の補助：<a href="../assets/app-20261004-02-pr-ci-running.jpg">02-pr-ci-running.jpg</a>。マージ先の証拠：<a href="../assets/app-20261004-02-pr-merged-app.jpg">02-pr-merged-app.jpg</a></td>
+<td style="text-align: left;">主候補：<a href="../assets/app-20261004-02-pr-ci-passed.jpg">02-pr-ci-passed.jpg</a>。操作・待機の補助：<code>app-20261004-02-pr-ci-running.jpg</code>。マージ先の証拠：<code>app-20261004-02-pr-merged-app.jpg</code></td>
 </tr>
 <tr>
 <td style="text-align: left;">A10</td>
 <td style="text-align: left;">章2・章3を撮影済み・検証用。星評価PR #13のコミット2038d40と規約更新PR #14のコミットd0899d2について、CI4ジョブの成功とGitHubのMergedが読める。章3のApp画像は紫色のPR #14と終了後の会話で、PRパネルのMerged文字は画面内にない。最新コミットの完全なSHAとAppの状態は実走記録で照合する。</td>
-<td style="text-align: left;">章2：<a href="../assets/app-20261004-02-pr-ci-passed.jpg">02-pr-ci-passed.jpg</a>、<a href="../assets/app-20261004-02-pr-checks-passed.jpg">02-pr-checks-passed.jpg</a>、<a href="../assets/app-20261004-02-pr-merged-app.jpg">02-pr-merged-app.jpg</a>、<a href="../assets/app-20261004-02-pr-merged-github.jpg">02-pr-merged-github.jpg</a>。章3：<a href="../assets/app-20261004-03-pr-ci-passed.jpg">03-pr-ci-passed.jpg</a>、<a href="../assets/app-20261004-03-pr-checks-passed.jpg">03-pr-checks-passed.jpg</a>、<a href="../assets/app-20261004-03-pr-merged-app.jpg">03-pr-merged-app.jpg</a>、<a href="../assets/app-20261004-03-pr-merged-github.jpg">03-pr-merged-github.jpg</a></td>
+<td style="text-align: left;">章2：<a href="../assets/app-20261004-02-pr-ci-passed.jpg">02-pr-ci-passed.jpg</a>、<code>app-20261004-02-pr-checks-passed.jpg</code>、<code>app-20261004-02-pr-merged-app.jpg</code>、<code>app-20261004-02-pr-merged-github.jpg</code>。章3：<a href="../assets/app-20261004-03-pr-ci-passed.jpg">03-pr-ci-passed.jpg</a>、<code>app-20261004-03-pr-checks-passed.jpg</code>、<code>app-20261004-03-pr-merged-app.jpg</code>、<code>app-20261004-03-pr-merged-github.jpg</code></td>
 </tr>
 <tr>
 <td style="text-align: left;">A11</td>
@@ -1487,12 +1550,12 @@
 <tr>
 <td style="text-align: left;">A13</td>
 <td style="text-align: left;">修正後を撮影済み・掲載候補。未選択の21件と、Strategy・Puzzle・GitHub Gamesの2件、Bug Buster BrainteaserとServer Siegeの星評価が読める。Clear filtersはPublisherの下に配置されている。詳細リンクは画面外なので、リンク維持とキーボード移動は実走記録で照合する。過去のProjectsや会話は映らない。</td>
-<td style="text-align: left;">主候補：<a href="../assets/app-20261004-04-filter-default-final.jpg">04-filter-default-final.jpg</a>、<a href="../assets/app-20261004-04-filter-combined-final.jpg">04-filter-combined-final.jpg</a>。修正前の証拠：<a href="../assets/app-20261004-04-filter-default.jpg">04-filter-default.jpg</a>、<a href="../assets/app-20261004-04-filter-combined.jpg">04-filter-combined.jpg</a></td>
+<td style="text-align: left;">主候補：<code>app-20261004-04-filter-default-final.jpg</code>、<a href="../assets/app-20261004-04-filter-combined-final.jpg">04-filter-combined-final.jpg</a>。修正前の証拠：<code>app-20261004-04-filter-default.jpg</code>、<code>app-20261004-04-filter-combined.jpg</code></td>
 </tr>
 <tr>
 <td style="text-align: left;">A14</td>
 <td style="text-align: left;">部分撮影・掲載候補。隔離データの未選択3件と、Puzzle・Nova Interactiveの0件、0件の説明とClear filtersが読める。画像にURLや接続元は映らないため、独立した隔離環境であることと解除後の3件への復帰は実走記録で照合する。</td>
-<td style="text-align: left;">3件：<a href="../assets/app-20261004-05-isolated-three.jpg">05-isolated-three.jpg</a>。0件：<a href="../assets/app-20261004-05-isolated-zero.jpg">05-isolated-zero.jpg</a></td>
+<td style="text-align: left;">3件：<code>app-20261004-05-isolated-three.jpg</code>。0件：<a href="../assets/app-20261004-05-isolated-zero.jpg">05-isolated-zero.jpg</a></td>
 </tr>
 <tr>
 <td style="text-align: left;">A15</td>
@@ -1507,52 +1570,52 @@
 <tr>
 <td style="text-align: left;">A17</td>
 <td style="text-align: left;">撮影済み・掲載候補／検証用。AppとGitHubの同一PR #15がmainへMergedになり、GitHub側でコミット20d5daaのfrontend-lint・type-check・unit-tests・frontend-testsの4ジョブ成功が読める。完全なSHAと、開始前に全CIの成功を確認した時点は実走記録で照合する。Appの掲載はPRパネルを中心にして検証者の会話を避ける。</td>
-<td style="text-align: left;">App：<a href="../assets/app-20261004-06-pr-merged-app.jpg">06-pr-merged-app.jpg</a>。GitHub・CI：<a href="../assets/app-20261004-06-pr-merged-github.jpg">06-pr-merged-github.jpg</a></td>
+<td style="text-align: left;">App：<code>app-20261004-06-pr-merged-app.jpg</code>。GitHub・CI：<a href="../assets/app-20261004-06-pr-merged-github.jpg">06-pr-merged-github.jpg</a></td>
 </tr>
 <tr>
 <td style="text-align: left;">A18</td>
 <td style="text-align: left;">修正後を撮影済み・掲載候補。暗色表示でOpen6件、上位3件と残り3件の区分、Refresh、先頭のIssue #5・#6の本文と優先理由が読める。#5は送信済みの表示になっている。全6カードは画面に収まらないため、順序と本文の全件照合は実走記録で確認する。共有保存後のマージ、拡張の承認、別セッションでの再利用はA20・A21・A33へ分けて記録した。</td>
-<td style="text-align: left;">主候補：<a href="../assets/app-20261004-07-canvas-readable.jpg">07-canvas-readable.jpg</a>。追加レビュー前の証拠：<a href="../assets/app-20261004-07-canvas-initial-layout.jpg">07-canvas-initial-layout.jpg</a></td>
+<td style="text-align: left;">主候補：<a href="../assets/app-20261004-07-canvas-readable.jpg">07-canvas-readable.jpg</a>。追加レビュー前の証拠：<code>app-20261004-07-canvas-initial-layout.jpg</code></td>
 </tr>
 <tr>
 <td style="text-align: left;">A19</td>
 <td style="text-align: left;">最終版を撮影済み・掲載候補。PR #17のコミット差分で保存先extension.mjsの全パス、543行の追加、READMEを含む2ファイルのツリーが読める。別画像でREADMEの再利用手順1〜3と13行追加・1行削除を取得済み。画像内に合計556行追加・1行削除は表示されていないため、合計は実走記録で照合する。コード全文とREADME末尾の状態保存説明は画面に収まらない。本文は保存先と構成を示す範囲へ切り取る。初回PRのlint修正前の差分は記録のみへ変更した。</td>
-<td style="text-align: left;">保存先の主候補：<a href="../assets/app-20261004-07-changes-canvas-final.jpg">07-changes-canvas-final.jpg</a>。READMEの補足：<a href="../assets/app-20261004-07-changes-canvas-readme.jpg">07-changes-canvas-readme.jpg</a>。修正前の証拠：<a href="../assets/app-20261004-07-changes-canvas.jpg">07-changes-canvas.jpg</a></td>
+<td style="text-align: left;">保存先の主候補：<a href="../assets/app-20261004-07-changes-canvas-final.jpg">07-changes-canvas-final.jpg</a>。READMEの補足：<code>app-20261004-07-changes-canvas-readme.jpg</code>。修正前の証拠：<code>app-20261004-07-changes-canvas.jpg</code></td>
 </tr>
 <tr>
 <td style="text-align: left;">A20</td>
 <td style="text-align: left;">部分撮影・掲載候補。再表示したCanvasでOpen6件と#5・#6の有効な追加ボタンを読める。全カードの有効状態は撮影者の実走記録で確認する。Issue #1のカードは本文・優先理由・追加ボタンの全体を別画像で取得済み。受領画像では左に本文全文と受領のみの応答、右に#1のタイトルと優先理由が映るが、通知の冒頭は上端で切れている。受講者向けには会話と対象カードを残し、上部のセッション名と下部の入力設定を切り取る。mainからの新worktreeという開始条件と各1回の送信・受領は実走記録で照合する。</td>
-<td style="text-align: left;">本文受領の主候補：<a href="../assets/app-20261004-07-search-issue-receipt.jpg">07-search-issue-receipt.jpg</a>。再表示の補足：<a href="../assets/app-20261004-07-canvas-reopened.jpg">07-canvas-reopened.jpg</a>。対象カードの補足：<a href="../assets/app-20261004-07-canvas-search-card.jpg">07-canvas-search-card.jpg</a></td>
+<td style="text-align: left;">本文受領の主候補：<a href="../assets/app-20261004-07-search-issue-receipt.jpg">07-search-issue-receipt.jpg</a>。再表示の補足：<code>app-20261004-07-canvas-reopened.jpg</code>。対象カードの補足：<code>app-20261004-07-canvas-search-card.jpg</code></td>
 </tr>
 <tr>
 <td style="text-align: left;">A21</td>
 <td style="text-align: left;">撮影済み・補足候補。Repository trustに.github/github-app.yml、database-explorerとpriority-kanbanの保存先、Accept for new sessionsが読める。撮影者の報告ではReview repository contentを開いて内容を確認してから承認した。受講者向けに使う場合はダイアログへ切り取り、背景の会話とPRを除く。</td>
-<td style="text-align: left;">承認前：<a href="../assets/app-20261004-07-canvas-trust.jpg">07-canvas-trust.jpg</a></td>
+<td style="text-align: left;">承認前：<code>app-20261004-07-canvas-trust.jpg</code></td>
 </tr>
 <tr>
 <td style="text-align: left;">A22</td>
 <td style="text-align: left;">撮影済み・掲載候補。検索sErVeRだけの2件、Strategy・GitHub Gamesとの併用で1件のServer Siegeと評価3.3、no-such-titleによる0件と空状態メッセージが読める。空の検索欄・未選択の21件も取得済み。主候補は併用1件と0件、初期状態と2件は補足にする。画像は詳細リンクが画面外で、解除操作や前後の空白処理は静止画だけでは確認できない。MCPの0件確認は別の検索語なので、同じ入力の連続画面として扱わない。下端の浮いた操作表示を避けて切り取る。</td>
-<td style="text-align: left;">主候補：<a href="../assets/app-20261004-07-search-combined.jpg">07-search-combined.jpg</a>、<a href="../assets/app-20261004-07-search-zero.jpg">07-search-zero.jpg</a>。補足：<a href="../assets/app-20261004-07-search-default.jpg">07-search-default.jpg</a>、<a href="../assets/app-20261004-07-search-two.jpg">07-search-two.jpg</a></td>
+<td style="text-align: left;">主候補：<a href="../assets/app-20261004-07-search-combined.jpg">07-search-combined.jpg</a>、<a href="../assets/app-20261004-07-search-zero.jpg">07-search-zero.jpg</a>。補足：<code>app-20261004-07-search-default.jpg</code>、<code>app-20261004-07-search-two.jpg</code></td>
 </tr>
 <tr>
 <td style="text-align: left;">A23</td>
 <td style="text-align: left;">部分撮影・掲載候補。検索PR #18のマージ後のCanvasで同じリポジトリ、Refresh issues、Open5件と先頭のIssue #5を読める。全5カードは画面内に収まらないため、#1の除外は実走記録で照合する。更新前後の件数は6件と5件の画像で比較できる。掲載は右側の見出し・Refresh・件数・先頭カードに絞り、左側のMCP報告を除く。</td>
-<td style="text-align: left;">更新後：<a href="../assets/app-20261004-07-canvas-after-search-merge.jpg">07-canvas-after-search-merge.jpg</a>。6件の比較：<a href="../assets/app-20261004-07-canvas-reopened.jpg">07-canvas-reopened.jpg</a></td>
+<td style="text-align: left;">更新後：<a href="../assets/app-20261004-07-canvas-after-search-merge.jpg">07-canvas-after-search-merge.jpg</a>。6件の比較：<code>app-20261004-07-canvas-reopened.jpg</code></td>
 </tr>
 <tr>
 <td style="text-align: left;">A24</td>
 <td style="text-align: left;">部分撮影・掲載候補。New automationのManual、Run in the cloudの無効なスイッチ、読み取り専用プロンプト、New worktree、Create and runの案内が読める。プロジェクト名の末尾は省略されているため、正しいコピーの選択は実走記録で照合する。ダイアログと実行の案内へ切り取り、過去のProjectsを除く。設定画像自体は実行開始やSucceededの証拠にはしない。</td>
-<td style="text-align: left;">主候補：<a href="../assets/app-20261004-08-automation-create-and-run.jpg">08-automation-create-and-run.jpg</a>。設定前段階の記録：<a href="../assets/app-20261004-08-automation-settings.jpg">08-automation-settings.jpg</a></td>
+<td style="text-align: left;">主候補：<a href="../assets/app-20261004-08-automation-create-and-run.jpg">08-automation-create-and-run.jpg</a>。設定前段階の記録：<code>app-20261004-08-automation-settings.jpg</code></td>
 </tr>
 <tr>
 <td style="text-align: left;">A25</td>
 <td style="text-align: left;">撮影済み・掲載候補／検証用。Recent runsに今回のAutomation、Local、53秒、緑の成功アイコンと対象リポジトリが読める。Succeededの文字は画像内になく、状態名は撮影者の実走確認で照合する。報告ではJSTの取得時点と対象期間、マージ済みPR #13・#14・#15・#17・#18の5件、Open Issue #2〜#6の5件を読める。URLのリンク先と日時のGitHub API照合は実走記録で確認済みという撮影者の報告を根拠とする。成功状態は今回の行へ、報告内容は表へ切り取り、過去の実行を除く。</td>
-<td style="text-align: left;">主候補：<a href="../assets/app-20261004-08-automation-succeeded.jpg">08-automation-succeeded.jpg</a>、<a href="../assets/app-20261004-08-automation-result-issues.jpg">08-automation-result-issues.jpg</a>。対象と取得時点の補足：<a href="../assets/app-20261004-08-automation-result-prs.jpg">08-automation-result-prs.jpg</a></td>
+<td style="text-align: left;">主候補：<a href="../assets/app-20261004-08-automation-succeeded.jpg">08-automation-succeeded.jpg</a>、<a href="../assets/app-20261004-08-automation-result-issues.jpg">08-automation-result-issues.jpg</a>。対象と取得時点の補足：<code>app-20261004-08-automation-result-prs.jpg</code></td>
 </tr>
 <tr>
 <td style="text-align: left;">A26</td>
 <td style="text-align: left;">撮影済み・掲載候補／補足候補。RawのapplyToと対象ファイルは読め、Rich textで冒頭のメタデータが隠れる状態も取得済み。Drizzleを再撮影し、Rich textのTestingにunit-tests.instructions.mdのリンク名全文が読める。相対リンクの記法そのものをRawで示す画像とリンク遷移の再操作は未取得で、表示証拠として扱う。Drizzleの補足画像はTestingの見出しとリンク部分へ切り取り、無関係なNode.jsや型検査の説明を除く。</td>
-<td style="text-align: left;">主候補：<a href="../assets/app-20261004-03-unit-test-applyto.jpg">03-unit-test-applyto.jpg</a>。リンク表示の補足：<a href="../assets/app-20261004-03-drizzle-links-final.jpg">03-drizzle-links-final.jpg</a>。表示状態の比較：<a href="../assets/app-20261004-03-unit-test-instructions.jpg">03-unit-test-instructions.jpg</a>。右端が切れた旧証拠：<a href="../assets/app-20261004-03-drizzle-links.jpg">03-drizzle-links.jpg</a></td>
+<td style="text-align: left;">主候補：<a href="../assets/app-20261004-03-unit-test-applyto.jpg">03-unit-test-applyto.jpg</a>。リンク表示の補足：<code>app-20261004-03-drizzle-links-final.jpg</code>。表示状態の比較：<code>app-20261004-03-unit-test-instructions.jpg</code>。右端が切れた旧証拠：<code>app-20261004-03-drizzle-links.jpg</code></td>
 </tr>
 <tr>
 <td style="text-align: left;">A27</td>
@@ -1567,7 +1630,7 @@
 <tr>
 <td style="text-align: left;">A29</td>
 <td style="text-align: left;">撮影済み・検証用。開発URLとShell session endedが読める。過去のProjectsとAIの結果説明を含むため、画面全体の本文掲載は不要。ポートの待受状態や全検査の成功は、別の実走記録で確認する。</td>
-<td style="text-align: left;"><a href="../assets/app-20261004-04-run-stopped.jpg">04-run-stopped.jpg</a></td>
+<td style="text-align: left;"><code>app-20261004-04-run-stopped.jpg</code></td>
 </tr>
 <tr>
 <td style="text-align: left;">A30</td>
@@ -1577,46 +1640,46 @@
 <tr>
 <td style="text-align: left;">A31</td>
 <td style="text-align: left;">初回失敗、自動修正後、追加レビュー後を撮影済み。初回404と自動修正後の薄い文字は検証用で、受講者向け掲載は不採用。コントラストと通知文の追加レビュー後の掲載候補はA18に記載。実走で上位 #5・#2・#1、残り #6・#3・#4を確認済み。共有PR #17のCI全成功・Merged、最終保存差分、別セッションでの再利用はA19・A20・A33へ分けて記録した。</td>
-<td style="text-align: left;">初回失敗：<a href="../assets/app-20261004-07-canvas-initial-error.jpg">07-canvas-initial-error.jpg</a>。追加レビュー前：<a href="../assets/app-20261004-07-canvas-initial-layout.jpg">07-canvas-initial-layout.jpg</a>。追加レビュー後：<a href="../assets/app-20261004-07-canvas-readable.jpg">07-canvas-readable.jpg</a></td>
+<td style="text-align: left;">初回失敗：<code>app-20261004-07-canvas-initial-error.jpg</code>。追加レビュー前：<code>app-20261004-07-canvas-initial-layout.jpg</code>。追加レビュー後：<a href="../assets/app-20261004-07-canvas-readable.jpg">07-canvas-readable.jpg</a></td>
 </tr>
 <tr>
 <td style="text-align: left;">A32</td>
 <td style="text-align: left;">修正後を部分撮影・検証用。Issue #6の本文・受け入れ条件と受領のみの応答が読める。共有保存前の実走では事実を伝える通知から1クリックで本文全文1回・受領1回となり、Refresh後も#5・#6のボタンが無効なまま、Gitの差分なしを確認済み。画像は通知の冒頭が画面外で、右側はFetching途中、左側には旧コピーが映る。受講者向けに使う場合は会話部分へ切り取る。両カードの無効状態を同時に示す画像は未取得。</td>
-<td style="text-align: left;">本文と受領の証拠：<a href="../assets/app-20261004-07-canvas-receipt.jpg">07-canvas-receipt.jpg</a></td>
+<td style="text-align: left;">本文と受領の証拠：<code>app-20261004-07-canvas-receipt.jpg</code></td>
 </tr>
 <tr>
 <td style="text-align: left;">A33</td>
 <td style="text-align: left;">撮影済み・検証用。共有PR #17のAgent merge Off、App・GitHub双方のMergedが読める。GitHub画像ではコミットf5a8a2eとfrontend-lint・type-check・unit-tests・frontend-testsの4ジョブ成功を確認できる。開始前のCI全成功と完全なSHAの照合は実走記録で確認する。第6章と同じ操作を繰り返すため本文の主候補には追加しない。</td>
-<td style="text-align: left;">マージ前：<a href="../assets/app-20261004-07-canvas-agent-merge-before.jpg">07-canvas-agent-merge-before.jpg</a>。App：<a href="../assets/app-20261004-07-canvas-pr-merged-app.jpg">07-canvas-pr-merged-app.jpg</a>。GitHub：<a href="../assets/app-20261004-07-canvas-pr-merged-github.jpg">07-canvas-pr-merged-github.jpg</a></td>
+<td style="text-align: left;">マージ前：<code>app-20261004-07-canvas-agent-merge-before.jpg</code>。App：<code>app-20261004-07-canvas-pr-merged-app.jpg</code>。GitHub：<code>app-20261004-07-canvas-pr-merged-github.jpg</code></td>
 </tr>
 <tr>
 <td style="text-align: left;">A34</td>
 <td style="text-align: left;">撮影済み・補足候補。Clear filtersで検索語も解除する質問、推奨選択肢A、Continueが読める。受講者向けに使う場合は質問と回答操作へ切り取り、ツール履歴を除く。質問画像自体は回答送信や計画承認の証拠にはしない。検索のMCP確認は終了したという撮影者の報告があり、結果はA36で別に記録する。</td>
-<td style="text-align: left;">設計質問：<a href="../assets/app-20261004-07-search-plan-question.jpg">07-search-plan-question.jpg</a></td>
+<td style="text-align: left;">設計質問：<code>app-20261004-07-search-plan-question.jpg</code></td>
 </tr>
 <tr>
 <td style="text-align: left;">A35</td>
 <td style="text-align: left;">部分撮影・補足候補。Uncommitted 5とindex.astroの差分に、検索ラベル、入力のid、aria-controls、data-testid、空状態文の変更を読める。正規化ヘルパーとAND判定の実装全体は画面外なので、計画どおりの処理をすべて確認した証拠にはしない。PR作成前の撮影時点は実走記録で区別する。</td>
-<td style="text-align: left;"><a href="../assets/app-20261004-07-changes-search.jpg">07-changes-search.jpg</a></td>
+<td style="text-align: left;"><code>app-20261004-07-changes-search.jpg</code></td>
 </tr>
 <tr>
 <td style="text-align: left;">A36</td>
 <td style="text-align: left;">部分撮影・検証用。Playwrightの呼び出し一覧とAIの結果表に2件・1件・0件・解除後21件の報告、評価、詳細URLが読める。個別ツールのResultは展開されておらず、解除や停止の実行をこの画像だけでは独立して確認できない。詳細リンクは手動MCPでクリックしていないという記載も読める。技術情報と未コミットの差分が多いため本文への掲載は不要。</td>
-<td style="text-align: left;"><a href="../assets/app-20261004-07-search-mcp-result.jpg">07-search-mcp-result.jpg</a></td>
+<td style="text-align: left;"><code>app-20261004-07-search-mcp-result.jpg</code></td>
 </tr>
 <tr>
 <td style="text-align: left;">A37</td>
 <td style="text-align: left;">撮影済み・検証用。検索PR #18のAgent merge Off、App・GitHub双方のMerged、GitHubのコミットf516e73とCI4ジョブ成功が読める。開始前のCI全成功と完全なSHAは実走記録で照合する。第6章と同じ操作なので、本文の主候補には追加しない。</td>
-<td style="text-align: left;">マージ前：<a href="../assets/app-20261004-07-search-agent-merge-before.jpg">07-search-agent-merge-before.jpg</a>。App：<a href="../assets/app-20261004-07-search-pr-merged-app.jpg">07-search-pr-merged-app.jpg</a>。GitHub：<a href="../assets/app-20261004-07-search-pr-merged-github.jpg">07-search-pr-merged-github.jpg</a></td>
+<td style="text-align: left;">マージ前：<code>app-20261004-07-search-agent-merge-before.jpg</code>。App：<code>app-20261004-07-search-pr-merged-app.jpg</code>。GitHub：<code>app-20261004-07-search-pr-merged-github.jpg</code></td>
 </tr>
 </tbody>
 </table>
-<h2>現時点の掲載案</h2>
-<p>全章の実走と不足画像の再取得を終え、取得済み95枚を確認しました。本文の主候補30枚と補足候補22枚を合わせた掲載可は52枚、要再撮影は1枚、記録のみは42枚です。主候補30枚のうち23枚は切り取りを条件とし、7枚は元画像をそのまま使える候補です。画像の加工や受講者原稿への挿入は行っていません。</p>
-<p>全95枚はJPEGとして正常に読み込め、拡張子の不一致もありません。寸法・容量・ハッシュと掲載判定は<a href="../assets/app-20261004-image-inventory.json">image-inventory.json</a>、掲載位置と条件は本書の掲載選定案に記載しています。要再撮影として残るのは公開テンプレートの入口1枚です。Drizzleのリンク表示とCanvasの最終差分は取得済みで、以前の部分画像は記録のみへ変更しました。</p>
-<p>共有PR #17と検索PR #18のマージ、別セッションでのCanvas再利用と更新、第8章の設定・成功状態・報告内容を撮影済みです。Succeededという状態名とGitHub APIとの照合は撮影者の実走記録を根拠とし、画像だけで独立して確認できたとは扱いません。Plan選択メニューとReview planの承認選択肢は未撮影のまま残しています。</p>
-<p>全コースの公開案は、現在の30枚に公開テンプレートの入口1枚を加えたスクリーンショット31枚と、既存の概念図4点です。第7章のPlan選択と承認は第4章の操作説明を参照する条件で画像の重複を避けます。固有の承認画面が必要なら追加撮影し、枚数も見直します。</p>
-<p>既存の画像掲載29箇所は、原稿の行・画像ファイル・役割と一致することを再確認しました。E17・E25・E26の重複掲載の削除候補3件を維持します。概念図4点は操作画面と役割が異なるため維持候補です。画像を省く箇所でも操作と意図の説明は残します。</p>
+<h2>現在の反映状況</h2>
+<p>実走で取得した原本95枚を保全したうえで、現在の原稿に使う公開画像42枚を作成しました。当初の主候補30枚・補足候補22枚という選定過程は、上記の表に残しています。公開版には、手順を読むために必要となった補足候補と入口メニューも含めています。</p>
+<p>公開版のファイル名、寸法、容量、SHA-256、原本のSHA-256、切り取りと塗りつぶしの範囲は<a href="../assets/app-20261004-image-inventory.json">公開画像一覧</a>に記録しました。公開版42枚をJPEGとして読み込み、寸法・容量・ハッシュとEXIF除去を確認しています。原本とはバイナリが異なるため、双方のハッシュを分けて管理します。</p>
+<p>共有PR #17と検索PR #18のマージ、別セッションでのCanvas再利用と更新、旧第8章のAutomationの設定・成功状態・報告内容は撮影済みです。Succeededという状態名とGitHub APIとの照合は実走記録を根拠とし、画像だけで独立して確認できたとは扱いません。検索のPlan選択メニューとReview planの承認選択肢は未撮影ですが、計画本文の画像と、改稿後の第5章の操作説明を参照する構成へ反映しました。</p>
+<p>旧29掲載箇所の分析と、E17・E25・E26の重複掲載を省く判断は維持しています。操作画面と異なる役割を持つ概念図4点も維持しました。画像を省いた箇所でも、行う操作と意図の説明は本文に残しています。現在の再撮影予定は0件です。</p>
+<p>本書の画像リンクは公開用の切り取り版を指します。原本だけを保全する項目はファイル名をコード表記にし、撮影や実走確認の事実を残しました。公開リンクがないことを、未撮影や未確認とは扱いません。</p>
 <h2>撮影と掲載の確認</h2>
 <ul>
 <li>課題のセッション、Issue、PR、コピー先のリポジトリが確認できる画面を使用します。同じファイル名だったChangesやIssue画面も、別の課題の画面を流用しません。</li>
@@ -1624,5 +1687,5 @@
 <li>旧版との比較説明を受講者本文へ追加せず、どこを見て何を判断するかを画像と説明で示します。</li>
 <li>サーバーやブラウザーを閉じる前に結果画面を取得し、その後の終了は検証証拠として記録します。</li>
 <li>CIやAutomationは表示だけで正しさを判定せず、PR番号、最新コミット、実行結果、対象期間、一覧・件数の照合値も実走記録に残します。</li>
-<li>E17、E25、E26の掲載を外すかは、代わりの画像と参照先で手順を追えることを確認してから決めます。概念図は、操作を説明する実画面とは別の役割を保ちます。</li>
+<li>E17、E25、E26は、代わりの画像と参照先で手順を追えることを確認し、改稿で重複掲載を省きました。概念図は、操作を説明する実画面とは別の役割を保ちます。</li>
 </ul></article></main></body></html>

@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow"><title>第5章 - Autopilotによる機能の構築 | Dev Days 日本語版</title>
+<link rel="stylesheet" href="../workshops.css"><script src="../../../theme-toggle.js"></script></head><body>
+<a class="skip" href="#lesson">本文へ移動</a><header><nav aria-label="資料のナビゲーション">
+<a href="../../index.html">教材セットの入口</a><a href="../index.html">App シナリオの目次</a>
+<a href="../../handson-guide.html#switch">事前準備・UI の確認</a></nav>
+<button class="theme-toggle" type="button" onclick="toggleTheme()">☀️ ライト</button></header>
+<main id="lesson"><h1>第5章 - Autopilotによる機能の構築</h1><p class="source">非公式の日本語版 · <a href="https://github.com/github-samples/copilot-workshops/blob/7ddcf241c1cd10b8e90c0df96f6bef81e710392a/docs/ja-jp/app/4-build-filtering.md">参照原文</a> · <a href="../licenses/copilot-workshops.txt">MIT ライセンス</a></p><aside>利用条件は <a href="../../handson-guide.html#plans">受講準備</a>を参照してください。</aside><nav class="chapter-nav" aria-label="章の移動"><a href="4-custom-instructions.html">← 前の章：第4章 - カスタム指示によるCopilotのガイド</a><a href="6-mcp-playwright.html">次の章 →：第6章 - Playwright MCP serverによるテスト</a></nav><details><summary>この章の目次</summary><div class="toc">
+<ul>
+<li><a href="#51-章の概要">5.1 章の概要</a></li>
+<li><a href="#52-この章で学ぶこと">5.2 この章で学ぶこと</a></li>
+<li><a href="#53-取り組む前に">5.3 取り組む前に</a></li>
+<li><a href="#54-体験すること">5.4 体験すること</a><ul>
+<li><a href="#541-フィルター機能を計画する">5.4.1 フィルター機能を計画する</a></li>
+<li><a href="#542-計画を承認しautopilotで実装する">5.4.2 計画を承認し、Autopilotで実装する</a></li>
+<li><a href="#543-差分と画面の動きをレビューする">5.4.3 差分と画面の動きをレビューする</a></li>
+<li><a href="#544-quality-checksスキルで検査する">5.4.4 quality-checksスキルで検査する</a><ul>
+<li><a href="#5441-quality-checksスキルを確認する">5.4.4.1 quality-checksスキルを確認する</a></li>
+<li><a href="#5442-通常データでは確認できない0件表示">5.4.4.2 通常データでは確認できない0件表示</a></li>
+<li><a href="#5443-チェックを実行する">5.4.4.3 チェックを実行する</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#55-結果の整理と振り返り">5.5 結果の整理と振り返り</a></li>
+<li><a href="#56-補足">5.6 補足</a><ul>
+<li><a href="#561-開発プロセスの背景">5.6.1 開発プロセスの背景</a></li>
+<li><a href="#562-セッションモードの種類">5.6.2 セッションモードの種類</a></li>
+<li><a href="#563-計画を先に確認する理由">5.6.3 計画を先に確認する理由</a></li>
+<li><a href="#564-エージェントスキルagent-skillsとは">5.6.4 エージェントスキル（Agent Skills）とは</a></li>
+<li><a href="#565-公式資料と参考例">5.6.5 公式資料と参考例</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</details><article><p><a id="シナリオ"></a></p>
+<h2 id="51-章の概要">5.1 章の概要</h2>
+<p>ホームページには全ゲームが並び、訪問者が条件で絞り込む機能がありません。フィルター機能のIssueでは、カテゴリと出版社を選んでゲームを探せるようにすることが求められています。本章ではCopilotと仕様を確認し、クライアント側のフィルターを実装します。</p>
+<p>本章の範囲は、計画、実装、自動テストまでです。次章でPlaywright MCPによるブラウザー検証、第7章でPR作成とマージへ進みます。工程を分けるのは、実装ができた時点で操作性やCIまで確認済みだと思い込まないためです。各工程の結果を読んでから次に進む判断は、受講者が行います。</p>
+<p>3つのモードの役割は<a href="https://docs.github.com/copilot/how-tos/github-copilot-app/agent-sessions">GitHub公式のセッション説明</a>に記載されています。本演習は、Planで仕様を判断し、承認した範囲をAutopilotへ渡す進め方です。Autopilotへ切り替えても、受け入れ条件や作業範囲を決める必要はなくなりません。どこで作業を止め、何を報告してほしいかもプロンプトに含めます。</p>
+<h2 id="52-この章で学ぶこと">5.2 この章で学ぶこと</h2>
+<p>この章を終えると、機能の受け入れ条件を実装前に整理し、差分と検査結果を根拠に追加修正を依頼できます。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">学ぶこと</th>
+<th style="text-align: left;">到達した状態</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Planによる仕様の確認</td>
+<td style="text-align: left;">カテゴリのOR条件と、出版社とのAND条件を説明できる</td>
+</tr>
+<tr>
+<td style="text-align: left;">Autopilotによる実装</td>
+<td style="text-align: left;">承認した計画と変更範囲を照合できる</td>
+</tr>
+<tr>
+<td style="text-align: left;">カスタム指示の継承</td>
+<td style="text-align: left;">前章の規約が生成コードに反映されたかを読んで確認できる</td>
+</tr>
+<tr>
+<td style="text-align: left;">quality-checksによる検査</td>
+<td style="text-align: left;">単体テスト、E2E、lint・型検査、buildの役割を区別し、結果を確認できる</td>
+</tr>
+</tbody>
+</table>
+<h2 id="53-取り組む前に">5.3 取り組む前に</h2>
+<p>前章の規約更新をmainへマージ済みの演習用リポジトリを使います。新しいセッションは、そのmainから始めます。対象のIssueは「Allow users to filter games by category and publisher」です。</p>
+<p>このサイトは静的サイトです。ページの生成時にゲームデータを読み込み、ブラウザー上で表示対象を絞ります。通常の教材データは21件あり、星評価とゲーム詳細へのリンクを維持します。0件表示の検査には、専用CSV、隔離DB、別ポートのサーバーが必要です。</p>
+<p>まず、カテゴリを二つ選んだときと、出版社も加えたときに件数がどう変わるかを予想してください。実装後は、件数とタイトルの両方でその予想を確かめます。</p>
+<h2 id="54-体験すること">5.4 体験すること</h2>
+<p>仕様を計画で確認し、承認後に実装します。差分、画面操作、自動検査の確認を終えたら、ブラウザー検証へ進んでください。</p>
+<p><a id="フィルター機能を計画する"></a></p>
+<h3 id="541-フィルター機能を計画する">5.4.1 フィルター機能を計画する</h3>
+<ol>
+<li>
+<p>サイドバーの<strong>Issues</strong>を開き、一覧のリポジトリ選択で自分の演習用コピーを選び、Openの課題を表示します。Projectsの選択と、Issues一覧の表示条件をそれぞれ確認してください。課題が見つからない場合は、<a href="2-install-copilot-app.html#バックログ-issue-の確認">第2章のバックログ確認</a>に従って表示条件を見直します。</p>
+</li>
+<li>
+<p>一覧からAllow users to filter games by category and publisherというタイトルのIssueを選択します。前章の指示更新がmainへマージ済みであることも確認してください。</p>
+</li>
+<li>画面右上の <strong>New session</strong>を選択します。</li>
+</ol>
+<p><img alt="Issueの詳細画面と右上のNew sessionボタンの操作例" src="../assets/app-20261004-04-issue-details.jpg" /></p>
+<ol start="4">
+<li>プロンプト入力欄の下部にあるモードメニュー（初期表示: Mode: Interactive）を開き、Plan — Plan first, execute when readyを選択します。</li>
+</ol>
+<p><img alt="Interactive、Plan、Autopilotを選ぶモードメニュー" src="../assets/app-20261004-04-plan-mode.jpg" /></p>
+<ol start="5">
+<li>入力欄に<code>/issue-fix</code>などが入っている場合は、<kbd>Ctrl</kbd>+<kbd>A</kbd>で全選択し、次のプロンプトへ置き換えて送信します。Issueを起点として開始したセッションであるため、フィルター機能の要件はすでにセッションのコンテキストに含まれています。</li>
+</ol>
+<pre class="highlight"><code class="language-plaintext">Issue に記載された要件に基づいて作業を計画してください。計画中に不明点があれば質問してください。カテゴリ同士の条件、出版社との組み合わせ、選択解除、0件表示をどう実装・検証するかを計画に含めてください。
+実装後は差分と検証結果を報告して停止してください。Playwright MCPでのブラウザー検証を次章で行ってからPRを作るため、この段階ではコミット・push・PR作成・マージへ進まないでください。</code></pre>
+<ol start="6">
+<li>計画の作成過程で、エージェントから設計上の選択肢や不明点に関する質問が提示される場合があります。本演習の条件に従って回答し、Continueで送信します。複数カテゴリの条件を聞かれた場合はOR、出版社の選択方法を聞かれた場合は単一選択を選んでください。</li>
+</ol>
+<p><img alt="カテゴリのOR条件を選び、Continueで回答する質問画面" src="../assets/app-20261004-04-plan-question.jpg" /></p>
+<blockquote>
+<p><strong>補足</strong>
+Copilotの出力は確率的に動作するため、提示される質問内容や有無はセッションごとに異なります。質問が一切行われずに直接計画が提示された場合でも問題ありません。</p>
+</blockquote>
+<ol start="7">
+<li>処理が完了すると、Copilotは計画の概要を提示します。計画内容をレビューしてください。通常、クエリ処理の構築、フィルター用UIコントロールの追加、および対応するテストの作成が提案されます。不足があれば<strong>Suggest changes to plan</strong>から修正を依頼し、再提示された計画を読みます。</li>
+</ol>
+<p>計画を読むときは、ゲームを残す条件を自分の言葉で説明してみましょう。本演習では、複数カテゴリはOR条件、カテゴリと出版社はAND条件で組み合わせます。StrategyとPuzzleを選んだときは「どちらかのカテゴリに該当するゲーム」を表示し、そこに出版社を選ぶと「その出版社にも該当するゲーム」まで絞ります。カテゴリを増やす操作と、出版社を加える操作では件数の変化が逆になる点を確認してください。</p>
+<p>出版社を単一選択にするか複数選択にするかは、操作方法とテストの両方に影響します。この教材では出版社を単一選択にします。エージェントから質問が出たら、その条件を伝えてください。質問が出なければ、提示された計画に単一選択と明記されているかを読み、必要なら補足します。Issueの目的に照らして選択肢を決めることが、Planを使う際の受講者の役割です。</p>
+<p>さらに、選択をすべて外すと一覧へ戻ること、該当ゲームがなければ0件の説明を表示すること、ラベルとキーボードで操作できることを計画に含めます。既存の星評価とゲーム詳細へのリンクも維持します。このプロジェクトは静的サイトなので、ブラウザー上で一覧を絞る処理と、ビルド時のデータ取得を区別し、フィルターのために不要なAPIやDB変更を加えていないかも確認しましょう。</p>
+<p>計画に「テストを追加する」とあるだけでは、何を確認するかはまだ分かりません。たとえば、複数カテゴリのテストが「0件より多い」だけなら、片方のカテゴリを無視した実装でも通る可能性があります。両方のカテゴリが表示され、指定外のゲームが含まれないことまで期待結果に書いておくと、実装後のレビュー基準が明確になります。</p>
+<p>通常の21件では、Strategyが4件、Puzzleが4件、両方のOR条件で8件、その状態にGitHub Gamesを加えると2件、全解除で21件です。0件の検査では、通常CSVとDBに触れず、専用データ3件の環境を用意します。準備スクリプトがテスト用DBを明示的に要求することと、検査後に今回作った一時DBとサーバーを片付けることも計画に含めてください。</p>
+<p><a id="autopilot-で構築する"></a></p>
+<h3 id="542-計画を承認しautopilotで実装する">5.4.2 計画を承認し、Autopilotで実装する</h3>
+<p>作成した計画に問題がなければ、Copilotに自律的なコード実装を実行させます。</p>
+<ol>
+<li>提示された計画を読んだうえで、<strong>Review plan</strong>のApprove and implement this planを選択します。この選択で承認が送信されます。実装へ進んだこととモード表示を確認してください。</li>
+</ol>
+<p><img alt="Review planの承認と修正の選択肢" src="../assets/app-20261004-04-plan-review.jpg" /></p>
+<p>Copilotが自律実装を開始します。</p>
+<blockquote>
+<p><strong>補足</strong>
+もしCopilotがコードの作成を自動的に開始しない場合は、「確認した計画に沿って実装を開始してください」とチャットで指示してください。</p>
+<p>実装の完了までには通常数分を要します。エージェントはファイルの編集や新規作成、テストコードの追加と実行、エラー時のリトライを自律的に繰り返します。進行中は、計画に沿ったファイルを変更しているか、どの検査を実行したかを観察します。</p>
+</blockquote>
+<p>もし指示した範囲を超えてPR作成やpushへ進み始めた場合は、Stopで停止してください。現在の差分とリモートの状態を確認してから、ブラウザー検証まで待つよう伝えます。</p>
+<p><a id="変更をレビューする"></a></p>
+<h3 id="543-差分と画面の動きをレビューする">5.4.3 差分と画面の動きをレビューする</h3>
+<p>AIが生成したコードは、必ず人間が差分を確認し、ローカル開発サーバーで動作確認を行う必要があります。</p>
+<ol>
+<li>入力欄の上にある <strong>Changes</strong>（Open changes）を選択し、右パネルに差分ビューを開きます。</li>
+</ol>
+<p><img alt="Changesでフィルターの操作要素を追加した差分を読む例" src="../assets/app-20261004-04-changes-filters-final.jpg" /></p>
+<ol start="2">
+<li>変更内容をレビューします。TypeScriptファイル、Astroコンポーネント、テストファイルが新設・修正されていることを確認します。
+   特に、新設されたデータアクセス等のヘルパー関数において、前章でリポジトリにマージしたドキュメント標準規約が遵守され、指示通りのTSDocドキュメントコメント が付与されているか確認してください。ファイル先頭のヘッダーコメントは、モジュールの役割や制約を明示する必要がある箇所で確認し、全ファイルへの一律付与までは成功条件としません。</li>
+<li>
+<p>画面上部の <strong>Run options</strong>から <strong>Run development site</strong>を選択します。</p>
+</li>
+<li>
+<p>ボタンがRun Run development siteと表示されている場合はクリックして起動します。すでに <strong>Stop Run development site</strong>と表示されている場合は稼働中ですので、そのまま次へ進みます。</p>
+</li>
+<li>Browserパネルでサイトを開きます。パネルが自動表示されない場合は、Runターミナルに表示されたURLを外部ブラウザーで開いてください。ポート番号を決め打ちせず、今回起動したサーバーの表示を使います。別のセッションのサイトを見ていないか、起動元のworktreeも確認してください。</li>
+<li>トップページ上で、複数カテゴリーの選択、特定パブリッシャーとの組み合わせ、絞り込み解除が意図通りに動作することを確認します。</li>
+<li>挙動に不備がある場合は、チャット欄からエージェントに修正を依頼し、再確認します。</li>
+<li>確認が完了したら、セッション上部の <strong>Stop Run development site</strong>を選択して開発サーバーを停止します。</li>
+</ol>
+<p>手動確認の対象は、選択欄の状態と実際に残ったゲームの対応です。件数だけが合っていても、違うゲームが表示されていれば正しい実装とはいえません。前章で追加したTSDocにも目を戻し、フィルターのOR/AND条件や引数の説明が実装と食い違っていないかを確認しましょう。Publisherから<kbd>Tab</kbd>で<strong>Clear filters</strong>へ移動し、<kbd>Enter</kbd>で解除できるかも試します。テストがボタンへ直接フォーカスを移すだけでは、実際のTab移動の順序は分かりません。</p>
+<p><img alt="StrategyとPuzzleのOR条件にGitHub Gamesを加えた2件の表示例" src="../assets/app-20261004-04-filter-combined-final.jpg" /></p>
+<p><a id="quality-checks-スキルで作業を検証する"></a></p>
+<h3 id="544-quality-checksスキルで検査する">5.4.4 quality-checksスキルで検査する</h3>
+<p>差分の目視確認とブラウザーでの手動操作に加えて、プロジェクトに定義された自動テスト群を実行して品質を検証します。</p>
+<p><a id="quality-checks-スキルを確認する"></a></p>
+<h4 id="5441-quality-checksスキルを確認する">5.4.4.1 quality-checksスキルを確認する</h4>
+<p>本リポジトリに用意されている <code>quality-checks</code> スキルの中身を確認してみましょう。</p>
+<ol>
+<li>
+<p>右側のパネルが表示されていない場合は、画面右上のToggle panelを選択して開きます。</p>
+</li>
+<li>
+<p>パネル上部のタブ列にある <code>+</code>（Add tab）を選択します。</p>
+</li>
+<li>Filesを選択します。</li>
+<li><kbd>Ctrl</kbd>+<kbd>P</kbd> を押してGo to fileを開き、<code>SKILL.md</code> を検索します。</li>
+<li>検索結果から <code>SKILL.md .github/skills/quality-checks</code> を選択して開きます。</li>
+<li>ファイルの表示を<strong>Raw</strong>へ切り替え、<code>name</code>と<code>description</code>の定義を確認します。Rich textでは冒頭のメタデータが表示されないことがあります。テスト、lint、品質検査をこのプロジェクトで実行するスキルであることが説明されています。</li>
+</ol>
+<p><img alt="Raw表示で読むquality-checksスキルのnameとdescription" src="../assets/app-20261004-04-quality-skill.jpg" /></p>
+<ol start="7">
+<li>ファイル全体を確認します。単体テスト、PlaywrightによるE2Eテスト、ESLintの各スイートを実行するコマンド体系、実行順序、および失敗時のトラブルシューティング手順が体系化されています。エージェントは推測に頼らず、チーム規定の手順に沿って検証を実行できます。</li>
+</ol>
+<p>検査ごとに分かることは異なります。結果を読むときは、次の役割を区別してください。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">検査</th>
+<th style="text-align: left;">この機能で確認すること</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">単体テスト</td>
+<td style="text-align: left;">フィルター条件の判定やデータ処理を、小さな入力と期待結果で確認する</td>
+</tr>
+<tr>
+<td style="text-align: left;">E2Eテスト</td>
+<td style="text-align: left;">ブラウザーで選択・表示・解除がつながることを、繰り返せる操作として確認する</td>
+</tr>
+<tr>
+<td style="text-align: left;">lint・型検査</td>
+<td style="text-align: left;">設定されたコード規約、型やコンポーネントの整合性を確認する</td>
+</tr>
+<tr>
+<td style="text-align: left;">build</td>
+<td style="text-align: left;">静的ページを生成できることを確認する。画面操作の正しさは別途確認する</td>
+</tr>
+</tbody>
+</table>
+<p>スキルを呼び出したという表示だけでは、全検査の成功を判断できません。実行したコマンド、成功・失敗した結果、追加したテストの内容を報告から確認します。<code>quality-checks</code>の定義に含まれる型検査も確認し、静的サイトの生成はAppのRun → Build static siteでも確かめてください。</p>
+<p><a id="通常データでは確認できない0件表示"></a></p>
+<h4 id="5442-通常データでは確認できない0件表示">5.4.4.2 通常データでは確認できない0件表示</h4>
+<p>教材の通常データ21件には、すべてのカテゴリと出版社の組み合わせに該当するゲームがあります。そのため、通常画面で条件を変えるだけでは0件表示に到達できません。0件の状態を試すには、組み合わせが欠けたテストデータを別に用意します。通常の<code>db/games.csv</code>を書き換えると、他のテストの期待結果まで変わってしまいます。CSVだけを分けても、準備処理の接続先が通常DBなら通常環境の一覧も変わってしまいます。準備と検査の両方が、同じ隔離DBを使っていることを確認してください。</p>
+<p>この演習では、専用CSVの3件を隔離したSQLiteへ読み込み、通常環境とは別ポートのサーバーで検証します。PuzzleとNova Interactiveを選ぶと0件となり、解除するとテスト用の3件へ戻る条件を用意してください。計画に0件のテストが含まれていても、実装・実行されたことまでは分かりません。計画・テストコード・実行結果の3つを照合します。<code>DATABASE_URL</code>が未指定、または通常DBを指している場合に、準備処理がDBへ書き込む前に停止するかもレビューしてください。</p>
+<p><a id="チェックを実行する"></a></p>
+<h4 id="5443-チェックを実行する">5.4.4.3 チェックを実行する</h4>
+<p>フィルター機能を実装した同一セッション内で、エージェントに品質検証の実行を依頼します。</p>
+<ol>
+<li>Copilot appの会話画面に戻ります。</li>
+<li>スラッシュコマンド <code>/quality-checks</code> を入力して送信します（スキル名を直接指定して呼び出します）。</li>
+<li>エージェントはスキルの手順に従って単体テスト、linter、E2Eテストを順次実行し、結果を報告します。失敗した項目があれば、修正を行わせて全テストを通過させます。</li>
+</ol>
+<p>複数カテゴリや0件表示の検査が不足している場合は、次のように具体的に補足します。</p>
+<pre class="highlight"><code class="language-plaintext">フィルターのテストを確認してください。通常データではStrategyとPuzzleが各4件、両方を選択すると8件表示され、両カテゴリのゲームが含まれることを検査してください。
+0件表示は通常のdb/games.csvと通常DBを変更せず、分離したテスト用CSV・DB・サーバーで確認してください。準備と検査で同じテスト用DBを明示し、DB未指定や通常DBへの指定は書き込み前に拒否してください。PuzzleとNova Interactiveの組み合わせで0件になり、解除するとテスト用の全3件に戻る条件を用意してください。
+PublisherからTabでClear filtersへ移動し、Enterで解除できることを、直接フォーカスを移す方法に置き換えず検査してください。検査後は今回起動したサーバーを停止し、今回作成した一時DBを片付けてください。テスト用CSVとテストコードは残してください。
+quality-checksスキルで検証し、実行結果と未確認の項目を報告してください。コミット・push・PR作成・マージはまだ行わないでください。</code></pre>
+<ol start="4">
+<li>このセッションは閉じずに開いたままにします。 次章では、Playwright MCP serverを設定し、実際のブラウザーを自律操作してフィルター機能が正しく動作することを検証します。</li>
+</ol>
+<p>検査のコマンド例も読んでください。親の実行スクリプトがテスト用の環境を用意している場合は、その経路を使います。対象を絞る追加引数がテストへ届き、指定した検査だけを実行したかも結果で確認しましょう。</p>
+<p><img alt="Runから選ぶBuild static site" src="../assets/app-20261004-04-run-menu.jpg" /></p>
+<p><img alt="静的ページの生成が完了したBuild Completeの表示例" src="../assets/app-20261004-04-build-complete.jpg" /></p>
+<p>テスト数を増やすこと自体を目標にせず、実装した受け入れ条件が検査されていることを確認します。単体テスト、E2Eテスト、lint・型検査の結果と、<strong>Build static site</strong>によるページ生成を確認してから次章へ進んでください。</p>
+<p><a id="まとめと次のステップ"></a></p>
+<h2 id="55-結果の整理と振り返り">5.5 結果の整理と振り返り</h2>
+<p>実装した条件と実際の結果を整理します。次の項目を、自分が確認した差分・画面・検査結果と照らし合わせてください。</p>
+<ul>
+<li>最新のコードベースから、フィルター機能のIssueに紐づく新しいセッションを開始した</li>
+<li>Planモードで実装計画を作成・レビューし、Autopilotモードで自律実装を実行した</li>
+<li>生成されたコードにおいて、前章で定義したドキュメント標準規約（TSDoc等）が反映されていることを確認した</li>
+<li><code>quality-checks</code> スキルを活用して単体テスト、E2Eテスト、lintによる検証を完了した</li>
+</ul>
+<p>計画で自分が判断したことと、テスト結果を見て修正したことを振り返ってください。次はPlaywright MCP serverの接続を確認し、実際のブラウザー操作をエージェントへ依頼します。自動テストの結果と操作時の観察を比べるため、同じセッションのまま<a href="6-mcp-playwright.html">第6章「Playwright MCP serverによるテスト」</a>へ進んでください。</p>
+<p><a id="補足"></a></p>
+<h2 id="56-補足">5.6 補足</h2>
+<p><a id="開発プロセスの背景"></a></p>
+<h3 id="561-開発プロセスの背景">5.6.1 開発プロセスの背景</h3>
+<p>ここまでは比較的小規模な変更を扱いました。機能開発では、要件の確認、計画、実装、検査をつなげて進める必要があります。</p>
+<p>本章からの3章では、Issueに沿って計画・実装し、検査結果を読んでからPRを共有します。quality-checksスキルによる自動検査と、MCPによるブラウザー操作をそれぞれ確認する進め方です。</p>
+<p>AIコーディングエージェントを現場のワークフローに導入しても、ソフトウェア開発の基本原則が変わるわけではありません。むしろ、AIが高速にコードを生成するからこそ、各プロセスの規律がより重要になります。一般的に推奨される開発フローは次のとおりです。</p>
+<ol>
+<li>要件が明確に記述されたIssueを確認する</li>
+<li>実装方針と手順を定めた計画（Plan）を作成する</li>
+<li>コードを実装し、差分（diff）を確認・レビューする</li>
+<li>自動テストを実行してコードの正確性を検証する</li>
+<li>開発サーバー上で新機能の挙動を手動検証する</li>
+<li>Pull Request（PR）を作成する</li>
+<li>コードレビューとCI（継続的インテグレーション）がすべて通過したことを確認してマージする</li>
+</ol>
+<blockquote>
+<p><strong>補足</strong>
+具体的なステップはチームや組織の規約によって多少異なりますが、基本骨格は共通しています。</p>
+</blockquote>
+<p>この標準的なアプローチを踏襲することで、AIが生成したコードにも、人間が書いたコードと同じ品質基準を適用できます。計画、差分、自動テスト、実際の操作をそれぞれ確認し、本番環境へ反映できるかを判断します。</p>
+<p><a id="セッションモードの種類"></a></p>
+<h3 id="562-セッションモードの種類">5.6.2 セッションモードの種類</h3>
+<p>セッションモードは、エージェントに与える自律性の度合いを制御する仕組みです。プロンプト入力欄の下部にあるドロップダウンから選択でき、セッションの進行中いつでも切り替えられます。</p>
+<ul>
+<li>Interactive：対話型モード。ユーザーとエージェントが協調して作業を進めます。エージェントは変更案を提示し、ユーザーの入力を受けながら進めます。</li>
+<li><strong>Plan</strong>：計画作成モード。エージェントはコードを直接編集せず、まず調査と実装計画の作成に専念します。作成された計画を人間がレビュー・承認した後に実装フェーズへ進みます。</li>
+<li><strong>Autopilot</strong>：自律実行モード。エージェントが完全に自律して作業を進めます。追加の確認を待つことなく、ファイルの編集、新規作成、テスト実行、エラー発生時の自己修正などを反復して実行します。</li>
+</ul>
+<p><a id="計画を先に確認する理由"></a></p>
+<h3 id="563-計画を先に確認する理由">5.6.3 計画を先に確認する理由</h3>
+<p><img alt="計画を読んでから実装を始める" src="../assets/app-plan-approval.png" /></p>
+<p>コードを書き始める前に、仕様や設計の疑問を計画で解決しておくと、実装後の修正を減らせます。条件の組み合わせ、既存機能の維持、期待するテスト結果を、承認前に確認してください。</p>
+<p>Planモードでは、エージェントが既存コードを調べ、実装手順と構成を提案します。計画を読んだ人が不足や矛盾を指摘し、修正後の計画を承認することで、実装する内容を共有できます。</p>
+<p><a id="エージェントスキルagent-skillsとは"></a></p>
+<h3 id="564-エージェントスキルagent-skillsとは">5.6.4 エージェントスキル（Agent Skills）とは</h3>
+<p>テスト実行、ビルド生成、Pull Request作成といった反復タスクの手順を、エージェントに教え込むための仕組みです。</p>
+<ul>
+<li>指示文、スクリプト、参照リソースをまとめたフォルダーとして構成される</li>
+<li><a href="https://github.com/agentskills/agentskills">オープン標準規格</a>に基づき、Copilot cloud agent、Copilot CLI、Copilot appや、対応IDEのエージェントモードなどで利用できる</li>
+<li>リポジトリ内の <code>.github/skills</code>（または端末の <code>~/.copilot/skills</code>）に配置される</li>
+</ul>
+<p>対応環境と配置場所は<a href="https://docs.github.com/copilot/concepts/agents/about-agent-skills">GitHub公式のAgent Skillsの説明</a>で確認できます。また、<a href="https://docs.github.com/copilot/how-tos/github-copilot-app/customize-github-copilot-app">Appのカスタマイズ手順</a>では、リポジトリやCopilot CLIに設定したスキルをAppでも利用できると説明されています。第4章の指示ファイルで共有するのは、継続的に使う規約です。スキルには、特定の作業の手順や資料をまとめます。<code>quality-checks</code>では、どのコマンドを実行し、失敗時に何を調べるかを共有しています。</p>
+<p>各スキルフォルダー内の <code>SKILL.md</code> には、次のようなYAML frontmatterと指示文が含まれます。</p>
+<pre class="highlight"><code class="language-yaml">---
+name: quality-checks
+description: Run the project's test suites and linter to verify code changes are ready to commit, push, or merge.
+---</code></pre>
+<blockquote>
+<p><strong>ヒント</strong>
+スキルは実行時に動的に読み込まれます。エージェントは各スキルの <code>description</code> を読み取り、現在のタスクに適したスキルを自律的に選択します。そのため、スキルの目的と適用条件を明確に記述しておくことが重要です。</p>
+</blockquote>
+<p><a href="#フィルター機能を計画する">フィルター機能の計画手順へ戻る</a></p>
+<p><a id="リソース"></a></p>
+<h3 id="565-公式資料と参考例">5.6.5 公式資料と参考例</h3>
+<ul>
+<li><a href="https://docs.github.com/copilot/how-tos/github-copilot-app/agent-sessions">GitHub Copilot appでのエージェントセッションの操作</a></li>
+<li><a href="https://docs.github.com/copilot/concepts/agents/about-agent-skills">Agent Skillsについて</a></li>
+<li><a href="https://docs.github.com/copilot/how-tos/github-copilot-app/customize-github-copilot-app">GitHub Copilot appのカスタマイズ</a></li>
+<li><a href="https://docs.github.com/copilot/concepts/about-cloud-and-local-sandboxes">GitHub Copilotのクラウドサンドボックスとローカルサンドボックスについて</a></li>
+</ul></article><nav class="chapter-nav" aria-label="章の移動"><a href="4-custom-instructions.html">← 前の章：第4章 - カスタム指示によるCopilotのガイド</a><a href="6-mcp-playwright.html">次の章 →：第6章 - Playwright MCP serverによるテスト</a></nav></main></body></html>
