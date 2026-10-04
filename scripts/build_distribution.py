@@ -225,7 +225,7 @@ def book_html(paths, label, config, ref, digest, web_base=None):
 <h1>GitHub Copilot App</h1><p class="subtitle">{label}</p><p>操作を確かめながら、Tailspin Toys の開発を進める</p>
 <div class="meta">教材版：{cfg['edition']}<br>演習用テンプレート：{cfg['template_ref']}{provenance}</div>
 <p>{web_link}</p><p><a href="{cfg['template_url']}">演習用テンプレート</a></p>
-<p class="source">非公式の独立教材です。画像は操作位置の参考です。操作は本文の項目名と手順を確認してください。プロンプトは選択・コピーできる文字で収録しています。</p></section>'''
+<p class="source">画像は操作位置の参考です。操作は本文の項目名と手順を確認してください。プロンプトは選択・コピーできる文字で収録しています。</p></section>'''
     license_text = html.escape((web.SOURCE / 'licenses/copilot-workshops.txt').read_text(encoding='utf-8'))
     if participant:
         attribution = '<a href="https://github.com/iwizsophy/dev-days-jp">日本語教材：iwizsophy/dev-days-jp</a>。<a href="https://github.com/github-samples/copilot-workshops">演習本文の参照元：github-samples/copilot-workshops</a>。'
