@@ -8,29 +8,30 @@
 <button class="theme-toggle" type="button" onclick="toggleTheme()">☀️ ライト</button></header>
 <main id="lesson"><h1>第7章 - Agent Mergeによるマージ</h1><p class="source">非公式の日本語版 · <a href="https://github.com/github-samples/copilot-workshops/blob/7ddcf241c1cd10b8e90c0df96f6bef81e710392a/docs/ja-jp/app/6-agent-merge.md">参照原文</a> · <a href="../licenses/copilot-workshops.txt">MIT ライセンス</a></p><aside>利用条件は <a href="../../handson-guide.html#plans">受講準備</a>を参照してください。</aside><nav class="chapter-nav" aria-label="章の移動"><a href="6-mcp-playwright.html">← 前の章：第6章 - Playwright MCP serverによるテスト</a><a href="8-canvases.html">次の章 →：第8章 - キャンバスを使った計画</a></nav><details><summary>この章の目次</summary><div class="toc">
 <ul>
-<li><a href="#71-章の概要">7.1 章の概要</a></li>
-<li><a href="#72-この章で学ぶこと">7.2 この章で学ぶこと</a></li>
-<li><a href="#73-取り組む前に">7.3 取り組む前に</a></li>
-<li><a href="#74-体験すること">7.4 体験すること</a><ul>
-<li><a href="#741-prを作成し最新のci結果を確認する">7.4.1 PRを作成し、最新のCI結果を確認する</a></li>
-<li><a href="#742-agent-mergeを開始する">7.4.2 Agent Mergeを開始する</a></li>
-<li><a href="#743-ciとマージ結果を確認する">7.4.3 CIとマージ結果を確認する</a></li>
+<li><a href="#71-章の概要">7.1 章の概要</a><ul>
+<li><a href="#711-この章で学ぶこと">7.1.1 この章で学ぶこと</a></li>
 </ul>
 </li>
-<li><a href="#75-結果の整理と振り返り">7.5 結果の整理と振り返り</a></li>
-<li><a href="#76-補足">7.6 補足</a><ul>
-<li><a href="#761-手動マージの経験を自動化に生かす">7.6.1 手動マージの経験を自動化に生かす</a></li>
-<li><a href="#762-任せる範囲と品質確認">7.6.2 任せる範囲と品質確認</a></li>
-<li><a href="#763-参考資料">7.6.3 参考資料</a></li>
+<li><a href="#72-取り組む前に">7.2 取り組む前に</a></li>
+<li><a href="#73-ケース">7.3 ケース</a><ul>
+<li><a href="#731-prを作成し最新のci結果を確認する">7.3.1 PRを作成し、最新のCI結果を確認する</a></li>
+<li><a href="#732-agent-mergeを開始する">7.3.2 Agent Mergeを開始する</a></li>
+<li><a href="#733-ciとマージ結果を確認する">7.3.3 CIとマージ結果を確認する</a></li>
+</ul>
+</li>
+<li><a href="#74-結果の整理と振り返り">7.4 結果の整理と振り返り</a></li>
+<li><a href="#75-補足">7.5 補足</a><ul>
+<li><a href="#751-手動マージの経験を自動化に生かす">7.5.1 手動マージの経験を自動化に生かす</a></li>
+<li><a href="#752-任せる範囲と品質確認">7.5.2 任せる範囲と品質確認</a></li>
+<li><a href="#753-参考資料">7.5.3 参考資料</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </details><article><h2 id="71-章の概要">7.1 章の概要</h2>
-<p>前章までで、自分の演習用リポジトリに、Tailspin Toysのゲーム一覧をカテゴリと出版社で絞り込むフィルター機能を実装しました。単体・E2EテストとPlaywright MCPによるブラウザー操作の検証も終えています。後続の作業でもフィルター機能を使えるよう、次はフィルター機能のPRをmainへ統合する段階です。Agent Mergeを使い、このPRを演習用リポジトリのmainブランチへマージする操作をエージェントに任せます。mainへの統合と、本番環境への公開は別の工程です。本章では統合までが対象です。</p>
-<p>これまでの手動マージでは、自分で対象PRのCI完了を待ち、マージを実行しました。Agent Mergeを使うと、対象PRの確認とマージの操作をエージェントへ任せられます。自動化するときも、何を満たしたらマージしてよいかは人の判断が必要です。</p>
-<p>この章では、フィルター機能のPRを自分で作成してCIの全ジョブ成功を確認し、その後でAgent Mergeを開始します。対象PRの「マージできる」という表示と、「必要な検証を終えた」という自分の判断を分けて考えましょう。</p>
-<h2 id="72-この章で学ぶこと">7.2 この章で学ぶこと</h2>
+<p>変更をmainへ統合するときは、マージの操作と、変更の品質を判断する作業を分けて考えます。Agent Mergeでは対象PRの確認とマージの操作をエージェントへ任せられますが、何を満たしたらマージしてよいかは人の判断が必要です。</p>
+<p>GitHubの「マージできる」という表示と、「必要な検証を終えた」という人の判断も別です。対象PRの差分、マージ先、最新コミットのCIを確認し、エージェントへ任せる範囲を決める方法を学びます。自動化するときも、統合を認めた条件とマージの完了を自分で説明できることが、この章の到達点です。</p>
+<h3 id="711-この章で学ぶこと">7.1.1 この章で学ぶこと</h3>
 <table>
 <thead>
 <tr>
@@ -44,22 +45,46 @@
 <td style="text-align: left;">マージの操作と、変更の品質を判断する作業を分けて説明できる</td>
 </tr>
 <tr>
-<td style="text-align: left;">自動マージを開始する条件</td>
-<td style="text-align: left;">対象PR・差分・マージ先・最新コミットのCIを確認してから開始できる</td>
+<td style="text-align: left;">開始前の品質判断</td>
+<td style="text-align: left;">対象PRの差分・マージ先・最新コミットのCIを根拠に、Agent Mergeを開始してよいか判断できる</td>
 </tr>
 <tr>
 <td style="text-align: left;">完了の確かめ方</td>
-<td style="text-align: left;">AppとGitHubのMergedを照合し、次のworktreeへ変更を引き継げる</td>
+<td style="text-align: left;">AppとGitHubのMergedとマージ先を照合し、後続の作業へ変更を引き継げる</td>
 </tr>
 </tbody>
 </table>
-<h2 id="73-取り組む前に">7.3 取り組む前に</h2>
+<h2 id="72-取り組む前に">7.2 取り組む前に</h2>
 <p>GitHub Copilot appで、前章まで使っていたフィルター機能の実装セッションを引き続き使います。フィルター機能の差分レビュー、単体・E2Eテスト、Playwright MCPによる画面検証と後片付けを終えておいてください。未対応の指摘が残っている場合は、エージェントへ修正を依頼し、修正後の検証結果を確認してから進みます。</p>
 <p>GitHubで「マージ可能」であることと、この演習で求める「CIの全ジョブ成功」は同じとは限りません。必須チェックに指定されていないジョブが実行中でも、GitHubはマージを許可する場合があります。保護設定の考え方は<a href="https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches#require-status-checks-before-merging">GitHub公式の必須ステータスチェックの説明</a>で確認できます。</p>
 <p>AppのAgent mergeは、有効にした直後にエージェントが対象PRの処理を始める機能です。マージ可能なPRでは、すぐにMergedへ変わることもあります。Agent mergeを有効にした後に操作許可を見直すことを前提にせず、対象PRの差分とCIを先に確認してください。</p>
-<h2 id="74-体験すること">7.4 体験すること</h2>
+<h2 id="73-ケース">7.3 ケース</h2>
+<p>このケースでは、Tailspin Toysのゲーム一覧をカテゴリと出版社で絞り込むフィルター機能のPRを、自分の演習用リポジトリのmainへ統合します。手動でマージしていた工程のうち、今回エージェントへ任せる範囲を確かめましょう。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">観点</th>
+<th style="text-align: left;">このケースで扱う内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">状況</td>
+<td style="text-align: left;">前章までにフィルター機能の実装と、単体・E2Eテスト、Playwright MCPによるブラウザー操作の検証を終えている。フィルター機能のPRはmainへ統合する前の段階にある。</td>
+</tr>
+<tr>
+<td style="text-align: left;">課題と理由</td>
+<td style="text-align: left;">後続の作業でもフィルター機能を使えるよう、PRをmainへ統合する必要がある。マージ可能の表示だけでは、必要な検証を終えたとは判断できない。</td>
+</tr>
+<tr>
+<td style="text-align: left;">解決策</td>
+<td style="text-align: left;">フィルター機能のPRは、受講者が差分・マージ先・最新コミットのCI全ジョブ成功を確認してから、Agent Mergeで演習用リポジトリのmainへ統合する。マージの操作を任せても、品質条件の判断と統合結果の確認は受講者が担当する。</td>
+</tr>
+</tbody>
+</table>
+<p>これまでの手動マージでは、対象PRのCI完了を待ち、マージを自分で実行しました。このケースでもCIの全ジョブ成功までは自分で確認し、以後のPR確認とマージの操作をエージェントへ任せます。本章ではmainへの統合までを扱い、本番環境への公開は含みません。</p>
 <p><a id="開始前にマージ条件を確認する"></a></p>
-<h3 id="741-prを作成し最新のci結果を確認する">7.4.1 PRを作成し、最新のCI結果を確認する</h3>
+<h3 id="731-prを作成し最新のci結果を確認する">7.3.1 PRを作成し、最新のCI結果を確認する</h3>
 <ol>
 <li>Appで前章まで作業していたフィルター機能の実装セッションを開き、Changesで未対応の差分や不要な一時ファイルがないことを確認します。</li>
 <li>フィルター機能の実装セッションで、通常のCreate PRからPRを作成します。この時点ではAgent mergeを有効にしません。</li>
@@ -69,7 +94,7 @@
 <p>CIの完了を待つ前に、GitHubのフィルター機能のPRで実行されるジョブの一覧を見ておきましょう。完了後に同じ一覧を読むと、成功したジョブだけを見て判断していないかを確かめられます。PRに新しいコミットが追加された場合は、古い成功結果を使わず、そのコミットのCIを確認し直してください。</p>
 <p>Appでフィルター機能のPRのCI表示が更新されない場合は、App内のPR画面を開き直して確認します。同じPRをGitHubでも開き、最新コミットのCI結果と照合してください。AppのReady to mergeだけで、CIの全ジョブ成功とは判断しません。</p>
 <p><a id="agent-mergeを開始する"></a></p>
-<h3 id="742-agent-mergeを開始する">7.4.2 Agent Mergeを開始する</h3>
+<h3 id="732-agent-mergeを開始する">7.3.2 Agent Mergeを開始する</h3>
 <ol>
 <li>フィルター機能のPRの差分レビューと最新コミットのCI全成功を確認したら、Appでフィルター機能の実装セッションを開きます。セッション上部のReady to merge横にあるメニューを開いてください。</li>
 <li>対象が今回のフィルター機能のPRであることを確認します。</li>
@@ -78,7 +103,7 @@
 <p><img alt="Ready to mergeのメニューと、開始前のAgent mergeスイッチ" src="../assets/app-20261004-06-agent-merge-before.jpg" /></p>
 <p>GitHub公式では、Agent MergeがPRを確認し、マージを妨げる問題へ対応して、GitHubが許可した時点でマージすると説明しています。<a href="https://docs.github.com/en/copilot/how-tos/github-copilot-app/managing-issues-and-pull-requests#merging-a-pull-request">公式説明「Merging a pull request」</a></p>
 <p><a id="ciとマージ結果を確認する"></a></p>
-<h3 id="743-ciとマージ結果を確認する">7.4.3 CIとマージ結果を確認する</h3>
+<h3 id="733-ciとマージ結果を確認する">7.3.3 CIとマージ結果を確認する</h3>
 <ol>
 <li>Appでフィルター機能の実装セッションまたはPR画面を開き、対象PRがMergedになったことを確認します。</li>
 <li>GitHubでもフィルター機能の同じPRを開き、演習用リポジトリのmainへMergedになったことと、最新コミットのCI全ジョブが成功したことを照合します。</li>
@@ -88,7 +113,7 @@
 <p><img alt="GitHubの同じPRでMergedとCIの成功を確認する例" src="../assets/app-20261004-06-pr-merged-github.jpg" /></p>
 <p>画像はフィルター機能のPRをマージした後の表示例です。自分の演習用リポジトリのPR番号を確認し、画像の表示と自分のPRのマージ結果を照合してください。</p>
 <p><img alt="変更を次の章へ引き継ぐ" src="../assets/app-worktree-handoff.png" /></p>
-<h2 id="75-結果の整理と振り返り">7.5 結果の整理と振り返り</h2>
+<h2 id="74-結果の整理と振り返り">7.4 結果の整理と振り返り</h2>
 <p>フィルター機能のPRのマージが完了したら、次の3点を自分の言葉で説明してみてください。対象PRのAgent mergeをOnにしたこと、CIが成功したこと、mainへのマージが完了したことを区別できれば、途中で問題が起きた場合にも確認箇所を絞れます。</p>
 <table>
 <thead>
@@ -115,13 +140,13 @@
 <p>今回は、フィルター機能のPRのCI完了を待つ工程を自分で担当しました。エージェントによる追加修正が起きなかった場合は、CI失敗や競合の修復を体験したとは扱わず、実際に任せたPRの確認とマージの操作を振り返ります。Agent Mergeという機能名だけでなく、任せた範囲と確認したマージ結果を説明できることが到達点です。</p>
 <p>次は、演習用リポジトリのIssueを同じ画面で比較し、エージェントと作業を計画するキャンバスを使います。<a href="8-canvases.html">第8章「キャンバスを使った計画」</a>へ進んでください。</p>
 <p><a id="補足"></a></p>
-<h2 id="76-補足">7.6 補足</h2>
+<h2 id="75-補足">7.5 補足</h2>
 <p><a id="手動マージからagent-mergeへ進む理由"></a></p>
-<h3 id="761-手動マージの経験を自動化に生かす">7.6.1 手動マージの経験を自動化に生かす</h3>
+<h3 id="751-手動マージの経験を自動化に生かす">7.5.1 手動マージの経験を自動化に生かす</h3>
 <p>本ワークショップでは、コード生成、自動テスト、MCPによる実ブラウザー操作と、段階的に任せる操作を広げてきました。星評価やコーディング標準を手動でマージしたのは、差分、CI、マージ先を自分で確認するためです。その経験があれば、自動化するときも何を任せたかを説明できます。</p>
 <p>今回は第5章でフィルター機能の計画と実装をレビューし、第6章でTailspin Toysの実画面を検証したうえで、演習用リポジトリのmainへのマージをエージェントへ任せました。任せる範囲を広げても、フィルター機能の要件を満たす変更かどうかを判断する責任は人に残ります。</p>
 <p><a id="agent-mergeの動作と品質確認"></a></p>
-<h3 id="762-任せる範囲と品質確認">7.6.2 任せる範囲と品質確認</h3>
+<h3 id="752-任せる範囲と品質確認">7.5.2 任せる範囲と品質確認</h3>
 <p>Agent Mergeはバックグラウンドで動作し、Appの再起動後も継続して、マージ後に終了します。待機やマージの操作を任せても、テストに含まれていない要件まではCIの成功だけで判断できません。<a href="https://docs.github.com/en/copilot/how-tos/github-copilot-app/managing-issues-and-pull-requests#merging-a-pull-request">GitHub公式のAgent Mergeの説明</a></p>
 <p>たとえば、Tailspin Toysでカテゴリを2つ選んだときに、一方のカテゴリに該当するゲームしか表示されない実装でも、件数を十分に検査していなければテストを通ることがあります。第5章と第6章で確認したフィルターの条件を、Agent Mergeを使うときも品質の基準として使ってください。</p>
 <p>Agent Mergeの詳細な操作許可を選べる場合は、次の観点でエージェントへ任せる範囲を確認します。許可した操作と、対象PRでエージェントが実際に行った処理は区別してください。</p>
@@ -154,7 +179,7 @@
 <p>CIの待機も含めてAgent Mergeへ任せたい場合は、対象PRの必須チェックを待つ条件が、自分の権限でのマージにも適用されるかを先に確認します。条件が分からなければ、本章と同じく対象PRのCI全ジョブの成功を待ってからAgent mergeをOnにしてください。ブランチ保護や必須チェックの設定を理解すると、チームでどこまで任せるかを判断しやすくなります。<a href="https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches#require-status-checks-before-merging">GitHub公式のブランチ保護の説明</a></p>
 <p><a id="判断と結果の振り返り"></a>
 <a id="リソース"></a></p>
-<h3 id="763-参考資料">7.6.3 参考資料</h3>
+<h3 id="753-参考資料">7.5.3 参考資料</h3>
 <ul>
 <li><a href="https://docs.github.com/copilot/how-tos/github-copilot-app/managing-issues-and-pull-requests">GitHub Copilot appでのIssueとpull requestの管理</a></li>
 <li><a href="https://docs.github.com/copilot/concepts/agents/github-copilot-app">GitHub Copilot appについて</a></li>

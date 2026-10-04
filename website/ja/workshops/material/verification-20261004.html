@@ -10,7 +10,7 @@
 <p>本レポートには、必要だった補足操作、追加修正の結果、画面の差し替え候補を記録しました。実走後、受講者向け原稿へ手順補正と画像の差し替えを反映しました。初回インストール、初回サインイン、発生しなかった障害対応など、未確認の範囲も明示しています。</p>
 <p>ツール履歴や差分の原記録は、作業用フォルダー<code>tmp/verification-20261004/</code>に保存しています。本書に記載した原記録のファイル名はその保存先を指し、原記録そのものはコミットに含めていません。確認した結果、判断理由、GitHub上の根拠、取得画像は本書と画像対応表にまとめています。</p>
 <h2>実走時の資料と改稿後の資料</h2>
-<p>本書の実走結果、固定プロンプト、章節番号、撮影ファイル名は、検証に使った旧第0〜8章の記録です。検証後の改稿では第1〜9章へ変更し、各章を概要、学ぶこと、前提、体験、結果の整理と振り返り、補足の6段階に整理しました。原稿のファイル名も次の対応へ変更しています。</p>
+<p>本書の実走結果、固定プロンプト、章節番号、撮影ファイル名は、検証に使った旧第0〜8章の記録です。通し実走直後の改稿では第1〜9章へ変更し、各章を概要、学ぶこと、前提、体験、結果の整理と振り返り、補足の6段階に整理しました。その後、学ぶことを概要へ統合し、課題・理由、解決策、実施手順をケースとしてまとめています。最新の構成と品質確認は<a href="verification.html">検証状況</a>を参照してください。原稿のファイル名は次のとおりです。</p>
 <table>
 <thead>
 <tr>
@@ -1717,49 +1717,49 @@
 <td style="text-align: left;">1.3 課題一覧</td>
 <td style="text-align: left;">Projectsでコピーを選んでも、Issues上部には旧コピーの指定が残った。</td>
 <td style="text-align: left;">Issues上部で対象リポジトリを確認し、演習用コピーだけを選ぶ操作を示す。操作の意図は、別のコピーの課題に指示を出さないためと説明する。</td>
-<td style="text-align: left;">改稿後の2.4.3へ反映済み。</td>
+<td style="text-align: left;">改稿後の2.3.3へ反映済み。</td>
 </tr>
 <tr>
 <td style="text-align: left;">R02</td>
 <td style="text-align: left;">1.3 ビューの作成</td>
 <td style="text-align: left;">狭い表示でIssue詳細が開いていると、New viewの入口が見えなかった。詳細を閉じると作成できた。</td>
 <td style="text-align: left;">New viewが見えない場合は、右側のIssue詳細を閉じる案内を補う。</td>
-<td style="text-align: left;">改稿後の2.4.3へ反映済み。</td>
+<td style="text-align: left;">改稿後の2.3.3へ反映済み。</td>
 </tr>
 <tr>
 <td style="text-align: left;">R03</td>
 <td style="text-align: left;">3.2 applyTo、4.5.1 Skillの冒頭</td>
 <td style="text-align: left;">Rich textではapplyToやSkillのname・descriptionが表示されず、Rawで確認できた。</td>
 <td style="text-align: left;">ファイル冒頭のメタデータを読む前にRawへ切り替える操作を追加する。指示の適用対象やSkillの使用条件を本文と分けて確認する理由も保つ。</td>
-<td style="text-align: left;">改稿後の4.4.1と5.4.4.1へ反映済み。</td>
+<td style="text-align: left;">改稿後の4.3.1と5.3.4.1へ反映済み。</td>
 </tr>
 <tr>
 <td style="text-align: left;">R04</td>
 <td style="text-align: left;">3.2 隠しファイルの表示</td>
 <td style="text-align: left;">実機の項目名はShow all hidden filesとShow tracked hidden filesだった。</td>
 <td style="text-align: left;">本文のShow hidden filesを現行の項目名に合わせ、<code>.github</code>を表示する手順を示す。</td>
-<td style="text-align: left;">改稿後の4.4.1へ反映済み。</td>
+<td style="text-align: left;">改稿後の4.3.1へ反映済み。</td>
 </tr>
 <tr>
 <td style="text-align: left;">R05</td>
 <td style="text-align: left;">3.3・4.2 プロンプトの入力</td>
 <td style="text-align: left;">Issueから開始した入力欄に、/issue-fixがあらかじめ入っていた。</td>
 <td style="text-align: left;">既存の入力を全選択して固定プロンプトへ置き換える操作を補う。初回指示を同じ条件で送るためと説明する。</td>
-<td style="text-align: left;">改稿後の4.4.2と5.4.1へ反映済み。</td>
+<td style="text-align: left;">改稿後の4.3.2と5.3.1へ反映済み。</td>
 </tr>
 <tr>
 <td style="text-align: left;">R06</td>
 <td style="text-align: left;">5.2.1 MCPの既存設定</td>
 <td style="text-align: left;">Project SettingsにMCP serversがなかった。実機の管理経路はCustomize → Installedで、公式説明も同じだった。</td>
 <td style="text-align: left;">MCPの管理経路を現行画面に合わせる。Globalの接続表示とリポジトリ定義の確認を区別し、実際のツール操作まで確認する説明を保つ。根拠は<a href="https://docs.github.com/en/copilot/how-tos/github-copilot-app/customize-github-copilot-app">GitHub公式</a>。</td>
-<td style="text-align: left;">改稿後の6.4.1と6.6.5へ反映済み。</td>
+<td style="text-align: left;">改稿後の6.3.1と6.5.5へ反映済み。</td>
 </tr>
 <tr>
 <td style="text-align: left;">R07</td>
 <td style="text-align: left;">6.2 PR作成後のAgent Merge</td>
 <td style="text-align: left;">Ready to merge optionsのAgent mergeスイッチをOnにしただけで開始し、3秒以内にマージされた。追加の主ボタン操作はなく、四項目の権限メニューは未確認。</td>
 <td style="text-align: left;">PR作成後の経路は現行スイッチの操作で説明する。Onで即時に開始するため、CI全成功の確認を先に行う理由を保つ。確認していない権限メニューや修復機能を実走済みと説明しない。</td>
-<td style="text-align: left;">改稿後の7.4.1と7.4.2へ反映済み。</td>
+<td style="text-align: left;">改稿後の7.3.1と7.3.2へ反映済み。</td>
 </tr>
 </tbody>
 </table>
@@ -2221,5 +2221,5 @@
 <p>Issues一覧は、旧コピーの詳細や複数リポジトリの選択を除いた公開版を採用しました。設定画面や操作途中の原本は確認記録として保全しています。公開版として採用した画面と、原本だけを保全する画面は、公開画像一覧と画像対応表で区別できます。</p>
 <h2>最終判定と反映の状況</h2>
 <p>画面差の読み替えと本文のレビュー工程による追加修正を行い、第0〜8章を完了しました。実装の判定には画面、差分、実際の自動検査、PRの最新CI結果を使い、自動化の報告はGitHub APIで独立に照合しています。初回プロンプトだけで無修正に進められる保証は、この結果に含みません。</p>
-<p>実走後の改稿では、R01〜R07の手順補正、画像の差し替え・追加、重複掲載の整理を受講者向け原稿へ反映しました。詳しい採否は<a href="verification-images-20261004.html">画像対応表</a>で確認できます。章番号は第1〜9章、各章の構成は学習の6段階へ変更しています。改稿後のプロンプトでの全章再実走は未実施です。本レポートと画像対応表は別ファイルで管理しています。</p>
+<p>実走後の改稿では、R01〜R07の手順補正、画像の差し替え・追加、重複掲載の整理を受講者向け原稿へ反映しました。詳しい採否は<a href="verification-images-20261004.html">画像対応表</a>で確認できます。現在の章番号は第1〜9章で、学ぶことを概要に含めた5節構成です。最新の構成と品質確認は<a href="verification.html">検証状況</a>を参照してください。改稿後のプロンプトでの全章再実走は未実施です。本レポートと画像対応表は別ファイルで管理しています。</p>
 <p>初回インストール、初回サインイン、発生しなかった障害対応、Agent merge actionsの四項目の個別表示、MCPによる検索結果からの詳細リンクのクリック遷移は未確認です。詳細遷移はE2Eで成功しています。継続的なスケジュール実行とクラウド実行も今回の検証範囲には含めていません。</p></article></main></body></html>

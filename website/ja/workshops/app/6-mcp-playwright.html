@@ -8,40 +8,42 @@
 <button class="theme-toggle" type="button" onclick="toggleTheme()">☀️ ライト</button></header>
 <main id="lesson"><h1>第6章 - Playwright MCP serverによるテスト</h1><p class="source">非公式の日本語版 · <a href="https://github.com/github-samples/copilot-workshops/blob/7ddcf241c1cd10b8e90c0df96f6bef81e710392a/docs/ja-jp/app/5-mcp-playwright.md">参照原文</a> · <a href="../licenses/copilot-workshops.txt">MIT ライセンス</a></p><aside>利用条件は <a href="../../handson-guide.html#plans">受講準備</a>を参照してください。</aside><nav class="chapter-nav" aria-label="章の移動"><a href="5-build-filtering.html">← 前の章：第5章 - Autopilotによる機能の構築</a><a href="7-agent-merge.html">次の章 →：第7章 - Agent Mergeによるマージ</a></nav><details><summary>この章の目次</summary><div class="toc">
 <ul>
-<li><a href="#61-章の概要">6.1 章の概要</a></li>
-<li><a href="#62-この章で学ぶこと">6.2 この章で学ぶこと</a></li>
-<li><a href="#63-取り組む前に">6.3 取り組む前に</a></li>
-<li><a href="#64-体験すること">6.4 体験すること</a><ul>
-<li><a href="#641-playwright-mcpの接続を確かめる">6.4.1 Playwright MCPの接続を確かめる</a></li>
-<li><a href="#642-playwrightでブラウザーを操作する">6.4.2 Playwrightでブラウザーを操作する</a></li>
-<li><a href="#643-操作結果を受け入れ条件と比べる">6.4.3 操作結果を受け入れ条件と比べる</a><ul>
-<li><a href="#6431-該当-0-件表示の検証について">6.4.3.1 該当 0 件表示の検証について</a></li>
+<li><a href="#61-章の概要">6.1 章の概要</a><ul>
+<li><a href="#611-この章で学ぶこと">6.1.1 この章で学ぶこと</a></li>
 </ul>
 </li>
-<li><a href="#644-検証に使った環境を片付ける">6.4.4 検証に使った環境を片付ける</a></li>
+<li><a href="#62-取り組む前に">6.2 取り組む前に</a></li>
+<li><a href="#63-ケース">6.3 ケース</a><ul>
+<li><a href="#631-playwright-mcpの接続を確かめる">6.3.1 Playwright MCPの接続を確かめる</a></li>
+<li><a href="#632-playwrightでブラウザーを操作する">6.3.2 Playwrightでブラウザーを操作する</a></li>
+<li><a href="#633-操作結果を受け入れ条件と比べる">6.3.3 操作結果を受け入れ条件と比べる</a><ul>
+<li><a href="#6331-該当-0-件表示の検証について">6.3.3.1 該当 0 件表示の検証について</a></li>
 </ul>
 </li>
-<li><a href="#65-結果の整理と振り返り">6.5 結果の整理と振り返り</a></li>
-<li><a href="#66-補足">6.6 補足</a><ul>
-<li><a href="#661-探索的な検証とe2eテスト">6.6.1 探索的な検証とE2Eテスト</a></li>
-<li><a href="#662-model-context-protocol-mcp-とは">6.6.2 Model Context Protocol (MCP) とは</a></li>
-<li><a href="#663-playwrightが画面を読み取る仕組み">6.6.3 Playwrightが画面を読み取る仕組み</a></li>
-<li><a href="#664-接続できない場合に確認すること">6.6.4 接続できない場合に確認すること</a><ul>
-<li><a href="#6641-セッション再起動restart-sessionの活用">6.6.4.1 セッション再起動（/restart-session）の活用</a></li>
+<li><a href="#634-検証に使った環境を片付ける">6.3.4 検証に使った環境を片付ける</a></li>
 </ul>
 </li>
-<li><a href="#665-playwrightが未登録の場合に追加する">6.6.5 Playwrightが未登録の場合に追加する</a></li>
-<li><a href="#666-公式資料と参考情報">6.6.6 公式資料と参考情報</a></li>
+<li><a href="#64-結果の整理と振り返り">6.4 結果の整理と振り返り</a></li>
+<li><a href="#65-補足">6.5 補足</a><ul>
+<li><a href="#651-探索的な検証とe2eテスト">6.5.1 探索的な検証とE2Eテスト</a></li>
+<li><a href="#652-model-context-protocol-mcp-とは">6.5.2 Model Context Protocol (MCP) とは</a></li>
+<li><a href="#653-playwrightが画面を読み取る仕組み">6.5.3 Playwrightが画面を読み取る仕組み</a></li>
+<li><a href="#654-接続できない場合に確認すること">6.5.4 接続できない場合に確認すること</a><ul>
+<li><a href="#6541-セッション再起動restart-sessionの活用">6.5.4.1 セッション再起動（/restart-session）の活用</a></li>
+</ul>
+</li>
+<li><a href="#655-playwrightが未登録の場合に追加する">6.5.5 Playwrightが未登録の場合に追加する</a></li>
+<li><a href="#656-公式資料と参考情報">6.5.6 公式資料と参考情報</a></li>
 </ul>
 </li>
 </ul>
 </div>
-</details><article><p><a id="シナリオ"></a></p>
-<h2 id="61-章の概要">6.1 章の概要</h2>
-<p>本章で検証するのは、第5章で実装したTailspin Toysのフィルター機能です。単体テストやスクリプト化されたエンドツーエンドテストに加え、Copilotへブラウザーの操作手段を与えます。ユーザーの操作に沿ってカテゴリ・出版社の選択欄や解除ボタンを操作させ、フィルター機能が仕様どおりに動くかを確かめます。</p>
+</details><article><h2 id="61-章の概要">6.1 章の概要</h2>
+<p>自動テストで確認した条件に加え、利用者の操作に沿って画面を検証する方法を学びます。本章では、CopilotにMCPを通じてブラウザー操作を依頼し、操作履歴と観察結果を根拠に検証の十分さを判断します。</p>
+<p>MCPでブラウザーを動かすときに区別するのは、設定の登録、接続表示、実際のツール呼び出しです。受講者はエージェントの報告と操作履歴を照合し、未実施の操作や期待結果との食い違いがあれば、追加の確認を依頼します。</p>
 <p><img alt="MCPで確認する順序" src="../assets/app-mcp-evidence.png" /></p>
-<h2 id="62-この章で学ぶこと">6.2 この章で学ぶこと</h2>
-<p>CopilotにPlaywright MCPを通じたブラウザー操作を依頼し、その履歴と観察結果でTailspin Toysのフィルター機能を確認することが、この章の到達点です。</p>
+<h3 id="611-この章で学ぶこと">6.1.1 この章で学ぶこと</h3>
+<p>この章を終えると、Copilotへブラウザーでの検証を依頼し、ツールの呼び出しと操作履歴、観察結果を照合して、受け入れ条件を確認できたか判断できます。</p>
 <table>
 <thead>
 <tr>
@@ -60,22 +62,46 @@
 </tr>
 <tr>
 <td style="text-align: left;">結果報告のレビュー</td>
-<td style="text-align: left;">件数・タイトル・選択状態を操作履歴と照合し、未実施の確認を補える</td>
+<td style="text-align: left;">観察結果を操作履歴と照合し、未実施の確認を補える</td>
 </tr>
 <tr>
 <td style="text-align: left;">検証環境の終了</td>
-<td style="text-align: left;">通常データと成果物を残し、今回の一時ファイルとサーバーを片付けられる</td>
+<td style="text-align: left;">残す成果物と片付ける一時ファイル・サーバーを区別し、検証環境を終了できる</td>
 </tr>
 </tbody>
 </table>
-<h2 id="63-取り組む前に">6.3 取り組む前に</h2>
+<h2 id="62-取り組む前に">6.2 取り組む前に</h2>
 <p>Copilot Appで、第5章のフィルター実装セッションを開いたまま使います。フィルター機能の単体テスト、E2E、lint・型検査とbuildを確認し、Tailspin Toysの通常データ21件と、0件表示を試す隔離データ3件を区別できる状態から始めます。このフィルター機能のPR作成とマージは第7章で行います。</p>
 <p>自分の演習用Tailspin Toysリポジトリにある<code>.mcp.json</code>には、テンプレートから引き継いだPlaywrightの定義が含まれています。すでに利用できる設定を確認してから進めましょう。MCP serverは外部のプログラムや接続先へ操作を渡す仕組みです。定義のコマンドと接続先を読み、信頼の承認を求められたら内容を確認します。演習では、フィルター実装セッションのworktreeで起動したTailspin Toysのサイトを検査対象にします。</p>
 <p>フィルター機能の自動テストが成功していても、Playwright MCPで指定したブラウザー操作がすべて実行されたとは限りません。操作前にゲーム一覧の表示を予想し、Copilotの報告とツールの履歴を比べて確認します。</p>
-<h2 id="64-体験すること">6.4 体験すること</h2>
-<p>Playwright MCPの接続を確かめ、CopilotにTailspin Toysの通常環境と隔離環境でブラウザーを操作させます。Copilotの報告に不足があれば追加の確認を依頼し、検証に使ったブラウザーとサーバーを最後に終了させてください。</p>
+<h2 id="63-ケース">6.3 ケース</h2>
+<p><a id="シナリオ"></a></p>
+<p>このケースの対象は、第5章で実装したTailspin Toysのフィルター機能です。同じ実装セッションからPlaywright MCPで検証します。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">観点</th>
+<th style="text-align: left;">このケースで扱う内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">状況</td>
+<td style="text-align: left;">単体テストやスクリプト化されたエンドツーエンドテストで、フィルター機能を検査した状態です。</td>
+</tr>
+<tr>
+<td style="text-align: left;">課題と理由</td>
+<td style="text-align: left;">自動テストの結果に加え、利用者がカテゴリ・出版社の選択欄や解除ボタンを操作したときに、フィルター機能が仕様どおりに動くかを確かめます。エージェントの報告を実際の操作履歴で裏付ける必要があります。</td>
+</tr>
+<tr>
+<td style="text-align: left;">解決策</td>
+<td style="text-align: left;">CopilotにPlaywright MCPを通じたブラウザー操作を依頼し、通常環境と隔離環境でそれぞれ検査します。受講者は件数・タイトル・選択状態を操作履歴と照合し、未実施の確認を補います。</td>
+</tr>
+</tbody>
+</table>
+<p>通常データ21件と隔離データ3件を分けて検査し、カテゴリ・出版社の選択、解除、0件表示とキーボード操作を確かめます。Copilotの報告に不足があれば追加の確認を依頼し、検証に使ったブラウザーとサーバーを最後に終了させてください。</p>
 <p><a id="playwright-mcp-server-の接続を確認する"></a></p>
-<h3 id="641-playwright-mcpの接続を確かめる">6.4.1 Playwright MCPの接続を確かめる</h3>
+<h3 id="631-playwright-mcpの接続を確かめる">6.3.1 Playwright MCPの接続を確かめる</h3>
 <p><a href="https://docs.github.com/copilot/how-tos/github-copilot-app/customize-github-copilot-app">Copilot Appの公式ドキュメント</a>では、リポジトリやCopilot CLIに設定したMCP serverをAppでも利用できると説明されています。登録済みのサーバーはCopilot AppのCustomize → Installedで管理します。</p>
 <p><a id="テンプレートの既存設定を確認する"></a></p>
 <ol>
@@ -93,7 +119,7 @@
 </ol>
 <p>Playwrightの<strong>Connected</strong>は接続状態の表示です。演習に必要なツールがフィルター実装セッションから使えるかは、実際の呼び出し結果で確かめます。呼び出せない場合は、<a href="#既存設定が正しく読み込まれない場合の対処">補足の再接続・追加登録</a>を参照してください。</p>
 <p><a id="playwright-で機能を確認するよう-copilot-に依頼する"></a></p>
-<h3 id="642-playwrightでブラウザーを操作する">6.4.2 Playwrightでブラウザーを操作する</h3>
+<h3 id="632-playwrightでブラウザーを操作する">6.3.2 Playwrightでブラウザーを操作する</h3>
 <p>Copilot Appで第5章から開いたままにしているフィルター実装セッションに戻り、Playwright MCP serverを使ってTailspin Toysのフィルター機能を手動検証するようCopilotに指示します。</p>
 <ol>
 <li>フィルター実装セッションの会話入力欄に次のプロンプトを入力して送信します。</li>
@@ -114,7 +140,7 @@ Issueと承認済みの計画を使い、カテゴリの複数選択、出版社
 <li>第7章のAgent Mergeでフィルター機能の変更を共有するため、この実装セッションは開いたままにします。</li>
 </ol>
 <p><a id="操作結果をレビューする観点"></a></p>
-<h3 id="643-操作結果を受け入れ条件と比べる">6.4.3 操作結果を受け入れ条件と比べる</h3>
+<h3 id="633-操作結果を受け入れ条件と比べる">6.3.3 操作結果を受け入れ条件と比べる</h3>
 <p>フィルター実装セッションのPlaywright MCPの履歴から、Tailspin Toysのページへの移動、カテゴリ・出版社の選択欄や解除ボタンの操作、キー入力といった流れを読み取ります。確認の対象は、Issueの受け入れ条件に必要な操作と、その観察結果です。ツールの名前や順序を例と同じにする必要はありません。</p>
 <p>Tailspin Toysの通常データ21件を表示するゲーム一覧で確認する操作と期待結果は、次のとおりです。</p>
 <table>
@@ -167,17 +193,17 @@ Issueと承認済みの計画を使い、カテゴリの複数選択、出版社
 <p>Tailspin Toysの通常データが同じでも、フィルターで選択した出版社が異なれば期待件数は変わります。「出版社単独6件」のように名前を省かず、選択値と件数を一緒に記録してください。</p>
 <p>Tailspin Toysのフィルターをキーボードで操作するときは、カテゴリをSpaceで変更できるか、現在の選択状態が分かるかも確認します。Publisherから<kbd>Tab</kbd>を使って<strong>Clear filters</strong>へ移り、<kbd>Enter</kbd>で解除して21件へ戻る操作も試してください。クリックで解除できることだけでは、キーボードでボタンへ到達して操作できることの確認にはなりません。</p>
 <p><a id="該当-0-件表示の検証について"></a></p>
-<h4 id="6431-該当-0-件表示の検証について">6.4.3.1 該当 0 件表示の検証について</h4>
+<h4 id="6331-該当-0-件表示の検証について">6.3.3.1 該当 0 件表示の検証について</h4>
 <p>Tailspin Toysの通常データセットには、全カテゴリーと全パブリッシャーの組み合わせに必ず該当ゲームが存在するため、通常の絞り込み操作のみでは「該当件数 0 件」の画面を再現できません。</p>
 <p>第5章で用意したゲーム3件の専用CSVと隔離SQLiteを使い、Tailspin Toysの通常環境とは別ポートのサーバーで0件表示を検証します。まずテスト用の3件を表示し、PuzzleとNova Interactiveを組み合わせると0件となることを確認します。0件の説明と結果通知を読んだら、Clear filtersでテスト用の3件へ戻ることまで確かめてください。通常環境へ戻ったときの21件と、隔離環境で解除した後の3件を混同しないでください。</p>
 <p><img alt="隔離した3件のテスト環境で、PuzzleとNova Interactiveを選んだ0件の表示例" src="../assets/app-20261004-05-isolated-zero.jpg" /></p>
 <p>Tailspin Toysの0件表示を検証するために、通常の<code>db/games.csv</code>や通常DBを変更しないでください。報告にデータの種類、接続URL、初期件数、選択した条件、解除後の件数があれば、別の環境を検査していないかを見分けやすくなります。</p>
 <p><a id="検証を終えたときの確認"></a></p>
-<h3 id="644-検証に使った環境を片付ける">6.4.4 検証に使った環境を片付ける</h3>
+<h3 id="634-検証に使った環境を片付ける">6.3.4 検証に使った環境を片付ける</h3>
 <p>Playwright MCPのブラウザーを閉じても、検証用の開発サーバーや一時DBが残っている場合があります。次のフィルター検査が古いサーバーへ接続しないよう、今回の検証で起動したサーバーを終了させてください。<code>browser_close</code>、サーバー停止、一時DBとMCP出力の削除を確認し、今回使ったポートに待受が残っていないことも照合してください。テストを再実行するためのCSVやテストコードは成果物なので、片付ける一時ファイルと区別します。</p>
 <p>最後にCopilot Appのフィルター実装セッションでChangesを開き、検証のためだけのDBやMCP出力が、フィルター機能のPRで共有する変更に混ざっていないかを確認してください。</p>
 <p><a id="まとめと次のステップ"></a></p>
-<h2 id="65-結果の整理と振り返り">6.5 結果の整理と振り返り</h2>
+<h2 id="64-結果の整理と振り返り">6.4 結果の整理と振り返り</h2>
 <p>Tailspin Toysのフィルターに対して行った操作、期待結果、実際の表示、残る未確認項目を整理します。次の項目を、自分の実装セッションに残るPlaywright MCPの履歴とCopilotの報告に照らし合わせてください。</p>
 <ul>
 <li>Model Context Protocol (MCP) の基本構造と、アプリに外部ツール（tools / resources）を連携させる仕組みを理解した</li>
@@ -187,13 +213,13 @@ Issueと承認済みの計画を使い、カテゴリの複数選択、出版社
 <p>フィルター機能の受け入れ条件の確認と検証環境の後片付けを終えたら、第7章へ進みます。第7章では、自分でフィルター機能のPRを作成して最新のCIがすべて成功したことを確認し、Agent Mergeへマージを任せます。演習用リポジトリのmainへの統合結果を確認するところまでが、この演習の範囲です。<a href="7-agent-merge.html">第7章「Agent Mergeによるマージ」</a> へ進んでください。</p>
 <p>第7章へ進む前に、フィルター機能についてPlaywright MCPの操作で初めて気づいた点と、既存のE2Eテストでも確認していた点を比べてみてください。今回確認した操作・結果・残る未確認項目を整理すると、フィルター機能のPRをレビューする根拠として使えます。</p>
 <p><a id="補足"></a></p>
-<h2 id="66-補足">6.6 補足</h2>
+<h2 id="65-補足">6.5 補足</h2>
 <p><a id="探索的な検証とe2eテスト"></a></p>
-<h3 id="661-探索的な検証とe2eテスト">6.6.1 探索的な検証とE2Eテスト</h3>
+<h3 id="651-探索的な検証とe2eテスト">6.5.1 探索的な検証とE2Eテスト</h3>
 <p>第5章では、Tailspin Toysのリポジトリに組み込まれた自動テストスイート（単体テストやE2Eテスト）を用いてフィルター機能を実装・検証しました。自動テストに加えて、エージェントが実際のブラウザーを対話的に操作し、その結果を読み取れるようにすると、テストにまだ書いていない操作順序や表示状態も調べられます。操作できない要素や期待と違う結果があれば、その場で原因を調べ、修正と再確認へ進めます。</p>
 <p>本章のPlaywright MCPによるフィルター検証は、エージェントの観察結果から次の操作を決める探索的な検証です。一方、第5章で実行したフィルター機能のE2Eテストには、決めた操作と期待結果を保存して繰り返し検査する役割があります。MCPで一度成功した操作が、そのままテストコードとして残るわけではありません。新しい不具合を見つけて修正したら、今後も確認すべき条件をE2Eテストへ追加するか検討します。</p>
 <p><a id="model-context-protocol-mcp-とは"></a></p>
-<h3 id="662-model-context-protocol-mcp-とは">6.6.2 Model Context Protocol (MCP) とは</h3>
+<h3 id="652-model-context-protocol-mcp-とは">6.5.2 Model Context Protocol (MCP) とは</h3>
 <p><a href="https://github.blog/ai-and-ml/llms/what-the-heck-is-mcp-and-why-is-everyone-talking-about-it/">Model Context Protocol (MCP)</a>は、AIエージェントが外部のツールやサービスと情報をやり取りするためのオープンなプロトコルです。MCPを導入すると、エージェントは外部システムと対話し、リソース（resources）を通じて情報を取得したり、ツール（tools）を通じてユーザーに代わる操作を実行したりできます。実際に利用できる情報や操作は、接続先と付与された権限によって決まります。</p>
 <p>エージェントは、MCP serverを経由してツールやリソースへアクセスします。MCP serverは、ローカルのプログラムやリモートAPIとの通信を仲介するプログラムです。各サーバーで利用できる操作や情報は異なります。</p>
 <p>代表的なMCP serverには次のようなものがあります。</p>
@@ -203,18 +229,18 @@ Issueと承認済みの計画を使い、カテゴリの複数選択、出版社
 </ul>
 <p>GitHubは、コミュニティによる発見と貢献を促進するため <a href="https://github.com/mcp">MCP registry</a> をホストしており、多種多様なMCP serverが公開されています。</p>
 <p><a id="playwrightが画面を読み取る仕組み"></a></p>
-<h3 id="663-playwrightが画面を読み取る仕組み">6.6.3 Playwrightが画面を読み取る仕組み</h3>
+<h3 id="653-playwrightが画面を読み取る仕組み">6.5.3 Playwrightが画面を読み取る仕組み</h3>
 <p>本演習で接続するPlaywright MCPは、主に構造化されたアクセシビリティスナップショットを使ってTailspin Toysのページを読み取ります。ボタンの名前や役割、選択状態などを調べ、クリックやキー入力のツールを呼び出します。<a href="https://github.com/microsoft/playwright-mcp">Microsoftの公式README</a>にこの動作が説明されています。画面のピクセルを見てすべての見た目を判定する仕組みではないため、色や配置などの見た目は、必要に応じてスクリーンショットや人間の画面確認でも確かめます。</p>
 <p><a href="#playwright-mcp-server-の接続を確認する">接続の確認手順へ戻る</a></p>
 <p><a id="既存設定が正しく読み込まれない場合の対処"></a></p>
-<h3 id="664-接続できない場合に確認すること">6.6.4 接続できない場合に確認すること</h3>
+<h3 id="654-接続できない場合に確認すること">6.5.4 接続できない場合に確認すること</h3>
 <p>Copilot AppでNo MCP servers loadedと表示される場合は、自分の演習用リポジトリの信頼状態と<code>.mcp.json</code>の形式を確認してください。<a href="https://docs.github.com/en/copilot/how-tos/copilot-cli/customize-copilot/add-mcp-servers#adding-per-repository-mcp-servers">公式のリポジトリ別設定形式</a>では、定義を<code>mcpServers</code>フィールドに記述します。<code>servers</code>など別のキーになっている場合は修正が必要ですが、教材テンプレートはこの形式になっているため、通常は編集不要です。</p>
 <p>Playwrightの設定を修正した場合は、Copilot AppのCustomizeのInstalledへ戻り、接続状態を確認します。上記の公式リンクは設定ファイル形式の参照先です。CLI用の設定コマンドと、Appの画面上の操作を混同しないようにしてください。</p>
 <p><a id="セッション再起動restart-sessionの活用"></a></p>
-<h4 id="6641-セッション再起動restart-sessionの活用">6.6.4.1 セッション再起動（<code>/restart-session</code>）の活用</h4>
+<h4 id="6541-セッション再起動restart-sessionの活用">6.5.4.1 セッション再起動（<code>/restart-session</code>）の活用</h4>
 <p>Copilot Appでリポジトリの信頼状態とPlaywrightの接続設定を確認しても、開いているフィルター実装セッションからツールを呼び出せない場合は、会話入力欄から<code>/restart-session</code>を送信して再接続を試せます。<a href="https://docs.github.com/en/copilot/reference/github-copilot-app-reference/slash-commands">App公式のスラッシュコマンド一覧</a>では、履歴を保持して現在のセッションを再起動するコマンドと説明されています。ツールを呼び出せている場合、この操作は不要です。</p>
 <p><a id="gui-からの新規登録手順"></a></p>
-<h3 id="665-playwrightが未登録の場合に追加する">6.6.5 Playwrightが未登録の場合に追加する</h3>
+<h3 id="655-playwrightが未登録の場合に追加する">6.5.5 Playwrightが未登録の場合に追加する</h3>
 <p>Copilot Appで既存のPlaywrightを利用できない場合に、Customizeの画面から追加する手順です。接続とツール呼び出しを確認済みなら追加は不要です。<a href="https://docs.github.com/copilot/how-tos/github-copilot-app/customize-github-copilot-app">App公式の手順</a>も、CustomizeからMCPを探し、Installedで登録済みの設定を管理する流れを説明しています。</p>
 <ol>
 <li>Copilot Appのサイドバーの <strong>Customize</strong>を開きます。</li>
@@ -231,7 +257,7 @@ Issueと承認済みの計画を使い、カテゴリの複数選択、出版社
 サイドバーは左上のトグルボタンまたは<kbd>Ctrl</kbd>+<kbd>B</kbd>で開閉できます。CustomizeやMCPのメニュー項目が見当たらない場合は、Appのバージョン、組織ポリシーによる制限、および現在の画面状態を記録し、講師と一緒に確認してください。</p>
 </blockquote>
 <p><a id="リソース"></a></p>
-<h3 id="666-公式資料と参考情報">6.6.6 公式資料と参考情報</h3>
+<h3 id="656-公式資料と参考情報">6.5.6 公式資料と参考情報</h3>
 <ul>
 <li><a href="https://github.blog/ai-and-ml/llms/what-the-heck-is-mcp-and-why-is-everyone-talking-about-it/">MCPとは何か、なぜ注目されているのか</a></li>
 <li><a href="https://github.com/microsoft/playwright-mcp">Microsoft Playwright MCP Server</a></li>

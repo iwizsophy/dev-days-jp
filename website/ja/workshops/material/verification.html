@@ -6,13 +6,79 @@
 <a href="../../index.html">教材セットの入口</a><a href="../index.html">App シナリオの目次</a>
 <a href="../../handson-guide.html#switch">事前準備・UI の確認</a></nav>
 <button class="theme-toggle" type="button" onclick="toggleTheme()">☀️ ライト</button></header>
-<main id="lesson"><h1>App シナリオの検証状況</h1><aside>講師・運営向けの補助資料です。</aside><article><p>2026年10月4日の通し実走では、改稿前の演習0〜8を完了しました。その結果を受けて、現在の受講者原稿は第1〜9章へ改稿しています。実走結果と未確認範囲は<a href="verification-20261004.html">今回の検証結果</a>、画像の採否は<a href="verification-images-20261004.html">画像の対応表</a>を参照してください。改稿後の全章再実走は未実施です。</p>
+<main id="lesson"><h1>App シナリオの検証状況</h1><aside>講師・運営向けの補助資料です。</aside><article><p>2026年10月4日の通し実走では、改稿前の演習0〜8を完了しました。現在の受講者原稿は第1〜9章で、各章を概要、前提、ケース、結果の整理と振り返り、補足の5節に整理しています。学習目的と到達点は、概要の中に含めました。実走結果と未確認範囲は<a href="verification-20261004.html">今回の検証結果</a>、画像の採否は<a href="verification-images-20261004.html">画像の対応表</a>を参照してください。改稿後の全章再実走は未実施です。</p>
 <p>本ドキュメントは、2026年10月3日にWindowsのGitHub Copilot App 1.1.26で実施した検証記録です。接続、星評価、指示更新、フィルター実装と次章への継承、Playwright MCP、Agent Merge、共有Canvas、Automationの手動実行を確認しました。受講時はAppの最新版を使用してください。1.1.26は検証時の版であり、使用する版を限定する指定ではありません。</p>
 <blockquote>
 <p><strong>重要</strong>
 <strong>今回の実走は、GitHub連携経路で追加指示を行いながら確認した結果です。</strong> 改訂後の初回プロンプトだけによる再現や、未実施の経路まで確認済みとは扱いません。以下の「未作成」「未マージ」は各段階での状態を表します。現在の未確認範囲は本書の第2節、画面ごとの確認項目は<a href="ui-check.html">UI確認表</a>を参照してください。</p>
 </blockquote>
 <h2>1. 実走結果と教材改訂の記録</h2>
+<h3>2026年10月4日：学習目的とケースの分離</h3>
+<p>各章の概要には、学ぶ考え方と判断、学ぶ価値、受講者ができるようになることをまとめました。Tailspin Toys上の具体的な改修や調査はケースへ移し、状況、課題とその理由、解決策を表で示してから、既存の実施手順へ進む構成です。学習の到達点と、ケースの作業を終える条件を区別しています。</p>
+<p>9章の節と小節を振り直し、目次と参照先をそろえました。既存の背景説明、前提条件、詳細な操作手順、振り返り、補足は保持しています。入力用のプロンプトとコード、掲載画像、出典も維持しました。原稿・Web・PDFの検査は、Copilotでの再実走とは区別します。</p>
+<p>学習目的とケースの分離後の最終稿は、別の担当者が章を分担して読み直しました。星評価の表示部品を再利用する条件、コメント規約の対象、Agent Mergeで受講者が担う判断、Canvasによる解決策を明確にしています。登録済みのJustRight MCPの既定設定で、参加者向け12原稿と講師ガイド・UI確認表の本文を検査しました。抽出時に生じた改行や識別子の欠落、技術用語への指摘は、元の原稿と照合して判断しました。</p>
+<p>文書修正後にAntigravityへ読み取り専用の確認を依頼し、JustRight MCPとyomiyasuスキルの使用を要望へ含めました。再認証後に受講者向け12原稿を確認し、9章の概要・到達点・ケースの本文について、AntigravityからJustRight MCPを呼び出した結果は指摘0件でした。Antigravityはyomiyasuスキルを読み、学習目的とケースの分離、主語と対象、判断条件を確認しました。リンターの評価はCodexで実行した最終稿の結果を参照し、Antigravity自身が再実行したものではありません。修正が必要な指摘はありませんでした。</p>
+<p>文書の修正を終えてから、参加者向け12原稿をyomiyasuリンターで再評価しました。以下はMarkdown原稿の機械評価です。残る指摘は、順序のある操作手順の比率、操作名の強調、文末の連続などです。説明の意味と操作の読み取りやすさを確認し、点数だけを理由に手順や用語を変更していません。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">原稿</th>
+<th style="text-align: right;">点数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">コース概要</td>
+<td style="text-align: right;">85 / 100</td>
+</tr>
+<tr>
+<td style="text-align: left;">第1章</td>
+<td style="text-align: right;">95 / 100</td>
+</tr>
+<tr>
+<td style="text-align: left;">第2章</td>
+<td style="text-align: right;">90 / 100</td>
+</tr>
+<tr>
+<td style="text-align: left;">第3章</td>
+<td style="text-align: right;">90 / 100</td>
+</tr>
+<tr>
+<td style="text-align: left;">第4章</td>
+<td style="text-align: right;">80 / 100</td>
+</tr>
+<tr>
+<td style="text-align: left;">第5章</td>
+<td style="text-align: right;">80 / 100</td>
+</tr>
+<tr>
+<td style="text-align: left;">第6章</td>
+<td style="text-align: right;">75 / 100</td>
+</tr>
+<tr>
+<td style="text-align: left;">第7章</td>
+<td style="text-align: right;">95 / 100</td>
+</tr>
+<tr>
+<td style="text-align: left;">第8章</td>
+<td style="text-align: right;">95 / 100</td>
+</tr>
+<tr>
+<td style="text-align: left;">第9章</td>
+<td style="text-align: right;">100 / 100</td>
+</tr>
+<tr>
+<td style="text-align: left;">受講の入口</td>
+<td style="text-align: right;">90 / 100</td>
+</tr>
+<tr>
+<td style="text-align: left;">受講準備</td>
+<td style="text-align: right;">95 / 100</td>
+</tr>
+</tbody>
+</table>
+<p>原稿の保持監査と配布用の自動検査10件が成功しました。Webの見出しと目次・リンクを検査し、受講者用と講師用PDFは全ページの一覧画像と必要な拡大画像で点検しました。第6章の後片付けの説明は、見出しと2段落が同じページに収まるよう配置を調整し、再点検しています。章と大節の切り替わりで改ページする構造、掲載画像、入力文のコピーは維持しました。</p>
+<p>以下は、6段階の構成で実施した品質確認の記録です。現在の5節構成に対する確認とは分けて参照してください。</p>
 <h3>2026年10月4日：通し実走後の改稿と品質確認</h3>
 <p>各章を概要、学ぶこと、前提、体験、振り返り、補足の6段階に整理し、章番号、ファイル名、目次、参照先を第1〜9章にそろえました。補足は一連の手順の後に置き、操作の意図や、予想・観察・比較・修正の説明を維持しています。</p>
 <p>掲載する操作画像42枚は、ローカルパス、個人情報、演習外の表示などを通常の画像処理で除去しました。全画像を別の担当者が目視とOCRで確認し、画像の付加情報も検査しました。未加工の95枚と撮影台帳は公開対象から外して保全しています。テンプレート入口は今回の撮影画像を採用し、公開後の再撮影は保留事項に含めていません。</p>

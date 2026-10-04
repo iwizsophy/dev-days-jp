@@ -8,35 +8,37 @@
 <button class="theme-toggle" type="button" onclick="toggleTheme()">☀️ ライト</button></header>
 <main id="lesson"><h1>第9章 - 振り返りと次のステップ</h1><p class="source">非公式の日本語版 · <a href="https://github.com/github-samples/copilot-workshops/blob/7ddcf241c1cd10b8e90c0df96f6bef81e710392a/docs/ja-jp/app/8-review.md">参照原文</a> · <a href="../licenses/copilot-workshops.txt">MIT ライセンス</a></p><aside>利用条件は <a href="../../handson-guide.html#plans">受講準備</a>を参照してください。</aside><nav class="chapter-nav" aria-label="章の移動"><a href="8-canvases.html">← 前の章：第8章 - キャンバスを使った計画</a></nav><details><summary>この章の目次</summary><div class="toc">
 <ul>
-<li><a href="#91-章の概要">9.1 章の概要</a></li>
-<li><a href="#92-この章で学ぶこと">9.2 この章で学ぶこと</a></li>
-<li><a href="#93-取り組む前に">9.3 取り組む前に</a></li>
-<li><a href="#94-体験すること">9.4 体験すること</a><ul>
-<li><a href="#941-読み取り専用のautomationを設定する">9.4.1 読み取り専用のAutomationを設定する</a></li>
-<li><a href="#942-automationを実行して結果を確認する">9.4.2 Automationを実行して結果を確認する</a></li>
-<li><a href="#943-報告をgithubの情報と照合する">9.4.3 報告をGitHubの情報と照合する</a></li>
+<li><a href="#91-章の概要">9.1 章の概要</a><ul>
+<li><a href="#911-この章で学ぶこと">9.1.1 この章で学ぶこと</a></li>
 </ul>
 </li>
-<li><a href="#95-結果の整理と振り返り">9.5 結果の整理と振り返り</a><ul>
-<li><a href="#951-ワークショップで実践した開発の流れ">9.5.1 ワークショップで実践した開発の流れ</a></li>
-<li><a href="#952-作業に合わせた機能とモードの使い分け">9.5.2 作業に合わせた機能とモードの使い分け</a></li>
-<li><a href="#953-日々の開発への取り入れ方">9.5.3 日々の開発への取り入れ方</a></li>
+<li><a href="#92-取り組む前に">9.2 取り組む前に</a></li>
+<li><a href="#93-ケース">9.3 ケース</a><ul>
+<li><a href="#931-読み取り専用のautomationを設定する">9.3.1 読み取り専用のAutomationを設定する</a></li>
+<li><a href="#932-automationを実行して結果を確認する">9.3.2 Automationを実行して結果を確認する</a></li>
+<li><a href="#933-報告をgithubの情報と照合する">9.3.3 報告をGitHubの情報と照合する</a></li>
 </ul>
 </li>
-<li><a href="#96-補足">9.6 補足</a><ul>
-<li><a href="#961-同じ調査条件で作業を繰り返す理由">9.6.1 同じ調査条件で作業を繰り返す理由</a></li>
-<li><a href="#962-件数や項目が一致しないとき">9.6.2 件数や項目が一致しないとき</a></li>
-<li><a href="#963-定期実行とcloud実行への発展">9.6.3 定期実行とCloud実行への発展</a></li>
-<li><a href="#964-さらに確認する価値のある機能">9.6.4 さらに確認する価値のある機能</a></li>
-<li><a href="#965-リソース">9.6.5 リソース</a></li>
+<li><a href="#94-結果の整理と振り返り">9.4 結果の整理と振り返り</a><ul>
+<li><a href="#941-ワークショップで実践した開発の流れ">9.4.1 ワークショップで実践した開発の流れ</a></li>
+<li><a href="#942-作業に合わせた機能とモードの使い分け">9.4.2 作業に合わせた機能とモードの使い分け</a></li>
+<li><a href="#943-日々の開発への取り入れ方">9.4.3 日々の開発への取り入れ方</a></li>
+</ul>
+</li>
+<li><a href="#95-補足">9.5 補足</a><ul>
+<li><a href="#951-同じ調査条件で作業を繰り返す理由">9.5.1 同じ調査条件で作業を繰り返す理由</a></li>
+<li><a href="#952-件数や項目が一致しないとき">9.5.2 件数や項目が一致しないとき</a></li>
+<li><a href="#953-定期実行とcloud実行への発展">9.5.3 定期実行とCloud実行への発展</a></li>
+<li><a href="#954-さらに確認する価値のある機能">9.5.4 さらに確認する価値のある機能</a></li>
+<li><a href="#955-リソース">9.5.5 リソース</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </details><article><h2 id="91-章の概要">9.1 章の概要</h2>
-<p>最後に、演習用Tailspin ToysリポジトリのPRとIssueを繰り返し調べるAutomationを体験し、ワークショップ全体で使った機能を振り返ります。毎回チャットへ調査の指示を書き直すと、対象期間やPR・Issueの状態の指定が少しずつ変わることがあります。調査条件をAutomationへ保存し、同じ方法で調べられるようにしましょう。</p>
-<p>この章では、自分の演習用リポジトリで過去1週間にマージしたPRと現在OpenのIssueをGitHubから読み取り、会話内に報告するAutomationを作成します。Manual・Localで1回実行し、Automationの報告をGitHubの同じリポジトリのPR・Issueと照合します。実行の成功表示だけで報告を正しいと判断せず、対象期間、PRとIssueの一覧、件数を読むことに注目してください。</p>
-<h2 id="92-この章で学ぶこと">9.2 この章で学ぶこと</h2>
+<p>同じ調査を繰り返すとき、毎回チャットへ指示を書き直すと、対象期間やPR・Issueの状態の指定が少しずつ変わることがあります。Automationへ調査条件を保存すれば、同じ方法で調べる作業を繰り返せます。</p>
+<p>自動化の実行が成功したことと、報告内容が正しいことは別です。調べた対象や期間、報告の一覧と件数をGitHubの情報と照合し、任せた範囲で調査できたかを判断する方法を学びます。最後に、ワークショップで使った機能と人が行った判断を振り返り、日々の開発で使う機能やモードを作業に合わせて選びましょう。</p>
+<h3 id="911-この章で学ぶこと">9.1.1 この章で学ぶこと</h3>
 <table>
 <thead>
 <tr>
@@ -50,8 +52,8 @@
 <td style="text-align: left;">対象リポジトリ、期間、状態、報告の根拠をそろえて繰り返せる</td>
 </tr>
 <tr>
-<td style="text-align: left;">Automationの実行と照合</td>
-<td style="text-align: left;">手動でLocal実行し、終了状態と報告内容を別々に確かめられる</td>
+<td style="text-align: left;">実行と内容の検証</td>
+<td style="text-align: left;">Automationの終了状態と報告内容を別々に確かめ、必要な指示の修正を判断できる</td>
 </tr>
 <tr>
 <td style="text-align: left;">機能の使い分け</td>
@@ -63,12 +65,36 @@
 </tr>
 </tbody>
 </table>
-<h2 id="93-取り組む前に">9.3 取り組む前に</h2>
+<h2 id="92-取り組む前に">9.2 取り組む前に</h2>
 <p>前章で作ったゲームのタイトル検索PRを自分の演習用リポジトリのmainへマージし、GitHubで検索IssueのClosed、Canvasで最新のOpen Issue一覧を確認しておきます。Automationの対象にも、自分の演習用リポジトリを指定します。GitHubでそのリポジトリのPRとIssueをブラウザーから確認できる状態にしてください。</p>
 <p>今回作るAutomationには、GitHubのPR・Issueの読み取りと会話内の報告だけを任せます。ファイルやIssueを変更する自動化へ進む前に、Automationが何を調べ、どのような報告を出すかを1回の実行で確かめるためです。Manualは実行タイミング、Localは実行場所を表す別々の設定として読みます。</p>
-<h2 id="94-体験すること">9.4 体験すること</h2>
+<h2 id="93-ケース">9.3 ケース</h2>
+<p>このケースで作成するのは、自分の演習用Tailspin ToysリポジトリのPRとIssueを調べ、会話内に報告するAutomationです。実行の成功表示と、GitHubの情報に照らした報告の正しさを別々に確認します。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">観点</th>
+<th style="text-align: left;">このケースで扱う内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">状況</td>
+<td style="text-align: left;">ゲームのタイトル検索PRをmainへマージし、検索IssueがClosedになっている。演習用リポジトリには、これまでにマージしたPRと現在OpenのIssueがある。</td>
+</tr>
+<tr>
+<td style="text-align: left;">課題と理由</td>
+<td style="text-align: left;">調査のたびに指示を書き直すと、対象期間やPR・Issueの状態の指定が少しずつ変わることがある。同じ条件で調査し、実行が成功しても報告内容が正しいかを確かめる必要がある。</td>
+</tr>
+<tr>
+<td style="text-align: left;">解決策</td>
+<td style="text-align: left;">過去1週間にマージしたPRと現在OpenのIssueをGitHubから取得する指示をAutomationに保存する。Manual・Localで1回実行し、対象期間、PRとIssueの一覧、件数をGitHubと照合する。</td>
+</tr>
+</tbody>
+</table>
+<p>Automationへ任せるのは、GitHubのPR・Issueの読み取りと会話内の報告だけです。定期実行やファイル・Issueの変更へ進む前に、1回の実行で何を調べ、どのように報告するかを確認します。以下の手順は、調査条件の保存、実行、報告の照合の順です。</p>
 <p><a id="読み取り専用のautomationを設定する"></a></p>
-<h3 id="941-読み取り専用のautomationを設定する">9.4.1 読み取り専用のAutomationを設定する</h3>
+<h3 id="931-読み取り専用のautomationを設定する">9.3.1 読み取り専用のAutomationを設定する</h3>
 <p>GitHub Copilot appのAutomationsでは、繰り返す作業の指示を保存し、手動または設定したトリガーで実行できます。新しいIssueの調査や、PRのレビュー状況確認などが公式の用途例です。本演習では、演習用リポジトリで過去1週間にマージされたPRと現在OpenのIssueを調べる作業をAutomationへ保存します。<a href="https://docs.github.com/en/copilot/how-tos/github-copilot-app/using-automations#about-automations">GitHub公式のAutomationsの説明</a></p>
 <p>Automationの定期実行へ進む前に、1回の実行で取得するPR・Issueと、会話へ出力される報告を確かめます。報告を自分で読めるタイミングで実行するため、TriggerにManualを選択します。</p>
 <ol>
@@ -86,7 +112,7 @@ GitHubの最新情報を読み取り、対象リポジトリ、実行時点と�
 </ol>
 <p><img alt="Manualとクラウド実行オフ、読み取り専用の指示、Create and runの入口" src="../assets/app-20261004-08-automation-create-and-run.jpg" /></p>
 <p><a id="automationを実行して結果を確認する"></a></p>
-<h3 id="942-automationを実行して結果を確認する">9.4.2 Automationを実行して結果を確認する</h3>
+<h3 id="932-automationを実行して結果を確認する">9.3.2 Automationを実行して結果を確認する</h3>
 <ol>
 <li>AppのAutomation作成画面で <strong>Create</strong> ボタン横のメニューを展開し、<strong>Create and run</strong> を選択して保存と同時に即時実行します。保存のみを行う場合はCreateを選び、後からAutomations一覧の実行ボタンでも開始できます。</li>
 <li>作成したAutomationの <strong>Recent runs</strong>で今回の実行を開き、実行場所がLocal、ステータスが <strong>Succeeded</strong> になったことを確認します。Automationが会話へ出力した報告の照合は、次の小節で行います。</li>
@@ -94,7 +120,7 @@ GitHubの最新情報を読み取り、対象リポジトリ、実行時点と�
 <p>SucceededはAutomationの処理の終了状態です。調査対象のリポジトリを取り違えたり、PRのマージ日時の範囲を誤ったりしても、報告を出力する処理自体は完了する場合があります。報告では「過去1週間にマージされたPR」を数え、「現在OpenのIssue」を取得しているかをそれぞれ確認してください。報告にあるURLからGitHubの個別のPRやIssueを開くと、件数が同じでも対象が違う場合に気づけます。</p>
 <p><img alt="Recent runsで今回のLocal実行と緑の成功アイコンを確認する例" src="../assets/app-20261004-08-automation-succeeded.jpg" /></p>
 <p>画像は今回の実行行を読むための例です。自分が作成したAutomationの名前、対象リポジトリ、実行場所、成功状態を確認してください。</p>
-<h3 id="943-報告をgithubの情報と照合する">9.4.3 報告をGitHubの情報と照合する</h3>
+<h3 id="933-報告をgithubの情報と照合する">9.3.3 報告をGitHubの情報と照合する</h3>
 <p>Automationの報告を読む前に、GitHubで自分の演習用リポジトリの過去1週間のマージ済みPRと現在のOpen Issueを確認し、報告に含まれる項目を予想してみましょう。次の観点でGitHubの情報とAutomationの報告を照合します。</p>
 <table>
 <thead>
@@ -129,10 +155,10 @@ GitHubの最新情報を読み取り、対象リポジトリ、実行時点と�
 <p><img alt="期間内のマージ済みPRと、現在OpenのIssueを報告した例" src="../assets/app-20261004-08-automation-result-issues.jpg" /></p>
 <p>Automationが報告するPRとIssueは、実行時点と演習の進み具合によって変わります。第8章でマージした検索PRが集計期間内ならPRの要約に含まれ、検索IssueがClosedならOpen Issue一覧の対象外です。実行日が変われば「過去1週間」の範囲も変わるため、画像の件数を正解とせず、自分のAutomationの報告に書かれた期間と実行時点を基準に確認してください。</p>
 <p>Automationの報告とGitHubの情報が一致しない項目があれば、対象リポジトリと集計期間を確かめ、Automationに保存した指示を修正してもう一度Manualで実行します。Automationの処理が成功し、報告内容もGitHubと一致することを別々に確認できたところで、今回のAutomationの演習は完了です。</p>
-<h2 id="95-結果の整理と振り返り">9.5 結果の整理と振り返り</h2>
+<h2 id="94-結果の整理と振り返り">9.4 結果の整理と振り返り</h2>
 <p>Automationに保存した条件どおりに演習用リポジトリのPR・Issueを取得でき、GitHubとの照合で報告内容の一致を説明できたでしょうか。Automationの実行の成功と、PR・Issueの調査の正しさを分けて確認した経験を、これまでのCIやMCPの検証とも比べてみてください。</p>
 <p><a id="ワークショップで実践した開発の流れ"></a></p>
-<h3 id="951-ワークショップで実践した開発の流れ">9.5.1 ワークショップで実践した開発の流れ</h3>
+<h3 id="941-ワークショップで実践した開発の流れ">9.4.1 ワークショップで実践した開発の流れ</h3>
 <p>本ワークショップの全レッスンを通じて、GitHub Copilot appを活用した機能の企画立案から実装・検証・マージに至るエンドツーエンドの開発フローを実践してきました。これまで習得した主な内容は次の通りです。</p>
 <table>
 <thead>
@@ -169,7 +195,7 @@ GitHubの最新情報を読み取り、対象リポジトリ、実行時点と�
 </tbody>
 </table>
 <p><a id="作業に合わせた機能とモードの使い分け"></a></p>
-<h3 id="952-作業に合わせた機能とモードの使い分け">9.5.2 作業に合わせた機能とモードの使い分け</h3>
+<h3 id="942-作業に合わせた機能とモードの使い分け">9.4.2 作業に合わせた機能とモードの使い分け</h3>
 <p>本ワークショップでは、エージェントへ要件を渡す方法、作業の進め方を決める方法、エージェントの作業結果を検証する方法を段階的に学びました。指示ファイル、スキル、MCP、Canvas、Automationは、それぞれ違う課題に使います。エージェントへ依頼する作業に足りない情報や確認手段を考え、必要な機能を組み合わせて選んでください。</p>
 <table>
 <thead>
@@ -216,7 +242,7 @@ GitHubの最新情報を読み取り、対象リポジトリ、実行時点と�
 <p>Appのセッションのモードも、作業の段階に合わせて使います。Planで行うのは、エージェントが作成した実装計画の条件や影響範囲を読み、エージェントの質問へ回答して計画を承認する作業です。Interactiveでは、実装の差分を見ながらエージェントへ修正の意図を細かく伝えられます。Autopilotへ進むときは、要件と検証方法に加えて、「ここまで進めたら止める」という範囲も示してください。たとえば第5章の実装を依頼するときは、第6章のMCP検証を終えるまでPRを作らないと指定します。工程の区切りを伝えることで、人が実画面を確認する時間を確保できます。<a href="https://docs.github.com/en/copilot/how-tos/github-copilot-app/agent-sessions#choosing-a-session-mode">公式のモード説明</a></p>
 <p>次に別の機能の実装をエージェントへ依頼するときは、「何を作るか」「なぜ必要か」「既存の何を維持するか」「どの結果なら完了か」を伝えてみてください。Tailspin Toysの検索機能なら、検索対象はゲームのタイトルで、カテゴリ・出版社の条件とANDにし、既存の星評価を残すという要件がそれに当たります。期待するゲームの件数を実データから決め、テストと実画面の両方で確認する方法も再利用できます。</p>
 <p><a id="日々の開発への取り入れ方"></a></p>
-<h3 id="953-日々の開発への取り入れ方">9.5.3 日々の開発への取り入れ方</h3>
+<h3 id="943-日々の開発への取り入れ方">9.4.3 日々の開発への取り入れ方</h3>
 <p>日々の開発業務や個人プロジェクトでGitHub Copilot appを使い続ける中で学べるのは、AIエージェントへ伝える要件や、人による確認が必要な場面です。保守、趣味のプログラミング、新しいアイデアのプロトタイプなどに活用し、知見をチームの指示ファイルやスキルへ反映してください。</p>
 <p>最初の実践では、小さな課題を1つ選び、完了条件と検証方法を言葉にしてから着手してください。作業後には、最初の指示で伝わったこと、レビューで補ったこと、次回も使える指示や確認手順を振り返ります。自動化できた操作だけでなく、どの判断を人が行ったかも残すと、次に任せる範囲を決めやすくなります。</p>
 <p>同じ調査を繰り返すならAutomation、チームで課題を比較するならCanvas、実ブラウザーで再現する必要があるならMCPが候補です。ワークショップでもっとも手戻りした作業を1つ選び、その原因に合う機能と確認方法を説明できれば、自分の開発作業にも応用できます。</p>
@@ -228,21 +254,21 @@ GitHubの最新情報を読み取り、対象リポジトリ、実行時点と�
 </ul>
 <p><a href="#automationを実行して結果を確認する">Automationを実行して結果を確認する手順へ戻る</a></p>
 <p><a id="補足"></a></p>
-<h2 id="96-補足">9.6 補足</h2>
+<h2 id="95-補足">9.5 補足</h2>
 <p><a id="同じ調査条件で作業を繰り返す理由"></a></p>
-<h3 id="961-同じ調査条件で作業を繰り返す理由">9.6.1 同じ調査条件で作業を繰り返す理由</h3>
+<h3 id="951-同じ調査条件で作業を繰り返す理由">9.5.1 同じ調査条件で作業を繰り返す理由</h3>
 <p>毎回チャットへPR調査の指示を書き直すと、ある日はマージ済みPR、別の日は作成したPRを数えるなど、調査の条件が変わりがちです。Automationに対象リポジトリ、期間、PR・Issueの状態、報告に含める番号やURLなどの根拠を保存すれば、同じ範囲を繰り返し調べられます。Automationの報告を比較するときにも、PRのマージやIssueへの対応が進んだから件数が変わったのか、集計条件を変えたのかを見分けやすくなります。</p>
-<h3 id="962-件数や項目が一致しないとき">9.6.2 件数や項目が一致しないとき</h3>
+<h3 id="952-件数や項目が一致しないとき">9.5.2 件数や項目が一致しないとき</h3>
 <p>Automationの報告とGitHubのPR・Issueの件数が一致しない場合は、対象リポジトリ名、集計開始・終了日時、PRのマージ済みとClosedの区別、一覧取得の漏れを確認してください。GitHubの権限不足や取得失敗がある場合は、AutomationがPR・Issueを0件と断定せず、未確認として報告しているかも読みます。Automationに保存したプロンプトを修正したら再びManualで実行し、報告とGitHubを同じ観点で照合してください。</p>
 <p>報告の照合中に、対象リポジトリの別のPRがGitHubでマージされたり、Issueの状態が変わったりした場合は、その変更時刻も見ます。Automationの報告に日時、番号、URLを含めるのは、件数の違いを調査条件の誤りと判断する前に、どのPR・Issueをいつ取得したかを追えるようにするためです。</p>
 <p><a id="定期実行とcloud実行への発展"></a></p>
-<h3 id="963-定期実行とcloud実行への発展">9.6.3 定期実行とCloud実行への発展</h3>
+<h3 id="953-定期実行とcloud実行への発展">9.5.3 定期実行とCloud実行への発展</h3>
 <blockquote>
 <p><strong>ヒント</strong>
 GitHub公式ではAutomationのCloud実行も案内されており、端末の電源が入っていない間にも実行できます。利用にはリポジトリや組織の設定などの前提があり、Toolsで作業に必要な操作を選びます。定期実行とCloud実行は発展課題です。試す場合は、<a href="https://docs.github.com/en/copilot/how-tos/github-copilot-app/using-automations#prerequisites-for-using-cloud-automations">公式の前提条件と設定方法</a>を確認し、Manualで検証した調査範囲と結果の確認方法を引き継いでください。</p>
 </blockquote>
 <p><a id="さらに確認する価値のある機能"></a></p>
-<h3 id="964-さらに確認する価値のある機能">9.6.4 さらに確認する価値のある機能</h3>
+<h3 id="954-さらに確認する価値のある機能">9.5.4 さらに確認する価値のある機能</h3>
 <p>本教材で扱った流れを自分の仕事に適用するときは、次の機能も検討できます。以下は公式情報に基づく紹介で、本演習の完了条件には含めません。</p>
 <ul>
 <li><a href="https://docs.github.com/en/copilot/how-tos/github-copilot-app/agent-sessions#using-chats"><strong>Chats</strong></a>：専用ブランチやworktreeを作る前に、疑問や要件を整理する会話。実装セッションに渡す前提を明確にするときに使えます。</li>
@@ -253,7 +279,7 @@ GitHub公式ではAutomationのCloud実行も案内されており、端末の�
 <li><a href="https://docs.github.com/copilot/how-tos/github-copilot-app/open-with-deep-links"><strong>Deep links</strong></a>：特定のリポジトリ、セッション、初期プロンプトを指定したURLリンクからアプリを直接起動する機能</li>
 </ul>
 <p><a id="リソース"></a></p>
-<h3 id="965-リソース">9.6.5 リソース</h3>
+<h3 id="955-リソース">9.5.5 リソース</h3>
 <ul>
 <li><a href="https://docs.github.com/copilot/concepts/agents/github-copilot-app">GitHub Copilot appについて</a></li>
 <li><a href="https://docs.github.com/copilot/how-tos/github-copilot-app/getting-started">GitHub Copilot appの概要</a></li>
