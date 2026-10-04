@@ -1,41 +1,35 @@
 <mxfile host="app.diagrams.net" version="29.0.0">
-  <diagram name="変更を次の章へ引き継ぐ">
+  <diagram name="フィルターの実装から第8章への引き継ぎ">
     <mxGraphModel dx="1062" dy="330" grid="1" gridSize="10" page="0" background="#FFFFFF">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="title" value="変更を次の章へ引き継ぐ" style="text;html=1;align=left;verticalAlign=middle;fontSize=24;fontStyle=1;fontFamily=Meiryo;fontColor=#172C40;" vertex="1" parent="1">
+        <mxCell id="title" value="フィルターの実装から第8章への引き継ぎ" style="text;html=1;align=left;verticalAlign=middle;fontSize=24;fontStyle=1;fontFamily=Meiryo;fontColor=#172C40;" vertex="1" parent="1">
           <mxGeometry x="0" y="0" width="1062" height="45" as="geometry" />
         </mxCell>
-        <mxCell id="c0" value="&lt;b&gt;main&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;span style=&quot;font-size:16px&quot;&gt;前の章の変更を含む&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fontSize=18;spacing=10;strokeColor=#087F8C;strokeWidth=2;fillColor=#EAF5F5;fontFamily=Meiryo;fontColor=#172C40;" vertex="1" parent="1">
-          <mxGeometry x="0" y="65" width="190" height="105" as="geometry" />
+        <mxCell id="c0" value="&lt;b&gt;第5・6章&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;span style=&quot;font-size:16px&quot;&gt;同じworktreeで&lt;br&gt;フィルターを実装・検証&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fontSize=18;spacing=10;strokeColor=#087F8C;strokeWidth=2;fillColor=#EAF5F5;fontFamily=Meiryo;fontColor=#172C40;" vertex="1" parent="1">
+          <mxGeometry x="0" y="65" width="244" height="120" as="geometry" />
         </mxCell>
-        <mxCell id="c1" value="&lt;b&gt;New worktree&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;span style=&quot;font-size:16px&quot;&gt;mainから作業開始&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fontSize=18;spacing=10;strokeColor=#087F8C;strokeWidth=2;fillColor=#EEF2FA;fontFamily=Meiryo;fontColor=#172C40;" vertex="1" parent="1">
-          <mxGeometry x="218" y="65" width="190" height="105" as="geometry" />
+        <mxCell id="c1" value="&lt;b&gt;第7章：PR作成&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;span style=&quot;font-size:16px&quot;&gt;差分・マージ先と&lt;br&gt;最新CIの全ジョブ成功を確認&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fontSize=18;spacing=10;strokeColor=#087F8C;strokeWidth=2;fillColor=#EEF2FA;fontFamily=Meiryo;fontColor=#172C40;" vertex="1" parent="1">
+          <mxGeometry x="272" y="65" width="244" height="120" as="geometry" />
         </mxCell>
         <mxCell id="e1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#087F8C;" edge="1" parent="1" source="c0" target="c1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="c2" value="&lt;b&gt;実装と検証&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;span style=&quot;font-size:16px&quot;&gt;作業ブランチで変更&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fontSize=18;spacing=10;strokeColor=#087F8C;strokeWidth=2;fillColor=#EAF5F5;fontFamily=Meiryo;fontColor=#172C40;" vertex="1" parent="1">
-          <mxGeometry x="436" y="65" width="190" height="105" as="geometry" />
+        <mxCell id="c2" value="&lt;b&gt;第7章：Agent Merge&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;span style=&quot;font-size:16px&quot;&gt;mainへマージし&lt;br&gt;Mergedとマージ先を確認&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fontSize=18;spacing=10;strokeColor=#087F8C;strokeWidth=2;fillColor=#EAF5F5;fontFamily=Meiryo;fontColor=#172C40;" vertex="1" parent="1">
+          <mxGeometry x="544" y="65" width="244" height="120" as="geometry" />
         </mxCell>
         <mxCell id="e2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#087F8C;" edge="1" parent="1" source="c1" target="c2">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="c3" value="&lt;b&gt;Pull Request&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;span style=&quot;font-size:16px&quot;&gt;レビューとCI&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fontSize=18;spacing=10;strokeColor=#087F8C;strokeWidth=2;fillColor=#EEF2FA;fontFamily=Meiryo;fontColor=#172C40;" vertex="1" parent="1">
-          <mxGeometry x="654" y="65" width="190" height="105" as="geometry" />
+        <mxCell id="c3" value="&lt;b&gt;第8章：New worktree&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;span style=&quot;font-size:16px&quot;&gt;フィルターを含むmainを指定&lt;br&gt;作成後も変更を確認&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fontSize=18;spacing=10;strokeColor=#087F8C;strokeWidth=2;fillColor=#EEF2FA;fontFamily=Meiryo;fontColor=#172C40;" vertex="1" parent="1">
+          <mxGeometry x="816" y="65" width="244" height="120" as="geometry" />
         </mxCell>
         <mxCell id="e3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#087F8C;" edge="1" parent="1" source="c2" target="c3">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="c4" value="&lt;b&gt;マージ後のmain&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;span style=&quot;font-size:16px&quot;&gt;次の章の開始元&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fontSize=18;spacing=10;strokeColor=#087F8C;strokeWidth=2;fillColor=#EAF5F5;fontFamily=Meiryo;fontColor=#172C40;" vertex="1" parent="1">
-          <mxGeometry x="872" y="65" width="190" height="105" as="geometry" />
-        </mxCell>
-        <mxCell id="e4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;strokeWidth=2;strokeColor=#087F8C;" edge="1" parent="1" source="c3" target="c4">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="note" value="新しいworktreeを作る前に、前の章のマージ完了を確認する" style="text;html=1;align=left;verticalAlign=middle;fontSize=19;fontFamily=Meiryo;fontColor=#172C40;" vertex="1" parent="1">
-          <mxGeometry x="0" y="190" width="1062" height="45" as="geometry" />
+        <mxCell id="note" value="第7章でフィルターのPRをmainへマージし、完了を確認する。&lt;br&gt;第8章では、その変更を含むmainから新しいworktreeを作る。" style="text;html=1;align=left;verticalAlign=middle;fontSize=19;fontFamily=Meiryo;fontColor=#172C40;" vertex="1" parent="1">
+          <mxGeometry x="0" y="205" width="1062" height="65" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
