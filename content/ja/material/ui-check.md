@@ -30,7 +30,8 @@
 | 実行するNode.jsを確認する | 実装セッションでエージェントに`node --version`の実行を依頼し、ツールの出力を確認 | ローカルの確認結果と区別し、テストやビルドを行う環境が要件を満たすか判断する |
 | 変更をレビューする | 実装セッションの**Changes**で差分を確認。**Create PR**からPRを作成 | 完了報告と実際の差分・テスト結果を照合してからPR作成へ進む |
 | 計画を承認する | **Review plan** → **Approve and implement this plan**で承認を送信し、実装へ進む | 仕様、対象外の変更、検査方法、作業を止める位置を承認前に判断する |
-| 開発画面を見る | **Run development site**で起動。**Browser**が自動表示されない場合は、**Run**ターミナルのURLを別ブラウザーで開く。終了時は**Stop**を選択する | 起動、ブラウザー表示、停止を別々に確認する。URLと実行中のworktreeも照合する |
+| ファイルやターミナルを開く | **Projects**で対象の実装セッションを選び、**Toggle panel** → **+**（**Add tab**）→ **Files**または**Terminal**へ進む | プロジェクトだけを選んだIssue・PR一覧の詳細パネルと区別する。選択したセッションのworktreeが対象であることを確認する |
+| 開発画面を見る | 対象の実装セッションを選び、**Run development site**で起動。**Browser**が自動表示されない場合は、**Run**ターミナルのURLを別ブラウザーで開く。終了時は**Stop**を選択する | 起動、ブラウザー表示、停止を別々に確認する。URLと実行中のworktreeも照合する |
 | MCPを使う | **Customize** → **Installed** → **MCP Servers**で定義を確認し、**Trust repository**を求められた場合は内容を読んで承認する。**Connected**を確認してからセッションでツールを呼ぶ | 設定の表示、接続、実際のツール呼び出しを順に確認する。呼び出せない場合は信頼状態と接続設定を調べる |
 | 通常マージを判断する | **Ready to merge**からチェック状態を開き、CI全ジョブの成功後に**Merge pull request**で統合する | **Ready to merge**だけでCI全成功と判断しない。必要なCIと未解決レビューを確認する |
 | Agent Mergeを使う | 通常の**Create PR**で作成し、最新のCI全ジョブ成功を確認する。**Ready to merge**横メニューで**Agent merge**を**On**にする | 任せる操作を確認して開始し、AppとGitHubの**Merged**、最新コミットのCI結果を照合する |
