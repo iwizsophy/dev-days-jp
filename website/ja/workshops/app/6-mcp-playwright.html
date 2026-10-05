@@ -116,7 +116,7 @@
 <p><a href="https://docs.github.com/copilot/how-tos/github-copilot-app/customize-github-copilot-app">Copilot Appの公式ドキュメント</a>では、リポジトリやCopilot CLIに設定したMCP serverをAppでも利用できると説明されています。登録済みのサーバーはCopilot AppのCustomize → Installedで管理します。</p>
 <p><a id="テンプレートの既存設定を確認する"></a></p>
 <ol>
-<li>Copilot Appのフィルター実装セッションの<strong>Files</strong>で<code>.mcp.json</code>を開き、<code>mcpServers</code>にある<code>playwright</code>の定義を読みます。<code>npx</code>でローカルプロセスを起動するコマンドと引数を確認してください。ほかの定義は、今回必要なPlaywrightと区別して読みます。</li>
+<li><strong>Projects</strong>から前章のフィルター実装セッションを選択し、<strong>Toggle panel</strong> → <strong><code>+</code></strong>（<strong>Add tab</strong>）→ <strong>Files</strong>と進みます。そのセッションの<code>.mcp.json</code>を開き、<code>mcpServers</code>にある<code>playwright</code>の定義を読んでください。<code>npx</code>でローカルプロセスを起動するコマンドと引数を確認し、ほかの定義は、今回必要なPlaywrightと区別して読みます。</li>
 <li>サイドバーの<strong>Customize</strong>を開き、<strong>Installed</strong>の<strong>MCP Servers</strong>で登録済みの<strong>Playwright</strong>を確認します。表示される設定の適用先も読み、既存の接続があれば重複して追加しません。設定画面が見つからなければ、講師に相談してください。</li>
 </ol>
 <p><img alt="CustomizeのInstalledで確認する既存のPlaywright接続" src="../assets/app-20261004-05-mcp-installed.jpg" /></p>

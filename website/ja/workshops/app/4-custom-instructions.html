@@ -104,31 +104,33 @@
 <p>受講者は、Copilotに指示ファイルの更新を依頼し、生成例を読んで規約の反映を確かめます。差分と生成例の確認を終えたら、レビュー済みの変更を演習用リポジトリのmainへ取り込んで共有してください。</p>
 <p><a id="このプロジェクトのカスタム指示ファイルを確認する"></a></p>
 <h3 id="431-指示ファイルを読み適用範囲を確かめる">4.3.1 指示ファイルを読み、適用範囲を確かめる</h3>
-<p>自分の演習用Tailspin Toysリポジトリに配置されている指示ファイルを確認しましょう。共通指示の <code>copilot-instructions.md</code> と、個別タスクに対応する複数の <code>*.instructions.md</code> ファイルで構成されています。Copilot App内のファイルビューアーを使って確認します。</p>
+<p>自分の演習用Tailspin Toysリポジトリに配置されている指示ファイルを確認しましょう。共通指示の <code>copilot-instructions.md</code> と、個別タスクに対応する複数の <code>*.instructions.md</code> ファイルで構成されています。Copilot App内のファイルビューアーは、選択した実装セッションの作業フォルダーを表示します。ここでは第3章の星評価を実装したセッションで内容を読み、規約の編集は4.3.2で開始する新しいセッションで行います。</p>
+<p>プロジェクトを選択しただけのIssue・PR一覧画面では、右側は詳細パネルで、<strong>Add tab</strong>は表示されません。ファイルを読むには、次の手順で実装セッションを選択してください。</p>
 <ol>
+<li><strong>Projects</strong>で自分の演習用Tailspin Toysプロジェクトを展開し、第3章で星評価を実装したセッションを選択します。画面中央に、そのセッションの会話が表示されることを確認してください。</li>
 <li>右側のパネルが表示されていない場合は、画面右上の<strong>Toggle panel</strong>を選択して開きます。</li>
 </ol>
 <p><img alt="右パネルのAdd tabメニュー。Files、Browser、Terminalの入口" src="../assets/app-20261004-03-add-tab-files.jpg" /></p>
-<ol start="2">
+<ol start="3">
 <li>パネル上部のタブ列にある <strong>+</strong>（<strong>Add tab</strong>）を選択します。</li>
 <li>一覧から<strong>Files</strong>を選択します。</li>
 <li><kbd>Ctrl</kbd>+<kbd>P</kbd> を押して<strong>Go to file</strong>を開き、<code>copilot-instructions.md</code> を検索します。</li>
 </ol>
 <p><img alt="Go to fileに表示されたcopilot-instructions.mdの検索結果" src="../assets/app-20261004-03-file-search.jpg" /></p>
-<ol start="5">
+<ol start="6">
 <li>検索結果から <code>copilot-instructions.md</code> を選択して開きます。</li>
 <li>ファイルの内容を確認します。プロジェクト概要に加えて、Agent notes、Code standards、Scripts、Repository Structureといったセクションが定義されています。Code standards配下にはGitHub Actions Workflowsの指針もネストされており、これらはCopilotとの全対話に共通して適用されます。</li>
 <li>右側のファイルツリーを確認します。ツリー上に <code>.github</code> フォルダーが表示されていない場合は、ファイルパネル上部の歯車アイコン<strong>View options</strong>をクリックし、<strong>Show tracked hidden files</strong>または<strong>Show all hidden files</strong>を選択してください。前者はGitで管理している隠しファイル、後者はすべての隠しファイルを表示する選択肢です。</li>
 </ol>
 <p>なお、ツリーを展開する代わりに、<strong>Go to file</strong>に直接ファイル名を入力して開くことも可能です。</p>
 <p><img alt="View optionsの隠しファイル表示の選択肢" src="../assets/app-20261004-03-files-options.jpg" /></p>
-<ol start="8">
+<ol start="9">
 <li><code>.github/instructions</code> フォルダーを展開し、配置されているファイルを確認します。Astroファイル、Drizzleデータレイヤー、単体テストなどに向けた指示ファイルが並んでいます。</li>
 <li><code>.github/instructions/unit-tests.instructions.md</code>を開き、ファイルの表示を<strong>Raw</strong>へ切り替えます。Rich textでは冒頭のメタデータが表示されないことがあります。<code>applyTo</code>フィールドに注目してください。ここにはリポジトリルートを基準とするglobパターンが記述されており、指示を適用するファイル（例: <code>**/*.test.ts</code> に一致するTypeScriptテストファイル）が限定されています。</li>
 </ol>
 <p><code>applyTo</code>は指示の対象を表す指定です。たとえば<code>src/lib/games.test.ts</code>は上記のパターンに一致し、<code>src/components/GameCard.astro</code>は一致しません。対象が狭すぎると必要なファイルが漏れ、広すぎると関係のない規則まで読ませることになります。書式は<a href="https://docs.github.com/en/copilot/how-tos/copilot-on-github/customize-copilot/add-custom-instructions/add-repository-instructions#creating-path-specific-custom-instructions">公式のパス固有指示の説明</a>を参照し、対象ファイルを具体的に挙げて適用範囲を確認しましょう。ファイル名だけで判断せず、本文の指示内容も読んでください。</p>
 <p><img alt="Raw表示で読むunit-tests.instructions.mdのapplyTo" src="../assets/app-20261004-03-unit-test-applyto.jpg" /></p>
-<ol start="10">
+<ol start="11">
 <li>unit-tests.instructions.mdを読み、Tailspin Toysの単体テストに対する個別ルールがどのように定義されているかを確認します。</li>
 <li>続けて <code>.github/instructions/drizzle.instructions.md</code> を開き、末尾までスクロールします。他の指示ファイル（<code>unit-tests.instructions.md</code> 等）やプロジェクト内の既存ファイルへの相対リンクが記載されている点に注目してください。指示セットを小規模かつ再利用可能なファイルへ分割し、コード生成時に参照すべき実例をCopilotに提示する構造になっています（ここに記載された相対パスは、指示ファイル自身の位置が基準です）。</li>
 </ol>
