@@ -99,11 +99,14 @@ Node.jsのインストール後、すでにGitHub Copilot appを起動してい�
 
 ### 1.3.3 演習用Issueを確認する
 
-Tailspin Toysの演習用リポジトリの作成後に、GitHub Actionsで自動実行されるのが**Bootstrap template issues**ワークフローです。実行が終わると、そのリポジトリに演習で使う8件のIssueが作成されます。
+Tailspin Toysの演習用リポジトリの作成後に、GitHub Actionsで自動実行されるのが**Bootstrap template issues**ワークフローです。正常に完了すると、演習で使う8件のIssueが作成されます。その後、同じIssueを繰り返し作成しないよう、ワークフロー自身とIssue作成用のファイルが演習用リポジトリから削除されます。[テンプレートのワークフロー定義][bootstrap-workflow]で、この処理を確認できます。
 
-1. 作成した演習用リポジトリの**Issues**タブを開き、8件の課題が表示されることを確認します。
+1. 作成した演習用リポジトリの**Issues**タブを開き、8件の課題が表示されることを確認します。課題がそろっていれば、ワークフローを探したり、再実行したりする必要はありません。
 2. 課題が表示されない場合は、同じ演習用リポジトリの**Actions**タブでワークフローの実行状況を確認します。
-3. 必要に応じて**Bootstrap template issues** → **Run workflow**を実行し、終了後に**Issues**を開き直します。
+3. 課題がまだ1件も作成されておらず、**Bootstrap template issues**が表示されている場合は、実行中でないことを確認します。未実行の場合や、失敗の原因を解消した場合は、**Run workflow**を実行し、終了後に**Issues**を開き直してください。
+4. 課題が一部だけ作成されている場合や、課題がそろわずワークフローも見当たらない場合は、講師に確認を依頼してください。作成済みのIssueを重複させないよう、再実行の前に状態を確認します。
+
+正常に完了した演習用リポジトリでは、`.github/workflows/bootstrap-issues.yml`がなくなるため、Actionsの一覧に**Bootstrap template issues**が表示されない場合があります。準備の完了は、ワークフローの表示ではなく、8件の課題がそろっていることで判断してください。
 
 作成された演習用Issueのタイトルには、フィルター機能やコーディング規約など、これから取り組む変更が表れています。演習用リポジトリのコードとIssueがそろったことを確認して、次へ進んでください。
 
@@ -209,3 +212,4 @@ Tailspin Toysの教材用テンプレートには[dev container][dev-containers]
 [about-issues]: https://docs.github.com/en/issues/tracking-your-work-with-issues/learning-about-issues/about-issues
 [github-flow]: https://docs.github.com/en/get-started/using-github/github-flow
 [linking-pr-issue]: https://docs.github.com/en/issues/tracking-your-work-with-issues/using-issues/linking-a-pull-request-to-an-issue
+[bootstrap-workflow]: https://github.com/iwizsophy/dev-days-tailspin-template/blob/v2026.10.05/.github/workflows/bootstrap-issues.yml
