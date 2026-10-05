@@ -49,35 +49,38 @@ Tailspin Toysの指示ファイルを更新する前に、規約を追加した�
 
 ### 4.3.1 指示ファイルを読み、適用範囲を確かめる
 
-自分の演習用Tailspin Toysリポジトリに配置されている指示ファイルを確認しましょう。共通指示の `copilot-instructions.md` と、個別タスクに対応する複数の `*.instructions.md` ファイルで構成されています。Copilot App内のファイルビューアーを使って確認します。
+自分の演習用Tailspin Toysリポジトリに配置されている指示ファイルを確認しましょう。共通指示の `copilot-instructions.md` と、個別タスクに対応する複数の `*.instructions.md` ファイルで構成されています。Copilot App内のファイルビューアーは、選択した実装セッションの作業フォルダーを表示します。ここでは第3章の星評価を実装したセッションで内容を読み、規約の編集は4.3.2で開始する新しいセッションで行います。
 
-1. 右側のパネルが表示されていない場合は、画面右上の**Toggle panel**を選択して開きます。
+プロジェクトを選択しただけのIssue・PR一覧画面では、右側は詳細パネルで、**Add tab**は表示されません。ファイルを読むには、次の手順で実装セッションを選択してください。
+
+1. **Projects**で自分の演習用Tailspin Toysプロジェクトを展開し、第3章で星評価を実装したセッションを選択します。画面中央に、そのセッションの会話が表示されることを確認してください。
+2. 右側のパネルが表示されていない場合は、画面右上の**Toggle panel**を選択して開きます。
 
    ![右パネルのAdd tabメニュー。Files、Browser、Terminalの入口](../../_images/app-20261004-public/app-20261004-03-add-tab-files.jpg)
 
-2. パネル上部のタブ列にある **+**（**Add tab**）を選択します。
-3. 一覧から**Files**を選択します。
-4. <kbd>Ctrl</kbd>+<kbd>P</kbd> を押して**Go to file**を開き、`copilot-instructions.md` を検索します。
+3. パネル上部のタブ列にある **+**（**Add tab**）を選択します。
+4. 一覧から**Files**を選択します。
+5. <kbd>Ctrl</kbd>+<kbd>P</kbd> を押して**Go to file**を開き、`copilot-instructions.md` を検索します。
 
    ![Go to fileに表示されたcopilot-instructions.mdの検索結果](../../_images/app-20261004-public/app-20261004-03-file-search.jpg)
 
-5. 検索結果から `copilot-instructions.md` を選択して開きます。
-6. ファイルの内容を確認します。プロジェクト概要に加えて、Agent notes、Code standards、Scripts、Repository Structureといったセクションが定義されています。Code standards配下にはGitHub Actions Workflowsの指針もネストされており、これらはCopilotとの全対話に共通して適用されます。
-7. 右側のファイルツリーを確認します。ツリー上に `.github` フォルダーが表示されていない場合は、ファイルパネル上部の歯車アイコン**View options**をクリックし、**Show tracked hidden files**または**Show all hidden files**を選択してください。前者はGitで管理している隠しファイル、後者はすべての隠しファイルを表示する選択肢です。
+6. 検索結果から `copilot-instructions.md` を選択して開きます。
+7. ファイルの内容を確認します。プロジェクト概要に加えて、Agent notes、Code standards、Scripts、Repository Structureといったセクションが定義されています。Code standards配下にはGitHub Actions Workflowsの指針もネストされており、これらはCopilotとの全対話に共通して適用されます。
+8. 右側のファイルツリーを確認します。ツリー上に `.github` フォルダーが表示されていない場合は、ファイルパネル上部の歯車アイコン**View options**をクリックし、**Show tracked hidden files**または**Show all hidden files**を選択してください。前者はGitで管理している隠しファイル、後者はすべての隠しファイルを表示する選択肢です。
 
    なお、ツリーを展開する代わりに、**Go to file**に直接ファイル名を入力して開くことも可能です。
 
    ![View optionsの隠しファイル表示の選択肢](../../_images/app-20261004-public/app-20261004-03-files-options.jpg)
 
-8. `.github/instructions` フォルダーを展開し、配置されているファイルを確認します。Astroファイル、Drizzleデータレイヤー、単体テストなどに向けた指示ファイルが並んでいます。
-9. `.github/instructions/unit-tests.instructions.md`を開き、ファイルの表示を**Raw**へ切り替えます。Rich textでは冒頭のメタデータが表示されないことがあります。`applyTo`フィールドに注目してください。ここにはリポジトリルートを基準とするglobパターンが記述されており、指示を適用するファイル（例: `**/*.test.ts` に一致するTypeScriptテストファイル）が限定されています。
+9. `.github/instructions` フォルダーを展開し、配置されているファイルを確認します。Astroファイル、Drizzleデータレイヤー、単体テストなどに向けた指示ファイルが並んでいます。
+10. `.github/instructions/unit-tests.instructions.md`を開き、ファイルの表示を**Raw**へ切り替えます。Rich textでは冒頭のメタデータが表示されないことがあります。`applyTo`フィールドに注目してください。ここにはリポジトリルートを基準とするglobパターンが記述されており、指示を適用するファイル（例: `**/*.test.ts` に一致するTypeScriptテストファイル）が限定されています。
 
    `applyTo`は指示の対象を表す指定です。たとえば`src/lib/games.test.ts`は上記のパターンに一致し、`src/components/GameCard.astro`は一致しません。対象が狭すぎると必要なファイルが漏れ、広すぎると関係のない規則まで読ませることになります。書式は[公式のパス固有指示の説明][path-instructions]を参照し、対象ファイルを具体的に挙げて適用範囲を確認しましょう。ファイル名だけで判断せず、本文の指示内容も読んでください。
 
    ![Raw表示で読むunit-tests.instructions.mdのapplyTo](../../_images/app-20261004-public/app-20261004-03-unit-test-applyto.jpg)
 
-10. unit-tests.instructions.mdを読み、Tailspin Toysの単体テストに対する個別ルールがどのように定義されているかを確認します。
-11. 続けて `.github/instructions/drizzle.instructions.md` を開き、末尾までスクロールします。他の指示ファイル（`unit-tests.instructions.md` 等）やプロジェクト内の既存ファイルへの相対リンクが記載されている点に注目してください。指示セットを小規模かつ再利用可能なファイルへ分割し、コード生成時に参照すべき実例をCopilotに提示する構造になっています（ここに記載された相対パスは、指示ファイル自身の位置が基準です）。
+11. unit-tests.instructions.mdを読み、Tailspin Toysの単体テストに対する個別ルールがどのように定義されているかを確認します。
+12. 続けて `.github/instructions/drizzle.instructions.md` を開き、末尾までスクロールします。他の指示ファイル（`unit-tests.instructions.md` 等）やプロジェクト内の既存ファイルへの相対リンクが記載されている点に注目してください。指示セットを小規模かつ再利用可能なファイルへ分割し、コード生成時に参照すべき実例をCopilotに提示する構造になっています（ここに記載された相対パスは、指示ファイル自身の位置が基準です）。
 
 > [!NOTE]
 > 現在の`copilot-instructions.md`にはコーディング標準が記載されています。次の手順では規約更新のIssueの要件に従い、処理の意図を説明するコメント、データ層のTSDoc/JSDoc、AstroコンポーネントのPropsの説明、ESLintとREADMEへの反映を確認します。全ファイルへのヘッダーコメント追加はIssueの要件に含まれていません。

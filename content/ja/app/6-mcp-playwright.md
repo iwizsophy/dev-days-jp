@@ -59,7 +59,7 @@ Copilot Appで、第5章のフィルター実装セッションを開いたま�
 
 <a id="テンプレートの既存設定を確認する"></a>
 
-1. Copilot Appのフィルター実装セッションの**Files**で`.mcp.json`を開き、`mcpServers`にある`playwright`の定義を読みます。`npx`でローカルプロセスを起動するコマンドと引数を確認してください。ほかの定義は、今回必要なPlaywrightと区別して読みます。
+1. **Projects**から前章のフィルター実装セッションを選択し、**Toggle panel** → **`+`**（**Add tab**）→ **Files**と進みます。そのセッションの`.mcp.json`を開き、`mcpServers`にある`playwright`の定義を読んでください。`npx`でローカルプロセスを起動するコマンドと引数を確認し、ほかの定義は、今回必要なPlaywrightと区別して読みます。
 2. サイドバーの**Customize**を開き、**Installed**の**MCP Servers**で登録済みの**Playwright**を確認します。表示される設定の適用先も読み、既存の接続があれば重複して追加しません。設定画面が見つからなければ、講師に相談してください。
 
    ![CustomizeのInstalledで確認する既存のPlaywright接続](../../_images/app-20261004-public/app-20261004-05-mcp-installed.jpg)

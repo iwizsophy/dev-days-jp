@@ -139,19 +139,20 @@ Tailspin Toysのフィルターを手動確認するときの対象は、カテ�
 
 #### 5.3.4.1 quality-checksスキルを確認する
 
-Copilot Appのフィルター実装セッションの**Files**で、自分の演習用Tailspin Toysリポジトリにある`quality-checks`スキルの中身を確認してみましょう。
+Copilot Appのフィルター実装セッションの**Files**で、自分の演習用Tailspin Toysリポジトリにある`quality-checks`スキルの中身を確認してみましょう。Filesに表示されるのは、選択したセッションのworktreeの内容です。
 
-1. 右側のパネルが表示されていない場合は、画面右上の**Toggle panel**を選択して開きます。
+1. **Projects**で自分の演習用Tailspin Toysプロジェクトを展開し、本章のフィルター実装セッションを選択します。画面中央に、そのセッションの会話が表示されることを確認してください。
+2. 右側のパネルが表示されていない場合は、画面右上の**Toggle panel**を選択して開きます。
 
-2. パネル上部のタブ列にある **`+`**（**Add tab**）を選択します。
-3. **Files**を選択します。
-4. <kbd>Ctrl</kbd>+<kbd>P</kbd> を押して**Go to file**を開き、`SKILL.md` を検索します。
-5. 検索結果から `SKILL.md .github/skills/quality-checks` を選択して開きます。
-6. ファイルの表示を**Raw**へ切り替え、`name`と`description`の定義を確認します。Rich textでは冒頭のメタデータが表示されないことがあります。Tailspin Toysのテスト、lint、品質検査を実行するスキルであることが説明されています。
+3. パネル上部のタブ列にある **`+`**（**Add tab**）を選択します。
+4. **Files**を選択します。
+5. <kbd>Ctrl</kbd>+<kbd>P</kbd> を押して**Go to file**を開き、`SKILL.md` を検索します。
+6. 検索結果から `SKILL.md .github/skills/quality-checks` を選択して開きます。
+7. ファイルの表示を**Raw**へ切り替え、`name`と`description`の定義を確認します。Rich textでは冒頭のメタデータが表示されないことがあります。Tailspin Toysのテスト、lint、品質検査を実行するスキルであることが説明されています。
 
    ![Raw表示で読むquality-checksスキルのnameとdescription](../../_images/app-20261004-public/app-20261004-04-quality-skill.jpg)
 
-7. ファイル全体を確認します。単体テスト、PlaywrightによるE2Eテスト、ESLintの各スイートを実行するコマンド体系、実行順序、および失敗時のトラブルシューティング手順が体系化されています。エージェントは推測に頼らず、チーム規定の手順に沿って検証を実行できます。
+8. ファイル全体を確認します。単体テスト、PlaywrightによるE2Eテスト、ESLintの各スイートを実行するコマンド体系、実行順序、および失敗時のトラブルシューティング手順が体系化されています。エージェントは推測に頼らず、チーム規定の手順に沿って検証を実行できます。
 
 Tailspin Toysの各検査で分かることは異なります。フィルター機能の検査結果を読むときは、次の役割を区別してください。
 
