@@ -53,7 +53,7 @@ def title_body(path):
     return title, text
 
 
-def transform_links(body, source, destination):
+def transform_links(body, source, destination, asset_sources=None):
     def replace(match):
         attr, value = match[1], match[2]
         url = urlsplit(value)
@@ -64,7 +64,14 @@ def transform_links(body, source, destination):
             target = TARGETS[candidate]
         elif candidate.is_file() and candidate.is_relative_to(ROOT / 'content/_images'):
             target = OUTPUT / 'assets' / candidate.name
+            if asset_sources is not None:
+                key = candidate.name.casefold()
+                previous = asset_sources.setdefault(key, candidate)
+                if previous != candidate:
+                    raise ValueError(f'Conflicting asset filename: {previous}: {candidate}')
             target.parent.mkdir(parents=True, exist_ok=True)
+            if target.parent.resolve() != target.parent.absolute() or target.is_symlink():
+                raise ValueError(f'Unsafe generated asset path: {target}')
             shutil.copyfile(candidate, target)
         else:
             raise ValueError(f'Unresolved source link: {source}: {value}')
@@ -136,7 +143,7 @@ def usage_notice():
     return title, str(soup)
 
 
-def render_page(source, destination):
+def render_page(source, destination, asset_sources=None):
     """Render a shared site or support page without writing build outputs."""
     is_notice = source == SOURCE / 'disclaimer.md'
     if is_notice:
@@ -144,7 +151,7 @@ def render_page(source, destination):
     else:
         title, text = title_body(source)
         body = markdown.markdown(text, extensions=['tables', 'sane_lists', 'pymdownx.superfences'])
-    body = format_tables(transform_links(body, source, destination))
+    body = format_tables(transform_links(body, source, destination, asset_sources))
     notice = '<aside>講師・運営向けの補助資料です。</aside>' if source in SUPPORT else ''
     return shell(title, '<article>' + body + '</article>', destination, notice,
                  heading_id='usage-notice' if is_notice else None)
@@ -273,6 +280,7 @@ def reference_url(course, source):
 
 
 def build():
+    asset_sources = {}
     OUTPUT.mkdir(parents=True, exist_ok=True)
     (OUTPUT / 'licenses').mkdir(exist_ok=True)
     for p in (SOURCE / 'licenses').glob('*.txt'):
@@ -284,7 +292,7 @@ def build():
             destination.parent.mkdir(exist_ok=True)
             title, text = title_body(source)
             renderer = markdown_renderer()
-            body = transform_links(renderer.convert(text), source, destination)
+            body = transform_links(renderer.convert(text), source, destination, asset_sources)
             if course == 'app':
                 body = format_tables(body)
                 body = re.sub(r'<img\b[^>]+>', image_notice, body)
@@ -310,7 +318,7 @@ def build():
     for source in [*SUPPORT, *SITE_PAGES]:
         destination = TARGETS[source.resolve()]
         destination.parent.mkdir(exist_ok=True)
-        destination.write_text(render_page(source, destination), encoding='utf-8')
+        destination.write_text(render_page(source, destination, asset_sources), encoding='utf-8')
     index = OUTPUT / 'index.html'
     body = '<p>App 版の順序・課題・到達目標に沿って Tailspin Toys を改修します。画面が教材と異なる場合は、本文の操作対象と項目名を確認し、講師に相談してください。</p>'
     body += '<p><a href="app/1-prerequisites.html">演習1から始める</a> · <a href="../handson-guide.html">受講準備を確認する</a></p>'
@@ -326,7 +334,8 @@ def build():
         body += '</ul></section>'
     body += '<p><a href="https://github.com/github/dev-days">イベント資料の参照元</a> · <a href="https://github.com/github-samples/copilot-workshops">演習本文の参照元</a>（どちらも閲覧用）</p>'
     reference.write_text(shell('参考資料', body, reference), encoding='utf-8')
-    verify()
+    referenced = verify()
+    prune_assets(referenced)
     print(f'Built {sum(map(len, FILES.values()))} lesson/overview pages, {len(SUPPORT)} support pages, {len(SITE_PAGES)} entry/guide pages, and two indexes.')
 
 
@@ -342,7 +351,7 @@ class Links(HTMLParser):
 def verify():
     web = ROOT / 'website'
     pages = {p.resolve(): Links(p.read_text(encoding='utf-8')) for p in web.rglob('*.html')}
-    errors = []; checked = 0
+    errors = []; checked = 0; referenced = set()
     for path, page in pages.items():
         if len(page.ids) != len(set(page.ids)): errors.append(f'Duplicate IDs: {path}')
         for link in page.links:
@@ -350,12 +359,27 @@ def verify():
             if url.scheme or url.netloc: continue
             target = (path.parent / unquote(url.path)).resolve() if url.path else path
             if target.is_dir(): target = target / 'index.html'
+            referenced.add(target)
             checked += 1
             if not target.is_relative_to(web) or not target.exists(): errors.append(f'Missing: {path}: {link}')
             elif url.fragment and target in pages and unquote(url.fragment) not in pages[target].ids:
                 errors.append(f'Missing anchor: {path}: {link}')
     if errors: raise ValueError('\n'.join(errors))
     print(f'Checked {len(pages)} pages and {checked} local links/assets/anchors.')
+    return referenced
+
+
+def prune_assets(referenced):
+    """Remove unused direct files only after the complete website has passed verification."""
+    assets = OUTPUT / 'assets'
+    if not assets.is_dir() or assets.resolve() != assets.absolute():
+        return
+    for asset in sorted(assets.iterdir()):
+        if asset.is_symlink() or not asset.is_file():
+            continue
+        resolved = asset.resolve()
+        if resolved.parent == assets and resolved not in referenced:
+            asset.unlink()
 
 
 if __name__ == '__main__':
