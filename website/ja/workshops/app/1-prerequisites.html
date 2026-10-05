@@ -173,12 +173,14 @@
 </ol>
 <p><a id="演習用issueの準備を確認する"></a></p>
 <h3 id="133-演習用issueを確認する">1.3.3 演習用Issueを確認する</h3>
-<p>Tailspin Toysの演習用リポジトリの作成後に、GitHub Actionsで自動実行されるのが<strong>Bootstrap template issues</strong>ワークフローです。実行が終わると、そのリポジトリに演習で使う8件のIssueが作成されます。</p>
+<p>Tailspin Toysの演習用リポジトリの作成後に、GitHub Actionsで自動実行されるのが<strong>Bootstrap template issues</strong>ワークフローです。正常に完了すると、演習で使う8件のIssueが作成されます。その後、同じIssueを繰り返し作成しないよう、ワークフロー自身とIssue作成用のファイルが演習用リポジトリから削除されます。<a href="https://github.com/iwizsophy/dev-days-tailspin-template/blob/v2026.10.05/.github/workflows/bootstrap-issues.yml">テンプレートのワークフロー定義</a>で、この処理を確認できます。</p>
 <ol>
-<li>作成した演習用リポジトリの<strong>Issues</strong>タブを開き、8件の課題が表示されることを確認します。</li>
+<li>作成した演習用リポジトリの<strong>Issues</strong>タブを開き、8件の課題が表示されることを確認します。課題がそろっていれば、ワークフローを探したり、再実行したりする必要はありません。</li>
 <li>課題が表示されない場合は、同じ演習用リポジトリの<strong>Actions</strong>タブでワークフローの実行状況を確認します。</li>
-<li>必要に応じて<strong>Bootstrap template issues</strong> → <strong>Run workflow</strong>を実行し、終了後に<strong>Issues</strong>を開き直します。</li>
+<li>課題がまだ1件も作成されておらず、<strong>Bootstrap template issues</strong>が表示されている場合は、実行中でないことを確認します。未実行の場合や、失敗の原因を解消した場合は、<strong>Run workflow</strong>を実行し、終了後に<strong>Issues</strong>を開き直してください。</li>
+<li>課題が一部だけ作成されている場合や、課題がそろわずワークフローも見当たらない場合は、講師に確認を依頼してください。作成済みのIssueを重複させないよう、再実行の前に状態を確認します。</li>
 </ol>
+<p>正常に完了した演習用リポジトリでは、<code>.github/workflows/bootstrap-issues.yml</code>がなくなるため、Actionsの一覧に<strong>Bootstrap template issues</strong>が表示されない場合があります。準備の完了は、ワークフローの表示ではなく、8件の課題がそろっていることで判断してください。</p>
 <p>作成された演習用Issueのタイトルには、フィルター機能やコーディング規約など、これから取り組む変更が表れています。演習用リポジトリのコードとIssueがそろったことを確認して、次へ進んでください。</p>
 <p><a id="完了の確認"></a>
 <a id="振り返り"></a></p>
